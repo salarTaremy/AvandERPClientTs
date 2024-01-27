@@ -29,7 +29,7 @@ const AppSidebar = (props) => {
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor:colorBgContainer
+    // backgroundColor:colorBgContainer
     
   }
 
