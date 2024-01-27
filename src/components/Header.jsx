@@ -3,7 +3,9 @@ import * as Ant from 'antd'
 import { Layout } from 'antd'
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
+import pic from '../assets/images/avatars/1.png';
 const { Header } = Layout
+
 
 //====================================================================
 //                        Declaration
@@ -11,7 +13,7 @@ const { Header } = Layout
 const itemList = [
   {
     key: 'SubMenu',
-    icon: <Ant.Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />,
+    icon: <Ant.Avatar src={pic} />,
     children: [
       {
         type: 'group',
