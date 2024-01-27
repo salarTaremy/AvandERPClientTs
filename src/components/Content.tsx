@@ -9,7 +9,7 @@ const ContentComponent = () => {
   return (
     <>
       <Content className="content">
-        <p>A</p>
+        <p>Content</p>
       </Content>
     </>
   );

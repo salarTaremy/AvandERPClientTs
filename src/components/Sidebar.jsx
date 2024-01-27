@@ -32,7 +32,7 @@ const AppSidebar = (props) => {
   return (
     <>
       <Sider
-        width={300}
+          width={280}
         className="sidebar desktop-only"
         style={slider}
         collapsed={collapsedSider}
