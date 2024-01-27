@@ -1,0 +1,31 @@
+
+@font-face {
+    font-family: 'MyFont';
+    src: url('../assets/fonts//IRANSansWeb.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'SuccondMyFont';
+    src: url('../assets/fonts/BYekan.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'DanaMedium';
+    src: url('../assets/fonts/DanaMedium.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'DanaLight';
+    src: url('../assets/fonts/DanaLight.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'DanaBlack';
+    src: url('../assets/fonts/DanaBlack.ttf') format('truetype');
+  }
+  //Need Chenge in app.js
+body {
+  background-color: aqua;
+    font-family: 'MyFont' , 'SuccondMyFont' ,'DanaMedium','DanaLight','DanaBlack', sans-serif;
+    // font-size: 13px;
+  }
