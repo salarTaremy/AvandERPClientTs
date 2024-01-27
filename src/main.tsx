@@ -1,28 +1,32 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Layout from './components/Layout'
-import './scss/style.scss'
-import { ConfigProvider, theme } from 'antd'
-import faIR from 'antd/locale/fa_IR'
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const themeName:string = 'light'
+import { ConfigProvider, theme } from "antd";
+import faIR from "antd/locale/fa_IR";
+import "./scss/style.scss";
+import App from './App'
+
+const themeName: string = "light";
 const getTheme = () => {
-  if (themeName === 'dark') return theme.darkAlgorithm
-  if (themeName === 'light') return theme.defaultAlgorithm
-  if (themeName === 'compact') return theme.compactAlgorithm
-  return theme.defaultAlgorithm
-}
+  if (themeName === "dark") return theme.darkAlgorithm;
+  if (themeName === "light") return theme.defaultAlgorithm;
+  if (themeName === "compact") return theme.compactAlgorithm;
+  return theme.defaultAlgorithm;
+};
 const myCustomThemeAnt = {
   token: {
-    fontFamily: 'Myfont',
+    fontFamily: "Myfont",
   },
   algorithm: getTheme(),
-}
+};
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <ConfigProvider direction="rtl" theme={myCustomThemeAnt} locale={faIR} componentSize="middle">
-
-    <Layout />
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <ConfigProvider
+    direction="rtl"
+    theme={myCustomThemeAnt}
+    locale={faIR}
+    componentSize="middle"
+  >
+  <App/>
   </ConfigProvider>
-
-)
+);

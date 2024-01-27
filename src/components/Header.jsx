@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import * as Ant from "antd";
 import { Layout } from "antd";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  BgColorsOutlined,
+  HighlightFilled,
+  BehanceOutlined,
+  SettingOutlined,
+  DashboardOutlined,
+} from "@ant-design/icons";
 import PropTypes from "prop-types";
 import pic from "../assets/images/avatars/1.png";
+
 const { Header } = Layout;
 
 //====================================================================
@@ -33,15 +42,22 @@ const itemList = [
 ];
 
 const options = [
-  { label: 'Apple', value: 'dark' },
-  { label: 'Pear', value: 'light' },
-  { label: 'Orange', value: 'compact', title: 'Orange' },
+  {
+    value: "Lisdarkt",
+    icon: <BgColorsOutlined />,
+  },
+  {
+    value: "light",
+    icon: <HighlightFilled />,
+  },
+  {
+    value: "compact",
+    icon: <BehanceOutlined />,
+  },
 ];
-
-
 const HeaderComponent = (props) => {
   const { showDrawer, handleClickSidebar } = props;
-  const [collapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = Ant.theme.useToken();
@@ -70,32 +86,35 @@ const HeaderComponent = (props) => {
             justify="space-between"
           >
             <Ant.Col>
-              <Ant.Button
-                className="desktop-only"
-                type="text"
-                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                onClick={handleClickSidebar}
-              />
-              <Ant.Button
-                className="mobile-only"
-                type="text"
-                onClick={showDrawer}
-              >
-                <MenuUnfoldOutlined />
-              </Ant.Button>
-              <Ant.Button type="text">داشبورد</Ant.Button>
-              <Ant.Button type="text">کاربر:Admin</Ant.Button>
-              <Ant.Button type="text">تنظیمات</Ant.Button>
+              <Ant.Space>
+                <Ant.Button
+                  className="desktop-only"
+                  type="text"
+                  icon={
+                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                  }
+                  onClick={handleClickSidebar}
+                />
+                <Ant.Button
+                  className="mobile-only"
+                  type="text"
+                  onClick={showDrawer}
+                >
+                  <MenuUnfoldOutlined />
 
-              <Ant.Radio.Group
-        options={options}
-        // onChange={onChange4}
-        // value={value4}
-        optionType="button"
-        buttonStyle="solid"
-      />
+                </Ant.Button>
+                <Ant.Button type="text">کاربر:{'Admin'}</Ant.Button>
+                <Ant.Button
+                  icon={<SettingOutlined />}
+                  onClick={() => {
+                  
+                    alert('theme');
+                  }}
+                />
+                <Ant.Button icon={<DashboardOutlined />} />
 
-
+                <Ant.Segmented options={options} />
+              </Ant.Space>
             </Ant.Col>
 
             <Ant.Col>

@@ -9,17 +9,9 @@ import {
 import logo from './../assets/images/logos/Logo2.png'
 import PropTypes from 'prop-types'
 import { Layout, Menu, Image } from 'antd'
+import * as Ant from 'antd'
 
 const { Sider } = Layout
-
-const slider = {
-  overflowX: 'auto',
-  height: '100vh',
-  right: 0,
-  top: 0,
-  bottom: 0,
-}
-
 
 //====================================================================
 //                        Component
@@ -27,14 +19,26 @@ const slider = {
 const AppSidebar = (props) => {
   const { showImageSider,collapsedSider,items} = props
   // const [collapsed, setCollapsed] = useState(false)
+  const {
+    token: { colorBgContainer },
+  } = Ant.theme.useToken();
 
+  const sliderStyle = {
+    overflowX: 'auto',
+    height: '100vh',
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor:colorBgContainer
+    
+  }
 
   return (
     <>
       <Sider
           width={280}
         className="sidebar desktop-only"
-        style={slider}
+        style={sliderStyle}
         collapsed={collapsedSider}
         items={items}
       >
@@ -47,7 +51,7 @@ const AppSidebar = (props) => {
           />
         )}
         <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        <Menu theme="dark"  mode="inline" items={items} />
       </Sider>
     </>
   )
@@ -57,6 +61,4 @@ AppSidebar.propTypes = {
   showImageSider: PropTypes.bool,
   collapsedSider: PropTypes.bool,
   items: PropTypes.object,
-
-
 }
