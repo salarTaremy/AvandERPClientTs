@@ -5,10 +5,11 @@ import './scss/style.scss'
 import { ConfigProvider, theme } from 'antd'
 import faIR from 'antd/locale/fa_IR'
 
+const themeName:string = 'light'
 const getTheme = () => {
-  // if (themeName === 'dark') return theme.darkAlgorithm
-  // if (themeName === 'light') return theme.defaultAlgorithm
-  // if (themeName === 'compact') return theme.compactAlgorithm
+  if (themeName === 'dark') return theme.darkAlgorithm
+  if (themeName === 'light') return theme.defaultAlgorithm
+  if (themeName === 'compact') return theme.compactAlgorithm
   return theme.defaultAlgorithm
 }
 const myCustomThemeAnt = {

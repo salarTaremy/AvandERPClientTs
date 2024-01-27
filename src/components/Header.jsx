@@ -1,49 +1,54 @@
-import React, { useState } from 'react'
-import * as Ant from 'antd'
-import { Layout } from 'antd'
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
-import PropTypes from 'prop-types'
-import pic from '../assets/images/avatars/1.png';
-const { Header } = Layout
-
+import React, { useState } from "react";
+import * as Ant from "antd";
+import { Layout } from "antd";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
+import pic from "../assets/images/avatars/1.png";
+const { Header } = Layout;
 
 //====================================================================
 //                        Declaration
 //====================================================================
 const itemList = [
   {
-    key: 'SubMenu',
+    key: "SubMenu",
     icon: <Ant.Avatar src={pic} />,
     children: [
       {
-        type: 'group',
+        type: "group",
         // label: 'Item 1',
         children: [
           {
-            label: 'Option 1',
-            key: 'setting:1',
+            label: "Option 1",
+            key: "setting:1",
           },
           {
-            label: 'Option 2',
-            key: 'setting:2',
+            label: "Option 2",
+            key: "setting:2",
           },
         ],
       },
     ],
   },
-]
+];
+
+const options = [
+  { label: 'Apple', value: 'dark' },
+  { label: 'Pear', value: 'light' },
+  { label: 'Orange', value: 'compact', title: 'Orange' },
+];
+
 
 const HeaderComponent = (props) => {
-    const { showDrawer,handleClickSidebar} = props
-  const [collapsed] = useState(false)
+  const { showDrawer, handleClickSidebar } = props;
+  const [collapsed] = useState(false);
   const {
     token: { colorBgContainer },
-  } = Ant.theme.useToken()
+  } = Ant.theme.useToken();
+
   //====================================================================
   //                        Functions
   //====================================================================
-
-
 
   //====================================================================
   //                        Component
@@ -60,7 +65,7 @@ const HeaderComponent = (props) => {
         <Ant.Flex gap="middle" align="start" vertical>
           <Ant.Flex
             style={{
-              width: '100%',
+              width: "100%",
             }}
             justify="space-between"
           >
@@ -71,27 +76,43 @@ const HeaderComponent = (props) => {
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={handleClickSidebar}
               />
-              <Ant.Button className="mobile-only" type="text" onClick={showDrawer}>
+              <Ant.Button
+                className="mobile-only"
+                type="text"
+                onClick={showDrawer}
+              >
                 <MenuUnfoldOutlined />
               </Ant.Button>
               <Ant.Button type="text">داشبورد</Ant.Button>
               <Ant.Button type="text">کاربر:Admin</Ant.Button>
               <Ant.Button type="text">تنظیمات</Ant.Button>
+
+              <Ant.Radio.Group
+        options={options}
+        // onChange={onChange4}
+        // value={value4}
+        optionType="button"
+        buttonStyle="solid"
+      />
+
+
             </Ant.Col>
 
             <Ant.Col>
-              <Ant.Menu defaultSelectedKeys={['1']} mode="inline" items={itemList} />
+              <Ant.Menu
+                defaultSelectedKeys={["1"]}
+                mode="inline"
+                items={itemList}
+              />
             </Ant.Col>
           </Ant.Flex>
         </Ant.Flex>
       </Header>
     </>
-  )
-}
-export default HeaderComponent
+  );
+};
+export default HeaderComponent;
 HeaderComponent.propTypes = {
-    showDrawer: PropTypes.func,
-    handleClickSidebar: PropTypes.func,
-
-}
-
+  showDrawer: PropTypes.func,
+  handleClickSidebar: PropTypes.func,
+};
