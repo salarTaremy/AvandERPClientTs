@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background: rgb(255, 255, 255);
+  line-height: 45px !important;
+}
+
+.content {
+  flex: 1;
+  margin: 24px 16px 0;
+  overflow: auto;
+  height: 100%;
+  max-height: 80vh;
+  min-height: 70vh;
+  border-radius: 8px;
+}
+
+.footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(128, 128, 128, 0.26);
+}
+
+//scroll sidebar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #33333360;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #eaeaea; /* Set the color of the scrollbar track */
+}
+
+//scroll content
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: #33333360;
+  border-radius: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  background-color: #eaeaea; /* Set the color of the scrollbar track */
+}
+
+///ant class
+
+.ant-drawer-header {
+  background: #001529;
+  direction: ltr;
+}
+.ant-drawer-body {
+  background: #001529;
+}
+.ant-drawer-title {
+  color: white !important;
+  text-align: center;
+}
+span.anticon.anticon-close {
+  color: white;
+  direction: ltr;
+}
+
+//responsive
+
+@media (max-width: 575.98px) {
+  .desktop-only {
+    display: none;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .desktop-only {
+    display: none;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .desktop-only {
+    display: none;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .desktop-only {
+    display: unset;
+  }
+  .mobile-only {
+    display: none;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .desktop-only {
+    display: unset;
+  }
+  .mobile-only {
+    display: none;
+  }
+}
