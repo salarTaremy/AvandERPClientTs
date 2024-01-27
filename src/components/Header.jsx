@@ -106,17 +106,16 @@ const HeaderComponent = (props) => {
                 <Ant.Button type="text">کاربر:{'Admin'}</Ant.Button>
                 <Ant.Button
                   icon={<SettingOutlined />}
+                  type="link" 
                   onClick={() => {
                   
                     alert('theme');
                   }}
                 />
-                <Ant.Button icon={<DashboardOutlined />} />
-
+                <Ant.Button type="link" icon={<DashboardOutlined />} />
                 <Ant.Segmented options={options} />
               </Ant.Space>
             </Ant.Col>
-
             <Ant.Col>
               <Ant.Menu
                 defaultSelectedKeys={["1"]}
