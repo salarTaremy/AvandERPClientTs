@@ -1,7 +1,7 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import * as Ant from "antd";
 import { Layout } from "antd";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -62,15 +62,60 @@ const HeaderComponent = (props) => {
   const {
     token: { colorBgContainer },
   } = Ant.theme.useToken();
-  
-  const dispatch = useDispatch()
-  const theme = useSelector((state) => state.theme)
-  const autUser = useSelector((state) => state.autUser)
+
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme);
+  const autUser = useSelector((state) => state.autUser);
 
   //====================================================================
   //                        Functions
   //====================================================================
+  const items = [
+    {
+      key: "1",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          1st menu item
+        </a>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.aliyun.com"
+        >
+          2nd menu item (disabled)
+        </a>
+      ),
 
+      disabled: true,
+    },
+    {
+      key: "3",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.luohanacademy.com"
+        >
+          3rd menu item (disabled)
+        </a>
+      ),
+      disabled: true,
+    },
+    {
+      key: "4",
+      danger: true,
+      label: "a danger item",
+    },
+  ];
   //====================================================================
   //                        Component
   //====================================================================
@@ -106,28 +151,36 @@ const HeaderComponent = (props) => {
                   onClick={showDrawer}
                 >
                   <MenuUnfoldOutlined />
-
                 </Ant.Button>
-                <Ant.Button type="text">کاربر:{autUser }</Ant.Button>
+                <Ant.Button type="text">کاربر:{autUser}</Ant.Button>
                 <p>{theme}</p>
                 <Ant.Button
                   icon={<SettingOutlined />}
-                  type="link" 
+                  type="link"
                   onClick={() => {
-                  
-                    alert('theme');
+                    alert("theme");
                   }}
                 />
                 <Ant.Button type="link" icon={<DashboardOutlined />} />
-                <Ant.Segmented options={options} onChange={(val) =>  dispatch({ type: 'set', theme: val }) } />
+                <Ant.Segmented
+                  options={options}
+                  onChange={(val) => dispatch({ type: "set", theme: val })}
+                />
               </Ant.Space>
             </Ant.Col>
             <Ant.Col>
-              <Ant.Menu
-                defaultSelectedKeys={["1"]}
-                mode="inline"
-                items={itemList}
-              />
+              <Ant.Dropdown
+                menu={{
+                  items,
+                }}
+              >
+              
+                  <Ant.Space>
+                    Hover me
+                    <DashboardOutlined />
+                  </Ant.Space>
+            
+              </Ant.Dropdown>
             </Ant.Col>
           </Ant.Flex>
         </Ant.Flex>
