@@ -5,8 +5,9 @@ const FooterComponent = () => {
     <>
       <Footer className='footer'>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div>کلیه حقوق این نرم افزار متعلق به شرکت ایران آوندفر میباشد</div>
-          <div>واحد فناوری اطلاعات</div>
+          {' شرکت ایران آوندفر'}
+          
+          <div>{'واحد IT'}</div>
         </div>
       </Footer>
     </>
