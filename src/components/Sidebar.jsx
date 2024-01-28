@@ -28,13 +28,16 @@ const slider = {
 const AppSidebar = (props) => {
   const { showImageSider, collapsedSider, items } = props;
   // const [collapsed, setCollapsed] = useState(false)
+  const {
+    token: { colorBgContainer },
+  } = Ant.theme.useToken();
 
   return (
     <>
       <Sider
         width={280}
         className="sidebar desktop-only"
-        style={slider}
+        style={sliderStyle}
         collapsed={collapsedSider}
         items={items}
       >

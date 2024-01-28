@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   AppstoreOutlined,
-  SettingOutlined,
   BellOutlined,
   FileOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
+import * as Ant from "antd";
 import Footer from "./Footer";
 import Header from "./Header";
 import SidebarMobile from "./SidebarMobile";
@@ -96,13 +96,13 @@ const LayoutComponent = () => {
   const handleButtonClick = () => {
     setShowImage(!showImage);
     setCollapsed(!collapsed);
-   };
+  };
 
-useEffect(() => {
-  collapsed && setItems([...initItems.filter((item) => item.type != "group")]);
-  !collapsed && setItems([...initItems]);
-},[collapsed])
-
+  useEffect(() => {
+    collapsed &&
+      setItems([...initItems.filter((item) => item.type != "group")]);
+    !collapsed && setItems([...initItems]);
+  }, [collapsed]);
 
   return (
     <>
