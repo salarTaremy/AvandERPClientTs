@@ -6,6 +6,7 @@ import {
   FileOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
+import * as Ant from 'antd'
 import logo from "./../assets/images/logos/Logo2.png";
 import logoFlat from "./../assets/images/logos/LogoIcon128_Flat.png";
 import logoShadow from "./../assets/images/logos/LogoIcon128_Shadow.png";
@@ -14,7 +15,7 @@ import { Layout, Menu, Image } from "antd";
 
 const { Sider } = Layout;
 
-const slider = {
+const sliderStyle = {
   overflowX: "auto",
   height: "100vh",
   right: 0,
