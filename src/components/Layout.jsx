@@ -119,6 +119,7 @@ const LayoutComponent = () => {
           />
           <Layout>
             <Header
+            collapsed = {collapsed}
               showDrawer={showDrawer}
               handleClickSidebar={handleButtonClick}
             />

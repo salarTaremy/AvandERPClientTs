@@ -2,9 +2,9 @@ import React from "react";
 import { Layout, theme, Card } from "antd";
 const { Content } = Layout;
 const ContentComponent = () => {
-  for (let i = 0; i < 3; i++) {
-    <p>sdfds</p>;
-  }
+  // for (let i = 0; i < 3; i++) {
+  //   <p>sdfds</p>;
+  // }
 
   return (
     <>

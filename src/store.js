@@ -6,7 +6,7 @@ const initialState = {
   sidebarShow: true,
   asideShow: false,
   sidebarUnfoldable: false,
-  theme: 'default',
+  theme: 'light',
   autUser: null,
   filterDrawerPlacement :'right',
 }

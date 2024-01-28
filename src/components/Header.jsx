@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import * as Ant from "antd";
 import { Layout } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,28 +19,6 @@ const { Header } = Layout;
 //====================================================================
 //                        Declaration
 //====================================================================
-const itemList = [
-  {
-    key: "SubMenu",
-    icon: <Ant.Avatar src={pic} />,
-    children: [
-      {
-        type: "group",
-        // label: 'Item 1',
-        children: [
-          {
-            label: "Option 1",
-            key: "setting:1",
-          },
-          {
-            label: "Option 2",
-            key: "setting:2",
-          },
-        ],
-      },
-    ],
-  },
-];
 
 const options = [
   {
@@ -57,8 +35,8 @@ const options = [
   },
 ];
 const HeaderComponent = (props) => {
-  const { showDrawer, handleClickSidebar } = props;
-  const [collapsed, setCollapsed] = useState(false);
+  const { showDrawer, handleClickSidebar ,collapsed} = props;
+  // const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = Ant.theme.useToken();
@@ -141,7 +119,8 @@ const HeaderComponent = (props) => {
                   className="desktop-only"
                   type="text"
                   icon={
-                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                    collapsed ?  <MenuFoldOutlined />:<MenuUnfoldOutlined />
+                    // collapsed ? <>d</> : <>ds</>
                   }
                   onClick={handleClickSidebar}
                 />
@@ -152,8 +131,8 @@ const HeaderComponent = (props) => {
                 >
                   <MenuUnfoldOutlined />
                 </Ant.Button>
+                <p>{collapsed}</p>
                 <Ant.Button type="text">کاربر:{autUser}</Ant.Button>
-                <p>{theme}</p>
                 <Ant.Button
                   icon={<SettingOutlined />}
                   type="link"
@@ -163,6 +142,7 @@ const HeaderComponent = (props) => {
                 />
                 <Ant.Button type="link" icon={<DashboardOutlined />} />
                 <Ant.Segmented
+                  defaultValue={theme}
                   options={options}
                   onChange={(val) => dispatch({ type: "set", theme: val })}
                 />
@@ -174,12 +154,10 @@ const HeaderComponent = (props) => {
                   items,
                 }}
               >
-              
-                  <Ant.Space>
-                    Hover me
-                    <DashboardOutlined />
-                  </Ant.Space>
-            
+                <Ant.Space>
+                  Hover me
+                  <DashboardOutlined />
+                </Ant.Space>
               </Ant.Dropdown>
             </Ant.Col>
           </Ant.Flex>
