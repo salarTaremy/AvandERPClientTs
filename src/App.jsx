@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "./components/Layout";
-import { createContext, useContext, useState } from "react";
 import { ConfigProvider, theme } from "antd";
 import faIR from "antd/locale/fa_IR";
 import "./scss/style.scss";
@@ -8,7 +7,7 @@ import { useSelector } from "react-redux";
 
 
 
-const App: React.FC = () => {
+const App= () => {
   const themeName = useSelector((state) => state.theme)
   const getTheme = () => {
     if (themeName === "dark") return theme.darkAlgorithm;
