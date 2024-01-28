@@ -1,6 +1,7 @@
 import React, { useState,useContext } from "react";
 import * as Ant from "antd";
 import { Layout } from "antd";
+import { useSelector, useDispatch } from 'react-redux'
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -43,7 +44,7 @@ const itemList = [
 
 const options = [
   {
-    value: "Lisdarkt",
+    value: "dark",
     icon: <BgColorsOutlined />,
   },
   {
@@ -61,6 +62,10 @@ const HeaderComponent = (props) => {
   const {
     token: { colorBgContainer },
   } = Ant.theme.useToken();
+  
+  const dispatch = useDispatch()
+  const theme = useSelector((state) => state.theme)
+  const autUser = useSelector((state) => state.autUser)
 
   //====================================================================
   //                        Functions
@@ -103,7 +108,8 @@ const HeaderComponent = (props) => {
                   <MenuUnfoldOutlined />
 
                 </Ant.Button>
-                <Ant.Button type="text">کاربر:{'Admin'}</Ant.Button>
+                <Ant.Button type="text">کاربر:{autUser }</Ant.Button>
+                <p>{theme}</p>
                 <Ant.Button
                   icon={<SettingOutlined />}
                   type="link" 
@@ -113,7 +119,7 @@ const HeaderComponent = (props) => {
                   }}
                 />
                 <Ant.Button type="link" icon={<DashboardOutlined />} />
-                <Ant.Segmented options={options} />
+                <Ant.Segmented options={options} onChange={(val) =>  dispatch({ type: 'set', theme: val }) } />
               </Ant.Space>
             </Ant.Col>
             <Ant.Col>

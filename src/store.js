@@ -1,22 +1,31 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit'
+import { createStore } from 'redux'
+import { persistReducer } from 'redux-persist' 
+import storage from 'redux-persist/lib/storage' 
 
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: {
-    value: 0
-  },
-  reducers: {
-    incremented: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decremented: state => {
-      state.value -= 1
-    }
+const initialState = {
+  sidebarShow: true,
+  asideShow: false,
+  sidebarUnfoldable: false,
+  theme: 'default',
+  autUser: null,
+  filterDrawerPlacement :'right',
+}
+
+const changeState = (state = initialState, { type, ...rest }) => {
+  switch (type) {
+    case 'set':
+      return { ...state, ...rest }
+    default:
+      return state
   }
-})
+}
 
-export const { incremented, decremented } = counterSlice.actions
+const persistConfig = {
+  key: 'root', 
+  storage, // (local storage)
+}
+const persistedReducer = persistReducer(persistConfig, changeState) 
+const store = createStore(persistedReducer) 
+//const store = createStore(changeState)
+
+export default store
