@@ -155,7 +155,9 @@ const HeaderComponent = (props) => {
                 }}
               >
                 <Ant.Space>
-                  Hover me
+                  <a>
+                    {'Hover me'}
+                  </a>
                   <DashboardOutlined />
                 </Ant.Space>
               </Ant.Dropdown>
