@@ -14,48 +14,48 @@ import PropTypes from 'prop-types'
 const items = [
   {
     label: 'طرف حساب ها',
-    key: 'grp1',
+    key: 'grp11',
     children: [{ label: 'مديريت طرف حساب ها', key: '20', icon: <AppstoreOutlined /> }],
     type: 'group',
   },
   {
     label: 'طرف حساب ها',
-    key: 'grp1',
+    key: 'grp2',
 
     children: [{ label: 'مديريت طرف حساب ها', key: '19', icon: <AppstoreOutlined /> }],
     type: 'group',
   },
   {
     label: 'طرف حساب ها',
-    key: 'grp1',
+    key: 'grp3',
 
     children: [{ label: 'مديريت طرف حساب ها', key: '18', icon: <AppstoreOutlined /> }],
     type: 'group',
   },
   {
     label: 'طرف حساب ها',
-    key: 'grp1',
+    key: 'grp4',
 
     children: [{ label: 'مديريت طرف حساب ها', key: '17', icon: <AppstoreOutlined /> }],
     type: 'group',
   },
   {
     label: 'طرف حساب ها',
-    key: 'grp1',
+    key: 'grp5',
 
     children: [{ label: 'مديريت طرف حساب ها', key: '16', icon: <AppstoreOutlined /> }],
     type: 'group',
   },
   {
     label: 'طرف حساب ها',
-    key: 'grp1',
+    key: 'grp6',
 
     children: [{ label: 'مديريت طرف حساب ها', key: '15', icon: <AppstoreOutlined /> }],
     type: 'group',
   },
   {
     label: 'طرف حساب ها',
-    key: 'grp1',
+    key: 'grp7',
 
     children: [{ label: 'مديريت طرف حساب ها', key: '14', icon: <AppstoreOutlined /> }],
     type: 'group',
@@ -121,5 +121,5 @@ const SidebarMobile = (props) => {
 export default SidebarMobile
 SidebarMobile.propTypes = {
   onCloseSide: PropTypes.func,
-  openSide: PropTypes.func,
+  openSide: PropTypes.bool,
 }
