@@ -1,10 +1,10 @@
-import React from 'react'
-
+import React from "react";
+import * as Ant from "antd";
 const NotFoundPage = () => {
   return (
-    <>
-    {'این صفحه موجود نیست'}
-    </>
-  )
-}
-export default NotFoundPage
+    <Ant.Card>
+      <p>{"این صفحه موجود نیست"}</p>
+    </Ant.Card>
+  );
+};
+export default NotFoundPage;

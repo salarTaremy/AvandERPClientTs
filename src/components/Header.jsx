@@ -133,7 +133,6 @@ const HeaderComponent = (props) => {
                 >
                   <MenuUnfoldOutlined />
                 </Ant.Button>
-                <Ant.Button type="text">کاربر:{autUser}</Ant.Button>
 
                 <Link to={"/"}>
                   <Ant.Button type="link" icon={<HomeOutlined />} />
