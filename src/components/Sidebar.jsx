@@ -80,5 +80,5 @@ export default AppSidebar;
 AppSidebar.propTypes = {
   showImageSider: PropTypes.bool,
   collapsedSider: PropTypes.bool,
-  items: PropTypes.object,
+  items: PropTypes.array,
 };
