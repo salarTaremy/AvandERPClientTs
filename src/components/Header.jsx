@@ -10,9 +10,11 @@ import {
   BehanceOutlined,
   SettingOutlined,
   DashboardOutlined,
+  HomeOutlined
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import pic from "../assets/images/avatars/1.png";
+import { Link } from "react-router-dom";
 
 const { Header } = Layout;
 
@@ -35,7 +37,7 @@ const options = [
   },
 ];
 const HeaderComponent = (props) => {
-  const { showDrawer, handleClickSidebar ,collapsed} = props;
+  const { showDrawer, handleClickSidebar, collapsed } = props;
   // const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -119,7 +121,7 @@ const HeaderComponent = (props) => {
                   className="desktop-only"
                   type="text"
                   icon={
-                    collapsed ?  <MenuFoldOutlined />:<MenuUnfoldOutlined />
+                    collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />
                     // collapsed ? <>d</> : <>ds</>
                   }
                   onClick={handleClickSidebar}
@@ -131,8 +133,11 @@ const HeaderComponent = (props) => {
                 >
                   <MenuUnfoldOutlined />
                 </Ant.Button>
-                <p>{collapsed}</p>
                 <Ant.Button type="text">کاربر:{autUser}</Ant.Button>
+
+                <Link to={"/"}>
+                  <Ant.Button type="link" icon={<HomeOutlined />} />
+                </Link>
                 <Ant.Button
                   icon={<SettingOutlined />}
                   type="link"
@@ -140,7 +145,9 @@ const HeaderComponent = (props) => {
                     alert("theme");
                   }}
                 />
-                <Ant.Button type="link" icon={<DashboardOutlined />} />
+                <Link to={"dashboard"}>
+                  <Ant.Button type="link" icon={<DashboardOutlined />} />
+                </Link>
                 <Ant.Segmented
                   defaultValue={theme}
                   options={options}
@@ -155,9 +162,7 @@ const HeaderComponent = (props) => {
                 }}
               >
                 <Ant.Space>
-                  <a>
-                    {'Hover me'}
-                  </a>
+                  <a>{"Hover me"}</a>
                   <DashboardOutlined />
                 </Ant.Space>
               </Ant.Dropdown>

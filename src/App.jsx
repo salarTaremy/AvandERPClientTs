@@ -5,9 +5,8 @@ import faIR from "antd/locale/fa_IR";
 import "./scss/style.scss";
 import { useSelector } from "react-redux";
 
-
-const App= () => {
-  const themeName = useSelector((state) => state.theme)
+const App = () => {
+  const themeName = useSelector((state) => state.theme);
   const getTheme = () => {
     if (themeName === "dark") return theme.darkAlgorithm;
     if (themeName === "light") return theme.defaultAlgorithm;
@@ -23,15 +22,14 @@ const App= () => {
 
   return (
     <div>
-        <ConfigProvider
-          direction="rtl"
-          theme={myCustomThemeAnt}
-          locale={faIR}
-          componentSize="middle"
-        >
-          <Layout />
-        </ConfigProvider>
-
+      <ConfigProvider
+        direction="rtl"
+        theme={myCustomThemeAnt}
+        locale={faIR}
+        componentSize="middle"
+      >
+        <Layout />
+      </ConfigProvider>
     </div>
   );
 };

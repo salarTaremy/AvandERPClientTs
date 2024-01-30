@@ -13,6 +13,7 @@ import Sidebar from "./Sidebar";
 import Content from "./Content";
 import { Layout } from "antd";
 
+
 const initItems = [
   {
     label: "طرف Large Screen ها1",
@@ -82,7 +83,6 @@ const initItems = [
 const LayoutComponent = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [showImage, setShowImage] = useState(false);
-  // const [filteredItems, setFilteredItems] = useState([])
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState(initItems);
 
@@ -119,11 +119,12 @@ const LayoutComponent = () => {
           />
           <Layout>
             <Header
-            collapsed = {collapsed}
+              collapsed={collapsed}
               showDrawer={showDrawer}
               handleClickSidebar={handleButtonClick}
             />
             <Content />
+
             <Footer />
           </Layout>
         </Layout>
