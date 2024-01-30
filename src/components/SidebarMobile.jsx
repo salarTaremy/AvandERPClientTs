@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 
 const items = [
   {
-    label: 'طرف حساب ها',
+    label: 'طرف mobile ها',
     key: 'grp1',
     children: [{ label: 'مديريت طرف حساب ها', key: '20', icon: <AppstoreOutlined /> }],
     type: 'group',
