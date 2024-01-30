@@ -1,20 +1,27 @@
 import React from "react";
 import { Layout, theme, Card } from "antd";
+import Home from "./../Pages/Home";
+import Dashboard from './../Pages/Dashboard'
+import NotFoundPage from './../Pages/NotFoundPage'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
 const { Content } = Layout;
-import Home from './../Pages/Home'
-const ContentComponent = () => {
 
+const router = createBrowserRouter([
+{path:"/", element:<Home/>},
+{path:"/Dashboard", element:<Dashboard/>},
+{path:"*", element:<NotFoundPage/>}
+]);
+
+const ContentComponent = () => {
   return (
-    <>
-      <Content className="content">
-        <Card>
-          <Home/>
-          <p>{"محتوای صفحه اصلی"}</p>
-          <p>{"محتوای صفحه اصلی"}</p>
-          <p>{"محتوای صفحه اصلی"}</p>
-        </Card>
-      </Content>
-    </>
+    <Content className="content">
+      <RouterProvider router={router} />
+    </Content>
   );
 };
 export default ContentComponent;

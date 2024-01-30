@@ -15,7 +15,7 @@ import { Layout } from "antd";
 
 const initItems = [
   {
-    label: "طرف حساب ها1",
+    label: "طرف Large Screen ها1",
     key: "grp1",
     type: "group",
   },

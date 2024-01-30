@@ -6,7 +6,6 @@ import "./scss/style.scss";
 import { useSelector } from "react-redux";
 
 
-
 const App= () => {
   const themeName = useSelector((state) => state.theme)
   const getTheme = () => {
@@ -22,11 +21,8 @@ const App= () => {
     algorithm: getTheme(),
   };
 
-
-
   return (
     <div>
-
         <ConfigProvider
           direction="rtl"
           theme={myCustomThemeAnt}
