@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import * as Ant from "antd";
-
-import Test from "@/components/Test";
 import * as url from "../api/url";
 import * as api from "../api";
 // import useRequestManager from "../hooks/useRequestManager";
@@ -19,7 +17,6 @@ const Home = () => {
   }, []);
   return (
     <Ant.Card>
-      <Test />
       <p>{JSON.stringify(data?.data)}</p>
       <p>{loading && "Loading"}</p>
       <p>{error && "error"}</p>
