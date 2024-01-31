@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import * as Ant from "antd";
 import * as url from "../api/url";
 import * as api from "../api";
-// import useRequestManager from "../hooks/useRequestManager";
+import useRequestManager from "../hooks/useRequestManager";
 
 import { useFetch, useFetchWithHandler } from "../api";
 import { json } from "react-router-dom";
 
-//useRequestManager()
 const Home = () => {
-  //useRequestManager
+  
   const [data, loading, error, call] = useFetchWithHandler();
+  useRequestManager({error})
 
   useEffect(() => {
     call(url.ACCOUNT);

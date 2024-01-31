@@ -1,9 +1,23 @@
-import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout";
 import { ConfigProvider, theme } from "antd";
 import faIR from "antd/locale/fa_IR";
 import "./scss/style.scss";
 import { useSelector } from "react-redux";
+
+const toastProps = {
+  position: "bottom-left",
+  autoClose: 3000,
+  hideProgressBar: false,
+  newestOnTop: false,
+  closeOnClick: true,
+  rtl: true,
+  pauseOnFocusLoss: true,
+  draggable: true,
+  pauseOnHover: true,
+  theme: "colored",
+};
 
 const App = () => {
   const themeName = useSelector((state) => state.theme);
@@ -28,6 +42,7 @@ const App = () => {
         locale={faIR}
         componentSize="middle"
       >
+        <ToastContainer {...toastProps} />
         <Layout />
       </ConfigProvider>
     </div>
