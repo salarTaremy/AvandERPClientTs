@@ -17,8 +17,8 @@ const Home = () => {
   }, []);
   return (
     <Ant.Card>
-      <p>{JSON.stringify(data?.data)}</p>
-      <p>{loading && "Loading"}</p>
+      <p>{JSON.stringify(data?.data[0])}</p>
+      <p>{loading && "صبر کن داره میاد ..."}</p>
       <p>{error && "error"}</p>
       <p>{error && "error"}</p>
     </Ant.Card>
