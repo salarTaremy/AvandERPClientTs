@@ -95,12 +95,17 @@ useEffect( () => {
     const newVal = NavMnu.map((item)=> {
       if(item.componentName == "CNavTitle"){
         item.type = "group"
+        delete item.iconName
+      }else{
+        item.icon=<BellOutlined />
       }
       if(item.children){
         delete item.type
-        item.children.map((child)=> {  child.label = child.title 
+        item.children.map((child)=> {  
+          child.label = child.title 
+          child.icon=<FileOutlined />
           return { ...child}})
-      }      
+      }   
       item.label = item.title
       // delete item.id
       // delete item.name
