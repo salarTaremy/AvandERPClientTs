@@ -14,10 +14,7 @@ const useRequestManager = ({ data, error, loading, loadingMessage }) => {
   const getSuccessMessage = (data) => {
     const resultId = data?.data?.id
     return (
-      // <>
-      //   {data?.message || defaultSuccessMessage}  {resultId && `شناسه : ${resultId}`}
-      // </>
-      (data?.message || defaultSuccessMessage)  + (resultId && `شناسه : ${resultId}`)
+      (data?.message || defaultSuccessMessage)  +'\n'+ (resultId && `شناسه : ${resultId}`)
     )
   }
   //====================================================================
