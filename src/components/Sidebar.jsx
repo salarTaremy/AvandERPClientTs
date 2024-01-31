@@ -45,7 +45,7 @@ const AppSidebar = (props) => {
         {!showImageSider && (
           <Image
             preview={false}
-            style={{ margin: "20px 50px 20px 20px", textAlign: "center" }}
+            style={{ margin: "20px 30px 20px 20px", textAlign: "center" }}
             width={200}
             src={logo}
           />
@@ -63,7 +63,9 @@ const AppSidebar = (props) => {
           style={{ textAlign: "center" }}
           width={80}
           src={logoShadow}
-        /> */}
+          /> */}
+
+          {/* <Ant.Input.Search style={{ width: 200 ,textAlign:"center" }}/> */}
 
         <div className="demo-logo-vertical" />
         <Menu

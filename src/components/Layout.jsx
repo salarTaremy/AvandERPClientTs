@@ -207,9 +207,6 @@ const LayoutComponent = () => {
               showDrawer={showDrawer}
               handleClickSidebar={handleButtonClick}
             />
-            <pre>
-              <>{JSON.stringify(items, null, 2)}</>
-            </pre>
             <Content />
 
             <Footer />

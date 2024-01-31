@@ -10,7 +10,7 @@ import {
   BehanceOutlined,
   SettingOutlined,
   DashboardOutlined,
-  HomeOutlined
+  HomeOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import pic from "../assets/images/avatars/1.png";
@@ -59,41 +59,15 @@ const HeaderComponent = (props) => {
           rel="noopener noreferrer"
           href="https://www.antgroup.com"
         >
-          1st menu item
+          {'پروفایل'}
         </a>
       ),
-    },
-    {
-      key: "2",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          2nd menu item (disabled)
-        </a>
-      ),
-
-      disabled: true,
-    },
-    {
-      key: "3",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.luohanacademy.com"
-        >
-          3rd menu item (disabled)
-        </a>
-      ),
-      disabled: true,
     },
     {
       key: "4",
       danger: true,
-      label: "a danger item",
+      label: "خروج از سیستم",
+      disabled: false,
     },
   ];
   //====================================================================
@@ -141,17 +115,19 @@ const HeaderComponent = (props) => {
                   icon={<SettingOutlined />}
                   type="link"
                   onClick={() => {
-                    alert("theme");
+                    alert("Ok setting");
                   }}
                 />
                 <Link to={"dashboard"}>
                   <Ant.Button type="link" icon={<DashboardOutlined />} />
                 </Link>
+
                 <Ant.Segmented
                   defaultValue={theme}
                   options={options}
                   onChange={(val) => dispatch({ type: "set", theme: val })}
                 />
+                {/* <Ant.Input.Search style={{ width: 200, textAlign: "center" }} /> */}
               </Ant.Space>
             </Ant.Col>
             <Ant.Col>
