@@ -86,53 +86,107 @@ const LayoutComponent = () => {
     setCollapsed(!collapsed);
   };
   useRequestManager({ error });
-  //============================================================
-  useEffect(() => {
-    apiCall(url.NAV_MENU_TREE);
-  }, []);
+//============================================================
+  const processNavMenu = (menu) => {
+    if (!menu) {
+      return null;
+    }
+    return menu.map((item) => {
+      if (item.componentName === "CNavTitle") {
+        item.type = "group";
+        delete item.iconName;
+      } else {
+        item.icon = <AppstoreOutlined />;
+      }
+      if (item.children) {
+        delete item.type;
+        item.children = processNavMenu(item.children);
+      }
+      item.label = item.title;
+      return { ...item };
+    });
+  };
+  const processSubMenu = (menu) => {
+    if (!menu) {
+      return null;
+    }
+    return menu.map((child) => {
+      child.icon = <FileOutlined />;
+      child.label = child.title;
+      if (child.children) {
+        delete child.type;
+        child.children = processSubMenu(child.children);
+      }
+      return { ...child };
+    });
+  };
+  // const processSubSubMenu = (menu) => {
+  //   if (!menu) {
+  //     return null;
+  //   }
+  //   return menu.map((sub) => {
+  //     sub.icon = <AppstoreOutlined />;
+  //     sub.label = sub.title;
+  //     return { ...sub };
+  //   });
+  // };
   useEffect(() => {
     const NavMnu = data?.data[0]?.children;
     if (NavMnu) {
-      const newVal = NavMnu.map((item) => {
-        if (item.componentName == "CNavTitle") {
-          item.type = "group";
-          delete item.iconName;
-        } else {
-          item.icon = <BellOutlined />;
-        }
-        if (item.children) {
-          delete item.type;
-          item.children.map((child) => {
-            child.icon = <FileOutlined />;
-            child.label = child.title;
-            if (child.children) {
-              delete child.type;
-              child.children.map((sub) => {
-                sub.icon = <AppstoreOutlined />;
-                sub.label = sub.title;
-
-                return { ...sub };
-              });
-            }
-            return { ...child };
-          });
-        }
-        item.label = item.title;
-        // delete item.id
-        // delete item.name
-        // delete item.componentName
-        // delete item.iconName
-        return { ...item };
-      });
+      const newVal = processNavMenu(NavMnu);
       setItems(newVal);
     }
   }, [data?.data]);
-  useEffect(() => {
-    collapsed &&
-      setItems([...initItems.filter((item) => item.type != "group")]);
-    !collapsed && setItems([...initItems]);
-  }, [collapsed]);
 
+  useEffect(() => {
+    apiCall(url.NAV_MENU_TREE);
+  }, []);
+  //============================================================
+  // useEffect(() => {
+  //   apiCall(url.NAV_MENU_TREE);
+  // }, []);
+  // useEffect(() => {
+  //   const NavMnu = data?.data[0]?.children;
+  //   if (NavMnu) {
+  //     const newVal = NavMnu.map((item) => {
+  //       if (item.componentName == "CNavTitle") {
+  //         item.type = "group";
+  //         delete item.iconName;
+  //       } else {
+  //         item.icon = <BellOutlined />;
+  //       }
+  //       if (item.children) {
+  //         delete item.type;
+  //         item.children.map((child) => {
+  //           child.icon = <FileOutlined />;
+  //           child.label = child.title;
+  //           if (child.children) {
+  //             delete child.type;
+  //             child.children.map((sub) => {
+  //               sub.icon = <AppstoreOutlined />;
+  //               sub.label = sub.title;
+
+  //               return { ...sub };
+  //             });
+  //           }
+  //           return { ...child };
+  //         });
+  //       }
+  //       item.label = item.title;
+  //       // delete item.id
+  //       // delete item.name
+  //       // delete item.componentName
+  //       // delete item.iconName
+  //       return { ...item };
+  //     });
+  //     setItems(newVal);
+  //   }
+  // }, [data?.data]);
+  // useEffect(() => {
+  //   collapsed &&
+  //     setItems([...initItems.filter((item) => item.type != "group")]);
+  //   !collapsed && setItems([...initItems]);
+  // }, [collapsed]);
   //============================================================
   return (
     <>
