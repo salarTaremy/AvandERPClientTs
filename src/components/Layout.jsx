@@ -5,14 +5,16 @@ import {
   FileOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
-import * as Ant from "antd";
 import Footer from "./Footer";
 import Header from "./Header";
 import SidebarMobile from "./SidebarMobile";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 import { Layout } from "antd";
-
+import * as api from  '../api'
+import * as url from '../api/url'
+import { useFetch, useFetchWithHandler } from "../api";
+import useRequestManager from "../hooks/useRequestManager";
 
 const initItems = [
   {
@@ -38,26 +40,12 @@ const initItems = [
     key: "grp4",
     type: "group",
   },
-  { label: "مديريت طرف حساب ها", key: "17", icon: <AppstoreOutlined /> },
-  {
-    label: "طرف حساب ها",
-    key: "grp5",
-    type: "group",
-  },
-  { label: "مديريت طرف حساب ها", key: "16", icon: <AppstoreOutlined /> },
-  {
-    label: "طرف حساب ها",
-    key: "grp6",
-    type: "group",
-  },
-  { label: "مديريت طرف حساب ها", key: "15", icon: <AppstoreOutlined /> },
-  {
-    label: "طرف حساب ها",
-    key: "grp7",
-    type: "group",
-  },
   { label: "مديريت طرف حساب ها", key: "14", icon: <AppstoreOutlined /> },
-  ,
+  , {
+    label: "پروه",
+    key: "grp1",
+    type: "group",
+  },
   {
     label: "اطلاعات پايه طرف حساب ها",
     key: "sub2",
@@ -81,29 +69,57 @@ const initItems = [
 //                        Component
 //====================================================================
 const LayoutComponent = () => {
+  const [data, loading, error, apiCall] = useFetchWithHandler()
   const [collapsed, setCollapsed] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState(initItems);
-
   const showDrawer = () => {
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
-  };
-
+  };  
   const handleButtonClick = () => {
     setShowImage(!showImage);
     setCollapsed(!collapsed);
   };
+  useRequestManager({error})
+//============================================================
+useEffect( () => {
+  apiCall(url.NAV_MENU_TREE)
+},[])
+useEffect( () => {
+  const NavMnu = data?.data[0]?.children
+  if(NavMnu ){
+    const newVal = NavMnu.map((item)=> {
+      if(item.componentName == "CNavTitle"){
+        item.type = "group"
+      }
+      if(item.children){
+        delete item.type
+        item.children.map((child)=> {  child.label = child.title 
+          return { ...child}})
+      }      
+      item.label = item.title
+      // delete item.id
+      // delete item.name
+      // delete item.componentName
+      // delete item.iconName
+      return { ...item}
+   })
+    setItems(newVal)
+  }
 
+
+},[data?.data])
   useEffect(() => {
     collapsed &&
       setItems([...initItems.filter((item) => item.type != "group")]);
     !collapsed && setItems([...initItems]);
   }, [collapsed]);
 
+//============================================================
   return (
     <>
       <div className="wrapper">
@@ -123,6 +139,9 @@ const LayoutComponent = () => {
               showDrawer={showDrawer}
               handleClickSidebar={handleButtonClick}
             />
+            <pre>
+            <>{JSON.stringify(items,null,2)}</>
+            </pre>
             <Content />
 
             <Footer />
