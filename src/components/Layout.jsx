@@ -11,8 +11,8 @@ import SidebarMobile from "./SidebarMobile";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 import { Layout } from "antd";
-import * as api from  '../api'
-import * as url from '../api/url'
+import * as api from "../api";
+import * as url from "../api/url";
 import { useFetch, useFetchWithHandler } from "../api";
 import useRequestManager from "../hooks/useRequestManager";
 
@@ -41,7 +41,8 @@ const initItems = [
     type: "group",
   },
   { label: "مديريت طرف حساب ها", key: "14", icon: <AppstoreOutlined /> },
-  , {
+  ,
+  {
     label: "پروه",
     key: "grp1",
     type: "group",
@@ -69,7 +70,7 @@ const initItems = [
 //                        Component
 //====================================================================
 const LayoutComponent = () => {
-  const [data, loading, error, apiCall] = useFetchWithHandler()
+  const [data, loading, error, apiCall] = useFetchWithHandler();
   const [collapsed, setCollapsed] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [open, setOpen] = useState(false);
@@ -79,52 +80,60 @@ const LayoutComponent = () => {
   };
   const onClose = () => {
     setOpen(false);
-  };  
+  };
   const handleButtonClick = () => {
     setShowImage(!showImage);
     setCollapsed(!collapsed);
   };
-  useRequestManager({error})
-//============================================================
-useEffect( () => {
-  apiCall(url.NAV_MENU_TREE)
-},[])
-useEffect( () => {
-  const NavMnu = data?.data[0]?.children
-  if(NavMnu ){
-    const newVal = NavMnu.map((item)=> {
-      if(item.componentName == "CNavTitle"){
-        item.type = "group"
-        delete item.iconName
-      }else{
-        item.icon=<BellOutlined />
-      }
-      if(item.children){
-        delete item.type
-        item.children.map((child)=> {  
-          child.label = child.title 
-          child.icon=<FileOutlined />
-          return { ...child}})
-      }   
-      item.label = item.title
-      // delete item.id
-      // delete item.name
-      // delete item.componentName
-      // delete item.iconName
-      return { ...item}
-   })
-    setItems(newVal)
-  }
+  useRequestManager({ error });
+  //============================================================
+  useEffect(() => {
+    apiCall(url.NAV_MENU_TREE);
+  }, []);
+  useEffect(() => {
+    const NavMnu = data?.data[0]?.children;
+    if (NavMnu) {
+      const newVal = NavMnu.map((item) => {
+        if (item.componentName == "CNavTitle") {
+          item.type = "group";
+          delete item.iconName;
+        } else {
+          item.icon = <BellOutlined />;
+        }
+        if (item.children) {
+          delete item.type;
+          item.children.map((child) => {
+            child.icon = <FileOutlined />;
+            child.label = child.title;
+            if (child.children) {
+              delete child.type;
+              child.children.map((sub) => {
+                sub.icon = <AppstoreOutlined />;
+                sub.label = sub.title;
 
-
-},[data?.data])
+                return { ...sub };
+              });
+            }
+            return { ...child };
+          });
+        }
+        item.label = item.title;
+        // delete item.id
+        // delete item.name
+        // delete item.componentName
+        // delete item.iconName
+        return { ...item };
+      });
+      setItems(newVal);
+    }
+  }, [data?.data]);
   useEffect(() => {
     collapsed &&
       setItems([...initItems.filter((item) => item.type != "group")]);
     !collapsed && setItems([...initItems]);
   }, [collapsed]);
 
-//============================================================
+  //============================================================
   return (
     <>
       <div className="wrapper">
@@ -145,7 +154,7 @@ useEffect( () => {
               handleClickSidebar={handleButtonClick}
             />
             <pre>
-            <>{JSON.stringify(items,null,2)}</>
+              <>{JSON.stringify(items, null, 2)}</>
             </pre>
             <Content />
 
