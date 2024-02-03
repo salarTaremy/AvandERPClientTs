@@ -3,13 +3,18 @@ import * as Ant from "antd";
 import { Layout } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { CiLight } from "react-icons/ci";
-import { MdOutlineNightlight ,MdOutlineLightMode ,MdLaptop } from "react-icons/md";
+import {
+  MdOutlineNightlight,
+  MdOutlineLightMode,
+  MdLaptop,
+} from "react-icons/md";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   SettingOutlined,
   DashboardOutlined,
   HomeOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import pic from "../assets/images/avatars/1.png";
@@ -22,7 +27,7 @@ const { Header } = Layout;
 const options = [
   {
     value: "dark",
-    icon: <MdOutlineNightlight  />,
+    icon: <MdOutlineNightlight />,
   },
   {
     value: "light",
@@ -44,28 +49,39 @@ const HeaderComponent = (props) => {
   const theme = useSelector((state) => state.theme);
   const autUser = useSelector((state) => state.autUser);
 
+  const handleMenuClick = ({ key }) => {
+    if (key === "exit") {
+      dispatch({ type: 'set', autUser: null })
+      dispatch({ type: 'set', autToken: null })
+
+    }
+  };
   //====================================================================
   //                        Functions
   //====================================================================
   const items = [
     {
-      key: "1",
+      key: "profile",
       label: (
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://www.antgroup.com"
         >
-          {'حساب کاربری'}
+          {"حساب کاربری"}
         </a>
       ),
     },
     {
-      key: "2",
+      key: "setting",
       label: "تنظیمات",
     },
     {
-      key: "4",
+      key: "devider",
+      label: <Ant.Divider />,
+    },
+    {
+      key: "exit",
       danger: true,
       label: "خروج از سیستم",
       // label: <Ant.Button type="text" danger block >{"خروج از سیستم"}</Ant.Button>,
@@ -133,14 +149,15 @@ const HeaderComponent = (props) => {
               </Ant.Space>
             </Ant.Col>
             <Ant.Col>
-              <Ant.Dropdown 
+              <Ant.Dropdown
                 menu={{
                   items,
+                  onClick: handleMenuClick,
                 }}
               >
                 <Ant.Space>
-                  <a>{"مدیر سیستم"}</a>
-                  <DashboardOutlined />
+                  <a>{`کاربر:${autUser.userName}`}</a>
+                  <UserOutlined />
                 </Ant.Space>
               </Ant.Dropdown>
             </Ant.Col>

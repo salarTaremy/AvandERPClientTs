@@ -33,10 +33,6 @@ const userNameRole = [
   { min: 3, message: ' طول نام کاربری کمتر از حد مجاز' },
 ]
 
-
-
-
-
 const Login = () => {
   const dispatch = useDispatch()
   const [data, loading, error, ApiCall] = usePostWithHandler()
