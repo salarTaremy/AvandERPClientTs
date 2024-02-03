@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import * as Ant from "antd";
 import { Layout } from "antd";
 import { useSelector, useDispatch } from "react-redux";
+import { CiLight } from "react-icons/ci";
+import { MdOutlineNightlight ,MdOutlineLightMode ,MdLaptop } from "react-icons/md";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  BgColorsOutlined,
-  HighlightFilled,
-  BehanceOutlined,
   SettingOutlined,
   DashboardOutlined,
   HomeOutlined,
@@ -15,9 +14,7 @@ import {
 import PropTypes from "prop-types";
 import pic from "../assets/images/avatars/1.png";
 import { Link } from "react-router-dom";
-
 const { Header } = Layout;
-
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -25,15 +22,15 @@ const { Header } = Layout;
 const options = [
   {
     value: "dark",
-    icon: <BgColorsOutlined />,
+    icon: <MdOutlineNightlight  />,
   },
   {
     value: "light",
-    icon: <HighlightFilled />,
+    icon: <MdOutlineLightMode />,
   },
   {
     value: "compact",
-    icon: <BehanceOutlined />,
+    icon: <MdLaptop />,
   },
 ];
 const HeaderComponent = (props) => {
