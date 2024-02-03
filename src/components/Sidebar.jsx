@@ -22,7 +22,7 @@ const sliderStyle = {
   overflowX: "auto",
   height: "100vh",
   right: 0,
-  backgroundColor:'transparent',
+  backgroundColor: "transparent",
   top: 0,
   bottom: 0,
 };
@@ -69,21 +69,13 @@ const AppSidebar = (props) => {
       return { ...child };
     });
   };
-  // const processSubSubMenu = (menu) => {
-  //   if (!menu) {
-  //     return null;
-  //   }
-  //   return menu.map((sub) => {
-  //     sub.icon = <AppstoreOutlined />;
-  //     sub.label = sub.title;
-  //     return { ...sub };
-  //   });
-  // };
+    //============================================================
   useEffect(() => {
     const NavMnu = data?.data[0]?.children;
     if (NavMnu) {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
+      console.log(data?.data);
     }
   }, [data?.data]);
 
@@ -91,7 +83,11 @@ const AppSidebar = (props) => {
     apiCall(url.NAV_MENU_TREE);
   }, []);
   //============================================================
-
+  const onMnuClick = (item, key, keyPath, domEvent) => {
+    console.log("item", item);
+    // alert(JSON.stringify({ item, key, keyPath, domEvent }));
+  };
+    //============================================================
   return (
     <>
       <Sider
@@ -116,13 +112,10 @@ const AppSidebar = (props) => {
           width={60}
           src={logoFlat}
         />
-       {loading ||  <Menu
-          // theme="dark"
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          items={items}
-        />}
-         {loading && <Ant.Card  loading  style={{ height: '100%' , maxHeight:'100vh'}}/>}
+        {loading || <Menu onClick={onMnuClick} mode="inline" items={items} />}
+        {loading && (
+          <Ant.Card loading style={{ height: "100%"}} />
+        )}
       </Sider>
     </>
   );
