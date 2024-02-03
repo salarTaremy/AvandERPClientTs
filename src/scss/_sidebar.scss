@@ -10,10 +10,10 @@ body {
   min-height: 100vh;
 }
 
-.header {
-  background: rgb(255, 255, 255);
-  line-height: 45px !important;
-}
+// .header {
+//   background: rgb(255, 255, 255);
+//    line-height: 45px !important;
+// }
 
 .content {
   flex: 1;
@@ -39,9 +39,9 @@ body {
   background-color: #33333360;
 }
 
-::-webkit-scrollbar-track {
-  background-color: #eaeaea; /* Set the color of the scrollbar track */
-}
+// ::-webkit-scrollbar-track {
+//   background-color: #eaeaea; /* Set the color of the scrollbar track */
+// }
 
 //scroll content
 .content::-webkit-scrollbar {
@@ -49,39 +49,25 @@ body {
 }
 
 .content::-webkit-scrollbar-thumb {
-  background-color: #33333360;
+  // background-color: #33333360;
   border-radius: 8px;
 }
 
-.content::-webkit-scrollbar-track {
-  background-color: #eaeaea; /* Set the color of the scrollbar track */
-}
-
-///ant class
-.ant-drawer-header {
-  background: #001529;
-  direction: ltr;
-}
-.ant-drawer-body {
-  background: #001529;
-}
+// .content::-webkit-scrollbar-track {
+//   background-color: #eaeaea; /* Set the color of the scrollbar track */
+// }
 
 
-.ant-drawer-title {
-  color: white !important;
-  text-align: center;
-}
 span.anticon.anticon-close {
-  color: white;
+  // color: white;
   direction: ltr;
 }
+
 .hidden {
-  // visibility: hidden;
   display: none;
 }
 
 //responsive
-
 @media (max-width: 575.98px) {
   .desktop-only {
     display: none;

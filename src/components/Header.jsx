@@ -41,9 +41,6 @@ const options = [
 const HeaderComponent = (props) => {
   const { showDrawer, handleClickSidebar, collapsed } = props;
   // const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = Ant.theme.useToken();
 
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme);
@@ -95,10 +92,6 @@ const HeaderComponent = (props) => {
     <>
       <Header
         className="header"
-        style={{
-          padding: 10,
-          background: colorBgContainer,
-        }}
       >
         <Ant.Flex gap="middle" align="start" vertical>
           <Ant.Flex

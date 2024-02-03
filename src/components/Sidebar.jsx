@@ -34,10 +34,6 @@ const AppSidebar = (props) => {
   const [data, loading, error, apiCall] = useFetchWithHandler();
   const [items, setItems] = useState([]);
   const { showImageSider, collapsedSider } = props;
-  const {
-    token: { colorBgContainer },
-  } = Ant.theme.useToken();
-
   useRequestManager({ error });
   //============================================================
   const processNavMenu = (menu) => {
