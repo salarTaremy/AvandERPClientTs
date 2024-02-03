@@ -64,7 +64,7 @@ const Login = () => {
     console.warn('Failed:', errorInfo)
   }
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div >
       <Content>
         <Row justify="center">
           <Col>
@@ -77,14 +77,13 @@ const Login = () => {
               <Form
                 // disabled={loading}
                 name="normal_login"
-                className="login-form"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
                 <Form.Item name="userName" rules={userNameRole}>
                   <Input
-                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    prefix={<UserOutlined />}
                     placeholder="نام کاربری"
                   />
                 </Form.Item>
@@ -93,7 +92,7 @@ const Login = () => {
                   rules={[{ required: true, message: 'کلمه عبور را وارد کنید' }]}
                 >
                   <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    prefix={<LockOutlined  />}
                     type="password"
                     placeholder="کلمه عبور"
                   />
@@ -108,7 +107,6 @@ const Login = () => {
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="login-form-button"
                     loading={loading}
                   >
                     {'ورود به حساب کاربری '}
@@ -118,7 +116,7 @@ const Login = () => {
             </Card>
           </Col>
           <Col>
-            <Card className="text-white bg-primary py-5" style={style2}>
+            <Card  style={style2}>
               <Row>
                 <div>
                   <h5>{'ورود به سیستم ERP'}</h5>

@@ -56,14 +56,19 @@ const HeaderComponent = (props) => {
           rel="noopener noreferrer"
           href="https://www.antgroup.com"
         >
-          {'پروفایل'}
+          {'حساب کاربری'}
         </a>
       ),
+    },
+    {
+      key: "2",
+      label: "تنظیمات",
     },
     {
       key: "4",
       danger: true,
       label: "خروج از سیستم",
+      // label: <Ant.Button type="text" danger block >{"خروج از سیستم"}</Ant.Button>,
       disabled: false,
     },
   ];
@@ -128,13 +133,13 @@ const HeaderComponent = (props) => {
               </Ant.Space>
             </Ant.Col>
             <Ant.Col>
-              <Ant.Dropdown
+              <Ant.Dropdown 
                 menu={{
                   items,
                 }}
               >
                 <Ant.Space>
-                  <a>{"Hover me"}</a>
+                  <a>{"مدیر سیستم"}</a>
                   <DashboardOutlined />
                 </Ant.Space>
               </Ant.Dropdown>

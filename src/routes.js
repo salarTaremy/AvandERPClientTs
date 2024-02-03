@@ -35,7 +35,7 @@ import Login from './Pages/login/Login'
 const routes = [
     { path: '/', exact: true, name: 'خانه',  element: Home },
      { path: '/dashboard', name: 'داشبورد', element: Dashboard },
-     { path: '/login', name: 'ورود به سیستم', element: Login },
+    //  { path: '/login', name: 'ورود به سیستم', element: Login },
     // { path: '/accounting/accounts', name: 'مدیریت حسابها', element: Account },
     // { path: '/accounting/accountDocument', name: 'اسناد حسابداری', element: AccountDocument },
     // { path: '/accounting/detailedAccount', name: 'حساب های تفصیل', element: DetailedAccount },
