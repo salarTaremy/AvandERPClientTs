@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   AppstoreOutlined,
-  SettingOutlined,
-  BellOutlined,
   FileOutlined,
-  PieChartOutlined,
 } from "@ant-design/icons";
 import * as Ant from "antd";
 import logo from "./../assets/images/logos/Logo2.png";
