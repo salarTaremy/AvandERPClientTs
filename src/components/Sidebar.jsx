@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  AppstoreOutlined,
-  FileOutlined,
-} from "@ant-design/icons";
+import { AppstoreOutlined, FileOutlined } from "@ant-design/icons";
 import * as Ant from "antd";
 import logo from "./../assets/images/logos/Logo2.png";
 import logoFlat from "./../assets/images/logos/LogoIcon128_Flat.png";
@@ -50,7 +47,8 @@ const AppSidebar = (props) => {
         delete item.to;
         item.children = processNavMenu(item.children);
       }
-      item.label = item.to && <Link to={item.to}>{item.title}</Link> ||item.title  ;
+      item.label =
+        (item.to && <Link to={item.to}>{item.title}</Link>) || item.title;
       return { ...item };
     });
   };
@@ -60,7 +58,8 @@ const AppSidebar = (props) => {
     }
     return menu.map((child) => {
       child.icon = <FileOutlined />;
-      child.label = child.to &&  <Link to={child.to}>{child.title}</Link> ||child.title ;
+      child.label =
+        (child.to && <Link to={child.to}>{child.title}</Link>) || child.title;
       if (child.children) {
         delete child.type;
         delete child.to;
@@ -69,7 +68,7 @@ const AppSidebar = (props) => {
       return { ...child };
     });
   };
-    //============================================================
+  //============================================================
   useEffect(() => {
     const NavMnu = data?.data[0]?.children;
     if (NavMnu) {
@@ -82,7 +81,7 @@ const AppSidebar = (props) => {
   useEffect(() => {
     apiCall(url.NAV_MENU_TREE);
   }, []);
-    //============================================================
+  //============================================================
   return (
     <>
       <Sider
@@ -92,25 +91,26 @@ const AppSidebar = (props) => {
         collapsed={collapsedSider}
         items={items}
       >
-        {!showImageSider && (
+        <Ant.Affix>
+          {!showImageSider && (
+            <Image
+              preview={false}
+              style={{ margin: "20px 30px 20px 20px", textAlign: "center" }}
+              width={200}
+              src={logo}
+            />
+          )}
+        </Ant.Affix>
+        {showImageSider && (
           <Image
             preview={false}
-            style={{ margin: "20px 30px 20px 20px", textAlign: "center" }}
-            width={200}
-            src={logo}
+            style={{ margin: "5px 10px ", textAlign: "center" }}
+            width={60}
+            src={logoFlat}
           />
         )}
-        <Image
-          className={!showImageSider ? "hidden" : ""}
-          preview={false}
-          style={{ margin: "5px 10px ", textAlign: "center" }}
-          width={60}
-          src={logoFlat}
-        />
         {loading || <Menu mode="inline" items={items} />}
-        {loading && (
-          <Ant.Card loading style={{ height: "100%"}} />
-        )}
+        {loading && <Ant.Card loading style={{ height: "100%" }} />}
       </Sider>
     </>
   );
