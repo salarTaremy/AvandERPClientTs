@@ -27,6 +27,7 @@
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
 import Dashboard from './Pages/Dashboard'
+import Login from './Pages/login/Login'
 
 
 
@@ -34,6 +35,7 @@ import Dashboard from './Pages/Dashboard'
 const routes = [
     { path: '/', exact: true, name: 'خانه',  element: Home },
      { path: '/dashboard', name: 'داشبورد', element: Dashboard },
+     { path: '/login', name: 'ورود به سیستم', element: Login },
     // { path: '/accounting/accounts', name: 'مدیریت حسابها', element: Account },
     // { path: '/accounting/accountDocument', name: 'اسناد حسابداری', element: AccountDocument },
     // { path: '/accounting/detailedAccount', name: 'حساب های تفصیل', element: DetailedAccount },
