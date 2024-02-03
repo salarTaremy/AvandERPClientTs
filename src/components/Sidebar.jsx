@@ -74,7 +74,6 @@ const AppSidebar = (props) => {
     if (NavMnu) {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
-      console.log(data?.data);
     }
   }, [data?.data]);
 
