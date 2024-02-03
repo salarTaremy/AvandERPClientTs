@@ -13,6 +13,7 @@ import { useFetch, useFetchWithHandler } from "../api";
 import * as api from "../api";
 import * as url from "../api/url";
 import useRequestManager from "../hooks/useRequestManager";
+import { Link } from "react-router-dom";
 const { Sider } = Layout;
 
 const sliderStyle = {
@@ -46,9 +47,10 @@ const AppSidebar = (props) => {
       }
       if (item.children) {
         delete item.type;
+        delete item.to;
         item.children = processNavMenu(item.children);
       }
-      item.label = item.title;
+      item.label = item.to && <Link to={item.to}>{item.title}</Link> ||item.title  ;
       return { ...item };
     });
   };
@@ -58,9 +60,10 @@ const AppSidebar = (props) => {
     }
     return menu.map((child) => {
       child.icon = <FileOutlined />;
-      child.label = child.title;
+      child.label = child.to &&  <Link to={child.to}>{child.title}</Link> ||child.title ;
       if (child.children) {
         delete child.type;
+        delete child.to;
         child.children = processSubMenu(child.children);
       }
       return { ...child };
@@ -79,11 +82,6 @@ const AppSidebar = (props) => {
   useEffect(() => {
     apiCall(url.NAV_MENU_TREE);
   }, []);
-  //============================================================
-  const onMnuClick = (item, key, keyPath, domEvent) => {
-    console.log("item", item);
-    // alert(JSON.stringify({ item, key, keyPath, domEvent }));
-  };
     //============================================================
   return (
     <>
@@ -109,7 +107,7 @@ const AppSidebar = (props) => {
           width={60}
           src={logoFlat}
         />
-        {loading || <Menu onClick={onMnuClick} mode="inline" items={items} />}
+        {loading || <Menu mode="inline" items={items} />}
         {loading && (
           <Ant.Card loading style={{ height: "100%"}} />
         )}
