@@ -20,9 +20,9 @@
 // import BrandList from './Pages/inventory/brand/list/BrandList'
 
 //Developer
-// import BlankPage from './Pages/Developers/Samples/BlankPage'
-// import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
-// import ListSample from './Pages/Developers/Samples/listSample/ListSample'
+import BlankPage from './Pages/Developers/Samples/BlankPage'
+import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
+import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
@@ -35,7 +35,7 @@ import Login from './Pages/login/Login'
 const routes = [
     { path: '/', exact: true, name: 'خانه',  element: Home },
      { path: '/dashboard', name: 'داشبورد', element: Dashboard },
-    //  { path: '/login', name: 'ورود به سیستم', element: Login },
+    // { path: '/login', name: 'ورود به سیستم', element: Login },
     // { path: '/accounting/accounts', name: 'مدیریت حسابها', element: Account },
     // { path: '/accounting/accountDocument', name: 'اسناد حسابداری', element: AccountDocument },
     // { path: '/accounting/detailedAccount', name: 'حساب های تفصیل', element: DetailedAccount },
@@ -46,9 +46,9 @@ const routes = [
     // { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
     // { path: '/base/brand', name: 'برند', element: BrandList},
     // { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },
-    // { path: '/developers/samples/blankPage', name: 'صفحه خالی', element: BlankPage },
-    // { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
-    // { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
+    { path: '/developers/samples/blankPage', name: 'صفحه خالی', element: BlankPage },
+    { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
+    { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
     // { path: '/test/form', name: 'نمونه لیست', element: TestForm },
     { path: '*', name: 'خطای 404',  element: NotFoundPage },
   ]
