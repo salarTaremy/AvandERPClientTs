@@ -8,8 +8,8 @@
 // import DetailedAccount from'./Pages/accounting/detailedAccount/DetailedAccount'
 // import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/DetailedAccountGroup'
 
-// //Dashboard
-// import Dashboard from './Pages/dashboard/Dashboard'
+//Dashboard
+import Dashboard from './Pages/dashboard/Dashboard'
 
 //Permissions
 import MenuPermissions from './Pages/permissions/menuPermissions/MenuPermissions'
@@ -26,7 +26,6 @@ import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
-import Dashboard from './Pages/Dashboard'
 import Login from './Pages/login/Login'
 
 
