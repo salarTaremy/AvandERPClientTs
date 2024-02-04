@@ -36,45 +36,46 @@ body {
 // }
 .Toastify__toast-body {
   font-family: 'MyFont';
-  font-weight: 300;
+  font-size:small;
+  // font-weight: 300;
 }
 
 .highcharts-credits{
   visibility: hidden;
 }
 
-.ant-table-container {
-  min-height: 50vh;
-  max-height: 54vh;
-}
-.ant-btn.btn-success{
-  color: #52c41a;
-  border-color: #52c41a;
-}
-.ant-btn.btn-info{
-  color: #13c2c2;
-  border-color: #13c2c2;
-}
-.ant-btn.btn-danger{
-  color: #f5222d;
-  border-color: #f5222d;
-}
-.ant-btn.btn-primary{
-  color: #1677ff;
-  border-color: #1677ff;
-}
-.ant-btn.btn-warning{
-  color: #fa8c16;
-  border-color: #fa8c16;
-}
-.ant-btn.btn-filter{
-  color: #722ed1;
-  border-color: #722ed1;
-}
+// .ant-table-container {
+//   min-height: 50vh;
+//   max-height: 54vh;
+// }
+// .ant-btn.btn-success{
+//   color: #52c41a;
+//   border-color: #52c41a;
+// }
+// .ant-btn.btn-info{
+//   color: #13c2c2;
+//   border-color: #13c2c2;
+// }
+// .ant-btn.btn-danger{
+//   color: #f5222d;
+//   border-color: #f5222d;
+// }
+// .ant-btn.btn-primary{
+//   color: #1677ff;
+//   border-color: #1677ff;
+// }
+// .ant-btn.btn-warning{
+//   color: #fa8c16;
+//   border-color: #fa8c16;
+// }
+// .ant-btn.btn-filter{
+//   color: #722ed1;
+//   border-color: #722ed1;
+// }
 
-span.anticon.anticon-right.ant-collapse-arrow svg{
-  color: #fa8c16;
-}
+// span.anticon.anticon-right.ant-collapse-arrow svg{
+//   color: #fa8c16;
+// }
 
 
 
@@ -90,8 +91,6 @@ span.anticon.anticon-right.ant-collapse-arrow svg{
 ::-webkit-scrollbar-track {
   border-radius: 0;
   background: #eeeeee;
-
-
 }
 
 /* Handle */
@@ -124,20 +123,3 @@ span.anticon.anticon-right.ant-collapse-arrow svg{
   color: #fa8c15;
 }
 
-
-
-// #038fdd
-
-// .ant-btn{
-//   :hover{
-//     color: red;
-//     border-color: red;
-//   }
-// }
-
-// export const BUTTON_SUCCESS_STYLES = { color: color.green.primary, borderColor: color.green.primary }
-// export const BUTTON_INFO_STYLES = { color: color.cyan.primary, borderColor: color.cyan.primary }
-// export const BUTTON_DANGER_STYLES = { color: color.red.primary, borderColor: color.red.primary }
-// export const BUTTON_PRIMARY_STYLES = { color: color.blue.primary, borderColor: color.blue.primary }
-// export const BUTTON_WARNING_STYLES = { color: color.orange.primary, borderColor: color.orange.primary }
-// export const BUTTON_FILTER_STYLES = { color: color.purple.primary, borderColor: color.purple.primary }
