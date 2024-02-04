@@ -1,66 +1,66 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Button, Checkbox, Form, Input, notification } from 'antd'
-import { Col, Row, Card } from 'antd'
-import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import logo from '@/assets/images/logos/Iranavandfar.png'
-import { Layout } from 'antd'
-import { usePostWithHandler } from '@/api'
-import { toast } from 'react-toastify'
-import * as url from '@/api/url'
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Button, Checkbox, Form, Input, notification } from "antd";
+import { Col, Row, Card, Space } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import logo from "@/assets/images/logos/Iranavandfar.png";
+import { Layout } from "antd";
+import { usePostWithHandler } from "@/api";
+import { toast } from "react-toastify";
+import * as url from "@/api/url";
 
-const { Content } = Layout
+const { Content } = Layout;
 const style1 = {
-  height: '100%',
-  borderStartStartRadius: '40px',
-  borderStartEndRadius: '0px',
-  borderEndStartRadius: '0px',
-  borderEndEndRadius: '0px',
-  overflow: 'hidden',
-}
+  height: "100%",
+  borderStartStartRadius: "40px",
+  borderStartEndRadius: "0px",
+  borderEndStartRadius: "0px",
+  borderEndEndRadius: "0px",
+  overflow: "hidden",
+};
 
 const style2 = {
-  height: '100%',
-  borderStartStartRadius: '0px',
-  borderStartEndRadius: '0px',
-  borderEndStartRadius: '0px',
-  borderEndEndRadius: '40px',
-  overflow: 'hidden',
-}
+  height: "100%",
+  borderStartStartRadius: "0px",
+  borderStartEndRadius: "0px",
+  borderEndStartRadius: "0px",
+  borderEndEndRadius: "40px",
+  overflow: "hidden",
+};
 const userNameRole = [
-  { required: true, message: 'نام کاربری را وارد کنید' },
-  { max: 15, message: 'فکر نمیکنید طول نام کاربری شما زیاد باشد؟' },
-  { min: 3, message: ' طول نام کاربری کمتر از حد مجاز' },
-]
+  { required: true, message: "نام کاربری را وارد کنید" },
+  { max: 15, message: "فکر نمیکنید طول نام کاربری شما زیاد باشد؟" },
+  { min: 3, message: " طول نام کاربری کمتر از حد مجاز" },
+];
 
 const Login = () => {
-  const dispatch = useDispatch()
-  const [data, loading, error, ApiCall] = usePostWithHandler()
+  const dispatch = useDispatch();
+  const [data, loading, error, ApiCall] = usePostWithHandler();
   useEffect(() => {
     if (data) {
-      const autUser = data.data.user
-      const autToken = data.data.token
-      localStorage.setItem('autToken', autToken)
-      toast.info(`خوش آمدید ${autUser.userName}`)
-      dispatch({ type: 'set', autUser: autUser })
+      const autUser = data.data.user;
+      const autToken = data.data.token;
+      localStorage.setItem("autToken", autToken);
+      toast.info(`خوش آمدید ${autUser.userName}`);
+      dispatch({ type: "set", autUser: autUser });
     }
-  }, [data])
+  }, [data]);
   useEffect(() => {
     if (error) {
       error?.errors?.map((item) => {
-        toast.error(item.message)
-      })
+        toast.error(item.message);
+      });
     }
-  }, [error])
+  }, [error]);
   const onFinish = async (values) => {
-    await ApiCall(url.AUTH_LOGIN, values)
-  }
+    await ApiCall(url.AUTH_LOGIN, values);
+  };
 
   const onFinishFailed = (errorInfo) => {
-    console.warn('Failed:', errorInfo)
-  }
+    console.warn("Failed:", errorInfo);
+  };
   return (
-    <div >
+    <div style={{marginTop:'25vh'}}>
       <Content>
         <Row justify="center">
           <Col>
@@ -78,48 +78,47 @@ const Login = () => {
                 onFinishFailed={onFinishFailed}
               >
                 <Form.Item name="userName" rules={userNameRole}>
-                  <Input
-                    prefix={<UserOutlined />}
-                    placeholder="نام کاربری"
-                  />
+                  <Input prefix={<UserOutlined />} placeholder="نام کاربری" />
                 </Form.Item>
                 <Form.Item
                   name="password"
-                  rules={[{ required: true, message: 'کلمه عبور را وارد کنید' }]}
+                  rules={[
+                    { required: true, message: "کلمه عبور را وارد کنید" },
+                  ]}
                 >
                   <Input.Password
-                    prefix={<LockOutlined  />}
+                    prefix={<LockOutlined />}
                     type="password"
                     placeholder="کلمه عبور"
                   />
                 </Form.Item>
                 <Form.Item>
                   <Form.Item name="remember" valuePropName="checked" noStyle>
-                    <Checkbox>{'مرا به خاطر بسپار'}</Checkbox>
+                    <Checkbox>{"مرا به خاطر بسپار"}</Checkbox>
                   </Form.Item>
                 </Form.Item>
 
                 <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={loading}
-                  >
-                    {'ورود به حساب کاربری '}
+                  <Button type="primary" htmlType="submit" loading={loading}>
+                    {"ورود به حساب کاربری "}
                   </Button>
                 </Form.Item>
               </Form>
             </Card>
           </Col>
           <Col>
-            <Card  style={style2} className='bg-violet-700 text-slate-50'>
+            <Card style={style2} className="bg-blue-800 text-slate-50 ">
               <Row>
                 <div>
-                  <h5>{'ورود به سیستم ERP'}</h5>
+                  <h4>{"ورود به سیستم ERP"}</h4>
                   <br></br>
-                  <p>{'کلمه عبور شامل حروف واعداد وحساس به حروف کوچک و بزرگ میباشد.'}</p>
-                  <p>{'لطفا قبل از ورود اطلاعات وضعیت CapsLock را چک کنید.'}</p>
-                  <p>{'نام کاربری فقط شامل حروف انگلیسی میباشد.'}</p>
+                  <p>
+                    {
+                      "کلمه عبور شامل حروف واعداد وحساس به حروف کوچک و بزرگ میباشد."
+                    }
+                  </p>
+                  <p>{" قبل از ورود اطلاعات وضعیت CapsLock را چک کنید."}</p>
+                  <p>{"نام کاربری فقط شامل حروف انگلیسی میباشد."}</p>
                 </div>
               </Row>
             </Card>
@@ -127,7 +126,7 @@ const Login = () => {
         </Row>
       </Content>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
