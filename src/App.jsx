@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import { ConfigProvider, theme } from "antd";
 import faIR from "antd/locale/fa_IR";
 import "./scss/style.scss";
+import "./index.css";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 

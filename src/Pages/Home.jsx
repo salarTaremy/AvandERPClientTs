@@ -8,9 +8,8 @@ import { useFetch, useFetchWithHandler } from "../api";
 import { json } from "react-router-dom";
 
 const Home = () => {
-  
   const [data, loading, error, call] = useFetchWithHandler();
-  useRequestManager({error})
+  useRequestManager({ error });
 
   useEffect(() => {
     call(url.ACCOUNT);
