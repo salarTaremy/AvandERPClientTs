@@ -1,12 +1,12 @@
 
 
-// //Accounting
-// import Account from  './Pages/accounting/account/Account'
-// import AccountDocument from './Pages/accounting/accountDocument/AccountDocument'
+//Accounting
+ import Account from  './Pages/accounting/account/Account'
+import AccountDocument from './Pages/accounting/accountDocument/AccountDocument'
 // import FrmAddAccountDocument from './Pages/accounting/accountDocument/add/FrmAddAccountDocument'
-// import DocumentTypeList from './Pages/accounting/documentType/list/DocumentTypeList'
-// import DetailedAccount from'./Pages/accounting/detailedAccount/DetailedAccount'
-// import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/DetailedAccountGroup'
+import DocumentTypeList from './Pages/accounting/documentType/list/DocumentTypeList'
+import DetailedAccount from'./Pages/accounting/detailedAccount/DetailedAccount'
+import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/DetailedAccountGroup'
 
 //Dashboard
 import Dashboard from './Pages/dashboard/Dashboard'
@@ -35,11 +35,11 @@ const routes = [
     { path: '/', exact: true, name: 'خانه',  element: Home },
      { path: '/dashboard', name: 'داشبورد', element: Dashboard },
     // { path: '/login', name: 'ورود به سیستم', element: Login },
-    // { path: '/accounting/accounts', name: 'مدیریت حسابها', element: Account },
-    // { path: '/accounting/accountDocument', name: 'اسناد حسابداری', element: AccountDocument },
-    // { path: '/accounting/detailedAccount', name: 'حساب های تفصیل', element: DetailedAccount },
-    // { path: '/accounting/documentType', name: 'انواع سند حسابداری ', element: DocumentTypeList },
-    // { path: '/accounting/detailedAccountGroup', name: 'گروه های تفصیل', element: DetailedAccountGroup },
+    { path: '/accounting/accounts', name: 'مدیریت حسابها', element: Account },
+    { path: '/accounting/accountDocument', name: 'اسناد حسابداری', element: AccountDocument },
+    { path: '/accounting/detailedAccount', name: 'حساب های تفصیل', element: DetailedAccount },
+    { path: '/accounting/documentType', name: 'انواع سند حسابداری ', element: DocumentTypeList },
+    { path: '/accounting/detailedAccountGroup', name: 'گروه های تفصیل', element: DetailedAccountGroup },
     // { path: '/accounting/accountDocument/New', name: 'سند حسابداری جدید', element: FrmAddAccountDocument },
     // { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
     // { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
