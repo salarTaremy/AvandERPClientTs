@@ -112,7 +112,7 @@ const Login = () => {
             </Card>
           </Col>
           <Col>
-            <Card  style={style2}>
+            <Card  style={style2} className='bg-violet-700 text-slate-50'>
               <Row>
                 <div>
                   <h5>{'ورود به سیستم ERP'}</h5>
