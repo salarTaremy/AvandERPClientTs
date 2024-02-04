@@ -11,8 +11,8 @@
 // //Dashboard
 // import Dashboard from './Pages/dashboard/Dashboard'
 
-// //Permissions
-// import MenuPermissions from './Pages/permissions/menuPermissions/MenuPermissions'
+//Permissions
+import MenuPermissions from './Pages/permissions/menuPermissions/MenuPermissions'
 
 // //Inventory
 // import AddProduct from './Pages/inventory/product/add/AddProduct'
@@ -45,7 +45,7 @@ const routes = [
     // { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
     // { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
     // { path: '/base/brand', name: 'برند', element: BrandList},
-    // { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },
+    { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },
     { path: '/developers/samples/blankPage', name: 'صفحه خالی', element: BlankPage },
     { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
     { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },

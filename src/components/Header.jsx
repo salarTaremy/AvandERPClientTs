@@ -48,9 +48,8 @@ const HeaderComponent = (props) => {
 
   const handleMenuClick = ({ key }) => {
     if (key === "exit") {
-      dispatch({ type: 'set', autUser: null })
-      dispatch({ type: 'set', autToken: null })
-
+      dispatch({ type: "set", autUser: null });
+      dispatch({ type: "set", autToken: null });
     }
   };
   //====================================================================
@@ -90,9 +89,7 @@ const HeaderComponent = (props) => {
   //====================================================================
   return (
     <>
-      <Header
-        className="header"
-      >
+      <Header className="header">
         <Ant.Flex gap="middle" align="start" vertical>
           <Ant.Flex
             style={{
@@ -118,21 +115,15 @@ const HeaderComponent = (props) => {
                 >
                   <MenuUnfoldOutlined />
                 </Ant.Button>
-
                 <Link to={"/"}>
                   <Ant.Button type="link" icon={<HomeOutlined />} />
                 </Link>
-                <Ant.Button
-                  icon={<SettingOutlined />}
-                  type="link"
-                  onClick={() => {
-                    alert("Ok setting");
-                  }}
-                />
+                <Link to={"permissions/menuPermissions"}>
+                  <Ant.Button type="link" icon={<SettingOutlined />} />
+                </Link>
                 <Link to={"dashboard"}>
                   <Ant.Button type="link" icon={<DashboardOutlined />} />
                 </Link>
-
                 <Ant.Segmented
                   defaultValue={theme}
                   options={options}
