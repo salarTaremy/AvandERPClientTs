@@ -33,8 +33,6 @@ const FilterPanel = (props) => {
   const onFinish = (values) => {
     onSubmit({
       ...values,
-      fromDate: values?.fromDate?.toString(),
-      toDate: values?.toDate?.toString(),
     })
   }
   //====================================================================

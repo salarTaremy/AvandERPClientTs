@@ -22,16 +22,25 @@ const FilterPanel = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    const yearFrom = filterObject?.fromDate?.substr(0, 4)
-    const monthFrom = filterObject?.fromDate?.substr(4, 2)
-    const dayFrom = filterObject?.fromDate?.substr(6, 2)
+    const dateFilter = {}
+    if (filterObject?.fromDate) {
+      const yearFrom = filterObject?.fromDate?.substr(0, 4)
+      const monthFrom = filterObject?.fromDate?.substr(4, 2)
+      const dayFrom = filterObject?.fromDate?.substr(6, 2)
+      const formattedFromDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
+      dateFilter.fromDate= formattedFromDate;
+    }
 
-    const yearTo = filterObject?.toDate?.substr(0, 4)
-    const monthTo = filterObject?.toDate?.substr(4, 2)
-    const dayTo = filterObject?.toDate?.substr(6, 2)
-    const formattedFromDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
-    const formattedToDate = `${yearTo}/${monthTo}/${dayTo}`;
-    filterObject && form.setFieldsValue({ ...filterObject,fromDate:formattedFromDate,toDate:formattedToDate })
+    if (filterObject?.toDate) {
+      const yearTo = filterObject?.toDate?.substr(0, 4)
+      const monthTo = filterObject?.toDate?.substr(4, 2)
+      const dayTo = filterObject?.toDate?.substr(6, 2)
+      const formattedToDate = `${yearTo}/${monthTo}/${dayTo}`;
+      dateFilter.toDate= formattedToDate;
+    }
+    // filterObject && form.setFieldsValue({ ...filterObject, fromDate: formattedFromDate, toDate: formattedToDate })
+    filterObject && form.setFieldsValue({ ...filterObject,...dateFilter })
+
   }, [])
   //====================================================================
   //                        Functions
