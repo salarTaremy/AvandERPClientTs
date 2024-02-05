@@ -149,9 +149,6 @@ const AccountDocumentList = () => {
   //====================================================================
   return (
     <>
-    <pre>
-      {JSON.stringify(filterObject,null,2)}
-    </pre>
       <Ant.Modal
         open={modalState}
         centered

@@ -148,9 +148,9 @@ const FrmLinkAccountDetailAccount = (props) => {
         </Ant.Col>
       </Ant.Row>
 
-      <Ant.Typography style={{ maxHeight: 200 }}>
+      {/* <Ant.Typography style={{ maxHeight: 200 }}>
         <pre>{JSON.stringify(dataSource, null, 2)}</pre>
-      </Ant.Typography>
+      </Ant.Typography> */}
     </>
   )
 }
