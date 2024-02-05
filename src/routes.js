@@ -30,8 +30,6 @@ import Home from './Pages/Home'
 import Login from './Pages/login/Login'
 
 
-
-
 const routes = [
     { path: '/', exact: true, name: 'خانه',  element: Home },
      { path: '/dashboard', name: 'داشبورد', element: Dashboard },
