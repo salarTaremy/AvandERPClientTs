@@ -9,6 +9,9 @@ export const ACCOUNT_TREE = "/account/tree"
 //AccountDocument
 export const ACCOUNT_DOCUMENT = "/AccountingDocument"
 
+//AccountDocumentDetail
+export const ACCOUNT_DOCUMENT_DETAIL = "/AccountingDocumentDetail"
+
 //AccountingDocumentType
 export const ACCOUNTING_DOCUMENT_TYPE = '/accountingDocumentType'
 

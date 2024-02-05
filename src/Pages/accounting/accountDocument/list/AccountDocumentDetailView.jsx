@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import Loading from '@/components/common/Loading';
 const AccountDocumentDetailView = (props) => {
     const { id } = props
-    const [data, loading, error] = api.useFetch(url.ACCOUNT_DOCUMENT + '/' + id.toString())
+    const [data, loading, error] = api.useFetch(url.ACCOUNT_DOCUMENT_DETAIL + '?AccountingDocumentID=' + id.toString())
     return (
       <>
        {loading &&  <Loading    message= "" description = {`درحال دانلود اطلاعات آرتیکل سند شناسه ${id}`} />}
