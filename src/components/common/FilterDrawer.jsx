@@ -39,7 +39,7 @@ const FilterDrawer = (props) => {
           description="برای لغو کلیه فیلتر ها مطمئن هستید؟"
           onConfirm={onRemoveFilter}
         >
-          <Ant.Button size="middle" icon={<MdFilterAltOff />} className="btn-danger" />
+          <Ant.Button size="middle" icon={<MdFilterAltOff />} className="text-red-600 border-red-600" />
         </Ant.Popconfirm>
       </Ant.Space>
     )

@@ -30,7 +30,6 @@ const FilterPanel = (props) => {
       const formattedFromDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
       dateFilter.fromDate= formattedFromDate;
     }
-
     if (filterObject?.toDate) {
       const yearTo = filterObject?.toDate?.substr(0, 4)
       const monthTo = filterObject?.toDate?.substr(4, 2)
@@ -40,7 +39,6 @@ const FilterPanel = (props) => {
     }
     // filterObject && form.setFieldsValue({ ...filterObject, fromDate: formattedFromDate, toDate: formattedToDate })
     filterObject && form.setFieldsValue({ ...filterObject,...dateFilter })
-
   }, [])
   //====================================================================
   //                        Functions
