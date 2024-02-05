@@ -11,7 +11,7 @@ import { PropTypes } from 'prop-types'
 import { useParams } from 'react-router-dom'
 import * as uuid from 'uuid'
 export const Table = (props) => {
-    const { onSubmit, footer, updateDebtor, updateCreditor } = props
+    const { onSubmit, footer, updateDebtor, updateCreditor, updateDebtorEdit, updateCreditorEdit, dataEdit } = props
     const [form] = Ant.Form.useForm()
     const [accountData, accountLoading, accountError] = useFetch(url.ACCOUNT)
     const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT)
@@ -22,6 +22,7 @@ export const Table = (props) => {
     useRequestManager({ error: dtAccError })
     const [dataSource, setDataSource] = useState([])
     const [dataNewSource, setNewDataSource] = useState([])
+    const params = useParams()
     const commonOptions = {
         placeholder: 'انتخاب کنید...',
         showSearch: true,
@@ -31,33 +32,21 @@ export const Table = (props) => {
         border: '1px solid #80808047',
         padding: '2px 2rem ',
         borderRadius: '5px',
-
-
     }
     //====================================================================
     //                            useEffects
     //====================================================================
 
-    const params = useParams()
-    useEffect(() => {
-        console.log(params.id, "params")
-    }, [])
+
     useEffect(() => {
         onEditDetail()
     }, [])
-
-
-    // useEffect(() => {
-    //     if (listDataDetail) {
-    //         setNewDataSource(listDataDetail?.data)
-    //     }
-    // }, [listDataDetail])
-
 
     useEffect(() => {
         if (listDataDetail) {
             const result = listDataDetail?.data.map(item => ({
                 ...item,
+                id: item.id,
                 key: uuid.v1()
             }));
             setNewDataSource(result);
@@ -66,70 +55,121 @@ export const Table = (props) => {
 
 
     useEffect(() => {
-        let totalDebit = 0
-        dataSource.map((item) => {
-            totalDebit += (item.valueDebtor && parseInt(item.valueDebtor)) || 0
-        })
-        updateDebtor(totalDebit)
+        if (params.id == undefined && params.id == null) {
+            let totalDebit = 0
+            dataSource.map((item) => {
+                totalDebit += (item.valueDebtor && parseInt(item.valueDebtor)) || 0
+                updateDebtor(totalDebit)
+            })
+        }
     }, [dataSource])
 
 
     useEffect(() => {
-        let totalCredit = 0
-        dataSource.map((item) => {
-            totalCredit += (item.valueDebtor && parseInt(item.valueCreditor)) || 0
-        })
-        updateCreditor(totalCredit)
+        if (params.id == undefined && params.id == null) {
+            let totalCredit = 0
+            dataSource.map((item) => {
+                totalCredit += (item.valueCreditor && parseInt(item.valueCreditor)) || 0
+                updateCreditor(totalCredit)
+            })
+        }
     }, [dataSource])
 
 
+
+    useEffect(() => {
+        if (params.id !== undefined && params.id !== null) {
+            let totalDebit = 0
+            listDataDetail?.data.map((item) => {
+                totalDebit += (item.debtor && parseInt(item.debtor)) || 0
+                updateCreditorEdit(totalDebit)
+            })
+            dataNewSource.map((item) => {
+                totalDebit += (item.valueDebtor && parseInt(item.valueDebtor)) || 0
+                updateDebtorEdit(totalDebit)
+            })
+
+        }
+    }, [dataNewSource])
+
+
+    useEffect(() => {
+        if (params.id !== undefined && params.id !== null) {
+            let totalCredit = 0
+            listDataDetail?.data.map((item) => {
+                totalCredit += (item.creditor && parseInt(item.creditor)) || 0
+                updateCreditorEdit(totalCredit)
+            })
+
+
+            dataNewSource.map((item) => {
+                totalCredit += (item.valueCreditor && parseInt(item.valueCreditor)) || 0
+                updateCreditorEdit(totalCredit)
+            })
+
+        }
+    }, [dataNewSource])
+
+    useEffect(() => {
+        if (params.id !== undefined && params.id !== null) {
+            dataEdit(listDataDetail)
+        }
+    }, [listDataDetail])
     //====================================================================
     //                        Functions
     //====================================================================
     const onFinish = (values) => {
-        console.log(values,"FAtemeh")
         onSubmit({
             ...values,
         })
     }
-    const onEditDetail = async () => {
 
+    const onEditDetail = async () => {
         if (params.id !== undefined && params.id !== null) {
             const queryString = qs.stringify({
                 AccountingDocumentID: parseInt(params.id),
             })
             await listApiCallDetail(`${url.ACCOUNT_DOCUMENT_DETAIL}?${queryString}`)
-
-
         }
 
     }
+
     const onDelete = (key) => {
         const newData = dataSource.filter((item) => item.key !== key)
         setDataSource(newData)
+        if (params.id !== undefined && params.id !== null) {
+            const newData = dataNewSource.filter((item) => item.key !== key)
+            setNewDataSource(newData)
+        }
     }
     const onChangeAccount = (value, key) => {
 
-        console.log(key, "key")
         const selected = accountData?.data.find((account) => account.id === value)
-        setNewDataSource((prevDataSource) =>
+
+        setDataSource((prevDataSource) =>
+
             prevDataSource.map((record) => {
-                console.log("record.kkk", record.id)
-                if (record.key === key) {
+
+                if (record.key === key.key) {
                     return { ...record, accountId: value, fullCode: selected?.fullCode || null }
                 }
                 return record
             }),
         )
-        // setDataSource((prevDataSource) =>
-        //     prevDataSource.map((record) => {
-        //         console.log(record.key, "record.ke")
-        //         if (record.key === key) {
-        //             return { ...record, accountId: value, fullCode: selected?.fullCode || null }
-        //         }
-        //         return record
-        //     }),
-        // )
+
+        if (params.id !== undefined || params.id !== null) {
+            setNewDataSource((prevDataSource) =>
+                prevDataSource.map((record) => {
+                    if (record.id === key.id) {
+
+                        return { ...record, accountId: value, fullCode: selected?.fullCode || null }
+                    }
+                    return record
+                }),
+
+            )
+        }
+
     }
     const handleChangeDetailedAccount = (value, key) => {
         setDataSource((prevDataSource) =>
@@ -153,52 +193,62 @@ export const Table = (props) => {
             }),
         )
     }
+
     const handleDebtorInput = (e, key) => {
-
-
         setDataSource((prevDataSource) =>
-
             prevDataSource.map((record) => {
-                console.log(record, "recordrecord")
-                if (record.key === key) {
+
+
+                if (record === key) {
+
                     return { ...record, debtor: e?.target || 0, valueDebtor: e }
                 }
                 return record
             }),
 
         )
-        setDataSource((prevDataSource) =>
+        if (params.id !== undefined || params.id !== null) {
+            setNewDataSource((prevDataSource) =>
+                prevDataSource.map((record) => {
 
-            prevDataSource.map((record) => {
-                console.log(record, "recordrecord")
-                if (record.key === key) {
-                    return { ...record, debtor: e?.target || 0, valueDebtor: e }
-                }
-                return record
-            }),
+                    if (record.id === key.id) {
 
-        )
-        if (params.id !== undefined && params.id !== null) {
-            listDataDetail?.data.map((record) => {
-                console.log(record, "recordparams")
-                // if (record.key === key) {
-                //     return { ...record, debtor: e?.target || 0, valueDebtor: e }
-                // }
-                // return record
-            });
+                        return { ...record, debtor: e?.target || 0, valueDebtor: e }
+                    }
+                    return record
+                }),
 
+            )
         }
+
     }
+
     const handleCreditorInput = (e, key) => {
         setDataSource((prevDataSource) =>
             prevDataSource.map((record) => {
 
+
                 if (record.key === key) {
-                    return { ...record, creditor: e?.target || 0, valueCreditor: (e) }
+                    return { ...record, creditor: e?.target || 0, valueCreditor: e }
                 }
                 return record
             }),
         )
+        if (params.id !== undefined || params.id !== null) {
+            setNewDataSource((prevDataSource) =>
+                prevDataSource.map((record) => {
+
+
+                    if (record.key === key) {
+
+                        return { ...record, creditor: e?.target || 0, valueCreditor: e }
+                    }
+                    return record
+                }),
+
+            )
+        }
+
 
     }
     const validateMessage = (<small >فیلد حساب اجباری است</small>)
@@ -206,24 +256,48 @@ export const Table = (props) => {
     //                        Child Components
     //====================================================================
     const handleAdd = () => {
+
+        if (params.id !== undefined && params.id !== null) {
+            const newData = {
+                key: uuid.v1(),
+            }
+            setNewDataSource([...dataNewSource, newData])
+        }
         const data = {
             key: uuid.v1(),
 
         }
-        const newData = {
-            key: uuid.v1(),
-
-
-        }
         setDataSource([...dataSource, data])
-        setNewDataSource([...dataNewSource, newData])
-
 
 
 
     }
 
     const columns = [
+        {
+    
+            title: 'id',
+            dataIndex: 'id',
+            key: 'id',
+            align: 'center',
+            width: 50,
+            // hidden: true,
+            render: (_, record) => {
+
+                return (
+
+                    <Ant.Form.Item
+                        className='m-0'
+                        name={[record.key, "id"]}
+                        initialValue={record.id}
+                    >
+
+
+                    </Ant.Form.Item >
+                )
+            },
+
+        },
         {
             title: 'حساب کد',
             dataIndex: 'accountId',
@@ -243,8 +317,8 @@ export const Table = (props) => {
 
         {
             title: 'حساب',
-            dataIndex: 'accountingDocumentID',
-            key: 'accountingDocumentID',
+            dataIndex: 'accountId',
+            key: 'accountId',
             width: 120,
 
             render: (_, record) => (
@@ -254,15 +328,15 @@ export const Table = (props) => {
                         {
                             required: true,
                             message: validateMessage,
-                            // message: 'فیلد حساب اجباری است',
                         },
                     ]}
-                    name={[record.key, 'accountingDocumentID']}
+                    name={[record.key, 'accountId']}
+                    initialValue={record.accountId}
                 >
                     <Ant.Select
                         {...commonOptions}
                         value={record.accountId}
-                        onChange={(value) => onChangeAccount(value, record.id)}
+                        onChange={(value) => onChangeAccount(value, record)}
                         defaultValue={record.accountId}
                         placeholder={'انتخاب کنید...'}
                         disabled={accountLoading || false}
@@ -277,19 +351,20 @@ export const Table = (props) => {
         },
         {
             title: 'حساب تفصیلی',
-            dataIndex: 'detailedAccountId',
-            key: 'detailedAccountId',
+            dataIndex: 'detailedAccountId4',
+            key: 'detailedAccountId4',
             width: 120,
             render: (_, record) => (
                 <Ant.Form.Item
                     className='m-0'
                     rules={[
                         {
-                            required: true,
+                            required: false,
                             message: 'فیلد حساب تفصیلی اجباری است',
                         },
                     ]}
-                    name={[record.key, 'detailedAccountId']}
+                    name={[record.key, 'detailedAccountId4']}
+                    initialValue={record.detailedAccountId4}
                 >
                     <Ant.Select
                         {...commonOptions}
@@ -309,19 +384,20 @@ export const Table = (props) => {
         },
         {
             title: 'حساب تفصیلی',
-            dataIndex: 'detailedAccountId',
-            key: 'detailedAccountId',
+            dataIndex: 'detailedAccountId5',
+            key: 'detailedAccountId5',
             width: 120,
             render: (_, record) => (
                 <Ant.Form.Item
                     className='m-0'
                     rules={[
                         {
-                            required: true,
+                            required: false,
                             message: 'فیلد حساب تفصیلی اجباری است',
                         },
                     ]}
-                    name={[record.key, 'detailedAccountId2']}
+                    name={[record.key, 'detailedAccountId5']}
+                    initialValue={record.detailedAccountId5}
                 >
                     <Ant.Select
                         {...commonOptions}
@@ -341,19 +417,20 @@ export const Table = (props) => {
         },
         {
             title: 'حساب تفصیلی',
-            dataIndex: 'detailedAccountId',
-            key: 'detailedAccountId',
+            dataIndex: 'detailedAccountId6',
+            key: 'detailedAccountId6',
             width: 120,
             render: (_, record) => (
                 <Ant.Form.Item
                     className='m-0'
                     rules={[
                         {
-                            required: true,
+                            required: false,
                             message: 'فیلد حساب تفصیلی اجباری است',
                         },
                     ]}
-                    name={[record.key, 'detailedAccountId3']}
+                    name={[record.key, 'detailedAccountId6']}
+                    initialValue={record.detailedAccountId6}
                 >
                     <Ant.Select
                         {...commonOptions}
@@ -387,6 +464,7 @@ export const Table = (props) => {
                         },
                     ]}
                     name={[record.key, 'article']}
+                    initialValue={record.article}
                 >
                     <Ant.Input
                         onChange={(e) => handleArticleInput(e, record.key)}
@@ -413,6 +491,7 @@ export const Table = (props) => {
                         },
                     ]}
                     name={[record.key, 'debtor']}
+                    initialValue={record.debtor}
                 >
                     <Ant.InputNumber
                         value={record.debtor}
@@ -421,7 +500,6 @@ export const Table = (props) => {
                         onChange={(e) => handleDebtorInput(e, record)}
                         min={0}
                         formatter={(value) => value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-
                         style={{ width: '100%' }}
                     />
                 </Ant.Form.Item>
@@ -443,6 +521,7 @@ export const Table = (props) => {
                         },
                     ]}
                     name={[record.key, 'creditor']}
+                    initialValue={record.creditor}
                 >
 
                     <Ant.InputNumber
@@ -474,7 +553,8 @@ export const Table = (props) => {
             ),
 
         },
-    ]
+    ].filter(item => !item.hidden);
+
 
     //====================================================================
     //                      Functions
@@ -510,13 +590,13 @@ export const Table = (props) => {
 
                                 columns={columns}
 
-                                dataSource={params.id !== undefined && params.id !== null ? dataNewSource : dataNewSource}
+                                dataSource={params.id !== undefined && params.id !== null ? dataNewSource : dataSource}
                             >
 
                             </Ant.Table>
-                            <pre>
+                            {/* <pre>
                                 {JSON.stringify(dataNewSource, null, 2)}
-                            </pre>
+                            </pre> */}
 
                         </Ant.Col>
                     </Ant.Row>
@@ -533,6 +613,8 @@ Table.propTypes = {
     footer: PropTypes.func,
     updateDebtor: PropTypes.func,
     updateCreditor: PropTypes.func,
-    // dataObject: PropTypes.any,
+    updateDebtorEdit: PropTypes.any,
+    updateCreditorEdit: PropTypes.func,
     details: PropTypes.any,
+    dataEdit: PropTypes.func
 }

@@ -3,8 +3,9 @@
 //Accounting
 import Account from  './Pages/accounting/account/Account'
 import AccountDocument from './Pages/accounting/accountDocument/AccountDocument'
+import FrmEditAccountDocument  from  './Pages/accounting/accountDocument/edit/FrmEditAccountDocument'
 
-// import FrmAddAccountDocument from './Pages/accounting/accountDocument/add/FrmAddAccountDocument'
+import FrmAddAccountDocument from './Pages/accounting/accountDocument/add/FrmAddAccountDocument'
 import DocumentTypeList from './Pages/accounting/documentType/list/DocumentTypeList'
 import DetailedAccount from'./Pages/accounting/detailedAccount/DetailedAccount'
 import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/DetailedAccountGroup'
@@ -39,7 +40,8 @@ const routes = [
     { path: '/accounting/detailedAccount', name: 'حساب های تفصیل', element: DetailedAccount },
     { path: '/accounting/documentType', name: 'انواع سند حسابداری ', element: DocumentTypeList },
     { path: '/accounting/detailedAccountGroup', name: 'گروه های تفصیل', element: DetailedAccountGroup },
-    // { path: '/accounting/accountDocument/New', name: 'سند حسابداری جدید', element: FrmAddAccountDocument },
+    { path: '/accounting/accountDocument/New', name: 'سند حسابداری جدید', element: FrmAddAccountDocument },
+    { path: '/accounting/accountDocument/edit/:id', name: 'ویرایش حسابداری ', element: FrmEditAccountDocument },
     { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
     { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
     { path: '/base/brand', name: 'برند', element: BrandList},

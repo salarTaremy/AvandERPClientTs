@@ -30,7 +30,7 @@
 //     <>
 //       <Space wrap>
 //         <Tooltip title={iconOnly && 'افزودن ایتم جدید'} size={size}>
-//           <Button size={size} icon={<FileAddOutlined />} className="text-success" {...addProps}>
+//           <Button size={size} icon={<FileAddOutlined />} className="text-green-600" {...addProps}>
 //             {iconOnly || 'ایتم جدید'}
 //           </Button>
 //         </Tooltip>

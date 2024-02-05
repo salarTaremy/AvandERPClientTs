@@ -84,7 +84,7 @@ const AccountDocumentArticle = (props) => {
             />
           </Ant.Form.Item>
           <Ant.Button
-            className="text-red-600"
+            className="text-red-600 "
             onClick={() => {
               remove(field.name)
             }}

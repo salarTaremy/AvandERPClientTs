@@ -66,7 +66,7 @@ const columns = (onDelete, onEdit,onView) => {
             </Ant.Space>
             <Ant.Button
               onClick={() =>onView(val.id)}
-              className="text-info"
+              className="text-sky-600"
               icon={<GrView />}
               type="text"
             />

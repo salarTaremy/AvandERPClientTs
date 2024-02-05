@@ -6,31 +6,26 @@ import { useFetch, usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import TBL from '../../../accounting/accountDocument/add/Table'
 import * as api from '@/api'
-import {  useParams } from 'react-router-dom'
-import qs from 'qs'
-export const FrmAddAccountDocument = () => {
+import { useParams } from 'react-router-dom'
+export const FrmEditAccountDocument = () => {
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(url.ACCOUNTING_DOCUMENT_TYPE)
   const [branchData, branchLoading, branchError] = useFetch(url.BRANCH)
   const [accStateData, accStateLoading, accStateError] = useFetch(url.ACCOUNT_DOCUMENT_STATE)
   const [listDataHeader, listLoadingHeader, listErrorHeader, listApiCallHeader] =
     api.useFetchWithHandler()
-  // const [listDataDetail, listLoadingDetail, listErrorDetail, listApiCallDetail] =
-  //   api.useFetchWithHandler()
-
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
+  const [dataEditList, setDataEdit] = useState([])
+  const [sumDebtorEdit, setSumDebtorEdit] = useState(0)
+  const [sumCreditorEdit, setSumCreditorEdit] = useState(0)
   const [form] = Ant.Form.useForm()
+  const params = useParams()
+  useRequestManager({ error: editError, loading: editLoading, data: editData })
   useRequestManager({ error: accStateError })
   useRequestManager({ error: listErrorHeader })
-  // useRequestManager({ error: listErrorDetail })
-  useRequestManager({ error: editError, loading: editLoading, data: editData })
-
   useRequestManager({ error: accTypeError })
   useRequestManager({ error: branchError })
-  const [dataSource, setDataSource] = useState([])
-  // const [dataDetailObject, setDataDetailObject] = useState()
-  const [sumDebtor, setSumDebtor] = useState(0)
-  const [sumCreditor, setSumCreditor] = useState(0)
-  const params = useParams()
+
+
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -40,71 +35,40 @@ export const FrmAddAccountDocument = () => {
 
   useEffect(() => {
     onEditHeader()
-    // onEditDetail()
   }, [])
-
+  useEffect(() => {}, [dataEditList])
 
   useEffect(() => {
     form.resetFields()
     listDataHeader?.isSuccess && form.setFieldsValue({ ...(listDataHeader?.data || null) })
-    console.log(listDataHeader?.data, 'listDataHeader')
   }, [listDataHeader])
-  // useEffect(() => {
-  //   form.resetFields()
-  //   listDataDetail?.isSuccess && form.setFieldsValue({ ...(listDataDetail?.data || null) })
-  //   console.log(listDataDetail?.data, 'listDataDetail')
-  // }, [listDataDetail])
-
-  //====================================================================
-  //
-  //====================================================================
-
-  const onEditHeader = async () => {
-    await listApiCallHeader(`${url.ACCOUNT_DOCUMENT}/${params.id}`)
-  }
-  // const onEditDetail = async () => {
-  //   debugger
-
-  //   const queryString = qs.stringify({
-  //     AccountingDocumentID:parseInt(params.id),
-  //   })
-  //   await listApiCallDetail(`${url.ACCOUNT_DOCUMENT_DETAIL}?${queryString}`)
-
-  // }
-
-  const onChangeDatePicker = (e, key) => {
-    const value = e.target
-    setDataSource((prevDataSource) =>
-      prevDataSource.map((record) => {
-        if (record.key === key) {
-          return { ...record, calendarId: value }
-        }
-        return record
-      }),
-    )
-  }
 
   //====================================================================
   //                        Functions
   //====================================================================
-  const updateDebtor = (debtor) => {
-    setSumDebtor(debtor)
-  }
-  const updateCreditor = (creditor) => {
-    setSumCreditor(creditor)
+  const onEditHeader = async () => {
+    await listApiCallHeader(`${url.ACCOUNT_DOCUMENT}/${params.id}`)
   }
 
+  const dataEdit = (data) => {
+    setDataEdit(data)
+  }
+  const updateDebtorEdit = (debtor) => {
+    setSumDebtorEdit(debtor)
+  }
+  const updateCreditorEdit = (creditor) => {
+    setSumCreditorEdit(creditor)
+  }
   const onFinish = async (values) => {
-    alert("hhhhh")
     let valueHeader = form.getFieldsValue()
-    console.log(valueHeader,"valueHeader")
+
     const header = {
+      id: parseInt(params.id),
       documentNumber: 0,
       branchId: valueHeader.branchId,
-      accountingDocumentTypeId: valueHeader.AccountingDocumentTypeId,
-      accountingDocumentStateId: valueHeader.accountingDocumentStateId,
       calendarId: parseInt(valueHeader?.persianDateTilte?.toString().replace(/\//g, '')),
       subNumber: valueHeader.subNumber,
+      description: valueHeader.description,
     }
 
     const detailsList = []
@@ -114,12 +78,11 @@ export const FrmAddAccountDocument = () => {
         detailsList.push(values[key])
       }
     }
-    const filteredAnyObj = detailsList.filter((obj) => Object.keys(obj).length > 0)
-    console.log(filteredAnyObj, 'filteredAnyObj')
+
     delete header.details
     const dto = {
       header,
-      details: filteredAnyObj,
+      details: detailsList,
     }
 
     await editApiCall(url.ACCOUNT_DOCUMENT, dto)
@@ -143,9 +106,9 @@ export const FrmAddAccountDocument = () => {
             >
               {'تایید'}
             </Ant.Button>
-            <span className="text-blue-600">
-              <div>جمع کل بدهکار: {sumDebtor.toLocaleString() || 0}</div>
-              <div>جمع کل بستانکار: {sumCreditor.toLocaleString() || 0}</div>
+            <span className="text-primary">
+              <div>جمع کل بدهکار: {sumDebtorEdit.toLocaleString() || 0}</div>
+              <div>جمع کل بستانکار: {sumCreditorEdit.toLocaleString() || 0}</div>
             </span>
           </Ant.Flex>
         </Ant.Flex>
@@ -196,7 +159,7 @@ export const FrmAddAccountDocument = () => {
                         <Ant.Select
                           allowClear={true}
                           placeholder={'انتخاب کنید...'}
-                          disabled={accTypeLoading || false}
+                          disabled
                           loading={accTypeLoading}
                           options={accTypeData?.data}
                           fieldNames={{ label: 'name', value: 'id' }}
@@ -212,7 +175,7 @@ export const FrmAddAccountDocument = () => {
                         <Ant.Select
                           allowClear={true}
                           placeholder={'انتخاب کنید...'}
-                          disabled={accStateLoading || false}
+                          disabled
                           loading={accStateLoading}
                           options={accStateData?.data}
                           fieldNames={{ label: 'name', value: 'id' }}
@@ -231,7 +194,7 @@ export const FrmAddAccountDocument = () => {
                     </Ant.Col>
                     <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item name={'persianDateTilte'} label="تاریخ">
-                        <MyDatePicker onChange={onChangeDatePicker} />
+                        <MyDatePicker />
                       </Ant.Form.Item>
                     </Ant.Col>
                     <Ant.Col lg={18} md={12} sm={12} xs={24}>
@@ -245,35 +208,19 @@ export const FrmAddAccountDocument = () => {
                     </Ant.Col>
                   </Ant.Row>
                 </Ant.Form>
-                {/* <Ant.Flex gap="middle" vertical>
-                    <Ant.Flex justify="center" align="center">
-                        <Ant.Button
-                          htmlType="submit"
-                          type="primary"
-                          style={{ width: 150 }}
-                          onClick={() => {
-                            form.submit()
-                          }}
-                        >
-                          {'تایید'}
-                        </Ant.Button>
-
-                    </Ant.Flex>
-                  </Ant.Flex> */}
               </>
             ),
           },
         ]}
       />
-
       <TBL
-        updateDebtor={updateDebtor}
-        updateCreditor={updateCreditor}
+        updateDebtorEdit={updateDebtorEdit}
+        updateCreditorEdit={updateCreditorEdit}
         footer={FooterContent}
-
+        dataEdit={dataEdit}
         onSubmit={onFinish}
       />
     </>
   )
 }
-export default FrmAddAccountDocument
+export default FrmEditAccountDocument

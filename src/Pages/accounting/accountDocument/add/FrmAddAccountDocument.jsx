@@ -21,6 +21,7 @@ export const FrmAddAccountDocument = () => {
   const [sumDebtor, setSumDebtor] = useState(0)
   const [sumCreditor, setSumCreditor] = useState(0)
 
+
   useEffect(() => {
     form.resetFields()
   }, [form])
@@ -29,17 +30,7 @@ export const FrmAddAccountDocument = () => {
   //
   //====================================================================
 
-  const onChangeDatePicker = (e, key) => {
-    const value = e.target
-    setDataSource((prevDataSource) =>
-      prevDataSource.map((record) => {
-        if (record.key === key) {
-          return { ...record, calendarId: value }
-        }
-        return record
-      }),
-    )
-  }
+
 
   //====================================================================
   //                        Functions
@@ -50,6 +41,7 @@ export const FrmAddAccountDocument = () => {
   const updateCreditor = (creditor) => {
     setSumCreditor(creditor)
   }
+
 
   const onFinish = async (values) => {
     let valueHeader = form.getFieldsValue()
@@ -70,7 +62,6 @@ export const FrmAddAccountDocument = () => {
       }
     }
     const filteredAnyObj = detailsList.filter((obj) => Object.keys(obj).length > 0)
-    console.log(filteredAnyObj, 'filteredAnyObj')
     delete header.details
     const dto = {
       header,
@@ -98,14 +89,10 @@ export const FrmAddAccountDocument = () => {
             >
               {'تایید'}
             </Ant.Button>
-            <span className="text-blue-600">
+            <span className="text-primary">
               <div>جمع کل بدهکار: {sumDebtor.toLocaleString() || 0}</div>
               <div>جمع کل بستانکار: {sumCreditor.toLocaleString() || 0}</div>
             </span>
-            {/* <span className="text-blue-600">
-              <div>جمع کل بدهکار: {sumDebtor.toLocaleString() || 0}</div>
-              <div>جمع کل بستانکار: {sumCreditor.toLocaleString() || 0}</div>
-            </span> */}
           </Ant.Flex>
         </Ant.Flex>
       </>
@@ -128,7 +115,7 @@ export const FrmAddAccountDocument = () => {
 
             children: (
               <>
-                <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
+                <Ant.Form form={form} layout="vertical" onFinish Failed={null}>
                   <Ant.Row gutter={[16, 8]}>
                     <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item
@@ -192,7 +179,7 @@ export const FrmAddAccountDocument = () => {
                     </Ant.Col>
                     <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item name={'calendarId'} label="تاریخ">
-                        <MyDatePicker onChange={onChangeDatePicker} />
+                        <MyDatePicker  />
                       </Ant.Form.Item>
                     </Ant.Col>
                     <Ant.Col lg={18} md={12} sm={12} xs={24}>
@@ -206,21 +193,6 @@ export const FrmAddAccountDocument = () => {
                     </Ant.Col>
                   </Ant.Row>
                 </Ant.Form>
-                {/* <Ant.Flex gap="middle" vertical>
-                    <Ant.Flex justify="center" align="center">
-                        <Ant.Button
-                          htmlType="submit"
-                          type="primary"
-                          style={{ width: 150 }}
-                          onClick={() => {
-                            form.submit()
-                          }}
-                        >
-                          {'تایید'}
-                        </Ant.Button>
-
-                    </Ant.Flex>
-                  </Ant.Flex> */}
               </>
             ),
           },
