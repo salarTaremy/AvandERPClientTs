@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.13.3",
     "axios": "^1.6.7",
+    "gs1-prefix-code-to-country-code": "^1.0.3",
     "highcharts": "^11.3.0",
     "highcharts-react-official": "^3.2.1",
     "moment": "^2.30.1",

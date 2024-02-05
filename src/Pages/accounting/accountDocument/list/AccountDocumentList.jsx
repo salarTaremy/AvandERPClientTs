@@ -24,7 +24,6 @@ const AccountDocumentList = () => {
   const navigate = useNavigate()
   const pageTitle = 'مدیریت اسناد حسابداری'
   const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler()
-
   const [delData, delLoading, delError, delApiCall] = api.useDelWithHandler()
   const [openFilter, setOpenFilter] = useState(false)
   const [dataSource, setDataSource] = useState(null)
@@ -166,6 +165,9 @@ const AccountDocumentList = () => {
   //====================================================================
   return (
     <>
+    <pre>
+      {JSON.stringify(filterObject,null,2)}
+    </pre>
       <Ant.Modal
         open={modalState}
         centered

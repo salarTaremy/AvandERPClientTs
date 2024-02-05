@@ -1,8 +1,9 @@
 
 
 //Accounting
- import Account from  './Pages/accounting/account/Account'
+import Account from  './Pages/accounting/account/Account'
 import AccountDocument from './Pages/accounting/accountDocument/AccountDocument'
+
 // import FrmAddAccountDocument from './Pages/accounting/accountDocument/add/FrmAddAccountDocument'
 import DocumentTypeList from './Pages/accounting/documentType/list/DocumentTypeList'
 import DetailedAccount from'./Pages/accounting/detailedAccount/DetailedAccount'
@@ -15,9 +16,9 @@ import Dashboard from './Pages/dashboard/Dashboard'
 import MenuPermissions from './Pages/permissions/menuPermissions/MenuPermissions'
 
 // //Inventory
-// import AddProduct from './Pages/inventory/product/add/AddProduct'
-// import SupplierList from './Pages/inventory/supplier/list/SupplierList'
-// import BrandList from './Pages/inventory/brand/list/BrandList'
+import AddProduct from './Pages/inventory/product/add/AddProduct'
+import SupplierList from './Pages/inventory/supplier/list/SupplierList'
+import BrandList from './Pages/inventory/brand/list/BrandList'
 
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
@@ -41,9 +42,9 @@ const routes = [
     { path: '/accounting/documentType', name: 'انواع سند حسابداری ', element: DocumentTypeList },
     { path: '/accounting/detailedAccountGroup', name: 'گروه های تفصیل', element: DetailedAccountGroup },
     // { path: '/accounting/accountDocument/New', name: 'سند حسابداری جدید', element: FrmAddAccountDocument },
-    // { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
-    // { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
-    // { path: '/base/brand', name: 'برند', element: BrandList},
+    { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
+    { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
+    { path: '/base/brand', name: 'برند', element: BrandList},
     { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },
     { path: '/developers/samples/blankPage', name: 'صفحه خالی', element: BlankPage },
     { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
