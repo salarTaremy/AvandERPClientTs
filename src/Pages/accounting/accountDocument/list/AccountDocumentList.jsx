@@ -13,8 +13,7 @@ import ButtonList from '@/components/common/ButtonList'
 import FilterPanel from './FilterPanel'
 import FilterBedge from '@/components/common/FilterBedge'
 import FilterDrawer from '@/components/common/FilterDrawer'
-import FrmAddAccountDocument from '@/Pages/accounting/accountDocument/add/FrmAddAccountDocument'
-import FrmEditAccountDocument from '@/Pages/accounting/accountDocument/edit/FrmEditAccountDocument'
+import AccountDocumentDetailView from './AccountDocumentDetailView'
 import AccountDocumentDescription from '@/Pages/accounting/accountDocument/description/AccountDocumentDescription'
 import { useNavigate, generatePath } from 'react-router-dom'
 //====================================================================
@@ -67,6 +66,9 @@ const AccountDocumentList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const expandedRowRender = (record, index, indent, expanded) => {
+    return <AccountDocumentDetailView key={record.id} id={record.id} />
+  }
   const fillGrid = async () => {
     const queryString = qs.stringify({
       ...filterObject,
@@ -123,25 +125,7 @@ const AccountDocumentList = () => {
       />
     )
   }
-  //////////////////////////Temp //////////////////
-  const AccountDocumentDetailView = (props) => {
-    const { id } = props
-    const [data, loading, error] = api.useFetch(url.ACCOUNT_DOCUMENT + '/' + id.toString())
-    return (
-      <>
-        <div>AccountDocumentList {id}</div>
-        <br></br>
-        {JSON.stringify(data?.data)}
-      </>
-    )
-  }
-  AccountDocumentDetailView.propTypes = {
-    id: PropTypes.any,
-  }
-  const expandedRowRender = (record, index, indent, expanded) => {
-    return <AccountDocumentDetailView key={record.id} id={record.id} />
-  }
-  /////////////////////////////
+//====================================================================
   const Grid = () => {
     return (
       <>
