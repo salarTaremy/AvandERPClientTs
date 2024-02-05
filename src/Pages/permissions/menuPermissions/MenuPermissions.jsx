@@ -173,14 +173,14 @@ const MenuPermissions = () => {
     loading: false,
     disabled: disableButtons,
     icon: <DeleteOutlined />,
-    className: 'text-danger',
+    className: 'text-red-600 border-red-600',
     children: 'حذف',
   }
   const btnEdit = {
     loading: false,
     disabled: disableButtons,
     icon: <EditOutlined />,
-    className: 'text-info',
+    className: 'text-sky-600 border-sky-600',
     children: 'ویرایش',
     onClick: () => {
       setOpenEdit(true)
@@ -193,13 +193,13 @@ const MenuPermissions = () => {
       setOpen(true)
     },
     icon: <FileAddOutlined />,
-    className: 'text-success',
+    className: 'text-green-600 border-green-600',
     children: 'افزودن',
   }
   const btnRefresh = {
     loading: false,
     // disabled: disableButtons,
-    className: 'text-primary',
+    className: 'text-blue-600 border-blue-600',
     icon: <TbRefresh />,
     onClick: () => {
       FillTree()

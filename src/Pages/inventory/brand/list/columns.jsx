@@ -59,7 +59,7 @@ const columns = (onDelete, onEdit,onView) => {
             <Ant.Space direction="horizontal" size={20}>
               <Ant.Button
                 onClick={() => onEdit(val)}
-                className="text-primary"
+                className="text-blue-600"
                 icon={<FiEdit />}
                 type="text"
               />
@@ -71,7 +71,7 @@ const columns = (onDelete, onEdit,onView) => {
               type="text"
             />
             <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف برند"${val.name}" مطمئن هستید؟`}>
-              <Ant.Button className="text-danger" icon={<RiDeleteBin6Line />} type="text" />
+              <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
             </Ant.Popconfirm>
           </>
       },

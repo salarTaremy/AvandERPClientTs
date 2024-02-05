@@ -468,7 +468,7 @@ export const Table = (props) => {
             render: (text, val) => (
                 <>
                     <Ant.Popconfirm onConfirm={() => onDelete(val.key)} title={`برای حذف سطر مطمئن هستید؟`}>
-                        <Ant.Button className="text-danger" icon={<RiDeleteBin6Line />} type="text" />
+                        <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
                     </Ant.Popconfirm>
                 </>
             ),

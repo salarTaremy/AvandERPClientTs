@@ -98,11 +98,11 @@ export const FrmAddAccountDocument = () => {
             >
               {'تایید'}
             </Ant.Button>
-            <span className="text-primary">
+            <span className="text-blue-600">
               <div>جمع کل بدهکار: {sumDebtor.toLocaleString() || 0}</div>
               <div>جمع کل بستانکار: {sumCreditor.toLocaleString() || 0}</div>
             </span>
-            {/* <span className="text-primary">
+            {/* <span className="text-blue-600">
               <div>جمع کل بدهکار: {sumDebtor.toLocaleString() || 0}</div>
               <div>جمع کل بستانکار: {sumCreditor.toLocaleString() || 0}</div>
             </span> */}

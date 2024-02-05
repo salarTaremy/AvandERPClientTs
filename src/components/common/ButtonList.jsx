@@ -6,7 +6,7 @@ import { FaFilter ,FaFolderPlus} from "react-icons/fa6";
 import { FiEdit ,FiRefreshCw,FiFilter  } from 'react-icons/fi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 //Example For Items:
-//const items = [{ icon: <MailOutlined />, className: 'text-danger', onClick: () => {}, children: 'Click Me !' }]
+//const items = [{ icon: <MailOutlined />, className: 'text-red-600', onClick: () => {}, children: 'Click Me !' }]
 
 const ButtonBar = (props) => {
   const { items } = props
@@ -22,7 +22,7 @@ const ButtonBar = (props) => {
     return (
       onAdd && (
         <Tooltip title={iconOnly && 'ایجاد ایتم جدید'} size={size}>
-          <Button onClick={onAdd} size={size} icon={<FaFolderPlus />} className='btn-success'>
+          <Button onClick={onAdd} size={size} icon={<FaFolderPlus />} className='text-green-600 border-green-600'>
             {iconOnly || 'ایتم جدید'}
           </Button>
         </Tooltip>
@@ -33,7 +33,7 @@ const ButtonBar = (props) => {
     return (
       onEdit && (
         <Tooltip title={iconOnly && 'ویرایش ایتم مورد نظر'} size={size}>
-          <Button onClick={onEdit} size={size} icon={<FiEdit />} className='btn-info'>
+          <Button onClick={onEdit} size={size} icon={<FiEdit />} className='text-sky-600 border-sky-600'>
             {iconOnly || 'ویرایش'}
           </Button>
         </Tooltip>
@@ -51,7 +51,7 @@ const ButtonBar = (props) => {
             okText="بلی"
             cancelText="خیر"
           >
-            <Button size={size} icon={<RiDeleteBin6Line />} className='btn-danger'>
+            <Button size={size} icon={<RiDeleteBin6Line />} className='text-red-600 border-red-600' >
               {iconOnly || 'حذف'}
             </Button>
           </Popconfirm>
@@ -64,7 +64,7 @@ const ButtonBar = (props) => {
       onFilter && (
         <Tooltip title={iconOnly && 'فیلتر'} size={size}>
           <Badge count={filterCount} color="purple">
-            <Button onClick={onFilter} size={size} icon={<FiFilter />} className='btn-filter'>
+            <Button onClick={onFilter} size={size} icon={<FiFilter />} className='text-purple-600 border-purple-600'>
               {iconOnly || 'فیلتر'}
             </Button>
           </Badge>
@@ -76,7 +76,7 @@ const ButtonBar = (props) => {
     return (
       onRefresh && (
         <Tooltip title={iconOnly && 'بازخوانی'} size={size}>
-            <Button onClick={onRefresh} size={size} icon={<FiRefreshCw />} className='btn-primary'>
+            <Button onClick={onRefresh} size={size} icon={<FiRefreshCw />} className='text-blue-600 border-blue-600'>
               {iconOnly || 'فیلتر'}
             </Button>
         </Tooltip>

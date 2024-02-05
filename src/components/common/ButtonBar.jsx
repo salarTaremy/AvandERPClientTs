@@ -18,7 +18,7 @@
 // } from '@ant-design/icons'
 
 // //Example For Items:
-// // const Items = { icon: <MailOutlined />, className: 'text-danger', onClick: _onClick, children: 'Click Me !' }
+// // const Items = { icon: <MailOutlined />, className: 'text-red-600', onClick: _onClick, children: 'Click Me !' }
 
 // const ButtonBar = (props) => {
 //   const { items } = props
@@ -36,7 +36,7 @@
 //         </Tooltip>
 
 //         <Tooltip title={iconOnly && 'ویرایش ایتم مورد نظر'} size={size}>
-//           <Button size={size} icon={<EditOutlined />} className="text-info" {...editProps}>
+//           <Button size={size} icon={<EditOutlined />} className="text-sky-600" {...editProps}>
 //             {iconOnly || 'ویرایش'}
 //           </Button>
 //         </Tooltip>
@@ -49,7 +49,7 @@
 //             okText="بلی"
 //             cancelText="خیر"
 //           >
-//             <Button size={size} icon={<DeleteOutlined />} className="text-danger" {...deleteProps}>
+//             <Button size={size} icon={<DeleteOutlined />} className="text-red-600" {...deleteProps}>
 //               {iconOnly || 'حذف'}
 //             </Button>
 //           </Popconfirm>
@@ -59,7 +59,7 @@
 //           <Button
 //             size={size}
 //             icon={<AiOutlineFileSearch />}
-//             className="text-primary"
+//             className="text-blue-600"
 //             {...detailProps}
 //           >
 //             {iconOnly || 'جزئیات'}
