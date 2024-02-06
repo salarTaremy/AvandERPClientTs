@@ -60,9 +60,9 @@ const Login = () => {
     console.warn("Failed:", errorInfo);
   };
   return (
-    <div style={{marginTop:'25vh'}}>
-      <Content>
-        <Row justify="center">
+
+      <Content className="flex h-screen justify-center items-center">
+        <Row>
           <Col>
             <Card style={style1}>
               <div>
@@ -125,7 +125,7 @@ const Login = () => {
           </Col>
         </Row>
       </Content>
-    </div>
+
   );
 };
 

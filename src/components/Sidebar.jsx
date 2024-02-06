@@ -20,6 +20,8 @@ const sliderStyle = {
   backgroundColor: "transparent",
   top: 0,
   bottom: 0,
+
+
 };
 
 //====================================================================
@@ -90,7 +92,8 @@ const AppSidebar = (props) => {
         collapsed={collapsedSider}
         items={items}
       >
-        <Ant.Affix>
+        <Ant.Affix className="sticky top-0 bg-slate-50  z-10">
+
           {!showImageSider && (
             <Image
               preview={false}
@@ -99,6 +102,7 @@ const AppSidebar = (props) => {
               src={logo}
             />
           )}
+
         </Ant.Affix>
         {showImageSider && (
           <Image
@@ -114,6 +118,7 @@ const AppSidebar = (props) => {
     </>
   );
 };
+
 export default AppSidebar;
 AppSidebar.propTypes = {
   showImageSider: PropTypes.bool,
