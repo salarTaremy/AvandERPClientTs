@@ -55,14 +55,18 @@ export const Table = (props) => {
   }, []);
 
   useEffect(() => {
-    if (listDataDetail) {
-      const result = listDataDetail?.data.map((item) => (
-   console.log(item,"itemmmmm")
-        // ...item,
-        // id: item.id,
-        // key: uuid.v1(),
+    if (params.id !== undefined && params.id !== null) {
+      dataEdit((listDataDetail?.isSuccess && listDataDetail?.data) || null);
+    }
+  }, [listDataDetail]);
 
-      ));
+  useEffect(() => {
+    if (listDataDetail) {
+      const result = listDataDetail?.data.map((item) => ({
+        ...item,
+        id: item.id,
+        key: uuid.v1(),
+      }));
       setNewDataSource(result);
     }
   }, [listDataDetail]);
@@ -118,11 +122,6 @@ export const Table = (props) => {
     }
   }, [dataNewSource]);
 
-  useEffect(() => {
-    if (params.id !== undefined && params.id !== null) {
-      dataEdit(listDataDetail);
-    }
-  }, [listDataDetail]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -260,6 +259,7 @@ export const Table = (props) => {
 
   const columns = [
     {
+      className: "hidden",
       title: "id",
       dataIndex: "id",
       key: "id",
@@ -267,7 +267,6 @@ export const Table = (props) => {
       width: 50,
       // hidden: true,
       render: (_, record) => {
-
         return (
           <Ant.Form.Item
             className="m-0"
@@ -577,9 +576,6 @@ export const Table = (props) => {
                     : dataSource
                 }
               ></Ant.Table>
-              <pre>
-                                {JSON.stringify(dataNewSource, null, 2)}
-                            </pre>
             </Ant.Col>
           </Ant.Row>
         </Ant.Card>

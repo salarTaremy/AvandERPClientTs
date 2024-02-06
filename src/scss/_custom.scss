@@ -1,47 +1,46 @@
 // Here you can add other styles
 @font-face {
-  font-family: 'MyFont';
-  src: url('../assets/fonts/IRANSansWeb.ttf') format('truetype');
+  font-family: "MyFont";
+  src: url("../assets/fonts/IRANSansWeb.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'SuccondMyFont';
-  src: url('../assets/fonts/BYekan.ttf') format('truetype');
+  font-family: "SuccondMyFont";
+  src: url("../assets/fonts/BYekan.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'DanaMedium';
-  src: url('../assets/fonts/DanaMedium.ttf') format('truetype');
+  font-family: "DanaMedium";
+  src: url("../assets/fonts/DanaMedium.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'DanaLight';
-  src: url('../assets/fonts/DanaLight.ttf') format('truetype');
+  font-family: "DanaLight";
+  src: url("../assets/fonts/DanaLight.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'DanaBlack';
-  src: url('../assets/fonts/DanaBlack.ttf') format('truetype');
+  font-family: "DanaBlack";
+  src: url("../assets/fonts/DanaBlack.ttf") format("truetype");
 }
 
 //Need Chenge in app.js
 body {
-  font-family: 'MyFont' , 'SuccondMyFont' ,'DanaMedium','DanaLight','DanaBlack', sans-serif;
+  font-family: "MyFont", "SuccondMyFont", "DanaMedium", "DanaLight", "DanaBlack",
+    sans-serif;
   // font-size: 13px;
-
 }
-
 
 // .ant-form-item.css-dev-only-do-not-override-1mlo16j{
 //   margin: 0 !important;
 // }
 .Toastify__toast-body {
-  font-family: 'MyFont';
-  font-size:small;
+  font-family: "MyFont";
+  font-size: small;
   // font-weight: 300;
 }
 
-.highcharts-credits{
+.highcharts-credits {
   visibility: hidden;
 }
 
@@ -50,9 +49,7 @@ body {
   width: 10px !important;
   height: 10px;
   border: 1px solid #d5d5d5 !important;
-
 }
-
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -62,15 +59,11 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  width:2px;
-  border-radius:20px;
+  width: 2px;
+  border-radius: 20px;
   background: #b0b0b0a1 !important;
-
 }
 
-.visibility{
-  visibility:'hidden'
-}
 
 // .sidebar{
 //    --cui-sidebar-bg:#036
@@ -79,16 +72,15 @@ body {
 // .sidebar .nav-title{
 //   color: #038fdd;
 // }
-.sidebar-nav .nav-link{
+.sidebar-nav .nav-link {
   color: #038fdd;
 }
 .sidebar-nav .nav-link:hover {
   color: #fa8c15;
 }
-.sidebar-nav .nav-icon{
+.sidebar-nav .nav-icon {
   color: #038fdd;
 }
-.sidebar-nav .nav-icon:hover{
+.sidebar-nav .nav-icon:hover {
   color: #fa8c15;
 }
-

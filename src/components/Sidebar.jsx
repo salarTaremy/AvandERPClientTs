@@ -20,8 +20,6 @@ const sliderStyle = {
   backgroundColor: "transparent",
   top: 0,
   bottom: 0,
-
-
 };
 
 //====================================================================
@@ -92,26 +90,26 @@ const AppSidebar = (props) => {
         collapsed={collapsedSider}
         items={items}
       >
-        <Ant.Affix className="sticky top-0 bg-slate-50  z-10">
-
+        <div className="sticky top-0 bg-slate-50 z-10">
           {!showImageSider && (
             <Image
+              className="sticky top-0 bg-slate-50 z-10"
               preview={false}
               style={{ margin: "20px 30px 20px 20px", textAlign: "center" }}
               width={200}
               src={logo}
             />
           )}
+          {showImageSider && (
+            <Image
+              preview={false}
+              style={{ margin: "5px 10px ", textAlign: "center" }}
+              width={60}
+              src={logoFlat}
+            />
+          )}
+        </div>
 
-        </Ant.Affix>
-        {showImageSider && (
-          <Image
-            preview={false}
-            style={{ margin: "5px 10px ", textAlign: "center" }}
-            width={60}
-            src={logoFlat}
-          />
-        )}
         {loading || <Menu mode="inline" items={items} />}
         {loading && <Ant.Card loading style={{ height: "100%" }} />}
       </Sider>
