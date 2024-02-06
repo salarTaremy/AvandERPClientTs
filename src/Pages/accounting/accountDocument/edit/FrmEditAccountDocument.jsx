@@ -60,6 +60,7 @@ export const FrmEditAccountDocument = () => {
     setSumCreditorEdit(creditor)
   }
   const onFinish = async (values) => {
+    console.log(values,"values")
     let valueHeader = form.getFieldsValue()
 
     const header = {

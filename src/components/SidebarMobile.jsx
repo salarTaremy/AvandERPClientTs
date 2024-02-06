@@ -112,13 +112,13 @@ const SidebarMobile = (props) => {
     <>
       <Ant.Drawer
         className="mobile-only"
-        theme="dark"
+
         title={<Ant.Image preview={false} style={{ textAlign: 'center' }} width={200} src={logo} />}
         placement="right"
         onClose={onCloseSide}
         open={openSide}
       >
-        <Ant.Menu mode="inline" theme="dark" items={items} />
+        <Ant.Menu mode="inline"  items={items} />
       </Ant.Drawer>
     </>
   )
