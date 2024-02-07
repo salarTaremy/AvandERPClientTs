@@ -12,11 +12,9 @@ const persistor = persistStore(store); // Create persistor For store
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <React.StrictMode>
         <BrowserRouter>
-          <App />
+          <App/>
         </BrowserRouter>
-      </React.StrictMode>
     </PersistGate>
   </Provider>
 );
