@@ -265,18 +265,13 @@ export const Table = (props) => {
       key: "id",
       align: "center",
       width: 50,
-      // hidden: true,
+
       render: (_, record) => {
         return (
           <Ant.Form.Item
-            className="m-0"
             name={[record.key, "id"]}
             initialValue={record.id}
-          >
-            <Ant.Space>
-              <strong style={borderStyle}>{record.id}</strong>
-            </Ant.Space>
-          </Ant.Form.Item>
+          ></Ant.Form.Item>
         );
       },
     },
@@ -533,7 +528,9 @@ export const Table = (props) => {
         </>
       ),
     },
-  ].filter((item) => !item.hidden);
+  ];
+  //   .filter((col) => col.dataIndex !== "id");
+  //   .filter((item) => !item.hidden);
 
   //====================================================================
   //                      Functions

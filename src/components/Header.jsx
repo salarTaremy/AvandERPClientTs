@@ -100,7 +100,7 @@ const HeaderComponent = (props) => {
             <Ant.Col>
               <Ant.Space>
                 <Ant.Button
-                  className="desktop-only"
+                  className="hidden xxl:block lg:block"
                   type="text"
                   icon={
                     collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />
@@ -109,7 +109,7 @@ const HeaderComponent = (props) => {
                   onClick={handleClickSidebar}
                 />
                 <Ant.Button
-                  className="mobile-only"
+                  className=" lg:hidden xxl:hidden"
                   type="text"
                   onClick={showDrawer}
                 >

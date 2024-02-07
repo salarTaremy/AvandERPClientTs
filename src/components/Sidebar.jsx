@@ -15,7 +15,8 @@ const { Sider } = Layout;
 
 const sliderStyle = {
   overflowX: "auto",
-  height: "100vh",
+  height: "94vh",
+
   right: 0,
   backgroundColor: "transparent",
   top: 0,
@@ -85,17 +86,15 @@ const AppSidebar = (props) => {
     <>
       <Sider
         width={280}
-        className="sidebar desktop-only"
-        style={sliderStyle}
+        className="sidebar hidden lg:block"
         collapsed={collapsedSider}
         items={items}
       >
-        <div className="sticky top-0 bg-slate-50 z-10">
+        <div className="sticky top-0 bg-slate-50 z-10 h-16">
           {!showImageSider && (
             <Image
-              className="sticky top-0 bg-slate-50 z-10"
+              className="mr-11 my-2.5"
               preview={false}
-              style={{ margin: "20px 30px 20px 20px", textAlign: "center" }}
               width={200}
               src={logo}
             />
@@ -103,15 +102,16 @@ const AppSidebar = (props) => {
           {showImageSider && (
             <Image
               preview={false}
-              style={{ margin: "5px 10px ", textAlign: "center" }}
+              className="my-1 mx-2.5"
               width={60}
               src={logoFlat}
             />
           )}
         </div>
-
-        {loading || <Menu mode="inline" items={items} />}
-        {loading && <Ant.Card loading style={{ height: "100%" }} />}
+        <div style={sliderStyle} >
+          {loading || <Menu mode="inline" items={items} />}
+          {loading && <Ant.Skeleton loading className="h-full"/>}
+        </div>
       </Sider>
     </>
   );
