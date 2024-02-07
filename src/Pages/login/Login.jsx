@@ -97,7 +97,6 @@ const Login = () => {
                     <Checkbox>{"مرا به خاطر بسپار"}</Checkbox>
                   </Form.Item>
                 </Form.Item>
-
                 <Form.Item>
                   <Button type="primary" htmlType="submit" loading={loading}>
                     {"ورود به حساب کاربری "}
