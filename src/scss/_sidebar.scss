@@ -7,23 +7,5 @@
   color: #fa8c15;
 }
 
-.footer {
-  margin-top: auto;
-  border-top: 1px solid rgba(128, 128, 128, 0.26);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #33333360;
-}
-
-//scroll content
-.content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.content::-webkit-scrollbar-thumb {
-  // background-color: #33333360;
-  border-radius: 8px;
-}
 
 
