@@ -11,8 +11,8 @@ import * as api from "../api";
 import * as url from "../api/url";
 import useRequestManager from "../hooks/useRequestManager";
 import { Link } from "react-router-dom";
+import { SettingOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
-
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
   height: "94vh",
@@ -22,15 +22,14 @@ const sliderStyle = {
   bottom: 0,
 };
 
-//====================================================================
-//                        Component
-//====================================================================
 const AppSidebar = (props) => {
   const [data, loading, error, apiCall] = useFetchWithHandler();
   const [items, setItems] = useState([]);
   const { showImageSider, collapsedSider } = props;
   useRequestManager({ error });
-  //============================================================
+  //====================================================================
+  //                        Consts
+  //====================================================================
   const processNavMenu = (menu) => {
     if (!menu) {
       return null;
@@ -68,7 +67,9 @@ const AppSidebar = (props) => {
       return { ...child };
     });
   };
-  //============================================================
+  //====================================================================
+  //                        useEffects
+  //====================================================================
   useEffect(() => {
     const NavMnu = data?.data[0]?.children;
     if (NavMnu) {
@@ -80,7 +81,29 @@ const AppSidebar = (props) => {
   useEffect(() => {
     apiCall(url.NAV_MENU_TREE);
   }, []);
-  //============================================================
+  //====================================================================
+  //                        Child Components
+  //====================================================================
+  const Searchbox = (
+    <>
+      <div className="flex justify-center ">
+        <div className="w-11/12">
+          <Ant.Flex align="center" justify="center">
+            <Ant.Space align="center">
+              <Ant.Input.Search />
+              <Ant.Button type="text">
+                <SettingOutlined />
+              </Ant.Button>
+            </Ant.Space>
+          </Ant.Flex>
+          <Ant.Divider></Ant.Divider>
+        </div>
+      </div>
+    </>
+  );
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
     <>
       <Sider
@@ -107,14 +130,7 @@ const AppSidebar = (props) => {
             src={logoFlat}
           />
         )}
-        {!showImageSider && (
-          <div className="flex justify-center  ">
-            <div className=" w-11/12 ">
-              <Ant.Input.Search />
-              <Ant.Divider />
-            </div>
-          </div>
-        )}
+        {!showImageSider && Searchbox}
         <div style={sliderStyle} className="flex justify-center sider-menu ">
           {loading || (
             <Menu
