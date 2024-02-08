@@ -48,6 +48,8 @@ const App = () => {
         headerBg: (themeName != "dark" && "#FFFFFF" ) ||"#33333360"  ,
         siderBg: (themeName != "dark" && "#FFFFFF" ) ||"#33333360"  ,
         headerHeight:64,
+        // triggerBg:'Background Color of sider trigger',
+        // triggerColor:'Color of sider trigger',
         //headerPadding:0,
       },
     },
