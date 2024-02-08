@@ -46,6 +46,7 @@ const App = () => {
            //bodyBg:'#EBEDEF',
         bodyBg :(themeName != "dark" &&  '#F1F1F1' || '#000000'),
         headerBg: (themeName != "dark" && "#FFFFFF" ) ||"#33333360"  ,
+        siderBg: (themeName != "dark" && "#FFFFFF" ) ||"#33333360"  ,
         headerHeight:64,
         //headerPadding:0,
       },

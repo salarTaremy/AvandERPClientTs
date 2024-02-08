@@ -16,7 +16,6 @@ const { Sider } = Layout;
 const sliderStyle = {
   overflowX: "auto",
   height: "94vh",
-
   right: 0,
   backgroundColor: "transparent",
   top: 0,
@@ -90,7 +89,8 @@ const AppSidebar = (props) => {
         collapsed={collapsedSider}
         items={items}
       >
-        <div className="sticky top-0 bg-slate-50 z-10 h-16">
+        {/* why ?!?!?!?!?!?!? */}
+        {/* <div className="sticky top-0 bg-slate-50 z-10 h-16"> */}
           {!showImageSider && (
             <Image
               className="mr-11 my-2.5"
@@ -107,7 +107,7 @@ const AppSidebar = (props) => {
               src={logoFlat}
             />
           )}
-        </div>
+       
         <div style={sliderStyle} >
           {loading || <Menu mode="inline" items={items} />}
           {loading && <Ant.Skeleton loading className="h-full"/>}
