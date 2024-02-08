@@ -1,14 +1,14 @@
+
+::-webkit-scrollbar {
+  width: 16px !important;
+  background-color:  transparent;;
+  border-radius: 8px;
+  //display: none;
+}
+
 ::-webkit-scrollbar-thumb {
-    background-color: #33333360;
-  }
-  
-  //scroll content
-  .content::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .content::-webkit-scrollbar-thumb {
-    // background-color: #33333360;
-    border-radius: 8px;
+  background-color:  #15417E;
+  border-radius: 8px;
+  // height: 50%;  
   }
   
