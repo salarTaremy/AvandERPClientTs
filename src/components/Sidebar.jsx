@@ -15,7 +15,7 @@ import { SettingOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
-  height: "94vh",
+  height: "84vh",
   right: 0,
   backgroundColor: "transparent",
   top: 0,
