@@ -1,34 +1,8 @@
 // Here you can add other styles
-@font-face {
-  font-family: "MyFont";
-  src: url("../assets/fonts/IRANSansWeb.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "SuccondMyFont";
-  src: url("../assets/fonts/BYekan.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "DanaMedium";
-  src: url("../assets/fonts/DanaMedium.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "DanaLight";
-  src: url("../assets/fonts/DanaLight.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "DanaBlack";
-  src: url("../assets/fonts/DanaBlack.ttf") format("truetype");
-}
-
-//Need Chenge in app.js
 body {
+  background-color: #f5f5f5;
   font-family: "MyFont", "SuccondMyFont", "DanaMedium", "DanaLight", "DanaBlack",
     sans-serif;
-
   // font-size: 13px;
 }
 
@@ -49,28 +23,12 @@ body {
 *::-webkit-scrollbar {
   width: 8px !important;
   height: 8px;
-  border: 1px solid #d5d5d5 !important;
+  // border: 1px solid #d5d5d5 !important;
 }
 
-
-
-
-// .sidebar{
-//    --cui-sidebar-bg:#036
-// }
-
-// .sidebar .nav-title{
-//   color: #038fdd;
-// }
 .sidebar-nav .nav-link {
   color: #038fdd;
 }
 .sidebar-nav .nav-link:hover {
-  color: #fa8c15;
-}
-.sidebar-nav .nav-icon {
-  color: #038fdd;
-}
-.sidebar-nav .nav-icon:hover {
   color: #fa8c15;
 }

@@ -1,4 +1,5 @@
 
+//Need Chenge in app.js
 @font-face {
     font-family: 'MyFont';
     src: url('../assets/fonts//IRANSansWeb.ttf') format('truetype');
@@ -22,10 +23,4 @@
   @font-face {
     font-family: 'DanaBlack';
     src: url('../assets/fonts/DanaBlack.ttf') format('truetype');
-  }
-  //Need Chenge in app.js
-body {
-  background-color: rgb(224, 224, 224);
-    font-family: 'MyFont' , 'SuccondMyFont' ,'DanaMedium','DanaLight','DanaBlack', sans-serif;
-    // font-size: 13px;
   }

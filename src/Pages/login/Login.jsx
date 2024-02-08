@@ -8,6 +8,8 @@ import { Layout } from "antd";
 import { usePostWithHandler } from "@/api";
 import { toast } from "react-toastify";
 import * as url from "@/api/url";
+import "./../../scss/style.scss";
+import "./../../index.css";
 
 const { Content } = Layout;
 const style1 = {

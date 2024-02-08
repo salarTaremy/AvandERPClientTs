@@ -21,7 +21,7 @@ const toastProps = {
   theme: "colored",
 };
 import Login from "@/pages/login/Login";
-
+  //==============================================================
 const App = () => {
   const themeName = useSelector((state) => state.theme);
   const autUser = useSelector((store) => store.autUser);
@@ -39,24 +39,15 @@ const App = () => {
     algorithm: getTheme(),
     components: {
       Drawer: {
-        // motionDurationSlow: "0.4s",
+        motionDurationSlow: "0.5s",
         // colorBgMask:'#347654',
-        // bodyBg:'transparent',
       },
       Layout: {
-        // bodyBg:'#transparent',
-        // headerHeight:64,
+           //bodyBg:'#EBEDEF',
+        bodyBg :(themeName != "dark" &&  '#F1F1F1' || '#000000'),
+        headerBg: (themeName != "dark" && "#FFFFFF" ) ||"#33333360"  ,
+        headerHeight:64,
         //headerPadding:0,
-        headerBg: (themeName === "dark" && "#33333360") || "#ffffff",
-      },
-      Table: {
-        //cellPaddingInlineSM:1
-        // cellPaddingBlockSM:1,
-        // cellFontSizeSM:10,
-        // headerBorderRadius:30,
-        // headerBg:'#347654',
-        //fontSize:12,
-        fontSizeIcon: 14,
       },
     },
   };
@@ -87,8 +78,6 @@ const App = () => {
             </>
           )}
         </Routes>
-
-        {/* <Layout /> */}
       </ConfigProvider>
     </div>
   );
