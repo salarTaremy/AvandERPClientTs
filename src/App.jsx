@@ -21,7 +21,7 @@ const toastProps = {
   theme: "colored",
 };
 import Login from "@/pages/login/Login";
-  //==============================================================
+//==============================================================
 const App = () => {
   const themeName = useSelector((state) => state.theme);
   const autUser = useSelector((store) => store.autUser);
@@ -43,11 +43,11 @@ const App = () => {
         // colorBgMask:'#347654',
       },
       Layout: {
-           //bodyBg:'#EBEDEF',
-        bodyBg :(themeName != "dark" &&  '#F1F1F1' || '#000000'),
-        headerBg: (themeName != "dark" && "#FFFFFF" ) ||"#33333360"  ,
-        siderBg: (themeName != "dark" && "#FFFFFF" ) ||"#33333360"  ,
-        headerHeight:64,
+        //bodyBg:'#EBEDEF',
+        bodyBg: (themeName != "dark" && "#F1F1F1") || "#000000",
+        headerBg: (themeName != "dark" && "#FFFFFF") || "#33333360",
+        siderBg: (themeName != "dark" && "#FFFFFF") || "#33333360",
+        headerHeight: 64,
         // triggerBg:'Background Color of sider trigger',
         // triggerColor:'Color of sider trigger',
         //headerPadding:0,
@@ -56,14 +56,14 @@ const App = () => {
   };
   //==============================================================
   return (
-    <div>
+    <>
+      <ToastContainer {...toastProps} />
       <ConfigProvider
         direction="rtl"
         theme={myCustomThemeAnt}
         locale={faIR}
         componentSize="middle"
       >
-        <ToastContainer {...toastProps} />
         <Routes>
           {autUser ? (
             <>
@@ -82,7 +82,7 @@ const App = () => {
           )}
         </Routes>
       </ConfigProvider>
-    </div>
+    </>
   );
 };
 
