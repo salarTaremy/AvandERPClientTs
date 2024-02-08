@@ -107,6 +107,14 @@ const AppSidebar = (props) => {
             src={logoFlat}
           />
         )}
+        {!showImageSider && (
+          <div className="flex justify-center  ">
+            <div className=" w-11/12 ">
+              <Ant.Input.Search />
+              <Ant.Divider />
+            </div>
+          </div>
+        )}
         <div style={sliderStyle} className="flex justify-center sider-menu ">
           {loading || (
             <Menu
