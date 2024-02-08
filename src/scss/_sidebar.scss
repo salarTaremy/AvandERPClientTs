@@ -1,24 +1,10 @@
-body {
-  margin: 0;
-  // padding: 0;
-  overflow: hidden;
+
+.sidebar-nav .nav-link {
+  color: #038fdd;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-
-.content {
-  flex: 1;
-  margin: 24px 16px 0;
-  overflow: auto;
-  height: 100%;
-  max-height: 80vh;
-  min-height: 70vh;
-  border-radius: 8px;
+.sidebar-nav .nav-link:hover {
+  color: #fa8c15;
 }
 
 .footer {
@@ -26,13 +12,9 @@ body {
   border-top: 1px solid rgba(128, 128, 128, 0.26);
 }
 
-
-
-
 ::-webkit-scrollbar-thumb {
   background-color: #33333360;
 }
-
 
 //scroll content
 .content::-webkit-scrollbar {
@@ -43,7 +25,6 @@ body {
   // background-color: #33333360;
   border-radius: 8px;
 }
-
 
 .ant-drawer-body{
   padding: 0 !important;

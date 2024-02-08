@@ -1,14 +1,30 @@
 // Here you can add other styles
 body {
   background-color: #f5f5f5;
+  margin: 0;
+  // padding: 0;
+  overflow: hidden;
   font-family: "MyFont", "SuccondMyFont", "DanaMedium", "DanaLight", "DanaBlack",
     sans-serif;
   // font-size: 13px;
 }
 
-// .ant-form-item.css-dev-only-do-not-override-1mlo16j{
-//   margin: 0 !important;
-// }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  margin: 24px 16px 0;
+  overflow: auto;
+  height: 100%;
+  max-height: 80vh;
+  min-height: 70vh;
+  border-radius: 8px;
+}
+
 .Toastify__toast-body {
   font-family: "MyFont";
   font-size: small;
@@ -26,9 +42,4 @@ body {
   // border: 1px solid #d5d5d5 !important;
 }
 
-.sidebar-nav .nav-link {
-  color: #038fdd;
-}
-.sidebar-nav .nav-link:hover {
-  color: #fa8c15;
-}
+
