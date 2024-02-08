@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const { Sider } = Layout;
 
 const sliderStyle = {
-  overflowX: "auto",
+  overflow: "auto", //For Auto Hide Scroll Set To => hidden
   height: "94vh",
   right: 0,
   backgroundColor: "transparent",
@@ -107,7 +107,7 @@ const AppSidebar = (props) => {
             src={logoFlat}
           />
         )}
-        <div style={sliderStyle} className="flex justify-center">
+        <div style={sliderStyle} className="flex justify-center sider-menu ">
           {loading || (
             <Menu
               mode="inline"
