@@ -109,7 +109,7 @@ const AppSidebar = (props) => {
           )}
        
         <div style={sliderStyle} >
-          {loading || <Menu mode="inline" items={items} />}
+          {loading || <Menu mode="inline" items={items} style={{backgroundColor:'transparent'}} />}
           {loading && <Ant.Skeleton loading className="h-full"/>}
         </div>
       </Sider>
