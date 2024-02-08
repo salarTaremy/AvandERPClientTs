@@ -40,8 +40,6 @@ const options = [
 ];
 const HeaderComponent = (props) => {
   const { showDrawer, handleClickSidebar, collapsed } = props;
-  // const [collapsed, setCollapsed] = useState(false);
-
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme);
   const autUser = useSelector((state) => state.autUser);
@@ -104,7 +102,6 @@ const HeaderComponent = (props) => {
                   type="text"
                   icon={
                     collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />
-                    // collapsed ? <>d</> : <>ds</>
                   }
                   onClick={handleClickSidebar}
                 />
@@ -154,5 +151,6 @@ const HeaderComponent = (props) => {
 export default HeaderComponent;
 HeaderComponent.propTypes = {
   showDrawer: PropTypes.func,
+  collapsed:PropTypes.any,
   handleClickSidebar: PropTypes.func,
 };

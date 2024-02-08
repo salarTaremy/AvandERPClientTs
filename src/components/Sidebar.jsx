@@ -91,26 +91,33 @@ const AppSidebar = (props) => {
       >
         {/* why ?!?!?!?!?!?!? */}
         {/* <div className="sticky top-0 bg-slate-50 z-10 h-16"> */}
-          {!showImageSider && (
-            <Image
-              className="mr-11 my-2.5"
-              preview={false}
-              width={200}
-              src={logo}
+        {!showImageSider && (
+          <Image
+            className="mr-11 my-2.5"
+            preview={false}
+            width={200}
+            src={logo}
+          />
+        )}
+        {showImageSider && (
+          <Image
+            preview={false}
+            className="my-1 mx-2.5"
+            width={60}
+            src={logoFlat}
+          />
+        )}
+        <div style={sliderStyle} className="flex justify-center">
+          {loading || (
+            <Menu
+              mode="inline"
+              items={items}
+              style={{ backgroundColor: "transparent" }}
             />
           )}
-          {showImageSider && (
-            <Image
-              preview={false}
-              className="my-1 mx-2.5"
-              width={60}
-              src={logoFlat}
-            />
+          {loading && (
+            <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
           )}
-       
-        <div style={sliderStyle} >
-          {loading || <Menu mode="inline" items={items} style={{backgroundColor:'transparent'}} />}
-          {loading && <Ant.Skeleton loading className="h-full"/>}
         </div>
       </Sider>
     </>

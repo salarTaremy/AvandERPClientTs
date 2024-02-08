@@ -31,51 +31,6 @@ const LayoutComponent = () => {
     setCollapsed(!collapsed);
   };
 
-  // useEffect(() => {
-  //   apiCall(url.NAV_MENU_TREE);
-  // }, []);
-  // useEffect(() => {
-  //   const NavMnu = data?.data[0]?.children;
-  //   if (NavMnu) {
-  //     const newVal = NavMnu.map((item) => {
-  //       if (item.componentName == "CNavTitle") {
-  //         item.type = "group";
-  //         delete item.iconName;
-  //       } else {
-  //         item.icon = <BellOutlined />;
-  //       }
-  //       if (item.children) {
-  //         delete item.type;
-  //         item.children.map((child) => {
-  //           child.icon = <FileOutlined />;
-  //           child.label = child.title;
-  //           if (child.children) {
-  //             delete child.type;
-  //             child.children.map((sub) => {
-  //               sub.icon = <AppstoreOutlined />;
-  //               sub.label = sub.title;
-
-  //               return { ...sub };
-  //             });
-  //           }
-  //           return { ...child };
-  //         });
-  //       }
-  //       item.label = item.title;
-  //       // delete item.id
-  //       // delete item.name
-  //       // delete item.componentName
-  //       // delete item.iconName
-  //       return { ...item };
-  //     });
-  //     setItems(newVal);
-  //   }
-  // }, [data?.data]);
-  // useEffect(() => {
-  //   collapsed &&
-  //     setItems([...initItems.filter((item) => item.type != "group")]);
-  //   !collapsed && setItems([...initItems]);
-  // }, [collapsed]);
   //============================================================
   return (
     <>
