@@ -1,6 +1,5 @@
 import React from 'react'
 import * as Ant from 'antd'
-import { Test } from './Test'
 
 export const columns = () => {
   return (

@@ -3,41 +3,78 @@ import { PropTypes } from 'prop-types'
 import * as Ant from 'antd'
 import * as url from '@/api/url'
 import * as styles from '@/styles'
+import * as defaultValues from '@/defaultValues'
 import * as api from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import useAllLoading from '@/hooks/useAllLoading '
+import { columns } from './columns'
+import ButtonList from '@/components/common/ButtonList'
+import FilterPanel from './FilterPanel'
+import FilterBedge from '@/components/common/FilterBedge'
+import FilterDrawer from '@/components/common/FilterDrawer'
 //====================================================================
 //                        Declaration
 //====================================================================
 const HybridBrowsing = (props) => {
   const {id} = props
   const pageTitle = 'مرور ترکیبی حسابها'
-  // const [Data, Loading, Error, ApiCall] = api.useFetchWithHandler()
-  // useRequestManager({ error: Error })
-  //...
+  const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler()
+  const [openFilter, setOpenFilter] = useState(false)
+  const [filterObject, setFilterObject] = useState()
+  const [filterCount, setFilterCount] = useState(0)
+  useRequestManager({ error: listError })
   //====================================================================
   //                        useEffects
   //====================================================================
-  //useEffect(() => {}, [])
-  //...
+  useEffect(() => {
+    filterObject &&
+      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+    !filterObject && setFilterCount(0)
+    fillGrid()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterObject])
   //====================================================================
   //                        Functions
   //====================================================================
-  // const onFinish = async (values) => {
-  //   const req = { ...values}
-  //   await ApiCall(url.ACCOUNT, req)
-  // }
-  //...
+  const fillGrid = async () => {
+    await listApiCall(url.DETAILED_ACCOUNT)
+  }
+  const onFilterChanged = async (filterObject) => {
+    setFilterObject(filterObject)
+    setOpenFilter(false)
+  }
+  const onRemoveFilter = () => {
+    setFilterObject(null)
+    setOpenFilter(false)
+  }
   //====================================================================
   //                        Child Components
   //====================================================================
-  const BlankPage = () => {
+  //====================================================================
+  //                        Child Components
+  //====================================================================
+  const title = () => {
+    return (
+      <ButtonList
+        filterCount={filterCount}
+        onAdd={() => {
+          alert('Add Click')
+        }}
+        onFilter={() => {
+          setOpenFilter(true)
+        }}
+      />
+    )
+  }
+  const Grid = () => {
     return (
       <>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
+        <Ant.Table
+          {...defaultValues.TABLE_PROPS}
+          columns={columns()}
+          title={title}
+          dataSource={(listData?.isSuccess && listData?.data) || null}
+        />
       </>
     )
   }
@@ -47,8 +84,16 @@ const HybridBrowsing = (props) => {
   return (
     <Ant.Card Card title={pageTitle} type="inner">
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
-        <BlankPage/>
-        {/* Write Code Here */}
+      <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Grid />
+        </FilterBedge>
       </Ant.Card>
     </Ant.Card>
   )
