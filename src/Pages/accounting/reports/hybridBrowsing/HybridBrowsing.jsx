@@ -9,9 +9,9 @@ import useAllLoading from '@/hooks/useAllLoading '
 //====================================================================
 //                        Declaration
 //====================================================================
-const BlankPage = (props) => {
+const HybridBrowsing = (props) => {
   const {id} = props
-  const pageTitle = 'شرح صفحه'
+  const pageTitle = 'مرور ترکیبی حسابها'
   // const [Data, Loading, Error, ApiCall] = api.useFetchWithHandler()
   // useRequestManager({ error: Error })
   //...
@@ -53,8 +53,4 @@ const BlankPage = (props) => {
     </Ant.Card>
   )
 }
-
-export default BlankPage
-BlankPage.propTypes = {
-  id: PropTypes.any,
-}
+export default HybridBrowsing

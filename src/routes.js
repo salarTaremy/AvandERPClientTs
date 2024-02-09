@@ -4,6 +4,9 @@
 import Account from  './Pages/accounting/account/Account'
 import AccountDocument from './Pages/accounting/accountDocument/AccountDocument'
 import FrmEditAccountDocument  from  './Pages/accounting/accountDocument/edit/FrmEditAccountDocument'
+import BalanceSheet  from  './Pages/accounting/reports/balanceSheet/BalanceSheet.jsx'
+import StepReview  from  './Pages/accounting/reports/stepReview/StepReview'
+import HybridBrowsing from   './Pages/accounting/reports/hybridBrowsing/HybridBrowsing'
 
 import FrmAddAccountDocument from './Pages/accounting/accountDocument/add/FrmAddAccountDocument'
 import DocumentTypeList from './Pages/accounting/documentType/list/DocumentTypeList'
@@ -42,6 +45,9 @@ const routes = [
     { path: '/accounting/detailedAccountGroup', name: 'گروه های تفصیل', element: DetailedAccountGroup },
     { path: '/accounting/accountDocument/New', name: 'سند حسابداری جدید', element: FrmAddAccountDocument },
     { path: '/accounting/accountDocument/edit/:id', name: 'ویرایش حسابداری ', element: FrmEditAccountDocument },
+    { path: '/accounting/reports/balanceSheet', name: 'تراز آزمایشی', element: BalanceSheet },
+    { path: '/accounting/reports/stepReview', name: 'مرور پله ای', element: StepReview },    
+    { path: '/accounting/reports/hybridBrowsing', name: 'مرور ترکیبی', element: HybridBrowsing },    
     { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
     { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
     { path: '/base/brand', name: 'برند', element: BrandList},
