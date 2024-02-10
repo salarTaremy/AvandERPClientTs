@@ -41,7 +41,7 @@ const HybridBrowsing = (props) => {
   //                        Functions
   //====================================================================
   const fillGrid = async () => {
-    await listApiCall(url.DETAILED_ACCOUNT);
+    await listApiCall(url.ACCOUNT);
   };
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
@@ -73,19 +73,81 @@ const HybridBrowsing = (props) => {
         <Ant.Table
           {...defaultValues.TABLE_PROPS}
           columns={columns()}
-          title={title}
+          // title={title}
           dataSource={(listData?.isSuccess && listData?.data) || null}
         />
       </>
     );
   };
+  const VerticalButtons = () => {
+    return (
+      <>
+        <Ant.Space direction="vertical" >
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsAlignStart size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.Bs0Square size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsFillCreditCard2FrontFill size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsJournalMinus size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsJournalMinus size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsJournalMinus size={'large'} />
+          </Ant.Button>
+        </Ant.Space>
+      </>
+    )
+  }
+  const HorizontalButtons = () => {
+    return (
+      <>
+        <Ant.Space  >
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsAlignStart size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.Bs0Square size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsFillCreditCard2FrontFill size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsJournalMinus size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsJournalMinus size={'large'} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes}>
+            <IconBs.BsJournalMinus size={'large'} />
+          </Ant.Button>
+        </Ant.Space>
+      </>
+    )
+  }
   //====================================================================
   //                        Component
   //====================================================================
   const btnTypes = 'link'
   return (
     <Ant.Card Card title={pageTitle} type="inner">
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}  >
+        <ButtonList
+          filterCount={filterCount}
+          onAdd={() => {
+            alert("Add Click");
+          }}
+          onFilter={() => {
+            setOpenFilter(true);
+          }}
+        />
+        <Ant.Divider />
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -96,49 +158,13 @@ const HybridBrowsing = (props) => {
             onSubmit={onFilterChanged}
           />
         </FilterDrawer>
-        <Ant.Row>
-          <Ant.Col span={24}>
-
-
-          </Ant.Col>
-        </Ant.Row>
-        <Ant.Row>
-
+        <Ant.Row gutter={[48, 0]}>
           <Ant.Flex align="center" justify="center" vertical>
-            <Ant.Space direction="vertical" >
-              <Ant.Button type={btnTypes}>
-                <IconBs.BsAlignStart size={'large'} />
-              </Ant.Button>
-              <Ant.Button type={btnTypes}>
-                <IconBs.Bs0Square size={'large'} />
-              </Ant.Button>
-              <Ant.Button type={btnTypes}>
-                <IconBs.BsFillCreditCard2FrontFill size={'large'} />
-              </Ant.Button>
-              <Ant.Button type={btnTypes}>
-                <IconBs.BsJournalMinus size={'large'} />
-              </Ant.Button>
-            </Ant.Space>
-
-
+            <VerticalButtons />
           </Ant.Flex>
-
           <Ant.Col span={23}>
-          <Ant.Flex  align=""  justify="center" vertical>
-              <Ant.Space  >
-                <Ant.Button type={btnTypes}>
-                  <IconBs.BsAlignStart size={'large'} />
-                </Ant.Button>
-                <Ant.Button type={btnTypes}>
-                  <IconBs.Bs0Square size={'large'} />
-                </Ant.Button>
-                <Ant.Button type={btnTypes}>
-                  <IconBs.BsFillCreditCard2FrontFill size={'large'} />
-                </Ant.Button>
-                <Ant.Button type={btnTypes}>
-                  <IconBs.BsJournalMinus size={'large'} />
-                </Ant.Button>
-              </Ant.Space>
+            <Ant.Flex align="" justify="center" vertical>
+              <HorizontalButtons />
             </Ant.Flex>
 
             <FilterBedge filterCount={filterCount}>

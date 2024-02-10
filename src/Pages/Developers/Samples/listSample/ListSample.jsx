@@ -39,7 +39,7 @@ const ListSample = (props) => {
   //                        Functions
   //====================================================================
   const fillGrid = async () => {
-    await listApiCall(url.DETAILED_ACCOUNT)
+    await listApiCall(url.ACCOUNT)
   }
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject)
