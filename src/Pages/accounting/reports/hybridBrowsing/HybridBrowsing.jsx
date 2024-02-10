@@ -62,24 +62,24 @@ const HybridBrowsing = (props) => {
     return (
       <>
         <div style={{ minHeight: 50 }}></div>
-        <Ant.Space direction="vertical" >
-          <Ant.Button type={btnTypes}  className={iconClasses}>
+        <Ant.Space direction="vertical" size={[32, 32]}>
+          <Ant.Button type={btnTypes} className={iconClasses}>
             <IconBs.BsFillJournalBookmarkFill size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCheck size={iconSize}  />
+            <IconBs.BsJournalCheck size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsBook size={iconSize}  />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize}  />
+            <IconBs.BsBook size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
             <IconBs.BsJournalCode size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize}/>
+            <IconBs.BsJournalCode size={iconSize} />
+          </Ant.Button>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsJournalCode size={iconSize} />
           </Ant.Button>
         </Ant.Space>
       </>
@@ -88,25 +88,13 @@ const HybridBrowsing = (props) => {
   const HorizontalButtons = () => {
     return (
       <>
-        <Ant.Space  >
-          <Ant.Button type={btnTypes} className={iconClasses} >
-            <IconBs.BsFillJournalBookmarkFill size={iconSize}  />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCheck size={iconSize} />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsBook size={iconSize}/>
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize}/>
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize}/>
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize} />
-          </Ant.Button>
+        <Ant.Space size={[32, 32]}>
+          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCheck size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsBook size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCode size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCode size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCode size={iconSize} />} />
         </Ant.Space>
       </>
     )
@@ -116,10 +104,10 @@ const HybridBrowsing = (props) => {
       <>
         <Ant.Table
           title={HorizontalButtons}
-          size= 'small'
-          rowKey= 'id'
-          bordered= {true}
-          scroll= {{ x: '100%', y: '40vh' }}
+          size='small'
+          rowKey='id'
+          bordered={true}
+          scroll={{ x: '100%', y: '40vh' }}
           columns={columns()}
           // title={title}
           dataSource={(listData?.isSuccess && listData?.data) || null}
