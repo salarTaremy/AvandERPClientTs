@@ -54,19 +54,8 @@ const HybridBrowsing = (props) => {
   //====================================================================
   //                        Child Components
   //====================================================================
-  const title = () => {
-    return (
-      <ButtonList
-        filterCount={filterCount}
-        onAdd={() => {
-          alert("Add Click");
-        }}
-        onFilter={() => {
-          setOpenFilter(true);
-        }}
-      />
-    );
-  };
+  const btnTypes = 'link'
+  const iconSize = 'large'
   const Grid = () => {
     return (
       <>
@@ -82,24 +71,25 @@ const HybridBrowsing = (props) => {
   const VerticalButtons = () => {
     return (
       <>
+        <div style={{ minHeight: 50 }}></div>
         <Ant.Space direction="vertical" >
           <Ant.Button type={btnTypes}>
-            <IconBs.BsAlignStart size={'large'} />
+            <IconBs.BsAlignStart size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.Bs0Square size={'large'} />
+            <IconBs.Bs0Square size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsFillCreditCard2FrontFill size={'large'} />
+            <IconBs.BsFillCreditCard2FrontFill size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={'large'} />
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={'large'} />
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={'large'} />
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
         </Ant.Space>
       </>
@@ -109,23 +99,23 @@ const HybridBrowsing = (props) => {
     return (
       <>
         <Ant.Space  >
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsAlignStart size={'large'} />
+          <Ant.Button type={btnTypes} >
+            <IconBs.BsAlignStart size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.Bs0Square size={'large'} />
+            <IconBs.Bs0Square size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsFillCreditCard2FrontFill size={'large'} />
+            <IconBs.BsFillCreditCard2FrontFill size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={'large'} />
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={'large'} />
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={'large'} />
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
         </Ant.Space>
       </>
@@ -134,7 +124,6 @@ const HybridBrowsing = (props) => {
   //====================================================================
   //                        Component
   //====================================================================
-  const btnTypes = 'link'
   return (
     <Ant.Card Card title={pageTitle} type="inner">
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}  >
@@ -159,14 +148,13 @@ const HybridBrowsing = (props) => {
           />
         </FilterDrawer>
         <Ant.Row gutter={[48, 0]}>
-          <Ant.Flex align="center" justify="center" vertical>
+          <Ant.Flex align="center" justify="" vertical>
             <VerticalButtons />
           </Ant.Flex>
           <Ant.Col span={23}>
             <Ant.Flex align="" justify="center" vertical>
               <HorizontalButtons />
             </Ant.Flex>
-
             <FilterBedge filterCount={filterCount}>
               <Grid />
             </FilterBedge>
