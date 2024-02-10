@@ -56,31 +56,56 @@ const HybridBrowsing = (props) => {
   //====================================================================
   const btnTypes = 'text'
   const iconSize = 'large'
-  const iconClasses = 'text-blue-600'
+  const iconColor = 'text-blue-600'
 
   const VerticalButtons = () => {
     return (
       <>
         <div style={{ minHeight: 50 }}></div>
-        <Ant.Space direction="vertical" size={[32, 32]}>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsFillJournalBookmarkFill size={iconSize} />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCheck size={iconSize} />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsBook size={iconSize} />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize} />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize} />
-          </Ant.Button>
-          <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalCode size={iconSize} />
-          </Ant.Button>
+        <Ant.Space direction="vertical" size={[0, 8]} align="center">
+
+        <Ant.Tooltip title='گروه'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'گروه'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='کل'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCheck size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'کل'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+          
+          <Ant.Tooltip title='معین'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsBook size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'معین'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='سطح چهار'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'سطح چهار'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='سطح پنج'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'سطح پنج'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='سطح شش'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'سطح شش'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
         </Ant.Space>
       </>
     )
@@ -88,13 +113,56 @@ const HybridBrowsing = (props) => {
   const HorizontalButtons = () => {
     return (
       <>
-        <Ant.Space size={[32, 32]}>
-          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCheck size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsBook size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCode size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCode size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconClasses} icon={<IconBs.BsJournalCode size={iconSize} />} />
+        <Ant.Space size={[32, 0]}>
+
+          <Ant.Tooltip title='گروه'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'گروه'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='کل'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCheck size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'کل'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='معین'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsBook size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'معین'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='سطح چهار'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'سطح چهار'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='سطح پنج'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'سطح پنج'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          <Ant.Tooltip title='سطح شش'>
+            <Ant.Space size={[0, 0]} direction="vertical" align="center" >
+              <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+              <Ant.Typography.Text className={iconColor}>{'سطح شش'}</Ant.Typography.Text>
+            </Ant.Space>
+          </Ant.Tooltip>
+
+          {/* <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCheck size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsBook size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
+          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} /> */}
         </Ant.Space>
       </>
     )
