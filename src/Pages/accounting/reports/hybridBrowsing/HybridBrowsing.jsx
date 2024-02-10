@@ -63,23 +63,23 @@ const HybridBrowsing = (props) => {
       <>
         <div style={{ minHeight: 50 }}></div>
         <Ant.Space direction="vertical" >
-          <Ant.Button type={btnTypes} className="">
-            <IconBs.BsAlignStart size={iconSize} className={iconClasses}/>
+          <Ant.Button type={btnTypes}  className={iconClasses}>
+            <IconBs.BsAlignStart size={iconSize} />
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.Bs0Square size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.Bs0Square size={iconSize}  />
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsFillCreditCard2FrontFill size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsFillCreditCard2FrontFill size={iconSize}  />
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsJournalMinus size={iconSize}  />
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsJournalMinus size={iconSize}/>
           </Ant.Button>
         </Ant.Space>
       </>
@@ -89,23 +89,23 @@ const HybridBrowsing = (props) => {
     return (
       <>
         <Ant.Space  >
-          <Ant.Button type={btnTypes} >
-            <IconBs.BsAlignStart size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses} >
+            <IconBs.BsAlignStart size={iconSize}  />
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.Bs0Square size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.Bs0Square size={iconSize} />
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsFillCreditCard2FrontFill size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsFillCreditCard2FrontFill size={iconSize}/>
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsJournalMinus size={iconSize}/>
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsJournalMinus size={iconSize}/>
           </Ant.Button>
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
+          <Ant.Button type={btnTypes} className={iconClasses}>
+            <IconBs.BsJournalMinus size={iconSize} />
           </Ant.Button>
         </Ant.Space>
       </>
