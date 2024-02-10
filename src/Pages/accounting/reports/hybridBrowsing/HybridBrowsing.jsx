@@ -116,7 +116,10 @@ const HybridBrowsing = (props) => {
       <>
         <Ant.Table
           title={HorizontalButtons}
-          {...defaultValues.TABLE_PROPS}
+          size= 'small'
+          rowKey= 'id'
+          bordered= {true}
+          scroll= {{ x: '100%', y: '40vh' }}
           columns={columns()}
           // title={title}
           dataSource={(listData?.isSuccess && listData?.data) || null}
@@ -150,11 +153,11 @@ const HybridBrowsing = (props) => {
             onSubmit={onFilterChanged}
           />
         </FilterDrawer>
-        <Ant.Row gutter={[48, 0]}>
-          <Ant.Flex align="center" justify="" vertical>
+        <Ant.Row gutter={[48, 48]}>
+          <Ant.Flex align="center" justify="" vertical gap="large">
             <VerticalButtons />
           </Ant.Flex>
-          <Ant.Col span={20}>
+          <Ant.Col span={22}>
             <FilterBedge filterCount={filterCount}>
               <Grid />
             </FilterBedge>

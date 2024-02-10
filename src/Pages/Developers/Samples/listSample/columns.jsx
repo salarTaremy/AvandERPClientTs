@@ -11,7 +11,7 @@ export const columns = () => {
         align : 'center',
         width : 80,
         // fixed:true,
-        render: (text, record, index) => { return(<p>{record.id}</p>)},
+        render: (text, record, index) => { return(<>{record.id}</>)},
       },
       {
         title: 'نام',

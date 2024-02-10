@@ -9,9 +9,7 @@ export const columns = () => {
         dataIndex: 'id',
         key: 'id',
         align : 'center',
-        width : 80,
-        // fixed:true,
-        render: (text, record, index) => { return(<p>{record.id}</p>)},
+        render: (text, record, index) => { return(<>{record.id}</>)},
       },
       {
         title: 'نام',
@@ -23,7 +21,6 @@ export const columns = () => {
         title: 'نام دوم',
         dataIndex: 'secondName',
         key: 'secondName',
-        width:1000,
         render: (text, record, index) => (
           <Ant.Tooltip placement="top" title={text}>
             {text}
@@ -34,7 +31,6 @@ export const columns = () => {
         title: 'توضیحات',
         dataIndex: 'description',
         key: 'description',
-        width:1000,
       },
     ]
   )
