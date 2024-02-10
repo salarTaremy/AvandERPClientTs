@@ -64,22 +64,22 @@ const HybridBrowsing = (props) => {
         <div style={{ minHeight: 50 }}></div>
         <Ant.Space direction="vertical" >
           <Ant.Button type={btnTypes}  className={iconClasses}>
-            <IconBs.BsAlignStart size={iconSize} />
+            <IconBs.BsFillJournalBookmarkFill size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.Bs0Square size={iconSize}  />
+            <IconBs.BsJournalCheck size={iconSize}  />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsFillCreditCard2FrontFill size={iconSize}  />
+            <IconBs.BsBook size={iconSize}  />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalMinus size={iconSize}  />
+            <IconBs.BsJournalCode size={iconSize}  />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalCode size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalMinus size={iconSize}/>
+            <IconBs.BsJournalCode size={iconSize}/>
           </Ant.Button>
         </Ant.Space>
       </>
@@ -90,22 +90,22 @@ const HybridBrowsing = (props) => {
       <>
         <Ant.Space  >
           <Ant.Button type={btnTypes} className={iconClasses} >
-            <IconBs.BsAlignStart size={iconSize}  />
+            <IconBs.BsFillJournalBookmarkFill size={iconSize}  />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.Bs0Square size={iconSize} />
+            <IconBs.BsJournalCheck size={iconSize} />
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsFillCreditCard2FrontFill size={iconSize}/>
+            <IconBs.BsBook size={iconSize}/>
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalMinus size={iconSize}/>
+            <IconBs.BsJournalCode size={iconSize}/>
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalMinus size={iconSize}/>
+            <IconBs.BsJournalCode size={iconSize}/>
           </Ant.Button>
           <Ant.Button type={btnTypes} className={iconClasses}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalCode size={iconSize} />
           </Ant.Button>
         </Ant.Space>
       </>
