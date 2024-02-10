@@ -62,9 +62,9 @@ const HybridBrowsing = (props) => {
     return (
       <>
         <div style={{ minHeight: 50 }}></div>
-        <Ant.Space direction="vertical" size={[0, 8]} align="center">
+        <Ant.Space direction="vertical" size={[0, 4]} align="center">
 
-        <Ant.Tooltip title='گروه'>
+          <Ant.Tooltip title='گروه'>
             <Ant.Space size={[0, 0]} direction="vertical" align="center" >
               <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />} />
               <Ant.Typography.Text className={iconColor}>{'گروه'}</Ant.Typography.Text>
@@ -77,7 +77,7 @@ const HybridBrowsing = (props) => {
               <Ant.Typography.Text className={iconColor}>{'کل'}</Ant.Typography.Text>
             </Ant.Space>
           </Ant.Tooltip>
-          
+
           <Ant.Tooltip title='معین'>
             <Ant.Space size={[0, 0]} direction="vertical" align="center" >
               <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsBook size={iconSize} />} />
@@ -189,39 +189,44 @@ const HybridBrowsing = (props) => {
   return (
     <Ant.Card Card title={pageTitle} type="inner">
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}  >
-      <Ant.Flex vertical gap='middle'>
-       
-     
-        <ButtonList
-          filterCount={filterCount}
-          onAdd={() => {
-            alert("Add Click");
-          }}
-          onFilter={() => {
-            setOpenFilter(true);
-          }}
-        />
-        {/* <Ant.Divider /> */}
-        <FilterDrawer
-          open={openFilter}
-          onClose={() => setOpenFilter(false)}
-          onRemoveFilter={onRemoveFilter}
-        >
-          <FilterPanel
-            filterObject={filterObject}
-            onSubmit={onFilterChanged}
+        <Ant.Flex vertical gap='middle'>
+
+
+          <ButtonList
+            filterCount={filterCount}
+            onAdd={() => {
+              alert("Add Click");
+            }}
+            onFilter={() => {
+              setOpenFilter(true);
+            }}
           />
-        </FilterDrawer>
-        <Ant.Row gutter={[48, 48]} >
-          <Ant.Flex align="center" justify="" vertical gap='middle'>
-            <VerticalButtons />
-          </Ant.Flex>
-          <Ant.Col span={22}>
+          {/* <Ant.Divider /> */}
+          <FilterDrawer
+            open={openFilter}
+            onClose={() => setOpenFilter(false)}
+            onRemoveFilter={onRemoveFilter}
+          >
+            <FilterPanel
+              filterObject={filterObject}
+              onSubmit={onFilterChanged}
+            />
+          </FilterDrawer>
+          <Ant.Flex align="" justify="" gap='middle' >
+            <Ant.Flex align="center" justify="" vertical gap='middle'>
+              <Ant.Card>
+                <VerticalButtons />
+              </Ant.Card>
+            </Ant.Flex>
+
             <FilterBedge filterCount={filterCount}>
               <Grid />
             </FilterBedge>
-          </Ant.Col>
-        </Ant.Row>
+          </Ant.Flex>
+
+
+
+
         </Ant.Flex>
       </Ant.Card>
     </Ant.Card>
