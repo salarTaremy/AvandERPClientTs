@@ -54,9 +54,6 @@ const HybridBrowsing = (props) => {
   //====================================================================
   //                        Child Components
   //====================================================================
-  //====================================================================
-  //                        Child Components
-  //====================================================================
   const title = () => {
     return (
       <ButtonList
@@ -85,56 +82,65 @@ const HybridBrowsing = (props) => {
   //====================================================================
   //                        Component
   //====================================================================
+  const btnTypes = 'link'
   return (
     <Ant.Card Card title={pageTitle} type="inner">
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
-      <FilterDrawer
-              open={openFilter}
-              onClose={() => setOpenFilter(false)}
-              onRemoveFilter={onRemoveFilter}
-            >
-              <FilterPanel
-                filterObject={filterObject}
-                onSubmit={onFilterChanged}
-              />
-            </FilterDrawer>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel
+            filterObject={filterObject}
+            onSubmit={onFilterChanged}
+          />
+        </FilterDrawer>
         <Ant.Row>
           <Ant.Col span={24}>
-            <Ant.Space align="center">
-              <Ant.Button type="text">
-                <IconBs.BsAlignStart />
-              </Ant.Button>
-              <Ant.Button type="text">
-                <IconBs.Bs0Square />
-              </Ant.Button>
-              <Ant.Button type="text">
-                <IconBs.BsFillCreditCard2FrontFill />
-              </Ant.Button>
-              <Ant.Button type="text">
-                <IconBs.BsJournalMinus />
-              </Ant.Button>
-            </Ant.Space>
+
+
           </Ant.Col>
         </Ant.Row>
         <Ant.Row>
-          <Ant.Col span={1}>
-            <Ant.Space  direction="vertical"  align="center">
-              <Ant.Button type="text">
-                <IconBs.BsAlignStart />
+
+          <Ant.Flex align="center" justify="center" vertical>
+            <Ant.Space direction="vertical" >
+              <Ant.Button type={btnTypes}>
+                <IconBs.BsAlignStart size={'large'} />
               </Ant.Button>
-              <Ant.Button type="text">
-                <IconBs.Bs0Square />
+              <Ant.Button type={btnTypes}>
+                <IconBs.Bs0Square size={'large'} />
               </Ant.Button>
-              <Ant.Button type="text">
-                <IconBs.BsFillCreditCard2FrontFill />
+              <Ant.Button type={btnTypes}>
+                <IconBs.BsFillCreditCard2FrontFill size={'large'} />
               </Ant.Button>
-              <Ant.Button type="text">
-                <IconBs.BsJournalMinus />
+              <Ant.Button type={btnTypes}>
+                <IconBs.BsJournalMinus size={'large'} />
               </Ant.Button>
             </Ant.Space>
-          </Ant.Col>
+
+
+          </Ant.Flex>
+
           <Ant.Col span={23}>
-          
+          <Ant.Flex  align=""  justify="center" vertical>
+              <Ant.Space  >
+                <Ant.Button type={btnTypes}>
+                  <IconBs.BsAlignStart size={'large'} />
+                </Ant.Button>
+                <Ant.Button type={btnTypes}>
+                  <IconBs.Bs0Square size={'large'} />
+                </Ant.Button>
+                <Ant.Button type={btnTypes}>
+                  <IconBs.BsFillCreditCard2FrontFill size={'large'} />
+                </Ant.Button>
+                <Ant.Button type={btnTypes}>
+                  <IconBs.BsJournalMinus size={'large'} />
+                </Ant.Button>
+              </Ant.Space>
+            </Ant.Flex>
+
             <FilterBedge filterCount={filterCount}>
               <Grid />
             </FilterBedge>
