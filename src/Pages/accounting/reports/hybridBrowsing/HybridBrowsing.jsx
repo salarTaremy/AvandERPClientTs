@@ -175,7 +175,7 @@ const HybridBrowsing = (props) => {
           size='small'
           rowKey='id'
           bordered={true}
-          scroll={{ x: '100%', y: '40vh' }}
+          scroll={{ x: '100%', y: '42vh' }}
           columns={columns()}
           // title={title}
           dataSource={(listData?.isSuccess && listData?.data) || null}
