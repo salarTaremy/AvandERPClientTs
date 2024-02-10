@@ -189,6 +189,9 @@ const HybridBrowsing = (props) => {
   return (
     <Ant.Card Card title={pageTitle} type="inner">
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}  >
+      <Ant.Flex vertical gap='middle'>
+       
+     
         <ButtonList
           filterCount={filterCount}
           onAdd={() => {
@@ -198,7 +201,7 @@ const HybridBrowsing = (props) => {
             setOpenFilter(true);
           }}
         />
-        <Ant.Divider />
+        {/* <Ant.Divider /> */}
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -209,8 +212,8 @@ const HybridBrowsing = (props) => {
             onSubmit={onFilterChanged}
           />
         </FilterDrawer>
-        <Ant.Row gutter={[48, 48]}>
-          <Ant.Flex align="center" justify="" vertical gap="large">
+        <Ant.Row gutter={[48, 48]} >
+          <Ant.Flex align="center" justify="" vertical gap='middle'>
             <VerticalButtons />
           </Ant.Flex>
           <Ant.Col span={22}>
@@ -219,6 +222,7 @@ const HybridBrowsing = (props) => {
             </FilterBedge>
           </Ant.Col>
         </Ant.Row>
+        </Ant.Flex>
       </Ant.Card>
     </Ant.Card>
   );
