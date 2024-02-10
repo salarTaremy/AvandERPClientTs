@@ -17,6 +17,8 @@ import * as IconBs from "react-icons/bs";
 //                        Declaration
 //====================================================================
 const HybridBrowsing = (props) => {
+  const [horizontalLevel, setHorizontalLevel] = useState(1);
+  const [verticalLevel, setVerticallevel] = useState(null);
   const { id } = props;
   const pageTitle = "مرور ترکیبی حسابها";
   const [listData, listLoading, listError, listApiCall] =
@@ -28,6 +30,10 @@ const HybridBrowsing = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
+  useEffect(() => {}, [horizontalLevel]);
+
+  useEffect(() => {}, [verticalLevel]);
+
   useEffect(() => {
     filterObject &&
       setFilterCount(
@@ -51,13 +57,24 @@ const HybridBrowsing = (props) => {
     setFilterObject(null);
     setOpenFilter(false);
   };
+  const onHLevel1Click = () => {};
+  const onHLevel2Click = () => {};
+  const onHLevel3Click = () => {};
+  const onHLevel4Click = () => {};
+  const onHLevel5Click = () => {};
+  const onHLevel6Click = () => {};
+  const onVLevel1Click = () => {};
+  const onVLevel2Click = () => {};
+  const onVLevel3Click = () => {};
+  const onVLevel4Click = () => {};
+  const onVLevel5Click = () => {};
+  const onVLevel6Click = () => {};
   //====================================================================
   //                        Child Components
   //====================================================================
   const btnTypes = "text";
   const iconSize = "large";
   const iconColor = "text-blue-600";
-
   const VerticalButtons = () => {
     return (
       <>
@@ -66,6 +83,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="گروه">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onVLevel1Click}
+                disabled={verticalLevel == 1}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />}
@@ -79,6 +98,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="کل">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onVLevel2Click}
+                disabled={verticalLevel == 2}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsJournalCheck size={iconSize} />}
@@ -92,6 +113,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="معین">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onVLevel3Click}
+                disabled={verticalLevel == 3}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsJournalMedical size={iconSize} />}
@@ -105,6 +128,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="سطح چهار">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onVLevel4Click}
+                disabled={verticalLevel == 4}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -118,6 +143,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="سطح پنج">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onVLevel5Click}
+                disabled={verticalLevel == 5}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -131,6 +158,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="سطح شش">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onVLevel6Click}
+                disabled={verticalLevel == 6}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -151,6 +180,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="گروه">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onHLevel1Click}
+                disabled={horizontalLevel == 1}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />}
@@ -164,6 +195,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="کل">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onHLevel2Click}
+                disabled={horizontalLevel == 2}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsJournalCheck size={iconSize} />}
@@ -177,6 +210,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="معین">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onHLevel3Click}
+                disabled={horizontalLevel == 3}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsJournalMedical size={iconSize} />}
@@ -190,6 +225,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="سطح چهار">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onHLevel4Click}
+                disabled={horizontalLevel == 4}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -203,6 +240,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="سطح پنج">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onHLevel5Click}
+                disabled={horizontalLevel == 5}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -216,6 +255,8 @@ const HybridBrowsing = (props) => {
           <Ant.Tooltip title="سطح شش">
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
+                onClick={onHLevel6Click}
+                disabled={horizontalLevel == 6}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -252,16 +293,19 @@ const HybridBrowsing = (props) => {
     <Ant.Card Card title={pageTitle} type="inner">
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
         <Ant.Flex vertical gap="middle">
-          <ButtonList
-            filterCount={filterCount}
-            onRefresh={() => {
-              alert("Add Click");
-            }}
-            onFilter={() => {
-              setOpenFilter(true);
-            }}
-          />
-          {/* <Ant.Divider  /> */}
+          <Ant.Skeleton loading={listLoading} active>
+            <ButtonList
+              filterCount={filterCount}
+              onRefresh={() => {
+                fillGrid();
+              }}
+              onFilter={() => {
+                setOpenFilter(true);
+              }}
+            />
+            {/* <Ant.Divider  /> */}
+          </Ant.Skeleton>
+
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}
@@ -272,16 +316,18 @@ const HybridBrowsing = (props) => {
               onSubmit={onFilterChanged}
             />
           </FilterDrawer>
-          <Ant.Flex align="" justify="center" gap="middle">
-            <Ant.Flex align="center" justify="center" vertical gap="middle">
-              <Ant.Card >
-                <VerticalButtons />
-              </Ant.Card>
+          <Ant.Skeleton loading={listLoading} active>
+            <Ant.Flex align="" justify="center" gap="middle">
+              <Ant.Flex align="center" justify="center" vertical gap="middle">
+                <Ant.Card>
+                  <VerticalButtons />
+                </Ant.Card>
+              </Ant.Flex>
+              <FilterBedge filterCount={filterCount}>
+                <Grid />
+              </FilterBedge>
             </Ant.Flex>
-            <FilterBedge filterCount={filterCount}>
-              <Grid />
-            </FilterBedge>
-          </Ant.Flex>
+          </Ant.Skeleton>
         </Ant.Flex>
       </Ant.Card>
     </Ant.Card>
