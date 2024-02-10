@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import * as Ant from 'antd'
 import { AppstoreOutlined, BarsOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons'
-import { AlignRightOutlined, AlignLeftOutlined } from '@ant-design/icons'
+import * as IconBs from "react-icons/bs";
 import { MdFilterAltOff } from 'react-icons/md'
 const FilterDrawer = (props) => {
   const dispatch = useDispatch()
@@ -13,11 +13,11 @@ const FilterDrawer = (props) => {
   const options = [
     {
       value: 'right',
-      icon: <AlignRightOutlined />,
+      icon: <IconBs.BsLayoutSidebarInsetReverse    />,
     },
     {
       value: 'left',
-      icon: <AlignLeftOutlined />,
+      icon: <IconBs.BsLayoutSidebarInset    />,
     },
   ]
 
@@ -31,15 +31,17 @@ const FilterDrawer = (props) => {
       <Ant.Space>
         <Ant.Segmented
           options={options}
+          block
           defaultValue={filterDrawerPlacement}
           onChange={changePlacement}
+          size='large'
         />
         <Ant.Popconfirm
           title="فیلتر"
           description="برای لغو کلیه فیلتر ها مطمئن هستید؟"
           onConfirm={onRemoveFilter}
         >
-          <Ant.Button size="middle" icon={<MdFilterAltOff />} className="text-red-600 border-red-600" />
+          <Ant.Button size="large" icon={<MdFilterAltOff />} className="text-red-600 border-red-600" />
         </Ant.Popconfirm>
       </Ant.Space>
     )
