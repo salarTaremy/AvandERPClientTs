@@ -54,42 +54,32 @@ const HybridBrowsing = (props) => {
   //====================================================================
   //                        Child Components
   //====================================================================
-  const btnTypes = 'link'
+  const btnTypes = 'text'
   const iconSize = 'large'
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          columns={columns()}
-          // title={title}
-          dataSource={(listData?.isSuccess && listData?.data) || null}
-        />
-      </>
-    );
-  };
+  const iconClasses = 'text-blue-600'
+
   const VerticalButtons = () => {
     return (
       <>
         <div style={{ minHeight: 50 }}></div>
         <Ant.Space direction="vertical" >
-          <Ant.Button type={btnTypes}>
-            <IconBs.BsAlignStart size={iconSize} />
+          <Ant.Button type={btnTypes} className="">
+            <IconBs.BsAlignStart size={iconSize} className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.Bs0Square size={iconSize} />
+            <IconBs.Bs0Square size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsFillCreditCard2FrontFill size={iconSize} />
+            <IconBs.BsFillCreditCard2FrontFill size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
           </Ant.Button>
         </Ant.Space>
       </>
@@ -100,27 +90,40 @@ const HybridBrowsing = (props) => {
       <>
         <Ant.Space  >
           <Ant.Button type={btnTypes} >
-            <IconBs.BsAlignStart size={iconSize} />
+            <IconBs.BsAlignStart size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.Bs0Square size={iconSize} />
+            <IconBs.Bs0Square size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsFillCreditCard2FrontFill size={iconSize} />
+            <IconBs.BsFillCreditCard2FrontFill size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
           </Ant.Button>
           <Ant.Button type={btnTypes}>
-            <IconBs.BsJournalMinus size={iconSize} />
+            <IconBs.BsJournalMinus size={iconSize}  className={iconClasses}/>
           </Ant.Button>
         </Ant.Space>
       </>
     )
   }
+  const Grid = () => {
+    return (
+      <>
+        <Ant.Table
+          title={HorizontalButtons}
+          {...defaultValues.TABLE_PROPS}
+          columns={columns()}
+          // title={title}
+          dataSource={(listData?.isSuccess && listData?.data) || null}
+        />
+      </>
+    );
+  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -151,10 +154,7 @@ const HybridBrowsing = (props) => {
           <Ant.Flex align="center" justify="" vertical>
             <VerticalButtons />
           </Ant.Flex>
-          <Ant.Col span={23}>
-            <Ant.Flex align="" justify="center" vertical>
-              <HorizontalButtons />
-            </Ant.Flex>
+          <Ant.Col span={20}>
             <FilterBedge filterCount={filterCount}>
               <Grid />
             </FilterBedge>
