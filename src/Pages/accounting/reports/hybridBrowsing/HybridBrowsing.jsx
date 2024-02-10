@@ -218,15 +218,10 @@ const HybridBrowsing = (props) => {
                 <VerticalButtons />
               </Ant.Card>
             </Ant.Flex>
-
             <FilterBedge filterCount={filterCount}>
               <Grid />
             </FilterBedge>
           </Ant.Flex>
-
-
-
-
         </Ant.Flex>
       </Ant.Card>
     </Ant.Card>
