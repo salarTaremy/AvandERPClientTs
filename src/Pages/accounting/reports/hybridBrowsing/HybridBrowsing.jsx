@@ -225,13 +225,6 @@ const HybridBrowsing = (props) => {
               </Ant.Typography.Text>
             </Ant.Space>
           </Ant.Tooltip>
-
-          {/* <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCheck size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsBook size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} />
-          <Ant.Button type={btnTypes} className={iconColor} icon={<IconBs.BsJournalCode size={iconSize} />} /> */}
         </Ant.Space>
       </>
     );
@@ -261,14 +254,14 @@ const HybridBrowsing = (props) => {
         <Ant.Flex vertical gap="middle">
           <ButtonList
             filterCount={filterCount}
-            onAdd={() => {
+            onRefresh={() => {
               alert("Add Click");
             }}
             onFilter={() => {
               setOpenFilter(true);
             }}
           />
-          {/* <Ant.Divider /> */}
+          {/* <Ant.Divider  /> */}
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}
