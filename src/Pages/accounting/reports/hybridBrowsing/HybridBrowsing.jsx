@@ -17,9 +17,14 @@ import * as IconBs from "react-icons/bs";
 //                        Declaration
 //====================================================================
 const HybridBrowsing = (props) => {
+  const [selectedRow, setSelectedRow] = useState();
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      setSelectedRow(selectedRows[0]);
+    },
+  };
   const [horizontalLevel, setHorizontalLevel] = useState(1);
   const [verticalLevel, setVerticalLevel] = useState(null);
-  const { id } = props;
   const pageTitle = "مرور ترکیبی حسابها";
   const [listData, listLoading, listError, listApiCall] =
     api.useFetchWithHandler();
@@ -31,12 +36,11 @@ const HybridBrowsing = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    setVerticalLevel(null)
+    setSelectedRow(null)
+    setVerticalLevel(null);
   }, [horizontalLevel]);
 
-  useEffect(() => {
-
-  }, [verticalLevel]);
+  useEffect(() => {}, [verticalLevel]);
 
   useEffect(() => {
     filterObject &&
@@ -61,18 +65,42 @@ const HybridBrowsing = (props) => {
     setFilterObject(null);
     setOpenFilter(false);
   };
-  const onHLevel1Click = () => {setHorizontalLevel(1)};
-  const onHLevel2Click = () => {setHorizontalLevel(2)};
-  const onHLevel3Click = () => {setHorizontalLevel(3)};
-  const onHLevel4Click = () => {setHorizontalLevel(4)};
-  const onHLevel5Click = () => {setHorizontalLevel(5)};
-  const onHLevel6Click = () => {setHorizontalLevel(6)};
-  const onVLevel1Click = () => {setVerticalLevel(1)};
-  const onVLevel2Click = () => {setVerticalLevel(2)};
-  const onVLevel3Click = () => {setVerticalLevel(3)};
-  const onVLevel4Click = () => {setVerticalLevel(4)};
-  const onVLevel5Click = () => {setVerticalLevel(5)};
-  const onVLevel6Click = () => {setVerticalLevel(6)};
+  const onHLevel1Click = () => {
+    setHorizontalLevel(1);
+  };
+  const onHLevel2Click = () => {
+    setHorizontalLevel(2);
+  };
+  const onHLevel3Click = () => {
+    setHorizontalLevel(3);
+  };
+  const onHLevel4Click = () => {
+    setHorizontalLevel(4);
+  };
+  const onHLevel5Click = () => {
+    setHorizontalLevel(5);
+  };
+  const onHLevel6Click = () => {
+    setHorizontalLevel(6);
+  };
+  const onVLevel1Click = () => {
+    setVerticalLevel(1);
+  };
+  const onVLevel2Click = () => {
+    setVerticalLevel(2);
+  };
+  const onVLevel3Click = () => {
+    setVerticalLevel(3);
+  };
+  const onVLevel4Click = () => {
+    setVerticalLevel(4);
+  };
+  const onVLevel5Click = () => {
+    setVerticalLevel(5);
+  };
+  const onVLevel6Click = () => {
+    setVerticalLevel(6);
+  };
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -88,7 +116,9 @@ const HybridBrowsing = (props) => {
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
                 onClick={onVLevel1Click}
-                disabled={verticalLevel == 1|| horizontalLevel == 1 || !horizontalLevel}
+                disabled={
+                  verticalLevel == 1 || horizontalLevel == 1 || !horizontalLevel || !selectedRow
+                }
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsFillJournalBookmarkFill size={iconSize} />}
@@ -103,7 +133,9 @@ const HybridBrowsing = (props) => {
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
                 onClick={onVLevel2Click}
-                disabled={verticalLevel == 2|| horizontalLevel == 2 || !horizontalLevel}
+                disabled={
+                  verticalLevel == 2 || horizontalLevel == 2 || !horizontalLevel || !selectedRow
+                }
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsJournalCheck size={iconSize} />}
@@ -118,7 +150,9 @@ const HybridBrowsing = (props) => {
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
                 onClick={onVLevel3Click}
-                disabled={verticalLevel == 3|| horizontalLevel == 3 || !horizontalLevel}
+                disabled={
+                  verticalLevel == 3 || horizontalLevel == 3 || !horizontalLevel || !selectedRow
+                }
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsJournalMedical size={iconSize} />}
@@ -133,7 +167,9 @@ const HybridBrowsing = (props) => {
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
                 onClick={onVLevel4Click}
-                disabled={verticalLevel == 4|| horizontalLevel == 4 || !horizontalLevel}
+                disabled={
+                  verticalLevel == 4 || horizontalLevel == 4 || !horizontalLevel || !selectedRow
+                }
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -148,7 +184,9 @@ const HybridBrowsing = (props) => {
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
                 onClick={onVLevel5Click}
-                disabled={verticalLevel == 5|| horizontalLevel == 5 || !horizontalLevel}
+                disabled={
+                  verticalLevel == 5 || horizontalLevel == 5 || !horizontalLevel || !selectedRow
+                }
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -163,7 +201,9 @@ const HybridBrowsing = (props) => {
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
                 onClick={onVLevel6Click}
-                disabled={verticalLevel == 6|| horizontalLevel == 6 || !horizontalLevel}
+                disabled={
+                  verticalLevel == 6 || horizontalLevel == 6 || !horizontalLevel || !selectedRow
+                }
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -260,7 +300,7 @@ const HybridBrowsing = (props) => {
             <Ant.Space size={[0, 0]} direction="vertical" align="center">
               <Ant.Button
                 onClick={onHLevel6Click}
-                disabled={horizontalLevel == 6 }
+                disabled={horizontalLevel == 6}
                 type={btnTypes}
                 className={iconColor}
                 icon={<IconBs.BsBook size={iconSize} />}
@@ -274,22 +314,7 @@ const HybridBrowsing = (props) => {
       </>
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          title={HorizontalButtons}
-          size="small"
-          rowKey="id"
-          bordered={true}
-          scroll={{ x: "100%", y: "42vh" }}
-          columns={columns()}
-          // title={title}
-          dataSource={(listData?.isSuccess && listData?.data) || null}
-        />
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -328,7 +353,22 @@ const HybridBrowsing = (props) => {
                 </Ant.Card>
               </Ant.Flex>
               <FilterBedge filterCount={filterCount}>
-                <Grid />
+                <pre>{selectedRow?.id}</pre>
+                <Ant.Table
+                  title={HorizontalButtons}
+                  rowSelection={{
+                    type: "radio",
+                    ...rowSelection,
+                  }}
+                  size="small"
+                  rowKey="id"
+                  selectedRowKeys={["916"]}
+                  bordered={true}
+                  scroll={{ x: "100%", y: "42vh" }}
+                  columns={columns()}
+                  // title={title}
+                  dataSource={(listData?.isSuccess && listData?.data) || null}
+                />
               </FilterBedge>
             </Ant.Flex>
           </Ant.Skeleton>
