@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
+import qs from 'qs'
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as styles from "@/styles";
@@ -38,9 +39,12 @@ const HybridBrowsing = (props) => {
   useEffect(() => {
     setSelectedRow(null)
     setVerticalLevel(null);
+    fillGrid()
   }, [horizontalLevel]);
 
-  useEffect(() => {}, [verticalLevel]);
+  useEffect(() => {
+    
+  }, [verticalLevel]);
 
   useEffect(() => {
     filterObject &&
@@ -55,7 +59,11 @@ const HybridBrowsing = (props) => {
   //                        Functions
   //====================================================================
   const fillGrid = async () => {
-    await listApiCall(url.ACCOUNTING_REPORT_HYBRID_BROWSING);
+    const queryString = qs.stringify({
+      ...filterObject,
+      accountLevel:horizontalLevel || 1
+    })
+    await listApiCall(`${url.ACCOUNTING_REPORT_HYBRID_BROWSING}?${queryString}`)
   };
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);

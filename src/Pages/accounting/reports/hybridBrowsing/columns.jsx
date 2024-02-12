@@ -20,8 +20,8 @@ export const columns = () => {
         dataIndex: 'accCode',
         key: 'accCode',
         align : 'center',
-        width : 100,
-        sorter: (a, b) => a.accCode.localeCompare(b.accCode),
+        // width : 100,
+        sorter: (a, b) => a.accCode?.localeCompare(b.accCode),
         defaultSortOrder: 'ascend' //or descend
         //sortOrder: 'ascend' //or descend
       },
@@ -29,7 +29,7 @@ export const columns = () => {
         title: 'نام حساب',
         dataIndex: 'accName',
         key: 'accName',
-        sorter: (a, b) => a.accName.localeCompare(b.accName),
+        sorter: (a, b) => a.accName?.localeCompare(b.accName),
       },
       {
         title: 'گردش بدهکار',
