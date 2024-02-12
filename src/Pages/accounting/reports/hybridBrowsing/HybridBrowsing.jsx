@@ -55,7 +55,7 @@ const HybridBrowsing = (props) => {
   //                        Functions
   //====================================================================
   const fillGrid = async () => {
-    await listApiCall(url.ACCOUNT);
+    await listApiCall(url.ACCOUNTING_REPORT_HYBRID_BROWSING);
   };
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
@@ -361,7 +361,7 @@ const HybridBrowsing = (props) => {
                     ...rowSelection,
                   }}
                   size="small"
-                  rowKey="id"
+                  rowKey="accId"
                   selectedRowKeys={["916"]}
                   bordered={true}
                   scroll={{ x: "100%", y: "42vh" }}
