@@ -1,24 +1,29 @@
 import React from 'react'
 import * as Ant from 'antd'
 
+
+
+
 export const columns = () => {
   return (
     [
-      {
-        title: 'شناسه حساب',
-        dataIndex: 'accId',
-        key: 'accId',
-        // width : 400,
-        render: (text, record, index) => { return(<>{record.accId}</>)},
-        sorter: (a, b) => a.accId - b.accId,
-      },
+      // {
+      //   title: 'شناسه حساب',
+      //   dataIndex: 'accId',
+      //   key: 'accId',
+      //   width : 100,
+      //   render: (text, record, index) => { return(<>{record.accId}</>)},
+      //   sorter: (a, b) => a.accId - b.accId,
+      // },
       {
         title: 'کد حساب',
         dataIndex: 'accCode',
         key: 'accCode',
         align : 'center',
+        width : 100,
         sorter: (a, b) => a.accCode.localeCompare(b.accCode),
-        //sortOrder: 'asc'
+        defaultSortOrder: 'ascend' //or descend
+        //sortOrder: 'ascend' //or descend
       },
       {
         title: 'نام حساب',
@@ -31,24 +36,30 @@ export const columns = () => {
         dataIndex: 'sumDebtor',
         key: 'sumDebtor',
         sorter: (a, b) => a.sumDebtor - b.sumDebtor,
+        render:(text, record, index) =>  <>{record.sumDebtor.toLocaleString()}</>,
       },
       {
         title: 'گردش بستانکار',
         dataIndex: 'sumCreditor',
         key: 'sumCreditor',
         sorter: (a, b) => a.sumCreditor - b.sumCreditor,
+        render:(text, record, index) =>  <>{record.sumCreditor.toLocaleString()}</>,
       },
       {
         title: 'مانده بدهکار',
         dataIndex: 'balanceOfDebtor',
         key: 'balanceOfDebtor',
         sorter: (a, b) => a.balanceOfDebtor - b.balanceOfDebtor,
+        render:(text, record, index) =>  <>{record.balanceOfDebtor.toLocaleString()}</>,
+
       },
       {
         title: 'مانده بستانکار',
         dataIndex: 'balanceOfCreditor',
         key: 'balanceOfCreditor',
         sorter: (a, b) => a.balanceOfCreditor - b.balanceOfCreditor,
+        render:(text, record, index) =>  <>{record.balanceOfCreditor.toLocaleString()}</>,
+
       },
     ]
   )
