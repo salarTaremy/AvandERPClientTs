@@ -20,12 +20,12 @@ export const columns = () => {
         dataIndex: 'accCode',
         key: 'accCode',
         align : 'center',
-        // width : 100,
         sorter: (a, b) => a.accCode?.localeCompare(b.accCode),
         defaultSortOrder: 'ascend' //or descend
         //sortOrder: 'ascend' //or descend
       },
       {
+        resizable: true,
         title: 'نام حساب',
         dataIndex: 'accName',
         key: 'accName',

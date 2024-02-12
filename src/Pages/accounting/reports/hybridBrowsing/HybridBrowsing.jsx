@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
-import qs from 'qs'
+import qs from "qs";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as styles from "@/styles";
@@ -37,13 +37,14 @@ const HybridBrowsing = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    setSelectedRow(null)
+    setSelectedRow(null);
     setVerticalLevel(null);
-    fillGrid()
+    fillGrid();
   }, [horizontalLevel]);
 
   useEffect(() => {
-    
+    selectedRow?.accId && alert(JSON.stringify({id:selectedRow?.accId , horizontalLevel ,verticalLevel}))
+
   }, [verticalLevel]);
 
   useEffect(() => {
@@ -61,9 +62,11 @@ const HybridBrowsing = (props) => {
   const fillGrid = async () => {
     const queryString = qs.stringify({
       ...filterObject,
-      accountLevel:horizontalLevel || 1
-    })
-    await listApiCall(`${url.ACCOUNTING_REPORT_HYBRID_BROWSING}?${queryString}`)
+      accountLevel: horizontalLevel || 1,
+    });
+    await listApiCall(
+      `${url.ACCOUNTING_REPORT_HYBRID_BROWSING}?${queryString}`,
+    );
   };
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
@@ -125,7 +128,10 @@ const HybridBrowsing = (props) => {
               <Ant.Button
                 onClick={onVLevel1Click}
                 disabled={
-                  verticalLevel == 1 || horizontalLevel == 1 || !horizontalLevel || !selectedRow
+                  verticalLevel == 1 ||
+                  horizontalLevel == 1 ||
+                  !horizontalLevel ||
+                  !selectedRow
                 }
                 type={btnTypes}
                 className={iconColor}
@@ -142,7 +148,10 @@ const HybridBrowsing = (props) => {
               <Ant.Button
                 onClick={onVLevel2Click}
                 disabled={
-                  verticalLevel == 2 || horizontalLevel == 2 || !horizontalLevel || !selectedRow
+                  verticalLevel == 2 ||
+                  horizontalLevel == 2 ||
+                  !horizontalLevel ||
+                  !selectedRow
                 }
                 type={btnTypes}
                 className={iconColor}
@@ -159,7 +168,10 @@ const HybridBrowsing = (props) => {
               <Ant.Button
                 onClick={onVLevel3Click}
                 disabled={
-                  verticalLevel == 3 || horizontalLevel == 3 || !horizontalLevel || !selectedRow
+                  verticalLevel == 3 ||
+                  horizontalLevel == 3 ||
+                  !horizontalLevel ||
+                  !selectedRow
                 }
                 type={btnTypes}
                 className={iconColor}
@@ -176,7 +188,10 @@ const HybridBrowsing = (props) => {
               <Ant.Button
                 onClick={onVLevel4Click}
                 disabled={
-                  verticalLevel == 4 || horizontalLevel == 4 || !horizontalLevel || !selectedRow
+                  verticalLevel == 4 ||
+                  horizontalLevel == 4 ||
+                  !horizontalLevel ||
+                  !selectedRow
                 }
                 type={btnTypes}
                 className={iconColor}
@@ -193,7 +208,10 @@ const HybridBrowsing = (props) => {
               <Ant.Button
                 onClick={onVLevel5Click}
                 disabled={
-                  verticalLevel == 5 || horizontalLevel == 5 || !horizontalLevel || !selectedRow
+                  verticalLevel == 5 ||
+                  horizontalLevel == 5 ||
+                  !horizontalLevel ||
+                  !selectedRow
                 }
                 type={btnTypes}
                 className={iconColor}
@@ -210,7 +228,10 @@ const HybridBrowsing = (props) => {
               <Ant.Button
                 onClick={onVLevel6Click}
                 disabled={
-                  verticalLevel == 6 || horizontalLevel == 6 || !horizontalLevel || !selectedRow
+                  verticalLevel == 6 ||
+                  horizontalLevel == 6 ||
+                  !horizontalLevel ||
+                  !selectedRow
                 }
                 type={btnTypes}
                 className={iconColor}
@@ -328,9 +349,9 @@ const HybridBrowsing = (props) => {
   //====================================================================
   return (
     <Ant.Card Card title={pageTitle} type="inner">
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
         <Ant.Flex vertical gap="middle">
-          <Ant.Skeleton loading={listLoading} active>
+          <Ant.Skeleton loading={false} active>
             <ButtonList
               filterCount={filterCount}
               onRefresh={() => {
@@ -353,7 +374,8 @@ const HybridBrowsing = (props) => {
               onSubmit={onFilterChanged}
             />
           </FilterDrawer>
-          <Ant.Skeleton loading={listLoading} active>
+          {/* <pre>{selectedRow?.id}</pre> */}
+          <Ant.Skeleton loading={false} active>
             <Ant.Flex align="" justify="center" gap="middle">
               <Ant.Flex align="center" justify="center" vertical gap="middle">
                 <Ant.Card>
@@ -361,8 +383,8 @@ const HybridBrowsing = (props) => {
                 </Ant.Card>
               </Ant.Flex>
               <FilterBedge filterCount={filterCount}>
-                <pre>{selectedRow?.id}</pre>
                 <Ant.Table
+                  loading={listLoading}
                   title={HorizontalButtons}
                   rowSelection={{
                     type: "radio",
