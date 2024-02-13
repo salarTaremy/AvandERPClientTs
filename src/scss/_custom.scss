@@ -9,6 +9,7 @@ body {
   // font-size: 13px;
 }
 
+<<<<<<< Updated upstream
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -24,6 +25,11 @@ body {
   min-height: 70vh;
   border-radius: 8px;
 }
+=======
+// .ant-form-item.css-dev-only-do-not-override-1mlo16j{
+//   margin: 0 !important;
+// }
+>>>>>>> Stashed changes
 
 .Toastify__toast-body {
   font-family: "MyFont";
@@ -36,8 +42,26 @@ body {
 }
 
 
+<<<<<<< Updated upstream
 // //why ?!?!?!?!?!?!
 // .ant-drawer-body{
 //   padding: 0 !important;
 // }
 
+=======
+
+
+
+.sidebar-nav .nav-link {
+  color: #038fdd;
+}
+.sidebar-nav .nav-link:hover {
+  color: #fa8c15;
+}
+.sidebar-nav .nav-icon {
+  color: #038fdd;
+}
+.sidebar-nav .nav-icon:hover {
+  color: #fa8c15;
+}
+>>>>>>> Stashed changes
