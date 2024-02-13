@@ -13,6 +13,8 @@ import DocumentTypeList from './Pages/accounting/documentType/list/DocumentTypeL
 import DetailedAccount from'./Pages/accounting/detailedAccount/DetailedAccount'
 import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/DetailedAccountGroup'
 
+
+
 //Dashboard
 import Dashboard from './Pages/dashboard/Dashboard'
 
@@ -23,12 +25,14 @@ import MenuPermissions from './Pages/permissions/menuPermissions/MenuPermissions
 import AddProduct from './Pages/inventory/product/add/AddProduct'
 import SupplierList from './Pages/inventory/supplier/list/SupplierList'
 import BrandList from './Pages/inventory/brand/list/BrandList'
+import ProductList from'./Pages/inventory/product/list/ProductList'
 
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
 import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 import RoleManagement from './Pages/generalSettings/list/RoleManagement'
+import BranchList from'./Pages/generalSettings/branch/list/BranchList'
 
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
@@ -50,6 +54,7 @@ const routes = [
     { path: '/accounting/reports/stepReview', name: 'مرور پله ای', element: StepReview },
     { path: '/accounting/reports/hybridBrowsing', name: 'مرور ترکیبی', element: HybridBrowsing },
     { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
+    { path: '/inventory/product/list', name: 'فهرست کالا', element: ProductList },
     { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
     { path: '/base/brand', name: 'برند', element: BrandList},
     { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },
@@ -57,7 +62,7 @@ const routes = [
     { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
     { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
     { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
-    // { path: '/test/form', name: 'نمونه لیست', element: TestForm },
+    { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
     { path: '*', name: 'خطای 404',  element: NotFoundPage },
   ]
 
