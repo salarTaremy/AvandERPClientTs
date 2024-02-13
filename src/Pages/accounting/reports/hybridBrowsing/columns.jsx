@@ -1,36 +1,65 @@
 import React from 'react'
 import * as Ant from 'antd'
 
+
+
+
 export const columns = () => {
   return (
     [
+      // {
+      //   title: 'شناسه حساب',
+      //   dataIndex: 'accId',
+      //   key: 'accId',
+      //   width : 100,
+      //   render: (text, record, index) => { return(<>{record.accId}</>)},
+      //   sorter: (a, b) => a.accId - b.accId,
+      // },
       {
-        title: 'شناسه',
-        dataIndex: 'id',
-        key: 'id',
+        title: 'کد حساب',
+        dataIndex: 'accCode',
+        key: 'accCode',
         align : 'center',
-        render: (text, record, index) => { return(<>{record.id}</>)},
+        sorter: (a, b) => a.accCode?.localeCompare(b.accCode),
+        defaultSortOrder: 'ascend' //or descend
+        //sortOrder: 'ascend' //or descend
       },
       {
-        title: 'نام',
-        dataIndex: 'name',
-        key: 'name',
-        width : 400,
+        resizable: true,
+        title: 'نام حساب',
+        dataIndex: 'accName',
+        key: 'accName',
+        sorter: (a, b) => a.accName?.localeCompare(b.accName),
       },
       {
-        title: 'نام دوم',
-        dataIndex: 'secondName',
-        key: 'secondName',
-        render: (text, record, index) => (
-          <Ant.Tooltip placement="top" title={text}>
-            {text}
-          </Ant.Tooltip>
-        ),
+        title: 'گردش بدهکار',
+        dataIndex: 'sumDebtor',
+        key: 'sumDebtor',
+        sorter: (a, b) => a.sumDebtor - b.sumDebtor,
+        render:(text, record, index) =>  <>{record.sumDebtor.toLocaleString()}</>,
       },
       {
-        title: 'توضیحات',
-        dataIndex: 'description',
-        key: 'description',
+        title: 'گردش بستانکار',
+        dataIndex: 'sumCreditor',
+        key: 'sumCreditor',
+        sorter: (a, b) => a.sumCreditor - b.sumCreditor,
+        render:(text, record, index) =>  <>{record.sumCreditor.toLocaleString()}</>,
+      },
+      {
+        title: 'مانده بدهکار',
+        dataIndex: 'balanceOfDebtor',
+        key: 'balanceOfDebtor',
+        sorter: (a, b) => a.balanceOfDebtor - b.balanceOfDebtor,
+        render:(text, record, index) =>  <>{record.balanceOfDebtor.toLocaleString()}</>,
+
+      },
+      {
+        title: 'مانده بستانکار',
+        dataIndex: 'balanceOfCreditor',
+        key: 'balanceOfCreditor',
+        sorter: (a, b) => a.balanceOfCreditor - b.balanceOfCreditor,
+        render:(text, record, index) =>  <>{record.balanceOfCreditor.toLocaleString()}</>,
+
       },
     ]
   )

@@ -31,6 +31,9 @@ export const ACCOUNT_TYPE = "/accountType"
 //AccountNature
 export const ACCOUNT_NATURE = "/accountNature"
 
+//AccountingReport
+export const ACCOUNTING_REPORT_HYBRID_BROWSING = "/AccountingReport/HybridBrowsing"
+
 //DetailedAccount
 export const DETAILED_ACCOUNT_GROUP = "/detailedAccountGroup"
 export const DETAILED_ACCOUNT_GROUP_MAX_CODE = "/detailedAccountGroup/MaxCode"
