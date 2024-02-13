@@ -510,8 +510,9 @@ export const Table = (props) => {
       title: "عملیات",
       dataIndex: "operation",
       key: "operation",
-      width: 50,
+      width: 1,
       align: "center",
+      fixed: "right",
 
       render: (text, val) => (
         <>

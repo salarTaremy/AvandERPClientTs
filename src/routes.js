@@ -28,6 +28,7 @@ import BrandList from './Pages/inventory/brand/list/BrandList'
 import BlankPage from './Pages/Developers/Samples/BlankPage'
 import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
+import RoleManagement from './Pages/generalSettings/list/RoleManagement'
 
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
@@ -46,8 +47,8 @@ const routes = [
     { path: '/accounting/accountDocument/New', name: 'سند حسابداری جدید', element: FrmAddAccountDocument },
     { path: '/accounting/accountDocument/edit/:id', name: 'ویرایش حسابداری ', element: FrmEditAccountDocument },
     { path: '/accounting/reports/balanceSheet', name: 'تراز آزمایشی', element: BalanceSheet },
-    { path: '/accounting/reports/stepReview', name: 'مرور پله ای', element: StepReview },    
-    { path: '/accounting/reports/hybridBrowsing', name: 'مرور ترکیبی', element: HybridBrowsing },    
+    { path: '/accounting/reports/stepReview', name: 'مرور پله ای', element: StepReview },
+    { path: '/accounting/reports/hybridBrowsing', name: 'مرور ترکیبی', element: HybridBrowsing },
     { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
     { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
     { path: '/base/brand', name: 'برند', element: BrandList},
@@ -55,6 +56,7 @@ const routes = [
     { path: '/developers/samples/blankPage', name: 'صفحه خالی', element: BlankPage },
     { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
     { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
+    { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
     // { path: '/test/form', name: 'نمونه لیست', element: TestForm },
     { path: '*', name: 'خطای 404',  element: NotFoundPage },
   ]

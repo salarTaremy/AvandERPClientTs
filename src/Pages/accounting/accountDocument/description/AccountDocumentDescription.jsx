@@ -42,10 +42,15 @@ const AccountDocumentDescription = (props) => {
       label: 'بدهکار',
 
 
-      children: data?.data?.debtor,
+      children: data?.data?.debtor.toLocaleString(),
     },
     {
       key: '6',
+      label: 'بستانکار',
+      children: data?.data?.creditor.toLocaleString(),
+    },
+    {
+      key: '7',
       label: 'وضعیت حساب',
       //children: data?.data?.isActive.toString(),
 
@@ -65,25 +70,25 @@ const AccountDocumentDescription = (props) => {
       ),
     },
     {
-      key: '7',
+      key: '8',
       label: 'نام شعبه',
       span: 3,
       children: data?.data?.branchName,
     },
     {
-      key: '8',
+      key: '9',
       label: 'نام وضعیت ',
       span: 3,
       children: data?.data?.stateName,
     },
     {
-      key: '9',
+      key: '10',
       label: 'نوع سند',
       span: 3,
       children: data?.data?.typeName,
     },
     {
-      key: '10',
+      key: '11',
       label: 'تاریخ',
       span: 3,
       children: data?.data?.persianDateTilte,

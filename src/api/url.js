@@ -79,6 +79,9 @@ export const GANTT_CHART = '/GanttChart'
 //Branch
 export const BRANCH = '/Branch'
 
+//Role
+export const ROLE = '/Role'
+
 //LinkAccountDetailedAccountGroup
 export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP = '/linkAccountDetailedAccountGroup'
 

@@ -143,6 +143,7 @@ const AppSidebar = (props) => {
             <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
           )}
         </div>
+
       </Sider>
     </>
   );
