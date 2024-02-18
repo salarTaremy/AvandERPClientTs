@@ -63,6 +63,7 @@ const HybridBrowsing = (props) => {
     const queryString = qs.stringify({
       ...filterObject,
       horizontalLevel : horizontalLevel || 1,
+      AccountId:selectedRow?.accId  && selectedRow?.accId 
     });
     await listApiCall(
       `${url.ACCOUNTING_REPORT_HYBRID_BROWSING}?${queryString}`,
