@@ -37,7 +37,12 @@ const AppSidebar = (props) => {
     return menu.map((item) => {
       if (item.componentName === "CNavTitle") {
         item.type = "group";
-        delete item.iconName;
+        if (collapsedSider) {
+          return null
+        } else {
+          delete item.iconName;
+        }
+
       } else {
         item.icon = <AppstoreOutlined />;
       }
@@ -76,7 +81,7 @@ const AppSidebar = (props) => {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
     }
-  }, [data?.data]);
+  }, [data?.data, collapsedSider]);
 
   useEffect(() => {
     apiCall(url.NAV_MENU_TREE);
@@ -142,6 +147,7 @@ const AppSidebar = (props) => {
             <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
           )}
         </div>
+
 
       </Sider>
     </>
