@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { AppstoreOutlined, FileOutlined } from "@ant-design/icons";
 import * as Ant from "antd";
 import logo from "./../assets/images/logos/Logo2.png";
 import logoFlat from "./../assets/images/logos/LogoIcon128_Flat.png";
@@ -11,7 +10,7 @@ import * as api from "../api";
 import * as url from "../api/url";
 import useRequestManager from "../hooks/useRequestManager";
 import { Link } from "react-router-dom";
-import { SettingOutlined } from "@ant-design/icons";
+import * as AntIcons from "@ant-design/icons";
 const { Sider } = Layout;
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
@@ -37,9 +36,14 @@ const AppSidebar = (props) => {
     return menu.map((item) => {
       if (item.componentName === "CNavTitle") {
         item.type = "group";
-        delete item.iconName;
+        if (collapsedSider) {
+          return null
+        } else {
+          delete item.iconName;
+        }
+
       } else {
-        item.icon = <AppstoreOutlined />;
+        item.icon = <AntIcons.AppstoreOutlined />;
       }
       if (item.children) {
         delete item.type;
@@ -56,7 +60,7 @@ const AppSidebar = (props) => {
       return null;
     }
     return menu.map((child) => {
-      child.icon = <FileOutlined />;
+      child.icon = <AntIcons.FileOutlined />;
       child.label =
         (child.to && <Link to={child.to}>{child.title}</Link>) || child.title;
       if (child.children) {
@@ -76,7 +80,7 @@ const AppSidebar = (props) => {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
     }
-  }, [data?.data]);
+  }, [data?.data, collapsedSider]);
 
   useEffect(() => {
     apiCall(url.NAV_MENU_TREE);
@@ -92,7 +96,7 @@ const AppSidebar = (props) => {
             <Ant.Space align="center">
               <Ant.Input.Search />
               <Ant.Button type="text">
-                <SettingOutlined />
+                <AntIcons.SettingOutlined />
               </Ant.Button>
             </Ant.Space>
           </Ant.Flex>
@@ -142,6 +146,7 @@ const AppSidebar = (props) => {
             <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
           )}
         </div>
+
 
       </Sider>
     </>
