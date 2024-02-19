@@ -10,7 +10,7 @@ import ButtonList from "@/components/common/ButtonList";
 import { PropTypes } from "prop-types";
 import { useParams } from "react-router-dom";
 import * as uuid from "uuid";
-import useAllLoading from '@/hooks/useAllLoading '
+import useAllLoading from "@/hooks/useAllLoading ";
 export const Table = (props) => {
   const {
     onSubmit,
@@ -30,7 +30,7 @@ export const Table = (props) => {
     listErrorDetail,
     listApiCallDetail,
   ] = api.useFetchWithHandler();
-  const allLoading = useAllLoading([listLoadingDetail, accountLoading])
+  const allLoading = useAllLoading([listLoadingDetail, accountLoading]);
   useRequestManager({ error: listErrorDetail });
   useRequestManager({ error: accountError });
   useRequestManager({ error: dtAccError });
@@ -552,12 +552,7 @@ export const Table = (props) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        <Ant.Card
-          style={{
-            width: "100%",
-            marginTop: "15px",
-          }}
-        >
+        <Ant.Card className="w-full mt-4">
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col span={24} md={24} lg={24}>
               <Ant.Skeleton loading={allLoading}>
