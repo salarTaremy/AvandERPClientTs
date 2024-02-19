@@ -62,7 +62,8 @@ const HybridBrowsing = (props) => {
   const fillGrid = async () => {
     const queryString = qs.stringify({
       ...filterObject,
-      accountLevel: horizontalLevel || 1,
+      horizontalLevel : horizontalLevel || 1,
+      AccountId:selectedRow?.accId  && selectedRow?.accId 
     });
     await listApiCall(
       `${url.ACCOUNTING_REPORT_HYBRID_BROWSING}?${queryString}`,
