@@ -112,8 +112,7 @@ const AppSidebar = (props) => {
         collapsed={collapsedSider}
         items={items}
       >
-        {/* why ?!?!?!?!?!?!? */}
-        {/* <div className="sticky top-0 bg-slate-50 z-10 h-16"> */}
+
         {!showImageSider && (
           <Image
             className="mr-11 my-2.5"

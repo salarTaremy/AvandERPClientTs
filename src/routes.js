@@ -31,8 +31,11 @@ import ProductList from'./Pages/inventory/product/list/ProductList'
 import BlankPage from './Pages/Developers/Samples/BlankPage'
 import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
-import RoleManagement from './Pages/generalSettings/list/RoleManagement'
+
+//GeneralSettings
+import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
 import BranchList from'./Pages/generalSettings/branch/list/BranchList'
+import RoleOperations from'./Pages/generalSettings/roleOperations/RoleOperations'
 
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
@@ -63,6 +66,7 @@ const routes = [
     { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
     { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
     { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
+    { path: '/generalSettings/accessRoles', name: 'ارتباط نقش و عملیات', element: RoleOperations },
     { path: '*', name: 'خطای 404',  element: NotFoundPage },
   ]
 

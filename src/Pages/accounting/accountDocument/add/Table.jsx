@@ -10,6 +10,7 @@ import ButtonList from "@/components/common/ButtonList";
 import { PropTypes } from "prop-types";
 import { useParams } from "react-router-dom";
 import * as uuid from "uuid";
+import useAllLoading from '@/hooks/useAllLoading '
 export const Table = (props) => {
   const {
     onSubmit,
@@ -29,6 +30,7 @@ export const Table = (props) => {
     listErrorDetail,
     listApiCallDetail,
   ] = api.useFetchWithHandler();
+  const allLoading = useAllLoading([listLoadingDetail, accountLoading])
   useRequestManager({ error: listErrorDetail });
   useRequestManager({ error: accountError });
   useRequestManager({ error: dtAccError });
@@ -558,22 +560,24 @@ export const Table = (props) => {
         >
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Table
-                bordered={false}
-                pagination={false}
-                scroll={{
-                  x: 2000,
-                  y: "45vh",
-                }}
-                title={addRow}
-                footer={footer}
-                columns={columns}
-                dataSource={
-                  params.id !== undefined && params.id !== null
-                    ? dataNewSource
-                    : dataSource
-                }
-              ></Ant.Table>
+              <Ant.Skeleton loading={allLoading}>
+                <Ant.Table
+                  bordered={false}
+                  pagination={false}
+                  scroll={{
+                    x: 2000,
+                    y: "45vh",
+                  }}
+                  title={addRow}
+                  footer={footer}
+                  columns={columns}
+                  dataSource={
+                    params.id !== undefined && params.id !== null
+                      ? dataNewSource
+                      : dataSource
+                  }
+                ></Ant.Table>
+              </Ant.Skeleton>
             </Ant.Col>
           </Ant.Row>
         </Ant.Card>

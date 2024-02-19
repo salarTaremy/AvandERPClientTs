@@ -85,6 +85,15 @@ export const BRANCH = '/Branch'
 //Role
 export const ROLE = '/Role'
 
+//RoleScope
+export const ROLE_SCOPE = '/RoleScope'
+
+//ApplicationController
+export const APPLICATION_CONTROLLER = '/ApplicationController'
+
+//GetActions
+export const ACTIONS = '/ApplicationController/GetActions'
+
 //LinkAccountDetailedAccountGroup
 export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP = '/linkAccountDetailedAccountGroup'
 

@@ -3,24 +3,24 @@ import { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
-import * as uuid from 'uuid'
+import * as uuid from "uuid";
 // import FilterDrawer from '@/components/common/FilterDrawer'
 import FilterBedge from "@/components/common/FilterBedge";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import columns from "./columns";
 import ButtonList from "@/components/common/ButtonList";
-import FormAddRole from "../add/FormAddRole"
-import FormEditRole from "../edit/FormEditRole"
+import FormAddRole from "../add/FormAddRole";
+import FormEditRole from "../edit/FormEditRole";
 import * as defaultValues from "@/defaultValues";
 function RoleManagement() {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
-  const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler()
+  const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [dataSource, setDataSource] = useState(null);
-  const [modalContent, setModalContent] = useState()
+  const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
   useRequestManager({ error: error });
-  useRequestManager({ error: delError, data: delSaving, loading: delLoading })
+  useRequestManager({ error: delError, data: delSaving, loading: delLoading });
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -31,22 +31,30 @@ function RoleManagement() {
   }, []);
   useEffect(() => {
     delSaving?.isSuccess &&
-      setDataSource([...dataSource?.filter((c) => c.id !== delSaving?.data?.id)])
-  }, [delSaving])
+      setDataSource([
+        ...dataSource?.filter((c) => c.id !== delSaving?.data?.id),
+      ]);
+  }, [delSaving]);
 
   const getRole = async () => {
     await ApiCall(url.ROLE);
   };
-  const onDelete =async (id) => {
-    await delApiCall(`${url.ROLE}/${id}`)
-
+  const onDelete = async (id) => {
+    await delApiCall(`${url.ROLE}/${id}`);
   };
   const onSuccessEdit = () => {
-    setModalState(false)
-    getRole()
-  }
+    setModalState(false);
+    getRole();
+  };
   const onEdit = (val) => {
-    setModalContent(<FormEditRole onSuccess={onSuccessEdit} myKey={val.id} obj={val} id={val.id} />)
+    setModalContent(
+      <FormEditRole
+        onSuccess={onSuccessEdit}
+        myKey={val.id}
+        obj={val}
+        id={val.id}
+      />,
+    );
     setModalState(true);
   };
   const onView = (id) => {
@@ -54,20 +62,20 @@ function RoleManagement() {
     setModalState(true);
   };
   const onSuccessAdd = () => {
-    setModalState(false)
-    getRole()
-  }
+    setModalState(false);
+    getRole();
+  };
   const onAdd = () => {
-    setModalContent(<FormAddRole key={uuid.v1()} onSuccess={onSuccessAdd}/>)
+    setModalContent(<FormAddRole key={uuid.v1()} onSuccess={onSuccessAdd} />);
     setModalState(true);
   };
   const title = () => {
     return (
       <ButtonList
         onAdd={onAdd}
-        onFilter={() => {
-          setOpenFilter(true);
-        }}
+        // onFilter={() => {
+        //   setOpenFilter(true);
+        // }}
         onRefresh={() => {
           getRole();
         }}
@@ -100,7 +108,10 @@ function RoleManagement() {
         onOk={() => {
           setModalState(false);
         }}
-      >  {modalContent}</Ant.Modal>
+      >
+        {" "}
+        {modalContent}
+      </Ant.Modal>
       <Ant.Card title={"لیست نقش ها"} type="inner">
         <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
           {/* <FilterDrawer

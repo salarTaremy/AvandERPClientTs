@@ -213,6 +213,7 @@ export const FrmEditAccountDocument = () => {
           },
         ]}
       />
+
       <TBL
         updateDebtorEdit={updateDebtorEdit}
         updateCreditorEdit={updateCreditorEdit}
@@ -220,6 +221,7 @@ export const FrmEditAccountDocument = () => {
         dataEdit={dataEdit}
         onSubmit={onFinish}
       />
+
     </>
   )
 }
