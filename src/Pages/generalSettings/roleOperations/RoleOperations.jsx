@@ -1,20 +1,27 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import columns from "./columns";
-import { useFetch, useFetchWithHandler } from "@/api";
+import { useFetch, useFetchWithHandler, usePutWithHandler } from "@/api";
 import * as url from "@/api/url";
 import * as Ant from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
-// import RoleOperationDetai from "./RoleOperationDetai";
 import ActionList from "./ActionList";
 import qs from "qs";
 import * as defaultValues from "@/defaultValues";
 const RoleOperations = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState();
+  const [idRol, setIdRol] = useState(0);
+  const [idAction, setIdAction] = useState([]);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+  const [
+    listRoleAction,
+    loadingRoleActionr,
+    errorRoleAction,
+    apiCallRoleAction,
+  ] = usePutWithHandler();
   const [form] = Ant.Form.useForm();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [roleScopeData, roleScopeLoading, roleScopeError] = useFetch(
     url.ROLE_SCOPE,
   );
@@ -23,46 +30,68 @@ const RoleOperations = () => {
   useRequestManager({ error: error });
   useRequestManager({ error: roleScopeError });
   useRequestManager({ error: roleError });
-
+  useRequestManager({
+    error: errorRoleAction,
+    data: listRoleAction,
+    loading: loadingRoleActionr,
+  });
+  //====================================================================
+  //                        useEffects
+  //====================================================================
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
 
   useEffect(() => {
     getAllApplicationController();
-    // onChangeRoleScope();
   }, []);
-
-  const getAllApplicationController = async () => {
-    await ApiCall(url.APPLICATION_CONTROLLER);
+  //====================================================================
+  //                        Events
+  //====================================================================
+  const updateActionId = (listId) => {
+    setIdAction(listId);
   };
 
-  const onFinish = async (values) => {
-    console.log(values, "values");
-  };
   const handleOk = () => {
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const getId = (val) => {
-    alert(val);
-    setModalContent(<ActionList id={val} />);
+  const getId = (id) => {
+    setModalContent(
+      <ActionList updateActionId={updateActionId} key={id} id={id} roleId={idRol} />,
+    );
     setIsModalOpen(true);
+  };
+
+  //====================================================================
+  //                        Functions
+  //====================================================================
+
+  const getAllApplicationController = async () => {
+    await ApiCall(url.APPLICATION_CONTROLLER);
+  };
+
+  const submitRoleAction = async () => {
+    const data = {
+      roleId: idRol,
+      entityIdList: idAction,
+    };
+    await apiCallRoleAction(url.UPDATE_ROLE_ACTION_ASSIGNMENT, data);
+    setIsModalOpen(false);
   };
   const onChangeRoleScope = async (val) => {
     const data = qs.stringify({
       Id: parseInt(val),
     });
     await roleApi(`${url.ROLE}?${data}`);
+    setDisable(false);
   };
 
-  const expandedRowRender = (record, index, indent, expanded) => {
-    // return <RoleOperationDetai key={record.id} id={record.id} />;
-    // return   <ActionList visible={modalVisible} onClose={handleCloseModal} />
-  };
-
+  //====================================================================
+  //                        Child Components
+  //=====================================================================
   const Grid = () => {
     return (
       <>
@@ -70,16 +99,30 @@ const RoleOperations = () => {
           {...defaultValues.TABLE_PROPS}
           dataSource={dataSource}
           columns={columns(getId)}
-          expandable={{
-            expandedRowRender,
-          }}
         />
       </>
     );
   };
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
     <>
-      <Ant.Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Ant.Modal
+        footer={[
+          <Ant.Button
+            key="submit"
+            type="primary"
+            loading={loadingRoleActionr}
+            onClick={submitRoleAction}
+          >
+            تایید
+          </Ant.Button>,
+        ]}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
         {modalContent}
       </Ant.Modal>
       <Ant.Collapse
@@ -91,7 +134,7 @@ const RoleOperations = () => {
             label: "ارتباط نقش و عملیات",
             children: (
               <>
-                <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
+                <Ant.Form form={form} layout="vertical" onFinish={null}>
                   <Ant.Row gutter={[16, 8]}>
                     <Ant.Col span={12} md={12} lg={12}>
                       <Ant.Form.Item
@@ -117,7 +160,8 @@ const RoleOperations = () => {
                       >
                         <Ant.Select
                           placeholder={"انتخاب کنید..."}
-                          disabled={roleLoading || false}
+                          onChange={(value) => setIdRol(value)}
+                          disabled={disable}
                           loading={roleLoading}
                           options={roleData?.data}
                           fieldNames={{ label: "name", value: "roleScopeId" }}
@@ -134,7 +178,6 @@ const RoleOperations = () => {
       <Ant.Card className="w-full mt-4" type="inner">
         <Grid />
       </Ant.Card>
-      {/* // <ActionList /> */}
     </>
   );
 };

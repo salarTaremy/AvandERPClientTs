@@ -99,6 +99,4 @@ export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP = '/linkAccountDetailedAccountGr
 
 
 //UpdateRoleNavMenuAssignment
-export const UPDATE_ROLE_NAVMENU = '/UpdateRoleNavMenuAssignment'
-
-
+export const UPDATE_ROLE_ACTION_ASSIGNMENT = 'Role/UpdateRoleActionAssignment'

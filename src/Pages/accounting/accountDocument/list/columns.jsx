@@ -1,73 +1,73 @@
-import React from 'react'
-import * as Ant from 'antd'
-import { RiDeleteBin6Line } from 'react-icons/ri'
-import { GrView } from 'react-icons/gr'
-import { FiEdit, FiCalendar, FiClock } from 'react-icons/fi'
+import React from "react";
+import * as Ant from "antd";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { GrView } from "react-icons/gr";
+import { FiEdit, FiCalendar, FiClock } from "react-icons/fi";
 
 const getStateColor = (stateId) => {
   switch (stateId) {
     case 1:
-      return 'red'
+      return "red";
     case 2:
-      return 'orange'
+      return "orange";
     case 3:
-      return 'green'
+      return "green";
     case 4:
-      return 'blue'
+      return "blue";
     default:
-      return 'black'
+      return "black";
   }
-}
+};
 const getTypeColor = (typeId) => {
-  console.log('faaaajjeee  eeeeee')
+  console.log("faaaajjeee  eeeeee");
   switch (typeId) {
     case 1:
-      return 'green'
+      return "green";
     case 2:
-      return 'blue'
+      return "blue";
     case 3:
-      return 'pink'
+      return "pink";
     case 4:
-      return 'pink'
+      return "pink";
     case 5:
-      return 'gray'
+      return "gray";
     default:
-      return 'black'
+      return "black";
   }
-}
+};
 
 export const columns = (onDelete, onEdit, onView) => {
   return [
     {
-      title: 'شماره',
-      dataIndex: 'documentNumber',
-      key: 'documentNumber',
-      align: 'center',
+      title: "شماره",
+      dataIndex: "documentNumber",
+      key: "documentNumber",
+      align: "center",
     },
     {
-      title: 'شماره عطف',
-      dataIndex: 'inflectionNumber',
-      key: 'inflectionNumber',
-      align: 'center',
+      title: "شماره عطف",
+      dataIndex: "inflectionNumber",
+      key: "inflectionNumber",
+      align: "center",
     },
     {
-      title: 'شماره فرعی',
-      dataIndex: 'subNumber',
-      key: 'subNumber',
-      align: 'center',
+      title: "شماره فرعی",
+      dataIndex: "subNumber",
+      key: "subNumber",
+      align: "center",
     },
     {
-      title: 'شماره روزانه',
-      dataIndex: 'dailyNumber',
-      key: 'dailyNumber',
-      align: 'center',
+      title: "شماره روزانه",
+      dataIndex: "dailyNumber",
+      key: "dailyNumber",
+      align: "center",
     },
     {
-      title: 'تاریخ',
+      title: "تاریخ",
       // title: 'تاریخ/زمان ثبت',
-      dataIndex: 'persianDateTilte',
-      key: 'persianDateTilte',
-      align: 'center',
+      dataIndex: "persianDateTilte",
+      key: "persianDateTilte",
+      align: "center",
       render: (text, record, index) => (
         <>
           {/* {`${record.persianDateTilte}`} <FiCalendar  /> {`${record.createTime.substring(0, 5)}`} <FiClock  />{' '} */}
@@ -76,16 +76,16 @@ export const columns = (onDelete, onEdit, onView) => {
       ),
     },
     {
-      title: 'شعبه صادر کننده',
-      dataIndex: 'branchName',
-      key: 'branchName',
-      align: 'center',
+      title: "شعبه صادر کننده",
+      dataIndex: "branchName",
+      key: "branchName",
+      align: "center",
     },
     {
-      title: 'وضعیت',
-      dataIndex: 'stateName',
-      key: 'stateName',
-      align: 'center',
+      title: "وضعیت",
+      dataIndex: "stateName",
+      key: "stateName",
+      align: "center",
       render: (text, record, index) => (
         <Ant.Tag color={getStateColor(record.stateId)} key={record.id}>
           {record.stateName}
@@ -93,10 +93,10 @@ export const columns = (onDelete, onEdit, onView) => {
       ),
     },
     {
-      title: 'نوع',
-      dataIndex: 'typeName',
-      key: 'typeName',
-      align: 'center',
+      title: "نوع",
+      dataIndex: "typeName",
+      key: "typeName",
+      align: "center",
       render: (text, record, index) => (
         <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
           {record.typeName}
@@ -104,9 +104,9 @@ export const columns = (onDelete, onEdit, onView) => {
       ),
     },
     {
-      title: 'عملیات',
-      key: 'id',
-      align: 'center',
+      title: "عملیات",
+      key: "id",
+      align: "center",
       render: (text, record, index) => {
         return (
           <>
@@ -116,7 +116,11 @@ export const columns = (onDelete, onEdit, onView) => {
                 title="حدف ایتم"
                 description={`برای حذف حساب تفصیل ${record.name} مطمئن هستید ؟`}
               >
-                <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
+                <Ant.Button
+                  className="text-red-600"
+                  icon={<RiDeleteBin6Line />}
+                  type="text"
+                />
               </Ant.Popconfirm>
               <Ant.Button
                 onClick={() => onView(record.id)}
@@ -132,8 +136,8 @@ export const columns = (onDelete, onEdit, onView) => {
               />
             </Ant.Space>
           </>
-        )
+        );
       },
     },
-  ]
-}
+  ];
+};

@@ -1,8 +1,5 @@
 import React from "react";
 import * as Ant from "antd";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FiEdit } from "react-icons/fi";
-import { GrView } from "react-icons/gr";
 import { UserOutlined } from "@ant-design/icons";
 
 
@@ -12,10 +9,10 @@ const columns = (getId) => {
       title: "شناسه",
       dataIndex: "id",
       key: "id",
-
-      width: 80,
+      width: 50,
+      align: "center",
       // fixed:true,
-      render: (text, record, index) => <a>{record.id}</a>,
+
     },
     {
       title: "نام",
@@ -32,7 +29,7 @@ const columns = (getId) => {
       width: 100,
     },
     {
-      title: "دسسترسی عملیات",
+      title: "دسترسی عملیات",
       dataIndex: "",
       key: "",
 
@@ -45,38 +42,7 @@ const columns = (getId) => {
       ),
     },
 
-    // {
-    //   title: "عملیات",
-    //   dataIndex: "operation",
-    //   key: "operation",
-    //   width: 100,
-    //   align: "center",
-    //   fixed: "right",
 
-    //   render: (text, val) => (
-    //     <>
-    //       <Ant.Space direction="horizontal" size={20}>
-    //         <Ant.Button
-    //           onClick={() => onEdit(val)}
-    //           className="text-blue-600"
-    //           icon={<FiEdit />}
-    //           type="text"
-    //         />
-    //       </Ant.Space>
-
-    //       <Ant.Popconfirm
-    //         onConfirm={() => onDelete(val.id)}
-    //         title={` برای حذف تامین کننده  "${val.name}" مطمئن هستید؟`}
-    //       >
-    //         <Ant.Button
-    //           className="text-red-600"
-    //           icon={<RiDeleteBin6Line />}
-    //           type="text"
-    //         />
-    //       </Ant.Popconfirm>
-    //     </>
-    //   ),
-    // },
   ];
 };
 

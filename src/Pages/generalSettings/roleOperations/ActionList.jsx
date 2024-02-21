@@ -2,27 +2,75 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
-import * as api from "@/api";
+import qs from "qs";
 import PropTypes from "prop-types";
-import Loading from "@/components/common/Loading";
-
+import { useFetchWithHandler } from "@/api";
+import useRequestManager from "@/hooks/useRequestManager";
 const ActionList = (props) => {
-  const { id } = props;
-  const [data, loading, error] = api.useFetch(
-    url.ACTIONS + "?AppControllerId=" + id,
-  );
+  const { id, roleId, updateActionId } = props;
+  const listId = [];
+  const [data, loading, error, ApiCall] = useFetchWithHandler();
+  useRequestManager({ error: error });
+  const [dataSource, setDataSource] = useState(null);
+  const [getValue, setgetValue] = useState(null);
+  useEffect(() => {
+    getAllActionList();
+  }, []);
+  useEffect(() => {
+    console.log(getValue);
+  }, [getValue]);
+
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const getIdRow = (id, val) => {
+    console.log(val.roleHasAccess, "fataaaa");
+    listId.push(id);
+    updateActionId(listId);
+  };
+
+  const onChange = (val) => {
+    console.log('>>>>' , val.target)
+    setgetValue(val.target.checked);
+  };
+
+  useEffect(() => {
+    setDataSource((data?.isSuccess && data?.data) || null);
+  }, [data]);
+
+  const getAllActionList = async () => {
+    const queryString = qs.stringify({
+      AppControllerId: id,
+      RoleId: roleId,
+    });
+    await ApiCall(`${url.ACTIONS}?${queryString}`);
+  };
+  //====================================================================
   const cl = [
+    {
+      title: "انتخاب عملیات",
+      dataIndex: "",
+      key: "",
+
+      width: 50,
+      align: "center",
+      render: (text, val) => (
+        <>
+          <Ant.Checkbox
+            defaultChecked={text.roleHasAccess}
+            onChange={onChange}
+            onClick={() => getIdRow(val.id, text)}
+            className="text-blue-600"
+          />
+        </>
+      ),
+    },
     {
       title: "نام عملیات",
       dataIndex: "actionName",
       key: "actionName",
       width: 100,
-      render: (text, record) => (
-        <>
-          <Ant.Checkbox className="mx-2" />
-          {text}
-        </>
-      ),
+      render: (text, record) => <>{text}</>,
     },
     {
       title: "عنوان",
@@ -31,24 +79,30 @@ const ActionList = (props) => {
       width: 100,
     },
   ];
-
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
     <>
-      {(loading && (
-        <Loading
-          message="لطفا کمی صبر کنید"
-          description={`درحال دانلود اطلاعات  سند شناسه ${id}`}
+    <pre>
+    {JSON.stringify(dataSource,null,2)}
+    </pre>
+      <Ant.Skeleton loading={loading}>
+        <Ant.Table
+          {...defaultValues.TABLE_PROPS}
+          className="mt-5"
+          bordered={false}
+          pagination={false}
+          columns={cl}
+          dataSource={dataSource || null}
         />
-      )) || (
-        <>
-          <Ant.Table bordered columns={cl} dataSource={data?.data || null} />
-        </>
-      )}
+      </Ant.Skeleton>
     </>
   );
 };
 ActionList.propTypes = {
   id: PropTypes.any,
+  updateActionId: PropTypes.func,
 };
 
 export default ActionList;
