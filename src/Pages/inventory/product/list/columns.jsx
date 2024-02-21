@@ -3,7 +3,7 @@ import * as Ant from 'antd'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { GrView } from 'react-icons/gr'
 
-const columns = (onDelete,onView) => {
+const columns = (onDelete, onView) => {
     return (
         [
             {
@@ -11,14 +11,12 @@ const columns = (onDelete,onView) => {
                 dataIndex: 'id',
                 key: 'id',
                 width: 50,
-                render: (text) => <a>{text}</a>
             },
             {
                 title: 'کد',
                 dataIndex: 'code',
                 key: 'code',
                 width: 50,
-                render: (text) => <a>{text}</a>
             },
             {
                 title: 'کد دوم',
