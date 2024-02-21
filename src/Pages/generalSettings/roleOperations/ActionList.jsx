@@ -6,7 +6,11 @@ import * as api from "@/api";
 import PropTypes from "prop-types";
 import Loading from "@/components/common/Loading";
 
-const columns = (props) => {
+const ActionList = (props) => {
+  const { id } = props;
+  const [data, loading, error] = api.useFetch(
+    url.ACTIONS + "?AppControllerId=" + id,
+  );
   const cl = [
     {
       title: "نام عملیات",
@@ -27,10 +31,7 @@ const columns = (props) => {
       width: 100,
     },
   ];
-  const { id } = props;
-  const [data, loading, error] = api.useFetch(
-    url.ACTIONS + "?AppControllerId=" + id.toString(),
-  );
+
   return (
     <>
       {(loading && (
@@ -40,24 +41,14 @@ const columns = (props) => {
         />
       )) || (
         <>
-          <Ant.Table
-            // {...defaultValues.TABLE_PROPS}
-            // size= 'small'
-            // rowKey= 'id'
-            bordered
-            columns={cl}
-            dataSource={data?.data || null}
-          />
-          {/* <Ant.Typography>
-            <pre>{JSON.stringify(data?.data, null, 2)}</pre>
-          </Ant.Typography> */}
+          <Ant.Table bordered columns={cl} dataSource={data?.data || null} />
         </>
       )}
     </>
   );
 };
-RoleOperationDetai.propTypes = {
+ActionList.propTypes = {
   id: PropTypes.any,
 };
 
-export default RoleOperationDetai;
+export default ActionList;

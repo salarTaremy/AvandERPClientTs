@@ -98,3 +98,7 @@ export const ACTIONS = '/ApplicationController/GetActions'
 export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP = '/linkAccountDetailedAccountGroup'
 
 
+//UpdateRoleNavMenuAssignment
+export const UPDATE_ROLE_NAVMENU = '/UpdateRoleNavMenuAssignment'
+
+
