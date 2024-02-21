@@ -3,7 +3,10 @@ import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { GrView } from "react-icons/gr";
-const columns = () => {
+import { UserOutlined } from "@ant-design/icons";
+
+
+const columns = (getId) => {
   return [
     {
       title: "شناسه",
@@ -28,8 +31,19 @@ const columns = () => {
       key: "controllerName",
       width: 100,
     },
+    {
+      title: "دسسترسی عملیات",
+      dataIndex: "",
+      key: "",
 
-
+      width: 50,
+      align: "center",
+      render: (text, val) => (
+        <>
+          <UserOutlined onClick={() => getId(val.id)}  className="text-blue-600" />
+        </>
+      ),
+    },
 
     // {
     //   title: "عملیات",

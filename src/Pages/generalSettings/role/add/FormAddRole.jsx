@@ -5,17 +5,20 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import * as api from "@/api";
 import PropTypes from "prop-types";
 
-import { usePostWithHandler, useFetchWithHandler } from "@/api";
+import { usePostWithHandler, useFetchWithHandler,useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 const FormAddBrand = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
+  const [roleScopeData, roleScopeLoading, roleScopeError] = useFetch(
+    url.ROLE_SCOPE,
+  );
+  useRequestManager({ error: roleScopeError });
   const [selectData, selectLoading, selectError] = api.useFetch(url.BRAND);
   useRequestManager({ error: selectError });
-  useRequestManager({ error: addError, loading: addLoading, data: addData })
+  useRequestManager({ error: addError, loading: addLoading, data: addData });
   const [form] = Ant.Form.useForm();
-
 
   //====================================================================
   //                        useEffects
@@ -28,7 +31,7 @@ const FormAddBrand = (props) => {
   //                        Functions
   //======================================================================
   const onFinish = async (values) => {
-    console.log(values,"values")
+    console.log(values, "values");
     setLoading(true);
     const req = { ...values };
     await addApiCall(url.ROLE, req);
@@ -56,7 +59,7 @@ const FormAddBrand = (props) => {
               label={"نام نقش"}
               rules={[{ required: true }]}
             >
-              <Ant.Input allowClear showCount maxLength={200} />
+              <Ant.Input allowClear showCount maxLength={100} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24}>
@@ -71,10 +74,18 @@ const FormAddBrand = (props) => {
           <Ant.Col md={12} lg={12}>
             <Ant.Form.Item
               name="roleScopeId"
-              label={"شماره نقش"}
+              label={"محدوده نقش"}
               rules={[{ required: true }]}
             >
-              <Ant.InputNumber className="w-full" allowClear showCount maxLength={20} />
+              <Ant.Select
+
+
+                placeholder={"انتخاب کنید..."}
+                disabled={roleScopeLoading || false}
+                loading={roleScopeLoading}
+                options={roleScopeData?.data}
+                fieldNames={{ label: "name", value: "id" }}
+              />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={12} lg={12}>
@@ -83,7 +94,6 @@ const FormAddBrand = (props) => {
               label={"مجاز/غیرمجاز"}
               rules={[{ required: true }]}
             >
-
               <Ant.Switch
                 checkedChildren={<CheckOutlined />}
                 unCheckedChildren={<CloseOutlined />}
