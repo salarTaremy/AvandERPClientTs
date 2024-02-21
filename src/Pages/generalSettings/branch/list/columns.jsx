@@ -10,7 +10,6 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "id",
       key: "code",
       width: 80,
-      render: (text) => <a>{text}</a>,
     },
     {
       title: "نام شعبه ",
