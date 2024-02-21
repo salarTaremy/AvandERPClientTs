@@ -11,6 +11,8 @@ import * as url from "../api/url";
 import useRequestManager from "../hooks/useRequestManager";
 import { Link } from "react-router-dom";
 import * as AntIcons from "@ant-design/icons";
+import { AppstoreOutlined } from "@ant-design/icons";
+
 const { Sider } = Layout;
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
@@ -28,7 +30,14 @@ const AppSidebar = (props) => {
   useRequestManager({ error });
   //====================================================================
   //                        Consts
-  //====================================================================
+  //====================================================================  
+  const Salar = ({ Ic }) => {
+    return (
+      <AntIcons.WindowsOutlined />
+      // <>{Ic}</>
+    )
+  }
+
   const processNavMenu = (menu) => {
     if (!menu) {
       return null;
@@ -43,7 +52,7 @@ const AppSidebar = (props) => {
         }
 
       } else {
-        item.icon = <AntIcons.AppstoreOutlined />;
+        item.icon = <Salar Ic={'AppstoreOutlined'} />;
       }
       if (item.children) {
         delete item.type;
