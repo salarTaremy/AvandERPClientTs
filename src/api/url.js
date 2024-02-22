@@ -100,3 +100,7 @@ export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP = '/linkAccountDetailedAccountGr
 
 //UpdateRoleNavMenuAssignment
 export const UPDATE_ROLE_ACTION_ASSIGNMENT = 'Role/UpdateRoleActionAssignment'
+
+//User
+export const USER = '/User'
+export const USER_RESET_PASSWORD = 'User/ResetPassword'
