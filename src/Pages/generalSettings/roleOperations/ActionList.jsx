@@ -30,7 +30,7 @@ const ActionList = (props) => {
   };
 
   const onChange = (val) => {
-    console.log('>>>>' , val.target)
+    console.log('>>>>', val.target)
     setgetValue(val.target.checked);
   };
 
@@ -79,16 +79,44 @@ const ActionList = (props) => {
       width: 100,
     },
   ];
+
+
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    },
+  };
+
+
+
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-    <pre>
-    {JSON.stringify(dataSource,null,2)}
-    </pre>
+      <pre>
+        {/* {JSON.stringify(rowSelection,null,2)} */}
+        {JSON.stringify(dataSource, null, 2)}
+      </pre>
       <Ant.Skeleton loading={loading}>
         <Ant.Table
+
+          rowSelection={{
+            hideSelectAll : true,
+            type: 'checkbox',            
+            renderCell:(checked, record, index, originNode) => { 
+              console.log( record.id +' => '+ record.roleHasAccess)
+              return <Ant.Checkbox   
+              defaultChecked={record.roleHasAccess}
+             onChange={(e)=>{console.log( record.id +' => '+ e.target.checked)}} 
+             />},
+            onSelect:(record, selected, selectedRows, nativeEvent) => alert(JSON.stringify(record)),
+            ...rowSelection,
+          }}
+          selections={true}
+           selectedRowKeys={['1064','1066']}
+          onSelect={() => {alert('onSelect')}}
+
           {...defaultValues.TABLE_PROPS}
           className="mt-5"
           bordered={false}
