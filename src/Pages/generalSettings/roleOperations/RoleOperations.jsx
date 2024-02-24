@@ -78,6 +78,7 @@ const RoleOperations = () => {
       roleId: idRol,
       entityIdList: idAction,
     };
+    console.log(data,"dataaaa")
     await apiCallRoleAction(url.UPDATE_ROLE_ACTION_ASSIGNMENT, data);
     setIsModalOpen(false);
   };
