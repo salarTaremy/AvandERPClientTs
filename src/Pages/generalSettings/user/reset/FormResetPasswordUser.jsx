@@ -9,8 +9,8 @@ const FormResetPasswordUser = (props) => {
     const { onSuccess, obj, id } = props
     const [loading, setLoading] = useState(false)
     const [form] = Ant.Form.useForm()
-      const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    useRequestManager({ error: editError, loading: editLoading, data: editData })
+      const [resetPassData, resetPassLoading, resetPassError, resetPassApiCall] = usePutWithHandler()
+    useRequestManager({ error: resetPassError, loading: resetPassLoading, data: resetPassData })
     //====================================================================
     //                        useEffects
     //====================================================================
@@ -19,8 +19,8 @@ const FormResetPasswordUser = (props) => {
         form.setFieldsValue({ ...obj })
     }, [obj])
     useEffect(() => {
-        editData?.isSuccess && onSuccess()
-    }, [editData])
+        resetPassData?.isSuccess && onSuccess()
+    }, [resetPassData])
     //=====================================================================
     //                        Functions
     //=====================================================================
@@ -28,7 +28,7 @@ const FormResetPasswordUser = (props) => {
         console.log(values, 'values')
         setLoading(true)
         const req = { ...values, id: id }
-        await editApiCall(url.USER_RESET_PASSWORD, req)
+        await resetPassApiCall(url.USER_RESET_PASSWORD, req)
         setLoading(false)
     }
     //====================================================================
@@ -40,8 +40,8 @@ const FormResetPasswordUser = (props) => {
             <Ant.Form.Item name="userName" label={'نام کاربری'} >
                     <Ant.Input allowClear showCount maxLength={200} disabled/>
                 </Ant.Form.Item>
-                <Ant.Form.Item name="password" label={'رمز عبور'} rules={[{ required: true }]}>
-                    <Ant.Input allowClear showCount maxLength={200} />
+                <Ant.Form.Item name="passwordHash" label={'رمز عبور'} rules={[{ required: true }]}>
+                    <Ant.Input.Password allowClear showCount maxLength={200} />
                 </Ant.Form.Item>
                 <Ant.Form.Item>
                     <Ant.Button block

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
+import MyDatePicker from '@/components/common/MyDatePicker'
 
 const FormEditUser = (props) => {
     const { onSuccess, obj, id } = props
@@ -30,7 +31,7 @@ const FormEditUser = (props) => {
     const onFinish = async (values) => {
         console.log(values, 'values')
         setLoading(true)
-        const req = { ...values, id: id }
+        const req = { ...values, id: id}
         await editApiCall(url.USER, req)
         setLoading(false)
     }
@@ -40,11 +41,8 @@ const FormEditUser = (props) => {
     return (
         <>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                <Ant.Form.Item name="createDate" label={'تاریخ ایجاد'} rules={[{ required: true }]}>
-                    <Ant.Input allowClear showCount maxLength={200} />
-                </Ant.Form.Item>
                 <Ant.Form.Item name="userName" label={'نام کاربری'} rules={[{ required: true }]}>
-                    <Ant.Input allowClear showCount maxLength={200} />
+                    <Ant.Input allowClear showCount maxLength={50} />
                 </Ant.Form.Item>
                 <Ant.Col span={24} >
                     <Ant.Flex justify={'right'} align={'right'}>

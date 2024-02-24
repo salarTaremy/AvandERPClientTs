@@ -42,7 +42,7 @@ const FormAddNewUser = (props) => {
                     </Ant.Col>
                 </Ant.Row>
                 <Ant.Form.Item name="userName" label={'نام کاربری'} rules={[{ required: true }]}>
-                    <Ant.Input allowClear showCount maxLength={200} />
+                    <Ant.Input allowClear showCount maxLength={50} />
                 </Ant.Form.Item>
                 <Ant.Form.Item name="passwordHash" label={'رمز عبور'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={200} />

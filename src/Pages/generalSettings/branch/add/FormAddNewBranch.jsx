@@ -43,7 +43,7 @@ const FormAddNewBranch = (props) => {
                     <Ant.Input allowClear showCount maxLength={200} />
                 </Ant.Form.Item>
                 <Ant.Form.Item name="address" label={'آدرس'} rules={[{ required: true }]}>
-                    <Ant.Input allowClear showCount maxLength={200} />
+                    <Ant.Input allowClear showCount maxLength={600} />
                 </Ant.Form.Item>
 
                 <Ant.Form.Item name="description" label="توضیحات" rules={[{ required: false }]}>
