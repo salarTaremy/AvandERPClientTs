@@ -1,8 +1,9 @@
 import React from 'react'
 import * as Ant from 'antd'
 import { RiDeleteBin6Line } from 'react-icons/ri'
-import { FiEdit, FiCalendar } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { GrPowerReset } from "react-icons/gr";
+
 
 
 
@@ -17,14 +18,14 @@ const columns = (onDelete, onEdit, onReset) => {
             },
             {
                 title: 'تاریخ',
-                dataIndex: 'createDate',
-                key: 'createDate',
+                dataIndex: 'createDateAsJalali',
+                key: 'createDateAsJalali',
                 align: 'center',
                 render: (text, record, index) => (
                     <>
                         {/* {`${record.persianDateTilte}`} <FiCalendar  /> {`${record.createTime.substring(0, 5)}`} <FiClock  />{' '} */}
-                        {`${record.createDate}`} <FiCalendar />
-
+                        {record.createDateAsJalali}
+                        
                     </>
                 ),
             },
@@ -42,9 +43,9 @@ const columns = (onDelete, onEdit, onReset) => {
                 // width: 5,
                 //render: (text, record, index) => <Ant.Checkbox checked={record.isActive} />,
                 render: (text, record, index) => (
-                    <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id}>
+                    <Ant.Tag color={(record.isActive  && 'green') || 'red'} key={record.id}>
                         {' '}
-                        {(record.isActive && 'فعال') || 'غیر فعال'}{' '}
+                        {(record.isActive  && 'فعال') || 'غیر فعال'}{' '}
                     </Ant.Tag>
                 ),
             },
@@ -70,7 +71,7 @@ const columns = (onDelete, onEdit, onReset) => {
                                 icon={<GrPowerReset />}
                                 type="text"
                             />
-                            <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کالا "${val.name}" مطمئن هستید؟`}>
+                            <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کالا "${val.userName}" مطمئن هستید؟`}>
                                 <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
                             </Ant.Popconfirm>
                         </Ant.Space>
