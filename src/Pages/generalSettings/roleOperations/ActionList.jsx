@@ -9,15 +9,28 @@ import useRequestManager from "@/hooks/useRequestManager";
 const ActionList = (props) => {
   const { id, roleId, updateActionId } = props;
   const listId = [];
+  const listAction = [];
   const [data, loading, error, ApiCall] = useFetchWithHandler();
   useRequestManager({ error: error });
-  const [dataSource, setDataSource] = useState(null);
+  const [dataSource, setDataSource] = useState([]);
   const [getValue, setgetValue] = useState(null);
   useEffect(() => {
     getAllActionList();
   }, []);
   useEffect(() => {
-    console.log(getValue);
+    dataSource.map((x) => {
+      listAction.push({
+        roleHasAccess: getValue,
+        id: x.id,
+        actionName: x.actionName,
+        persianTitle: x.persianTitle,
+        appControllerId: x.appControllerId,
+      });
+    });
+
+    console.log(listId, "listId");
+    console.log(dataSource, "lklklklk");
+    console.log(listAction, "listAction");
   }, [getValue]);
 
   //====================================================================
@@ -30,8 +43,9 @@ const ActionList = (props) => {
   };
 
   const onChange = (val) => {
-    console.log('>>>>', val.target)
+    console.log(">>>>", val.target.checked);
     setgetValue(val.target.checked);
+    const bb = val.target.checked;
   };
 
   useEffect(() => {
@@ -50,18 +64,22 @@ const ActionList = (props) => {
     {
       title: "انتخاب عملیات",
       dataIndex: "",
-      key: "",
+      key: "roleHasAccess",
 
       width: 50,
       align: "center",
       render: (text, val) => (
         <>
-          <Ant.Checkbox
-            defaultChecked={text.roleHasAccess}
-            onChange={onChange}
-            onClick={() => getIdRow(val.id, text)}
-            className="text-blue-600"
-          />
+          <h1>{getValue ? "Checked" : "Not checked"}</h1>
+
+          <Ant.Form.Item   name={[record.key, "roleHasAccess"]}>
+            <Ant.Checkbox
+              defaultChecked={text.roleHasAccess}
+              onChange={onChange}
+              onClick={() => getIdRow(val.id, text)}
+              className="text-blue-600"
+            />
+          </Ant.Form.Item>
         </>
       ),
     },
@@ -79,44 +97,13 @@ const ActionList = (props) => {
       width: 100,
     },
   ];
-
-
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-  };
-
-
-
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <pre>
-        {/* {JSON.stringify(rowSelection,null,2)} */}
-        {JSON.stringify(dataSource, null, 2)}
-      </pre>
       <Ant.Skeleton loading={loading}>
         <Ant.Table
-
-          rowSelection={{
-            hideSelectAll : true,
-            type: 'checkbox',            
-            renderCell:(checked, record, index, originNode) => { 
-              console.log( record.id +' => '+ record.roleHasAccess)
-              return <Ant.Checkbox   
-              defaultChecked={record.roleHasAccess}
-             onChange={(e)=>{console.log( record.id +' => '+ e.target.checked)}} 
-             />},
-            onSelect:(record, selected, selectedRows, nativeEvent) => alert(JSON.stringify(record)),
-            ...rowSelection,
-          }}
-          selections={true}
-           selectedRowKeys={['1064','1066']}
-          onSelect={() => {alert('onSelect')}}
-
           {...defaultValues.TABLE_PROPS}
           className="mt-5"
           bordered={false}
@@ -125,6 +112,7 @@ const ActionList = (props) => {
           dataSource={dataSource || null}
         />
       </Ant.Skeleton>
+      <pre>{JSON.stringify(dataSource, null, 2)}</pre>
     </>
   );
 };
