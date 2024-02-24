@@ -97,7 +97,7 @@ const Account = () => {
   return (
     <>
       <RequestManager error={accError} />
-      <Ant.Card Card title={'درختواره حساب ها '} type="inner">
+      <Ant.Card Card title={'درختواره حساب ها'} type="inner">
         <Ant.Form form={form} layout="vertical" onFinish={null} onFinishFailed={null}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
