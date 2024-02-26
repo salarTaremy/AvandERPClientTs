@@ -86,33 +86,35 @@ function RoleManagement() {
   const Grid = () => {
     return (
       <>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          columns={columns(onDelete, onEdit, onView)}
-          dataSource={dataSource}
-          title={title}
-        />
+        <Ant.Skeleton loading={loadingData}>
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            columns={columns(onDelete, onEdit, onView)}
+            dataSource={dataSource}
+            title={title}
+          />
+        </Ant.Skeleton>
       </>
     );
   };
   return (
     <>
-      <Ant.Modal
-        open={modalState}
-        centered
-        getContainer={null}
-        footer={null}
-        onCancel={() => {
-          setModalState(false);
-        }}
-        onOk={() => {
-          setModalState(false);
-        }}
-      >
-        {" "}
-        {modalContent}
-      </Ant.Modal>
       <Ant.Card title={"لیست نقش ها"} type="inner">
+        <Ant.Modal
+          open={modalState}
+          centered
+          getContainer={null}
+          footer={null}
+          onCancel={() => {
+            setModalState(false);
+          }}
+          onOk={() => {
+            setModalState(false);
+          }}
+        >
+          {" "}
+          {modalContent}
+        </Ant.Modal>
         <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
           {/* <FilterDrawer
         > */}

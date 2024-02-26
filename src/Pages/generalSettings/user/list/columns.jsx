@@ -18,12 +18,12 @@ const columns = (onDelete, onEdit, onReset) => {
             },
             {
                 title: 'تاریخ',
-                dataIndex: 'createDateAsJalali',
-                key: 'createDateAsJalali',
+                dataIndex: 'createDate',
+                key: 'createDate',
                 align: 'center',
                 render: (text, record, index) => (
                     <>
-                        {record.createDateAsJalali}
+                        {record.createDate}
 
                     </>
                 ),
