@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
-import MyDatePicker from '@/components/common/MyDatePicker'
 
 const FormEditUser = (props) => {
     const { onSuccess, obj, id } = props
@@ -29,7 +28,6 @@ const FormEditUser = (props) => {
     //                        Functions
     //=====================================================================
     const onFinish = async (values) => {
-        console.log(values, 'values')
         setLoading(true)
         const req = { ...values, id: id}
         await editApiCall(url.USER, req)

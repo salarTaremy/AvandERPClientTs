@@ -89,7 +89,6 @@ const Menus = () => {
   useEffect(() => {
     const dataList = data?.data[0]?.children;
     setItems(dataList);
-    console.log(items, "dataList");
   }, [data?.data]);
 
   useRequestManager({ error });

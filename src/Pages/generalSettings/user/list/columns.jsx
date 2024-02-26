@@ -23,9 +23,8 @@ const columns = (onDelete, onEdit, onReset) => {
                 align: 'center',
                 render: (text, record, index) => (
                     <>
-                        {/* {`${record.persianDateTilte}`} <FiCalendar  /> {`${record.createTime.substring(0, 5)}`} <FiClock  />{' '} */}
                         {record.createDateAsJalali}
-                        
+
                     </>
                 ),
             },
@@ -40,8 +39,6 @@ const columns = (onDelete, onEdit, onReset) => {
                 dataIndex: 'isActive',
                 key: 'isActive',
                 align: 'center',
-                // width: 5,
-                //render: (text, record, index) => <Ant.Checkbox checked={record.isActive} />,
                 render: (text, record, index) => (
                     <Ant.Tag color={(record.isActive  && 'green') || 'red'} key={record.id}>
                         {' '}
