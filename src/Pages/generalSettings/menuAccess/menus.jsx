@@ -1,87 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Tree } from "antd";
-import * as Ant from 'antd'
+
+import * as styles from "@/styles";
+import * as Ant from "antd";
 import * as url from "@/api/url";
-import { useFetchWithHandler } from "@/api";
+import qs from "qs";
+import { useFetchWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-const treeData = [
-  {
-    title: "0-0",
-    key: "0-0",
-    children: [
-      {
-        title: "0-0-0",
-        key: "0-0-0",
-        children: [
-          {
-            title: "0-0-0-0",
-            key: "0-0-0-0",
-          },
-          {
-            title: "0-0-0-1",
-            key: "0-0-0-1",
-          },
-          {
-            title: "0-0-0-2",
-            key: "0-0-0-2",
-          },
-        ],
-      },
-      {
-        title: "0-0-1",
-        key: "0-0-1",
-        children: [
-          {
-            title: "0-0-1-0",
-            key: "0-0-1-0",
-          },
-          {
-            title: "0-0-1-1",
-            key: "0-0-1-1",
-          },
-          {
-            title: "0-0-1-2",
-            key: "0-0-1-2",
-          },
-        ],
-      },
-      {
-        title: "0-0-2",
-        key: "0-0-2",
-      },
-    ],
-  },
-  {
-    title: "0-1",
-    key: "0-1",
-    children: [
-      {
-        title: "0-1-0-0",
-        key: "0-1-0-0",
-      },
-      {
-        title: "0-1-0-1",
-        key: "0-1-0-1",
-      },
-      {
-        title: "0-1-0-2",
-        key: "0-1-0-2",
-      },
-    ],
-  },
-  {
-    title: "0-2",
-    key: "0-2",
-  },
-];
+
+
 const Menus = () => {
   const [expandedKeys, setExpandedKeys] = useState(["0-0-0", "0-0-1"]);
   const [checkedKeys, setCheckedKeys] = useState(["0-0-0"]);
   const [selectedKeys, setSelectedKeys] = useState([]);
+  const [idRol, setIdRol] = useState(0);
+  const [disable, setDisable] = useState(true);
   const [items, setItems] = useState([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [data, loading, error, apiCall] = useFetchWithHandler();
-
+  const [roleScopeData, roleScopeLoading, roleScopeError] = useFetch(
+    url.ROLE_SCOPE,
+  );
+  const [roleData, roleLoading, roleError, roleApi] = useFetchWithHandler();
+  useRequestManager({ error: roleScopeError });
+  useRequestManager({ error: roleError });
+  const [form] = Ant.Form.useForm();
   useEffect(() => {
     apiCall(url.NAV_MENU_TREE);
   }, []);
@@ -105,19 +47,78 @@ const Menus = () => {
     console.log("onSelect", info);
     setSelectedKeys(selectedKeysValue);
   };
+  const onChangeRoleScope = async (val) => {
+console.log(val,"val")
+    const data = qs.stringify({
+      Id: parseInt(val),
+    });
+    await roleApi(`${url.ROLE}?${data}`);
+    setDisable(false);
+  };
   return (
     <Ant.Card Card title={"دسترسی منوها"} type="inner">
-      <Ant.Tree
-        checkable
-        onExpand={onExpand}
-        expandedKeys={expandedKeys}
-        autoExpandParent={autoExpandParent}
-        onCheck={onCheck}
-        checkedKeys={checkedKeys}
-        onSelect={onSelect}
-        selectedKeys={selectedKeys}
-        treeData={items}
-      />
+      <Ant.Row gutter={[16, 8]}>
+        <Ant.Col span={24} sm={12}>
+          <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+            <Ant.Form form={form} layout="vertical" onFinish={null}>
+              <Ant.Row gutter={[16, 8]}>
+                <Ant.Col span={24} md={24} lg={24}>
+                  <Ant.Form.Item
+                    name={"accountTypeId"}
+                    label="محدود نقش"
+                    rules={[{ required: true }]}
+                  >
+                    <Ant.Select
+                      onChange={(value) => onChangeRoleScope(value)}
+                      placeholder={"انتخاب کنید..."}
+                      disabled={roleScopeLoading || false}
+                      loading={roleScopeLoading}
+                      options={roleScopeData?.data}
+                      fieldNames={{ label: "name", value: "id" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col span={24} md={24} lg={24}>
+                  <Ant.Form.Item
+                    name={"role"}
+                    label="نقش"
+                    rules={[{ required: true }]}
+                  >
+                    <Ant.Select
+                      placeholder={"انتخاب کنید..."}
+                      onChange={(value) => setIdRol(value)}
+                      disabled={disable}
+                      loading={roleLoading}
+                      options={roleData?.data}
+                      fieldNames={{ label: "name", value: "roleScopeId" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col className="text-center " span={24} md={24} lg={24}>
+                  <Ant.Button block  key="submit" type="primary">
+                    تایید
+                  </Ant.Button>
+                </Ant.Col>
+              </Ant.Row>
+            </Ant.Form>
+          </Ant.Card>
+        </Ant.Col>
+        <Ant.Col span={24} sm={12}>
+          <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+            <Ant.Tree
+              checkable
+              onExpand={onExpand}
+              expandedKeys={expandedKeys}
+              autoExpandParent={autoExpandParent}
+              onCheck={onCheck}
+              checkedKeys={checkedKeys}
+              onSelect={onSelect}
+              selectedKeys={selectedKeys}
+              treeData={items}
+            />
+          </Ant.Card>
+        </Ant.Col>
+      </Ant.Row>
     </Ant.Card>
   );
 };
