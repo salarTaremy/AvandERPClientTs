@@ -101,12 +101,14 @@ const UserList = () => {
     const Grid = () => {
         return (
             <>
-                <Ant.Table
-                    {...defaultValues.TABLE_PROPS}
-                    title={title}
-                    columns={columns(onDelSuccess, onEdit,onReset)}
-                    dataSource={dataSource}
-                />
+                <Ant.Skeleton loading={loading}>
+                    <Ant.Table
+                        {...defaultValues.TABLE_PROPS}
+                        title={title}
+                        columns={columns(onDelSuccess, onEdit, onReset)}
+                        dataSource={dataSource}
+                    />
+                </Ant.Skeleton>
             </>
         )
     }
@@ -115,18 +117,18 @@ const UserList = () => {
     //====================================================================
     return (
         <>
-            <Ant.Modal
-                open={modalState}
-                handleCancel={() => setModalState(false)}
-                onCancel={() => {
-                    setModalState(false)
-                }}
-                footer={null}
-                centered
-            >
-                {modalContent}
-            </Ant.Modal>
             <Ant.Card title={'مدیریت کاربران'} type="inner" >
+                <Ant.Modal
+                    open={modalState}
+                    handleCancel={() => setModalState(false)}
+                    onCancel={() => {
+                        setModalState(false)
+                    }}
+                    footer={null}
+                    centered
+                >
+                    {modalContent}
+                </Ant.Modal>
                 <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
                     <Grid />
                 </Ant.Card>

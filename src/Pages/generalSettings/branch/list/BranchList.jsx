@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Ant from 'antd'
-import { useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import columns from '../list/columns'
 import * as defaultValues from '@/defaultValues'
 import * as styles from '@/styles'
@@ -88,12 +88,14 @@ const BranchList = () => {
     const Grid = () => {
         return (
             <>
-                <Ant.Table
-                    {...defaultValues.TABLE_PROPS}
-                    title={title}
-                    columns={columns(onDelSuccess, onEdit)}
-                    dataSource={dataSource}
-                />
+                <Ant.Skeleton loading={loading}>
+                    <Ant.Table
+                        {...defaultValues.TABLE_PROPS}
+                        title={title}
+                        columns={columns(onDelSuccess, onEdit)}
+                        dataSource={dataSource}
+                    />
+                </Ant.Skeleton>
             </>
         )
     }

@@ -78,7 +78,7 @@ const RoleOperations = () => {
       roleId: idRol,
       entityIdList: idAction,
     };
-    console.log(data,"dataaaa")
+    console.log(data, "dataaaa")
     await apiCallRoleAction(url.UPDATE_ROLE_ACTION_ASSIGNMENT, data);
     setIsModalOpen(false);
   };
@@ -96,11 +96,13 @@ const RoleOperations = () => {
   const Grid = () => {
     return (
       <>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          dataSource={dataSource}
-          columns={columns(getId)}
-        />
+        <Ant.Skeleton loading={roleScopeLoading}>
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            dataSource={dataSource}
+            columns={columns(getId)}
+          />
+        </Ant.Skeleton>
       </>
     );
   };
@@ -109,6 +111,7 @@ const RoleOperations = () => {
   //====================================================================
   return (
     <>
+
       <Ant.Modal
         footer={[
           <Ant.Button
@@ -179,6 +182,7 @@ const RoleOperations = () => {
       <Ant.Card className="w-full mt-4" type="inner">
         <Grid />
       </Ant.Card>
+
     </>
   );
 };
