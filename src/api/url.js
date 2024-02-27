@@ -49,6 +49,7 @@ export const DETAILED_ACCOUNT_LEVEL = "/detailedAccountLevel"
 export const NAV_MENU = '/navMenu'
 export const NAV_MENU_UPDATE_POSITION = '/navMenu/UpdatePosition'
 export const NAV_MENU_TREE = '/navMenu/GetAllTree'
+export const NAV_MENU_TREE_FOR_USER = '/navMenu/GetTreeForUser'
 
 //Product
 export const PRODUCT = '/product'
