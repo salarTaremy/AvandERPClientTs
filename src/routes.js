@@ -26,6 +26,7 @@ import AddProduct from './Pages/inventory/product/add/AddProduct'
 import SupplierList from './Pages/inventory/supplier/list/SupplierList'
 import BrandList from './Pages/inventory/brand/list/BrandList'
 import ProductList from'./Pages/inventory/product/list/ProductList'
+import EditProductList from './Pages/inventory/product/edit/EditProductList'
 
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
@@ -45,6 +46,7 @@ import Home from './Pages/Home'
 import Login from './Pages/login/Login'
 
 
+
 const routes = [
     { path: '/', exact: true, name: 'خانه',  element: Home },
      { path: '/dashboard', name: 'داشبورد', element: Dashboard },
@@ -61,6 +63,7 @@ const routes = [
     { path: '/accounting/reports/hybridBrowsing', name: 'مرور ترکیبی', element: HybridBrowsing },
     { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
     { path: '/inventory/product/list', name: 'فهرست کالا', element: ProductList },
+    { path: '/inventory/product/edit/:id', name: 'ویرایش کالا', element: EditProductList },
     { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
     { path: '/base/brand', name: 'برند', element: BrandList},
     { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },

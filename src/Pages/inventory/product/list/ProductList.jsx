@@ -16,6 +16,8 @@ import {
   useDelWithHandler,
 } from '@/api'
 import DetailProductListDescription from '../description/DetailProductListDescription'
+import { useNavigate, generatePath } from "react-router-dom"
+
 
 //====================================================================
 //                        Declaration
@@ -31,12 +33,13 @@ const ProductList = () => {
   const [openFilter, setOpenFilter] = useState(false)
   useRequestManager({ error: error })
   useRequestManager({ error: delError, data: delSaving, loading: delLoading })
+  const navigateTo = useNavigate()
 
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-  
+
     filterObject &&
       setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
     !filterObject && setFilterCount(0)
@@ -77,6 +80,10 @@ const ProductList = () => {
     setModalContent(<DetailProductListDescription id={id} key={id} />)
     setModalState(true)
   }
+  const onEdit = (id) => {
+    console.log(id, "sogol")
+    id && navigateTo(`/inventory/product/edit/${id}`, { id })
+  }
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -92,7 +99,6 @@ const ProductList = () => {
         }}
       />
     )
-
   }
 
   const Grid = () => {
@@ -102,7 +108,7 @@ const ProductList = () => {
           loading={delLoading}
           {...defaultValues.TABLE_PROPS}
           title={title}
-          columns={columns(onDelSuccess, onView)}
+          columns={columns(onDelSuccess, onView, onEdit)}
           dataSource={dataSource}
         />
       </>
