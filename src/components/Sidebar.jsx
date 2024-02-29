@@ -92,7 +92,7 @@ const AppSidebar = (props) => {
   }, [data?.data, collapsedSider]);
 
   useEffect(() => {
-    apiCall(url.NAV_MENU_TREE);
+    apiCall(url.NAV_MENU_TREE_FOR_USER);
   }, []);
   //====================================================================
   //                        Child Components

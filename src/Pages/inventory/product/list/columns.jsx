@@ -2,8 +2,9 @@ import React from 'react'
 import * as Ant from 'antd'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { GrView } from 'react-icons/gr'
+import { FiEdit } from "react-icons/fi";
 
-const columns = (onDelete, onView) => {
+const columns = (onDelete, onView,onEdit) => {
     return (
         [
             {
@@ -69,6 +70,12 @@ const columns = (onDelete, onView) => {
                             onClick={() => onView(val.id)}
                             className="text-sky-600"
                             icon={<GrView />}
+                            type="text"
+                        />
+                        <Ant.Button
+                            className="text-blue-600"
+                            onClick={() =>onEdit(val.id)}
+                            icon={<FiEdit />}
                             type="text"
                         />
                         <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کالا "${val.name}" مطمئن هستید؟`}>
