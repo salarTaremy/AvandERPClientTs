@@ -22,8 +22,8 @@ const ButtonBar = (props) => {
     return (
 
       onAdd && (
-        <Tooltip title={iconOnly && 'ایجاد ایتم جدید'} size={size}>
-          <Button onClick={onAdd} size={size} icon={<FaFolderPlus />} className='text-green-600 border-green-600'>
+        <Tooltip  title={iconOnly && 'ایجاد ایتم جدید'} size={size}>
+          <Button  onClick={onAdd}  size={size} icon={<FaFolderPlus />} className='text-green-600 border-green-600'>
             {iconOnly || 'ایتم جدید'}
           </Button>
         </Tooltip>

@@ -45,6 +45,9 @@ export const DETAILED_ACCOUNT_MAX_CODE = "/detailedAccount/MaxCode"
 //DetailedAccountLevel
 export const DETAILED_ACCOUNT_LEVEL = "/detailedAccountLevel"
 
+
+
+
 //NavMenu
 export const NAV_MENU = '/navMenu'
 export const NAV_MENU_UPDATE_POSITION = '/navMenu/UpdatePosition'
@@ -98,8 +101,11 @@ export const ACTIONS = '/ApplicationController/GetActions'
 export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP = '/linkAccountDetailedAccountGroup'
 
 
-//UpdateRoleNavMenuAssignment
+//UpdateRoleActionAssignment
 export const UPDATE_ROLE_ACTION_ASSIGNMENT = 'Role/UpdateRoleActionAssignment'
+
+//UpdateRoleNavMenuAssignment
+export const UPDATE_ROLE_NAV_MENU = 'Role/UpdateRoleNavMenuAssignment'
 
 //User
 export const USER = '/User'

@@ -77,6 +77,7 @@ const AccountDocumentList = () => {
     })
     await listApiCall(`${url.ACCOUNT_DOCUMENT}?${queryString}`)
   }
+
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject)
     setOpenFilter(false)
