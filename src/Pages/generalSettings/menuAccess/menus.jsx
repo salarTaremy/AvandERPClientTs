@@ -6,7 +6,6 @@ import * as url from "@/api/url";
 import qs from "qs";
 import { useFetchWithHandler, useFetch, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-
 const Menus = () => {
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState();
@@ -15,12 +14,12 @@ const Menus = () => {
   const [disable, setDisable] = useState(true);
   const [disableButton, setDisableButton] = useState(true);
   const [items, setItems] = useState([]);
+  const [showErrore, setShowError] = useState([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [data, loading, error, apiCall] = useFetchWithHandler();
   const [roleScopeData, roleScopeLoading, roleScopeError] = useFetch(
     url.ROLE_SCOPE,
   );
-
   const [
     listRoleNavMenuAssignment,
     loadingRoleNavMenuAssignment,
@@ -38,6 +37,10 @@ const Menus = () => {
   const checked = [];
   const [form] = Ant.Form.useForm();
 
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+
   useEffect(() => {
     getAllMenus();
   }, [idRol]);
@@ -50,55 +53,61 @@ const Menus = () => {
     setItems((data?.isSuccess && data?.data[0]?.children) || null);
   }, [data?.data]);
 
+
+  //====================================================================
+  //                        Events
+  //====================================================================
   const buildCheckedKeys = () => {
     items?.forEach((item) => {
       if (item.roleHasAccess) {
         checked.push(item.key);
       }
     });
-
     setCheckedKeys(checked);
     return checked;
   };
 
+  useRequestManager({ error });
+  const onExpand = (expandedKeysValue) => {
+    setExpandedKeys(expandedKeysValue);
+    setAutoExpandParent(false);
+  };
+  const onCheck = (checkedKeysValue) => {
+    setCheckedKeys(checkedKeysValue);
+    setDisableButton(false);
+  };
+  const onSelect = (selectedKeysValue) => {
+    setSelectedKeys(selectedKeysValue);
+  };
+
+  //====================================================================
+  //                        Functions
+  //====================================================================
   const getAllMenus = async () => {
     const queryString = qs.stringify({
       roleId: idRol,
     });
     await apiCall(`${url.NAV_MENU_TREE}?${queryString}`);
   };
-  useRequestManager({ error });
-  const onExpand = (expandedKeysValue) => {
-    console.log("onExpand", expandedKeysValue);
-    setExpandedKeys(expandedKeysValue);
-    setAutoExpandParent(false);
-  };
-  const onCheck = (checkedKeysValue) => {
-    console.log(checkedKeysValue, "checkedKeysValue");
-    setCheckedKeys(checkedKeysValue);
-    setDisableButton(false);
-  };
-  const onSelect = (selectedKeysValue, info) => {
-    console.log("onSelect", info);
-    setSelectedKeys(selectedKeysValue);
-  };
   const onsubmit = async () => {
-    console.log(checkedKeys, "checkedKeys");
     const data = {
       roleId: idRol,
       entityIdList: checkedKeys,
     };
-    console.log(data, "data");
     await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, data);
   };
   const onChangeRoleScope = async (val) => {
-    console.log(val, "val");
     const data = qs.stringify({
       Id: parseInt(val),
     });
     await roleApi(`${url.ROLE}?${data}`);
+    form.setFieldsValue({ role: undefined });
+
     setDisable(false);
   };
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
     <Ant.Card Card title={"دسترسی منوها"} type="inner">
       <Ant.Row gutter={[8, 8]}>
@@ -134,6 +143,7 @@ const Menus = () => {
                     <Ant.Select
                       placeholder={"انتخاب کنید..."}
                       onChange={(value) => setIdRol(value)}
+                      allowClear={true}
                       loading={roleLoading}
                       options={roleData?.data}
                       fieldNames={{ label: "name", value: "roleScopeId" }}
@@ -165,24 +175,22 @@ const Menus = () => {
         <Ant.Col span={24} md={12} sm={24} xs={24}>
           <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
             <Ant.Skeleton loading={loading}>
+              {roleError ? <Ant.Empty /> :
               <Ant.Tree
-                disabled={disable}
-                checkable
-                onExpand={onExpand}
-                expandedKeys={expandedKeys}
-                autoExpandParent={autoExpandParent}
-                selectedKeys={selectedKeys}
-                checkedKeys={checkedKeys}
-                onCheck={onCheck}
-                onSelect={onSelect}
-                defaultCheckedKeys={["347", "297", "298", "315"]}
-                defaultExpandedKeys={["347", "297", "298", "315"]}
-                defaultSelectedKeys={["347", "297", "298", "315"]}
-                // defaultExpandedKeys={["11", "2"]}
-                // defaultSelectedKeys={["11", "2"]}
-                // defaultCheckedKeys={["11", "2"]}
-                treeData={items}
-              />
+              disabled={disable}
+              checkable
+              onExpand={onExpand}
+              expandedKeys={expandedKeys}
+              autoExpandParent={autoExpandParent}
+              selectedKeys={selectedKeys}
+              checkedKeys={checkedKeys}
+              onCheck={onCheck}
+              onSelect={onSelect}
+              treeData={items}
+            />
+              }
+
+
             </Ant.Skeleton>
           </Ant.Card>
         </Ant.Col>
