@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 const ActionList = (props) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { id, roleId, updateActionId } = props;
   const listId = [];
   const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -35,6 +36,16 @@ const ActionList = (props) => {
   };
 
   useEffect(() => {
+    const TmpSelected = []
+    if (data?.isSuccess && data?.data) {
+      data?.data.map((item) => {
+        if (item.roleHasAccess) {
+          a.push(item.id)
+        }
+      })
+    }
+    setSelectedRowKeys([...TmpSelected])
+
     setDataSource((data?.isSuccess && data?.data) || null);
   }, [data]);
 
@@ -81,10 +92,14 @@ const ActionList = (props) => {
   ];
 
 
+  const onSelectChange = (newSelectedRowKeys) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
   const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
+    selectedRowKeys,
+    onChange: onSelectChange,
   };
 
 
@@ -96,23 +111,12 @@ const ActionList = (props) => {
     <>
       <pre>
         {/* {JSON.stringify(rowSelection,null,2)} */}
-        {JSON.stringify(dataSource, null, 2)}
+        {JSON.stringify(selectedRowKeys, null, 2)}
       </pre>
       <Ant.Skeleton loading={loading}>
         <Ant.Table
 
-          rowSelection={{
-            hideSelectAll : true,
-            type: 'checkbox',            
-            renderCell:(checked, record, index, originNode) => { 
-              console.log( record.id +' => '+ record.roleHasAccess)
-              return <Ant.Checkbox   
-              defaultChecked={record.roleHasAccess}
-             onChange={(e)=>{console.log( record.id +' => '+ e.target.checked)}} 
-             />},
-            onSelect:(record, selected, selectedRows, nativeEvent) => alert(JSON.stringify(record)),
-            ...rowSelection,
-          }}
+          rowSelection={rowSelection}
 
           {...defaultValues.TABLE_PROPS}
           className="mt-5"
