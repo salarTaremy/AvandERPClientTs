@@ -74,6 +74,7 @@ const FormAddBrand = (props) => {
           <Ant.Col md={12} lg={12}>
             <Ant.Form.Item
               name="roleScopeId"
+
               label={"محدوده نقش"}
               rules={[{ required: true }]}
             >
@@ -91,13 +92,14 @@ const FormAddBrand = (props) => {
           <Ant.Col md={12} lg={12}>
             <Ant.Form.Item
               name="isDenied"
+              defaultChecked={false}
               label={"مجاز/غیرمجاز"}
-              rules={[{ required: true }]}
+
             >
               <Ant.Switch
                 checkedChildren={<CheckOutlined />}
                 unCheckedChildren={<CloseOutlined />}
-                defaultChecked
+
               />
             </Ant.Form.Item>
           </Ant.Col>
