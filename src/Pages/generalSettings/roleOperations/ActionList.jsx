@@ -40,7 +40,7 @@ const ActionList = (props) => {
     if (data?.isSuccess && data?.data) {
       data?.data.map((item) => {
         if (item.roleHasAccess) {
-          a.push(item.id)
+          TmpSelected.push(item.id)
         }
       })
     }
