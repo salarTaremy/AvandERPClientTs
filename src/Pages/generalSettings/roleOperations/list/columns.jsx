@@ -11,7 +11,7 @@ const columns = (getId) => {
       key: "id",
       width: 50,
       align: "center",
-      // fixed:true,
+
 
     },
     {
@@ -23,10 +23,11 @@ const columns = (getId) => {
     },
 
     {
-      title: "نام کنترل کننده",
-      dataIndex: "controllerName",
-      key: "controllerName",
+      title: "عنوان انگلیسی",
+      dataIndex: "name",
+      key: "name",
       width: 100,
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "دسترسی عملیات",

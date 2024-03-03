@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
-import * as defaultValues from "@/defaultValues";
 import * as api from "@/api";
 import PropTypes from "prop-types";
 import Loading from "@/components/common/Loading";
 
-const columns = (props) => {
+const RoleOperationDetail = (props) => {
+  const { id } = props;
+  const [data, loading, error] = api.useFetch(
+    url.ACTIONS + "?AppControllerId=" + id.toString(),
+  );
   const cl = [
     {
       title: "نام عملیات",
@@ -27,10 +30,7 @@ const columns = (props) => {
       width: 100,
     },
   ];
-  const { id } = props;
-  const [data, loading, error] = api.useFetch(
-    url.ACTIONS + "?AppControllerId=" + id.toString(),
-  );
+
   return (
     <>
       {(loading && (
@@ -41,23 +41,17 @@ const columns = (props) => {
       )) || (
         <>
           <Ant.Table
-            // {...defaultValues.TABLE_PROPS}
-            // size= 'small'
-            // rowKey= 'id'
             bordered
             columns={cl}
             dataSource={data?.data || null}
           />
-          {/* <Ant.Typography>
-            <pre>{JSON.stringify(data?.data, null, 2)}</pre>
-          </Ant.Typography> */}
         </>
       )}
     </>
   );
 };
-RoleOperationDetai.propTypes = {
+RoleOperationDetail.propTypes = {
   id: PropTypes.any,
 };
 
-export default RoleOperationDetai;
+export default RoleOperationDetail;

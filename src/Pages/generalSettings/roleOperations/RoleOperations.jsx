@@ -1,17 +1,25 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import columns from "./columns";
+import columns from "./list/columns";
 import { useFetch, useFetchWithHandler, usePutWithHandler } from "@/api";
 import * as url from "@/api/url";
 import * as Ant from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
-import ActionList from "./ActionList";
+import ActionList from "./list/ActionList";
 import qs from "qs";
+import * as styles from '@/styles'
 import * as defaultValues from "@/defaultValues";
+import FilterPanel from "./list/FilterPanel"
+import ButtonList from '@/components/common/ButtonList'
+import FilterBedge from '@/components/common/FilterBedge'
+import FilterDrawer from '@/components/common/FilterDrawer'
 const RoleOperations = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState();
+  const [openFilter, setOpenFilter] = useState(false);
+  const [filterCount, setFilterCount] = useState(0)
   const [idRol, setIdRol] = useState(0);
+  const [filterObject, setFilterObject] = useState()
   const [idAction, setIdAction] = useState([]);
   const [idActionsList, setIdActionsList] = useState([]);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -39,6 +47,14 @@ const RoleOperations = () => {
   //====================================================================
   //                        useEffects
   //====================================================================
+
+
+  useEffect(() => {
+    filterObject &&
+      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+    !filterObject && setFilterCount(0)
+    getAllApplicationController()
+  }, [filterObject])
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
@@ -50,7 +66,6 @@ const RoleOperations = () => {
   //                        Events
   //====================================================================
   const updateActionId = (listId) => {
-    console.log(listId,"listId")
     setIdActionsList(listId);
   };
 
@@ -61,10 +76,14 @@ const RoleOperations = () => {
     setIsModalOpen(false);
   };
   const getId = (id) => {
-
-    setIdAction(id)
+    setIdAction(id);
     setModalContent(
-      <ActionList updateActionId={updateActionId} key={id} id={id} roleId={idRol} />,
+      <ActionList
+        updateActionId={updateActionId}
+        key={id}
+        id={id}
+        roleId={idRol}
+      />,
     );
     setIsModalOpen(true);
   };
@@ -72,7 +91,10 @@ const RoleOperations = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-
+  const onRemoveFilter = () => {
+    setFilterObject(null)
+    setOpenFilter(false)
+  }
   const getAllApplicationController = async () => {
     await ApiCall(url.APPLICATION_CONTROLLER);
   };
@@ -83,7 +105,6 @@ const RoleOperations = () => {
       AppControllerId: idAction,
       entityIdList: idActionsList,
     };
-    console.log(data, "dataaaa")
     await apiCallRoleAction(url.UPDATE_ROLE_ACTION_ASSIGNMENT, data);
     setIsModalOpen(false);
   };
@@ -99,14 +120,29 @@ const RoleOperations = () => {
   //====================================================================
   //                        Child Components
   //=====================================================================
+  const title = () => {
+    return (
+      <ButtonList
+        filterCount={filterCount}
+
+        onFilter={() => {
+          setOpenFilter(true);
+        }}
+        onRefresh={() => {
+          getAllApplicationController();
+        }}
+      />
+    );
+  };
   const Grid = () => {
     return (
       <>
-        <Ant.Skeleton loading={roleScopeLoading}>
+        <Ant.Skeleton loading={loadingData}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             dataSource={dataSource}
             columns={columns(getId)}
+            title={title}
           />
         </Ant.Skeleton>
       </>
@@ -117,7 +153,6 @@ const RoleOperations = () => {
   //====================================================================
   return (
     <>
-
       <Ant.Modal
         footer={[
           <Ant.Button
@@ -185,10 +220,19 @@ const RoleOperations = () => {
           },
         ]}
       />
-      <Ant.Card className="w-full mt-4" type="inner">
-        <Grid />
-      </Ant.Card>
 
+      <Ant.Card  style={{ ...styles.CARD_DEFAULT_STYLES }} className="w-full mt-4" type="inner">
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel  />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Grid />
+        </FilterBedge>
+      </Ant.Card>
     </>
   );
 };
