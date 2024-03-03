@@ -72,6 +72,7 @@ const Menus = () => {
     setExpandedKeys(expandedKeysValue);
     setAutoExpandParent(false);
   };
+
   const onCheck = (checkedKeysValue) => {
     setCheckedKeys(checkedKeysValue);
     setDisableButton(false);
@@ -189,8 +190,6 @@ const Menus = () => {
               treeData={items}
             />
               }
-
-
             </Ant.Skeleton>
           </Ant.Card>
         </Ant.Col>

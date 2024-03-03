@@ -13,6 +13,7 @@ const RoleOperations = () => {
   const [modalContent, setModalContent] = useState();
   const [idRol, setIdRol] = useState(0);
   const [idAction, setIdAction] = useState([]);
+  const [idActionsList, setIdActionsList] = useState([]);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [
     listRoleAction,
@@ -49,7 +50,8 @@ const RoleOperations = () => {
   //                        Events
   //====================================================================
   const updateActionId = (listId) => {
-    setIdAction(listId);
+    console.log(listId,"listId")
+    setIdActionsList(listId);
   };
 
   const handleOk = () => {
@@ -59,6 +61,8 @@ const RoleOperations = () => {
     setIsModalOpen(false);
   };
   const getId = (id) => {
+
+    setIdAction(id)
     setModalContent(
       <ActionList updateActionId={updateActionId} key={id} id={id} roleId={idRol} />,
     );
@@ -76,7 +80,8 @@ const RoleOperations = () => {
   const submitRoleAction = async () => {
     const data = {
       roleId: idRol,
-      entityIdList: idAction,
+      AppControllerId: idAction,
+      entityIdList: idActionsList,
     };
     console.log(data, "dataaaa")
     await apiCallRoleAction(url.UPDATE_ROLE_ACTION_ASSIGNMENT, data);
@@ -88,6 +93,7 @@ const RoleOperations = () => {
     });
     await roleApi(`${url.ROLE}?${data}`);
     setDisable(false);
+    form.setFieldsValue({ role: undefined });
   };
 
   //====================================================================
