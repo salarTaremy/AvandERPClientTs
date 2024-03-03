@@ -25,9 +25,9 @@ const ActionList = (props) => {
   //                        Functions
   //====================================================================
   const getIdRow = (id, val) => {
-    console.log(val.roleHasAccess, "fataaaa");
-    listId.push(id);
-    updateActionId(listId);
+    // console.log(val.roleHasAccess, "fataaaa");
+    // listId.push(id);
+    updateActionId(selectedRowKeys);
   };
 
   const onChange = (val) => {
@@ -58,24 +58,23 @@ const ActionList = (props) => {
   };
   //====================================================================
   const cl = [
-    {
-      title: "انتخاب عملیات",
-      dataIndex: "",
-      key: "",
-
-      width: 50,
-      align: "center",
-      render: (text, val) => (
-        <>
-          <Ant.Checkbox
-            defaultChecked={text.roleHasAccess}
-            onChange={onChange}
-            onClick={() => getIdRow(val.id, text)}
-            className="text-blue-600"
-          />
-        </>
-      ),
-    },
+    // {
+    //   title: "انتخاب عملیات",
+    //   dataIndex: "",
+    //   key: "",
+    //   width: 50,
+    //   align: "center",
+    //   render: (text, val) => (
+    //     <>
+    //       <Ant.Checkbox
+    //         defaultChecked={text.roleHasAccess}
+    //         onChange={onChange}
+    //         onClick={() => getIdRow(val.id, text)}
+    //         className="text-blue-600"
+    //       />
+    //     </>
+    //   ),
+    // },
     {
       title: "نام عملیات",
       dataIndex: "actionName",
@@ -93,8 +92,11 @@ const ActionList = (props) => {
 
 
   const onSelectChange = (newSelectedRowKeys) => {
+    debugger
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
+    updateActionId(newSelectedRowKeys);
+    // updateActionId(selectedRowKeys);
   };
 
   const rowSelection = {
@@ -109,15 +111,12 @@ const ActionList = (props) => {
   //====================================================================
   return (
     <>
-      <pre>
-        {/* {JSON.stringify(rowSelection,null,2)} */}
+      {/* <pre>
         {JSON.stringify(selectedRowKeys, null, 2)}
-      </pre>
+      </pre> */}
       <Ant.Skeleton loading={loading}>
         <Ant.Table
-
           rowSelection={rowSelection}
-
           {...defaultValues.TABLE_PROPS}
           className="mt-5"
           bordered={false}
