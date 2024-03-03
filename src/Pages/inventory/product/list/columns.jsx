@@ -4,15 +4,9 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 import { GrView } from 'react-icons/gr'
 import { FiEdit } from "react-icons/fi";
 
-const columns = (onDelete, onView,onEdit) => {
+const columns = (onDelete, onView, onEdit) => {
     return (
         [
-            {
-                title: 'شناسه',
-                dataIndex: 'id',
-                key: 'id',
-                width: 50,
-            },
             {
                 title: 'کد',
                 dataIndex: 'code',
@@ -23,24 +17,6 @@ const columns = (onDelete, onView,onEdit) => {
                 title: 'کد دوم',
                 dataIndex: 'seccondCode',
                 key: 'seccondCode',
-                width: 50,
-            },
-            {
-                title: 'شناسه نوع',
-                dataIndex: 'typeId',
-                key: 'typeId',
-                width: 50,
-            },
-            {
-                title: 'شناسه جزئیات ماهیت',
-                dataIndex: 'natureDetailId',
-                key: 'natureDetailId',
-                width: 80,
-            },
-            {
-                title: 'شناسه برند',
-                dataIndex: 'brandId',
-                key: 'brandId',
                 width: 50,
             },
             {
@@ -74,7 +50,7 @@ const columns = (onDelete, onView,onEdit) => {
                         />
                         <Ant.Button
                             className="text-blue-600"
-                            onClick={() =>onEdit(val.id)}
+                            onClick={() => onEdit(val.id)}
                             icon={<FiEdit />}
                             type="text"
                         />
