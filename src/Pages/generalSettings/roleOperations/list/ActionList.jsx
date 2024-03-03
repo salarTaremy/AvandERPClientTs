@@ -5,11 +5,11 @@ import * as defaultValues from "@/defaultValues";
 import qs from "qs";
 import PropTypes from "prop-types";
 import { useFetchWithHandler } from "@/api";
+
 import useRequestManager from "@/hooks/useRequestManager";
 const ActionList = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { id, roleId, updateActionId } = props;
-  const listId = [];
   const [data, loading, error, ApiCall] = useFetchWithHandler();
   useRequestManager({ error: error });
   const [dataSource, setDataSource] = useState(null);
@@ -24,16 +24,7 @@ const ActionList = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const getIdRow = (id, val) => {
-    // console.log(val.roleHasAccess, "fataaaa");
-    // listId.push(id);
-    updateActionId(selectedRowKeys);
-  };
 
-  const onChange = (val) => {
-    console.log('>>>>', val.target)
-    setgetValue(val.target.checked);
-  };
 
   useEffect(() => {
     const TmpSelected = []
@@ -58,23 +49,6 @@ const ActionList = (props) => {
   };
   //====================================================================
   const cl = [
-    // {
-    //   title: "انتخاب عملیات",
-    //   dataIndex: "",
-    //   key: "",
-    //   width: 50,
-    //   align: "center",
-    //   render: (text, val) => (
-    //     <>
-    //       <Ant.Checkbox
-    //         defaultChecked={text.roleHasAccess}
-    //         onChange={onChange}
-    //         onClick={() => getIdRow(val.id, text)}
-    //         className="text-blue-600"
-    //       />
-    //     </>
-    //   ),
-    // },
     {
       title: "نام عملیات",
       dataIndex: "actionName",
@@ -96,7 +70,6 @@ const ActionList = (props) => {
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
     updateActionId(newSelectedRowKeys);
-    // updateActionId(selectedRowKeys);
   };
 
   const rowSelection = {
