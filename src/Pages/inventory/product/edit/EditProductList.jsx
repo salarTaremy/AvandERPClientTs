@@ -215,7 +215,7 @@ const EditProductList = () => {
                                     <Ant.Form.Item name={'unitTypeId'} label="نوع واحد(اصلی)" rules={[{ required: true }]}>
                                         <Ant.Select
                                             {...commonOptions}
-                                            onChange={handleOnChange}
+                                            onChange={handleOnChangeunit}
                                             disabled={unitTypeLoading || false}
                                             loading={unitTypeLoading}
                                             options={unitTypeData?.data}
@@ -244,7 +244,7 @@ const EditProductList = () => {
                                     <Ant.Form.Item name={'supplierId'} label="تأمین کننده" rules={[{ required: true }]}>
                                         <Ant.Select
                                             {...commonOptions}
-                                            onChange={handleOnChange}
+                                            onChange={handleOnChangebrand}
                                             disabled={supplierLoading || false}
                                             loading={supplierLoading}
                                             options={supplierData?.data}
