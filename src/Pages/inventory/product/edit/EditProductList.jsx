@@ -49,7 +49,7 @@ const EditProductList = () => {
     const handleOnChangeunit = (val, option) => {
         form.setFieldsValue({ unitId: undefined })
         setSelectedUnitType(option.id)
-    }
+      }
 
     const handleOnChangebrand = (val, option) => {
         form.setFieldsValue({ brandId: undefined })
@@ -89,9 +89,18 @@ const EditProductList = () => {
     useEffect(() => {
         getProductList()
     }, [])
+
     useEffect(() => {
         setSelectedProductNature(listData?.data.natureId)
     }, [listData?.data.natureId])
+
+    useEffect(() => {
+        setSelectedSupplier(listData?.data.supplierId)
+    }, [listData?.data.supplierId])
+
+    useEffect(() => {
+        setSelectedUnitType(listData?.data.unitTypeId)
+    }, [listData?.data.unitTypeId])
 
     useEffect(() => {
         form.resetFields()
@@ -101,10 +110,6 @@ const EditProductList = () => {
     useEffect(() => {
         productApiCall(url.PRODUCT_NATURE_DETAIL)
     }, [selectedproductNature])
-
-    useEffect(() => {
-        selectedUnitType && unitApiCall(`${url.PRODUCT_UNIT}?productUnitTypeId=${selectedUnitType}`)
-    }, [selectedUnitType])
 
     useEffect(() => {
         selectedSupplier && brandApiCall(`${url.BRAND}?supplierId=${selectedSupplier}`)
@@ -127,6 +132,15 @@ const EditProductList = () => {
         form.setFieldsValue({ typeId: typeId || defaultTypeId })
     }, [])
 
+    useEffect(() => {
+        const unitTypeId = form.getFieldValue('unitTypeId')
+        unitTypeId && setSelectedUnitType(unitTypeId)
+      }, [])
+    
+      useEffect(() => {
+        selectedUnitType && ApiCall(`${url.PRODUCT_UNIT}?productUnitTypeId=${selectedUnitType}`)
+      }, [selectedUnitType])
+        
     //=====================================================================
     //                        Functions
     //=====================================================================
