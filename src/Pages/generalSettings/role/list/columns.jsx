@@ -46,6 +46,7 @@ const columns = (onDelete, onEdit, onView) => {
       title: "isDenied",
       dataIndex: "isDenied",
       key: "isDenied",
+      align: "center",
       width: 100,
 
       render: (text, record, index) => (

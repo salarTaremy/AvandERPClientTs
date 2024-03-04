@@ -27,6 +27,7 @@ const columns = (onDelete, onEdit, onView) => {
         title: 'کد',
         dataIndex: 'code',
         key: 'code',
+        align: 'center',
         width: 100,
 
       },

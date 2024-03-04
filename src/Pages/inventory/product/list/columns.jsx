@@ -11,12 +11,14 @@ const columns = (onDelete, onView, onEdit) => {
                 title: 'کد',
                 dataIndex: 'code',
                 key: 'code',
+                align: 'center',
                 width: 80,
             },
             {
                 title: 'کد دوم',
                 dataIndex: 'seccondCode',
                 key: 'seccondCode',
+                align: 'center',
                 width: 80,
             },
             {

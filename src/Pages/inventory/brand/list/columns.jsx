@@ -18,6 +18,7 @@ const columns = (onDelete, onEdit, onView) => {
       title: "کد",
       dataIndex: "code",
       key: "code",
+      align: 'center',
       width: 80,
     },
     {
@@ -31,6 +32,7 @@ const columns = (onDelete, onEdit, onView) => {
       title: "کد تأمین کننده",
       dataIndex: "supplierId",
       key: "supplierId",
+      align: 'center',
       width: 100,
       sorter: (a, b) => a.name.localeCompare(b.supplierId),
     },
