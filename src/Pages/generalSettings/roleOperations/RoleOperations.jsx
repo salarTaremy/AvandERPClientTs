@@ -55,6 +55,7 @@ const RoleOperations = () => {
     !filterObject && setFilterCount(0)
     getAllApplicationController()
   }, [filterObject])
+
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
@@ -96,7 +97,8 @@ const RoleOperations = () => {
     setOpenFilter(false)
   }
   const getAllApplicationController = async () => {
-    await ApiCall(url.APPLICATION_CONTROLLER);
+    const queryString = qs.stringify(filterObject)
+    await ApiCall(`${url.APPLICATION_CONTROLLER}?${queryString}`);
   };
 
   const submitRoleAction = async () => {
@@ -116,6 +118,11 @@ const RoleOperations = () => {
     setDisable(false);
     form.setFieldsValue({ role: undefined });
   };
+  const onFilterChanged = async (filterObject) => {
+    console.log(filterObject,"filterObject")
+    setFilterObject(filterObject)
+    setOpenFilter(false)
+  }
 
   //====================================================================
   //                        Child Components
@@ -227,9 +234,9 @@ const RoleOperations = () => {
           onClose={() => setOpenFilter(false)}
           onRemoveFilter={onRemoveFilter}
         >
-          <FilterPanel  />
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
-        <FilterBedge filterCount={filterCount}>
+        <FilterBedge filterCount={filterCount} onSubmit={onFilterChanged}>
           <Grid />
         </FilterBedge>
       </Ant.Card>

@@ -14,7 +14,7 @@ const columns = (onDelete, onEdit, onView) => {
 
         width: 80,
         // fixed:true,
-        render: (text, record, index) => <a>{record.id}</a>,
+        align:'center'
       },
       {
         title: 'نام',

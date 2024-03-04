@@ -12,7 +12,7 @@ const columns = (onDelete, onEdit, onView) => {
 
       width: 80,
       // fixed:true,
-      render: (text, record, index) => <a>{record.id}</a>,
+      align: "center",
     },
     {
       title: "نام",
@@ -49,9 +49,12 @@ const columns = (onDelete, onEdit, onView) => {
       width: 100,
 
       render: (text, record, index) => (
-        <Ant.Tag color={(record.isDenied ==false && "green") || "red"} key={record.id}>
+        <Ant.Tag
+          color={(record.isDenied == false && "green") || "red"}
+          key={record.id}
+        >
           {" "}
-          {(record.isDenied ==false && "دسترسی مجاز") || " عدم دسترسی"}{" "}
+          {(record.isDenied == false && "دسترسی مجاز") || " عدم دسترسی"}{" "}
         </Ant.Tag>
       ),
     },
