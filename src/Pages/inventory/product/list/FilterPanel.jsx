@@ -56,7 +56,7 @@ const FilterPanel = (props) => {
                 </Ant.Form.Item>
                 <Ant.Form.Item name={'brandId'} label="نام برند" valuePropName="checked">
                     <Ant.Select
-                    {...commonOptions}
+                        {...commonOptions}
                         mode="multiple"
                         allowClear={true}
                         placeholder={'انتخاب کنید...'}
@@ -66,7 +66,6 @@ const FilterPanel = (props) => {
                         fieldNames={{ label: 'name', value: 'id' }}
                     />
                 </Ant.Form.Item>
-
                 <Ant.Form.Item>
                     <Ant.Button
                         block
