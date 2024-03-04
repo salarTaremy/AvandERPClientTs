@@ -309,7 +309,7 @@ const EditProductList = () => {
                                 </Ant.Col>
                             </Ant.Row>
                         </Ant.Card>
-                        <Ant.Card title={'گزارشات فصلی(169)'} type="inner" >
+                        <Ant.Card title={'مشخصات فنی'} type="inner" >
                             <Ant.Row gutter={[16, 8]}>
                                 <Ant.Col span={24} sm={8}>
                                     <Ant.Form.Item name={'length'} label={'طول'}>
