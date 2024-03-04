@@ -89,6 +89,9 @@ const EditProductList = () => {
     useEffect(() => {
         getProductList()
     }, [])
+    useEffect(() => {
+        setSelectedProductNature(listData?.data.natureId)
+    }, [listData?.data.natureId])
 
     useEffect(() => {
         form.resetFields()
