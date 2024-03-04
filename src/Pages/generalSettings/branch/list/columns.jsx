@@ -10,13 +10,13 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "id",
       key: "code",
       width: 80,
+      align:'center'
     },
     {
       title: "نام شعبه ",
       dataIndex: "name",
       key: "name",
       width: 100,
-      align: "right",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -24,6 +24,7 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "address",
       key: "address",
       width: 100,
+      sorter: (a, b) => a.address.localeCompare(b.address),
     },
     {
       title: "توضیحات",

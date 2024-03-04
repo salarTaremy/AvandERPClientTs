@@ -11,10 +11,9 @@ const columns = (onDelete, onEdit) => {
         title: 'شناسه',
         dataIndex: 'id',
         key: 'id',
-
         width: 80,
+        align:'center'
         // fixed:true,
-        render: (text, record, index) => <a>{record.id}</a>,
       },
       {
         title: 'نوع سند',
