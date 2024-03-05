@@ -1,136 +1,100 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import logo from "./../assets/images/logos/Logo2.png";
-import {
-  AppstoreOutlined,
-  SettingOutlined,
-  BellOutlined,
-  FileOutlined,
-  PieChartOutlined,
-} from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
+import { useFetchWithHandler } from "@/api";
+import * as AntIcons from "@ant-design/icons";
+import * as url from "@/api/url";
 
-const items = [
-  {
-    label: "طرف حساب ها",
-    key: "grp11",
-
-    label: "طرف mobile ها",
-    key: "grp1",
-
-    children: [
-      { label: "مديريت طرف حساب ها", key: "20", icon: <AppstoreOutlined /> },
-    ],
-    type: "group",
-  },
-  {
-    label: "طرف حساب ها",
-    key: "grp2",
-
-    children: [
-      { label: "مديريت طرف حساب ها", key: "19", icon: <AppstoreOutlined /> },
-    ],
-    type: "group",
-  },
-  {
-    label: "طرف حساب ها",
-    key: "grp3",
-
-    children: [
-      { label: "مديريت طرف حساب ها", key: "18", icon: <AppstoreOutlined /> },
-    ],
-    type: "group",
-  },
-  {
-    label: "طرف حساب ها",
-    key: "grp4",
-
-    children: [
-      { label: "مديريت طرف حساب ها", key: "17", icon: <AppstoreOutlined /> },
-    ],
-    type: "group",
-  },
-  {
-    label: "طرف حساب ها",
-    key: "grp5",
-
-    children: [
-      { label: "مديريت طرف حساب ها", key: "16", icon: <AppstoreOutlined /> },
-    ],
-    type: "group",
-  },
-  {
-    label: "طرف حساب ها",
-    key: "grp6",
-
-    children: [
-      { label: "مديريت طرف حساب ها", key: "15", icon: <AppstoreOutlined /> },
-    ],
-    type: "group",
-  },
-  {
-    label: "طرف حساب ها",
-    key: "grp7",
-
-    children: [
-      { label: "مديريت طرف حساب ها", key: "14", icon: <AppstoreOutlined /> },
-    ],
-    type: "group",
-  },
-
-  getItem("اطلاعات پايه طرف حساب ها", "sub2", <AppstoreOutlined />, [
-    getItem("سرفصل حسابها", "2", <BellOutlined />),
-    getItem("گروه هاي تفصيلي", "3", <FileOutlined />),
-    getItem("حساب هاي تفصيلي", "4", <PieChartOutlined />),
-  ]),
-  getItem(
-    "مالي و حسابداري",
-    "grp",
-    null,
-    [
-      getItem("اطلاعات پايه حسابداري", "sub4", <SettingOutlined />, [
-        getItem("سرفصل حسابها", "9"),
-        getItem("گروه هاي تفصيلي", "10"),
-        getItem("حساب هاي تفصيلي", "11"),
-        getItem("انواع سند حسابداري", "12"),
-      ]),
-    ],
-
-    "group",
-  ),
-  getItem("اسناد حسابداري", "sub3", <AppstoreOutlined />, [
-    getItem("مديريت اسناد", "8"),
-    getItem("ثبت سند جديد", "13"),
-  ]),
-];
-
-//====================================================================
-//                        Functions
-//====================================================================
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-//====================================================================
-//====================================================================
+const Fatemeh = ({ Ic }) => {
+  return (
+    <AntIcons.WindowsOutlined />
+    // <>{Ic}</>
+  );
+};
 const SidebarMobile = (props) => {
   const { onCloseSide, openSide } = props;
+  const [items, setItems] = useState([]);
+  const [data, loading, error, apiCall] = useFetchWithHandler();
+  useRequestManager({ error });
 
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+
+  useEffect(() => {
+    const NavMnu = data?.data[0]?.children;
+    if (NavMnu) {
+      const newVal = processNavMenu(NavMnu);
+      setItems(newVal);
+    }
+  }, [data?.data]);
+
+  useEffect(() => {
+    apiCall(url.NAV_MENU_TREE_FOR_USER);
+  }, []);
+
+  //=====================================================================
+  //                        Functions
+  //=====================================================================
+
+  const processNavMenu = (menu) => {
+    if (!menu) {
+      return null;
+    }
+    return menu.map((item) => {
+      if (item.componentName === "CNavTitle") {
+        item.type = "group";
+      } else {
+        item.icon = <Fatemeh Ic={"AppstoreOutlined"} />;
+      }
+      if (item.children) {
+        delete item.type;
+        delete item.to;
+        item.children = processNavMenu(item.children);
+      }
+      item.label =
+        (item.to && <Link to={item.to}>{item.title}</Link>) || item.title;
+      return { ...item };
+    });
+  };
+
+  const processSubMenu = (menu) => {
+    if (!menu) {
+      return null;
+    }
+    return menu.map((child) => {
+      child.icon = <AntIcons.FileOutlined />;
+      child.label =
+        (child.to && <Link to={child.to}>{child.title}</Link>) || child.title;
+      if (child.children) {
+        delete child.type;
+        delete child.to;
+        child.children = processSubMenu(child.children);
+      }
+      return { ...child };
+    });
+  };
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
     <>
       <Ant.Drawer
         size="default"
-        // className="mobile-only"
         className="hidden sm:block"
-        title={<Ant.Image width={250} className="mx-3" preview={false} src={logo} />}
+        title={
+          <Ant.Image width={250} className="mx-3" preview={false} src={logo} />
+        }
         onClose={onCloseSide}
         open={openSide}
       >
-        <Ant.Menu mode="inline" items={items} />
+        {loading || <Ant.Menu mode="inline" items={items} />}
+        {loading && (
+          <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
+        )}
       </Ant.Drawer>
     </>
   );

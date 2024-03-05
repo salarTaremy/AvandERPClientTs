@@ -95,6 +95,7 @@ const EditProductList = () => {
 
     useEffect(() => {
         form.resetFields()
+        console.log(listData?.data,"listData?.data")
         listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
     }, [listData])
 
