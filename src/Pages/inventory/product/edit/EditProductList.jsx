@@ -49,7 +49,7 @@ const EditProductList = () => {
     const handleOnChangeunit = (val, option) => {
         form.setFieldsValue({ unitId: undefined })
         setSelectedUnitType(option.id)
-      }
+    }
 
     const handleOnChangebrand = (val, option) => {
         form.setFieldsValue({ brandId: undefined })
@@ -134,13 +134,13 @@ const EditProductList = () => {
 
     useEffect(() => {
         const unitTypeId = form.getFieldValue('unitTypeId')
-        unitTypeId && setSelectedUnitType(unitTypeId)
-      }, [])
-    
-      useEffect(() => {
-        selectedUnitType && ApiCall(`${url.PRODUCT_UNIT}?productUnitTypeId=${selectedUnitType}`)
-      }, [selectedUnitType])
-        
+        unitTypeId && form.setFieldsValue({unitTypeId: unitTypeId})
+    }, [])
+
+    useEffect(() => {
+        selectedUnitType && unitApiCall(`${url.PRODUCT_UNIT}?productUnitTypeId=${selectedUnitType}`)
+    }, [selectedUnitType])
+
     //=====================================================================
     //                        Functions
     //=====================================================================
