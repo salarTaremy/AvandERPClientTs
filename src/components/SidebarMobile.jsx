@@ -25,6 +25,7 @@ const SidebarMobile = (props) => {
   //====================================================================
 
   useEffect(() => {
+
     const NavMnu = data?.data[0]?.children;
     if (NavMnu) {
       const newVal = processNavMenu(NavMnu);
@@ -48,7 +49,7 @@ const SidebarMobile = (props) => {
       if (item.componentName === "CNavTitle") {
         item.type = "group";
       } else {
-        item.icon = <Fatemeh Ic={"AppstoreOutlined"} />;
+        item.icon = <Fatemeh />;
       }
       if (item.children) {
         delete item.type;
@@ -93,7 +94,7 @@ const SidebarMobile = (props) => {
       >
         {loading || <Ant.Menu mode="inline" items={items} />}
         {loading && (
-          <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
+          <Ant.Skeleton loading={true} active className="w-11/12 h-full" />
         )}
       </Ant.Drawer>
     </>

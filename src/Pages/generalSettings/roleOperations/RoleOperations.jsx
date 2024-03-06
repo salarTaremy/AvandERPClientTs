@@ -131,7 +131,6 @@ const RoleOperations = () => {
     return (
       <ButtonList
         filterCount={filterCount}
-
         onFilter={() => {
           setOpenFilter(true);
         }}
@@ -150,6 +149,7 @@ const RoleOperations = () => {
             dataSource={dataSource}
             columns={columns(getId)}
             title={title}
+
           />
         </Ant.Skeleton>
       </>
@@ -188,7 +188,7 @@ const RoleOperations = () => {
               <>
                 <Ant.Form form={form} layout="vertical" onFinish={null}>
                   <Ant.Row gutter={[16, 8]}>
-                    <Ant.Col span={12} md={12} lg={12}>
+                    <Ant.Col span={12} md={12} lg={12} xs={24}>
                       <Ant.Form.Item
                         name={"accountTypeId"}
                         label="محدود نقش"
@@ -204,7 +204,7 @@ const RoleOperations = () => {
                         />
                       </Ant.Form.Item>
                     </Ant.Col>
-                    <Ant.Col span={12} md={12} lg={12}>
+                    <Ant.Col span={12} md={12} lg={12} xs={24}>
                       <Ant.Form.Item
                         name={"role"}
                         label="نقش"
@@ -228,7 +228,7 @@ const RoleOperations = () => {
         ]}
       />
 
-      <Ant.Card  style={{ ...styles.CARD_DEFAULT_STYLES }} className="w-full mt-4" type="inner">
+      <Ant.Card   className="w-full mt-4" type="inner">
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
