@@ -282,8 +282,8 @@ export const Table = (props) => {
       dataIndex: "accountId",
       key: "accountId",
       align: "center",
-      className:"text-xs sm:text-sm",
       width: 50,
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Space>
           <strong style={borderStyle}>
@@ -298,9 +298,8 @@ export const Table = (props) => {
       title: "حساب",
       dataIndex: "accountId",
       key: "accountId",
-      className:"text-xs sm:text-sm",
       width: 120,
-
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Form.Item
           className="m-0"
@@ -314,7 +313,7 @@ export const Table = (props) => {
           initialValue={record.accountId}
         >
           <Ant.Select
-          size="default"
+            size="default"
             {...commonOptions}
             value={record.accountId}
             onChange={(value) => onChangeAccount(value, record)}
@@ -333,8 +332,8 @@ export const Table = (props) => {
       title: "حساب تفصیلی",
       dataIndex: "detailedAccountId4",
       key: "detailedAccountId4",
-      className:"text-xs sm:text-sm",
       width: 120,
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Form.Item
           className="m-0"
@@ -367,8 +366,8 @@ export const Table = (props) => {
       title: "حساب تفصیلی",
       dataIndex: "detailedAccountId5",
       key: "detailedAccountId5",
-      className:"text-xs sm:text-sm",
       width: 120,
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Form.Item
           className="m-0"
@@ -401,8 +400,8 @@ export const Table = (props) => {
       title: "حساب تفصیلی",
       dataIndex: "detailedAccountId6",
       key: "detailedAccountId6",
-      className:"text-xs sm:text-sm",
       width: 120,
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Form.Item
           className="m-0"
@@ -435,8 +434,8 @@ export const Table = (props) => {
       title: "شرح",
       dataIndex: "article",
       width: 80,
-      className:"text-xs sm:text-sm",
       key: "article",
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Form.Item
           className="m-0"
@@ -462,8 +461,8 @@ export const Table = (props) => {
       title: "بدهکار",
       dataIndex: "debtor",
       width: 80,
-      className:"text-xs sm:text-sm",
       key: "debtor",
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Form.Item
           className="m-0"
@@ -495,8 +494,8 @@ export const Table = (props) => {
       title: "بستانکار",
       dataIndex: "creditor",
       key: "creditor",
-      className:"text-xs sm:text-sm",
       width: 80,
+      className: "text-xs sm:text-sm",
       render: (_, record) => (
         <Ant.Form.Item
           className="m-0"
@@ -529,8 +528,8 @@ export const Table = (props) => {
       key: "operation",
       width: 1,
       align: "center",
-      className:"text-xs sm:text-sm",
       fixed: "right",
+      className: "text-xs sm:text-sm",
 
       render: (text, val) => (
         <>
