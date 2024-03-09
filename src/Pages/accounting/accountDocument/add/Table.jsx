@@ -282,6 +282,7 @@ export const Table = (props) => {
       dataIndex: "accountId",
       key: "accountId",
       align: "center",
+      className:"text-xs sm:text-sm",
       width: 50,
       render: (_, record) => (
         <Ant.Space>
@@ -297,6 +298,7 @@ export const Table = (props) => {
       title: "حساب",
       dataIndex: "accountId",
       key: "accountId",
+      className:"text-xs sm:text-sm",
       width: 120,
 
       render: (_, record) => (
@@ -312,6 +314,7 @@ export const Table = (props) => {
           initialValue={record.accountId}
         >
           <Ant.Select
+          size="default"
             {...commonOptions}
             value={record.accountId}
             onChange={(value) => onChangeAccount(value, record)}
@@ -330,6 +333,7 @@ export const Table = (props) => {
       title: "حساب تفصیلی",
       dataIndex: "detailedAccountId4",
       key: "detailedAccountId4",
+      className:"text-xs sm:text-sm",
       width: 120,
       render: (_, record) => (
         <Ant.Form.Item
@@ -349,6 +353,7 @@ export const Table = (props) => {
             onChange={(value) => handleChangeDetailedAccount(value, record.key)}
             defaultValue={record.detailedAccountId4}
             placeholder={"انتخاب کنید..."}
+            size="default"
             disabled={dtAccLoading || false}
             loading={dtAccLoading}
             options={dtAccData?.data}
@@ -362,6 +367,7 @@ export const Table = (props) => {
       title: "حساب تفصیلی",
       dataIndex: "detailedAccountId5",
       key: "detailedAccountId5",
+      className:"text-xs sm:text-sm",
       width: 120,
       render: (_, record) => (
         <Ant.Form.Item
@@ -383,6 +389,7 @@ export const Table = (props) => {
             placeholder={"انتخاب کنید..."}
             disabled={dtAccLoading || false}
             loading={dtAccLoading}
+            size="default"
             options={dtAccData?.data}
             rules={[{ required: true }]}
             fieldNames={{ label: "name", value: "id" }}
@@ -394,6 +401,7 @@ export const Table = (props) => {
       title: "حساب تفصیلی",
       dataIndex: "detailedAccountId6",
       key: "detailedAccountId6",
+      className:"text-xs sm:text-sm",
       width: 120,
       render: (_, record) => (
         <Ant.Form.Item
@@ -415,6 +423,7 @@ export const Table = (props) => {
             placeholder={"انتخاب کنید..."}
             disabled={dtAccLoading || false}
             loading={dtAccLoading}
+            size="default"
             options={dtAccData?.data}
             rules={[{ required: true }]}
             fieldNames={{ label: "name", value: "id" }}
@@ -426,6 +435,7 @@ export const Table = (props) => {
       title: "شرح",
       dataIndex: "article",
       width: 80,
+      className:"text-xs sm:text-sm",
       key: "article",
       render: (_, record) => (
         <Ant.Form.Item
@@ -440,6 +450,7 @@ export const Table = (props) => {
           initialValue={record.article}
         >
           <Ant.Input
+            size="default"
             onChange={(e) => handleArticleInput(e, record.key)}
             value={record.article}
             defaultValue={record.article}
@@ -451,6 +462,7 @@ export const Table = (props) => {
       title: "بدهکار",
       dataIndex: "debtor",
       width: 80,
+      className:"text-xs sm:text-sm",
       key: "debtor",
       render: (_, record) => (
         <Ant.Form.Item
@@ -465,6 +477,7 @@ export const Table = (props) => {
           initialValue={record.debtor}
         >
           <Ant.InputNumber
+            size="default"
             value={record.debtor}
             rules={[{ required: true }]}
             defaultValue={record.debtor}
@@ -482,6 +495,7 @@ export const Table = (props) => {
       title: "بستانکار",
       dataIndex: "creditor",
       key: "creditor",
+      className:"text-xs sm:text-sm",
       width: 80,
       render: (_, record) => (
         <Ant.Form.Item
@@ -496,6 +510,7 @@ export const Table = (props) => {
           initialValue={record.creditor}
         >
           <Ant.InputNumber
+            size="default"
             onChange={(e) => handleCreditorInput(e, record.key)}
             min={0}
             defaultValue={record.creditor}
@@ -514,6 +529,7 @@ export const Table = (props) => {
       key: "operation",
       width: 1,
       align: "center",
+      className:"text-xs sm:text-sm",
       fixed: "right",
 
       render: (text, val) => (

@@ -120,7 +120,7 @@ export const FrmEditAccountDocument = () => {
   //====================================================================
   //                        Component
   //====================================================================
-  const text = <strong>{'ویرایش سند حسابداری'}</strong>
+  const text = <strong className="text-xs sm:text-sm">{'ویرایش سند حسابداری'}</strong>
   return (
     <>
       <Ant.Collapse
@@ -130,7 +130,6 @@ export const FrmEditAccountDocument = () => {
           {
             key: '1',
             label: text,
-
             children: (
               <>
                 <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
@@ -195,7 +194,7 @@ export const FrmEditAccountDocument = () => {
                     </Ant.Col>
                     <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item name={'persianDateTilte'} label="تاریخ">
-                        <MyDatePicker />
+                        <MyDatePicker  />
                       </Ant.Form.Item>
                     </Ant.Col>
                     <Ant.Col lg={18} md={12} sm={12} xs={24}>

@@ -18,24 +18,23 @@ const columns = (getId) => {
       title: "نام",
       dataIndex: "persianTitle",
       key: "persianTitle",
+      className:"text-xs sm:text-sm",
       width: 100,
       sorter: (a, b) => a.name.localeCompare(b.persianTitle),
     },
-
     {
       title: "عنوان انگلیسی",
       dataIndex: "name",
       key: "name",
-      width: 100,
+      width: 120,
+      className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "دسترسی عملیات",
-      dataIndex: "",
-      key: "",
-
       width: 50,
       align: "center",
+      className:"text-xs sm:text-sm",
       render: (text, val) => (
         <>
           <UserOutlined onClick={() => getId(val.id)}  className="text-blue-600" />
