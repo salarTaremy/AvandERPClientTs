@@ -137,7 +137,7 @@ const DetailedAccountList = () => {
         {modalContent}
       </Ant.Modal>
       <Ant.Card Card title={pageTitle} type="inner">
-        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={listLoading}>
+        <Ant.Card loading={listLoading}>
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}

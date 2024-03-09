@@ -13,6 +13,7 @@ const columns = (onDelete, onView, onEdit) => {
                 key: 'code',
                 align: 'center',
                 width: 80,
+                className:"text-xs sm:text-sm",
             },
             {
                 title: 'کد دوم',
@@ -20,18 +21,21 @@ const columns = (onDelete, onView, onEdit) => {
                 key: 'seccondCode',
                 align: 'center',
                 width: 80,
+                className:"text-xs sm:text-sm",
             },
             {
                 title: 'نام کالا',
                 dataIndex: 'name',
                 key: 'name',
                 width: 80,
+                className:"text-xs sm:text-sm",
             },
             {
                 title: 'نام دوم کالا',
                 dataIndex: 'seccondName',
                 key: 'seccondName',
                 width: 80,
+                className:"text-xs sm:text-sm",
             },
             {
                 title: 'عملیات',
@@ -40,6 +44,7 @@ const columns = (onDelete, onView, onEdit) => {
                 width: 100,
                 align: 'center',
                 fixed: 'right',
+                className:"text-xs sm:text-sm",
 
                 render: (text, val) =>
 

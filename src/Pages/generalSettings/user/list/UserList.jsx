@@ -129,7 +129,7 @@ const UserList = () => {
                 >
                     {modalContent}
                 </Ant.Modal>
-                <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                <Ant.Card>
                     <Grid />
                 </Ant.Card>
             </Ant.Card>

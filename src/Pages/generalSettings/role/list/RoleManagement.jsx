@@ -115,7 +115,7 @@ function RoleManagement() {
           {" "}
           {modalContent}
         </Ant.Modal>
-        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+        <Ant.Card >
           {/* <FilterDrawer
         > */}
           {/* <FilterPanel  /> */}

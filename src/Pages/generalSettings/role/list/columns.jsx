@@ -9,16 +9,17 @@ const columns = (onDelete, onEdit, onView) => {
       title: "شناسه",
       dataIndex: "id",
       key: "id",
-
       width: 80,
       // fixed:true,
       align: "center",
+      className:"text-xs sm:text-sm",
     },
     {
       title: "نام",
       dataIndex: "name",
       key: "name",
       width: 100,
+      className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -26,6 +27,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "persianTitle",
       key: "persianTitle",
       width: 100,
+      className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -33,6 +35,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "roleScopeName",
       key: "roleScopeName",
       width: 100,
+      className:"text-xs sm:text-sm",
     },
 
     {
@@ -40,6 +43,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "roleScopePersianTitle",
       key: "roleScopePersianTitle",
       width: 100,
+      className:"text-xs sm:text-sm",
     },
 
     {
@@ -48,7 +52,7 @@ const columns = (onDelete, onEdit, onView) => {
       key: "isDenied",
       align: "center",
       width: 100,
-
+      className:"text-xs sm:text-sm",
       render: (text, record, index) => (
         <Ant.Tag
           color={(record.isDenied == false && "green") || "red"}
@@ -66,7 +70,7 @@ const columns = (onDelete, onEdit, onView) => {
       width: 100,
       align: "center",
       fixed: "right",
-
+      className:"text-xs sm:text-sm",
       render: (text, val) => (
         <>
           <Ant.Space direction="horizontal" size={20}>

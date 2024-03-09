@@ -13,6 +13,7 @@ const columns = (onDelete, onEdit, onView) => {
       width: 80,
       // fixed:true,
       align: "center",
+      className:"text-xs sm:text-sm",
     },
     {
       title: "کد",
@@ -20,12 +21,14 @@ const columns = (onDelete, onEdit, onView) => {
       key: "code",
       align: 'center',
       width: 80,
+      className:"text-xs sm:text-sm",
     },
     {
       title: "نام برند",
       dataIndex: "name",
       key: "name",
       width: 100,
+      className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -34,6 +37,7 @@ const columns = (onDelete, onEdit, onView) => {
       key: "supplierId",
       align: 'center',
       width: 100,
+      className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.supplierId),
     },
     {
@@ -41,6 +45,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "supplierName",
       key: "supplierName",
       width: 100,
+      className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.supplierName),
     },
 
@@ -51,7 +56,7 @@ const columns = (onDelete, onEdit, onView) => {
       width: 100,
       align: "center",
       fixed: "right",
-
+      className:"text-xs sm:text-sm",
       render: (text, val) => (
         <>
           <Ant.Space direction="horizontal" size={20}>

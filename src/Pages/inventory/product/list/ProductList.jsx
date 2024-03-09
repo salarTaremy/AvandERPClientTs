@@ -135,7 +135,7 @@ const ProductList = () => {
         {modalContent}
       </Ant.Modal>
       <Ant.Card title={'مدیریت کالا و خدمات'} type="inner" >
-        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={loading}>
+        <Ant.Card loading={loading}>
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}

@@ -228,7 +228,7 @@ const RoleOperations = () => {
         ]}
       />
 
-      <Ant.Card   className="w-full mt-4" type="inner">
+      <Ant.Card  className="w-full mt-4" type="inner">
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}

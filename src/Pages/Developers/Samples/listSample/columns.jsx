@@ -10,6 +10,7 @@ export const columns = () => {
         key: 'id',
         align : 'center',
         width : 80,
+        className:"text-xs sm:text-sm",
         // fixed:true,
         render: (text, record, index) => { return(<>{record.id}</>)},
       },
@@ -18,12 +19,14 @@ export const columns = () => {
         dataIndex: 'name',
         key: 'name',
         width : 400,
+        className:"text-xs sm:text-sm",
       },
       {
         title: 'نام دوم',
         dataIndex: 'secondName',
         key: 'secondName',
         width:1000,
+        className:"text-xs sm:text-sm",
         render: (text, record, index) => (
           <Ant.Tooltip placement="top" title={text}>
             {text}
@@ -35,6 +38,7 @@ export const columns = () => {
         dataIndex: 'description',
         key: 'description',
         width:1000,
+        className:"text-xs sm:text-sm",
       },
     ]
   )

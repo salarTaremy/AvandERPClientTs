@@ -18,13 +18,15 @@ const columns = (onDelete, onEdit, onView) => {
         dataIndex: 'code',
         key: 'code',
         width: 80,
-        align:'center'
+        align:'center',
+        className:"text-xs sm:text-sm",
       },
       {
         title: 'نام ',
         dataIndex: 'name',
         key: 'name',
         width: 100,
+        className:"text-xs sm:text-sm",
         sorter: (a, b) => a.name.localeCompare(b.name),
       },
       {
@@ -32,6 +34,7 @@ const columns = (onDelete, onEdit, onView) => {
         dataIndex: 'description',
         key: 'description',
         width: 300,
+        className:"text-xs sm:text-sm",
 
       },
       {
@@ -41,6 +44,7 @@ const columns = (onDelete, onEdit, onView) => {
         width: 100,
         align: 'center',
         fixed: 'right',
+        className:"text-xs sm:text-sm",
 
         render: (text, val) =>
           <>

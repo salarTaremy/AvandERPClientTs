@@ -19,9 +19,10 @@ export const columns = () => {
         title: 'کد حساب',
         dataIndex: 'accCode',
         key: 'accCode',
-        align : 'center',
+        align: 'center',
+        className: "text-xs sm:text-sm",
         sorter: (a, b) => a.accCode?.localeCompare(b.accCode),
-        defaultSortOrder: 'ascend' //or descend
+        defaultSortOrder: 'ascend', //or descend
         //sortOrder: 'ascend' //or descend
       },
       {
@@ -29,36 +30,41 @@ export const columns = () => {
         title: 'نام حساب',
         dataIndex: 'accName',
         key: 'accName',
+        className: "text-xs sm:text-sm",
         sorter: (a, b) => a.accName?.localeCompare(b.accName),
       },
       {
         title: 'گردش بدهکار',
         dataIndex: 'sumDebtor',
         key: 'sumDebtor',
+        className:"text-xs sm:text-sm",
         sorter: (a, b) => a.sumDebtor - b.sumDebtor,
-        render:(text, record, index) =>  <>{record.sumDebtor.toLocaleString()}</>,
+        render: (text, record, index) => <>{record.sumDebtor.toLocaleString()}</>,
       },
       {
         title: 'گردش بستانکار',
         dataIndex: 'sumCreditor',
         key: 'sumCreditor',
+        className:"text-xs sm:text-sm",
         sorter: (a, b) => a.sumCreditor - b.sumCreditor,
-        render:(text, record, index) =>  <>{record.sumCreditor.toLocaleString()}</>,
+        render: (text, record, index) => <>{record.sumCreditor.toLocaleString()}</>,
       },
       {
         title: 'مانده بدهکار',
         dataIndex: 'balanceOfDebtor',
         key: 'balanceOfDebtor',
+        className:"text-xs sm:text-sm",
         sorter: (a, b) => a.balanceOfDebtor - b.balanceOfDebtor,
-        render:(text, record, index) =>  <>{record.balanceOfDebtor.toLocaleString()}</>,
+        render: (text, record, index) => <>{record.balanceOfDebtor.toLocaleString()}</>,
 
       },
       {
         title: 'مانده بستانکار',
         dataIndex: 'balanceOfCreditor',
         key: 'balanceOfCreditor',
+        className:"text-xs sm:text-sm",
         sorter: (a, b) => a.balanceOfCreditor - b.balanceOfCreditor,
-        render:(text, record, index) =>  <>{record.balanceOfCreditor.toLocaleString()}</>,
+        render: (text, record, index) => <>{record.balanceOfCreditor.toLocaleString()}</>,
 
       },
     ]

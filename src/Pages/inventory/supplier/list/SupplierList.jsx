@@ -144,7 +144,7 @@ const SupplierList = () => {
       </Ant.Modal>
 
       <Ant.Card title={'تأمین کنندگان'} type="inner">
-        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={loadingData}>
+        <Ant.Card loading={loadingData}>
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}

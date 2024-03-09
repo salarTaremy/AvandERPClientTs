@@ -150,7 +150,7 @@ const DetailedAccountGroupList = () => {
       </Ant.Modal>
 
       <Ant.Card title={'گروه های تفصیل'} type="inner">
-        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
+        <Ant.Card loading={false}>
           <Ant.Skeleton loading={listLoading}>
             <Grid />
           </Ant.Skeleton>

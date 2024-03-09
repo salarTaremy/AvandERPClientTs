@@ -133,7 +133,7 @@ const DocumentTypeList = () => {
         <FormDocumentType obj={editingValue} onFinish={onSubmitEdit} loading={editLoading} />
       </Ant.Modal>
       <Ant.Card title={'انواع سند حسابداری'} type="inner">
-        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
+        <Ant.Card loading={false}>
           <Ant.Skeleton loading={loading}>
             <Grid />
           </Ant.Skeleton>
