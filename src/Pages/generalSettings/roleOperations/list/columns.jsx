@@ -11,8 +11,6 @@ const columns = (getId) => {
       key: "id",
       width: 50,
       align: "center",
-
-
     },
     {
       title: "نام",
@@ -41,7 +39,6 @@ const columns = (getId) => {
         </>
       ),
     },
-
 
   ];
 };
