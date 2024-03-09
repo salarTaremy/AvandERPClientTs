@@ -10,14 +10,14 @@ import { GrPowerReset } from "react-icons/gr";
 const columns = (onDelete, onEdit, onReset) => {
     return (
         [
-            {
-                title: 'شناسه',
-                dataIndex: 'id',
-                key: 'id',
-                width: 80,
-                align: 'center',
-                className:"text-xs sm:text-sm",
-            },
+            // {
+            //     title: 'شناسه',
+            //     dataIndex: 'id',
+            //     key: 'id',
+            //     width: 80,
+            //     align: 'center',
+            //     className:"text-xs sm:text-sm",
+            // },
             {
                 title: 'تاریخ',
                 dataIndex: 'createDate',

@@ -10,6 +10,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: 'fullCode',
       key: 'fullCode',
       align: 'center',
+      className:"text-xs sm:text-sm",
       // width: 10,
       // fixed:true,
       sorter: (a, b) => a.fullCode.localeCompare(b.fullCode),
@@ -19,6 +20,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: 'name',
       key: 'name',
       // width: 70,
+      className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (text, record, index) => (
         <Ant.Tooltip placement="top" title={record.secondName}>
@@ -31,6 +33,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: 'isActive',
       key: 'isActive',
       align: 'center',
+      className:"text-xs sm:text-sm",
       // width: 5,
       //render: (text, record, index) => <Ant.Checkbox checked={record.isActive} />,
       render: (text, record, index) => (
@@ -46,6 +49,7 @@ export const columns = (onDelete, onEdit, onView) => {
       align: 'center',
       // width: 15,
       // fixed: 'left',
+      className:"text-xs sm:text-sm",
       render: (text, record, index) => {
         return (
           <>

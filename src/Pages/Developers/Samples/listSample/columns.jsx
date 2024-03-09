@@ -4,16 +4,16 @@ import * as Ant from 'antd'
 export const columns = () => {
   return (
     [
-      {
-        title: 'شناسه',
-        dataIndex: 'id',
-        key: 'id',
-        align : 'center',
-        width : 80,
-        className:"text-xs sm:text-sm",
-        // fixed:true,
-        render: (text, record, index) => { return(<>{record.id}</>)},
-      },
+      // {
+      //   title: 'شناسه',
+      //   dataIndex: 'id',
+      //   key: 'id',
+      //   align : 'center',
+      //   width : 80,
+      //   className:"text-xs sm:text-sm",
+      //   fixed:true,
+      //   render: (text, record, index) => { return(<>{record.id}</>)},
+      // },
       {
         title: 'نام',
         dataIndex: 'name',

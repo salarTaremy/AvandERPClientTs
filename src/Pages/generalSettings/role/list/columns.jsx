@@ -5,15 +5,15 @@ import { FiEdit } from "react-icons/fi";
 import { GrView } from "react-icons/gr";
 const columns = (onDelete, onEdit, onView) => {
   return [
-    {
-      title: "شناسه",
-      dataIndex: "id",
-      key: "id",
-      width: 80,
-      // fixed:true,
-      align: "center",
-      className:"text-xs sm:text-sm",
-    },
+    // {
+    //   title: "شناسه",
+    //   dataIndex: "id",
+    //   key: "id",
+    //   width: 80,
+    //   fixed:true,
+    //   align: "center",
+    //   className:"text-xs sm:text-sm",
+    // },
     {
       title: "نام",
       dataIndex: "name",
