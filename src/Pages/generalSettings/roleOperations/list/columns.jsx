@@ -18,7 +18,6 @@ const columns = (getId) => {
       key: "persianTitle",
       width: 100,
       className:"text-xs sm:text-sm",
-
       sorter: (a, b) => a.name.localeCompare(b.persianTitle),
     },
     {
