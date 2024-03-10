@@ -2,9 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as styles from "@/styles";
+import qs from 'qs'
 import * as url from "@/api/url";
 import * as uuid from "uuid";
-// import FilterDrawer from '@/components/common/FilterDrawer'
 import FilterBedge from "@/components/common/FilterBedge";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
@@ -13,14 +13,31 @@ import ButtonList from "@/components/common/ButtonList";
 import FormAddRole from "../add/FormAddRole";
 import FormEditRole from "../edit/FormEditRole";
 import * as defaultValues from "@/defaultValues";
+import FilterDrawer from '@/components/common/FilterDrawer';
+import FilterPanel from '../list/FilterPanel'
+
 function RoleManagement() {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [dataSource, setDataSource] = useState(null);
   const [modalContent, setModalContent] = useState();
+  const [filterObject, setFilterObject] = useState()
   const [modalState, setModalState] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false)
+  const [filterCount, setFilterCount] = useState(0)
+
   useRequestManager({ error: error });
   useRequestManager({ error: delError, data: delSaving, loading: delLoading });
+
+
+  useEffect(() => {
+
+    filterObject &&
+      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+    !filterObject && setFilterCount(0)
+    getRole()
+  }, [filterObject])
+
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -37,8 +54,21 @@ function RoleManagement() {
   }, [delSaving]);
 
   const getRole = async () => {
-    await ApiCall(url.ROLE);
+    const queryString = qs.stringify(filterObject)
+    console.log('fbxsgfmjndfjn', filterObject)
+    await ApiCall(`${url.ROLE}?${queryString}`);
   };
+
+  const onFilterChanged = async (filterObject) => {
+    setFilterObject(filterObject)
+    setOpenFilter(false)
+  }
+  const onRemoveFilter = () => {
+    setFilterObject(null)
+    setOpenFilter(false)
+  }
+
+
   const onDelete = async (id) => {
     await delApiCall(`${url.ROLE}/${id}`);
   };
@@ -72,10 +102,11 @@ function RoleManagement() {
   const title = () => {
     return (
       <ButtonList
+      filterCount={filterCount}
         onAdd={onAdd}
-        // onFilter={() => {
-        //   setOpenFilter(true);
-        // }}
+        onFilter={() => {
+          setOpenFilter(true);
+        }}
         onRefresh={() => {
           getRole();
         }}
@@ -116,11 +147,14 @@ function RoleManagement() {
           {modalContent}
         </Ant.Modal>
         <Ant.Card >
-          {/* <FilterDrawer
-        > */}
-          {/* <FilterPanel  /> */}
-          {/* </FilterDrawer> */}
-          <FilterBedge>
+          <FilterDrawer
+            open={openFilter}
+            onClose={() => setOpenFilter(false)}
+            onRemoveFilter={onRemoveFilter}
+          >
+            <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+          </FilterDrawer>
+          <FilterBedge filterCount={filterCount}>
             <Grid />
           </FilterBedge>
         </Ant.Card>

@@ -31,14 +31,6 @@ const columns = (onDelete, onEdit, onView) => {
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: "محدوده نقش",
-      dataIndex: "roleScopeName",
-      key: "roleScopeName",
-      width: 100,
-      className:"text-xs sm:text-sm",
-    },
-
-    {
       title: "عنوان محدوده نقش",
       dataIndex: "roleScopePersianTitle",
       key: "roleScopePersianTitle",
