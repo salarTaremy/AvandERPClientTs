@@ -66,7 +66,6 @@ const ActionList = (props) => {
 
 
   const onSelectChange = (newSelectedRowKeys) => {
-    debugger
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
     updateActionId(newSelectedRowKeys);

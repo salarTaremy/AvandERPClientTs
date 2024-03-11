@@ -7,19 +7,19 @@ import * as Ant from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
 import ActionList from "./list/ActionList";
 import qs from "qs";
-import * as styles from '@/styles'
+import * as styles from "@/styles";
 import * as defaultValues from "@/defaultValues";
-import FilterPanel from "./list/FilterPanel"
-import ButtonList from '@/components/common/ButtonList'
-import FilterBedge from '@/components/common/FilterBedge'
-import FilterDrawer from '@/components/common/FilterDrawer'
+import FilterPanel from "./list/FilterPanel";
+import ButtonList from "@/components/common/ButtonList";
+import FilterBedge from "@/components/common/FilterBedge";
+import FilterDrawer from "@/components/common/FilterDrawer";
 const RoleOperations = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState();
   const [openFilter, setOpenFilter] = useState(false);
-  const [filterCount, setFilterCount] = useState(0)
+  const [filterCount, setFilterCount] = useState(0);
   const [idRol, setIdRol] = useState(0);
-  const [filterObject, setFilterObject] = useState()
+  const [filterObject, setFilterObject] = useState();
   const [idAction, setIdAction] = useState([]);
   const [idActionsList, setIdActionsList] = useState([]);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -48,13 +48,14 @@ const RoleOperations = () => {
   //                        useEffects
   //====================================================================
 
-
   useEffect(() => {
     filterObject &&
-      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
-    !filterObject && setFilterCount(0)
-    getAllApplicationController()
-  }, [filterObject])
+      setFilterCount(
+        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+      );
+    !filterObject && setFilterCount(0);
+    getAllApplicationController();
+  }, [filterObject]);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -93,11 +94,12 @@ const RoleOperations = () => {
   //                        Functions
   //====================================================================
   const onRemoveFilter = () => {
-    setFilterObject(null)
-    setOpenFilter(false)
-  }
+    setFilterObject(null);
+    setOpenFilter(false);
+  };
   const getAllApplicationController = async () => {
-    const queryString = qs.stringify(filterObject)
+
+    const queryString = qs.stringify(filterObject);
     await ApiCall(`${url.APPLICATION_CONTROLLER}?${queryString}`);
   };
 
@@ -117,12 +119,14 @@ const RoleOperations = () => {
     await roleApi(`${url.ROLE}?${data}`);
     setDisable(false);
     form.setFieldsValue({ role: undefined });
+    getAllApplicationController()
+    // form.resetFields()
   };
   const onFilterChanged = async (filterObject) => {
-    console.log(filterObject,"filterObject")
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
+    console.log(filterObject, "filterObject");
+    setFilterObject(filterObject);
+    setOpenFilter(false);
+  };
 
   //====================================================================
   //                        Child Components
@@ -149,7 +153,6 @@ const RoleOperations = () => {
             dataSource={dataSource}
             columns={columns(getId)}
             title={title}
-
           />
         </Ant.Skeleton>
       </>
@@ -227,8 +230,7 @@ const RoleOperations = () => {
           },
         ]}
       />
-
-      <Ant.Card  className="w-full mt-4" type="inner">
+      <Ant.Card className="w-full mt-4" type="inner">
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
