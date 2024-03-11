@@ -42,6 +42,7 @@ const App = () => {
         motionDurationSlow: "0.5s",
         // colorBgMask:'#347654',
       },
+
       Layout: {
         //bodyBg:'#EBEDEF',
         bodyBg: (themeName != "dark" && "#F1F1F1") || "#000000",

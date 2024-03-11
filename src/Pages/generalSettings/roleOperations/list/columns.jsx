@@ -1,9 +1,7 @@
 import React from "react";
 import * as Ant from "antd";
 import { UserOutlined } from "@ant-design/icons";
-
-
-const columns = (getId) => {
+const columns = (getId ) => {
   return [
     // {
     //   title: "شناسه",
@@ -17,7 +15,7 @@ const columns = (getId) => {
       dataIndex: "persianTitle",
       key: "persianTitle",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.persianTitle),
     },
     {
@@ -25,21 +23,25 @@ const columns = (getId) => {
       dataIndex: "name",
       key: "name",
       width: 120,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "دسترسی عملیات",
       width: 50,
       align: "center",
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
-          <UserOutlined onClick={() => getId(val.id)}  className="text-blue-600" />
+          <Ant.Button
+            className="text-blue-600"
+            onClick={() => getId(val.id)}
+            icon={<UserOutlined />}
+            type="text"
+          />
         </>
       ),
     },
-
   ];
 };
 

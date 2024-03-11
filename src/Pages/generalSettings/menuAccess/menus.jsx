@@ -90,16 +90,19 @@ const Menus = () => {
     });
     await apiCall(`${url.NAV_MENU_TREE}?${queryString}`);
   };
-  const onsubmit = async () => {
-    const data = {
-      roleId: idRol,
-      entityIdList: checkedKeys,
-    };
-    await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, data);
+  const onFinish = async (value) => {
+
+    const req = {roleId:value.role,entityIdList: checkedKeys}
+    // const data = {
+    //   roleId: idRol,
+    //   entityIdList: checkedKeys,
+    // };
+
+    await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, req);
   };
   const onChangeRoleScope = async (val) => {
     const data = qs.stringify({
-      Id: parseInt(val),
+      RoleScopeId: parseInt(val),
     });
     await roleApi(`${url.ROLE}?${data}`);
     form.setFieldsValue({ role: undefined });
@@ -117,7 +120,7 @@ const Menus = () => {
             className="w-full"
             style={{ ...styles.CARD_DEFAULT_STYLES }}
           >
-            <Ant.Form form={form} layout="vertical" onFinish={null}>
+            <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
               <Ant.Row gutter={[8, 8]}>
                 <Ant.Col md={12} lg={12} sm={24} xs={24}>
                   <Ant.Form.Item
@@ -161,10 +164,8 @@ const Menus = () => {
               >
                 <Ant.Button
                   disabled={disableButton}
-                  onClick={onsubmit}
                   block
                   htmlType="submit"
-                  key="submit"
                   type="primary"
                 >
                   تایید
