@@ -23,7 +23,7 @@ const GetUrl = () => {
     port = '15000'
   } else {
     //NODE_ENV is :production
-    port = '81'
+    port = '7071'
     return `${protocol}//${hostname}:${port}/api`
   }
   return apiUrl
