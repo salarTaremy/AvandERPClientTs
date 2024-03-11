@@ -17,12 +17,12 @@ import FilterDrawer from '@/components/common/FilterDrawer';
 import FilterPanel from '../list/FilterPanel'
 
 function RoleManagement() {
-  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
-  const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
-  const [dataSource, setDataSource] = useState(null);
-  const [modalContent, setModalContent] = useState();
+  const [listData, loadingData, error, ApiCall] = useFetchWithHandler()
+  const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler()
+  const [dataSource, setDataSource] = useState(null)
+  const [modalContent, setModalContent] = useState()
   const [filterObject, setFilterObject] = useState()
-  const [modalState, setModalState] = useState(false);
+  const [modalState, setModalState] = useState(false)
   const [openFilter, setOpenFilter] = useState(false)
   const [filterCount, setFilterCount] = useState(0)
 
@@ -68,7 +68,6 @@ function RoleManagement() {
     setOpenFilter(false)
   }
 
-
   const onDelete = async (id) => {
     await delApiCall(`${url.ROLE}/${id}`);
   };
@@ -102,7 +101,7 @@ function RoleManagement() {
   const title = () => {
     return (
       <ButtonList
-      filterCount={filterCount}
+        filterCount={filterCount}
         onAdd={onAdd}
         onFilter={() => {
           setOpenFilter(true);
@@ -130,23 +129,23 @@ function RoleManagement() {
   };
   return (
     <>
+      <Ant.Modal
+        open={modalState}
+        centered
+        getContainer={null}
+        footer={null}
+        onCancel={() => {
+          setModalState(false);
+        }}
+        onOk={() => {
+          setModalState(false);
+        }}
+      >
+        {" "}
+        {modalContent}
+      </Ant.Modal>
       <Ant.Card title={"لیست نقش ها"} type="inner">
-        <Ant.Modal
-          open={modalState}
-          centered
-          getContainer={null}
-          footer={null}
-          onCancel={() => {
-            setModalState(false);
-          }}
-          onOk={() => {
-            setModalState(false);
-          }}
-        >
-          {" "}
-          {modalContent}
-        </Ant.Modal>
-        <Ant.Card >
+        <Ant.Card loading={loadingData}>
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}
