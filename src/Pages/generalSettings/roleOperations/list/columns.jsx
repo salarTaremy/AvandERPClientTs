@@ -3,13 +3,13 @@ import * as Ant from "antd";
 import { UserOutlined } from "@ant-design/icons";
 const columns = (getId ) => {
   return [
-    {
-      title: "شناسه",
-      dataIndex: "id",
-      key: "id",
-      width: 50,
-      align: "center",
-    },
+    // {
+    //   title: "شناسه",
+    //   dataIndex: "id",
+    //   key: "id",
+    //   width: 50,
+    //   align: "center",
+    // },
     {
       title: "نام",
       dataIndex: "persianTitle",

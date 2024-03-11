@@ -5,7 +5,10 @@ import columns from '../list/columns'
 import * as defaultValues from '@/defaultValues'
 import * as styles from '@/styles'
 import * as url from '@/api/url'
+import qs from 'qs'
 import ButtonList from '@/components/common/ButtonList'
+import FilterDrawer from '@/components/common/FilterDrawer'
+import FilterBedge from '@/components/common/FilterBedge'
 import useRequestManager from '@/hooks/useRequestManager'
 import {
     useFetchWithHandler,
@@ -15,6 +18,7 @@ import FormEditUser from '../edit/FormEditUser'
 import FormAddNewUser from '../add/FormAddNewUser'
 import * as uuid from 'uuid'
 import FormResetPasswordUser from '../reset/FormResetPasswordUser'
+import FilterPanel from './FilterPanel'
 
 
 const UserList = () => {
@@ -25,14 +29,20 @@ const UserList = () => {
     useRequestManager({ error: delError, loading: delLoading, data: delSaving })
     const [modalState, setModalState] = useState(false)
     const [modalContent, setModalContent] = useState()
+    const [filterObject, setFilterObject] = useState()
+    const [filterCount, setFilterCount] = useState(0)
+    const [openFilter, setOpenFilter] = useState(false)
 
 
     //====================================================================
     //                        useEffects
     //====================================================================
     useEffect(() => {
+        filterObject &&
+            setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+        !filterObject && setFilterCount(0)
         getAllUserList()
-    }, [])
+    }, [filterObject])
 
     useEffect(() => {
         setDataSource((listData?.isSuccess && listData?.data) || null)
@@ -47,7 +57,17 @@ const UserList = () => {
     //                        Functions
     //====================================================================
     const getAllUserList = async () => {
-        await ApiCall(url.USER)
+        const queryString = qs.stringify(filterObject)
+        console.log('filterObject',filterObject)
+        await ApiCall(`${url.USER}?${queryString}`)
+    }
+    const onFilterChanged = async (filterObject) => {
+        setFilterObject(filterObject)
+        setOpenFilter(false)
+    }
+    const onRemoveFilter = () => {
+        setFilterObject(null)
+        setOpenFilter(false)
     }
     const onDelSuccess = async (id) => {
         await delApiCall(`${url.USER}/${id}`)
@@ -89,11 +109,15 @@ const UserList = () => {
     const title = () => {
         return (
             <ButtonList
+                filterCount={filterCount}
                 onAdd={() => {
                     onAdd()
                 }}
                 onRefresh={() => {
                     getAllUserList()
+                }}
+                onFilter={() => {
+                    setOpenFilter(true)
                 }}
             />
         )
@@ -130,7 +154,16 @@ const UserList = () => {
                     {modalContent}
                 </Ant.Modal>
                 <Ant.Card>
-                    <Grid />
+                    <FilterDrawer
+                        open={openFilter}
+                        onClose={() => setOpenFilter(false)}
+                        onRemoveFilter={onRemoveFilter}
+                    >
+                        <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+                    </FilterDrawer>
+                    <FilterBedge filterCount={filterCount}>
+                        <Grid />
+                    </FilterBedge>
                 </Ant.Card>
             </Ant.Card>
         </>

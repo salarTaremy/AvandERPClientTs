@@ -43,24 +43,28 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: "documentNumber",
       key: "documentNumber",
       align: "center",
+      className:"text-xs sm:text-sm",
     },
     {
       title: "شماره عطف",
       dataIndex: "inflectionNumber",
       key: "inflectionNumber",
       align: "center",
+      className:"text-xs sm:text-sm",
     },
     {
       title: "شماره فرعی",
       dataIndex: "subNumber",
       key: "subNumber",
       align: "center",
+      className:"text-xs sm:text-sm",
     },
     {
       title: "شماره روزانه",
       dataIndex: "dailyNumber",
       key: "dailyNumber",
       align: "center",
+      className:"text-xs sm:text-sm",
     },
     {
       title: "تاریخ",
@@ -68,6 +72,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: "persianDateTilte",
       key: "persianDateTilte",
       align: "center",
+      className:"text-xs sm:text-sm",
       render: (text, record, index) => (
         <>
           {/* {`${record.persianDateTilte}`} <FiCalendar  /> {`${record.createTime.substring(0, 5)}`} <FiClock  />{' '} */}
@@ -80,12 +85,14 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: "branchName",
       key: "branchName",
       align: "center",
+      className:"text-xs sm:text-sm",
     },
     {
       title: "وضعیت",
       dataIndex: "stateName",
       key: "stateName",
       align: "center",
+      className:"text-xs sm:text-sm",
       render: (text, record, index) => (
         <Ant.Tag color={getStateColor(record.stateId)} key={record.id}>
           {record.stateName}
@@ -97,6 +104,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: "typeName",
       key: "typeName",
       align: "center",
+      className:"text-xs sm:text-sm",
       render: (text, record, index) => (
         <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
           {record.typeName}
@@ -107,6 +115,7 @@ export const columns = (onDelete, onEdit, onView) => {
       title: "عملیات",
       key: "id",
       align: "center",
+      className:"text-xs sm:text-sm",
       render: (text, record, index) => {
         return (
           <>
