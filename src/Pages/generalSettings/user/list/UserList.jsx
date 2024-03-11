@@ -58,7 +58,7 @@ const UserList = () => {
     //====================================================================
     const getAllUserList = async () => {
         const queryString = qs.stringify(filterObject)
-        console.log('filterObject',filterObject)
+        console.log('filterObject', filterObject)
         await ApiCall(`${url.USER}?${queryString}`)
     }
     const onFilterChanged = async (filterObject) => {
@@ -141,19 +141,19 @@ const UserList = () => {
     //====================================================================
     return (
         <>
+            <Ant.Modal
+                open={modalState}
+                handleCancel={() => setModalState(false)}
+                onCancel={() => {
+                    setModalState(false)
+                }}
+                footer={null}
+                centered
+            >
+                {modalContent}
+            </Ant.Modal>
             <Ant.Card title={'مدیریت کاربران'} type="inner" >
-                <Ant.Modal
-                    open={modalState}
-                    handleCancel={() => setModalState(false)}
-                    onCancel={() => {
-                        setModalState(false)
-                    }}
-                    footer={null}
-                    centered
-                >
-                    {modalContent}
-                </Ant.Modal>
-                <Ant.Card>
+                <Ant.Card loading={loading}>
                     <FilterDrawer
                         open={openFilter}
                         onClose={() => setOpenFilter(false)}
