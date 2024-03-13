@@ -24,7 +24,7 @@ const columns = (onDelete, onEdit, onReset) => {
                 key: 'createDate',
                 width: 80,
                 align: 'center',
-                className:"text-xs sm:text-sm",
+                className: "text-xs sm:text-sm",
                 render: (text, record, index) => (
                     <>
                         {record.createDate}
@@ -37,8 +37,7 @@ const columns = (onDelete, onEdit, onReset) => {
                 dataIndex: 'userName',
                 key: 'userName',
                 width: 80,
-                align: 'center',
-                className:"text-xs sm:text-sm",
+                className: "text-xs sm:text-sm",
             },
             {
                 title: 'وضعیت',
@@ -46,7 +45,7 @@ const columns = (onDelete, onEdit, onReset) => {
                 key: 'isActive',
                 width: 80,
                 align: 'center',
-                className:"text-xs sm:text-sm",
+                className: "text-xs sm:text-sm",
                 render: (text, record, index) => (
                     <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id}>
                         {' '}
@@ -61,7 +60,7 @@ const columns = (onDelete, onEdit, onReset) => {
                 width: 100,
                 align: 'center',
                 fixed: 'right',
-                className:"text-xs sm:text-sm",
+                className: "text-xs sm:text-sm",
                 render: (text, val) =>
                     <>
                         <Ant.Button

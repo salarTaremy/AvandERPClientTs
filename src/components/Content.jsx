@@ -12,11 +12,10 @@ import {
   Link,
 } from "react-router-dom";
 
-const { Content } = Layout;
 
 const ContentComponent = () => {
   return (
-    <Content className="content">
+    <Layout.Content className="content">
       <Routes>
         {routes.map((route, idx) => {
           return (
@@ -35,7 +34,7 @@ const ContentComponent = () => {
         <Route path="/login" element={<Navigate to="/dashboard" replace />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-    </Content>
+    </Layout.Content>
   );
 };
 export default ContentComponent;

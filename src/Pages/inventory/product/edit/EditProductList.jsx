@@ -243,10 +243,6 @@ const EditProductList = () => {
                                     <Ant.Form.Item name={'unitId'} label="واحد(اصلی)" rules={[{ required: true }]}>
                                         <Ant.Select
                                             {...commonOptions}
-                                            showSearch
-                                            filterOption={(input, option) =>
-                                                option.name.indexOf(input) >= 0
-                                            }
                                             disabled={unitLoading || false}
                                             loading={unitLoading}
                                             options={unitData?.data}

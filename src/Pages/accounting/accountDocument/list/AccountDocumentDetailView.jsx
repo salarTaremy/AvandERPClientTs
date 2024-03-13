@@ -21,6 +21,7 @@ const AccountDocumentDetailView = (props) => {
           title: "کد",
           dataIndex: "accountCode",
           key: "accountCode",
+          align: "center",
           width: 100,
           render: (text, record, index) =>
             `${record.accountGroupCode}-${record.accountHeaderCode}-${record.accountCode}`,

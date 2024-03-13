@@ -37,6 +37,7 @@ import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
 import BranchList from'./Pages/generalSettings/branch/list/BranchList'
 import UserList from'./Pages/generalSettings/user/list/UserList'
+import UserRoleList from'./Pages/generalSettings/userRole/list/UserRoleList'
 
 import Menus from'./Pages/generalSettings/menuAccess/menus'
 import RoleOperations from'./Pages/generalSettings/roleOperations/RoleOperations'
@@ -73,6 +74,7 @@ const routes = [
     { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
     { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
     { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserList },
+    { path: '/generalSettings/userRole/list', name: 'ارتباط کاربران با نقش ها', element: UserRoleList },
 
     { path: '/generalSettings/accessmenu/menus', name: 'دسترسی منوها', element: Menus },
     { path: '/generalSettings/accessRoles', name: 'ارتباط نقش و عملیات', element: RoleOperations },

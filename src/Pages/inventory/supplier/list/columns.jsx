@@ -7,16 +7,16 @@ const columns = (onDelete, onEdit, onView) => {
   return (
     [
 
-      {
-        title: 'شناسه',
-        dataIndex: 'id',
-        key: 'id',
+      // {
+      //   title: 'شناسه',
+      //   dataIndex: 'id',
+      //   key: 'id',
 
-        width: 80,
-        // fixed:true,
-        align:'center',
-        className:"text-xs sm:text-sm",
-      },
+      //   width: 80,
+      //   fixed:true,
+      //   align:'center',
+      //   className:"text-xs sm:text-sm",
+      // },
       {
         title: 'نام',
         dataIndex: 'name',
