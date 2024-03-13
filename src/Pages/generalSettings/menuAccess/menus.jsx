@@ -113,12 +113,13 @@ const Menus = () => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Card Card title={"دسترسی منوها"} type="inner">
+    <Ant.Card Card  title={"دسترسی منوها"}  type="inner">
       <Ant.Row gutter={[8, 8]}>
         <Ant.Col lg={12} md={12} sm={24} xs={24}>
           <Ant.Card
             className="w-full"
             style={{ ...styles.CARD_DEFAULT_STYLES }}
+
           >
             <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
               <Ant.Row gutter={[8, 8]}>
@@ -175,7 +176,7 @@ const Menus = () => {
           </Ant.Card>
         </Ant.Col>
         <Ant.Col span={24} md={12} sm={24} xs={24}>
-          <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+          <Ant.Card   style={{ ...styles.CARD_DEFAULT_STYLES }}>
             <Ant.Skeleton loading={loading}>
               {roleError ? <Ant.Empty /> :
               <Ant.Tree

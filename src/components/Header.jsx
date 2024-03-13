@@ -53,6 +53,23 @@ const HeaderComponent = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const menuList = [
+    {
+      label: <a href="/"></a>,
+      key: "1",
+      icon: <HomeOutlined  className="relative right-1" />,
+    },
+    {
+      label: <a href="permissions/menuPermissions"></a>,
+      key: "2",
+      icon: <SettingOutlined className="relative right-1" />,
+    },
+    {
+      label: <a href="dashboard"></a>,
+      key: "3",
+      icon: <DashboardOutlined className="relative right-1" />,
+    },
+  ];
   const items = [
     {
       key: "profile",
@@ -87,63 +104,71 @@ const HeaderComponent = (props) => {
   //====================================================================
   return (
     <>
-      <Header className="header">
-        <Ant.Flex gap="middle" align="start" vertical>
-          <Ant.Flex
-            style={{
-              width: "100%",
-            }}
-            justify="space-between"
-          >
-            <Ant.Col>
-              <Ant.Space>
-                <Ant.Button
-                  className="hidden xxl:block lg:block"
-                  type="text"
-                  icon={
-                    collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />
-                  }
-                  onClick={handleClickSidebar}
-                />
-                <Ant.Button
-                  className=" lg:hidden xxl:hidden"
-                  type="text"
-                  onClick={showDrawer}
-                >
-                  <MenuUnfoldOutlined />
-                </Ant.Button>
-                <Link to={"/"}>
-                  <Ant.Button type="link" icon={<HomeOutlined />} />
-                </Link>
-                <Link to={"permissions/menuPermissions"}>
-                  <Ant.Button type="link" icon={<SettingOutlined />} />
-                </Link>
-                <Link to={"dashboard"}>
-                  <Ant.Button type="link" icon={<DashboardOutlined />} />
-                </Link>
-                <Ant.Segmented
-                  defaultValue={theme}
-                  options={options}
-                  onChange={(val) => dispatch({ type: "set", theme: val })}
-                />
-                {/* <Ant.Input.Search style={{ width: 200, textAlign: "center" }} /> */}
-              </Ant.Space>
-            </Ant.Col>
-            <Ant.Col>
+      <Header className="px-1 xl:px-9">
+        <Ant.Row>
+          <Ant.Col span={12}>
+            <Ant.Space className="item-end">
+              <Ant.Button
+                className="hidden xxl:block lg:block"
+                type="text"
+                icon={collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+                onClick={handleClickSidebar}
+              />
+              <Ant.Button
+                className="lg:hidden xxl:hidden"
+                type="text"
+                onClick={showDrawer}
+              >
+                <MenuUnfoldOutlined />
+              </Ant.Button>
+
+              <Link className="hidden xxl:block lg:block" to={"/"}>
+                <Ant.Button type="link" icon={<HomeOutlined />} />
+              </Link>
+              <Link
+                className="hidden xxl:block lg:block"
+                to={"permissions/menuPermissions"}
+              >
+                <Ant.Button type="link" icon={<SettingOutlined />} />
+              </Link>
+              <Link className="hidden xxl:block lg:block" to={"dashboard"}>
+                <Ant.Button type="link" icon={<DashboardOutlined />} />
+              </Link>
+
               <Ant.Dropdown
+               placement="bottom"
+                className="lg:hidden xxl:hidden"
                 menu={{
-                  items,
-                  onClick: handleMenuClick,
+                  items: menuList,
+                  onClick: () => {},
                 }}
               >
-                <Ant.Space>
-                  <a>{`کاربر:${autUser.userName}`}</a>
-                  <UserOutlined />
-                </Ant.Space>
+                <Ant.Button
+                  size="small"
+                  icon={<SettingOutlined />}
+                ></Ant.Button>
               </Ant.Dropdown>
-            </Ant.Col>
-          </Ant.Flex>
-        </Ant.Flex>
+              <Ant.Segmented
+                defaultValue={theme}
+                options={options}
+                onChange={(val) => dispatch({ type: "set", theme: val })}
+              />
+            </Ant.Space>
+          </Ant.Col>
+          <Ant.Col span={12} className="text-end pl-4">
+            <Ant.Dropdown
+              menu={{
+                items,
+                onClick: handleMenuClick,
+              }}
+            >
+              <Ant.Space>
+                <a>{`کاربر:${autUser.userName}`}</a>
+                <UserOutlined />
+              </Ant.Space>
+            </Ant.Dropdown>
+          </Ant.Col>
+        </Ant.Row>
       </Header>
     </>
   );
@@ -151,6 +176,6 @@ const HeaderComponent = (props) => {
 export default HeaderComponent;
 HeaderComponent.propTypes = {
   showDrawer: PropTypes.func,
-  collapsed:PropTypes.any,
+  collapsed: PropTypes.any,
   handleClickSidebar: PropTypes.func,
 };
