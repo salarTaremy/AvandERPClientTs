@@ -25,10 +25,7 @@ const UserRoleList = () => {
         setSelectedUser(option.id)
     }
 
-    const getUserId=()=>{
-        
-    }
-    //====================================================================
+      //====================================================================
     //                        useEffects
     //====================================================================
     useEffect(() => {
@@ -76,7 +73,7 @@ const UserRoleList = () => {
                     <Ant.Table
                         {...defaultValues.TABLE_PROPS}
                         title={title}
-                        columns={columns(getUserId)}
+                        columns={columns()}
                         dataSource={dataSource}
                     />
                 </Ant.Skeleton>
