@@ -5,43 +5,84 @@ import PropTypes from "prop-types"
 import * as url from '@/api/url'
 import columns from '../list/columns'
 import {
-    useFetch
+    useFetch,
+    useFetchWithHandler
 }
     from '@/api'
 import * as defaultValues from "@/defaultValues";
-
-
+import ButtonList from "@/components/common/ButtonList";
 
 
 
 const UserRoleList = () => {
     const [form] = Ant.Form.useForm();
     const [userData, userLoading, userError] = useFetch(url.USER)
-    const commonOptions = {
-        showSearch: true,
-        filterOption: (input, option) => option.name.indexOf(input) >= 0,
-    }
     const [dataSource, setDataSource] = useState(null);
+    const [listData, loading, error, ApiCall] = useFetchWithHandler();
+    const [selectedUser, setSelectedUser] = useState(null)
+    const handleOnChange = (val, option) => {
+        form.setFieldsValue({ unitId: undefined })
+        setSelectedUser(option.id)
+    }
+
+    const getUserId=()=>{
+        
+    }
+    //====================================================================
+    //                        useEffects
+    //====================================================================
+    useEffect(() => {
+        getRoleScopeWithRoles();
+    }, []);
+
+    useEffect(() => {
+        setDataSource((listData?.isSuccess && listData?.data) || null);
+    }, [listData]);
+
+    useEffect(() => {
+        setSelectedUser(userData?.data.userId)
+    }, [userData?.data.userId])
+
+    useEffect(() => {
+        selectedUser && ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?userName=${selectedUser}`)
+    }, [selectedUser])
+    //====================================================================
+    //                        Functions
+    //====================================================================
+    const getRoleScopeWithRoles = async () => {
+        await ApiCall(url.ROLE_SCOPE_WITH_ROLES);
+    };
 
     //====================================================================
     //                        Child Components
     //====================================================================
+    const title = () => {
+        return (
+            <ButtonList
+
+                onFilter={() => {
+
+                }}
+                onRefresh={() => {
+                    getRoleScopeWithRoles()
+                }}
+            />
+        );
+    };
     const Grid = () => {
         return (
             <>
-                {/* <Ant.Skeleton> */}
+                <Ant.Skeleton loading={loading}>
                     <Ant.Table
                         {...defaultValues.TABLE_PROPS}
-                        // title={title}
-                        columns={columns()}
+                        title={title}
+                        columns={columns(getUserId)}
                         dataSource={dataSource}
                     />
-                {/* </Ant.Skeleton> */}
+                </Ant.Skeleton>
             </>
         )
     }
-
-
     //====================================================================
     //                        Component
     //====================================================================
@@ -57,6 +98,7 @@ const UserRoleList = () => {
                         >
                             <Ant.Select
                                 showSearch
+                                onChange={handleOnChange}
                                 placeholder={"انتخاب کنید..."}
                                 disabled={userLoading || false}
                                 loading={userLoading}
