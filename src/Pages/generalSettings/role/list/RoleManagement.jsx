@@ -144,8 +144,8 @@ function RoleManagement() {
         {" "}
         {modalContent}
       </Ant.Modal>
-      <Ant.Card title={"لیست نقش ها"} type="inner">
-        <Ant.Card loading={loadingData}>
+      <Ant.Card  title={"لیست نقش ها"} type="inner">
+        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={loadingData}>
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}

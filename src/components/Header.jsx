@@ -57,17 +57,17 @@ const HeaderComponent = (props) => {
     {
       label: <a href="/"></a>,
       key: "1",
-      icon: <HomeOutlined />,
+      icon: <HomeOutlined  className="relative right-1" />,
     },
     {
       label: <a href="permissions/menuPermissions"></a>,
       key: "2",
-      icon: <SettingOutlined />,
+      icon: <SettingOutlined className="relative right-1" />,
     },
     {
       label: <a href="dashboard"></a>,
       key: "3",
-      icon: <DashboardOutlined />,
+      icon: <DashboardOutlined className="relative right-1" />,
     },
   ];
   const items = [
@@ -105,63 +105,8 @@ const HeaderComponent = (props) => {
   return (
     <>
       <Header className="px-1 xl:px-9">
-        {/* <Ant.Flex gap="middle" align="start" vertical>
-          <Ant.Flex
-            style={{
-              width: "100%",
-            }}
-            justify="space-between"
-          >
-            <Ant.Col>
-              <Ant.Space>
-                <Ant.Button
-                  className="hidden xxl:block lg:block"
-                  type="text"
-                  icon={
-                    collapsed ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />
-                  }
-                  onClick={handleClickSidebar}
-                />
-                <Ant.Button
-                  className=" lg:hidden xxl:hidden"
-                  type="text"
-                  onClick={showDrawer}
-                >
-                  <MenuUnfoldOutlined />
-                </Ant.Button>
-                <Link to={"/"}>
-                  <Ant.Button type="link" icon={<HomeOutlined />} />
-                </Link>
-                <Link to={"permissions/menuPermissions"}>
-                  <Ant.Button type="link" icon={<SettingOutlined />} />
-                </Link>
-                <Link to={"dashboard"}>
-                  <Ant.Button type="link" icon={<DashboardOutlined />} />
-                </Link>
-                <Ant.Segmented
-                  defaultValue={theme}
-                  options={options}
-                  onChange={(val) => dispatch({ type: "set", theme: val })}
-                />
-              </Ant.Space>
-            </Ant.Col>
-            <Ant.Col>
-              <Ant.Dropdown
-                menu={{
-                  items,
-                  onClick: handleMenuClick,
-                }}
-              >
-                <Ant.Space>
-                  <a>{`کاربر:${autUser.userName}`}</a>
-                  <UserOutlined />
-                </Ant.Space>
-              </Ant.Dropdown>
-            </Ant.Col>
-          </Ant.Flex>
-        </Ant.Flex> */}
         <Ant.Row>
-          <Ant.Col span={12} >
+          <Ant.Col span={12}>
             <Ant.Space className="item-end">
               <Ant.Button
                 className="hidden xxl:block lg:block"
@@ -191,13 +136,17 @@ const HeaderComponent = (props) => {
               </Link>
 
               <Ant.Dropdown
+               placement="bottom"
                 className="lg:hidden xxl:hidden"
                 menu={{
                   items: menuList,
                   onClick: () => {},
                 }}
               >
-                <Ant.Button size="small" icon={<SettingOutlined />}></Ant.Button>
+                <Ant.Button
+                  size="small"
+                  icon={<SettingOutlined />}
+                ></Ant.Button>
               </Ant.Dropdown>
               <Ant.Segmented
                 defaultValue={theme}
