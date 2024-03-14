@@ -21,7 +21,7 @@ const UserRoleList = () => {
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [selectedUser, setSelectedUser] = useState(null)
     const handleOnChange = (val, option) => {
-        form.setFieldsValue({ unitId: undefined })
+        form.setFieldsValue({ userId: undefined })
         setSelectedUser(option.id)
     }
 
@@ -37,11 +37,13 @@ const UserRoleList = () => {
     }, [listData]);
 
     useEffect(() => {
-        setSelectedUser(userData?.data.userId)
-    }, [userData?.data.userId])
+        console.log('userName',userName)
+        setSelectedUser(userData?.data.userName)
+    }, [userData?.data.id])
 
     useEffect(() => {
-        selectedUser && ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?userName=${selectedUser}`)
+        console.log('userNameeeeeeeeeeee',selectedUser)
+        selectedUser && ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?userId=${selectedUser}`)
     }, [selectedUser])
     //====================================================================
     //                        Functions
@@ -100,7 +102,7 @@ const UserRoleList = () => {
                                 disabled={userLoading || false}
                                 loading={userLoading}
                                 options={userData?.data}
-                                fieldNames={{ label: "name", value: "userName" }}
+                                fieldNames={{ label: "userName", value: "id" }}
                             />
                         </Ant.Form.Item>
                     </Ant.Col>

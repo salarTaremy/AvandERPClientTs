@@ -2,7 +2,7 @@ import React from 'react'
 import * as Ant from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
-const columns = () => {
+const columns = (disable) => {
     return [
         {
             title: "محدوده نقش",
@@ -25,16 +25,17 @@ const columns = () => {
             width: 100,
             align: "center",
             className: "text-xs sm:text-sm",
-            render: () => (
+            render: (record, userId) => (
                 <Ant.Switch
                     checkedChildren={<CheckOutlined />}
                     unCheckedChildren={<CloseOutlined />}
+                    key={record.id}
+                    value={userId.userHasRole == true}
+                    disabled={userId.userHasRole == false}
                 />
             )
         }
     ]
-
-
 }
 
 export default columns
