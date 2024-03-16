@@ -91,6 +91,7 @@ export const ROLE = '/Role'
 
 //RoleScope
 export const ROLE_SCOPE = '/RoleScope'
+export const ROLE_SCOPE_WITH_ROLES ='/RoleScope/GetRoleScopesWithRoles'
 
 //ApplicationController
 export const APPLICATION_CONTROLLER = '/ApplicationController'
