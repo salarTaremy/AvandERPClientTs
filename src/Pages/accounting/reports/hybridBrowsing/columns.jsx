@@ -21,6 +21,7 @@ export const columns = () => {
         key: 'accCode',
         align: 'center',
         className: "text-xs sm:text-sm",
+        width: 50,
         sorter: (a, b) => a.accCode?.localeCompare(b.accCode),
         defaultSortOrder: 'ascend', //or descend
         //sortOrder: 'ascend' //or descend
@@ -31,6 +32,7 @@ export const columns = () => {
         dataIndex: 'accName',
         key: 'accName',
         className: "text-xs sm:text-sm",
+        width: 80,
         sorter: (a, b) => a.accName?.localeCompare(b.accName),
       },
       {
@@ -38,6 +40,7 @@ export const columns = () => {
         dataIndex: 'sumDebtor',
         key: 'sumDebtor',
         className:"text-xs sm:text-sm",
+        width: 100,
         sorter: (a, b) => a.sumDebtor - b.sumDebtor,
         render: (text, record, index) => <>{record.sumDebtor.toLocaleString()}</>,
       },
@@ -46,6 +49,7 @@ export const columns = () => {
         dataIndex: 'sumCreditor',
         key: 'sumCreditor',
         className:"text-xs sm:text-sm",
+        width: 100,
         sorter: (a, b) => a.sumCreditor - b.sumCreditor,
         render: (text, record, index) => <>{record.sumCreditor.toLocaleString()}</>,
       },
@@ -54,6 +58,7 @@ export const columns = () => {
         dataIndex: 'balanceOfDebtor',
         key: 'balanceOfDebtor',
         className:"text-xs sm:text-sm",
+        width: 100,
         sorter: (a, b) => a.balanceOfDebtor - b.balanceOfDebtor,
         render: (text, record, index) => <>{record.balanceOfDebtor.toLocaleString()}</>,
 
@@ -63,6 +68,7 @@ export const columns = () => {
         dataIndex: 'balanceOfCreditor',
         key: 'balanceOfCreditor',
         className:"text-xs sm:text-sm",
+        width: 100,
         sorter: (a, b) => a.balanceOfCreditor - b.balanceOfCreditor,
         render: (text, record, index) => <>{record.balanceOfCreditor.toLocaleString()}</>,
 

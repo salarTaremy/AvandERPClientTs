@@ -95,7 +95,7 @@ const BranchList = () => {
       <>
         <Ant.Skeleton loading={loading}>
           <Ant.Table
-          size="small"
+            size="small"
             {...defaultValues.TABLE_PROPS}
             title={title}
             columns={columns(onDelSuccess, onEdit)}
@@ -121,10 +121,8 @@ const BranchList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card title={"لیست شعب"} type="inner" loading={loading}>
-        <Ant.Card>
-          <Grid />
-        </Ant.Card>
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست شعب"} type="inner" loading={loading}>
+        <Grid />
       </Ant.Card>
     </>
   );

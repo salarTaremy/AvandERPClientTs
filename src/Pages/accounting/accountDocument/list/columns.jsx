@@ -44,6 +44,7 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "documentNumber",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 80,
     },
     {
       title: "شماره عطف",
@@ -51,6 +52,7 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "inflectionNumber",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 80,
     },
     {
       title: "شماره فرعی",
@@ -58,6 +60,7 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "subNumber",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 80,
     },
     {
       title: "شماره روزانه",
@@ -65,6 +68,7 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "dailyNumber",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 50,
     },
     {
       title: "تاریخ",
@@ -73,10 +77,11 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "persianDateTilte",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 100,
       render: (text, record, index) => (
         <>
           {/* {`${record.persianDateTilte}`} <FiCalendar  /> {`${record.createTime.substring(0, 5)}`} <FiClock  />{' '} */}
-          {`${record.persianDateTilte}`} <FiCalendar />
+          {`${record.persianDateTilte}`}
         </>
       ),
     },
@@ -85,6 +90,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: "branchName",
       key: "branchName",
       className: "text-xs sm:text-sm",
+      width: 80,
     },
     {
       title: "وضعیت",
@@ -92,6 +98,7 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "stateName",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 80,
       render: (text, record, index) => (
         <Ant.Tag color={getStateColor(record.stateId)} key={record.id}>
           {record.stateName}
@@ -104,6 +111,7 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "typeName",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 80,
       render: (text, record, index) => (
         <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
           {record.typeName}
@@ -115,6 +123,8 @@ export const columns = (onDelete, onEdit, onView) => {
       key: "id",
       align: "center",
       className: "text-xs sm:text-sm",
+      width: 120,
+      fixed: "right",
       render: (text, record, index) => {
         return (
           <>

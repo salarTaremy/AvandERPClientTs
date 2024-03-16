@@ -143,8 +143,8 @@ const SupplierList = () => {
         {modalContent}
       </Ant.Modal>
 
-      <Ant.Card title={'تأمین کنندگان'} type="inner">
-        <Ant.Card loading={loadingData}>
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}  loading={loadingData} title={'تأمین کنندگان'} type="inner">
+
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}
@@ -155,7 +155,7 @@ const SupplierList = () => {
           <FilterBedge filterCount={filterCount}>
             <Grid />
           </FilterBedge>
-        </Ant.Card>
+
       </Ant.Card>
 
     </>

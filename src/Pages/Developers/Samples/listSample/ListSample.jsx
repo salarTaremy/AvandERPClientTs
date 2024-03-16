@@ -82,8 +82,8 @@ const ListSample = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Card Card title={pageTitle} type="inner">
-      <Ant.Card loading={listLoading}>
+    <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={listLoading} title={pageTitle} type="inner">
+
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -94,7 +94,7 @@ const ListSample = (props) => {
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
-      </Ant.Card>
+
     </Ant.Card>
   )
 }

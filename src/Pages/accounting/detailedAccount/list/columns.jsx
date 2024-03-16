@@ -11,15 +11,14 @@ export const columns = (onDelete, onEdit, onView) => {
       key: 'fullCode',
       align: 'center',
       className:"text-xs sm:text-sm",
-      // width: 10,
-      // fixed:true,
+      width: 80,
       sorter: (a, b) => a.fullCode.localeCompare(b.fullCode),
     },
     {
       title: 'نام',
       dataIndex: 'name',
       key: 'name',
-      // width: 70,
+      width: 80,
       className:"text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (text, record, index) => (
@@ -33,7 +32,9 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: 'isActive',
       key: 'isActive',
       align: 'center',
+      width: 80,
       className:"text-xs sm:text-sm",
+
       // width: 5,
       //render: (text, record, index) => <Ant.Checkbox checked={record.isActive} />,
       render: (text, record, index) => (
@@ -47,8 +48,8 @@ export const columns = (onDelete, onEdit, onView) => {
       title: 'عملیات',
       key: 'id',
       align: 'center',
-      // width: 15,
-      // fixed: 'left',
+      fixed: 'right',
+      width: 120,
       className:"text-xs sm:text-sm",
       render: (text, record, index) => {
         return (

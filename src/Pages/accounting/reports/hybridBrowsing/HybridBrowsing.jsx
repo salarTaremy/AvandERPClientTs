@@ -63,7 +63,7 @@ const HybridBrowsing = (props) => {
     const queryString = qs.stringify({
       ...filterObject,
       horizontalLevel : horizontalLevel || 1,
-      AccountId:selectedRow?.accId  && selectedRow?.accId 
+      AccountId:selectedRow?.accId  && selectedRow?.accId
     });
     await listApiCall(
       `${url.ACCOUNTING_REPORT_HYBRID_BROWSING}?${queryString}`,
@@ -349,8 +349,7 @@ const HybridBrowsing = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Card Card title={pageTitle} type="inner">
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+    <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={pageTitle} type="inner">
         <Ant.Flex vertical gap="middle">
           <Ant.Skeleton loading={false} active>
             <ButtonList
@@ -377,7 +376,7 @@ const HybridBrowsing = (props) => {
           </FilterDrawer>
           {/* <pre>{selectedRow?.id}</pre> */}
           <Ant.Skeleton loading={false} active>
-            <Ant.Flex align="" justify="center" gap="middle">
+            <Ant.Flex  justify="center" gap="middle">
               <Ant.Flex align="center" justify="center" vertical gap="middle">
                 <Ant.Card>
                   <VerticalButtons />
@@ -404,7 +403,7 @@ const HybridBrowsing = (props) => {
             </Ant.Flex>
           </Ant.Skeleton>
         </Ant.Flex>
-      </Ant.Card>
+
     </Ant.Card>
   );
 };
