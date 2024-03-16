@@ -54,7 +54,7 @@ const LayoutComponent = () => {
             <Footer />
           </Layout>
         </Layout>
-        <SidebarMobile openSide={open} onCloseSide={onClose} />
+        <SidebarMobile openSide={open} onCloseSide={onClose} closeItemMenu={onClose} />
       </div>
     </>
   );

@@ -122,9 +122,9 @@ const BranchList = () => {
         {modalContent}
       </Ant.Modal>
       <Ant.Card title={"لیست شعب"} type="inner" loading={loading}>
-        {/* <Ant.Card> */}
+        <Ant.Card>
           <Grid />
-        {/* </Ant.Card> */}
+        </Ant.Card>
       </Ant.Card>
     </>
   );

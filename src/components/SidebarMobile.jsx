@@ -15,7 +15,7 @@ const Fatemeh = ({ Ic }) => {
   );
 };
 const SidebarMobile = (props) => {
-  const { onCloseSide, openSide } = props;
+  const { onCloseSide, openSide,closeItemMenu } = props;
   const [items, setItems] = useState([]);
   const [data, loading, error, apiCall] = useFetchWithHandler();
   useRequestManager({ error });
@@ -84,7 +84,7 @@ const SidebarMobile = (props) => {
   return (
     <>
       <Ant.Drawer
-        size="default"
+
         className="hidden sm:block"
         title={
           <Ant.Image width={250} className="mx-3" preview={false} src={logo} />
@@ -92,7 +92,7 @@ const SidebarMobile = (props) => {
         onClose={onCloseSide}
         open={openSide}
       >
-        {loading || <Ant.Menu mode="inline" items={items} />}
+        {loading || <Ant.Menu onClick={closeItemMenu} mode="inline" items={items} />}
         {loading && (
           <Ant.Skeleton loading={true} active className="w-11/12 h-full" />
         )}
@@ -103,5 +103,6 @@ const SidebarMobile = (props) => {
 export default SidebarMobile;
 SidebarMobile.propTypes = {
   onCloseSide: PropTypes.func,
+  closeItemMenu: PropTypes.func,
   openSide: PropTypes.bool,
 };

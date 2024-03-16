@@ -152,8 +152,8 @@ const UserList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card title={'مدیریت کاربران'} type="inner" >
-                <Ant.Card loading={loading}>
+            <Ant.Card loading={loading} style={{ ...styles.CARD_DEFAULT_STYLES }} className="w-full" title={'مدیریت کاربران'} type="inner" >
+
                     <FilterDrawer
                         open={openFilter}
                         onClose={() => setOpenFilter(false)}
@@ -164,7 +164,7 @@ const UserList = () => {
                     <FilterBedge filterCount={filterCount}>
                         <Grid />
                     </FilterBedge>
-                </Ant.Card>
+
             </Ant.Card>
         </>
     )

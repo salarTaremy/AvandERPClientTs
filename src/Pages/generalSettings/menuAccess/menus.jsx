@@ -53,7 +53,6 @@ const Menus = () => {
     setItems((data?.isSuccess && data?.data[0]?.children) || null);
   }, [data?.data]);
 
-
   //====================================================================
   //                        Events
   //====================================================================
@@ -91,8 +90,7 @@ const Menus = () => {
     await apiCall(`${url.NAV_MENU_TREE}?${queryString}`);
   };
   const onFinish = async (value) => {
-
-    const req = {roleId:value.role,entityIdList: checkedKeys}
+    const req = { roleId: value.role, entityIdList: checkedKeys };
     // const data = {
     //   roleId: idRol,
     //   entityIdList: checkedKeys,
@@ -113,15 +111,13 @@ const Menus = () => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Card Card  title={"دسترسی منوها"}  type="inner">
-      <Ant.Row gutter={[8, 8]}>
-        <Ant.Col lg={12} md={12} sm={24} xs={24}>
-          <Ant.Card
-            className="w-full"
-            style={{ ...styles.CARD_DEFAULT_STYLES }}
-
-          >
-            <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
+    <Ant.Card Card title={"دسترسی منوها"} type="inner">
+      <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
+        <Ant.Row gutter={[8, 8]}>
+          <Ant.Col lg={12} md={12} sm={24} xs={24}>
+            <Ant.Card
+              style={{ ...styles.CARD_DEFAULT_STYLES }}
+            >
               <Ant.Row gutter={[8, 8]}>
                 <Ant.Col md={12} lg={12} sm={24} xs={24}>
                   <Ant.Form.Item
@@ -172,30 +168,32 @@ const Menus = () => {
                   تایید
                 </Ant.Button>
               </Ant.Col>
-            </Ant.Form>
-          </Ant.Card>
-        </Ant.Col>
-        <Ant.Col span={24} md={12} sm={24} xs={24}>
-          <Ant.Card   style={{ ...styles.CARD_DEFAULT_STYLES }}>
-            <Ant.Skeleton loading={loading}>
-              {roleError ? <Ant.Empty /> :
-              <Ant.Tree
-              disabled={disable}
-              checkable
-              onExpand={onExpand}
-              expandedKeys={expandedKeys}
-              autoExpandParent={autoExpandParent}
-              selectedKeys={selectedKeys}
-              checkedKeys={checkedKeys}
-              onCheck={onCheck}
-              onSelect={onSelect}
-              treeData={items}
-            />
-              }
-            </Ant.Skeleton>
-          </Ant.Card>
-        </Ant.Col>
-      </Ant.Row>
+            </Ant.Card>
+          </Ant.Col>
+          <Ant.Col span={24} md={12} sm={24} xs={24}>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+              <Ant.Skeleton loading={loading}>
+                {roleError ? (
+                  <Ant.Empty />
+                ) : (
+                  <Ant.Tree
+                    disabled={disable}
+                    checkable
+                    onExpand={onExpand}
+                    expandedKeys={expandedKeys}
+                    autoExpandParent={autoExpandParent}
+                    selectedKeys={selectedKeys}
+                    checkedKeys={checkedKeys}
+                    onCheck={onCheck}
+                    onSelect={onSelect}
+                    treeData={items}
+                  />
+                )}
+              </Ant.Skeleton>
+            </Ant.Card>
+          </Ant.Col>
+        </Ant.Row>
+      </Ant.Form>
     </Ant.Card>
   );
 };

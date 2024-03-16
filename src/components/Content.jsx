@@ -15,7 +15,7 @@ import {
 
 const ContentComponent = () => {
   return (
-    <Layout.Content className="content">
+    <Layout.Content className="content max-[360px]:m-0">
       <Routes>
         {routes.map((route, idx) => {
           return (
