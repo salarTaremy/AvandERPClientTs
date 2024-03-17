@@ -11,8 +11,10 @@ import {
     from '@/api'
 import * as defaultValues from "@/defaultValues";
 import ButtonList from "@/components/common/ButtonList";
-
-
+import FilterDrawer from '@/components/common/FilterDrawer'
+import FilterBedge from '@/components/common/FilterBedge'
+import FilterPanel from './FilterPanel'
+import qs from "qs";
 
 const UserRoleList = () => {
     const [form] = Ant.Form.useForm();
@@ -24,33 +26,60 @@ const UserRoleList = () => {
         form.setFieldsValue({ userId: undefined })
         setSelectedUser(option.id)
     }
+    const [filterObject, setFilterObject] = useState(null)
+    const [filterCount, setFilterCount] = useState(0)
+    const [openFilter, setOpenFilter] = useState(false)
 
-      //====================================================================
+    //====================================================================
     //                        useEffects
     //====================================================================
     useEffect(() => {
-        getRoleScopeWithRoles();
-    }, []);
+        filterObject &&
+            setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+        !filterObject && setFilterCount(0)
+        getRoleScopeWithRoles()
+    }, [filterObject])
 
     useEffect(() => {
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
 
-    useEffect(() => {
-        console.log('userName',userName)
-        setSelectedUser(userData?.data.userName)
-    }, [userData?.data.id])
+    // useEffect(() => {
+    //     setSelectedUser(listData?.data.userId)
+    // }, [listData?.data.userId])
 
     useEffect(() => {
-        console.log('userNameeeeeeeeeeee',selectedUser)
+        ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}`)
+    }, [])
+    useEffect(() => {
+        console.log('userNameeeeeeeeeeee', selectedUser)
         selectedUser && ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?userId=${selectedUser}`)
     }, [selectedUser])
     //====================================================================
     //                        Functions
     //====================================================================
     const getRoleScopeWithRoles = async () => {
-        await ApiCall(url.ROLE_SCOPE_WITH_ROLES);
-    };
+        console.log('filterObject', filterObject)
+        const userId = selectedUser
+        const req = {
+            roleScopePersianTitle: filterObject?.roleScopePersianTitle,
+            rolePersianTitle: filterObject?.rolePersianTitle,
+            UserId: userId,
+        }
+        const queryString = qs.stringify(req);
+        console.log('userId', userId)
+        await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`)
+    }
+
+    const onFilterChanged = async (filterObject) => {
+        setFilterObject(filterObject)
+        setOpenFilter(false)
+    }
+
+    const onRemoveFilter = () => {
+        setFilterObject(null)
+        setOpenFilter(false)
+    }
 
     //====================================================================
     //                        Child Components
@@ -58,9 +87,9 @@ const UserRoleList = () => {
     const title = () => {
         return (
             <ButtonList
-
+                filterCount={filterCount}
                 onFilter={() => {
-
+                    setOpenFilter(true)
                 }}
                 onRefresh={() => {
                     getRoleScopeWithRoles()
@@ -87,29 +116,38 @@ const UserRoleList = () => {
     //====================================================================
     return (
         <Ant.Card title={'ارتباط کاربر با نقش'} type="inner" >
-            <Ant.Form form={form} layout="vertical" onFinish={null}>
-                <Ant.Row gutter={[16, 8]}>
-                    <Ant.Col span={12} md={12} lg={12} xs={24}>
-                        <Ant.Form.Item
-                            name={"userName"}
-                            label="نام کاربر"
-                            rules={[{ required: true }]}
-                        >
-                            <Ant.Select
-                                showSearch
-                                onChange={handleOnChange}
-                                placeholder={"انتخاب کنید..."}
-                                disabled={userLoading || false}
-                                loading={userLoading}
-                                options={userData?.data}
-                                fieldNames={{ label: "userName", value: "id" }}
-                            />
-                        </Ant.Form.Item>
-                    </Ant.Col>
-                </Ant.Row>
-            </Ant.Form>
-            <Ant.Card>
-                <Grid />
+            <Ant.Card loading={loading}>
+                <Ant.Form form={form} layout="vertical" onFinish={null}>
+                    <Ant.Row gutter={[16, 8]}>
+                        <Ant.Col span={12} md={12} lg={12} xs={24}>
+                            <Ant.Form.Item
+                                name={"userName"}
+                                label="نام کاربر"
+                                rules={[{ required: true }]}
+                            >
+                                <Ant.Select
+                                    showSearch
+                                    onChange={handleOnChange}
+                                    placeholder={"انتخاب کنید..."}
+                                    disabled={userLoading || false}
+                                    loading={userLoading}
+                                    options={userData?.data}
+                                    fieldNames={{ label: "userName", value: "id" }}
+                                />
+                            </Ant.Form.Item>
+                        </Ant.Col>
+                    </Ant.Row>
+                </Ant.Form>
+                <FilterDrawer
+                    open={openFilter}
+                    onClose={() => setOpenFilter(false)}
+                    onRemoveFilter={onRemoveFilter}
+                >
+                    <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+                </FilterDrawer>
+                <FilterBedge filterCount={filterCount}>
+                    <Grid />
+                </FilterBedge>
             </Ant.Card>
         </Ant.Card>
 

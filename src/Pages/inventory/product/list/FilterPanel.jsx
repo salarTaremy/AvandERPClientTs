@@ -66,17 +66,15 @@ const FilterPanel = (props) => {
                         fieldNames={{ label: 'name', value: 'id' }}
                     />
                 </Ant.Form.Item>
-                <Ant.Form.Item>
-                    <Ant.Button
-                        block
-                        type="primary"
-                        onClick={() => {
-                            form.submit()
-                        }}
-                    >
-                        {'اعمال'}
-                    </Ant.Button>
-                </Ant.Form.Item>
+                <Ant.Button
+                    block
+                    type="primary"
+                    onClick={() => {
+                        form.submit()
+                    }}
+                >
+                    {'اعمال'}
+                </Ant.Button>
             </Ant.Form>
         </>
     )
