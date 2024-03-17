@@ -50,6 +50,7 @@ const FilterDrawer = (props) => {
   return (
     <>
       <Ant.Drawer
+     width={350}
         extra={<ExtraBtn />}
         title={title}
         placement={filterDrawerPlacement}

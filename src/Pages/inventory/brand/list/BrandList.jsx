@@ -143,8 +143,8 @@ const BrandList = () => {
         {modalContent}
       </Ant.Modal>
 
-      <Ant.Card title={'برند'} type="inner">
-        <Ant.Card loading={loadingData}>
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={loadingData} title={'برند'} type="inner">
+
           <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}
@@ -155,7 +155,7 @@ const BrandList = () => {
           <FilterBedge filterCount={filterCount}>
             <Grid />
           </FilterBedge>
-        </Ant.Card>
+
       </Ant.Card>
 
 

@@ -53,7 +53,7 @@ const FormAddBrand = (props) => {
             {"ایجاد نقش"}
             <Ant.Divider />
           </Ant.Col>
-          <Ant.Col md={24} lg={24}>
+          <Ant.Col md={24} lg={24} sm={24} xs={24}>
             <Ant.Form.Item
               name="name"
               label={"نام نقش"}
@@ -62,7 +62,7 @@ const FormAddBrand = (props) => {
               <Ant.Input allowClear showCount maxLength={100} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col md={24} lg={24}>
+          <Ant.Col md={24} lg={24} xs={24}>
             <Ant.Form.Item
               name="persianTitle"
               label={"عنوان نقش"}
@@ -71,7 +71,7 @@ const FormAddBrand = (props) => {
               <Ant.Input allowClear showCount maxLength={200} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col md={12} lg={12}>
+          <Ant.Col md={12} lg={12} sm={24} xs={24}>
             <Ant.Form.Item
               name="roleScopeId"
 
@@ -89,7 +89,7 @@ const FormAddBrand = (props) => {
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col md={12} lg={12}>
+          <Ant.Col md={12} lg={12} sm={24} xs={24}>
             <Ant.Form.Item
               name="isDenied"
               defaultChecked={false}

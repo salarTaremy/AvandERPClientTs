@@ -18,14 +18,14 @@ export const columns = () => {
         title: 'نام',
         dataIndex: 'name',
         key: 'name',
-        width : 400,
+        width : 150,
         className:"text-xs sm:text-sm",
       },
       {
         title: 'نام دوم',
         dataIndex: 'secondName',
         key: 'secondName',
-        width:1000,
+        width:150,
         className:"text-xs sm:text-sm",
         render: (text, record, index) => (
           <Ant.Tooltip placement="top" title={text}>
@@ -37,7 +37,7 @@ export const columns = () => {
         title: 'توضیحات',
         dataIndex: 'description',
         key: 'description',
-        width:1000,
+        width:200,
         className:"text-xs sm:text-sm",
       },
     ]

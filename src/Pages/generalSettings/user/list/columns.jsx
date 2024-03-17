@@ -36,7 +36,7 @@ const columns = (onDelete, onEdit, onReset) => {
                 title: 'نام کاربری',
                 dataIndex: 'userName',
                 key: 'userName',
-                width: 80,
+                width: 120,
                 className: "text-xs sm:text-sm",
             },
             {
@@ -57,7 +57,7 @@ const columns = (onDelete, onEdit, onReset) => {
                 title: 'عملیات',
                 dataIndex: 'operation',
                 key: 'operation',
-                width: 100,
+                width: 120,
                 align: 'center',
                 fixed: 'right',
                 className: "text-xs sm:text-sm",
