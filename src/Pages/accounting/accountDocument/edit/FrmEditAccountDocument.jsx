@@ -137,7 +137,6 @@ export const FrmEditAccountDocument = () => {
   return (
     <>
       <Ant.Collapse
-        style={{ backgroundColor: "white" }}
         defaultActiveKey={["1"]}
         items={[
           {
