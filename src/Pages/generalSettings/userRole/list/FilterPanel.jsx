@@ -5,11 +5,11 @@ import { PropTypes } from 'prop-types'
 const FilterPanel = (props) => {
     const { onSubmit, filterObject } = props
     const [form] = Ant.Form.useForm()
-    const [isActive, setIsActive] = useState(1)
+    const [userHasRole, setUserHasRole] = useState(1)
     const options = [
         { label: 'همه', value: null },
-        { label: 'فعال', value: true },
-        { label: 'غیر فعال', value: false },
+        { label: 'دسترسی', value: true },
+        { label: 'عدم دسترسی', value: false },
     ]
     //====================================================================
     //                        useEffects
@@ -19,8 +19,7 @@ const FilterPanel = (props) => {
     }, [])
 
     useEffect(() => {
-    }, [isActive])
-
+    }, [userHasRole])
     //====================================================================
     //                        Functions
     //====================================================================
@@ -40,11 +39,14 @@ const FilterPanel = (props) => {
     return (
         <>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical" onFinishFailed={null}>
-                <Ant.Form.Item name={'userName'} label="نام کاربری">
+                <Ant.Form.Item name={'roleScopePersianTitle'} label="محدوده نقش">
                     <Ant.Input allowClear />
                 </Ant.Form.Item>
-                <Ant.Form.Item name={'isActive'} label="وضعیت کاربران">
-                    <Ant.Segmented options={options} block onChange={setIsActive} />
+                <Ant.Form.Item name={'rolePersianTitle'} label="نام نقش">
+                    <Ant.Input allowClear />
+                </Ant.Form.Item>
+                <Ant.Form.Item name={'userHasRole'} label="وضعیت کاربران">
+                    <Ant.Segmented options={options} block onChange={setUserHasRole} />
                 </Ant.Form.Item>
                 <Ant.Button
                     block
@@ -55,7 +57,6 @@ const FilterPanel = (props) => {
                 >
                     {'اعمال'}
                 </Ant.Button>
-
             </Ant.Form>
         </>
     )
