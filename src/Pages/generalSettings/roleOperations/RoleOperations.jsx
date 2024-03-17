@@ -181,7 +181,7 @@ const RoleOperations = () => {
         {modalContent}
       </Ant.Modal>
       <Ant.Collapse
-        style={{ backgroundColor: "white" }}
+
         defaultActiveKey={["1"]}
         items={[
           {

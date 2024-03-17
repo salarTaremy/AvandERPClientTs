@@ -16,7 +16,7 @@ import { AppstoreOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
-  height: "84vh",
+  height: "74vh",
   right: 0,
   backgroundColor: "transparent",
   top: 0,
@@ -30,7 +30,7 @@ const AppSidebar = (props) => {
   useRequestManager({ error });
   //====================================================================
   //                        Consts
-  //====================================================================  
+  //====================================================================
   const Salar = ({ Ic }) => {
     return (
       <AntIcons.WindowsOutlined />

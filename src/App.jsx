@@ -42,7 +42,9 @@ const App = () => {
         motionDurationSlow: "0.5s",
         // colorBgMask:'#347654',
       },
-
+        Collapse:{
+           headerBg:(themeName != "dark" && "#FFFFFF") || "#000000",
+        },
       Layout: {
         //bodyBg:'#EBEDEF',
         bodyBg: (themeName != "dark" && "#F1F1F1") || "#000000",
