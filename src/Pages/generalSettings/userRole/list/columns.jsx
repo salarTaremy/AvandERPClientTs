@@ -2,7 +2,7 @@ import React from 'react'
 import * as Ant from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
-const columns = (disable) => {
+const columns = () => {
     return [
         {
             title: "محدوده نقش",
@@ -30,10 +30,10 @@ const columns = (disable) => {
                     checkedChildren={<CheckOutlined />}
                     unCheckedChildren={<CloseOutlined />}
                     key={record.id}
-                    value={userId.userHasRole == true}
-                    disabled={userId.userHasRole == false}
+                    defaultValue={userId.userHasRole == true}
                 />
             )
+
         }
     ]
 }
