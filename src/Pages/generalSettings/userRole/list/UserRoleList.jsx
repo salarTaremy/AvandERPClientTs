@@ -6,7 +6,8 @@ import * as url from '@/api/url'
 import columns from '../list/columns'
 import {
     useFetch,
-    useFetchWithHandler
+    useFetchWithHandler,
+    usePutWithHandler
 }
     from '@/api'
 import * as defaultValues from "@/defaultValues";
@@ -14,7 +15,8 @@ import ButtonList from "@/components/common/ButtonList";
 import FilterDrawer from '@/components/common/FilterDrawer'
 import FilterBedge from '@/components/common/FilterBedge'
 import FilterPanel from './FilterPanel'
-import qs from "qs";
+import qs from "qs"
+import useRequestManager from '@/hooks/useRequestManager'
 
 const UserRoleList = () => {
     const [form] = Ant.Form.useForm();
@@ -29,6 +31,8 @@ const UserRoleList = () => {
     const [filterObject, setFilterObject] = useState(null)
     const [filterCount, setFilterCount] = useState(0)
     const [openFilter, setOpenFilter] = useState(false)
+    const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
+    useRequestManager({ error: editError, editLoading: editLoading, data: editData })
 
     //====================================================================
     //                        useEffects
@@ -44,10 +48,6 @@ const UserRoleList = () => {
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
 
-    // useEffect(() => {
-    //     setSelectedUser(listData?.data.userId)
-    // }, [listData?.data.userId])
-
     useEffect(() => {
         ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}`)
     }, [])
@@ -55,6 +55,10 @@ const UserRoleList = () => {
         console.log('userNameeeeeeeeeeee', selectedUser)
         selectedUser && ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?userId=${selectedUser}`)
     }, [selectedUser])
+
+    useEffect(() => {
+        editData?.isSuccess && onSuccessEdit()
+    }, [editData])
     //====================================================================
     //                        Functions
     //====================================================================
@@ -80,6 +84,20 @@ const UserRoleList = () => {
         setFilterObject(null)
         setOpenFilter(false)
     }
+
+    const getUserHasRole = async (val) => {
+        console.log('idddddddd',rolePersianTitle)
+        // const roleId =
+        const req = {
+            userId: selectedUser,
+            roleIdList: [ roleId]
+        }
+        await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, req)
+    }
+
+    const onSuccessEdit = () => {
+        getRoleScopeWithRoles();
+    };
 
     //====================================================================
     //                        Child Components
@@ -136,6 +154,19 @@ const UserRoleList = () => {
                                 />
                             </Ant.Form.Item>
                         </Ant.Col>
+                        <Ant.Col span={12} md={12} lg={12} xs={24}>
+                            <Ant.Form.Item>
+                                <Ant.Button
+                                    className='mt-8'
+                                    loading={editLoading}
+                                    type="primary"
+                                    style={{ width: 150 }}
+                                    onClick={getUserHasRole}
+                                >
+                                    {'ثبت'}
+                                </Ant.Button>
+                            </Ant.Form.Item>
+                        </Ant.Col>
                     </Ant.Row>
                 </Ant.Form>
                 <FilterDrawer
@@ -149,7 +180,7 @@ const UserRoleList = () => {
                     <Grid />
                 </FilterBedge>
             </Ant.Card>
-        </Ant.Card>
+        </Ant.Card >
 
     )
 }
