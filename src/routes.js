@@ -42,6 +42,11 @@ import UserRoleList from'./Pages/generalSettings/userRole/list/UserRoleList'
 import Menus from'./Pages/generalSettings/menuAccess/menus'
 import RoleOperations from'./Pages/generalSettings/roleOperations/RoleOperations'
 
+//salesCommerce
+import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/saleChannelList'
+import PaymentType from './Pages/salesCommerce/basicInformation/paymentType/list/PaymentTypeList'
+
+
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
 import Login from './Pages/login/Login'
@@ -78,6 +83,9 @@ const routes = [
 
     { path: '/generalSettings/accessmenu/menus', name: 'دسترسی منوها', element: Menus },
     { path: '/generalSettings/accessRoles', name: 'ارتباط نقش و عملیات', element: RoleOperations },
+
+    { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
+    { path: 'sale/paymentType', name: 'کانال فروش', element: PaymentType },
     { path: '*', name: 'خطای 404',  element: NotFoundPage },
   ]
 

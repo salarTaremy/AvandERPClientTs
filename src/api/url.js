@@ -113,3 +113,9 @@ export const UPDATE_ROLE_NAV_MENU = 'Role/UpdateRoleNavMenuAssignment'
 //User
 export const USER = '/User'
 export const USER_RESET_PASSWORD = 'User/ResetPassword'
+
+//Sales
+export const SALE_CHANNEL='SaleChannel'
+
+//PaymentType
+export const PAYMENT_TYPE='PaymentType'
