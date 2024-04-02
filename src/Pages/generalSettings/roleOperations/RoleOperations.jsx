@@ -123,16 +123,10 @@ const RoleOperations = () => {
     // form.resetFields()
   };
   const onFilterChanged = async (filterObject) => {
-<<<<<<< Updated upstream
     console.log(filterObject, "filterObject");
     setFilterObject(filterObject);
     setOpenFilter(false);
   };
-=======
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
->>>>>>> Stashed changes
 
   //====================================================================
   //                        Child Components
@@ -236,12 +230,7 @@ const RoleOperations = () => {
           },
         ]}
       />
-<<<<<<< Updated upstream
       <Ant.Card  className="w-full mt-4" type="inner">
-=======
-
-      <Ant.Card className="w-full mt-4" type="inner">
->>>>>>> Stashed changes
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
