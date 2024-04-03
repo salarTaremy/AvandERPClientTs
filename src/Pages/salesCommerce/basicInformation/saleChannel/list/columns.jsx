@@ -42,7 +42,7 @@ const columns = (onDelete, onEdit) => {
           </Ant.Space>
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
-            title={`برای حذف شعبه "${val.name}" مطمئن هستید؟`}
+            title={`برای حذف  "${val.name}" مطمئن هستید؟`}
           >
             <Ant.Button
               className="text-red-600"

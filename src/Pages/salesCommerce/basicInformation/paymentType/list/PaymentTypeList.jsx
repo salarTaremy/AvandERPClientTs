@@ -8,8 +8,8 @@ import * as url from "@/api/url";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
-// import FormAddPaymentType from "../add/FormAddPaymentType";
-// import FormEditPaymentType from "../edit/FormEditPaymentType";
+import FormAddPaymentType from "../add/FormAddPaymentType";
+import FormEditPaymentType from "../edit/FormEditPaymentType";
 import * as uuid from "uuid";
 
 const PaymentTypeList = () => {
@@ -50,9 +50,9 @@ const PaymentTypeList = () => {
     await delApiCall(`${url.PAYMENT_TYPE}/${id}`);
   };
   const onAdd = () => {
-    // setModalContent(
-    //   <FormAddPaymentType key={uuid.v1()} onSuccess={onSuccessAdd} />,
-    // );
+    setModalContent(
+      <FormAddPaymentType key={uuid.v1()} onSuccess={onSuccessAdd} />,
+    );
     setModalState(true);
   };
   const onSuccessAdd = () => {
@@ -67,14 +67,14 @@ const PaymentTypeList = () => {
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    // setModalContent(
-    //   <FormEditPaymentType
-    //     onSuccess={onSuccessEdit}
-    //     myKey={val.id}
-    //     obj={val}
-    //     id={val.id}
-    //   />,
-    // );
+    console.log(val,"ggggg")
+    setModalContent(
+      <FormEditPaymentType
+        onSuccess={onSuccessEdit}
+        obj={val}
+        id={val.id}
+      />,
+    );
     setModalState(true);
   };
 
@@ -123,7 +123,7 @@ const PaymentTypeList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"نوع پرداخت"} type="inner" loading={loading}>
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست نوع پرداخت"} type="inner" loading={loading}>
         <Grid />
       </Ant.Card>
     </>
