@@ -91,11 +91,6 @@ const Menus = () => {
   };
   const onFinish = async (value) => {
     const req = { roleId: value.role, entityIdList: checkedKeys };
-    // const data = {
-    //   roleId: idRol,
-    //   entityIdList: checkedKeys,
-    // };
-
     await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, req);
   };
   const onChangeRoleScope = async (val) => {
@@ -104,7 +99,7 @@ const Menus = () => {
     });
     await roleApi(`${url.ROLE}?${data}`);
     form.setFieldsValue({ role: undefined });
-
+    setItems((data?.isSuccess && data?.data[0]?.children) || null);
     setDisable(false);
   };
   //====================================================================
@@ -147,7 +142,7 @@ const Menus = () => {
                       allowClear={true}
                       loading={roleLoading}
                       options={roleData?.data}
-                      fieldNames={{ label: "name", value: "roleScopeId" }}
+                      fieldNames={{ label: "name", value: "id" }}
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
