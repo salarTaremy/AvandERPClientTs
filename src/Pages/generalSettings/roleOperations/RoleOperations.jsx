@@ -114,7 +114,7 @@ const RoleOperations = () => {
   };
   const onChangeRoleScope = async (val) => {
     const data = qs.stringify({
-      Id: parseInt(val),
+      RoleScopeId: parseInt(val),
     });
     await roleApi(`${url.ROLE}?${data}`);
     setDisable(false);
@@ -194,7 +194,7 @@ const RoleOperations = () => {
                     <Ant.Col span={12} md={12} lg={12} xs={24}>
                       <Ant.Form.Item
                         name={"accountTypeId"}
-                        label="محدود نقش"
+                        label="محدوده نقش"
                         rules={[{ required: true }]}
                       >
                         <Ant.Select
