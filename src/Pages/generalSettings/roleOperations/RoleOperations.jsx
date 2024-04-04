@@ -238,7 +238,7 @@ const RoleOperations = () => {
         >
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
-        <FilterBedge filterCount={filterCount} onSubmit={onFilterChanged}>
+        <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
       </Ant.Card>
