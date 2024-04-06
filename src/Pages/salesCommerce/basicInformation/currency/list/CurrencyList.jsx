@@ -59,10 +59,12 @@ const CurrencyList = () => {
     );
     setModalState(true);
   };
+
   const onSuccessAdd = () => {
     setModalState(false);
     getAllCurrency();
   };
+
   const onSuccessEdit = () => {
     setModalState(false);
     getAllCurrency();
@@ -88,7 +90,7 @@ const CurrencyList = () => {
         onAdd={onAdd}
 
         onRefresh={() => {
-          getAllPaymentType();
+          getAllCurrency();
         }}
       />
     );

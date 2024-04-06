@@ -5,7 +5,7 @@ import * as url from "@/api/url";
 import { usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 
-const FormEditCurrency = (props) => {
+const FormEditDeliveryType = (props) => {
   const { onSuccess, obj, id } = props;
   const [loading, setLoading] = useState(false);
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
@@ -28,7 +28,7 @@ const FormEditCurrency = (props) => {
   const onFinish = async (values) => {
     setLoading(true);
     const req = { ...values, id: id };
-    await editApiCall(url.CURRENCY, req);
+    await editApiCall(url.DELIVERY_TYPE, req);
     setLoading(false);
   };
   //====================================================================
@@ -41,14 +41,11 @@ const FormEditCurrency = (props) => {
           <Ant.Input allowClear showCount maxLength={100} />
         </Ant.Form.Item>
         <Ant.Form.Item
-          name="persianTitle"
-          label={"نام فارسی"}
+          name="description"
+          label={"توضیحات"}
           rules={[{ required: true }]}
         >
           <Ant.Input allowClear showCount maxLength={100} />
-        </Ant.Form.Item>
-        <Ant.Form.Item name="symbol" label={"نماد"} rules={[{ required: true }]}>
-          <Ant.Input allowClear showCount maxLength={10} />
         </Ant.Form.Item>
         <Ant.Form.Item>
           <Ant.Button
@@ -67,11 +64,11 @@ const FormEditCurrency = (props) => {
   );
 };
 
-export default FormEditCurrency;
-FormEditCurrency.propTypes = {
+export default FormEditDeliveryType;
+FormEditDeliveryType.propTypes = {
   onFinish: PropTypes.func,
   onSuccess: PropTypes.func,
   obj: PropTypes.any,
   id: PropTypes.number,
-  loading: PropTypes.bool,
+
 };

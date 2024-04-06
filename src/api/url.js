@@ -122,3 +122,6 @@ export const PAYMENT_TYPE='PaymentType'
 
 //Currency
 export const CURRENCY='Currency'
+
+//DeliveryType
+export const DELIVERY_TYPE='DeliveryType'
