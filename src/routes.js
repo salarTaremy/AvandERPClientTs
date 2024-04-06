@@ -45,6 +45,7 @@ import RoleOperations from'./Pages/generalSettings/roleOperations/RoleOperations
 //salesCommerce
 import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/saleChannelList'
 import PaymentType from './Pages/salesCommerce/basicInformation/paymentType/list/PaymentTypeList'
+import Currency from './Pages/salesCommerce/basicInformation/currency/list/CurrencyList'
 
 
 import NotFoundPage from './Pages/NotFoundPage'
@@ -85,7 +86,8 @@ const routes = [
     { path: '/generalSettings/accessRoles', name: 'ارتباط نقش و عملیات', element: RoleOperations },
 
     { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
-    { path: 'sale/paymentType', name: 'کانال فروش', element: PaymentType },
+    { path: 'sale/paymentType', name: 'نوع پرداخت', element: PaymentType },
+    { path: 'sale/currency', name: 'ارزها', element: Currency },
     { path: '*', name: 'خطای 404',  element: NotFoundPage },
   ]
 

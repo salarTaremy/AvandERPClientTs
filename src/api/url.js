@@ -119,3 +119,6 @@ export const SALE_CHANNEL='SaleChannel'
 
 //PaymentType
 export const PAYMENT_TYPE='PaymentType'
+
+//Currency
+export const CURRENCY='Currency'
