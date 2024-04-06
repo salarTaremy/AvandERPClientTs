@@ -26,7 +26,7 @@ const style2 = {
   borderStartStartRadius: "0px",
   borderStartEndRadius: "0px",
   borderEndStartRadius: "0px",
-  borderEndEndRadius: "40px",
+  // borderEndEndRadius: "40px",
   overflow: "hidden",
 };
 const userNameRole = [
@@ -64,11 +64,11 @@ const Login = () => {
   return (
 
       <Content className="flex h-screen justify-center items-center">
-        <Row>
+        <Row className="justify-center ">
           <Col>
-            <Card style={style1}>
+            <Card className="md:rounded-e-none">
               <div>
-                <img src={logo} alt="Logo" />
+                <img src={logo} className="max-[475px]:w-64" alt="Logo" />
               </div>
               <br></br>
               {data && <p>{JSON.stringify(data.data.user.userName)}</p>}
@@ -99,16 +99,17 @@ const Login = () => {
                     <Checkbox>{"مرا به خاطر بسپار"}</Checkbox>
                   </Form.Item>
                 </Form.Item>
-                <Form.Item>
-                  <Button type="primary" htmlType="submit" loading={loading}>
+                <Form.Item >
+                  <Button className="max-[475px]:w-full" type="primary" htmlType="submit" loading={loading}>
                     {"ورود به حساب کاربری "}
                   </Button>
                 </Form.Item>
               </Form>
             </Card>
           </Col>
-          <Col>
-            <Card style={style2} className="bg-blue-800 text-slate-50 ">
+          <Col >
+
+            <Card className="invisible lg:visible h-full bg-blue-800 text-slate-50 hidden sm:block md:rounded-s-none">
               <Row>
                 <div>
                   <h4>{"ورود به سیستم ERP"}</h4>

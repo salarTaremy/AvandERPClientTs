@@ -5,9 +5,13 @@ import columns from "../list/columns";
 import * as defaultValues from "@/defaultValues";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
+import qs from 'qs'
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
+import FilterBedge from "@/components/common/FilterBedge";
+import FilterPanel from "./FilterPanel";
+import FilterDrawer from "@/components/common/FilterDrawer";
 import FormAddPaymentType from "../add/FormAddPaymentType";
 import FormEditPaymentType from "../edit/FormEditPaymentType";
 import * as uuid from "uuid";
@@ -15,6 +19,9 @@ import * as uuid from "uuid";
 const PaymentTypeList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
+  const [openFilter, setOpenFilter] = useState(false)
+  const [filterCount, setFilterCount] = useState(0)
+  const [filterObject, setFilterObject] = useState()
   const [dataSource, setDataSource] = useState(null);
   useRequestManager({ error: error });
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
@@ -25,8 +32,14 @@ const PaymentTypeList = () => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-
-    getAllSaleChannel();
+    filterObject &&
+      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+    !filterObject && setFilterCount(0)
+    getAllPaymentType()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterObject])
+  useEffect(() => {
+    getAllPaymentType();
   }, []);
 
   useEffect(() => {
@@ -43,9 +56,19 @@ const PaymentTypeList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const getAllSaleChannel = async () => {
-    await ApiCall(url.PAYMENT_TYPE);
+  const getAllPaymentType = async () => {
+    const queryString = qs.stringify(filterObject)
+    await ApiCall(`${url.PAYMENT_TYPE}?${queryString}`)
+
   };
+  const onFilterChanged = async (filterObject) => {
+    setFilterObject(filterObject)
+    setOpenFilter(false)
+  }
+  const onRemoveFilter = () => {
+    setFilterObject(null)
+    setOpenFilter(false)
+  }
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.PAYMENT_TYPE}/${id}`);
   };
@@ -57,23 +80,19 @@ const PaymentTypeList = () => {
   };
   const onSuccessAdd = () => {
     setModalState(false);
-    getAllSaleChannel();
+    getAllPaymentType();
   };
   const onSuccessEdit = () => {
     setModalState(false);
-    getAllSaleChannel();
+    getAllPaymentType();
   };
   //====================================================================
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    console.log(val,"ggggg")
+    console.log(val, "ggggg");
     setModalContent(
-      <FormEditPaymentType
-        onSuccess={onSuccessEdit}
-        obj={val}
-        id={val.id}
-      />,
+      <FormEditPaymentType onSuccess={onSuccessEdit} obj={val} id={val.id} />,
     );
     setModalState(true);
   };
@@ -85,8 +104,11 @@ const PaymentTypeList = () => {
     return (
       <ButtonList
         onAdd={onAdd}
+        onFilter={() => {
+          setOpenFilter(true)
+        }}
         onRefresh={() => {
-            getAllSaleChannel();
+          getAllPaymentType();
         }}
       />
     );
@@ -123,8 +145,22 @@ const PaymentTypeList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست نوع پرداخت"} type="inner" loading={loading}>
-        <Grid />
+      <Ant.Card
+        style={{ ...styles.CARD_DEFAULT_STYLES }}
+        title={"لیست نوع پرداخت"}
+        type="inner"
+        loading={loading}
+      >
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Grid />
+        </FilterBedge>
       </Ant.Card>
     </>
   );
