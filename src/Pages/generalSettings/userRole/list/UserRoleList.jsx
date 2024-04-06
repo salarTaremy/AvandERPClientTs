@@ -32,6 +32,7 @@ const UserRoleList = () => {
     const [filterCount, setFilterCount] = useState(0)
     const [openFilter, setOpenFilter] = useState(false)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
+    const roleIdList = []
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
 
     //====================================================================
@@ -59,7 +60,8 @@ const UserRoleList = () => {
     useEffect(() => {
         editData?.isSuccess && onSuccessEdit()
     }, [editData])
-    //====================================================================
+
+     //====================================================================
     //                        Functions
     //====================================================================
     const getRoleScopeWithRoles = async () => {
@@ -85,12 +87,20 @@ const UserRoleList = () => {
         setOpenFilter(false)
     }
 
-    const getUserHasRole = async (val) => {
-        console.log('idddddddd',rolePersianTitle)
-        // const roleId =
+    const onChange = (roleId) => {
+        console.log('id', roleId)
+        if (roleId) {
+            roleIdList.push(roleId)
+            console.log('roleIdList', roleIdList)
+        }
+    }
+
+    const getUserHasRole = async () => {
+        console.log('userId', selectedUser)
+        console.log('roleID', roleIdList)
         const req = {
             userId: selectedUser,
-            roleIdList: [ roleId]
+            roleIdList: roleIdList
         }
         await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, req)
     }
@@ -122,7 +132,7 @@ const UserRoleList = () => {
                     <Ant.Table
                         {...defaultValues.TABLE_PROPS}
                         title={title}
-                        columns={columns()}
+                        columns={columns(onChange)}
                         dataSource={dataSource}
                     />
                 </Ant.Skeleton>

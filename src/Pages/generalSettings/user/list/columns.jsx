@@ -75,7 +75,7 @@ const columns = (onDelete, onEdit, onReset) => {
                             icon={<GrPowerReset />}
                             type="text"
                         />
-                        <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کالا "${val.userName}" مطمئن هستید؟`}>
+                        <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>
                             <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
                         </Ant.Popconfirm>
                     </>
