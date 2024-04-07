@@ -47,7 +47,7 @@ const FormAddDeliveryType = (props) => {
           label={"توضیحات"}
           rules={[{ required: true }]}
         >
-          <Ant.Input allowClear showCount maxLength={100} />
+          <Ant.Input allowClear showCount maxLength={500} />
         </Ant.Form.Item>
 
 

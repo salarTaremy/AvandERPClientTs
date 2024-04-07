@@ -5,7 +5,7 @@ import * as url from "@/api/url";
 import { usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 
-const FormEditDeliveryType = (props) => {
+const FormEditSaleDocumentType = (props) => {
   const { onSuccess, obj, id } = props;
   const [loading, setLoading] = useState(false);
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
@@ -28,7 +28,7 @@ const FormEditDeliveryType = (props) => {
   const onFinish = async (values) => {
     setLoading(true);
     const req = { ...values, id: id };
-    await editApiCall(url.DELIVERY_TYPE, req);
+    await editApiCall(url.SALE_DOCUMENT_TYPE, req);
     setLoading(false);
   };
   //====================================================================
@@ -39,13 +39,6 @@ const FormEditDeliveryType = (props) => {
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>
           <Ant.Input allowClear showCount maxLength={100} />
-        </Ant.Form.Item>
-        <Ant.Form.Item
-          name="description"
-          label={"توضیحات"}
-          rules={[{ required: true }]}
-        >
-          <Ant.Input allowClear showCount maxLength={500} />
         </Ant.Form.Item>
         <Ant.Form.Item>
           <Ant.Button
@@ -64,11 +57,11 @@ const FormEditDeliveryType = (props) => {
   );
 };
 
-export default FormEditDeliveryType;
-FormEditDeliveryType.propTypes = {
+export default FormEditSaleDocumentType;
+FormEditSaleDocumentType.propTypes = {
   onFinish: PropTypes.func,
   onSuccess: PropTypes.func,
   obj: PropTypes.any,
   id: PropTypes.number,
-
+  loading: PropTypes.bool,
 };

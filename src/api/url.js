@@ -125,3 +125,9 @@ export const CURRENCY='Currency'
 
 //DeliveryType
 export const DELIVERY_TYPE='DeliveryType'
+
+//SaleDocumentType
+export const SALE_DOCUMENT_TYPE='SaleDocumentType'
+
+//SaleType
+export const SALETYPE='SaleType'

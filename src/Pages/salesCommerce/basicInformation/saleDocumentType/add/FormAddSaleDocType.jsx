@@ -1,51 +1,46 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
+import { usePostWithHandler, useFetchWithHandler } from "@/api";
+import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
-import { usePutWithHandler } from "@/api";
-import useRequestManager from "@/hooks/useRequestManager";
 
-const FormEditDeliveryType = (props) => {
-  const { onSuccess, obj, id } = props;
+const FormAddCurrency = (props) => {
+  const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
-  const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
-  useRequestManager({ error: editError, loading: editLoading, data: editData });
+  const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
+  useRequestManager({ error: addError, loading: addLoading, data: addData });
   const [form] = Ant.Form.useForm();
-
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    form.resetFields();
-    form.setFieldsValue({ ...obj });
-  }, [obj]);
-  useEffect(() => {
-    editData?.isSuccess && onSuccess();
-  }, [editData]);
-  //=====================================================================
+    addData?.isSuccess && onSuccess();
+  }, [addData]);
+  //====================================================================
   //                        Functions
-  //=====================================================================
+  //====================================================================
   const onFinish = async (values) => {
     setLoading(true);
-    const req = { ...values, id: id };
-    await editApiCall(url.DELIVERY_TYPE, req);
+    const req = { ...values };
+    await addApiCall(url.SALE_DOCUMENT_TYPE, req);
     setLoading(false);
   };
   //====================================================================
   //                        Component
   //====================================================================
+
   return (
     <>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+        <Ant.Row>
+          <Ant.Col span={24}>
+            {"ایجاد نوع برگه های فروش"}
+            <Ant.Divider />
+          </Ant.Col>
+        </Ant.Row>
         <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>
           <Ant.Input allowClear showCount maxLength={100} />
-        </Ant.Form.Item>
-        <Ant.Form.Item
-          name="description"
-          label={"توضیحات"}
-          rules={[{ required: true }]}
-        >
-          <Ant.Input allowClear showCount maxLength={500} />
         </Ant.Form.Item>
         <Ant.Form.Item>
           <Ant.Button
@@ -64,11 +59,7 @@ const FormEditDeliveryType = (props) => {
   );
 };
 
-export default FormEditDeliveryType;
-FormEditDeliveryType.propTypes = {
-  onFinish: PropTypes.func,
+export default FormAddCurrency;
+FormAddCurrency.propTypes = {
   onSuccess: PropTypes.func,
-  obj: PropTypes.any,
-  id: PropTypes.number,
-
 };
