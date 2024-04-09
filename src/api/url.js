@@ -131,3 +131,6 @@ export const SALE_DOCUMENT_TYPE='SaleDocumentType'
 
 //SaleType
 export const SALETYPE='SaleType'
+
+//Counterparty
+export const COUNTER_PARTY='Counterparty'

@@ -49,7 +49,8 @@ import Currency from './Pages/salesCommerce/basicInformation/currency/list/Curre
 import DeliveryType from './Pages/salesCommerce/basicInformation/deliveryType/list/DeliveryTypeList'
 import SaleDocumentType from './Pages/salesCommerce/basicInformation/saleDocumentType/list/SaleDocumentTypeList'
 
-
+//counterParty
+import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
 
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
 import NotFoundPage from './Pages/NotFoundPage'
@@ -96,6 +97,8 @@ const routes = [
   { path: 'sale/deliveryType', name: 'ارزها', element: DeliveryType },
   { path: 'sale/documentType', name: 'نوع برگه فروش', element: SaleDocumentType },
   { path: 'sale/type', name: 'نوع  فروش', element: SaleType },
+
+  { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]
 
