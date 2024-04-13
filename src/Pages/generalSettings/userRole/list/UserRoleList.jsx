@@ -24,15 +24,12 @@ const UserRoleList = () => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [selectedUser, setSelectedUser] = useState(null)
-    const handleOnChange = (val, option) => {
-        form.setFieldsValue({ userId: undefined })
-        setSelectedUser(option.id)
-    }
     const [filterObject, setFilterObject] = useState(null)
     const [filterCount, setFilterCount] = useState(0)
     const [openFilter, setOpenFilter] = useState(false)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     const roleIdList = []
+    var oldRoleId = []
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
 
     //====================================================================
@@ -46,34 +43,30 @@ const UserRoleList = () => {
     }, [filterObject])
 
     useEffect(() => {
-        setDataSource((listData?.isSuccess && listData?.data) || null);
-    }, [listData]);
+        getRoleScopeWithRoles()
+    }, [selectedUser]);
 
     useEffect(() => {
-        ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}`)
-    }, [])
-    useEffect(() => {
-        console.log('userNameeeeeeeeeeee', selectedUser)
-        selectedUser && ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?userId=${selectedUser}`)
-    }, [selectedUser])
+        setDataSource((listData?.isSuccess && listData?.data) || null);
+    }, [listData]);
 
     useEffect(() => {
         editData?.isSuccess && onSuccessEdit()
     }, [editData])
 
-     //====================================================================
+    //====================================================================
     //                        Functions
     //====================================================================
     const getRoleScopeWithRoles = async () => {
         console.log('filterObject', filterObject)
         const userId = selectedUser
+        console.log('userId', userId)
         const req = {
             roleScopePersianTitle: filterObject?.roleScopePersianTitle,
             rolePersianTitle: filterObject?.rolePersianTitle,
             UserId: userId,
         }
         const queryString = qs.stringify(req);
-        console.log('userId', userId)
         await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`)
     }
 
@@ -87,20 +80,34 @@ const UserRoleList = () => {
         setOpenFilter(false)
     }
 
+    const handleOnChange = async (val, option) => {
+        console.log('userIddddd', option.id)
+        setSelectedUser(option.id)
+    }
+
     const onChange = (roleId) => {
         console.log('id', roleId)
         if (roleId) {
             roleIdList.push(roleId)
             console.log('roleIdList', roleIdList)
         }
+        const temp = (dataSource.filter(listData => listData.userHasRole == true))
+        console.log('temp', temp)
+        temp?.map((item) => {
+            if (item.userHasRole) {
+                roleIdList.push(item.roleId)
+                console.log('OLD-ROLE-ID', item.roleId)
+            }
+        })
     }
 
-    const getUserHasRole = async () => {
-        console.log('userId', selectedUser)
-        console.log('roleID', roleIdList)
+    const onFinish = async () => {
+        oldRoleId = [...new Set(roleIdList)]
+        const userHasRole = oldRoleId
+        console.log('userHasRole', oldRoleId)
         const req = {
             userId: selectedUser,
-            roleIdList: roleIdList
+            roleIdList: userHasRole
         }
         await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, req)
     }
@@ -145,7 +152,7 @@ const UserRoleList = () => {
     return (
         <Ant.Card title={'ارتباط کاربر با نقش'} type="inner" >
             <Ant.Card loading={loading}>
-                <Ant.Form form={form} layout="vertical" onFinish={null}>
+                <Ant.Form form={form} layout="vertical" >
                     <Ant.Row gutter={[16, 8]}>
                         <Ant.Col span={12} md={12} lg={12} xs={24}>
                             <Ant.Form.Item
@@ -171,7 +178,7 @@ const UserRoleList = () => {
                                     loading={editLoading}
                                     type="primary"
                                     style={{ width: 150 }}
-                                    onClick={getUserHasRole}
+                                    onClick={onFinish}
                                 >
                                     {'ثبت'}
                                 </Ant.Button>

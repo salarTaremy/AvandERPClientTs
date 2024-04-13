@@ -27,7 +27,7 @@ const MenuPermissions = () => {
   const [dataDelete, loadingDelete, errorDelete, doDelete] = useDelWithHandler()
   const [dataEditPosition, loadingEditPosition, errorEditPosition, doEditPosition] = usePutWithHandler()
   useRequestManager({error:error})
-  useRequestManager({error:errorSubmit})
+  useRequestManager({error:errorSubmit,loading:loadingSubmit})
   useRequestManager({error:errorDelete})
   useRequestManager({error:errorEditPosition})
   const [treeData, setTreeData] = useState([])
@@ -98,6 +98,7 @@ const MenuPermissions = () => {
     await ApiCall(url.NAV_MENU_TREE)
   }
   const submitAdd = async (values) => {
+    debugger
     if (selectedItem) {
       values.parentId = selectedItem.id
       setExpandedKeys([0, values.parentId])

@@ -5,45 +5,56 @@ import columns from "../list/columns";
 import * as defaultValues from "@/defaultValues";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
-import qs from 'qs'
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
-import FilterBedge from "@/components/common/FilterBedge";
 import FilterPanel from "./FilterPanel";
+import FormAddCounterParty from "../add/FormAddCounterParty";
+import FormEditCounterParty from "../edit/FormEditCounterParty";
+import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
-import FormAddPaymentType from "../add/FormAddPaymentType";
-import FormEditPaymentType from "../edit/FormEditPaymentType";
 import * as uuid from "uuid";
-
-const PaymentTypeList = () => {
+import qs from "qs";
+const CounterPartyList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
-  const [openFilter, setOpenFilter] = useState(false)
-  const [filterCount, setFilterCount] = useState(0)
-  const [filterObject, setFilterObject] = useState()
   const [dataSource, setDataSource] = useState(null);
   useRequestManager({ error: error });
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
+  const [filterObject, setFilterObject] = useState();
+  const [filterCount, setFilterCount] = useState(0);
+  const [openFilter, setOpenFilter] = useState(false);
+  const [pagination, setPpagination] = useState({
+    current: 1,
+    pageSize: 10,
+  });
 
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    filterObject &&
-      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
-    !filterObject && setFilterCount(0)
-    getAllPaymentType()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterObject])
-  useEffect(() => {
-    getAllPaymentType();
-  }, []);
 
   useEffect(() => {
-    setDataSource((listData?.isSuccess && listData?.data) || null);
+    setPpagination({ ...pagination, current: 1 });
+    filterObject &&
+      setFilterCount(
+        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+      );
+    !filterObject && setFilterCount(0);
+    getAllCounterParty();
+  }, [filterObject]);
+
+  useEffect(() => {
+    getAllCounterParty();
+  }, [pagination.current, pagination.pageSize]);
+
+  useEffect(() => {
+    setDataSource(listData?.data);
+    setPpagination({
+      ...pagination,
+      total: listData?.data[0]?.totalCount,
+    });
   }, [listData]);
 
   useEffect(() => {
@@ -56,46 +67,63 @@ const PaymentTypeList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const getAllPaymentType = async () => {
-    const queryString = qs.stringify(filterObject)
-    await ApiCall(`${url.PAYMENT_TYPE}?${queryString}`)
-
+  const getAllCounterParty = async () => {
+    const queryString = qs.stringify({
+      ...filterObject,
+      PageNumber: pagination.current,
+      RowsOfPage: pagination.pageSize,
+    });
+    console.log(queryString, "fafaqueryString");
+    await ApiCall(`${url.COUNTER_PARTY}?${queryString}`);
   };
+  const handleTableChange = (pagination, filters, sorter) => {
+    setPpagination(pagination);
+  };
+  // const getAllCounterParty = async () => {
+  //   await ApiCall(url.COUNTER_PARTY);
+  // };
   const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
+    setFilterObject(filterObject);
+    setOpenFilter(false);
+  };
   const onRemoveFilter = () => {
-    setFilterObject(null)
-    setOpenFilter(false)
-  }
+    setFilterObject(null);
+    setOpenFilter(false);
+  };
   const onDelSuccess = async (id) => {
-    await delApiCall(`${url.PAYMENT_TYPE}/${id}`);
+    await delApiCall(`${url.COUNTER_PARTY}/${id}`);
   };
   const onAdd = () => {
     setModalContent(
-      <FormAddPaymentType key={uuid.v1()} onSuccess={onSuccessAdd} />,
+      <FormAddCounterParty />,
+      // <FormAddCounterParty key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
     setModalState(true);
   };
   const onSuccessAdd = () => {
     setModalState(false);
-    getAllPaymentType();
+    getAllCounterParty();
   };
   const onSuccessEdit = () => {
     setModalState(false);
-    getAllPaymentType();
+    getAllCounterParty();
   };
+
   //====================================================================
   //                        Events
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditPaymentType onSuccess={onSuccessEdit} obj={val} id={val.id} />,
+      <FormEditCounterParty />,
+      // <FormEditCounterParty
+      //   onSuccess={onSuccessEdit}
+      //   myKey={val.id}
+      //   obj={val}
+      //   id={val.id}
+      // />,
     );
     setModalState(true);
   };
-
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -103,11 +131,11 @@ const PaymentTypeList = () => {
     return (
       <ButtonList
         onAdd={onAdd}
-        onFilter={() => {
-          setOpenFilter(true)
-        }}
         onRefresh={() => {
-          getAllPaymentType();
+          getAllCounterParty();
+        }}
+        onFilter={() => {
+          setOpenFilter(true);
         }}
       />
     );
@@ -121,6 +149,7 @@ const PaymentTypeList = () => {
             size="small"
             {...defaultValues.TABLE_PROPS}
             title={title}
+            onChange={handleTableChange}
             columns={columns(onDelSuccess, onEdit)}
             dataSource={dataSource}
           />
@@ -146,7 +175,7 @@ const PaymentTypeList = () => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"لیست نوع پرداخت"}
+        title={"لیست طرف حساب ها"}
         type="inner"
         loading={loading}
       >
@@ -165,4 +194,4 @@ const PaymentTypeList = () => {
   );
 };
 
-export default PaymentTypeList;
+export default CounterPartyList;

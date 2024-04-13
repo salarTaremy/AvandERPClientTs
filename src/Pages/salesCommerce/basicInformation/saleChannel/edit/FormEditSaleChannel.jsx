@@ -63,5 +63,5 @@ FormEditSaleChannel.propTypes = {
     onSuccess: PropTypes.func,
     obj: PropTypes.any,
     id: PropTypes.number,
-    loading: PropTypes.bool,
+
 }

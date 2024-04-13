@@ -1,27 +1,21 @@
 import React from "react";
 import * as Ant from "antd";
 import { useEffect, useState } from "react";
-import columns from "../list/columns";
+import columns from "./columns";
 import * as defaultValues from "@/defaultValues";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
-import qs from 'qs'
+import qs from "qs";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
-import FilterBedge from "@/components/common/FilterBedge";
-import FilterPanel from "./FilterPanel";
-import FilterDrawer from "@/components/common/FilterDrawer";
-import FormAddPaymentType from "../add/FormAddPaymentType";
-import FormEditPaymentType from "../edit/FormEditPaymentType";
+import FormAddSaleDocType from "../add/FormAddSaleDocType";
+import FormEditSaleDocType from "../edit/FormEditSaleDocType";
 import * as uuid from "uuid";
 
-const PaymentTypeList = () => {
+const SaleDocumentTypeList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
-  const [openFilter, setOpenFilter] = useState(false)
-  const [filterCount, setFilterCount] = useState(0)
-  const [filterObject, setFilterObject] = useState()
   const [dataSource, setDataSource] = useState(null);
   useRequestManager({ error: error });
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
@@ -31,15 +25,9 @@ const PaymentTypeList = () => {
   //====================================================================
   //                        useEffects
   //====================================================================
+
   useEffect(() => {
-    filterObject &&
-      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
-    !filterObject && setFilterCount(0)
-    getAllPaymentType()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterObject])
-  useEffect(() => {
-    getAllPaymentType();
+    getAllSaleDocType();
   }, []);
 
   useEffect(() => {
@@ -56,42 +44,35 @@ const PaymentTypeList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const getAllPaymentType = async () => {
-    const queryString = qs.stringify(filterObject)
-    await ApiCall(`${url.PAYMENT_TYPE}?${queryString}`)
-
+  const getAllSaleDocType = async () => {
+    await ApiCall(url.SALE_DOCUMENT_TYPE);
   };
-  const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
-  const onRemoveFilter = () => {
-    setFilterObject(null)
-    setOpenFilter(false)
-  }
+
   const onDelSuccess = async (id) => {
-    await delApiCall(`${url.PAYMENT_TYPE}/${id}`);
+    await delApiCall(`${url.SALE_DOCUMENT_TYPE}/${id}`);
   };
   const onAdd = () => {
     setModalContent(
-      <FormAddPaymentType key={uuid.v1()} onSuccess={onSuccessAdd} />,
+      <FormAddSaleDocType key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
     setModalState(true);
   };
+
   const onSuccessAdd = () => {
     setModalState(false);
-    getAllPaymentType();
+    getAllSaleDocType();
   };
+
   const onSuccessEdit = () => {
     setModalState(false);
-    getAllPaymentType();
+    getAllSaleDocType();
   };
   //====================================================================
   //                        Events
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditPaymentType onSuccess={onSuccessEdit} obj={val} id={val.id} />,
+      <FormEditSaleDocType onSuccess={onSuccessEdit} obj={val} id={val.id} />,
     );
     setModalState(true);
   };
@@ -103,11 +84,8 @@ const PaymentTypeList = () => {
     return (
       <ButtonList
         onAdd={onAdd}
-        onFilter={() => {
-          setOpenFilter(true)
-        }}
         onRefresh={() => {
-          getAllPaymentType();
+          getAllSaleDocType();
         }}
       />
     );
@@ -146,23 +124,14 @@ const PaymentTypeList = () => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"لیست نوع پرداخت"}
+        title={"لیست نوع برگه های فروش"}
         type="inner"
         loading={loading}
       >
-        <FilterDrawer
-          open={openFilter}
-          onClose={() => setOpenFilter(false)}
-          onRemoveFilter={onRemoveFilter}
-        >
-          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-        </FilterDrawer>
-        <FilterBedge filterCount={filterCount}>
-          <Grid />
-        </FilterBedge>
+        <Grid />
       </Ant.Card>
     </>
   );
 };
 
-export default PaymentTypeList;
+export default SaleDocumentTypeList;
