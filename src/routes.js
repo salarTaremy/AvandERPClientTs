@@ -52,6 +52,8 @@ import SaleDocumentType from './Pages/salesCommerce/basicInformation/saleDocumen
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
 
+import FormAddCounterParty from './Pages/manageCounterParty/add/FormAddCounterParty'
+
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
@@ -99,6 +101,8 @@ const routes = [
   { path: 'sale/type', name: 'نوع  فروش', element: SaleType },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
+  { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
+
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]
 

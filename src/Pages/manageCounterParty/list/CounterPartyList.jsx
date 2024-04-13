@@ -13,9 +13,11 @@ import FormAddCounterParty from "../add/FormAddCounterParty";
 import FormEditCounterParty from "../edit/FormEditCounterParty";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
+import { useNavigate, generatePath } from "react-router-dom";
 import * as uuid from "uuid";
 import qs from "qs";
 const CounterPartyList = () => {
+  const navigate = useNavigate();
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [dataSource, setDataSource] = useState(null);
@@ -28,7 +30,7 @@ const CounterPartyList = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [pagination, setPpagination] = useState({
     current: 1,
-    pageSize: 10,
+    pageSize: 5,
   });
 
   //====================================================================
@@ -76,6 +78,7 @@ const CounterPartyList = () => {
     console.log(queryString, "fafaqueryString");
     await ApiCall(`${url.COUNTER_PARTY}?${queryString}`);
   };
+
   const handleTableChange = (pagination, filters, sorter) => {
     setPpagination(pagination);
   };
@@ -95,7 +98,8 @@ const CounterPartyList = () => {
   };
   const onAdd = () => {
     setModalContent(
-      <FormAddCounterParty />,
+      navigate("/manage/counterparty/new")
+      // <FormAddCounterParty />,
       // <FormAddCounterParty key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
     setModalState(true);
@@ -146,6 +150,7 @@ const CounterPartyList = () => {
       <>
         <Ant.Skeleton loading={loading}>
           <Ant.Table
+           pagination={pagination}
             size="small"
             {...defaultValues.TABLE_PROPS}
             title={title}
