@@ -134,3 +134,4 @@ export const SALETYPE='SaleType'
 
 //Counterparty
 export const COUNTER_PARTY='Counterparty'
+export const COUNTER_PARTY_TYPE='Counterparty/GetCounterpartyType'

@@ -14,6 +14,9 @@ const ActionList = (props) => {
   useRequestManager({ error: error });
   const [dataSource, setDataSource] = useState(null);
   const [getValue, setgetValue] = useState(null);
+  //====================================================================
+  //                        useEffects
+  //====================================================================
   useEffect(() => {
     getAllActionList();
   }, []);
@@ -21,24 +24,22 @@ const ActionList = (props) => {
     console.log(getValue);
   }, [getValue]);
 
-  //====================================================================
-  //                        Functions
-  //====================================================================
-
-
   useEffect(() => {
-    const TmpSelected = []
+    const TmpSelected = [];
     if (data?.isSuccess && data?.data) {
       data?.data.map((item) => {
         if (item.roleHasAccess) {
-          TmpSelected.push(item.id)
+          TmpSelected.push(item.id);
         }
-      })
+      });
     }
-    setSelectedRowKeys([...TmpSelected])
+    setSelectedRowKeys([...TmpSelected]);
 
     setDataSource((data?.isSuccess && data?.data) || null);
   }, [data]);
+  //====================================================================
+  //                        Functions
+  //====================================================================
 
   const getAllActionList = async () => {
     const queryString = qs.stringify({
@@ -64,9 +65,8 @@ const ActionList = (props) => {
     },
   ];
 
-
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
     updateActionId(newSelectedRowKeys);
   };
@@ -75,8 +75,6 @@ const ActionList = (props) => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-
-
 
   //====================================================================
   //                        Component

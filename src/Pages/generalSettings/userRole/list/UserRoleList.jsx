@@ -28,9 +28,9 @@ const UserRoleList = () => {
     const [filterCount, setFilterCount] = useState(0)
     const [openFilter, setOpenFilter] = useState(false)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    const roleIdList = []
-    var oldRoleId = []
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [idActionsList, setIdActionsList] = useState([]);
 
     //====================================================================
     //                        useEffects
@@ -47,6 +47,16 @@ const UserRoleList = () => {
     }, [selectedUser]);
 
     useEffect(() => {
+        const TmpSelected = []
+        if (listData?.isSuccess && listData?.data) {
+            listData?.data.map((item) => {
+                if (item.userHasRole) {
+                    TmpSelected.push(item.roleId)
+                }
+            })
+        }
+        setSelectedRowKeys([...TmpSelected])
+
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
 
@@ -80,36 +90,32 @@ const UserRoleList = () => {
         setOpenFilter(false)
     }
 
+    const updateActionId = (listId) => {
+        setIdActionsList(listId);
+    };
+
     const handleOnChange = async (val, option) => {
         console.log('userIddddd', option.id)
         setSelectedUser(option.id)
     }
 
-    const onChange = (roleId) => {
-        console.log('id', roleId)
-        if (roleId) {
-            roleIdList.push(roleId)
-            console.log('roleIdList', roleIdList)
-        }
-        const temp = (dataSource.filter(listData => listData.userHasRole == true))
-        console.log('temp', temp)
-        temp?.map((item) => {
-            if (item.userHasRole) {
-                roleIdList.push(item.roleId)
-                console.log('OLD-ROLE-ID', item.roleId)
-            }
-        })
-    }
+    const onSelectChange = (newSelectedRowKeys) => {
+        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+        setSelectedRowKeys(newSelectedRowKeys);
+        updateActionId(newSelectedRowKeys);
+    };
+
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange,
+    };
 
     const onFinish = async () => {
-        oldRoleId = [...new Set(roleIdList)]
-        const userHasRole = oldRoleId
-        console.log('userHasRole', oldRoleId)
-        const req = {
+        const data = {
             userId: selectedUser,
-            roleIdList: userHasRole
-        }
-        await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, req)
+            roleIdList: idActionsList,
+        };
+        await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, data)
     }
 
     const onSuccessEdit = () => {
@@ -137,9 +143,13 @@ const UserRoleList = () => {
             <>
                 <Ant.Skeleton loading={loading}>
                     <Ant.Table
+                        rowSelection={{
+                            ...rowSelection,
+                        }}
                         {...defaultValues.TABLE_PROPS}
+                        rowKey={'roleId'}
                         title={title}
-                        columns={columns(onChange)}
+                        columns={columns()}
                         dataSource={dataSource}
                     />
                 </Ant.Skeleton>

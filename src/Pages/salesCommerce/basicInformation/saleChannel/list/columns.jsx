@@ -10,15 +10,15 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "id",
       key: "code",
       width: 80,
-      align:'center',
-      className:"text-xs sm:text-sm",
+      align: "center",
+      className: "text-xs sm:text-sm",
     },
     {
       title: "نام ",
       dataIndex: "title",
       key: "title",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
 
@@ -29,7 +29,7 @@ const columns = (onDelete, onEdit) => {
       width: 100,
       align: "center",
       fixed: "right",
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
           <Ant.Space direction="horizontal" size={20}>
@@ -42,7 +42,7 @@ const columns = (onDelete, onEdit) => {
           </Ant.Space>
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
-            title={`برای حذف  "${val.name}" مطمئن هستید؟`}
+            title={`برای حذف  "${val.title}" مطمئن هستید؟`}
           >
             <Ant.Button
               className="text-red-600"
