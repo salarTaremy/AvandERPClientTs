@@ -1,7 +1,8 @@
 import React from 'react'
 import * as Ant from 'antd'
-import { RiDeleteBin6Line ,RiLockPasswordLine } from 'react-icons/ri'
+import { RiDeleteBin6Line  } from 'react-icons/ri'
 import { FiEdit } from "react-icons/fi";
+import { VscKey } from "react-icons/vsc";
 
 
 
@@ -72,7 +73,7 @@ const columns = (onDelete, onEdit, onReset) => {
                         <Ant.Button
                             className="text-orange-600"
                             onClick={() => onReset(val)}
-                            icon={<RiLockPasswordLine  />}
+                            icon={<VscKey />}
                             type="text"
                         />
                         <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>
