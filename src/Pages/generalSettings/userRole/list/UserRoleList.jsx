@@ -51,7 +51,7 @@ const UserRoleList = () => {
         if (listData?.isSuccess && listData?.data) {
             listData?.data.map((item) => {
                 if (item.userHasRole) {
-                    TmpSelected.push(item.roleId)
+                    TmpSelected.push(item.id)
                 }
             })
         }
@@ -147,7 +147,7 @@ const UserRoleList = () => {
                             ...rowSelection,
                         }}
                         {...defaultValues.TABLE_PROPS}
-                        rowKey={'roleId'}
+                        rowKey={'id'}
                         title={title}
                         columns={columns()}
                         dataSource={dataSource}
