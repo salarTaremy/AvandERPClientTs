@@ -135,3 +135,16 @@ export const SALETYPE='SaleType'
 //Counterparty
 export const COUNTER_PARTY='Counterparty'
 export const COUNTER_PARTY_TYPE='Counterparty/GetCounterpartyType'
+
+
+//Province
+export const PROVINCE='/Province'
+
+//City
+export const CITY='/City'
+
+//Bank
+export const BANK='/Bank'
+
+//Bank
+export const BANKBRANCH='/BankBranch'

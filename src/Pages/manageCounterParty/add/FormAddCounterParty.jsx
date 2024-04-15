@@ -7,7 +7,7 @@ import * as url from "@/api/url";
 import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
 import Address from "./Address";
 import Contacts from "./Contacts";
-import BankBccountInformation from "./BankBccountInformation";
+import BankBranchInfo from "./BankBranchInfo";
 const FormAddCounterParty = () => {
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
@@ -274,11 +274,10 @@ const FormAddCounterParty = () => {
             <Contacts />
           </TabPane>
           <TabPane tab="آدرس" key="2">
-
             <Address />
           </TabPane>
           <TabPane tab="اطلاعات حساب بانکی" key="3">
-            <BankBccountInformation />
+            <BankBranchInfo />
           </TabPane>
         </Ant.Tabs>
       </Ant.Card>
