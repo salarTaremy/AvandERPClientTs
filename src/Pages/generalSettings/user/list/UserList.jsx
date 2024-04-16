@@ -16,6 +16,7 @@ import FormAddNewUser from "../add/FormAddNewUser";
 import * as uuid from "uuid";
 import FormResetPasswordUser from "../reset/FormResetPasswordUser";
 import FilterPanel from "./FilterPanel";
+import UserInfo from "../info/UserInfo";
 
 const UserList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -115,6 +116,16 @@ const UserList = () => {
     );
     setModalState(true);
   };
+
+  const onInfo = (val) => {
+    setModalContent(
+      <UserInfo
+        userId={val}
+      />
+    );
+    console.log('userId', val)
+    setModalState(true);
+  }
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -141,7 +152,7 @@ const UserList = () => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             title={title}
-            columns={columns(onDelSuccess, onEdit, onReset)}
+            columns={columns(onDelSuccess, onEdit, onReset, onInfo)}
             dataSource={dataSource}
           />
         </Ant.Skeleton>
