@@ -89,6 +89,7 @@ export const BRANCH = '/Branch'
 //Role
 export const ROLE = '/Role'
 export const ROLE_UPDATE_ROLE_USER_ASSIGNMENT = 'Role/UpdateRoleUserAssignment'
+export const ROLE_GET_USERS_OF_ROLE = 'Role/GetUsersOfRole'
 
 //RoleScope
 export const ROLE_SCOPE = '/RoleScope'

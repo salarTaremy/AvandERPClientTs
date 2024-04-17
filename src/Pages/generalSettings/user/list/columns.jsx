@@ -1,13 +1,11 @@
 import React from 'react'
 import * as Ant from 'antd'
-import { RiDeleteBin6Line } from 'react-icons/ri'
+import { RiDeleteBin6Line  } from 'react-icons/ri'
 import { FiEdit } from "react-icons/fi";
-import { GrPowerReset } from "react-icons/gr";
+import { VscKey } from "react-icons/vsc";
+import { TbInfoSquare } from "react-icons/tb";
 
-
-
-
-const columns = (onDelete, onEdit, onReset) => {
+const columns = (onDelete, onEdit, onReset,onInfo) => {
     return (
         [
             // {
@@ -63,6 +61,12 @@ const columns = (onDelete, onEdit, onReset) => {
                 className: "text-xs sm:text-sm",
                 render: (text, val) =>
                     <>
+                     <Ant.Button
+                            className="text-green-600"
+                            onClick={() => onInfo(val.id) }
+                            icon={<TbInfoSquare />}
+                            type="text"
+                        />
                         <Ant.Button
                             className="text-blue-600"
                             onClick={() => onEdit(val)}
@@ -70,9 +74,9 @@ const columns = (onDelete, onEdit, onReset) => {
                             type="text"
                         />
                         <Ant.Button
-                            className="text-green-600"
+                            className="text-orange-600"
                             onClick={() => onReset(val)}
-                            icon={<GrPowerReset />}
+                            icon={<VscKey />}
                             type="text"
                         />
                         <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>

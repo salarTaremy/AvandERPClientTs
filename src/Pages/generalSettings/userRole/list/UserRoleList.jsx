@@ -51,7 +51,7 @@ const UserRoleList = () => {
         if (listData?.isSuccess && listData?.data) {
             listData?.data.map((item) => {
                 if (item.userHasRole) {
-                    TmpSelected.push(item.roleId)
+                    TmpSelected.push(item.id)
                 }
             })
         }
@@ -122,6 +122,11 @@ const UserRoleList = () => {
         getRoleScopeWithRoles();
     };
 
+    const commonOptions = {
+        showSearch: true,
+        filterOption: (input, option) => option.userName.toLowerCase().indexOf(input.toLowerCase()) >= 0,
+    }
+
     //====================================================================
     //                        Child Components
     //====================================================================
@@ -147,7 +152,6 @@ const UserRoleList = () => {
                             ...rowSelection,
                         }}
                         {...defaultValues.TABLE_PROPS}
-                        rowKey={'roleId'}
                         title={title}
                         columns={columns()}
                         dataSource={dataSource}
@@ -171,7 +175,7 @@ const UserRoleList = () => {
                                 rules={[{ required: true }]}
                             >
                                 <Ant.Select
-                                    showSearch
+                                    {...commonOptions}
                                     onChange={handleOnChange}
                                     placeholder={"انتخاب کنید..."}
                                     disabled={userLoading || false}

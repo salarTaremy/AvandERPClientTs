@@ -15,6 +15,8 @@ import FormEditRole from "../edit/FormEditRole";
 import * as defaultValues from "@/defaultValues";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterPanel from "../list/FilterPanel";
+import RoleInfo from "../info/RoleInfo";
+
 
 function RoleManagement() {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -85,6 +87,19 @@ function RoleManagement() {
     );
     setModalState(true);
   };
+
+  const onInfo = (val) => {
+    setModalContent(
+      <RoleInfo
+        id={val.id}
+        myKey={val.id}
+        obj={val}
+      />
+    );
+    console.log('id', val.id)
+    setModalState(true);
+  }
+
   const onView = (id) => {
     console.log(id, "ooo");
     setModalState(true);
@@ -118,7 +133,7 @@ function RoleManagement() {
         <Ant.Skeleton loading={loadingData}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
-            columns={columns(onDelete, onEdit, onView)}
+            columns={columns(onDelete, onEdit, onView, onInfo)}
             dataSource={dataSource}
             title={title}
           />

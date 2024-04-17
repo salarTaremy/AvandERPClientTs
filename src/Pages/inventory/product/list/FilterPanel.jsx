@@ -74,43 +74,18 @@ const FilterPanel = (props) => {
             fieldNames={{ label: "name", value: "id" }}
           />
         </Ant.Form.Item>
-
-                <Ant.Form.Item name={'code'} label="کد">
-                    <Ant.Input allowClear />
-                </Ant.Form.Item>
-                <Ant.Form.Item name={'seccondCode'} label="کد دوم">
-                    <Ant.Input allowClear />
-                </Ant.Form.Item>
-                <Ant.Form.Item name={'name'} label="نام کالا">
-                    <Ant.Input allowClear />
-                </Ant.Form.Item>
-                <Ant.Form.Item name={'seccondName'} label="نام دوم کالا">
-                    <Ant.Input allowClear />
-                </Ant.Form.Item>
-                <Ant.Form.Item name={'brandId'} label="نام برند" valuePropName="checked">
-                    <Ant.Select
-                        {...commonOptions}
-                        mode="multiple"
-                        allowClear={true}
-                        placeholder={'انتخاب کنید...'}
-                        disabled={brandLoading || false}
-                        loading={brandLoading}
-                        options={brandData?.data}
-                        fieldNames={{ label: 'name', value: 'id' }}
-                    />
-                </Ant.Form.Item>
-                <Ant.Button
-                    block
-                    type="primary"
-                    onClick={() => {
-                        form.submit()
-                    }}
-                >
-                    {'اعمال'}
-                </Ant.Button>
-            </Ant.Form>
-        </>
-    )
+        <Ant.Button
+          block
+          type="primary"
+          onClick={() => {
+            form.submit()
+          }}
+        >
+          {'اعمال'}
+        </Ant.Button>
+      </Ant.Form>
+    </>
+  )
 }
 
 export default FilterPanel;

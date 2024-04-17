@@ -3,7 +3,8 @@ import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { GrView } from "react-icons/gr";
-const columns = (onDelete, onEdit, onView) => {
+import { TbInfoSquare } from "react-icons/tb";
+const columns = (onDelete, onEdit, onView, onInfo) => {
   return [
     // {
     //   title: "شناسه",
@@ -19,7 +20,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "name",
       key: "name",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -27,7 +28,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "persianTitle",
       key: "persianTitle",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -35,7 +36,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "roleScopePersianTitle",
       key: "roleScopePersianTitle",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
     },
 
     {
@@ -44,7 +45,7 @@ const columns = (onDelete, onEdit, onView) => {
       key: "isDenied",
       align: "center",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       render: (text, record, index) => (
         <Ant.Tag
           color={(record.isDenied == false && "green") || "red"}
@@ -62,17 +63,21 @@ const columns = (onDelete, onEdit, onView) => {
       width: 100,
       align: "center",
       fixed: "right",
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
-          <Ant.Space direction="horizontal" size={20}>
-            <Ant.Button
-              onClick={() => onEdit(val)}
-              className="text-blue-600"
-              icon={<FiEdit />}
-              type="text"
-            />
-          </Ant.Space>
+          <Ant.Button
+            className="text-green-600"
+            onClick={() => onInfo(val)}
+            icon={<TbInfoSquare />}
+            type="text"
+          />
+          <Ant.Button
+            onClick={() => onEdit(val)}
+            className="text-blue-600"
+            icon={<FiEdit />}
+            type="text"
+          />
           {/* <Ant.Button
             onClick={() => onView(val.id)}
             className="text-sky-600"
