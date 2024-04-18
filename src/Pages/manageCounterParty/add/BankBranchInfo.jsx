@@ -4,9 +4,11 @@ import * as url from "@/api/url";
 import { DeleteOutlined } from "@ant-design/icons";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
+import PropTypes from 'prop-types'
 import ButtonList from "@/components/common/ButtonList";
-const BankBranchInfo = () => {
-  const [form] = Ant.Form.useForm();
+const BankBranchInfo = (props) => {
+  const { form  } = props
+  // const [form] = Ant.Form.useForm();
   const [bankList, bankLoading, bankError] = useFetch(url.BANK);
   const [bankBranchList, bankBranchLoading, bankBranchError] = useFetch(
     url.BANKBRANCH,
@@ -23,11 +25,16 @@ const BankBranchInfo = () => {
     const newAddresses = bankBranchInfos.filter((address) => address.id !== id);
     setBankBranchInfos(newAddresses);
   };
+  const onFinish = async (values) => {
+
+    form.setFieldValue({...values})
+
+}
   return (
     <>
       <ButtonList onAdd={handleAdd} />
       {bankBranchInfos.map((bankBranch, index) => (
-        <Ant.Form form={form}>
+        <Ant.Form form={form} onFinish={onFinish}>
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
               <Ant.Form.Item
@@ -103,7 +110,7 @@ const BankBranchInfo = () => {
                 <Ant.Button
                   className="text-red-600"
                   type="text"
-                  onClick={() => handleDelete(addresses.id)}
+                  onClick={() => handleDelete(bankBranch.id)}
                   icon={<DeleteOutlined />}
                 />
               </Ant.Form.Item>
@@ -115,3 +122,7 @@ const BankBranchInfo = () => {
   );
 };
 export default BankBranchInfo;
+BankBranchInfo.propTypes = {
+  form: PropTypes.any,
+
+}

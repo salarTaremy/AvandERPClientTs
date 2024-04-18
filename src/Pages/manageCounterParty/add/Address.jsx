@@ -2,18 +2,20 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import { DeleteOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
+
 import ButtonList from "@/components/common/ButtonList";
-const Address = () => {
-  const [form] = Ant.Form.useForm();
+const Address = (props) => {
+  const { form } = props;
+  //   const [form] = Ant.Form.useForm();
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError] = useFetch(url.CITY);
   useRequestManager({ error: provinceError });
   useRequestManager({ error: cityError });
   const [addresses, setAddresses] = useState([{ id: 1 }]);
   const handleAdd = () => {
-
     const newId = addresses.length + 1;
     console.log(newId, "nnnnnn");
     setAddresses([...addresses, { id: newId }]);
@@ -22,11 +24,18 @@ const Address = () => {
     const newAddresses = addresses.filter((address) => address.id !== id);
     setAddresses(newAddresses);
   };
+
+  const onFormSubmit = (values) => {
+    alert("kkkk");
+    console.log(values, "valuesvalues");
+    form.setFieldValue({ ...values });
+  };
+
   return (
     <>
       <ButtonList onAdd={handleAdd} />
       {addresses.map((address, index) => (
-        <Ant.Form form={form}>
+        <Ant.Form form={form} onFinish={onFormSubmit}>
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
               <Ant.Form.Item
@@ -74,7 +83,7 @@ const Address = () => {
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
               <Ant.Form.Item
                 rules={[{ required: true }]}
-                name={"postalCode"}
+                name={"address"}
                 label="نشانی"
                 maxLength={10}
               >
@@ -82,7 +91,11 @@ const Address = () => {
               </Ant.Form.Item>
             </Ant.Col>
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
-              <Ant.Form.Item label={"آدرس اصلی"} rules={[{ required: true }]}>
+              <Ant.Form.Item
+                name={"isMainAddress"}
+                label={"آدرس اصلی"}
+                rules={[{ required: false }]}
+              >
                 <Ant.Switch />
                 <Ant.Button
                   onClick={() => handleDelete(address.id)}
@@ -99,3 +112,6 @@ const Address = () => {
   );
 };
 export default Address;
+Address.propTypes = {
+  form: PropTypes.any,
+};
