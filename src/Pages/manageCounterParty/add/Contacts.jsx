@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as Ant from "antd";
 import {
   DeleteOutlined,
@@ -8,7 +8,7 @@ import {
 import ButtonList from "@/components/common/ButtonList";
 import PropTypes from "prop-types";
 const Contacts = (props) => {
-  const { form } = props;
+  const { form ,sendDataToParent } = props;
   // const [form] = Ant.Form.useForm();
   const [contacts, setContactses] = useState([
     { phoneNumber: "", isMainPhoneNumber: false },
@@ -20,8 +20,8 @@ const Contacts = (props) => {
     setContactses([...contacts, { phoneNumber: "", isMainPhoneNumber: false }]);
   };
   const handleDelete = (id) => {
-    const newContacts = contacts.filter((contact) => contact.id !== id);
-    // setContactses(contacts.filter((_, i) => i !== index));
+    // const newContacts = contacts.filter((contact) => contact.id !== id);
+    setContactses(contacts.filter((_, i) => i !== id));
     setContactses(newContacts);
   };
 
@@ -37,34 +37,30 @@ const Contacts = (props) => {
     console.log(updatedTelephones, "updatedTelephones");
     setContactses(updatedTelephones);
 
-    const updatedValues = {};
-    updatedValues[`isMainPhoneNumber-${index}`] = checked;
-    form.setFieldsValue(updatedValues);
   };
-  const onFormSubmit = async (values) => {
-    console.log(values, "valuesvalues");
 
-    //  form.validateFields()
-    try {
-      await form.validateFields(); // This will trigger validation for all fields
-      // If validation passes, you can proceed with form submission
-      console.log("Form values:", values);
-    } catch (error) {
-      // If validation fails, you can handle errors here
-      console.error("Form validation failed:", error);
-    }
+  const ref = useRef();
+
+  const handleDataList = (event) => {
+    console.log(contacts, "kkkk");
+    sendDataToParent(contacts)
+    // ref.current.submit();
   };
 
   return (
     <>
       <ButtonList onAdd={handleAdd} />
       {contacts.map((contact, index) => (
-        <Ant.Form key={NodeIndexOutlined} onFinish={onFormSubmit} form={form}>
+        <Ant.Form
+          onBlur={handleDataList}
+          onFinish={null}
+          form={form}
+          key={index}
+        >
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col lg={8} md={24} sm={24} xs={24}>
               <Ant.Form.Item
                 rules={[{ required: true }]}
-                key={index}
                 name={`phoneNumber-${index}`}
                 label="شماره تماس"
               >
@@ -79,9 +75,10 @@ const Contacts = (props) => {
             <Ant.Col lg={2} md={24} sm={24} xs={24}></Ant.Col>
             <Ant.Col lg={12} md={24} sm={24} xs={24}>
               <Ant.Form.Item
-                key={index}
                 label={"شماره تماس اصلی"}
-                rules={[{ required: true }]}
+                name={"isMainPhoneNumber"}
+                rules={[{ required: false}]}
+                valuePropName="checked"
               >
                 <Ant.Switch
                   checked={contact.isMainPhoneNumber}
@@ -105,4 +102,5 @@ const Contacts = (props) => {
 export default Contacts;
 Contacts.propTypes = {
   form: PropTypes.any,
+  sendDataToParent:PropTypes.any
 };

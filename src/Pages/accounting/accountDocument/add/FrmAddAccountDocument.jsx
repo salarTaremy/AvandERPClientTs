@@ -55,7 +55,6 @@ export const FrmAddAccountDocument = () => {
       ),
       subNumber: valueHeader.subNumber,
     };
-
     const detailsList = [];
 
     for (let key in values) {

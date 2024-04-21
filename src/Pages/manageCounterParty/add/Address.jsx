@@ -8,40 +8,85 @@ import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
 
 import ButtonList from "@/components/common/ButtonList";
 const Address = (props) => {
-  const { form } = props;
+  const { form,sendDataToParent } = props;
   //   const [form] = Ant.Form.useForm();
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError] = useFetch(url.CITY);
   useRequestManager({ error: provinceError });
   useRequestManager({ error: cityError });
-  const [addresses, setAddresses] = useState([{ id: 1 }]);
+  const [addresses, setAddresses] = useState([
+    {
+      id: 1,
+      provinceId: null,
+      cityId: null,
+      postalCode: null,
+      address: null,
+      isMainAddress: false,
+    },
+  ]);
   const handleAdd = () => {
     const newId = addresses.length + 1;
     console.log(newId, "nnnnnn");
-    setAddresses([...addresses, { id: newId }]);
+    setAddresses([
+      ...addresses,
+      {
+        id: 1,
+        provinceId: null,
+        cityId: null,
+        postalCode: null,
+        address: null,
+        isMainAddress: false,
+      },
+    ]);
   };
   const handleDelete = (id) => {
     const newAddresses = addresses.filter((address) => address.id !== id);
     setAddresses(newAddresses);
   };
 
-  const onFormSubmit = (values) => {
-    alert("kkkk");
-    console.log(values, "valuesvalues");
-    form.setFieldValue({ ...values });
+  const handleChangeAddress = (value, index) => {
+    debugger;
+    const updatedAddress = [...addresses];
+    updatedAddress[index].address = value;
+    setAddresses(updatedAddress);
+  };
+  const handleChangePostalCode = (value, index) => {
+    const updatedPostalCode = [...addresses];
+    updatedPostalCode[index].postalCode = value;
+    setAddresses(updatedPostalCode);
+  };
+  const handleChangeCity = (value, index) => {
+    const updatedPostalCode = [...addresses];
+    updatedPostalCode[index].cityId = value;
+    setAddresses(updatedPostalCode);
+  };
+  const handleChangeProvince = (value, index) => {
+    const updatedPostalCode = [...addresses];
+    updatedPostalCode[index].provinceId = value;
+    setAddresses(updatedPostalCode);
+  };
+  const handleChangeIsMain = (checked, index) => {
+    const updatedAddress = [...addresses];
+    updatedAddress[index].isMainAddress = checked;
+    console.log(updatedAddress, "updatedAddress");
+    setAddresses(updatedAddress);
   };
 
+  const handleDataList = (event) => {
+    console.log(addresses, "adressss");
+    sendDataToParent(addresses);
+    // ref.current.submit();
+  };
   return (
     <>
       <ButtonList onAdd={handleAdd} />
       {addresses.map((address, index) => (
-        <Ant.Form form={form} onFinish={onFormSubmit}>
+        <Ant.Form key={index} onBlur={handleDataList} form={form} onFinish={null}>
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
               <Ant.Form.Item
-                key={address.id}
                 rules={[{ required: true }]}
-                name={"provinceId"}
+                name={`provinceId-${index}`}
                 label="استان"
               >
                 <Ant.Select
@@ -50,6 +95,7 @@ const Address = (props) => {
                   disabled={provinceLoading || false}
                   loading={provinceLoading}
                   options={provinceList?.data}
+                  onChange={(e) => handleChangeProvince(e, index)}
                   fieldNames={{ label: "name", value: "id" }}
                 />
               </Ant.Form.Item>
@@ -57,7 +103,7 @@ const Address = (props) => {
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
               <Ant.Form.Item
                 rules={[{ required: true }]}
-                name={"cityId"}
+                name={`cityId-${index}`}
                 label="شهر"
               >
                 <Ant.Select
@@ -65,6 +111,7 @@ const Address = (props) => {
                   placeholder={"انتخاب کنید..."}
                   disabled={cityLoading || false}
                   loading={cityLoading}
+                  onChange={(e) => handleChangeCity(e, index)}
                   options={cityList?.data}
                   fieldNames={{ label: "name", value: "id" }}
                 />
@@ -74,20 +121,30 @@ const Address = (props) => {
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
               <Ant.Form.Item
                 rules={[{ required: false }]}
-                name={"postalCode"}
+                name={`postalCode-${index}`}
                 label="کدپستی"
               >
-                <Ant.InputNumber maxLength={10} style={{ width: 200 }} />
+                <Ant.InputNumber
+                  value={address.postalCode}
+                  onChange={(e) =>
+                    handleChangePostalCode(e, index)
+                  }
+                  maxLength={10}
+                  style={{ width: 200 }}
+                />
               </Ant.Form.Item>
             </Ant.Col>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
               <Ant.Form.Item
                 rules={[{ required: true }]}
-                name={"address"}
+                name={`address-${index}`}
                 label="نشانی"
                 maxLength={10}
               >
-                <Ant.Input.TextArea />
+                <Ant.Input.TextArea
+                  value={address.address}
+                  onChange={(e) => handleChangeAddress(e.target.value, index)}
+                />
               </Ant.Form.Item>
             </Ant.Col>
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
@@ -96,7 +153,10 @@ const Address = (props) => {
                 label={"آدرس اصلی"}
                 rules={[{ required: false }]}
               >
-                <Ant.Switch />
+                <Ant.Switch
+                  checked={address.isMainAddress}
+                  onChange={(checked) => handleChangeIsMain(checked, index)}
+                />
                 <Ant.Button
                   onClick={() => handleDelete(address.id)}
                   className="text-red-600"
@@ -114,4 +174,5 @@ const Address = (props) => {
 export default Address;
 Address.propTypes = {
   form: PropTypes.any,
+  sendDataToParent:PropTypes.any
 };
