@@ -3,9 +3,10 @@ import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { GrView } from "react-icons/gr";
-import { TbInfoSquare } from "react-icons/tb";
-import { AiOutlineInteraction } from "react-icons/ai";
+import { VscGithubAction } from "react-icons/vsc";
+import { LuUser2 } from "react-icons/lu";
 import { AiOutlineMenu } from "react-icons/ai";
+
 
 
 const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
@@ -72,35 +73,35 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
         <>
           <Ant.Tooltip placement="top" title={'عملیات'}>
             <Ant.Button
-              className="text-purple-600"
+              className="text-green-600"
               onClick={() => onAction(val)}
-              icon={<AiOutlineInteraction />}
+              icon={<VscGithubAction />}
               type="text"
             />
           </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={'منو'}>
-          <Ant.Button
-            className="text-orange-600"
-            onClick={() => onMenu(val)}
-            icon={<AiOutlineMenu />}
-            type="text"
-          />
+          <Ant.Tooltip placement="top" title={'دسترسی منو'}>
+            <Ant.Button
+              className="text-orange-600"
+              onClick={() => onMenu(val)}
+              icon={<AiOutlineMenu />}
+              type="text"
+            />
           </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={'اطلاعات'}>
-          <Ant.Button
-            className="text-green-600"
-            onClick={() => onInfo(val)}
-            icon={<TbInfoSquare />}
-            type="text"
-          />
+          <Ant.Tooltip placement="top" title={'لیست کاربران'}>
+            <Ant.Button
+              className="text-purple-600"
+              onClick={() => onInfo(val)}
+              icon={<LuUser2 />}
+              type="text"
+            />
           </Ant.Tooltip>
           <Ant.Tooltip placement="top" title={'ویرایش'}>
-          <Ant.Button
-            onClick={() => onEdit(val)}
-            className="text-blue-600"
-            icon={<FiEdit />}
-            type="text"
-          />
+            <Ant.Button
+              onClick={() => onEdit(val)}
+              className="text-blue-600"
+              icon={<FiEdit />}
+              type="text"
+            />
           </Ant.Tooltip>
           {/* <Ant.Button
             onClick={() => onView(val.id)}
@@ -113,11 +114,11 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
             title={` برای حذف نقش  "${val.name}" مطمئن هستید؟`}
           >
             <Ant.Tooltip placement="top" title={'حذف'}>
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                type="text"
+              />
             </Ant.Tooltip>
           </Ant.Popconfirm>
         </>

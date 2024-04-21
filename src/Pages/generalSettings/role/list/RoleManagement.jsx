@@ -93,7 +93,7 @@ function RoleManagement() {
   const onInfo = (val) => {
     setModalContent(
       <RoleInfo
-        id={val.id}
+        roleId={val.id}
         myKey={val.id}
         obj={val}
       />

@@ -3,7 +3,8 @@ import * as Ant from 'antd'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { FiEdit } from "react-icons/fi";
 import { VscKey } from "react-icons/vsc";
-import { TbInfoSquare } from "react-icons/tb";
+import { VscGithubAction } from "react-icons/vsc";
+
 
 const columns = (onDelete, onEdit, onReset, onInfo) => {
     return (
@@ -61,11 +62,12 @@ const columns = (onDelete, onEdit, onReset, onInfo) => {
                 className: "text-xs sm:text-sm",
                 render: (text, val) => (
                     <>
-                        <Ant.Tooltip placement="top" title={'اطلاعات'}>
+                        <Ant.Tooltip placement="top" title={'لیست نقش ها'}>
                             <Ant.Button
                                 className="text-green-600"
                                 onClick={() => onInfo(val.id)}
-                                icon={<TbInfoSquare />}
+                                icon={<VscGithubAction />
+                            }
                                 type="text"
                             />
                         </Ant.Tooltip>
