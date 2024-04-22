@@ -93,7 +93,7 @@ const Contacts = (props) => {
               </Ant.Form.Item>
             </Ant.Col>
           </Ant.Row>
-      </Ant.Form>
+        </Ant.Form>
       ))}
       <ButtonList onAdd={handleAdd} />
     </>

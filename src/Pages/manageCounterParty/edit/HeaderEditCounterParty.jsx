@@ -6,7 +6,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import * as url from "@/api/url";
 import PropTypes from "prop-types";
 import { useFetch } from "@/api";
-const HeaderAddCounterParty = (props) => {
+const HeaderEditCounterParty = (props) => {
   const { form } = props;
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
@@ -21,13 +21,10 @@ const HeaderAddCounterParty = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    form.resetFields();
-  }, [form]);
+
   //====================================================================
   //                        Functions
   //=================================================================
-
 
   const handleSelectChange = (value) => {
     setSelectedValueType(value);
@@ -42,8 +39,8 @@ const HeaderAddCounterParty = (props) => {
   //====================================================================
   return (
     <div>
-      <Ant.Form form={form} layout="vertical" onFinish Failed={null}>
-        <Ant.Row gutter={[16, 8]}>
+      <Ant.Form form={form} layout="vertical" Failed={null}>
+        <Ant.Row gutter={[24, 48]}>
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
@@ -61,7 +58,15 @@ const HeaderAddCounterParty = (props) => {
               />
             </Ant.Form.Item>
           </Ant.Col>
-
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              rules={[{ required: true }]}
+              name={"code"}
+              label="کد"
+            >
+              <Ant.Input min={0} style={{ width: "100%" }} />
+            </Ant.Form.Item>
+          </Ant.Col>
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
@@ -81,7 +86,6 @@ const HeaderAddCounterParty = (props) => {
               <Ant.Input />
             </Ant.Form.Item>
           </Ant.Col>
-
           <Ant.Col
             className={selectedValueType === 2 ? "hidden" : ""}
             lg={8}
@@ -97,15 +101,7 @@ const HeaderAddCounterParty = (props) => {
               <Ant.Input />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col lg={8} md={12} sm={12} xs={24}>
-            <Ant.Form.Item
-              rules={[{ required: true }]}
-              name={"code"}
-              label="کد"
-            >
-              <Ant.Input min={0} style={{ width: "100%" }} />
-            </Ant.Form.Item>
-          </Ant.Col>
+
           <Ant.Col
             className={selectedValueType === 2 ? "hidden" : ""}
             lg={8}
@@ -170,7 +166,7 @@ const HeaderAddCounterParty = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
 
-
+          <>
             <Ant.Col
               className={selectedValueType === 2 ? "" : "hidden"}
               lg={8}
@@ -266,7 +262,7 @@ const HeaderAddCounterParty = (props) => {
                 <Ant.InputNumber min={0} style={{ width: "100%" }} />
               </Ant.Form.Item>
             </Ant.Col>
-
+          </>
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"longitude"}
@@ -305,7 +301,7 @@ const HeaderAddCounterParty = (props) => {
     </div>
   );
 };
-export default HeaderAddCounterParty;
-HeaderAddCounterParty.propTypes = {
+export default HeaderEditCounterParty;
+HeaderEditCounterParty.propTypes = {
   form: PropTypes.any,
 };

@@ -107,10 +107,12 @@ const CounterPartyList = () => {
   //                        Events
   //====================================================================
   const onEdit = (val) => {
+    // alert("ff")
     setModalContent(
-      <FormEditCounterParty />,
+      navigate("/manage/counterparty/edit")
+      // <FormEditCounterParty />,
     );
-    setModalState(true);
+    // setModalState(true);
   };
   //====================================================================
   //                        Child Components
