@@ -18,24 +18,7 @@ const columns = (onChange) => {
             width: 100,
             className: "text-xs sm:text-sm",
         },
-        {
-            title: "دسترسی",
-            dataIndex: "userHasRole",
-            key: "userHasRole",
-            width: 100,
-            align: "center",
-            className: "text-xs sm:text-sm",
-            render: (record, userId) => (
-                <Ant.Switch
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
-                    key={record.id}
-                    defaultValue={userId.userHasRole == true}
-                    onChange={() => { onChange(userId.roleId) }}
-                />
-            )
 
-        }
     ]
 }
 

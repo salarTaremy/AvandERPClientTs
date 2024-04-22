@@ -89,6 +89,10 @@ export const BRANCH = '/Branch'
 //Role
 export const ROLE = '/Role'
 export const ROLE_UPDATE_ROLE_USER_ASSIGNMENT = 'Role/UpdateRoleUserAssignment'
+export const ROLE_GET_USERS_OF_ROLE = 'Role/GetUsersOfRole'
+export const ROLE_GET_ACTIONS_RELATED_TO_ROLE = 'Role/GetActionsRelatedToRole'
+export const ROLE_GET_NAV_MENU_RELATED_TO_ROLE = 'Role/GetNavMenuRelatedToRole'
+export const ROLE_REMOVE_ROLE_AASSIGNMENT_FROM_USER = 'Role/RemoveRoleAassignmentFromUser'
 
 //RoleScope
 export const ROLE_SCOPE = '/RoleScope'
