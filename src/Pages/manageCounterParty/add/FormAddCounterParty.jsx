@@ -56,7 +56,7 @@ const FormAddCounterParty = () => {
     setDataFromChildBankBranchInfo(newData);
   };
 
-  const form.submit = async () => {
+  const onFinish = async () => {
     const list = form.getFieldsValue();
 
     console.log(list, "list222");
@@ -126,7 +126,7 @@ const FormAddCounterParty = () => {
         title={"ایجاد طرف حساب"}
         type="inner"
       >
-        {/* <Ant.Form onFinish={onFinish}> */}
+        <Ant.Form onFinish={onFinish}>
           <HeaderAddCounterParty form={form} />
           <Ant.Flex className="items-end " vertical>
             <Ant.Button
@@ -140,7 +140,7 @@ const FormAddCounterParty = () => {
               {"تایید"}
             </Ant.Button>
           </Ant.Flex>
-        {/* </Ant.Form> */}
+        </Ant.Form>
         <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
           <TabPane tab="اطلاعات تماس " key="1">
             <Contacts form={form} sendDataToParent={updateDataContacts} />
