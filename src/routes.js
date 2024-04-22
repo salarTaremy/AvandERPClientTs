@@ -48,6 +48,8 @@ import PaymentType from './Pages/salesCommerce/basicInformation/paymentType/list
 import Currency from './Pages/salesCommerce/basicInformation/currency/list/CurrencyList'
 import DeliveryType from './Pages/salesCommerce/basicInformation/deliveryType/list/DeliveryTypeList'
 import SaleDocumentType from './Pages/salesCommerce/basicInformation/saleDocumentType/list/SaleDocumentTypeList'
+import CustomerGroup from './Pages/salesCommerce/basicInformation/customerGroup/list/CustomerGroupList'
+import CustomerType from './Pages/salesCommerce/basicInformation/customerType/CustomerType'
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
@@ -59,6 +61,7 @@ import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
 import Login from './Pages/login/Login'
 import { SALETYPE } from './api/url'
+
 
 
 
@@ -99,6 +102,8 @@ const routes = [
   { path: 'sale/deliveryType', name: 'ارزها', element: DeliveryType },
   { path: 'sale/documentType', name: 'نوع برگه فروش', element: SaleDocumentType },
   { path: 'sale/type', name: 'نوع  فروش', element: SaleType },
+  { path: 'sale/customerGroup', name: 'گروه مشتری', element: CustomerGroup },
+  { path: 'sale/customerType', name: 'نوع مشتری', element: CustomerType },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
