@@ -152,3 +152,8 @@ export const BANK='/Bank'
 
 //Bank
 export const BANKBRANCH='/BankBranch'
+//CustomerGroup
+export const CUSTOMER_GROUP='CustomerGroup'
+
+// CustomerType
+export const CUSTOMER_TYPE= 'CustomerType'
