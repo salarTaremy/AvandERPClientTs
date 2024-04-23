@@ -66,6 +66,7 @@ const FormAddCounterParty = () => {
       .replace(/\//g, "");
 
     console.log(newBirthDateCalendarId, "newBirthDateCalendarId");
+
     const data = {
       counterpartyTypeId: list?.counterpartyTypeId,
       code: list.code === undefined ? null : list.code,
@@ -112,6 +113,7 @@ const FormAddCounterParty = () => {
         ? dataFromChildBankBranchInfo
         : Array(0),
     };
+
     console.log(data, "sssss");
     await addApiCall(url.COUNTER_PARTY, data);
   };
