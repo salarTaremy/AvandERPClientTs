@@ -150,8 +150,10 @@ export const CITY='/City'
 //Bank
 export const BANK='/Bank'
 
-//Bank
+//BankBranch
 export const BANKBRANCH='/BankBranch'
+//BankBranchGetForDropdown
+export const BANKBRANCH_GetFORDROPDOWN='/BankBranch/GetForDropdown'
 //CustomerGroup
 export const CUSTOMER_GROUP='CustomerGroup'
 

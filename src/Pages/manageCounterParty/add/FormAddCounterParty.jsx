@@ -43,6 +43,19 @@ const FormAddCounterParty = () => {
   const onChange = (key) => {
     console.log(key);
   };
+
+  // const handleSubmit = async (contact, address, bankbranch) => {
+  //   alert("jjjjjj")
+  //   debugger
+  //   console.log("contact", contact);
+  //   console.log("address", address);
+  //   console.log("bankbranch", bankbranch);
+
+  //   setDataFromChildContact(contact);
+  //   setDataFromChildAddress(address);
+  //   setDataFromChildBankBranchInfo(bankbranch);
+
+  // };
   const updateDataContacts = (newData) => {
     console.log("contactds", newData);
     setDataFromChildContact(newData);
@@ -56,7 +69,10 @@ const FormAddCounterParty = () => {
     setDataFromChildBankBranchInfo(newData);
   };
 
-  const onFinish = async () => {
+  const submitData = async () => {
+    alert("gggggg")
+    debugger
+
     const list = form.getFieldsValue();
 
     console.log(list, "list222");
@@ -128,21 +144,19 @@ const FormAddCounterParty = () => {
         title={"ایجاد طرف حساب"}
         type="inner"
       >
-        <Ant.Form onFinish={onFinish}>
-          <HeaderAddCounterParty form={form} />
-          <Ant.Flex className="items-end " vertical>
-            <Ant.Button
-              className="px-6"
-              type="primary"
-              htmlType="submit"
-              onClick={() => {
-                form.submit();
-              }}
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Flex>
-        </Ant.Form>
+        {/* <Ant.Form onFinish={onFinish}> */}
+        <HeaderAddCounterParty form={form} />
+        <Ant.Flex className="items-end " vertical>
+          <Ant.Button
+            className="px-6"
+            type="primary"
+            htmlType="submit"
+            onClick={submitData}
+          >
+            {"تایید"}
+          </Ant.Button>
+        </Ant.Flex>
+        {/* </Ant.Form> */}
         <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
           <TabPane tab="اطلاعات تماس " key="1">
             <Contacts form={form} sendDataToParent={updateDataContacts} />
@@ -151,10 +165,7 @@ const FormAddCounterParty = () => {
             <Address sendDataToParent={updateDataAddress} form={form} />
           </TabPane>
           <TabPane tab="اطلاعات حساب بانکی" key="3">
-            <BankBranchInfo
-              sendDataToParent={updateBankBranchInfo}
-              form={form}
-            />
+            <BankBranchInfo sendDataToParent={updateBankBranchInfo} form={form} />
           </TabPane>
         </Ant.Tabs>
       </Ant.Card>

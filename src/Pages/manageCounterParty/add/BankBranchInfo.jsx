@@ -10,16 +10,14 @@ const BankBranchInfo = (props) => {
   const { form, sendDataToParent } = props;
   // const [form] = Ant.Form.useForm();
   const [bankList, bankLoading, bankError] = useFetch(url.BANK);
-  const [bankBranchList, bankBranchLoading, bankBranchError] = useFetch(
-    url.BANKBRANCH,
-  );
+  const [bankBranchList, bankBranchLoading, bankBranchError, bankBranchApi] =
+    useFetchWithHandler();
   useRequestManager({ error: bankError });
   useRequestManager({ error: bankBranchError });
   const [bankBranchInfos, setBankBranchInfos] = useState([
     {
       id: 1,
       bankBranchId: null,
-      cityId: null,
       accountHolder: null,
       accountNumber: null,
       cardNumber: null,
@@ -49,16 +47,21 @@ const BankBranchInfo = (props) => {
     setBankBranchInfos(newBranchInfo);
   };
 
-  const handleChangeBank = (value, index) => {
-    const updatedBank = [...bankBranchInfos];
-    updatedBank[index].bankBranchId = value;
-    setBankBranchInfos(updatedBank);
+  const handleChangeBank = async (value, index) => {
+    console.log(value, "valuevaluebank");
+debugger
+    await bankBranchApi(`${url.BANKBRANCH_GetFORDROPDOWN}/${value}`);
+    // const updatedBank = [...bankBranchInfos];
+
+    // setBankBranchInfos(updatedBank);
   };
-  const handleChangeCity = (value, index) => {
+
+  const handleChangeBankBranch = (value, index) => {
     const updatedBranchInfos = [...bankBranchInfos];
-    updatedBranchInfos[index].cityId = value;
+    updatedBranchInfos[index].bankBranchId = value;
     setBankBranchInfos(updatedBranchInfos);
   };
+
   const handleChangeAccountHolder = (value, index) => {
     const updatedBranchInfos = [...bankBranchInfos];
     updatedBranchInfos[index].accountHolder = value;
@@ -85,20 +88,19 @@ const BankBranchInfo = (props) => {
   };
   return (
     <>
-      {bankBranchInfos.map((bankBranch, index) => (
-        <Ant.Form
+      <Ant.Form
         layout="vertical"
-          key={index}
-          onBlur={handleDataList}
-          form={form}
-          onFinish={null}
-        >
+        onKeyUp={handleDataList}
+        form={form}
+        onFinish={null}
+      >
+        {bankBranchInfos.map((bankBranch, index) => (
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
               <Ant.Form.Item
                 key={bankBranch.id}
                 rules={[{ required: true }]}
-                name={`bankBranchId-${index}`}
+                name={`bank-${index}`}
                 label="بانک"
               >
                 <Ant.Select
@@ -115,17 +117,17 @@ const BankBranchInfo = (props) => {
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
               <Ant.Form.Item
                 rules={[{ required: true }]}
-                name={`cityId-${index}`}
+                name={`bankBranchId-${index}`}
                 label="شعبه"
               >
                 <Ant.Select
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disabled={bankBranchLoading || false}
-                  onChange={(e) => handleChangeCity(e, index)}
+                  onChange={(e) => handleChangeBankBranch(e, index)}
                   loading={bankBranchLoading}
                   options={bankBranchList?.data}
-                  fieldNames={{ label: "bankTitle", value: "id" }}
+                  fieldNames={{ label: "title", value: "id" }}
                 />
               </Ant.Form.Item>
             </Ant.Col>
@@ -200,9 +202,9 @@ const BankBranchInfo = (props) => {
               />
             </Ant.Col>
           </Ant.Row>
-        </Ant.Form>
-      ))}
-      <ButtonList onAdd={handleAdd} />
+        ))}
+        <ButtonList onAdd={handleAdd} />
+      </Ant.Form>
     </>
   );
 };
