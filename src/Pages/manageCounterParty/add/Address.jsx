@@ -56,17 +56,20 @@ const Address = (props) => {
     updatedPostalCode[index].postalCode = value;
     setAddresses(updatedPostalCode);
     sendDataToParent(updatedPostalCode)
+
   };
   const handleChangeCity = (value, index) => {
     const updatedCity = [...addresses];
     updatedCity[index].cityId = value;
     setAddresses(updatedCity);
+
     sendDataToParent(updatedCity)
   };
   const handleChangeProvince = (value, index) => {
     const updatedProvince = [...addresses];
     updatedProvince[index].provinceId = value;
     setAddresses(updatedProvince);
+    sendDataToParent(updatedProvince)
     sendDataToParent(updatedProvince)
   };
   const handleChangeIsMain = (checked, index) => {
@@ -75,6 +78,7 @@ const Address = (props) => {
     console.log(updatedIsMain, "updatedAddress");
     setAddresses(updatedIsMain);
     sendDataToParent(updatedIsMain)
+    sendDataToParent(updatedIsMain)
   };
 
   const handleDataList = () => {
@@ -82,12 +86,12 @@ const Address = (props) => {
   };
   return (
     <>
-      <Ant.Form
+      {/* <Ant.Form
         layout="vertical"
         onKeyUp={handleDataList}
         form={form}
         onFinish={null}
-      >
+      > */}
         {addresses.map((address, index) => (
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
@@ -133,7 +137,8 @@ const Address = (props) => {
               >
                 <Ant.InputNumber
                   value={address.postalCode}
-                  onChange={(e) => handleChangePostalCode(e, index)}
+                  onChange={(e) =>
+                    (e, index)}
                   maxLength={10}
                   style={{ width: 200 }}
                 />
@@ -173,7 +178,7 @@ const Address = (props) => {
           </Ant.Row>
         ))}
         <ButtonList onAdd={handleAdd} />
-      </Ant.Form>
+      {/* </Ant.Form> */}
     </>
   );
 };

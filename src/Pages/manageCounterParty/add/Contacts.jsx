@@ -32,13 +32,15 @@ const Contacts = (props) => {
     const updatedTelephones = [...contacts];
     updatedTelephones[index].phoneNumber = value;
     setContactses(updatedTelephones);
+    sendDataToParent(updatedTelephones)
   };
 
   const handleChangeIsMain = (checked, index) => {
-    const updatedTelephones = [...contacts];
-    updatedTelephones[index].isMainPhoneNumber = checked;
+    const updatedIsMain= [...contacts];
+    updatedIsMain[index].isMainPhoneNumber = checked;
     // console.log(updatedTelephones, "updatedTelephones");
-    setContactses(updatedTelephones);
+    setContactses(updatedIsMain);
+    sendDataToParent(updatedIsMain)
   };
 
   const ref = useRef();
@@ -51,17 +53,21 @@ const Contacts = (props) => {
 
   return (
     <>
-      <Ant.Form
+      {/* <Ant.Form
         layout="vertical"
         onKeyUp={handleDataList}
         onFinish={null}
         form={form}
-      >
+      > */}
         {contacts.map((contact, index) => (
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={24} sm={24} xs={24}>
               <Ant.Form.Item
-                rules={[{ required: true }]}
+                rules={[{ required: true,
+
+                  message:
+                  'لطفا شماره تماس را درست وارد کنید',
+                 }]}
                 name={`phoneNumber-${index}`}
                 label="شماره تماس"
               >
@@ -97,7 +103,7 @@ const Contacts = (props) => {
           </Ant.Row>
         ))}
         <ButtonList onAdd={handleAdd} />
-      </Ant.Form>
+      {/* </Ant.Form> */}
     </>
   );
 };

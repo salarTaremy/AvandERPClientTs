@@ -18,8 +18,10 @@ const FormAddCounterParty = () => {
   const [selectedValueType, setSelectedValueType] = useState("");
   useRequestManager({ error: counterpartyTypeError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
+
   const [form] = Ant.Form.useForm();
   const { TabPane } = Ant.Tabs;
+  const [dataFromHeaderList, setDataFromHeaderList] = useState("");
   const [dataFromChildContact, setDataFromChildContact] = useState("");
   const [dataFromChildAddress, setDataFromChildAddress] = useState("");
   const [dataFromChildBankBranchInfo, setDataFromChildBankBranchInfo] =
@@ -32,10 +34,6 @@ const FormAddCounterParty = () => {
     form.resetFields();
   }, [form]);
 
-  useEffect(() => {
-    const list = form.getFieldsValue();
-    console.log(list, "list");
-  }, []);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -68,61 +66,68 @@ const FormAddCounterParty = () => {
     console.log("bank", newData);
     setDataFromChildBankBranchInfo(newData);
   };
+  // const updateHeader = (fieldName, value) => {
+  //   console.log("fieldNameHEADER", fieldName);
+  //   console.log("valueHEADER", value);
+  //   setDataFromHeaderList(newData);
+  // };
 
-  const submitData = async () => {
-    alert("gggggg")
-    debugger
+  const onFinish = async (value) => {
+    console.log(value,"value")
+    alert("gggggg");
+    debugger;
 
     const list = form.getFieldsValue();
 
-    console.log(list, "list222");
-    debugger;
-    let newBirthDateCalendarId = list?.birthDateCalendarId
+    // console.log(list, "list222");
+    // console.log(dataFromHeaderList,"jjjjj")
+
+    let newBirthDateCalendarId = value?.birthDateCalendarId
       ?.toString()
       .replace(/\//g, "");
 
     console.log(newBirthDateCalendarId, "newBirthDateCalendarId");
 
     const data = {
-      counterpartyTypeId: list?.counterpartyTypeId,
-      code: list.code === undefined ? null : list.code,
-      firstName: list.firstName === undefined ? null : list.firstName,
-      lastName: list.lastName === undefined ? null : list.lastName,
-      fatherName: list.fatherName === undefined ? null : list.fatherName,
+      counterpartyTypeId: value?.counterpartyTypeId,
+      code: value.code === undefined ? null : value.code,
+      firstName: value.firstName === undefined ? null : value.firstName,
+      lastName: value.lastName === undefined ? null : value.lastName,
+      fatherName: value.fatherName === undefined ? null : value.fatherName,
       nationalCode: String(
-        list.nationalCode === undefined ? null : list.nationalCode,
+        value.nationalCode === undefined ? null : value.nationalCode,
       ),
       birthDateCalendarId: parseInt(
         newBirthDateCalendarId ? newBirthDateCalendarId : null,
       ),
       birthCertificateNumber:
-        list.birthCertificateNumber === undefined
+      value.birthCertificateNumber === undefined
           ? null
-          : list.birthCertificateNumber,
+          : value.birthCertificateNumber,
       birthCertificatePlaceOfIssueCityId:
-        list.birthCertificatePlaceOfIssueCityId === undefined
+      value.birthCertificatePlaceOfIssueCityId === undefined
           ? null
-          : list.birthCertificatePlaceOfIssueCityId,
-      companyTitle: list.companyTitle === undefined ? null : list.companyTitle,
+          : value.birthCertificatePlaceOfIssueCityId,
+      companyTitle: value.companyTitle === undefined ? null : value.companyTitle,
       companyRegistrationNumber:
-        list.companyRegistrationNumber === undefined
+      value.companyRegistrationNumber === undefined
           ? null
-          : list.companyRegistrationNumber,
+          : value.companyRegistrationNumber,
       companyRegistrationPlaceCityId:
-        list.companyRegistrationPlaceCityId === undefined
+      value.companyRegistrationPlaceCityId === undefined
           ? null
-          : list.companyRegistrationPlaceCityId,
+          : value.companyRegistrationPlaceCityId,
       legalEntityIdentity:
-        list.legalEntityIdentity === undefined
+      value.legalEntityIdentity === undefined
           ? null
-          : list.legalEntityIdentity,
-      economicCode: list.economicCode == undefined ? null : list.economicCode,
+          : value.legalEntityIdentity,
+      economicCode: value.economicCode == undefined ? null : value.economicCode,
       nationalIdentity:
-        list.nationalIdentity === undefined ? null : list.nationalIdentity,
-      email: list.email === undefined ? null : list.email,
-      isActive: list.isActive === undefined ? true : list.isActive,
-      longitude: list?.longitude,
-      latitude: list?.latitude,
+      value.nationalIdentity === undefined ? null : value.nationalIdentity,
+      email: value.email === undefined ? null : value.email,
+      isActive: value.isActive === undefined ? true : value.isActive,
+      longitude: value?.longitude,
+      latitude: value?.latitude,
       addressList: dataFromChildAddress ? dataFromChildAddress : Array(0),
       phoneNumberList: dataFromChildContact ? dataFromChildContact : Array(0),
       bankAccountList: dataFromChildBankBranchInfo
@@ -144,30 +149,36 @@ const FormAddCounterParty = () => {
         title={"ایجاد طرف حساب"}
         type="inner"
       >
-        {/* <Ant.Form onFinish={onFinish}> */}
-        <HeaderAddCounterParty form={form} />
-        <Ant.Flex className="items-end " vertical>
-          <Ant.Button
-            className="px-6"
-            type="primary"
-            htmlType="submit"
-            onClick={submitData}
-          >
-            {"تایید"}
-          </Ant.Button>
-        </Ant.Flex>
-        {/* </Ant.Form> */}
-        <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
-          <TabPane tab="اطلاعات تماس " key="1">
-            <Contacts form={form} sendDataToParent={updateDataContacts} />
-          </TabPane>
-          <TabPane tab="آدرس" key="2">
-            <Address sendDataToParent={updateDataAddress} form={form} />
-          </TabPane>
-          <TabPane tab="اطلاعات حساب بانکی" key="3">
-            <BankBranchInfo sendDataToParent={updateBankBranchInfo} form={form} />
-          </TabPane>
-        </Ant.Tabs>
+        <Ant.Form layout="vertical" onFinish={onFinish}>
+          <HeaderAddCounterParty />
+          <Ant.Flex className="items-end " vertical>
+            <Ant.Button
+              className="px-6"
+              type="primary"
+              htmlType="submit"
+              onClick={() => {
+                form.submit()
+            }}
+            >
+              {"تایید"}
+            </Ant.Button>
+          </Ant.Flex>
+
+          <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
+            <TabPane tab="اطلاعات تماس " key="1">
+              <Contacts form={form} sendDataToParent={updateDataContacts} />
+            </TabPane>
+            <TabPane tab="آدرس" key="2">
+              <Address sendDataToParent={updateDataAddress} form={form} />
+            </TabPane>
+            <TabPane tab="اطلاعات حساب بانکی" key="3">
+              <BankBranchInfo
+                sendDataToParent={updateBankBranchInfo}
+                form={form}
+              />
+            </TabPane>
+          </Ant.Tabs>
+        </Ant.Form>
       </Ant.Card>
     </div>
   );

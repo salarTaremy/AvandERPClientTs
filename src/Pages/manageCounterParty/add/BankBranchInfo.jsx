@@ -60,27 +60,32 @@ debugger
     const updatedBranchInfos = [...bankBranchInfos];
     updatedBranchInfos[index].bankBranchId = value;
     setBankBranchInfos(updatedBranchInfos);
+    sendDataToParent(updatedBranchInfos);
   };
 
   const handleChangeAccountHolder = (value, index) => {
     const updatedBranchInfos = [...bankBranchInfos];
     updatedBranchInfos[index].accountHolder = value;
     setBankBranchInfos(updatedBranchInfos);
+    sendDataToParent(updatedBranchInfos);
   };
   const handleChangeAccountNumber = (value, index) => {
     const updatedAccountNumber = [...bankBranchInfos];
     updatedAccountNumber[index].accountNumber = value;
     setBankBranchInfos(updatedAccountNumber);
+    sendDataToParent(updatedAccountNumber);
   };
   const handleChangeCardNumber = (value, index) => {
     const updatedCardNumber = [...bankBranchInfos];
     updatedCardNumber[index].cardNumber = value;
     setBankBranchInfos(updatedCardNumber);
+    sendDataToParent(updatedCardNumber);
   };
   const handleChangeShebaNumber = (value, index) => {
     const updatedShebaNumber = [...bankBranchInfos];
     updatedShebaNumber[index].shebaNumber = value;
     setBankBranchInfos(updatedShebaNumber);
+    sendDataToParent(updatedShebaNumber);
   };
   const handleDataList = (event) => {
     console.log(bankBranchInfos, "bankBranchInfos");
@@ -88,12 +93,12 @@ debugger
   };
   return (
     <>
-      <Ant.Form
+      {/* <Ant.Form
         layout="vertical"
         onKeyUp={handleDataList}
         form={form}
         onFinish={null}
-      >
+      > */}
         {bankBranchInfos.map((bankBranch, index) => (
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -204,7 +209,7 @@ debugger
           </Ant.Row>
         ))}
         <ButtonList onAdd={handleAdd} />
-      </Ant.Form>
+      {/* </Ant.Form> */}
     </>
   );
 };
