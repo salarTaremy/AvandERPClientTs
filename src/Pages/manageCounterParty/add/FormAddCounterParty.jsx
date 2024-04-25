@@ -19,20 +19,17 @@ const FormAddCounterParty = () => {
   useRequestManager({ error: counterpartyTypeError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
 
-  const [form] = Ant.Form.useForm();
   const { TabPane } = Ant.Tabs;
   const [dataFromHeaderList, setDataFromHeaderList] = useState("");
   const [dataFromChildContact, setDataFromChildContact] = useState("");
   const [dataFromChildAddress, setDataFromChildAddress] = useState("");
   const [dataFromChildBankBranchInfo, setDataFromChildBankBranchInfo] =
     useState("");
+  const [form] = Ant.Form.useForm();
 
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    form.resetFields();
-  }, [form]);
 
   //====================================================================
   //                        Functions
@@ -54,40 +51,19 @@ const FormAddCounterParty = () => {
   //   setDataFromChildBankBranchInfo(bankbranch);
 
   // };
-  const updateDataContacts = (newData) => {
-    console.log("contactds", newData);
-    setDataFromChildContact(newData);
-  };
-  const updateDataAddress = (newData) => {
-    console.log("Address", newData);
-    setDataFromChildAddress(newData);
-  };
-  const updateBankBranchInfo = (newData) => {
-    console.log("bank", newData);
-    setDataFromChildBankBranchInfo(newData);
-  };
-  // const updateHeader = (fieldName, value) => {
-  //   console.log("fieldNameHEADER", fieldName);
-  //   console.log("valueHEADER", value);
-  //   setDataFromHeaderList(newData);
-  // };
+;
 
   const onFinish = async (value) => {
-    console.log(value,"value")
     alert("gggggg");
-    debugger;
+    console.log(value, "value");
 
-    const list = form.getFieldsValue();
-
-    // console.log(list, "list222");
-    // console.log(dataFromHeaderList,"jjjjj")
 
     let newBirthDateCalendarId = value?.birthDateCalendarId
       ?.toString()
       .replace(/\//g, "");
 
     console.log(newBirthDateCalendarId, "newBirthDateCalendarId");
-
+    // const data = { ...value, birthDateCalendarId: newBirthDateCalendarId };
     const data = {
       counterpartyTypeId: value?.counterpartyTypeId,
       code: value.code === undefined ? null : value.code,
@@ -101,37 +77,38 @@ const FormAddCounterParty = () => {
         newBirthDateCalendarId ? newBirthDateCalendarId : null,
       ),
       birthCertificateNumber:
-      value.birthCertificateNumber === undefined
+        value.birthCertificateNumber === undefined
           ? null
           : value.birthCertificateNumber,
       birthCertificatePlaceOfIssueCityId:
-      value.birthCertificatePlaceOfIssueCityId === undefined
+        value.birthCertificatePlaceOfIssueCityId === undefined
           ? null
           : value.birthCertificatePlaceOfIssueCityId,
-      companyTitle: value.companyTitle === undefined ? null : value.companyTitle,
+      companyTitle:
+        value.companyTitle === undefined ? null : value.companyTitle,
       companyRegistrationNumber:
-      value.companyRegistrationNumber === undefined
+        value.companyRegistrationNumber === undefined
           ? null
           : value.companyRegistrationNumber,
       companyRegistrationPlaceCityId:
-      value.companyRegistrationPlaceCityId === undefined
+        value.companyRegistrationPlaceCityId === undefined
           ? null
           : value.companyRegistrationPlaceCityId,
       legalEntityIdentity:
-      value.legalEntityIdentity === undefined
+        value.legalEntityIdentity === undefined
           ? null
           : value.legalEntityIdentity,
       economicCode: value.economicCode == undefined ? null : value.economicCode,
       nationalIdentity:
-      value.nationalIdentity === undefined ? null : value.nationalIdentity,
+        value.nationalIdentity === undefined ? null : value.nationalIdentity,
       email: value.email === undefined ? null : value.email,
-      isActive: value.isActive === undefined ? true : value.isActive,
+      isActive: value.isActive === undefined ? value.isActive=true : value.isActive,
       longitude: value?.longitude,
       latitude: value?.latitude,
-      addressList: dataFromChildAddress ? dataFromChildAddress : Array(0),
-      phoneNumberList: dataFromChildContact ? dataFromChildContact : Array(0),
-      bankAccountList: dataFromChildBankBranchInfo
-        ? dataFromChildBankBranchInfo
+      addressList: value.addressList ? value.addressList : Array(0),
+      phoneNumberList: value.phoneNumberList ? value.phoneNumberList : Array(0),
+      bankAccountList: value.bankAccountList
+        ? value.bankAccountList
         : Array(0),
     };
 
@@ -157,8 +134,8 @@ const FormAddCounterParty = () => {
               type="primary"
               htmlType="submit"
               onClick={() => {
-                form.submit()
-            }}
+                form.submit();
+              }}
             >
               {"تایید"}
             </Ant.Button>
@@ -166,16 +143,13 @@ const FormAddCounterParty = () => {
 
           <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
             <TabPane tab="اطلاعات تماس " key="1">
-              <Contacts form={form} sendDataToParent={updateDataContacts} />
+              <Contacts />
             </TabPane>
             <TabPane tab="آدرس" key="2">
-              <Address sendDataToParent={updateDataAddress} form={form} />
+              <Address />
             </TabPane>
             <TabPane tab="اطلاعات حساب بانکی" key="3">
-              <BankBranchInfo
-                sendDataToParent={updateBankBranchInfo}
-                form={form}
-              />
+              <BankBranchInfo />
             </TabPane>
           </Ant.Tabs>
         </Ant.Form>

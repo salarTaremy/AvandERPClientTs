@@ -1,114 +1,73 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import * as Ant from "antd";
-import {
-  DeleteOutlined,
-  NodeIndexOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import ButtonList from "@/components/common/ButtonList";
-import PropTypes from "prop-types";
-const Contacts = (props) => {
-  const { form, sendDataToParent } = props;
-  // const [form] = Ant.Form.useForm();
-  const [contacts, setContactses] = useState([
-    { phoneNumber: "", isMainPhoneNumber: false },
-  ]);
+import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 
-  const handleAdd = () => {
-    console.log(contacts.length, "contacts.length");
-    const newId = contacts.length + 1;
-    setContactses([
-      ...contacts,
-      { id: newId, phoneNumber: "", isMainPhoneNumber: false },
-    ]);
-  };
-  const handleDelete = (id) => {
-    // const newContacts = contacts.filter((contact) => contact.id !== id);
-    setContactses(contacts.filter((_, i) => i !== id));
-    setContactses(newContacts);
-  };
-
-  const handleChangeTelephone = (value, index) => {
-    const updatedTelephones = [...contacts];
-    updatedTelephones[index].phoneNumber = value;
-    setContactses(updatedTelephones);
-    sendDataToParent(updatedTelephones)
-  };
-
-  const handleChangeIsMain = (checked, index) => {
-    const updatedIsMain= [...contacts];
-    updatedIsMain[index].isMainPhoneNumber = checked;
-    // console.log(updatedTelephones, "updatedTelephones");
-    setContactses(updatedIsMain);
-    sendDataToParent(updatedIsMain)
-  };
-
-  const ref = useRef();
-
-  const handleDataList = (event) => {
-    console.log(contacts, "kkkk");
-    sendDataToParent(contacts);
-    // ref.current.submit();
-  };
-
+//====================================================================
+//                        Component
+//====================================================================
+const Contacts = () => {
   return (
     <>
-      {/* <Ant.Form
-        layout="vertical"
-        onKeyUp={handleDataList}
-        onFinish={null}
-        form={form}
-      > */}
-        {contacts.map((contact, index) => (
-          <Ant.Row gutter={[16, 8]}>
-            <Ant.Col lg={8} md={24} sm={24} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: true,
+      <Ant.Form.List name="phoneNumberList">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <Ant.Space key={key} style={{ display: "unset" }}>
+                <Ant.Row gutter={[16, 8]}>
+                  <Ant.Col lg={10} md={24} sm={24} xs={24}>
+                    <Ant.Form.Item
+                      {...restField}
+                      rules={[
+                        {
+                          required: true,
 
-                  message:
-                  'لطفا شماره تماس را درست وارد کنید',
-                 }]}
-                name={`phoneNumber-${index}`}
-                label="شماره تماس"
+                          message: "لطفا شماره تماس را درست وارد کنید",
+                        },
+                      ]}
+                      name={[name, "phoneNumber"]}
+                      label="شماره تماس"
+                    >
+                      <Ant.Input className="mx-2" />
+                    </Ant.Form.Item>
+                  </Ant.Col>
+
+                  <Ant.Col lg={4} md={24} sm={24} xs={24}>
+                    <Ant.Form.Item
+                      label={"شماره تماس اصلی"}
+                      {...restField}
+                      name={[name, "isMainPhoneNumber"]}
+                      rules={[{ required: false }]}
+                      valuePropName="checked"
+                    >
+                      <Ant.Switch  className="mx-2" />
+                    </Ant.Form.Item>
+                  </Ant.Col>
+                  <Ant.Col lg={8} md={24} sm={24} xs={24}>
+                    <Ant.Button
+                      className="text-red-600 mt-4"
+                      type="text"
+                      onClick={() => remove(name)}
+                      icon={<DeleteOutlined />}
+                    />
+                  </Ant.Col>
+                  <Ant.Col lg={4} md={24} sm={24} xs={24}></Ant.Col>
+                </Ant.Row>
+              </Ant.Space>
+            ))}
+            <Ant.Form.Item>
+              <Ant.Button
+                className="text-green-600 border-green-600"
+                onClick={() => add()}
+                block
+                icon={<PlusOutlined />}
               >
-                {/* {telephone.isMainPhoneNumber ? "(اصلی)" : ""} */}
-                <Ant.Input
-                  value={contact.numphoneNumberber}
-                  onChange={(e) => handleChangeTelephone(e.target.value, index)}
-                  className="mx-2"
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={2} md={24} sm={24} xs={24}></Ant.Col>
-            <Ant.Col lg={12} md={24} sm={24} xs={24}>
-              <Ant.Form.Item
-                label={"شماره تماس اصلی"}
-                name={"isMainPhoneNumber"}
-                rules={[{ required: false }]}
-                valuePropName="checked"
-              >
-                <Ant.Switch
-                  checked={contact.isMainPhoneNumber}
-                  onChange={(checked) => handleChangeIsMain(checked, index)}
-                  className="mx-2"
-                />
-                <Ant.Button
-                  className="text-red-600"
-                  type="text"
-                  onClick={() => handleDelete(index)}
-                  icon={<DeleteOutlined />}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-          </Ant.Row>
-        ))}
-        <ButtonList onAdd={handleAdd} />
-      {/* </Ant.Form> */}
+                اضافه کردن
+              </Ant.Button>
+            </Ant.Form.Item>
+          </>
+        )}
+      </Ant.Form.List>
     </>
   );
 };
 export default Contacts;
-Contacts.propTypes = {
-  form: PropTypes.any,
-  sendDataToParent: PropTypes.any,
-};
