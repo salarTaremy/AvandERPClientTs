@@ -28,7 +28,7 @@ const ActionList = (props) => {
     const TmpSelected = [];
     if (data?.isSuccess && data?.data) {
       data?.data.map((item) => {
-        if (item.roleHasAccess) {
+        if (item?.roleHasAccess) {
           TmpSelected.push(item.id);
         }
       });

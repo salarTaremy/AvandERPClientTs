@@ -78,7 +78,7 @@ const Address = () => {
                       {...restField}
                       name={[name, "address"]}
                       label="نشانی"
-                      maxLength={10}
+                      maxLength={500}
                     >
                       <Ant.Input.TextArea />
                     </Ant.Form.Item>

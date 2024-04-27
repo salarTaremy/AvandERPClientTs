@@ -55,7 +55,7 @@ const FormAddCounterParty = () => {
 
   const onFinish = async (value) => {
     alert("gggggg");
-    console.log(value, "value");
+    console.log(JSON.stringify(value,null,1,1), "value22");
 
 
     let newBirthDateCalendarId = value?.birthDateCalendarId
@@ -63,10 +63,12 @@ const FormAddCounterParty = () => {
       .replace(/\//g, "");
 
     console.log(newBirthDateCalendarId, "newBirthDateCalendarId");
-    // const data = { ...value, birthDateCalendarId: newBirthDateCalendarId };
+    // const data = { ...value, postalCode: newBirthDateCalendarId };
+
+   const code= form.setFieldsValue({ code: maxCodeData.data });
     const data = {
       counterpartyTypeId: value?.counterpartyTypeId,
-      code: value.code === undefined ? null : value.code,
+      code:code  === undefined ? null : code,
       firstName: value.firstName === undefined ? null : value.firstName,
       lastName: value.lastName === undefined ? null : value.lastName,
       fatherName: value.fatherName === undefined ? null : value.fatherName,
@@ -126,8 +128,8 @@ const FormAddCounterParty = () => {
         title={"ایجاد طرف حساب"}
         type="inner"
       >
-        <Ant.Form layout="vertical" onFinish={onFinish}>
-          <HeaderAddCounterParty />
+        <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
+          <HeaderAddCounterParty form={form}/>
           <Ant.Flex className="items-end " vertical>
             <Ant.Button
               className="px-6"

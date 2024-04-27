@@ -28,7 +28,7 @@ const BankBranchInfo = () => {
                   <Ant.Col lg={8} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
                       rules={[{ required: true }]}
-                      name={[name, "bank"]}
+                      // name={[name, "bank"]}
                       label="بانک"
                     >
                       <Ant.Select
@@ -62,13 +62,29 @@ const BankBranchInfo = () => {
 
                   <Ant.Col lg={6} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
-                      rules={[{ required: false }]}
+                      rules={[
+                        {
+                          min: 12,
+                          max: 16,
+                        },
+
+                        {
+                          required: false,
+                          pattern: new RegExp("^[0-9]"),
+                          message: "لطفا شماره حساب را درست وارد کنید!",
+                        },
+                      ]}
                       {...restField}
                       name={[name, "accountNumber"]}
                       label="شماره حساب"
                       maxLength={10}
                     >
-                      <Ant.InputNumber className="w-full" maxLength={200} />
+                      <Ant.Input
+                        allowClear
+                        showCount
+
+                        maxLength={16}
+                      />
                     </Ant.Form.Item>
                   </Ant.Col>
 
@@ -80,29 +96,58 @@ const BankBranchInfo = () => {
                       name={[name, "accountHolder"]}
                       label="نام صاحب حساب"
                     >
-                      <Ant.Input maxLength={200} />
+                      <Ant.Input allowClear showCount maxLength={200} />
                     </Ant.Form.Item>
                   </Ant.Col>
                   <Ant.Col lg={8} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
-                      rules={[{ required: false }]}
                       {...restField}
+                      rules={[
+                        {
+                          len: 16,
+                        },
+
+                        {
+                          required: false,
+                          pattern: new RegExp("^[0-9]"),
+                          message: "لطفا شماره کارت را درست وارد کنید!",
+                        },
+                      ]}
                       name={[name, "cardNumber"]}
                       label="شماره کارت"
-                      maxLength={10}
                     >
-                      <Ant.InputNumber className="w-full" maxLength={12} />
+                      <Ant.Input
+                        allowClear
+                        showCount
+                        maxLength={16}
+                        className="w-full"
+                      />
                     </Ant.Form.Item>
                   </Ant.Col>
                   <Ant.Col lg={6} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
-                      rules={[{ required: false }]}
                       name={[name, "shebaNumber"]}
+                      rules={[
+                        {
+                          len: 24,
+                        },
+
+                        {
+                          required: false,
+                          pattern: new RegExp("^[0-9]"),
+                          message: "لطفا شماره شبا را درست وارد کنید!",
+                        },
+                      ]}
                       {...restField}
                       label="شماره شبا"
-                      maxLength={10}
                     >
-                      <Ant.InputNumber className="w-full" maxLength={26} />
+                      <Ant.Input
+                        allowClear
+                        showCount
+                        maxLength={24}
+                        addonAfter={"IR"}
+                        className="w-full"
+                      />
                     </Ant.Form.Item>
                   </Ant.Col>
                   <Ant.Col lg={2} md={12} sm={12} xs={24}>
