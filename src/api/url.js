@@ -119,29 +119,32 @@ export const USER = '/User'
 export const USER_RESET_PASSWORD = 'User/ResetPassword'
 
 //Sales
-export const SALE_CHANNEL='SaleChannel'
+export const SALE_CHANNEL = 'SaleChannel'
 
 //PaymentType
-export const PAYMENT_TYPE='PaymentType'
+export const PAYMENT_TYPE = 'PaymentType'
 
 //Currency
-export const CURRENCY='Currency'
+export const CURRENCY = 'Currency'
 
 //DeliveryType
-export const DELIVERY_TYPE='DeliveryType'
+export const DELIVERY_TYPE = 'DeliveryType'
 
 //SaleDocumentType
-export const SALE_DOCUMENT_TYPE='SaleDocumentType'
+export const SALE_DOCUMENT_TYPE = 'SaleDocumentType'
 
 //SaleType
-export const SALETYPE='SaleType'
+export const SALETYPE = 'SaleType'
 
 //Counterparty
-export const COUNTER_PARTY='Counterparty'
-export const COUNTER_PARTY_TYPE='Counterparty/GetCounterpartyType'
+export const COUNTER_PARTY = 'Counterparty'
+export const COUNTER_PARTY_TYPE = 'Counterparty/GetCounterpartyType'
+export const COUNTER_PARTY_BLACK_LIST = 'CounterpartyBlackList'
+export const COUNTER_PARTY_BLACK_LIST_STATE = 'CounterpartyBlackListState'
+export const COUNTER_PARTY_GET_FOR_DROPDOWN = 'Counterparty/GetForDropdown'
 
 //CustomerGroup
-export const CUSTOMER_GROUP='CustomerGroup'
+export const CUSTOMER_GROUP = 'CustomerGroup'
 
 // CustomerType
-export const CUSTOMER_TYPE= 'CustomerType'
+export const CUSTOMER_TYPE = 'CustomerType'

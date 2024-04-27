@@ -68,9 +68,7 @@ const UserRoleList = () => {
     //                        Functions
     //====================================================================
     const getRoleScopeWithRoles = async () => {
-        console.log('filterObject', filterObject)
         const userId = selectedUser
-        console.log('userId', userId)
         const req = {
             roleScopePersianTitle: filterObject?.roleScopePersianTitle,
             rolePersianTitle: filterObject?.rolePersianTitle,
@@ -95,12 +93,10 @@ const UserRoleList = () => {
     };
 
     const handleOnChange = async (val, option) => {
-        console.log('userIddddd', option.id)
         setSelectedUser(option.id)
     }
 
     const onSelectChange = (newSelectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
         updateActionId(newSelectedRowKeys);
     };

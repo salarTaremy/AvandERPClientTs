@@ -18,6 +18,7 @@ import FilterPanel from "../list/FilterPanel";
 import RoleInfo from "../info/RoleInfo";
 import RoleActionList from "../action/RoleActionList";
 import RoleMenuList from "../menu/RoleMenuList";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 
 function RoleManagement() {
@@ -94,11 +95,9 @@ function RoleManagement() {
     setModalContent(
       <RoleInfo
         roleId={val.id}
-        myKey={val.id}
-        obj={val}
+        key={val.id}
       />
     );
-    console.log('id', val.id)
     setModalState(true);
   }
 
@@ -106,10 +105,9 @@ function RoleManagement() {
     setModalContent(
       <RoleActionList
         id={val.id}
-        myKey={val.id}
-        obj={val} />
+        key={val.id}
+      />
     );
-    console.log('id', val.id)
     setModalState(true);
   }
 
@@ -117,11 +115,9 @@ function RoleManagement() {
     setModalContent(
       <RoleMenuList
         id={val.id}
-        myKey={val.id}
-        obj={val} />
-
+        key={val.id}
+      />
     );
-    console.log('id', val.id)
     setModalState(true);
   }
 

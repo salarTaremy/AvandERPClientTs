@@ -19,15 +19,15 @@ const RoleInfo = ({ roleId }) => {
     //====================================================================
     useEffect(() => {
         getAllUsers();
-    }, [delSaving]);
-
-    useEffect(() => {
-        getAllUsers();
-    }, [roleId]);
+    }, []);
 
     useEffect(() => {
         setDataSource((data?.isSuccess && data?.data.userRoleList) || null);
     }, [data]);
+
+    useEffect(() => {
+        getAllUsers();
+    }, [delSaving]);
 
     //====================================================================
     //                        Functions

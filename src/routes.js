@@ -53,6 +53,8 @@ import CustomerType from './Pages/salesCommerce/basicInformation/customerType/Cu
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
+import CounterPartyBlackList from './Pages/manageCounterParty/CounterPartyBlackList/list/counterPartyBlackList'
+
 
 import FormAddCounterParty from './Pages/manageCounterParty/add/FormAddCounterParty'
 
@@ -107,6 +109,7 @@ const routes = [
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
+  { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]

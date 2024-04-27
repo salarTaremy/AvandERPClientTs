@@ -11,7 +11,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import FilterPanel from "../action/FilterPanel";
 import qs from "qs";
 
-const RoleActionList = ({ id, }) => {
+const RoleActionList = ({ id }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
@@ -30,10 +30,6 @@ const RoleActionList = ({ id, }) => {
         !filterObject && setFilterCount(0);
         getAllActions();
     }, [filterObject]);
-
-    useEffect(() => {
-        getAllActions();
-    }, [id]);
 
     useEffect(() => {
         setDataSource((data?.isSuccess && data?.data.roleActionList) || null);
