@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import MyDatePicker from "@/components/common/MyDatePicker";
-import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
+import { useFetch, usePostWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import TBL from "./Table";
 
@@ -55,7 +55,6 @@ export const FrmAddAccountDocument = () => {
       ),
       subNumber: valueHeader.subNumber,
     };
-
     const detailsList = [];
 
     for (let key in values) {

@@ -7,47 +7,133 @@ import * as url from "@/api/url";
 import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
 import Address from "./Address";
 import Contacts from "./Contacts";
-import BankBccountInformation from "./BankBccountInformation";
+import BankBranchInfo from "./BankBranchInfo";
+import HeaderAddCounterParty from "./HeaderAddCounterParty";
 const FormAddCounterParty = () => {
+  const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
+  const [cityList, cityLoading, cityError] = useFetch(url.CITY);
+  useRequestManager({ error: cityError });
   const [selectedValueType, setSelectedValueType] = useState("");
   useRequestManager({ error: counterpartyTypeError });
+  useRequestManager({ error: addError, loading: addLoading, data: addData });
   const [form] = Ant.Form.useForm();
   const { TabPane } = Ant.Tabs;
-  const itemsTab = [
-    {
-      key: "1",
-      label: "اطلاعات تماس",
-      children: "Content of Tab Pane 1",
-    },
-    {
-      key: "2",
-      label: "آدرس",
-      children: "Content of Tab Pane 2",
-    },
-    {
-      key: "3",
-      label: "اطلاعات حساب بانکی",
-      children: "Content of Tab Pane 3",
-    },
-  ];
+  const [dataFromChildContact, setDataFromChildContact] = useState("");
+  const [dataFromChildAddress, setDataFromChildAddress] = useState("");
+  const [dataFromChildBankBranchInfo, setDataFromChildBankBranchInfo] =
+    useState("");
 
   //====================================================================
   //                        useEffects
   //====================================================================
+  useEffect(() => {
+    form.resetFields();
+  }, [form]);
 
+  useEffect(() => {
+    const list = form.getFieldsValue();
+    console.log(list, "list");
+  }, []);
   //====================================================================
   //                        Functions
   //====================================================================
-  const handleSelectChange = (value) => {
-    console.log(value, "vvvvv");
-    setSelectedValueType(value);
-  };
 
   const onChange = (key) => {
     console.log(key);
   };
+
+  // const handleSubmit = async (contact, address, bankbranch) => {
+  //   alert("jjjjjj")
+  //   debugger
+  //   console.log("contact", contact);
+  //   console.log("address", address);
+  //   console.log("bankbranch", bankbranch);
+
+  //   setDataFromChildContact(contact);
+  //   setDataFromChildAddress(address);
+  //   setDataFromChildBankBranchInfo(bankbranch);
+
+  // };
+  const updateDataContacts = (newData) => {
+    console.log("contactds", newData);
+    setDataFromChildContact(newData);
+  };
+  const updateDataAddress = (newData) => {
+    console.log("Address", newData);
+    setDataFromChildAddress(newData);
+  };
+  const updateBankBranchInfo = (newData) => {
+    console.log("bank", newData);
+    setDataFromChildBankBranchInfo(newData);
+  };
+
+  const submitData = async () => {
+    alert("gggggg")
+    debugger
+
+    const list = form.getFieldsValue();
+
+    console.log(list, "list222");
+    debugger;
+    let newBirthDateCalendarId = list?.birthDateCalendarId
+      ?.toString()
+      .replace(/\//g, "");
+
+    console.log(newBirthDateCalendarId, "newBirthDateCalendarId");
+
+    const data = {
+      counterpartyTypeId: list?.counterpartyTypeId,
+      code: list.code === undefined ? null : list.code,
+      firstName: list.firstName === undefined ? null : list.firstName,
+      lastName: list.lastName === undefined ? null : list.lastName,
+      fatherName: list.fatherName === undefined ? null : list.fatherName,
+      nationalCode: String(
+        list.nationalCode === undefined ? null : list.nationalCode,
+      ),
+      birthDateCalendarId: parseInt(
+        newBirthDateCalendarId ? newBirthDateCalendarId : null,
+      ),
+      birthCertificateNumber:
+        list.birthCertificateNumber === undefined
+          ? null
+          : list.birthCertificateNumber,
+      birthCertificatePlaceOfIssueCityId:
+        list.birthCertificatePlaceOfIssueCityId === undefined
+          ? null
+          : list.birthCertificatePlaceOfIssueCityId,
+      companyTitle: list.companyTitle === undefined ? null : list.companyTitle,
+      companyRegistrationNumber:
+        list.companyRegistrationNumber === undefined
+          ? null
+          : list.companyRegistrationNumber,
+      companyRegistrationPlaceCityId:
+        list.companyRegistrationPlaceCityId === undefined
+          ? null
+          : list.companyRegistrationPlaceCityId,
+      legalEntityIdentity:
+        list.legalEntityIdentity === undefined
+          ? null
+          : list.legalEntityIdentity,
+      economicCode: list.economicCode == undefined ? null : list.economicCode,
+      nationalIdentity:
+        list.nationalIdentity === undefined ? null : list.nationalIdentity,
+      email: list.email === undefined ? null : list.email,
+      isActive: list.isActive === undefined ? true : list.isActive,
+      longitude: list?.longitude,
+      latitude: list?.latitude,
+      addressList: dataFromChildAddress ? dataFromChildAddress : Array(0),
+      phoneNumberList: dataFromChildContact ? dataFromChildContact : Array(0),
+      bankAccountList: dataFromChildBankBranchInfo
+        ? dataFromChildBankBranchInfo
+        : Array(0),
+    };
+
+    console.log(data, "sssss");
+    await addApiCall(url.COUNTER_PARTY, data);
+  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -58,227 +144,28 @@ const FormAddCounterParty = () => {
         title={"ایجاد طرف حساب"}
         type="inner"
       >
-        <Ant.Form form={form} layout="vertical" onFinish Failed={null}>
-          <Ant.Row gutter={[16, 16]}>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: true }]}
-                name={"branchId"}
-                label="نوع"
-              >
-                <Ant.Select
-                  onChange={handleSelectChange}
-                  allowClear={true}
-                  disabled={counterpartyTypeLoading || false}
-                  loading={counterpartyTypeLoading}
-                  options={counterpartyTypeList?.data}
-                  fieldNames={{ label: "name", value: "id" }}
-                  placeholder={"انتخاب کنید..."}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: true }]}
-                name={"AccountingDocumentTypeId"}
-                label="کد"
-              >
-                <Ant.InputNumber min={0} style={{ width: "100%" }} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: true }]}
-                name={"name"}
-                label="نام"
-              >
-                <Ant.Input />
-              </Ant.Form.Item>
-            </Ant.Col>
-
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: true }]}
-                name={"family"}
-                label="نام خانوادگی"
-              >
-                <Ant.Input />
-              </Ant.Form.Item>
-            </Ant.Col>
-
-            <Ant.Col
-              className={selectedValueType === 2 ? "hidden" : ""}
-              lg={8}
-              md={12}
-              sm={12}
-              xs={24}
-            >
-              <Ant.Form.Item name={"calendarId"} label="کدملی">
-                <Ant.InputNumber min={0} style={{ width: "100%" }} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col
-              className={selectedValueType === 2 ? "hidden" : ""}
-              lg={8}
-              md={12}
-              sm={12}
-              xs={24}
-            >
-              <Ant.Form.Item
-                name={"nationalId"}
-                label="شناسه شناسنامه"
-                rules={[{ required: false }]}
-              >
-                <Ant.InputNumber min={0} style={{ width: "100%" }} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col
-              className={selectedValueType === 2 ? "hidden" : ""}
-              lg={8}
-              md={12}
-              sm={12}
-              xs={24}
-            >
-              <Ant.Form.Item
-                name={"nationalId"}
-                label="تاریخ تولد"
-                rules={[{ required: false }]}
-              >
-                <MyDatePicker />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col
-              className={selectedValueType === 2 ? "hidden" : ""}
-              lg={8}
-              md={12}
-              sm={12}
-              xs={24}
-            >
-              <Ant.Form.Item
-                name={"nationalId"}
-                label=" محل صدور"
-                rules={[{ required: false }]}
-              >
-                <Ant.Input />
-              </Ant.Form.Item>
-            </Ant.Col>
-
-            <>
-              <Ant.Col
-                className={selectedValueType === 2 ? "" : "hidden"}
-                lg={8}
-                md={12}
-                sm={12}
-                xs={24}
-              >
-                <Ant.Form.Item name={"companyTitle"} label="عنوان شرکت/سازمان">
-                  <Ant.Input min={0} style={{ width: "100%" }} />
-                </Ant.Form.Item>
-              </Ant.Col>
-              <Ant.Col
-                className={selectedValueType === 2 ? "" : "hidden"}
-                lg={8}
-                md={12}
-                sm={12}
-                xs={24}
-              >
-                <Ant.Form.Item
-                  name={"registerNumber_"}
-                  label="شماره ثبت شرکت/سازمان"
-                  rules={[{ required: false }]}
-                >
-                  <Ant.InputNumber min={0} style={{ width: "100%" }} />
-                </Ant.Form.Item>
-              </Ant.Col>
-
-              <Ant.Col
-                className={selectedValueType === 2 ? "" : "hidden"}
-                lg={8}
-                md={12}
-                sm={12}
-                xs={24}
-              >
-                <Ant.Form.Item
-                  name={"nationalId"}
-                  label="محل ثبت شرکت/سازمان"
-                  rules={[{ required: false }]}
-                >
-                  <Ant.Input min={0} style={{ width: "100%" }} />
-                </Ant.Form.Item>
-              </Ant.Col>
-              <Ant.Col
-                className={selectedValueType === 2 ? "" : "hidden"}
-                lg={8}
-                md={12}
-                sm={12}
-                xs={24}
-              >
-                <Ant.Form.Item
-                  name={"nationalId"}
-                  label="شناسه ملی"
-                  rules={[{ required: false }]}
-                >
-                  <Ant.InputNumber min={0} style={{ width: "100%" }} />
-                </Ant.Form.Item>
-              </Ant.Col>
-              <Ant.Col
-                className={selectedValueType === 2 ? "" : "hidden"}
-                lg={8}
-                md={12}
-                sm={12}
-                xs={24}
-              >
-                <Ant.Form.Item
-                  name={"nationalId"}
-                  label="کداقتصادی"
-                  rules={[{ required: false }]}
-                >
-                  <Ant.InputNumber min={0} style={{ width: "100%" }} />
-                </Ant.Form.Item>
-              </Ant.Col>
-              <Ant.Col
-                className={selectedValueType === 2 ? "" : "hidden"}
-                lg={8}
-                md={12}
-                sm={12}
-                xs={24}
-              >
-                <Ant.Form.Item
-                  name={"nationalId"}
-                  label="شناسه مالیاتی"
-                  rules={[{ required: false }]}
-                >
-                  <Ant.InputNumber min={0} style={{ width: "100%" }} />
-                </Ant.Form.Item>
-              </Ant.Col>
-            </>
-
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                name={"email"}
-                label="ایمیل"
-                rules={[{ required: false }]}
-              >
-                <Ant.Input />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item name={"status"} label="وضعیت ">
-                <Ant.Switch defaultChecked />
-              </Ant.Form.Item>
-            </Ant.Col>
-          </Ant.Row>
-        </Ant.Form>
+        {/* <Ant.Form onFinish={onFinish}> */}
+        <HeaderAddCounterParty form={form} />
+        <Ant.Flex className="items-end " vertical>
+          <Ant.Button
+            className="px-6"
+            type="primary"
+            htmlType="submit"
+            onClick={submitData}
+          >
+            {"تایید"}
+          </Ant.Button>
+        </Ant.Flex>
+        {/* </Ant.Form> */}
         <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
           <TabPane tab="اطلاعات تماس " key="1">
-            <Contacts />
+            <Contacts form={form} sendDataToParent={updateDataContacts} />
           </TabPane>
           <TabPane tab="آدرس" key="2">
-
-            <Address />
+            <Address sendDataToParent={updateDataAddress} form={form} />
           </TabPane>
           <TabPane tab="اطلاعات حساب بانکی" key="3">
-            <BankBccountInformation />
+            <BankBranchInfo sendDataToParent={updateBankBranchInfo} form={form} />
           </TabPane>
         </Ant.Tabs>
       </Ant.Card>

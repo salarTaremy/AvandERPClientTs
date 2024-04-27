@@ -52,6 +52,8 @@ export const columns = (onDelete, onEdit, onView) => {
       width: 120,
       className:"text-xs sm:text-sm",
       render: (text, record, index) => {
+
+
         return (
           <>
             <Ant.Space>
@@ -69,6 +71,7 @@ export const columns = (onDelete, onEdit, onView) => {
                 type="text"
               />
               <Ant.Button
+              disabled={record.isSystematic == true}
                 onClick={() => onEdit(record)}
                 className="text-blue-600"
                 icon={<FiEdit />}

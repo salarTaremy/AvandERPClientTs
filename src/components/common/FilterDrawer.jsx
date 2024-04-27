@@ -8,7 +8,7 @@ import { MdFilterAltOff } from 'react-icons/md'
 const FilterDrawer = (props) => {
   const dispatch = useDispatch()
   const filterDrawerPlacement = useSelector((store) => store.filterDrawerPlacement) // right , left
-  const { open, onClose, onRemoveFilter } = props
+  const { open, onClose, onRemoveFilter  , container = false} = props
   const title = <>{''}</>
   const options = [
     {
@@ -56,7 +56,8 @@ const FilterDrawer = (props) => {
         placement={filterDrawerPlacement}
         open={open}
         onClose={onClose}
-        getContainer={false}
+        getContainer={container }
+        destroyOnClose
       >
         {props.children}
       </Ant.Drawer>
@@ -68,5 +69,6 @@ FilterDrawer.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onRemoveFilter: PropTypes.func.isRequired,
+  container:PropTypes.any,
 }
 export default FilterDrawer

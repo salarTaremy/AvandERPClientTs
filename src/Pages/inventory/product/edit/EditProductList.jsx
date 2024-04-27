@@ -313,7 +313,7 @@ const EditProductList = () => {
                                         <Ant.Select
                                             {...commonOptions}
                                             showSearch
-                                            filterOption={(input, option) => option.name.indexOf(input) >= 0}
+
                                             disabled={seasonalReportsloading || false}
                                             loading={seasonalReportsloading}
                                             options={seasonalReportsdata?.data}

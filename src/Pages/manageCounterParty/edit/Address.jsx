@@ -8,7 +8,7 @@ import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
 
 import ButtonList from "@/components/common/ButtonList";
 const Address = (props) => {
-  const { form, sendDataToParent } = props;
+  const { form,sendDataToParent } = props;
   //   const [form] = Ant.Form.useForm();
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError] = useFetch(url.CITY);
@@ -30,7 +30,7 @@ const Address = (props) => {
     setAddresses([
       ...addresses,
       {
-        id: newId,
+        id: 1,
         provinceId: null,
         cityId: null,
         postalCode: null,
@@ -45,50 +45,43 @@ const Address = (props) => {
   };
 
   const handleChangeAddress = (value, index) => {
-
+    debugger;
     const updatedAddress = [...addresses];
     updatedAddress[index].address = value;
     setAddresses(updatedAddress);
-    sendDataToParent(updatedAddress)
   };
   const handleChangePostalCode = (value, index) => {
     const updatedPostalCode = [...addresses];
     updatedPostalCode[index].postalCode = value;
     setAddresses(updatedPostalCode);
-    sendDataToParent(updatedPostalCode)
   };
   const handleChangeCity = (value, index) => {
-    const updatedCity = [...addresses];
-    updatedCity[index].cityId = value;
-    setAddresses(updatedCity);
-    sendDataToParent(updatedCity)
+    const updatedPostalCode = [...addresses];
+    updatedPostalCode[index].cityId = value;
+    setAddresses(updatedPostalCode);
   };
   const handleChangeProvince = (value, index) => {
-    const updatedProvince = [...addresses];
-    updatedProvince[index].provinceId = value;
-    setAddresses(updatedProvince);
-    sendDataToParent(updatedProvince)
+    const updatedPostalCode = [...addresses];
+    updatedPostalCode[index].provinceId = value;
+    setAddresses(updatedPostalCode);
   };
   const handleChangeIsMain = (checked, index) => {
-    const updatedIsMain = [...addresses];
-    updatedIsMain[index].isMainAddress = checked;
-    console.log(updatedIsMain, "updatedAddress");
-    setAddresses(updatedIsMain);
-    sendDataToParent(updatedIsMain)
+    const updatedAddress = [...addresses];
+    updatedAddress[index].isMainAddress = checked;
+    console.log(updatedAddress, "updatedAddress");
+    setAddresses(updatedAddress);
   };
 
-  const handleDataList = () => {
+  const handleDataList = (event) => {
+    console.log(addresses, "adressss");
     sendDataToParent(addresses);
+    // ref.current.submit();
   };
   return (
     <>
-      <Ant.Form
-        layout="vertical"
-        onKeyUp={handleDataList}
-        form={form}
-        onFinish={null}
-      >
-        {addresses.map((address, index) => (
+
+      {addresses.map((address, index) => (
+        <Ant.Form layout="vertical" key={index} onBlur={handleDataList} form={form} onFinish={null}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={4} md={12} sm={12} xs={24}>
               <Ant.Form.Item
@@ -133,7 +126,9 @@ const Address = (props) => {
               >
                 <Ant.InputNumber
                   value={address.postalCode}
-                  onChange={(e) => handleChangePostalCode(e, index)}
+                  onChange={(e) =>
+                    handleChangePostalCode(e, index)
+                  }
                   maxLength={10}
                   style={{ width: 200 }}
                 />
@@ -171,14 +166,14 @@ const Address = (props) => {
               </Ant.Form.Item>
             </Ant.Col>
           </Ant.Row>
-        ))}
-        <ButtonList onAdd={handleAdd} />
-      </Ant.Form>
+        </Ant.Form>
+      ))}
+            <ButtonList onAdd={handleAdd} />
     </>
   );
 };
 export default Address;
 Address.propTypes = {
   form: PropTypes.any,
-  sendDataToParent: PropTypes.any,
+  sendDataToParent:PropTypes.any
 };

@@ -14,7 +14,7 @@ import FormEditCounterParty from "../edit/FormEditCounterParty";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import { useNavigate, generatePath } from "react-router-dom";
-import * as uuid from "uuid";
+
 import qs from "qs";
 const CounterPartyList = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const CounterPartyList = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [pagination, setPpagination] = useState({
     current: 1,
-    pageSize: 5,
+    pageSize:10,
   });
 
   //====================================================================
@@ -82,9 +82,7 @@ const CounterPartyList = () => {
   const handleTableChange = (pagination, filters, sorter) => {
     setPpagination(pagination);
   };
-  // const getAllCounterParty = async () => {
-  //   await ApiCall(url.COUNTER_PARTY);
-  // };
+
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
     setOpenFilter(false);
@@ -104,29 +102,17 @@ const CounterPartyList = () => {
     );
     setModalState(true);
   };
-  const onSuccessAdd = () => {
-    setModalState(false);
-    getAllCounterParty();
-  };
-  const onSuccessEdit = () => {
-    setModalState(false);
-    getAllCounterParty();
-  };
 
   //====================================================================
   //                        Events
   //====================================================================
   const onEdit = (val) => {
+    // alert("ff")
     setModalContent(
-      <FormEditCounterParty />,
-      // <FormEditCounterParty
-      //   onSuccess={onSuccessEdit}
-      //   myKey={val.id}
-      //   obj={val}
-      //   id={val.id}
-      // />,
+      navigate("/manage/counterparty/edit")
+      // <FormEditCounterParty />,
     );
-    setModalState(true);
+    // setModalState(true);
   };
   //====================================================================
   //                        Child Components
