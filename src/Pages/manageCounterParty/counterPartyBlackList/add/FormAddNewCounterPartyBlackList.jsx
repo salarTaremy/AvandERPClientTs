@@ -42,13 +42,28 @@ const FormAddNewCounterPartyBlackList = (props) => {
         setLoading(false)
     }
 
-    // const getAllCounterPartyForDropDown = 
+    const getAllCounterPartyForDropDown = async (inputValue) => {
+        const queryString = qs.stringify({
+            CounterpartyName: inputValue
+        })
+        console.log('call  => ' + inputValue)
+        await ApiCall(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`);
+        if (listData?.isSuccess && listData?.data) {
+            console.log('data', listData.data)
+            return listData?.data.map((item) => ({
+                label: `${item.counterpartyName} `,
+                value: item.id.inputValue,
+            }))
+        };
+        console.log('value', value)
+    }
 
     //====================================================================
     //                        Component
     //====================================================================
     return (
         <>
+        {JSON.stringify(dataloading)}
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Row>
                     <Ant.Col span={24}>
@@ -59,52 +74,15 @@ const FormAddNewCounterPartyBlackList = (props) => {
                 <Ant.Form.Item name="counterpartyName" label={"نام طرف حساب "} rules={[{ required: true }]}>
                     <DebounceSelect
                         mode="multiple"
-                        // value={value}
                         placeholder="انتخاب کنید..."
-                        fetchOptions={
-                            async (inputValue) => {
-                                const queryString = qs.stringify({
-                                    CounterpartyName: inputValue
-                                })
-                                console.log('start search for ' + inputValue)
-                                const _url = `http://192.168.200.19:81/api/Counterparty/GetForDropdown?CounterpartyName=%DA%A9%D8%AA%D8%A7%D8%A8`
-                                console.log('url => ' + _url)
-                                return fetch(_url)
-                                    .then((res) =>  console.log('res',res))
-                                    .then((responseData) =>
-                                    console.log('responseData',responseData)
-                                    // responseData.map((item) => ({
-                                    //         label: `${item.counterpartyNam}`,
-                                    //         value: item.id,
-                                    //     })),
-                                    );
-
-
-                                // console.log('b')
-                                // if (listData?.isSuccess && listData?.data) {
-                                //     console.log('data', listData)
-
-                                //     const res =  listData?.data.map((item) => ({
-                                //         label: `${item.counterpartyName} `,
-                                //         value: item.id,
-                                //     }))
-
-                                //     console.log('res', res)
-
-                                //     return res
-                                // } else{
-                                //     console.log('res null', null)
-                                //     return null
-                                // }
-                            }
-                        }
+                        fetchOptions={getAllCounterPartyForDropDown}
+                        // onSuccess = {() => console.log('onSuccess')}
+                        // onFinish = {() => console.log('onFinish')}
                         // onChange={(newValue) => {
-                        //     console.log('newValue', newValue)
+                        //     console.log('onChange')
                         //     setValue(newValue);
                         // }}
-                        style={{
-                            width: '100%',
-                        }}
+                        value={value}
                     />
                 </Ant.Form.Item>
                 <Ant.Form.Item name={"dateString"} label="تاریخ" rules={[{ required: true }]}>
