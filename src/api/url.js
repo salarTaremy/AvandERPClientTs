@@ -143,6 +143,20 @@ export const COUNTER_PARTY_BLACK_LIST = 'CounterpartyBlackList'
 export const COUNTER_PARTY_BLACK_LIST_STATE = 'CounterpartyBlackListState'
 export const COUNTER_PARTY_GET_FOR_DROPDOWN = 'Counterparty/GetForDropdown'
 
+
+//Province
+export const PROVINCE='/Province'
+
+//City
+export const CITY='/City'
+
+//Bank
+export const BANK='/Bank'
+
+//BankBranch
+export const BANKBRANCH='/BankBranch'
+//BankBranchGetForDropdown
+export const BANKBRANCH_GetFORDROPDOWN='/BankBranch/GetForDropdown'
 //CustomerGroup
 export const CUSTOMER_GROUP = 'CustomerGroup'
 

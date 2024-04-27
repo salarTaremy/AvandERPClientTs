@@ -56,7 +56,8 @@ const getHttpClient = () => {
 
 const handleError = (error) => {
   if (error.message === 'Network Error') {
-    toast.error('خطا در برقراری ارتباط با سرور')
+    
+    toast.isActive("Network Error") ||  toast.error('خطا در برقراری ارتباط با سرور' , {toastId: "Network Error"})
   }
   if (error?.response?.status === 401) {
     // const store = JSON.parse(localStorage.getItem('persist:root'))
@@ -64,19 +65,19 @@ const handleError = (error) => {
     // localStorage.setItem('persist:root', store)
     // window.location = '/#/login'
     // window.location.reload()
-    toast.error('خطای احراز هویت')
+    toast.isActive("Auth Error") ||  toast.error('خطای احراز هویت',{toastId: "Auth Error"})
     store.dispatch({ type: 'set', autUser: null })
     store.dispatch({ type: 'set', autToken: null })
   }
   if (error?.response?.status === 403) {
-    toast.error('توکن منقضی شده است')
+    toast.isActive("Token Is Expire") ||  toast.error('توکن منقضی شده است',{toastId: "Token Is Expire"})
     store.dispatch({ type: 'set', autUser: null })
     store.dispatch({ type: 'set', autToken: null })
   }
   if (error?.response && error?.response?.status) {
     const statusCode = parseInt(error.response.status)
     if (statusCode >= 500) {
-      toast.error('خطای سمت سرور')
+      toast.isActive("Server Error") ||  toast.error('خطای سمت سرور',{toastId: "Server Error"})
     }
   }
   if (error?.response) {

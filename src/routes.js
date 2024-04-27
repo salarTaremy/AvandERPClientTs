@@ -63,6 +63,7 @@ import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
 import Login from './Pages/login/Login'
 import { SALETYPE } from './api/url'
+import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounterParty'
 
 
 
@@ -109,7 +110,9 @@ const routes = [
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
+  { path: 'manage/counterparty/edit', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
+
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]

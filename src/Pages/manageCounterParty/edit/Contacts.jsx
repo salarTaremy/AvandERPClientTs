@@ -16,11 +16,8 @@ const Contacts = (props) => {
 
   const handleAdd = () => {
     console.log(contacts.length, "contacts.length");
-    const newId = contacts.length + 1;
-    setContactses([
-      ...contacts,
-      { id: newId, phoneNumber: "", isMainPhoneNumber: false },
-    ]);
+    // const newId = contacts.length + 1;
+    setContactses([...contacts, { phoneNumber: "", isMainPhoneNumber: false }]);
   };
   const handleDelete = (id) => {
     // const newContacts = contacts.filter((contact) => contact.id !== id);
@@ -37,7 +34,7 @@ const Contacts = (props) => {
   const handleChangeIsMain = (checked, index) => {
     const updatedTelephones = [...contacts];
     updatedTelephones[index].isMainPhoneNumber = checked;
-    // console.log(updatedTelephones, "updatedTelephones");
+    console.log(updatedTelephones, "updatedTelephones");
     setContactses(updatedTelephones);
   };
 
@@ -51,13 +48,14 @@ const Contacts = (props) => {
 
   return (
     <>
-      <Ant.Form
+      {contacts.map((contact, index) => (
+        <Ant.Form
         layout="vertical"
-        onKeyUp={handleDataList}
-        onFinish={null}
-        form={form}
-      >
-        {contacts.map((contact, index) => (
+          onBlur={handleDataList}
+          onFinish={null}
+          form={form}
+          key={index}
+        >
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={24} sm={24} xs={24}>
               <Ant.Form.Item
@@ -95,9 +93,9 @@ const Contacts = (props) => {
               </Ant.Form.Item>
             </Ant.Col>
           </Ant.Row>
-        ))}
-        <ButtonList onAdd={handleAdd} />
-      </Ant.Form>
+        </Ant.Form>
+      ))}
+      <ButtonList onAdd={handleAdd} />
     </>
   );
 };
