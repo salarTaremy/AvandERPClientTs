@@ -43,8 +43,6 @@ const Dashboard = () => {
             },
             {
               validator: (_, value) => {
-                console.log(value?.toString())
-                console.log(validateNationalCode(value?.toString()))
                 if (validateNationalCode(value?.toString())) {
                   return Promise.resolve();
                 } else {
