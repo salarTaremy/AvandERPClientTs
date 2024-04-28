@@ -58,7 +58,6 @@ const UserList = () => {
   //====================================================================
   const getAllUserList = async () => {
     const queryString = qs.stringify(filterObject);
-    console.log("filterObject", filterObject);
     await ApiCall(`${url.USER}?${queryString}`);
   };
   const onFilterChanged = async (filterObject) => {
@@ -121,9 +120,9 @@ const UserList = () => {
     setModalContent(
       <UserInfo
         userId={val}
+        key={val}
       />
     );
-    console.log('userId', val)
     setModalState(true);
   }
   //====================================================================

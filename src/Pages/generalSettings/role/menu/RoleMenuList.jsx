@@ -15,7 +15,7 @@ const RoleMenuList = ({ id }) => {
     //====================================================================
     useEffect(() => {
         getAllMenu();
-    }, [id]);
+    }, []);
 
     useEffect(() => {
         setDataSource((data?.isSuccess && data?.data.roleNavMenuList) || null);

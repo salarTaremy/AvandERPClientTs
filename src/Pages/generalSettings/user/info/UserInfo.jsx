@@ -16,7 +16,7 @@ const UserInfo = ({userId}) => {
     //====================================================================
     useEffect(() => {
         getAllRoles();
-    }, [userId]);
+    }, []);
 
     useEffect(() => {
         setDataSource((data?.isSuccess && data?.data) || null);

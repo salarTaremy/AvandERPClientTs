@@ -56,7 +56,7 @@ const useRequestManager = ({ data, error, loading, loadingMessage }) => {
           err?.message && err?.message !== error?.message && toast.warning(err?.message)
         })
       }else{
-        error && toast.error(error?.message || defaultErrorMessage )
+        error &&  error?.message != "Network Error" &&   toast.error(error?.message || defaultErrorMessage )
       }
     }
     error?.title && toast.error(error?.title)

@@ -1,5 +1,3 @@
-
-
 //Accounting
 import Account from './Pages/accounting/account/Account'
 import AccountDocument from './Pages/accounting/accountDocument/AccountDocument'
@@ -7,13 +5,10 @@ import FrmEditAccountDocument from './Pages/accounting/accountDocument/edit/FrmE
 import BalanceSheet from './Pages/accounting/reports/balanceSheet/BalanceSheet.jsx'
 import StepReview from './Pages/accounting/reports/stepReview/StepReview'
 import HybridBrowsing from './Pages/accounting/reports/hybridBrowsing/HybridBrowsing'
-
 import FrmAddAccountDocument from './Pages/accounting/accountDocument/add/FrmAddAccountDocument'
 import DocumentTypeList from './Pages/accounting/documentType/list/DocumentTypeList'
 import DetailedAccount from './Pages/accounting/detailedAccount/DetailedAccount'
 import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/DetailedAccountGroup'
-
-
 
 //Dashboard
 import Dashboard from './Pages/dashboard/Dashboard'
@@ -38,7 +33,6 @@ import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
 import BranchList from './Pages/generalSettings/branch/list/BranchList'
 import UserList from './Pages/generalSettings/user/list/UserList'
 import UserRoleList from './Pages/generalSettings/userRole/list/UserRoleList'
-
 import Menus from './Pages/generalSettings/menuAccess/menus'
 import RoleOperations from './Pages/generalSettings/roleOperations/RoleOperations'
 
@@ -53,17 +47,16 @@ import CustomerType from './Pages/salesCommerce/basicInformation/customerType/Cu
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
-
+import CounterPartyBlackList from './Pages/manageCounterParty/CounterPartyBlackList/list/counterPartyBlackList'
+import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounterParty'
 import FormAddCounterParty from './Pages/manageCounterParty/add/FormAddCounterParty'
 
+//Sale 
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
+
+//Other Pagees
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
-import Login from './Pages/login/Login'
-import { SALETYPE } from './api/url'
-import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounterParty'
-
-
 
 
 const routes = [
@@ -109,6 +102,8 @@ const routes = [
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
   { path: 'manage/counterparty/edit', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
+  { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
+
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]

@@ -132,7 +132,7 @@ export const columns = (onDelete, onEdit, onView) => {
               <Ant.Popconfirm
                 onConfirm={() => onDelete(record.id)}
                 title="حدف ایتم"
-                description={`برای حذف حساب تفصیل ${record.name} مطمئن هستید ؟`}
+                description={`برای حذف سند ${record.subNumber} مورخه ${record.persianDateTilte} مطمئن هستید ؟`}
               >
                 <Ant.Button
                   className="text-red-600"
