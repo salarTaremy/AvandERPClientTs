@@ -125,7 +125,7 @@ const FormEditCounterParty = () => {
         title={"ویرایش طرف حساب"}
         type="inner"
       >
-
+ <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <HeaderEditCounterParty form={form} />
           <Ant.Flex className="items-end " vertical>
             <Ant.Button
@@ -154,6 +154,7 @@ const FormEditCounterParty = () => {
             />
           </TabPane>
         </Ant.Tabs>
+        </Ant.Form>
       </Ant.Card>
     </div>
   );
