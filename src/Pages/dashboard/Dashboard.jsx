@@ -10,6 +10,7 @@ import moment from 'moment'
 import { useFetch, useFetchWithHandler, usePostWithHandler } from '@/api'
 import GanttA from './GanttA'
 import GanttB from './GanttB'
+import  {validateNationalCode} from '@/Tools'
 
 const Dashboard = () => {
   const PersianYears = [
@@ -30,6 +31,32 @@ const Dashboard = () => {
       />
       {/* {currentYear === 1402 && <GanttA />} */}
       {/* {currentYear === 1403 && <GanttB />} */}
+
+      <Ant.Form>
+        <Ant.Form.Item
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: 'The name is required.',
+            },
+            {
+              validator: (_, value) => {
+                if (validateNationalCode(value?.toString())) {
+                  return Promise.resolve();
+                } else {
+                  return Promise.reject('کد ملی نا معتبر');
+                }
+              }
+            }
+          ]}
+        >
+          <Ant.Input style={{ width: '400px' }} />
+        </Ant.Form.Item>
+      </Ant.Form>
+
+
     </>
   )
 }

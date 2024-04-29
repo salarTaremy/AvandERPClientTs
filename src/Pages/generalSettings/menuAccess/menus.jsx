@@ -57,8 +57,9 @@ const Menus = () => {
   //                        Events
   //====================================================================
   const buildCheckedKeys = () => {
+
     items?.forEach((item) => {
-      if (item.roleHasAccess) {
+      if (item?.roleHasAccess) {
         checked.push(item.key);
       }
     });

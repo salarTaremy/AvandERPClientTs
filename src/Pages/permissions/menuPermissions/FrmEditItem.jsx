@@ -45,7 +45,7 @@ const FrmEditItem = (props) => {
     const ed = {
       id: values.id,
       name: values.name,
-      componentName: values.componentName,
+      componentName: values?.componentName,
       to: values.to,
       iconName: values.iconName,
     }

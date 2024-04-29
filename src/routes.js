@@ -25,6 +25,7 @@ import EditProductList from './Pages/inventory/product/edit/EditProductList'
 
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
+import CustomValidator from './Pages/Developers/Samples/CustomValidator'
 import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 
@@ -80,6 +81,7 @@ const routes = [
   { path: '/base/brand', name: 'برند', element: BrandList },
   { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },
   { path: '/developers/samples/blankPage', name: 'صفحه خالی', element: BlankPage },
+  { path: '/developers/samples/customValidator', name: 'صفحه خالی', element: CustomValidator },
   { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
   { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
