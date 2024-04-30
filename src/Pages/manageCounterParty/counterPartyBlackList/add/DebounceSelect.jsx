@@ -9,12 +9,12 @@ const DebounceSelect = ({ fetchOptions, debounceTimeout = 1000, ...props }) => {
     const [options, setOptions] = useState([]);
     const fetchRef = useRef(0);
     const debounceFetcher = useMemo(() => {
-        const loadOptions = (value) => {
+        const loadOptions = async (value) => {
             fetchRef.current += 1;
             const fetchId = fetchRef.current;
             setOptions([]);
             setFetching(true);
-            fetchOptions(value)
+            await fetchOptions(value)
             .then((newOptions) => {
                 if (fetchId !== fetchRef.current) {
                     // for fetch callback order

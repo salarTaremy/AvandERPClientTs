@@ -108,7 +108,7 @@ export const Get = async (url, data) => {
       method: 'get',
       data: data,
       //timeout: 8000,
-      headers: Headers,
+      headers: GetHeaders(),
     })
     return res.data
   } catch (error) {

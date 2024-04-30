@@ -5,7 +5,7 @@ import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import MyDatePicker from "@/components/common/MyDatePicker";
-import { useFetch, useFetchWithHandler } from "@/api";
+import { useFetch, useFetchWithHandler, Get } from "@/api";
 import DebounceSelect from './DebounceSelect'
 import qs from "qs";
 
@@ -46,16 +46,14 @@ const FormAddNewCounterPartyBlackList = (props) => {
         const queryString = qs.stringify({
             CounterpartyName: inputValue
         })
-        console.log('call  => ' + inputValue)
-        await ApiCall(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`);
-        if (listData?.isSuccess && listData?.data) {
-            console.log('data', listData.data)
-            return listData?.data.map((item) => ({
+      
+        const response = await Get(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,'' );
+        if (response?.data) {
+          return response?.data.map((item) => ({
                 label: `${item.counterpartyName} `,
-                value: item.id.inputValue,
+                value: item.id,
             }))
-        };
-        console.log('value', value)
+        }
     }
 
     //====================================================================
@@ -74,6 +72,7 @@ const FormAddNewCounterPartyBlackList = (props) => {
                 <Ant.Form.Item name="counterpartyName" label={"نام طرف حساب "} rules={[{ required: true }]}>
                     <DebounceSelect
                         mode="multiple"
+                        maxCount={1}
                         placeholder="انتخاب کنید..."
                         fetchOptions={getAllCounterPartyForDropDown}
                         // onSuccess = {() => console.log('onSuccess')}
