@@ -18,7 +18,6 @@ const FormAddNewCounterPartyBlackList = (props) => {
     const [stateData, stateLoading, stateError] = useFetch(url.COUNTER_PARTY_BLACK_LIST_STATE);
     useRequestManager({ error: stateError });
     const [value, setValue] = useState([]);
-    const [listData, dataloading, error, ApiCall] = useFetchWithHandler();
     const commonOptions = {
         showSearch: true,
         filterOption: (input, option) => option.title.indexOf(input) >= 0,
@@ -46,10 +45,10 @@ const FormAddNewCounterPartyBlackList = (props) => {
         const queryString = qs.stringify({
             CounterpartyName: inputValue
         })
-      
-        const response = await Get(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,'' );
+
+        const response = await Get(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`, '');
         if (response?.data) {
-          return response?.data.map((item) => ({
+            return response?.data.map((item) => ({
                 label: `${item.counterpartyName} `,
                 value: item.id,
             }))
@@ -61,7 +60,6 @@ const FormAddNewCounterPartyBlackList = (props) => {
     //====================================================================
     return (
         <>
-        {JSON.stringify(dataloading)}
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Row>
                     <Ant.Col span={24}>
@@ -75,12 +73,6 @@ const FormAddNewCounterPartyBlackList = (props) => {
                         maxCount={1}
                         placeholder="انتخاب کنید..."
                         fetchOptions={getAllCounterPartyForDropDown}
-                        // onSuccess = {() => console.log('onSuccess')}
-                        // onFinish = {() => console.log('onFinish')}
-                        // onChange={(newValue) => {
-                        //     console.log('onChange')
-                        //     setValue(newValue);
-                        // }}
                         value={value}
                     />
                 </Ant.Form.Item>
