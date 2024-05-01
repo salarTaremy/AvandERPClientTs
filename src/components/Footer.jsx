@@ -10,8 +10,7 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 const { Footer } = Layout;
 const FooterComponent = () => {
   const [ipAddress, setIPAddress] = useState('')
-  const [Data, loading, error, ApiCall] = useFetchWithHandler();
-  const autUser = useSelector((state) => state.autUser)
+
 
   useEffect(() => {
     fetch('https://api.ipify.org?format=json')
@@ -24,7 +23,7 @@ const FooterComponent = () => {
       <Footer className="footer py-3">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           {/* <div>{`کاربر:${autUser.userName}`}</div> */}
-          <div>{`IP Address : ${ipAddress}`}</div>
+          <div>{ipAddress && `IP Address : ${ipAddress}`}</div>
           <div>{" شرکت ایران آوندفر ( واحد IT )"}</div>
         </div>
       </Footer>
