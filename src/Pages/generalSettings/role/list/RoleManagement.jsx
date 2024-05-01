@@ -175,6 +175,7 @@ function RoleManagement() {
         onOk={() => {
           setModalState(false);
         }}
+        {...defaultValues.MODAL_PROPS}
       >
         {" "}
         {modalContent}

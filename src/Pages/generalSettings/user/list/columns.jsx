@@ -4,9 +4,10 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 import { FiEdit } from "react-icons/fi";
 import { VscKey } from "react-icons/vsc";
 import { VscGithubAction } from "react-icons/vsc";
+import { AiOutlineSwitcher } from "react-icons/ai";
 
 
-const columns = (onDelete, onEdit, onReset, onInfo) => {
+const columns = (onDelete, onEdit, onReset, onInfo,onSwitch) => {
     return (
         [
             // {
@@ -62,12 +63,19 @@ const columns = (onDelete, onEdit, onReset, onInfo) => {
                 className: "text-xs sm:text-sm",
                 render: (text, val) => (
                     <>
+                        <Ant.Tooltip placement="top" title={'ویرایش نقش ها'}>
+                            <Ant.Button
+                                className="text-violet-600"
+                                onClick={() => onSwitch(val)}
+                                icon={<AiOutlineSwitcher />}
+                                type="text"
+                            />
+                        </Ant.Tooltip>
                         <Ant.Tooltip placement="top" title={'لیست نقش ها'}>
                             <Ant.Button
                                 className="text-green-600"
                                 onClick={() => onInfo(val.id)}
-                                icon={<VscGithubAction />
-                            }
+                                icon={<VscGithubAction />}
                                 type="text"
                             />
                         </Ant.Tooltip>

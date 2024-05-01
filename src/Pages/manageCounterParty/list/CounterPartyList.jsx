@@ -16,6 +16,7 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import { useNavigate, generatePath } from "react-router-dom";
 
 import qs from "qs";
+import CounterPartyStateList from "../state/CounterPartyStateList";
 const CounterPartyList = () => {
   const navigate = useNavigate();
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -30,7 +31,7 @@ const CounterPartyList = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [pagination, setPpagination] = useState({
     current: 1,
-    pageSize:10,
+    pageSize: 10,
   });
 
   //====================================================================
@@ -114,6 +115,17 @@ const CounterPartyList = () => {
     );
     // setModalState(true);
   };
+
+  const onBlock = (val) => {
+    setModalContent(
+      <CounterPartyStateList
+        key={val.id}
+        counterPartyId={val.id}
+      />
+    );
+    console.log('counterPartyId',val.id)
+    setModalState(true);
+  }
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -136,12 +148,12 @@ const CounterPartyList = () => {
       <>
         <Ant.Skeleton loading={loading}>
           <Ant.Table
-           pagination={pagination}
+            pagination={pagination}
             size="small"
             {...defaultValues.TABLE_PROPS}
             title={title}
             onChange={handleTableChange}
-            columns={columns(onDelSuccess, onEdit)}
+            columns={columns(onDelSuccess, onEdit, onBlock)}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

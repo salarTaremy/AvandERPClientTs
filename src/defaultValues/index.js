@@ -9,3 +9,7 @@ export const TABLE_PROPS = {
   scroll: { x: '100%', y: '50vh' },
 }
 
+export const MODAL_PROPS = {
+  width : 1000
+}
+

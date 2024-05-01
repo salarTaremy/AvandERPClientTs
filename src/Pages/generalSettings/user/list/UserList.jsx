@@ -17,6 +17,7 @@ import * as uuid from "uuid";
 import FormResetPasswordUser from "../reset/FormResetPasswordUser";
 import FilterPanel from "./FilterPanel";
 import UserInfo from "../info/UserInfo";
+import FormSwitchUserRollList from "../rollSwitch/FormSwitchUserRollList";
 
 const UserList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -101,6 +102,7 @@ const UserList = () => {
     setModalState(false);
     getAllUserList();
   };
+
   //====================================================================
   //                        Events
   //====================================================================
@@ -123,6 +125,16 @@ const UserList = () => {
         key={val}
       />
     );
+    setModalState(true);
+  }
+
+  const onSwitch = (val) => {
+    setModalContent(
+      <FormSwitchUserRollList
+        key={val.id}
+        userId={val.id}
+      />
+    )
     setModalState(true);
   }
   //====================================================================
@@ -151,7 +163,7 @@ const UserList = () => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             title={title}
-            columns={columns(onDelSuccess, onEdit, onReset, onInfo)}
+            columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch)}
             dataSource={dataSource}
           />
         </Ant.Skeleton>
@@ -169,8 +181,12 @@ const UserList = () => {
         onCancel={() => {
           setModalState(false);
         }}
+        onFinish={() => {
+          setModalState(false);
+        }}
         footer={null}
         centered
+        width={1000}
       >
         {modalContent}
       </Ant.Modal>
