@@ -79,12 +79,7 @@ const Address = (prop) => {
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        onChange={(value) => {
-                          setItemsCity(null)
-                          setIdProvince(value)
-                        }
-
-                        }
+                        onChange={(value) => setIdProvince(value)}
                         disabled={provinceLoading || false}
                         loading={provinceLoading}
                         options={provinceList?.data}
