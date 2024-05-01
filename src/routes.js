@@ -51,7 +51,7 @@ import CounterPartyBlackList from './Pages/manageCounterParty/CounterPartyBlackL
 import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounterParty'
 import FormAddCounterParty from './Pages/manageCounterParty/add/FormAddCounterParty'
 
-//Sale 
+//Sale
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
 
 //Other Pagees
@@ -101,7 +101,7 @@ const routes = [
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
-  { path: 'manage/counterparty/edit', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
+  { path: 'manage/counterparty/edit/:id', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
 
 

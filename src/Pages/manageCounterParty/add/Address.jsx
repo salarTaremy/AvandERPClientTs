@@ -4,13 +4,38 @@ import * as url from "@/api/url";
 import { DeleteOutlined } from "@ant-design/icons";
 import useRequestManager from "@/hooks/useRequestManager";
 import { PlusOutlined } from "@ant-design/icons";
-import { useFetch } from "@/api";
-
+import { useFetch,useFetchWithHandler } from "@/api";
+import qs from "qs";
 const Address = () => {
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
-  const [cityList, cityLoading, cityError] = useFetch(url.CITY);
+
+  const [cityList, cityLoading, cityError,cityApi] = useFetchWithHandler();
   useRequestManager({ error: provinceError });
   useRequestManager({ error: cityError });
+
+
+  const commonOptions = {
+    placeholder: 'انتخاب کنید...',
+    showSearch: true,
+    filterOption: (input, option) =>  option.name.indexOf(input) >= 0,
+  }
+
+
+
+
+
+  //====================================================================
+  //                        Functions
+  //==============================================================
+
+
+  const handleSelectProvince = async(value) => {
+    const queryString = qs.stringify({
+      ProvinceId: value,
+    });
+    await cityApi(`${url.CITY}?${queryString}`);
+
+  };
 
   //====================================================================
   //                        Component
@@ -29,11 +54,14 @@ const Address = () => {
                       {...restField}
                       name={[name, "provinceId"]}
                       label="استان"
+
                     >
                       <Ant.Select
+                           {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
                         disabled={provinceLoading || false}
+                        onChange={handleSelectProvince}
                         loading={provinceLoading}
                         options={provinceList?.data}
                         fieldNames={{ label: "name", value: "id" }}
@@ -48,6 +76,7 @@ const Address = () => {
                       label="شهر"
                     >
                       <Ant.Select
+                           {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
                         disabled={cityLoading || false}

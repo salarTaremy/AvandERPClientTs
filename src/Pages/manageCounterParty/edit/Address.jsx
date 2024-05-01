@@ -17,7 +17,7 @@ const Address = () => {
   //====================================================================
   return (
     <>
-      <Ant.Form.List  name="addressList">
+      <Ant.Form.List name="addressList">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
@@ -29,6 +29,7 @@ const Address = () => {
                       {...restField}
                       name={[name, "provinceId"]}
                       label="استان"
+                      initialValue={name.provinceId}
                     >
                       <Ant.Select
                         allowClear={true}
@@ -65,11 +66,7 @@ const Address = () => {
                       name={[name, "postalCode"]}
                       label="کدپستی"
                     >
-                      <Ant.InputNumber
-
-                        maxLength={10}
-                        style={{ width: 200 }}
-                      />
+                      <Ant.InputNumber maxLength={10} style={{ width: 200 }} />
                     </Ant.Form.Item>
                   </Ant.Col>
                   <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -111,7 +108,7 @@ const Address = () => {
                 block
                 icon={<PlusOutlined />}
               >
-                اضافه کردن
+                {'اضافه کردن'}
               </Ant.Button>
             </Ant.Form.Item>
           </>

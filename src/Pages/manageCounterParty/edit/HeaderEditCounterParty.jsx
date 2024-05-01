@@ -8,22 +8,26 @@ import * as url from "@/api/url";
 import PropTypes from "prop-types";
 import { useFetch, useFetchWithHandler } from "@/api";
 
+
 const HeaderAddCounterParty = (prop) => {
-  const {form}=prop;
+  // const {form}=prop;
+
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
   const [cityList, cityLoading, cityError] = useFetch(url.CITY);
   useRequestManager({ error: cityError });
   const [selectedValueType, setSelectedValueType] = useState("");
+  const [dataList, setDataList] = useState("");
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
+
   useRequestManager({ error: counterpartyTypeError });
   useRequestManager({ error: maxCodeError });
   const commonOptions = {
     showSearch: true,
     filterOption: (input, option) => option.name.indexOf(input) >= 0,
   };
-  // const [form] = Ant.Form.useForm();
+  const [form] = Ant.Form.useForm();
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -32,6 +36,12 @@ const HeaderAddCounterParty = (prop) => {
       maxCodeData?.data &&
       form.setFieldsValue({ code: maxCodeData.data });
   }, [maxCodeData]);
+
+
+
+
+
+
   //====================================================================
   //                        Functions
   //=================================================================
@@ -64,11 +74,12 @@ const HeaderAddCounterParty = (prop) => {
   //====================================================================
   return (
     <div>
-      {/* <Ant.Form form={form} layout="vertical"> */}
+
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
+
               name={"counterpartyTypeId"}
               label="نوع"
             >
@@ -140,7 +151,6 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col
-
             className={selectedValueType === 2 ? "hidden" : ""}
             lg={8}
             md={12}
@@ -149,16 +159,24 @@ const HeaderAddCounterParty = (prop) => {
           >
             <Ant.Form.Item
               name={"nationalCode"}
-              rules={[{ required: true },{len :10}]}
+              rules={[
+                {
+                  required: true,
+                  // message: 'The name is required.',
+                },
+                {
+                  validator: (_, value) => {
+                    if (validateNationalCode(value?.toString())) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject("کد ملی نا معتبر");
+                    }
+                  },
+                },
+              ]}
               label="کدملی"
             >
-              <Ant.Input
-                allowClear
-                showCount
-                min={0}
-                maxLength={10}
-
-              />
+              <Ant.Input allowClear showCount min={0} maxLength={10} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col
@@ -299,7 +317,7 @@ const HeaderAddCounterParty = (prop) => {
               <Ant.InputNumber
                 // allowClear
                 // showCount
-                 minLength={5}
+                minLength={5}
                 maxLength={11}
                 style={{ width: "100%" }}
               />
@@ -394,13 +412,11 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         </Ant.Row>
-      {/* </Ant.Form> */}
+
     </div>
   );
 };
 export default HeaderAddCounterParty;
 HeaderAddCounterParty.propTypes = {
   from: PropTypes.any,
-
 };
-

@@ -56,7 +56,7 @@ const columns = (onDelete, onEdit) => {
           <Ant.Space direction="horizontal" size={20}>
             <Ant.Button
               className="text-blue-600"
-              onClick={() => onEdit(val)}
+              onClick={() => onEdit(val.id)}
               icon={<FiEdit />}
               type="text"
             />

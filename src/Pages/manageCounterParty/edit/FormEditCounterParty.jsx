@@ -9,7 +9,10 @@ import Address from "./Address";
 import Contacts from "./Contacts";
 import BankBranchInfo from "./BankBranchInfo";
 import HeaderEditCounterParty from "./HeaderEditCounterParty";
+import * as api from "@/api";
+import { useParams } from "react-router-dom";
 const FormEditCounterParty = () => {
+  const params = useParams();
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
@@ -24,10 +27,19 @@ const FormEditCounterParty = () => {
   const [dataFromChildAddress, setDataFromChildAddress] = useState("");
   const [dataFromChildBankBranchInfo, setDataFromChildBankBranchInfo] =
     useState("");
-
+  const [
+    listDataHeader,
+    listLoadingHeader,
+    listErrorHeader,
+    listApiCallHeader,
+  ] = api.useFetchWithHandler();
   //====================================================================
   //                        useEffects
   //====================================================================
+  useEffect(() => {
+    onEditHeader();
+  }, []);
+
   useEffect(() => {
     form.resetFields();
   }, [form]);
@@ -36,9 +48,17 @@ const FormEditCounterParty = () => {
     const list = form.getFieldsValue();
     console.log(list, "list");
   }, []);
+  useEffect(() => {
+    console.log(listDataHeader?.data?.addressList, "addressList");
+    form.setFieldsValue({ ...(listDataHeader?.data || null) });
+  }, [listDataHeader]);
+
   //====================================================================
   //                        Functions
   //====================================================================
+  const onEditHeader = async () => {
+    await listApiCallHeader(`${url.COUNTER_PARTY}/${params.id}`);
+  };
 
   const onChange = (key) => {
     console.log(key);
@@ -125,7 +145,7 @@ const FormEditCounterParty = () => {
         title={"ویرایش طرف حساب"}
         type="inner"
       >
- <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
+        <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <HeaderEditCounterParty form={form} />
           <Ant.Flex className="items-end " vertical>
             <Ant.Button
@@ -140,20 +160,20 @@ const FormEditCounterParty = () => {
             </Ant.Button>
           </Ant.Flex>
 
-        <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
-          <TabPane tab="اطلاعات تماس " key="1">
-            <Contacts form={form} sendDataToParent={updateDataContacts} />
-          </TabPane>
-          <TabPane tab="آدرس" key="2">
-            <Address sendDataToParent={updateDataAddress} form={form} />
-          </TabPane>
-          <TabPane tab="اطلاعات حساب بانکی" key="3">
-            <BankBranchInfo
-              sendDataToParent={updateBankBranchInfo}
-              form={form}
-            />
-          </TabPane>
-        </Ant.Tabs>
+          <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
+            <TabPane tab="اطلاعات تماس " key="1">
+              <Contacts form={form} sendDataToParent={updateDataContacts} />
+            </TabPane>
+            <TabPane tab="آدرس" key="2">
+              <Address sendDataToParent={updateDataAddress} form={form} />
+            </TabPane>
+            <TabPane tab="اطلاعات حساب های  بانکی" key="3">
+              <BankBranchInfo
+                sendDataToParent={updateBankBranchInfo}
+                form={form}
+              />
+            </TabPane>
+          </Ant.Tabs>
         </Ant.Form>
       </Ant.Card>
     </div>

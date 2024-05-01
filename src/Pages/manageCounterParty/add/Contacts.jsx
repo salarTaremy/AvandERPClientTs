@@ -20,7 +20,6 @@ const Contacts = () => {
                       rules={[
                         {
                           required: true,
-
                           message: "لطفا شماره تماس را درست وارد کنید",
                         },
                       ]}
