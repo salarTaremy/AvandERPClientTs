@@ -14,48 +14,55 @@ const DetailProductListDescription = (props) => {
       key: '1',
       label: 'شناسه',
       children: data?.data?.id,
+      span:2
 
     },
     {
       key: '2',
       label: 'کد',
       children: data?.data?.code,
+      span:2
 
     },
     {
       key: '3',
       label: 'کد دوم',
       children: data?.data?.seccondCode,
+      span:2
 
     },
-    {
-      key: '4',
-      label: 'شناسه نوع',
-      children: data?.data?.typeId,
+    // {
+    //   key: '4',
+    //   label: 'شناسه نوع',
+    //   children: data?.data?.typeId,
+    //   span:2
 
-    },
-    {
-      key: '5',
-      label: 'شناسه جزئیات ماهیت',
-      children: data?.data?.natureDetailId,
+    // },
+    // {
+    //   key: '5',
+    //   label: 'شناسه جزئیات ماهیت',
+    //   children: data?.data?.natureDetailId,
+    //   span:6
 
-    },
+    // },
     {
       key: '6',
       label: 'شناسه برند',
       children: data?.data?.brandId,
+      span:6
 
     },
     {
       key: '7',
       label: 'نام کالا',
       children: data?.data?.name,
+      span:6
 
     }, {
       key: '8',
       label: 'نام دوم کالا',
       children: data?.data?.seccondName,
-
+      span:6
     },
   ]
   //====================================================================
@@ -66,7 +73,7 @@ const DetailProductListDescription = (props) => {
     <Ant.Descriptions
       bordered
       // layout="vertical"
-      title={'جزئیات کالا و خدمات '}
+      title={'جزئیات کالا/خدمات '}
       size={'middle'}
 
       items={borderedItems}
