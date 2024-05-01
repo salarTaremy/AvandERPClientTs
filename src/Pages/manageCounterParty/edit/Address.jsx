@@ -28,9 +28,7 @@ const Address = (prop) => {
 
   useEffect(() => {
     getAllCity();
-  }, [idProvince]);
-
-
+  }, [idProvince?.id]);
 
   useEffect(() => {
     setItemsCity((cityList?.isSuccess && cityList?.data) || null);
@@ -39,21 +37,22 @@ const Address = (prop) => {
   //====================================================================
   //                        Functions
   //==============================================================
-  // const selectItems = (value) => {
-  //   alert("lll");
-  //   debugger;
-  //   setIdProvince(value);
-  //   setItemsCity(null);
-  // };
+  const onchange = (value, key) => {
+
+    const data = form.getFieldValue("addressList");
+    console.log(data,"data")
+    data[key].cityId = null;
+    form.getFieldValue("addressList", [...data]);
+    setIdProvince({id:value,key});
+  };
 
   const getAllCity = async () => {
-    debugger
+
     const queryString = qs.stringify({
       ProvinceId: idProvince,
     });
 
     await cityApi(`${url.CITY}?${queryString}`);
-
   };
 
   //====================================================================
@@ -64,7 +63,9 @@ const Address = (prop) => {
       <Ant.Form.List name="addressList">
         {(fields, { add, remove }) => (
           <>
+
             {fields.map(({ key, name, ...restField }) => (
+
               <Ant.Space key={key} style={{ display: "unset" }}>
                 <Ant.Row gutter={[16, 8]}>
                   <Ant.Col lg={4} md={12} sm={12} xs={24}>
@@ -79,7 +80,8 @@ const Address = (prop) => {
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        onChange={(value) => setIdProvince(value)}
+                        // onChange={(value) => setIdProvince(value)}
+                        onChange={(value) => onchange(value, key)}
                         disabled={provinceLoading || false}
                         loading={provinceLoading}
                         options={provinceList?.data}
@@ -89,17 +91,20 @@ const Address = (prop) => {
                   </Ant.Col>
                   <Ant.Col lg={4} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
+
                       rules={[{ required: true }]}
                       {...restField}
                       name={[name, "cityId"]}
                       label="شهر"
-                      initialValue={name.cityId}
+
                     >
                       <Ant.Select
+
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        loading={cityLoading}
+
+                        loading={cityLoading && idProvince?.key == key }
                         options={itemsCity}
                         fieldNames={{ label: "name", value: "id" }}
                       />
