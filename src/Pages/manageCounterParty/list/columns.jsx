@@ -65,7 +65,7 @@ const columns = (onDelete, onEdit, onBlock) => {
           <Ant.Tooltip placement="top" title={'ویرایش'}>
             <Ant.Button
               className="text-blue-600"
-              onClick={() => onEdit(val)}
+              onClick={() => onEdit(val.id)}
               icon={<FiEdit />}
               type="text"
             />

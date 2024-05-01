@@ -97,7 +97,7 @@ const CounterPartyList = () => {
   };
   const onAdd = () => {
     setModalContent(
-      navigate("/manage/counterparty/new")
+      navigate("/manage/counterparty/new"),
       // <FormAddCounterParty />,
       // <FormAddCounterParty key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
@@ -107,12 +107,12 @@ const CounterPartyList = () => {
   //====================================================================
   //                        Events
   //====================================================================
-  const onEdit = (val) => {
+  const onEdit = async (id) => {
+    console.log(id, "afafafaf");
     // alert("ff")
-    setModalContent(
-      navigate("/manage/counterparty/edit")
-      // <FormEditCounterParty />,
-    );
+
+    navigate(generatePath("/manage/counterparty/edit/:id", { id }));
+
     // setModalState(true);
   };
 
