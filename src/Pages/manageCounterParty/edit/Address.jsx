@@ -1,16 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import { DeleteOutlined } from "@ant-design/icons";
 import useRequestManager from "@/hooks/useRequestManager";
 import { PlusOutlined } from "@ant-design/icons";
-import { useFetch } from "@/api";
-
-const Address = () => {
+import { useFetch, useFetchWithHandler } from "@/api";
+import qs from "qs";
+import PropTypes from "prop-types";
+const Address = (prop) => {
+  const { form } = prop;
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
-  const [cityList, cityLoading, cityError] = useFetch(url.CITY);
+  // const [cityList, cityLoading, cityError] = useFetch(url.CITY);
+  const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
   useRequestManager({ error: provinceError });
   useRequestManager({ error: cityError });
+  const [idProvince, setIdProvince] = useState(null);
+  const [itemsCity, setItemsCity] = useState([]);
+  const commonOptions = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+  };
+
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+
+  useEffect(() => {
+    getAllCity();
+  }, [idProvince]);
+
+
+
+  useEffect(() => {
+    setItemsCity((cityList?.isSuccess && cityList?.data) || null);
+  }, [cityList]);
+
+  //====================================================================
+  //                        Functions
+  //==============================================================
+  // const selectItems = (value) => {
+  //   alert("lll");
+  //   debugger;
+  //   setIdProvince(value);
+  //   setItemsCity(null);
+  // };
+
+  const getAllCity = async () => {
+    debugger
+    const queryString = qs.stringify({
+      ProvinceId: idProvince,
+    });
+
+    await cityApi(`${url.CITY}?${queryString}`);
+
+  };
 
   //====================================================================
   //                        Component
@@ -32,8 +76,15 @@ const Address = () => {
                       initialValue={name.provinceId}
                     >
                       <Ant.Select
+                        {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
+                        onChange={(value) => {
+                          setItemsCity(null)
+                          setIdProvince(value)
+                        }
+
+                        }
                         disabled={provinceLoading || false}
                         loading={provinceLoading}
                         options={provinceList?.data}
@@ -47,13 +98,14 @@ const Address = () => {
                       {...restField}
                       name={[name, "cityId"]}
                       label="شهر"
+                      initialValue={name.cityId}
                     >
                       <Ant.Select
+                        {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        disabled={cityLoading || false}
                         loading={cityLoading}
-                        options={cityList?.data}
+                        options={itemsCity}
                         fieldNames={{ label: "name", value: "id" }}
                       />
                     </Ant.Form.Item>
@@ -108,7 +160,7 @@ const Address = () => {
                 block
                 icon={<PlusOutlined />}
               >
-                {'اضافه کردن'}
+                {"اضافه کردن"}
               </Ant.Button>
             </Ant.Form.Item>
           </>
@@ -118,3 +170,6 @@ const Address = () => {
   );
 };
 export default Address;
+Address.propTypes = {
+  from: PropTypes.any,
+};

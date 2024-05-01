@@ -9,6 +9,7 @@ import Address from "./Address";
 import Contacts from "./Contacts";
 import BankBranchInfo from "./BankBranchInfo";
 import HeaderEditCounterParty from "./HeaderEditCounterParty";
+import Informationccounts from "./Informationccounts";
 import * as api from "@/api";
 import { useParams } from "react-router-dom";
 const FormEditCounterParty = () => {
@@ -33,6 +34,7 @@ const FormEditCounterParty = () => {
     listErrorHeader,
     listApiCallHeader,
   ] = api.useFetchWithHandler();
+
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -41,16 +43,16 @@ const FormEditCounterParty = () => {
   }, []);
 
   useEffect(() => {
-    form.resetFields();
-  }, [form]);
-
-  useEffect(() => {
     const list = form.getFieldsValue();
+
     console.log(list, "list");
   }, []);
+
   useEffect(() => {
     console.log(listDataHeader?.data?.addressList, "addressList");
     form.setFieldsValue({ ...(listDataHeader?.data || null) });
+    // form.setFieldsValue({ cityId: undefined });
+
   }, [listDataHeader]);
 
   //====================================================================
@@ -58,23 +60,11 @@ const FormEditCounterParty = () => {
   //====================================================================
   const onEditHeader = async () => {
     await listApiCallHeader(`${url.COUNTER_PARTY}/${params.id}`);
+
+
   };
 
-  const onChange = (key) => {
-    console.log(key);
-  };
-  const updateDataContacts = (newData) => {
-    console.log("contactds", newData);
-    setDataFromChildContact(newData);
-  };
-  const updateDataAddress = (newData) => {
-    console.log("Address", newData);
-    setDataFromChildAddress(newData);
-  };
-  const updateBankBranchInfo = (newData) => {
-    console.log("bank", newData);
-    setDataFromChildBankBranchInfo(newData);
-  };
+
 
   const onFinish = async () => {
     const list = form.getFieldsValue();
@@ -160,18 +150,18 @@ const FormEditCounterParty = () => {
             </Ant.Button>
           </Ant.Flex>
 
-          <Ant.Tabs onChange={onChange} type="card" defaultActiveKey="1">
+          <Ant.Tabs type="card" defaultActiveKey="1">
             <TabPane tab="اطلاعات تماس " key="1">
-              <Contacts form={form} sendDataToParent={updateDataContacts} />
+              <Contacts />
             </TabPane>
             <TabPane tab="آدرس" key="2">
-              <Address sendDataToParent={updateDataAddress} form={form} />
+              <Address form={form}/>
             </TabPane>
-            <TabPane tab="اطلاعات حساب های  بانکی" key="3">
-              <BankBranchInfo
-                sendDataToParent={updateBankBranchInfo}
-                form={form}
-              />
+            <TabPane tab="اطلاعات حساب های بانکی" key="3">
+              <BankBranchInfo />
+            </TabPane>
+            <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="4">
+              <Informationccounts />
             </TabPane>
           </Ant.Tabs>
         </Ant.Form>

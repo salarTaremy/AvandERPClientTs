@@ -57,10 +57,6 @@ const HeaderAddCounterParty = (prop) => {
 
   };
 
-
-  const handleSelectChange = (value) => {
-    setSelectedValueType(value);
-  };
   const getMaxCode = async () => {
     await maxCodeApiCall(`${url.GETFIRST_FREE_CODE}`);
   };
