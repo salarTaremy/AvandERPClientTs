@@ -39,7 +39,7 @@ export const UnitsStep = ({ form }) => {
   }, [selectedUnitType])
 
   const handleOnChange = (val, option) => {
-    form.setFieldsValue({ unitId: undefined })
+    form.setFieldsValue({ productUnitId: undefined })
     setSelectedUnitType(option.id)
   }
   const commonOptions = {
@@ -60,7 +60,7 @@ export const UnitsStep = ({ form }) => {
               fieldNames={{ label: 'name', value: 'id' }}
             />
           </Form.Item>
-          <Form.Item name={'unitId'} label="(اصلی)واحد" rules={[{ required: true }]}>
+          <Form.Item name={'productUnitId'} label="(اصلی)واحد" rules={[{ required: true }]}>
             <Select
               {...commonOptions}
               showSearch

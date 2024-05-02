@@ -19,10 +19,10 @@ export const FinalStep = ({ form }) => {
   const natureDetailId = form.getFieldValue('natureDetailId')
   const natureId = form.getFieldValue('natureId')
   const unitTypeId = form.getFieldValue('unitTypeId')
-  const unitId = form.getFieldValue('unitId')
+  const productUnitId = form.getFieldValue('productUnitId')
 
   const [brandData, brandLoading, brandError] = useFetch(`${url.BRAND}/${brandId}`)
-  const [unitData, unitLoading, unitError] = useFetch(`${url.PRODUCT_UNIT}/${unitId}`)
+  const [unitData, unitLoading, unitError] = useFetch(`${url.PRODUCT_UNIT}/${productUnitId}`)
   const [unitTypeData, unitTypeLoading, unitTypeError] = useFetch(
     `${url.PRODUCT_UNIT_TYPE}/${unitTypeId}`,
   )
