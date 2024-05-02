@@ -67,7 +67,7 @@ const columns = (onDelete, onEdit, onReset, onInfo,onSwitch) => {
                             <Ant.Button
                                 className="text-violet-600"
                                 onClick={() => onSwitch(val)}
-                                icon={<AiOutlineSwitcher />}
+                                icon={<VscGithubAction />}
                                 type="text"
                             />
                         </Ant.Tooltip>
