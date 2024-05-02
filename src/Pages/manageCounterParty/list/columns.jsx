@@ -2,7 +2,7 @@ import React from "react";
 import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-import { AiOutlineEllipsis } from "react-icons/ai";
+import { TbLockOpen, TbLockCancel, TbLock } from "react-icons/tb";
 
 const columns = (onDelete, onEdit, onBlock) => {
   return [
@@ -56,9 +56,9 @@ const columns = (onDelete, onEdit, onBlock) => {
         <>
           <Ant.Tooltip placement="top" title={'وضعیت اعتبار طرف حساب'}>
             <Ant.Button
-              className="text-pink-600"
+              className={(val.isBlocked === true && "text-red-600" || "text-green-600")}
               onClick={() => onBlock(val)}
-              icon={<AiOutlineEllipsis />}
+              icon={(val.isBlocked === true && <TbLock /> || <TbLockOpen />)}
               type="text"
             />
           </Ant.Tooltip>

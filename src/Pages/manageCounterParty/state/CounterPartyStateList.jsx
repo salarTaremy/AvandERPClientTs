@@ -10,7 +10,7 @@ import * as styles from "@/styles";
 import * as uuid from "uuid";
 
 
-const CounterPartyStateList = ({ counterPartyId }) => {
+const CounterPartyStateList = ({ counterPartyId, counterPartyName }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
@@ -32,7 +32,6 @@ const CounterPartyStateList = ({ counterPartyId }) => {
     //                        Functions
     //====================================================================
     const getCounterPartyState = async () => {
-        console.log('counterPartyId', counterPartyId)
         await ApiCall(`${url.COUNTER_PARTY_BLACK_LIST_STATE_GET_BY_COUNTER_PARTY_ID}/${counterPartyId}`);
     };
 
@@ -73,7 +72,7 @@ const CounterPartyStateList = ({ counterPartyId }) => {
     const onSuccessAdd = () => {
         setModalState(false);
         getCounterPartyState();
-      };
+    };
 
     //====================================================================
     //                        Child Components
@@ -103,27 +102,28 @@ const CounterPartyStateList = ({ counterPartyId }) => {
         )
     }
 
-      //====================================================================
-  //                        Component
-  //====================================================================
-  return (
-    <>
-      <Ant.Modal
-        open={modalState}
-        handleCancel={() => setModalState(false)}
-        onCancel={() => {
-          setModalState(false);
-        }}
-        footer={null}
-        centered
-      >
-        {modalContent}
-      </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"وضعیت طرف حساب"} type="inner" loading={loading}>
-        <Grid />
-      </Ant.Card>
-    </>
-  );
+    //====================================================================
+    //                        Component
+    //====================================================================
+    return (
+        <>
+            <Ant.Modal
+                open={modalState}
+                handleCancel={() => setModalState(false)}
+                onCancel={() => {
+                    setModalState(false);
+                }}
+                footer={null}
+                centered
+            >
+                {modalContent}
+            </Ant.Modal>
+            <br></br>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`وضعیت اعتبار "${counterPartyName}"`} type="inner" loading={loading}>
+                <Grid />
+            </Ant.Card>
+        </>
+    );
 }
 
 export default CounterPartyStateList

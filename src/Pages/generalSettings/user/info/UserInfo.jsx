@@ -5,8 +5,9 @@ import * as defaultValues from "@/defaultValues";
 import qs from "qs";
 import { useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
+import * as styles from "@/styles";
 
-const UserInfo = ({userId}) => {
+const UserInfo = ({ userId, userName }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
@@ -52,15 +53,24 @@ const UserInfo = ({userId}) => {
     //====================================================================
     return (
         <>
-            <Ant.Skeleton loading={loading}>
-                <Ant.Table
-                    {...defaultValues.TABLE_PROPS}
-                    className="mt-5"
-                    pagination={false}
-                    columns={cl}
-                    dataSource={dataSource || null}
-                />
-            </Ant.Skeleton>
+        <br></br>
+            <Ant.Card
+                loading={loading}
+                style={{ ...styles.CARD_DEFAULT_STYLES }}
+                className="w-full"
+                title={`لیست نقش های "${userName}"`}
+                type="inner"
+            >
+                <Ant.Skeleton loading={loading}>
+                    <Ant.Table
+                        {...defaultValues.TABLE_PROPS}
+                        className="mt-5"
+                        pagination={false}
+                        columns={cl}
+                        dataSource={dataSource || null}
+                    />
+                </Ant.Skeleton>
+            </Ant.Card>
         </>
     )
 }
