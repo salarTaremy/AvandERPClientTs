@@ -121,9 +121,9 @@ const CounterPartyList = () => {
       <CounterPartyStateList
         key={val.id}
         counterPartyId={val.id}
+        counterPartyName={val.companyTitle}
       />
     );
-    console.log('counterPartyId',val.id)
     setModalState(true);
   }
   //====================================================================

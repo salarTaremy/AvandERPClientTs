@@ -74,7 +74,7 @@ const columns = (onDelete, onEdit, onReset, onInfo,onSwitch) => {
                         <Ant.Tooltip placement="top" title={'لیست نقش ها'}>
                             <Ant.Button
                                 className="text-green-600"
-                                onClick={() => onInfo(val.id)}
+                                onClick={() => onInfo(val)}
                                 icon={<VscGithubAction />}
                                 type="text"
                             />

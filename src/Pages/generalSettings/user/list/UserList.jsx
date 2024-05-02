@@ -121,8 +121,9 @@ const UserList = () => {
   const onInfo = (val) => {
     setModalContent(
       <UserInfo
-        userId={val}
-        key={val}
+        userId={val.id}
+        key={val.id}
+        userName={val.userName}
       />
     );
     setModalState(true);
@@ -133,6 +134,7 @@ const UserList = () => {
       <FormSwitchUserRollList
         key={val.id}
         userId={val.id}
+        userName={val.userName}
       />
     )
     setModalState(true);

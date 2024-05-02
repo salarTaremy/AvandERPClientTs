@@ -4,20 +4,20 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types"
 import * as url from '@/api/url'
 import {
-    useFetch,
     useFetchWithHandler,
     usePutWithHandler
 }
     from '@/api'
 import * as defaultValues from "@/defaultValues";
 import ButtonList from "@/components/common/ButtonList";
-// import FilterDrawer from '@/components/common/FilterDrawer'
-// import FilterBedge from '@/components/common/FilterBedge'
-// import FilterPanel from './FilterPanel'
+import FilterDrawer from '@/components/common/FilterDrawer'
+import FilterBedge from '@/components/common/FilterBedge'
+import FilterPanel from './FilterPanel';
 import qs from "qs"
 import useRequestManager from '@/hooks/useRequestManager'
+import * as styles from "@/styles";
 
-const FormSwitchUserRollList = ({ userId }) => {
+const FormSwitchUserRollList = ({ userId, userName }) => {
     const [form] = Ant.Form.useForm();
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -29,6 +29,10 @@ const FormSwitchUserRollList = ({ userId }) => {
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [idActionsList, setIdActionsList] = useState([]);
+    const [modalContent, setModalContent] = useState();
+    const [modalState, setModalState] = useState(false);
+
+
 
     //====================================================================
     //                        useEffects
@@ -75,15 +79,15 @@ const FormSwitchUserRollList = ({ userId }) => {
         await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`)
     }
 
-    // const onFilterChanged = async (filterObject) => {
-    //     setFilterObject(filterObject)
-    //     setOpenFilter(false)
-    // }
+    const onFilterChanged = async (filterObject) => {
+        setFilterObject(filterObject)
+        setOpenFilter(false)
+    }
 
-    // const onRemoveFilter = () => {
-    //     setFilterObject(null)
-    //     setOpenFilter(false)
-    // }
+    const onRemoveFilter = () => {
+        setFilterObject(null)
+        setOpenFilter(false)
+    }
 
     const updateActionId = (listId) => {
         setIdActionsList(listId);
@@ -133,31 +137,88 @@ const FormSwitchUserRollList = ({ userId }) => {
     }
 
     //====================================================================
+    //                        Child Components
+    //====================================================================
+    const title = () => {
+        return (
+            <ButtonList
+                filterCount={filterCount}
+                onFilter={() => {
+                    setOpenFilter(true);
+                }}
+            />
+        )
+    }
+
+    const Grid = () => {
+        return (
+            <>
+                <Ant.Skeleton loading={loading}>
+                    <Ant.Table
+                        rowSelection={{ ...rowSelection }}
+                        {...defaultValues.TABLE_PROPS}
+                        title={title}
+                        pagination={false}
+                        columns={columns()}
+                        dataSource={dataSource}
+                    />
+                </Ant.Skeleton>
+            </>
+        )
+    }
+
+
+    //====================================================================
     //                        Component
     //====================================================================
     return (
         <>
-            <Ant.Skeleton loading={loading}>
-                <Ant.Table
-                    rowSelection={{ ...rowSelection }}
-                    {...defaultValues.TABLE_PROPS}
-                    className="mt-5"
-                    bordered={false}
-                    pagination={false}
-                    columns={columns()}
-                    dataSource={dataSource}
-                />
-            </Ant.Skeleton>
-            <Ant.Button block
-                className='mt-8 '
-                loading={editLoading}
-                type="primary"
-                onClick={onFinish}
+            <Ant.Modal
+                open={modalState}
+                handleCancel={() => {
+                    setModalState(false)
+                }}
+                onCancel={() => {
+                    setModalState(false);
+                }}
+                onFinish={() => {
+                    setModalState(false);
+                }}
+                footer={null}
+                centered
+                {...defaultValues.MODAL_PROPS}
             >
-                {'تایید'}
-            </Ant.Button>
+                {modalContent}
+            </Ant.Modal>
+            <br></br>
+            <Ant.Card
+                loading={loading}
+                style={{ ...styles.CARD_DEFAULT_STYLES }}
+                className="w-full"
+                title={`ویرایش نقش های "${userName}"`}
+                type="inner"
+            >
+                <FilterDrawer
+                    open={openFilter}
+                    onClose={() => setOpenFilter(false)}
+                    onRemoveFilter={onRemoveFilter}
+                >
+                    <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+                </FilterDrawer>
+                <FilterBedge filterCount={filterCount}>
+                    <Grid />
+                </FilterBedge>
+                <Ant.Button block
+                    className='mt-8 '
+                    loading={editLoading}
+                    type="primary"
+                    onClick={onFinish}
+                >
+                    {'تایید'}
+                </Ant.Button>
+            </Ant.Card>
         </>
-    )
+    );
 }
 
 export default FormSwitchUserRollList
