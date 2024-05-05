@@ -132,6 +132,7 @@ const UserList = () => {
   const onSwitch = (val) => {
     setModalContent(
       <FormSwitchUserRollList
+      onSuccess={onSuccessSwitch}
         key={val.id}
         userId={val.id}
         userName={val.userName}
@@ -139,6 +140,11 @@ const UserList = () => {
     )
     setModalState(true);
   }
+
+  const onSuccessSwitch = () => {
+    setModalState(false);
+    getAllUserList();
+  };
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -186,9 +192,12 @@ const UserList = () => {
         onFinish={() => {
           setModalState(false);
         }}
+        onOk={() => {
+          setModalState(false);
+        }}
         footer={null}
         centered
-        width={1000}
+        {...defaultValues.MODAL_PROPS}
       >
         {modalContent}
       </Ant.Modal>

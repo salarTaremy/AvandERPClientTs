@@ -119,12 +119,18 @@ const CounterPartyList = () => {
   const onBlock = (val) => {
     setModalContent(
       <CounterPartyStateList
+      onSuccess={onSuccessBlock}
         key={val.id}
         counterPartyId={val.id}
         counterPartyName={val.companyTitle}
       />
     );
     setModalState(true);
+  }
+  
+  const onSuccessBlock=()=>{
+    getAllCounterParty();
+    setModalState(false)
   }
   //====================================================================
   //                        Child Components

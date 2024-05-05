@@ -8,7 +8,7 @@ import { useFetch, usePostWithHandler } from "@/api";
 
 
 const FormAddNewState = (props) => {
-    const { onSuccess } = props
+    const { onSuccess, counterPartyId } = props
     const [loading, setLoading] = useState(false)
     const [addData, addLoading, addError, addApiCall] = usePostWithHandler()
     useRequestManager({ error: addError, loading: addLoading, data: addData })
@@ -35,8 +35,8 @@ const FormAddNewState = (props) => {
         const req = {
             ...values,
             dateCalendarId: parseInt(values?.dateCalendarId?.toString().replace(/\//g, '')),
+            counterPartyId: counterPartyId
         }
-        console.log('req', req)
         await addApiCall(url.COUNTER_PARTY_BLACK_LIST, req)
         setLoading(false)
     }
@@ -92,5 +92,5 @@ const FormAddNewState = (props) => {
 export default FormAddNewState
 FormAddNewState.propTypes = {
     onSuccess: PropTypes.func,
-    counterPartyId: PropTypes.int,
+    counterPartyId: PropTypes.number,
 }

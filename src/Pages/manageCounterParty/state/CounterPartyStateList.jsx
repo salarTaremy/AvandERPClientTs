@@ -10,7 +10,8 @@ import * as styles from "@/styles";
 import * as uuid from "uuid";
 
 
-const CounterPartyStateList = ({ counterPartyId, counterPartyName }) => {
+const CounterPartyStateList = (props) => {
+    const { counterPartyId, counterPartyName, onSuccess } = props
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
@@ -25,8 +26,12 @@ const CounterPartyStateList = ({ counterPartyId, counterPartyName }) => {
     }, []);
 
     useEffect(() => {
-        setDataSource((data?.isSuccess && data?.data) || null);
+        setDataSource((data?.isSuccess && data?.data) || null)
     }, [data]);
+
+    // useEffect(()=>{
+    //     onSuccess()
+    // },[data])
 
     //====================================================================
     //                        Functions
@@ -64,7 +69,7 @@ const CounterPartyStateList = ({ counterPartyId, counterPartyName }) => {
 
     const onAdd = () => {
         setModalContent(
-            <FormAddNewState key={uuid.v1()} onSuccess={onSuccessAdd} />
+            <FormAddNewState counterPartyId={counterPartyId} key={uuid.v1()} onSuccess={onSuccessAdd} />
         );
         setModalState(true)
     }

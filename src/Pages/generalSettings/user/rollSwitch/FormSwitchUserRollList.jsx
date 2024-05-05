@@ -17,8 +17,7 @@ import qs from "qs"
 import useRequestManager from '@/hooks/useRequestManager'
 import * as styles from "@/styles";
 
-const FormSwitchUserRollList = ({ userId, userName }) => {
-    const [form] = Ant.Form.useForm();
+const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [selectedUser, setSelectedUser] = useState(null)
@@ -29,10 +28,6 @@ const FormSwitchUserRollList = ({ userId, userName }) => {
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [idActionsList, setIdActionsList] = useState([]);
-    const [modalContent, setModalContent] = useState();
-    const [modalState, setModalState] = useState(false);
-
-
 
     //====================================================================
     //                        useEffects
@@ -63,7 +58,7 @@ const FormSwitchUserRollList = ({ userId, userName }) => {
     }, [listData]);
 
     useEffect(() => {
-        editData?.isSuccess && onSuccessEdit()
+        editData?.isSuccess && onSuccess()
     }, [editData])
 
     //====================================================================
@@ -111,10 +106,9 @@ const FormSwitchUserRollList = ({ userId, userName }) => {
         await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, data)
     }
 
-    const onSuccessEdit = () => {
-        getRoleScopeWithRoles();
-    };
-
+    // const onSuccessEdit = () => {
+    //     getRoleScopeWithRoles();
+    // };
 
     const columns = () => {
         return [
@@ -167,29 +161,11 @@ const FormSwitchUserRollList = ({ userId, userName }) => {
         )
     }
 
-
     //====================================================================
     //                        Component
     //====================================================================
     return (
         <>
-            <Ant.Modal
-                open={modalState}
-                handleCancel={() => {
-                    setModalState(false)
-                }}
-                onCancel={() => {
-                    setModalState(false);
-                }}
-                onFinish={() => {
-                    setModalState(false);
-                }}
-                footer={null}
-                centered
-                {...defaultValues.MODAL_PROPS}
-            >
-                {modalContent}
-            </Ant.Modal>
             <br></br>
             <Ant.Card
                 loading={loading}
