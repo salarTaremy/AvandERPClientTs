@@ -98,7 +98,7 @@ const MenuPermissions = () => {
     await ApiCall(url.NAV_MENU_TREE)
   }
   const submitAdd = async (values) => {
-    debugger
+
     if (selectedItem) {
       values.parentId = selectedItem.id
       setExpandedKeys([0, values.parentId])

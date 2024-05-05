@@ -9,10 +9,9 @@ import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import FilterPanel from "./FilterPanel";
-import FormAddCounterParty from "../add/FormAddCounterParty";
-import FormEditCounterParty from "../edit/FormEditCounterParty";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
+import DetailedCounterPartyList from "./../description/DetailedCounterPartyList";
 import { useNavigate, generatePath } from "react-router-dom";
 
 import qs from "qs";
@@ -40,16 +39,24 @@ const CounterPartyList = () => {
   useEffect(() => {
     setPpagination({ ...pagination, current: 1 });
     filterObject &&
-      setFilterCount(
-        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
-      );
-    !filterObject && setFilterCount(0);
-    getAllCounterParty();
-  }, [filterObject]);
+      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+    !filterObject && setFilterCount(0)
+    getAllCounterParty()
+  }, [filterObject])
 
-  useEffect(() => {
-    getAllCounterParty();
-  }, [pagination.current, pagination.pageSize]);
+  // useEffect(() => {
+
+  //   filterObject &&
+  //     setFilterCount(
+  //       Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+  //     );
+  //   !filterObject && setFilterCount(0);
+  //   getAllCounterParty();
+  // }, [filterObject]);
+
+  // useEffect(() => {
+  //   getAllCounterParty();
+  // }, [pagination.current, pagination.pageSize]);
 
   useEffect(() => {
     setDataSource(listData?.data);
@@ -84,9 +91,9 @@ const CounterPartyList = () => {
   };
 
   const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject);
-    setOpenFilter(false);
-  };
+    setFilterObject(filterObject)
+    setOpenFilter(false)
+  }
   const onRemoveFilter = () => {
     setFilterObject(null);
     setOpenFilter(false);
@@ -102,7 +109,10 @@ const CounterPartyList = () => {
     );
     setModalState(true);
   };
-
+  const onView = (id) => {
+    setModalContent(<DetailedCounterPartyList id={id} key={id} />);
+    setModalState(true);
+  };
   //====================================================================
   //                        Events
   //====================================================================
@@ -120,6 +130,7 @@ const CounterPartyList = () => {
   const title = () => {
     return (
       <ButtonList
+      filterCount={filterCount}
         onAdd={onAdd}
         onRefresh={() => {
           getAllCounterParty();
@@ -141,7 +152,7 @@ const CounterPartyList = () => {
             {...defaultValues.TABLE_PROPS}
             title={title}
             onChange={handleTableChange}
-            columns={columns(onDelSuccess, onEdit)}
+            columns={columns(onDelSuccess, onEdit,onView)}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

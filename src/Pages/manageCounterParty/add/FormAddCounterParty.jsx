@@ -27,9 +27,6 @@ const FormAddCounterParty = () => {
   //====================================================================
 
   const onFinish = async (value) => {
-    alert("gggggg");
-
-    debugger;
     let newBirthDateCalendarId = value?.birthDateCalendarId
       ?.toString()
       .replace(/\//g, "");

@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 const Address = (prop) => {
   const { form } = prop;
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
-  // const [cityList, cityLoading, cityError] = useFetch(url.CITY);
   const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
   useRequestManager({ error: provinceError });
   useRequestManager({ error: cityError });
@@ -38,16 +37,14 @@ const Address = (prop) => {
   //                        Functions
   //==============================================================
   const onchange = (value, key) => {
-
     const data = form.getFieldValue("addressList");
-    console.log(data,"data")
+    console.log(data, "data");
     data[key].cityId = null;
     form.getFieldValue("addressList", [...data]);
-    setIdProvince({id:value,key});
+    setIdProvince({ id: value, key });
   };
 
   const getAllCity = async () => {
-
     const queryString = qs.stringify({
       ProvinceId: idProvince,
     });
@@ -63,9 +60,7 @@ const Address = (prop) => {
       <Ant.Form.List name="addressList">
         {(fields, { add, remove }) => (
           <>
-
             {fields.map(({ key, name, ...restField }) => (
-
               <Ant.Space key={key} style={{ display: "unset" }}>
                 <Ant.Row gutter={[16, 8]}>
                   <Ant.Col lg={4} md={12} sm={12} xs={24}>
@@ -91,20 +86,16 @@ const Address = (prop) => {
                   </Ant.Col>
                   <Ant.Col lg={4} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
-
                       rules={[{ required: true }]}
                       {...restField}
                       name={[name, "cityId"]}
                       label="شهر"
-
                     >
                       <Ant.Select
-
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-
-                        loading={cityLoading && idProvince?.key == key }
+                        loading={cityLoading && idProvince?.key == key}
                         options={itemsCity}
                         fieldNames={{ label: "name", value: "id" }}
                       />

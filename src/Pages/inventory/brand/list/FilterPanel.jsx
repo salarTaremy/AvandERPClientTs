@@ -8,13 +8,10 @@ import useRequestManager from '@/hooks/useRequestManager'
 //                        Declaration
 //====================================================================
 const FilterPanel = (props) => {
-  const [BrandData, BrandLoading, BrandError] = api.useFetch(url.BRAND)
   const [supplierData, supplierLoading, supplierError] = api.useFetch(url.SUPPLIER)
   const { onSubmit, filterObject } = props
   const [form] = Ant.Form.useForm()
-  useRequestManager({ error: BrandError })
   useRequestManager({ error: supplierError })
-
   const commonOptions = {
     placeholder: 'انتخاب کنید...',
     showSearch: true,

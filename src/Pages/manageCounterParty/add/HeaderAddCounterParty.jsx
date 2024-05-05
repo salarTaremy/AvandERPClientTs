@@ -13,27 +13,22 @@ const HeaderAddCounterParty = (prop) => {
   const { form } = prop;
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
-
-  const [selectedValueType, setSelectedValueType] = useState("");
   const [show, setShow] = useState(false);
 
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
-  const [cityList, cityLoading, cityError,cityApi] = useFetchWithHandler();
+  const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
-    useRequestManager({ error: cityError });
-    useRequestManager({ error: provinceError });
+  useRequestManager({ error: cityError });
+  useRequestManager({ error: provinceError });
   useRequestManager({ error: counterpartyTypeError });
   useRequestManager({ error: maxCodeError });
 
-
-
-
   const commonOptions = {
-    placeholder: 'انتخاب کنید...',
+    placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) =>  option.name.indexOf(input) >= 0,
-  }
+    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+  };
 
   // const [form] = Ant.Form.useForm();
   //====================================================================
@@ -48,13 +43,11 @@ const HeaderAddCounterParty = (prop) => {
   //                        Functions
   //====================================================================
 
-
-  const handleSelectProvince = async(value) => {
+  const handleSelectProvince = async (value) => {
     const queryString = qs.stringify({
       ProvinceId: value,
     });
     await cityApi(`${url.CITY}?${queryString}`);
-
   };
 
   const getMaxCode = async () => {
@@ -82,8 +75,6 @@ const HeaderAddCounterParty = (prop) => {
   //====================================================================
   return (
     <div>
-      {JSON.stringify(show, null, 2)}
-      {/* <Ant.Form form={form} layout="vertical"> */}
       <Ant.Row gutter={[16, 8]}>
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
@@ -92,8 +83,6 @@ const HeaderAddCounterParty = (prop) => {
             label="نوع"
           >
             <Ant.Select
-              // onChange={handleSelectChange}
-
               onChange={(value) => {
                 setShow(value === 2 ? true : false);
               }}
@@ -132,13 +121,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Form.Item>
         </Ant.Col>
         {!show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "hidden" : ""}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: false }, { max: 100 }]}
               name={"fatherName"}
@@ -165,13 +148,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Form.Item>
         </Ant.Col>
         {!show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "hidden" : ""}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"nationalCode"}
               rules={[
@@ -195,13 +172,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Col>
         )}
         {!show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "hidden" : ""}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"birthCertificateNumber"}
               label="شماره شناسنامه"
@@ -218,13 +189,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Col>
         )}
         {!show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "hidden" : ""}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item name={"birthDateCalendarId"} label={"تاریخ تولد"}>
               <MyDatePicker />
             </Ant.Form.Item>
@@ -232,13 +197,7 @@ const HeaderAddCounterParty = (prop) => {
         )}
 
         {!show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "hidden" : ""}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"birthCertificatePlaceOfIssueCityId"}
               label="محل صدور"
@@ -260,13 +219,7 @@ const HeaderAddCounterParty = (prop) => {
         )}
 
         {show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "" : "hidden"}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"companyRegistrationPlaceCityId"}
               label="محل ثبت شرکت/سازمان"
@@ -284,13 +237,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Col>
         )}
         {show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "" : "hidden"}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: false }, { max: 150 }]}
               name={"companyTitle"}
@@ -306,13 +253,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Col>
         )}
         {show && (
-          <Ant.Col
-            // className={selectedValueType === 2 ? "" : "hidden"}
-            lg={8}
-            md={12}
-            sm={12}
-            xs={24}
-          >
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"companyRegistrationNumber"}
               label="شماره ثبت شرکت/سازمان"
@@ -328,70 +269,52 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-             {show && (
-        <Ant.Col
-          // className={selectedValueType === 2 ? "" : "hidden"}
-          lg={8}
-          md={12}
-          sm={12}
-          xs={24}
-        >
-          <Ant.Form.Item
-            name={"nationalCode"}
-            label="شناسه ملی"
-            rules={[{ required: false }]}
-          >
-            <Ant.InputNumber
-              // allowClear
-              // showCount
-              minLength={5}
+        {show && (
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              name={"nationalCode"}
+              label="شناسه ملی"
+              rules={[{ required: false }]}
+            >
+              <Ant.InputNumber
+                // allowClear
+                // showCount
+                minLength={5}
+                maxLength={11}
+                style={{ width: "100%" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+        )}
+        {show && (
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              name={"economicCode"}
+              label="کداقتصادی"
+              rules={[{ required: false }]}
+            >
+              <Ant.InputNumber
+                allowClear
+                showCount
+                min={0}
+                maxLength={14}
+                style={{ width: "100%" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+        )}
+        {show && (
+          <Ant.Col lg={8} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              name={"legalEntityIdentity"}
+              label="شناسه مالیاتی"
+              rules={[{ required: false }]}
               maxLength={11}
-              style={{ width: "100%" }}
-            />
-          </Ant.Form.Item>
-        </Ant.Col>
-             )}
-               {show && (
-        <Ant.Col
-          // className={selectedValueType === 2 ? "" : "hidden"}
-          lg={8}
-          md={12}
-          sm={12}
-          xs={24}
-        >
-          <Ant.Form.Item
-            name={"economicCode"}
-            label="کداقتصادی"
-            rules={[{ required: false }]}
-          >
-            <Ant.InputNumber
-              allowClear
-              showCount
-              min={0}
-              maxLength={14}
-              style={{ width: "100%" }}
-            />
-          </Ant.Form.Item>
-        </Ant.Col>
-               )}
-  {show && (
-        <Ant.Col
-          // className={selectedValueType === 2 ? "" : "hidden"}
-          lg={8}
-          md={12}
-          sm={12}
-          xs={24}
-        >
-          <Ant.Form.Item
-            name={"legalEntityIdentity"}
-            label="شناسه مالیاتی"
-            rules={[{ required: false }]}
-            maxLength={11}
-          >
-            <Ant.InputNumber min={0} style={{ width: "100%" }} />
-          </Ant.Form.Item>
-        </Ant.Col>
-  )}
+            >
+              <Ant.InputNumber min={0} style={{ width: "100%" }} />
+            </Ant.Form.Item>
+          </Ant.Col>
+        )}
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             name={"longitude"}
@@ -438,43 +361,40 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Form.Item>
         </Ant.Col>
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      rules={[{ required: true }]}
-
-                      name={[name, "provinceId"]}
-                      label="استان"
-
-                    >
-                      <Ant.Select
-                           {...commonOptions}
-                        allowClear={true}
-                        placeholder={"انتخاب کنید..."}
-                        disabled={provinceLoading || false}
-                        onChange={handleSelectProvince}
-                        loading={provinceLoading}
-                        options={provinceList?.data}
-                        fieldNames={{ label: "name", value: "id" }}
-                      />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                  <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      rules={[{ required: true }]}
-
-                      name={[name, "cityId"]}
-                      label="شهر"
-                    >
-                      <Ant.Select
-                           {...commonOptions}
-                        allowClear={true}
-                        placeholder={"انتخاب کنید..."}
-                        disabled={cityLoading || false}
-                        loading={cityLoading}
-                        options={cityList?.data}
-                        fieldNames={{ label: "name", value: "id" }}
-                      />
-                    </Ant.Form.Item>
-                  </Ant.Col>
+          <Ant.Form.Item
+            rules={[{ required: true }]}
+            name={[name, "provinceId"]}
+            label="استان"
+          >
+            <Ant.Select
+              {...commonOptions}
+              allowClear={true}
+              placeholder={"انتخاب کنید..."}
+              disabled={provinceLoading || false}
+              onChange={handleSelectProvince}
+              loading={provinceLoading}
+              options={provinceList?.data}
+              fieldNames={{ label: "name", value: "id" }}
+            />
+          </Ant.Form.Item>
+        </Ant.Col>
+        <Ant.Col lg={8} md={12} sm={12} xs={24}>
+          <Ant.Form.Item
+            rules={[{ required: true }]}
+            name={[name, "cityId"]}
+            label="شهر"
+          >
+            <Ant.Select
+              {...commonOptions}
+              allowClear={true}
+              placeholder={"انتخاب کنید..."}
+              disabled={cityLoading || false}
+              loading={cityLoading}
+              options={cityList?.data}
+              fieldNames={{ label: "name", value: "id" }}
+            />
+          </Ant.Form.Item>
+        </Ant.Col>
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item name="isActive" label="فعال">
             <Ant.Switch defaultChecked={false} />

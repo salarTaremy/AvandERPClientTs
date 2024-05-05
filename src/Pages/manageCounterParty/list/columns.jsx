@@ -2,23 +2,24 @@ import React from "react";
 import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+import { GrView } from "react-icons/gr";
 
-const columns = (onDelete, onEdit) => {
+const columns = (onDelete, onEdit, onView) => {
   return [
     {
       title: "کد",
       dataIndex: "id",
       key: "code",
       width: 80,
-      align:'center',
-      className:"text-xs sm:text-sm",
+      align: "center",
+      className: "text-xs sm:text-sm",
     },
     {
       title: "جزئیات حساب",
       dataIndex: "counterpartyTypeTitle",
       key: "counterpartyTypeTitle",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.counterpartyTypeTitle),
     },
     {
@@ -26,7 +27,7 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "companyTitle",
       key: "companyTitle",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.address.localeCompare(b.companyTitle),
     },
     {
@@ -34,14 +35,14 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "legalEntityIdentity",
       key: "legalEntityIdentity",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
     },
     {
       title: "شماره تلفن",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
     },
     {
       title: "عملیات",
@@ -50,7 +51,7 @@ const columns = (onDelete, onEdit) => {
       width: 100,
       align: "center",
       fixed: "right",
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
           <Ant.Space direction="horizontal" size={20}>
@@ -61,6 +62,12 @@ const columns = (onDelete, onEdit) => {
               type="text"
             />
           </Ant.Space>
+          <Ant.Button
+            onClick={() => onView(val.id)}
+            className="text-sky-600"
+            icon={<GrView />}
+            type="text"
+          />
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
             title={`برای حذف  "${val.companyTitle}" مطمئن هستید؟`}

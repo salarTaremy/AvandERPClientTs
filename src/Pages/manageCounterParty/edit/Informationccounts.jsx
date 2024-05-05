@@ -7,7 +7,7 @@ const Informationccounts = () => {
         <Ant.Col lg={12} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             rules={[
-              { required: true },
+              { required: false },
               {
                 max: 20,
               },
