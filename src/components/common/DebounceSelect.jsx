@@ -1,4 +1,4 @@
-//select with server side search
+//select component with server side search
 
 import React, { useMemo, useRef, useState } from 'react';
 import { Select, Spin } from 'antd';
