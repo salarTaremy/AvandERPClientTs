@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, useFetchWithHandler, Get } from "@/api";
-import DebounceSelect from './DebounceSelect'
+import DebounceSelect from '@/components/common/DebounceSelect'
 import qs from "qs";
 
 const FormAddNewCounterPartyBlackList = (props) => {
