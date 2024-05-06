@@ -7,6 +7,7 @@ import { PropTypes } from "prop-types";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetch, useFetchWithHandler } from "@/api";
 import qs from "qs";
+import { validateNationalCode } from "@/Tools";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -148,9 +149,31 @@ const FilterPanel = (props) => {
         </Ant.Form.Item>
 
         <Ant.Form.Item name={"code"} label="کد">
-          <Ant.InputNumber className="w-full" allowClear showCount />
+          <Ant.InputNumber
+            maxLength={10}
+            className="w-full"
+            allowClear
+            showCount
+          />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"NationalIdentity"} label="کدملی">
+        <Ant.Form.Item
+          // rules={[
+          //   {
+          //     required: false,
+          //   },
+          //   {
+          //     validator: (_, value) => {
+          //       if (validateNationalCode(value?.toString())) {
+          //         return Promise.resolve();
+          //       } else {
+          //         return Promise.reject("کد ملی نا معتبر");
+          //       }
+          //     },
+          //   },
+          // ]}
+          name={"NationalIdentity"}
+          label="کدملی"
+        >
           <Ant.InputNumber className="w-full" allowClear showCount />
         </Ant.Form.Item>
         <Ant.Form.Item name={"PhoneNumber"} label="شماره تلفن">
@@ -165,9 +188,9 @@ const FilterPanel = (props) => {
         >
           <Ant.InputNumber min={0} style={{ width: "100%" }} />
         </Ant.Form.Item>
-        <Ant.Form.Item   name={"isActive"} label="فعال">
-              <Ant.Switch defaultChecked={true}  />
-            </Ant.Form.Item>
+        <Ant.Form.Item name={"isActive"} label="فعال">
+          <Ant.Switch defaultChecked={true} />
+        </Ant.Form.Item>
         <Ant.Form.Item>
           <Ant.Button
             block

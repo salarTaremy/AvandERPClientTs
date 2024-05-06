@@ -8,7 +8,7 @@ const columns = (onDelete, onEdit, onView) => {
   return [
     {
       title: "کد",
-      dataIndex: "id",
+      dataIndex: "code",
       key: "code",
       width: 80,
       align: "center",
@@ -23,12 +23,12 @@ const columns = (onDelete, onEdit, onView) => {
       sorter: (a, b) => a.name.localeCompare(b.counterpartyTypeTitle),
     },
     {
-      title: "عنوان شرکت",
-      dataIndex: "companyTitle",
-      key: "companyTitle",
+      title: "عنوان طرف حساب",
+      dataIndex: "counterpartyTitle",
+      key: "counterpartyTitle",
       width: 100,
       className: "text-xs sm:text-sm",
-      sorter: (a, b) => a.address.localeCompare(b.companyTitle),
+      sorter: (a, b) => a.address.localeCompare(b.counterpartyTitle),
     },
     {
       title: "شناسه مالیاتی",
