@@ -165,5 +165,8 @@ export const CUSTOMER_GROUP = 'CustomerGroup'
 // CustomerType
 export const CUSTOMER_TYPE= 'CustomerType'
 
+// CustomerGrade
+export const CUSTOMER_GRADE='CustomerGrade'
+
 //GetFirstFreeCode
 export const GETFIRST_FREE_CODE='/Counterparty/GetFirstFreeCode'

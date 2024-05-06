@@ -46,6 +46,7 @@ import DeliveryType from './Pages/salesCommerce/basicInformation/deliveryType/li
 import SaleDocumentType from './Pages/salesCommerce/basicInformation/saleDocumentType/list/SaleDocumentTypeList'
 import CustomerGroup from './Pages/salesCommerce/basicInformation/customerGroup/list/CustomerGroupList'
 import CustomerType from './Pages/salesCommerce/basicInformation/customerType/CustomerType'
+import CustomerGrade from './Pages/salesCommerce/basicInformation/customerGrade/list/CustomerGradeList'
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
@@ -102,6 +103,7 @@ const routes = [
   { path: 'sale/type', name: 'نوع  فروش', element: SaleType },
   { path: 'sale/customerGroup', name: 'گروه مشتری', element: CustomerGroup },
   { path: 'sale/customerType', name: 'نوع مشتری', element: CustomerType },
+  { path: 'sale/customerGrade', name: 'رتبه مشتری', element: CustomerGrade },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
