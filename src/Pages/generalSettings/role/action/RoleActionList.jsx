@@ -18,6 +18,8 @@ const RoleActionList = ({ id }) => {
     const [filterObject, setFilterObject] = useState();
     const [filterCount, setFilterCount] = useState(0);
     const [openFilter, setOpenFilter] = useState(false);
+    const [modalState, setModalState] = useState(false);
+    const [modalContent, setModalContent] = useState();
 
     //====================================================================
     //                        useEffects
@@ -104,16 +106,42 @@ const RoleActionList = ({ id }) => {
     //====================================================================
     return (
         <>
-            <FilterDrawer
-                open={openFilter}
-                onClose={() => setOpenFilter(false)}
-                onRemoveFilter={onRemoveFilter}
+            <Ant.Modal
+                open={modalState}
+                handleCancel={() => {
+                    setModalState(false)
+                }}
+                onCancel={() => {
+                    setModalState(false);
+                }}
+                onFinish={() => {
+                    setModalState(false);
+                }}
+                footer={null}
+                centered
+                {...defaultValues.MODAL_PROPS}
             >
-                <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-            </FilterDrawer>
-            <FilterBedge filterCount={filterCount}>
-                <Grid />
-            </FilterBedge>
+                {modalContent}
+            </Ant.Modal>
+            <br></br>
+            <Ant.Card
+                loading={loading}
+                style={{ ...styles.CARD_DEFAULT_STYLES }}
+                className="w-full"
+                title={"عملیات"}
+                type="inner"
+            >
+                <FilterDrawer
+                    open={openFilter}
+                    onClose={() => setOpenFilter(false)}
+                    onRemoveFilter={onRemoveFilter}
+                >
+                    <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+                </FilterDrawer>
+                <FilterBedge filterCount={filterCount}>
+                    <Grid />
+                </FilterBedge>
+            </Ant.Card>
         </>
     );
 }

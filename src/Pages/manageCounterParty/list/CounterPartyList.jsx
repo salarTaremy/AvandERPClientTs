@@ -15,6 +15,7 @@ import DetailedCounterPartyList from "./../description/DetailedCounterPartyList"
 import { useNavigate, generatePath } from "react-router-dom";
 
 import qs from "qs";
+import CounterPartyStateList from "../state/CounterPartyStateList";
 const CounterPartyList = () => {
   const navigate = useNavigate();
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -124,6 +125,23 @@ const CounterPartyList = () => {
 
     // setModalState(true);
   };
+
+  const onBlock = (val) => {
+    setModalContent(
+      <CounterPartyStateList
+      onSuccess={onSuccessBlock}
+        key={val.id}
+        counterPartyId={val.id}
+        counterPartyName={val.companyTitle}
+      />
+    );
+    setModalState(true);
+  }
+
+  const onSuccessBlock=()=>{
+    getAllCounterParty();
+    setModalState(false)
+  }
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -152,7 +170,7 @@ const CounterPartyList = () => {
             {...defaultValues.TABLE_PROPS}
             title={title}
             onChange={handleTableChange}
-            columns={columns(onDelSuccess, onEdit,onView)}
+            columns={columns(onDelSuccess, onEdit,onView,onBlock)}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

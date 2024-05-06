@@ -47,7 +47,7 @@ const EditProductList = () => {
     }
 
     const handleOnChangeunit = (val, option) => {
-        form.setFieldsValue({ unitId: undefined })
+        form.setFieldsValue({ productUnitId: undefined })
         setSelectedUnitType(option.id)
     }
 
@@ -240,7 +240,7 @@ const EditProductList = () => {
                                             fieldNames={{ label: 'name', value: 'id' }}
                                         />
                                     </Ant.Form.Item>
-                                    <Ant.Form.Item name={'unitId'} label="واحد(اصلی)" rules={[{ required: true }]}>
+                                    <Ant.Form.Item name={'productUnitId'} label="واحد(اصلی)" rules={[{ required: true }]}>
                                         <Ant.Select
                                             {...commonOptions}
                                             disabled={unitLoading || false}

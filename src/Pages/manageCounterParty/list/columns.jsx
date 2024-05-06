@@ -3,8 +3,9 @@ import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { GrView } from "react-icons/gr";
+import { TbLockOpen, TbLock } from "react-icons/tb";
 
-const columns = (onDelete, onEdit, onView) => {
+const columns = (onDelete, onEdit, onView, onBlock) => {
   return [
     {
       title: "کد",
@@ -54,14 +55,25 @@ const columns = (onDelete, onEdit, onView) => {
       className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
-          <Ant.Space direction="horizontal" size={20}>
+          <Ant.Tooltip placement="top" title={"وضعیت اعتبار طرف حساب"}>
+            <Ant.Button
+              className={
+                (val.isBlocked === true && "text-red-600") || "text-green-600"
+              }
+              onClick={() => onBlock(val)}
+              icon={(val.isBlocked === true && <TbLock />) || <TbLockOpen />}
+              type="text"
+            />
+          </Ant.Tooltip>
+          <Ant.Tooltip placement="top" title={"ویرایش"}>
             <Ant.Button
               className="text-blue-600"
               onClick={() => onEdit(val.id)}
               icon={<FiEdit />}
               type="text"
             />
-          </Ant.Space>
+          </Ant.Tooltip>
+
           <Ant.Button
             onClick={() => onView(val.id)}
             className="text-sky-600"
