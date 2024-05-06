@@ -14,7 +14,7 @@ const HeaderAddCounterParty = (prop) => {
 
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
-    const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
+  const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError] = useFetch(url.CITY);
   useRequestManager({ error: cityError });
   const [show, setShow] = useState(false);
@@ -36,11 +36,6 @@ const HeaderAddCounterParty = (prop) => {
       maxCodeData?.data &&
       form.setFieldsValue({ code: maxCodeData.data });
   }, [maxCodeData]);
-
-
-
-
-
 
   //====================================================================
   //                        Functions
@@ -78,8 +73,7 @@ const HeaderAddCounterParty = (prop) => {
   //====================================================================
   return (
     <div>
-
-<Ant.Row gutter={[16, 8]}>
+      <Ant.Row gutter={[16, 8]}>
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             rules={[{ required: true }]}
@@ -405,7 +399,6 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Form.Item>
         </Ant.Col>
       </Ant.Row>
-
     </div>
   );
 };

@@ -5,35 +5,11 @@ import * as url from "@/api/url";
 import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import { AiOutlinePhone } from "react-icons/ai";
+import AddressList from "./AddressList";
+import BankAccountList from "./BankAccountList";
+import PhoneNumberList from "./PhoneNumberList";
 
-const AccountNumberList = ({ data }) => {
-  return (
-    <>
-      {data?.map((item) => {
-        return (
-          <>
-          <br/>
-            <AiOutlinePhone /> {item.accountNumber}
-          </>
-        );
-      })}
-    </>
-  );
-};
-const PhoneNumberList = ({ data }) => {
-  return (
-    <>
-      {data?.map((item) => {
-        return (
-          <>
-          <br/>
-            <AiOutlinePhone /> {item.phoneNumber}
-          </>
-        );
-      })}
-    </>
-  );
-};
+const { TabPane } = Ant.Tabs;
 
 const DetailedCounterPartyList = (props) => {
   const { id } = props;
@@ -92,56 +68,58 @@ const DetailedCounterPartyList = (props) => {
     //   label: "ایمیل",
     //   children: data?.data?.email,
     // },
-    {
-      key: "10",
-      label: "اطلاعات تماس",
-      span: 3,
-      children: <PhoneNumberList data={data?.data?.phoneNumberList} />,
-    },
-    {
-      key: "11",
-      label: "اطلاعات آدرس",
-      span: 3,
-      // children: data?.data?.addressList,
-    },
-    {
-      key: "12",
-      label: "اطلاعات بانکی",
-      span: 3,
-      children: <AccountNumberList data={data?.data?.bankAccountList} />,
-      // children:
-      //   data?.data?.bankAccountList &&
-      //   data?.data?.bankAccountList.map((item) => {
-      //     <>
-      //       <ul>
-      //         <li>{item?.accountNumber}</li>
-      //       </ul>
-      //     </>;
+    // {
+    //   key: "10",
+    //   label: "اطلاعات تماس",
+    //   span: 3,
+    //   children: <PhoneNumberList data={data?.data?.phoneNumberList} />,
+    // },
+    // {
+    //   key: "11",
+    //   label: "اطلاعات آدرس",
+    //   span: 3,
+    //   children: <AddressList data={data?.data?.addressList} />,
+    // },
+    // {
+    //   key: "12",
+    //   label: "اطلاعات بانکی",
+    //   span: 3,
+    //   children: <BankAccountList data={data?.data?.bankAccountList} />,
 
-      //   }),
-
-      // render: (text, val) => (
-      //   <>
-      //   {'test'}
-      //       {/* <pre>{JSON.stringify(text, null, 2)}</pre>
-      //       <pre>{JSON.stringify(val, null, 2)}</pre> */}
-      //        </>
-      // ),
-    },
+    // },
   ];
   //====================================================================
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
-      <Ant.Descriptions
-        bordered
-        layout="vertical"
-        title={"جزئیات طرف حساب"}
-        size={"middle"}
-        items={borderedItems}
-      />
-    </Ant.Skeleton>
+    <>
+      <Ant.Skeleton active={true} loading={loading}>
+        <Ant.Descriptions
+          bordered
+          layout="vertical"
+          title={"جزئیات طرف حساب"}
+          size={"middle"}
+          items={borderedItems}
+        />
+
+
+      <Ant.Tabs type="card" defaultActiveKey="1">
+        <TabPane tab="اطلاعات تماس " key="1">
+        <PhoneNumberList data={data?.data?.phoneNumberList} />
+
+        </TabPane>
+        <TabPane tab="اطلاعات آدرس" key="2">
+        <AddressList data={data?.data?.addressList} />
+        </TabPane>
+        <TabPane tab="اطلاعات بانکی" key="3">
+        <BankAccountList data={data?.data?.bankAccountList} />
+        </TabPane>
+        {/* <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="4">
+          <Informationccounts />
+        </TabPane> */}
+      </Ant.Tabs>
+      </Ant.Skeleton>
+    </>
   );
 };
 

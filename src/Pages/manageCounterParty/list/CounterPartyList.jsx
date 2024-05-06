@@ -183,6 +183,7 @@ const CounterPartyList = () => {
   return (
     <>
       <Ant.Modal
+      width={1000}
         open={modalState}
         handleCancel={() => setModalState(false)}
         onCancel={() => {
