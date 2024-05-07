@@ -57,9 +57,13 @@ import FormAddCounterParty from './Pages/manageCounterParty/add/FormAddCounterPa
 //Sale
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
 
+//Treasury
+import banks from './Pages/treasury/treasuryBaseInfo/banks/Banks'
+
 //Other Pagees
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
+import { element } from 'prop-types'
 
 
 const routes = [
@@ -109,6 +113,8 @@ const routes = [
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
   { path: 'manage/counterparty/edit/:id', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
+
+  {path:'treasuryBaseInfo/banks', name:'بانک ها', element:banks},
 
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
