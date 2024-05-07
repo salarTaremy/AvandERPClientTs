@@ -77,7 +77,6 @@ const BranchList = (props) => {
                 dataIndex: "name",
                 key: "name",
                 width: 100,
-                align: 'center',
                 className: "text-xs sm:text-sm",
             },
             {
