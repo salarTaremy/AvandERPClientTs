@@ -82,6 +82,7 @@ const HeaderAddCounterParty = (prop) => {
   //====================================================================
   return (
     <div>
+      {/* {JSON.stringify(value,null,1,1)} */}
       <Ant.Row gutter={[16, 8]}>
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item

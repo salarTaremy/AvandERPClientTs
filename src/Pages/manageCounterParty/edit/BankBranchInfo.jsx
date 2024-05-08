@@ -51,6 +51,7 @@ const BankBranchInfo = (prop) => {
                       rules={[{ required: true }]}
                       {...restField}
                       name={[name, "bankBranchId"]}
+
                       label="شعبه"
                     >
                       <Ant.Select

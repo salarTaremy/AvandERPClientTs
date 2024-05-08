@@ -55,9 +55,9 @@ const CounterPartyList = () => {
   //   getAllCounterParty();
   // }, [filterObject]);
 
-  // useEffect(() => {
-  //   getAllCounterParty();
-  // }, [pagination.current, pagination.pageSize]);
+  useEffect(() => {
+    getAllCounterParty();
+  }, [pagination.current, pagination.pageSize]);
 
   useEffect(() => {
     setDataSource(listData?.data);

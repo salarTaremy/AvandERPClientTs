@@ -66,6 +66,8 @@ const FormEditCounterParty = () => {
   };
 
   const onFinish = async (value) => {
+    console.log( "dataListEdit");
+
     const list = form.getFieldsValue();
     let newBirthDateCalendarId = list?.birthDateCalendarId
       ?.toString()
@@ -86,52 +88,7 @@ const FormEditCounterParty = () => {
       : Array(0);
 
     console.log(dataList, "dataListEdit");
-    // const data = {
-    //   counterpartyTypeId: list?.counterpartyTypeId,
-    //   code: list.code === undefined ? null : list.code,
-    //   firstName: list.firstName === undefined ? null : list.firstName,
-    //   lastName: list.lastName === undefined ? null : list.lastName,
-    //   fatherName: list.fatherName === undefined ? null : list.fatherName,
-    //   nationalCode: String(
-    //     list.nationalCode === undefined ? null : list.nationalCode,
-    //   ),
-    //   birthDateCalendarId: parseInt(
-    //     newBirthDateCalendarId ? newBirthDateCalendarId : null,
-    //   ),
-    //   birthCertificateNumber:
-    //     list.birthCertificateNumber === undefined
-    //       ? null
-    //       : list.birthCertificateNumber,
-    //   birthCertificatePlaceOfIssueCityId:
-    //     list.birthCertificatePlaceOfIssueCityId === undefined
-    //       ? null
-    //       : list.birthCertificatePlaceOfIssueCityId,
-    //   companyTitle: list.companyTitle === undefined ? null : list.companyTitle,
-    //   companyRegistrationNumber:
-    //     list.companyRegistrationNumber === undefined
-    //       ? null
-    //       : list.companyRegistrationNumber,
-    //   companyRegistrationPlaceCityId:
-    //     list.companyRegistrationPlaceCityId === undefined
-    //       ? null
-    //       : list.companyRegistrationPlaceCityId,
-    //   legalEntityIdentity:
-    //     list.legalEntityIdentity === undefined
-    //       ? null
-    //       : list.legalEntityIdentity,
-    //   economicCode: list.economicCode == undefined ? null : list.economicCode,
-    //   nationalIdentity:
-    //     list.nationalIdentity === undefined ? null : list.nationalIdentity,
-    //   email: list.email === undefined ? null : list.email,
-    //   isActive: list.isActive === undefined ? true : list.isActive,
-    //   longitude: list?.longitude,
-    //   latitude: list?.latitude,
-    //   addressList: dataFromChildAddress ? dataFromChildAddress : Array(0),
-    //   phoneNumberList: dataFromChildContact ? dataFromChildContact : Array(0),
-    //   bankAccountList: dataFromChildBankBranchInfo
-    //     ? dataFromChildBankBranchInfo
-    //     : Array(0),
-    // };
+
     await editApiCall(url.COUNTER_PARTY, dataList);
   };
 
@@ -139,7 +96,7 @@ const FormEditCounterParty = () => {
   //                        Component
   //====================================================================
   return (
-    <div>
+    <>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"ویرایش طرف حساب"}
@@ -152,9 +109,9 @@ const FormEditCounterParty = () => {
               className="px-6"
               type="primary"
               htmlType="submit"
-              onClick={() => {
-                form.submit();
-              }}
+              // onClick={() => {
+              //   form.submit();
+              // }}
             >
               {"تایید"}
             </Ant.Button>
@@ -180,7 +137,7 @@ const FormEditCounterParty = () => {
           </Ant.Tabs>
         </Ant.Form>
       </Ant.Card>
-    </div>
+    </>
   );
 };
 export default FormEditCounterParty;

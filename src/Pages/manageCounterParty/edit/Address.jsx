@@ -29,9 +29,9 @@ const Address = (prop) => {
     getAllCity();
   }, [idProvince?.id]);
 
-  useEffect(() => {
-    setItemsCity((cityList?.isSuccess && cityList?.data) || null);
-  }, [cityList]);
+  // useEffect(() => {
+  //   setItemsCity((cityList?.isSuccess && cityList?.data) || null);
+  // }, [cityList]);
 
   //====================================================================
   //                        Functions
@@ -46,7 +46,7 @@ const Address = (prop) => {
 
   const getAllCity = async () => {
     const queryString = qs.stringify({
-      ProvinceId: idProvince,
+      ProvinceId: idProvince.id,
     });
 
     await cityApi(`${url.CITY}?${queryString}`);
@@ -96,7 +96,8 @@ const Address = (prop) => {
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
                         loading={cityLoading && idProvince?.key == key}
-                        options={itemsCity}
+                        // options={itemsCity}
+                        options={cityList?.data}
                         fieldNames={{ label: "name", value: "id" }}
                       />
                     </Ant.Form.Item>
