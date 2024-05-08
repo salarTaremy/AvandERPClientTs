@@ -8,7 +8,7 @@ import { AiOutlinePhone } from "react-icons/ai";
 import AddressList from "./AddressList";
 import BankAccountList from "./BankAccountList";
 import PhoneNumberList from "./PhoneNumberList";
-
+// import Informationccounts from "./Informationccounts";
 const { TabPane } = Ant.Tabs;
 
 const DetailedCounterPartyList = (props) => {
@@ -54,9 +54,7 @@ const DetailedCounterPartyList = (props) => {
     {
       key: "7",
       label: "تاریخ تولد",
-      children: data?.data?.birthDateCalendarId
-        ?.toString()
-        .replace(/\B(?=(\d{2})+(?!\d))/g, "/"),
+      children: data?.data?.birthDate,
     },
     {
       key: "8",
@@ -101,23 +99,39 @@ const DetailedCounterPartyList = (props) => {
           size={"middle"}
           items={borderedItems}
         />
-
-
-      <Ant.Tabs type="card" defaultActiveKey="1">
-        <TabPane tab="اطلاعات تماس " key="1">
-        <PhoneNumberList data={data?.data?.phoneNumberList} />
-
-        </TabPane>
-        <TabPane tab="اطلاعات آدرس" key="2">
-        <AddressList data={data?.data?.addressList} />
-        </TabPane>
-        <TabPane tab="اطلاعات بانکی" key="3">
-        <BankAccountList data={data?.data?.bankAccountList} />
-        </TabPane>
-        {/* <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="4">
-          <Informationccounts />
-        </TabPane> */}
-      </Ant.Tabs>
+        <Ant.Divider />
+        <Ant.Tabs type="card" defaultActiveKey="1">
+          <TabPane tab="اطلاعات تماس " key="1">
+            {data?.data?.phoneNumberList &&
+            data?.data?.phoneNumberList.length == 0 ? (
+              <Ant.Empty />
+            ) : (
+              <PhoneNumberList data={data?.data?.phoneNumberList} />
+            )}
+          </TabPane>
+          <TabPane tab="اطلاعات آدرس" key="2">
+            {data?.data?.addressList && data?.data?.addressList.length == 0 ? (
+              <Ant.Empty />
+            ) : (
+              <AddressList data={data?.data?.addressList} />
+            )}
+          </TabPane>
+          <TabPane tab="اطلاعات بانکی" key="3">
+            {data?.data?.bankAccountList &&
+            data?.data?.bankAccountList.length == 0 ? (
+              <Ant.Empty />
+            ) : (
+              <BankAccountList data={data?.data?.bankAccountList} />
+            )}
+          </TabPane>
+          {/* <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="4">
+            {data?.data?.branchCode && data?.data?.branchCode == 0 ? (
+              <Ant.Empty />
+            ) : (
+              <Informationccounts />
+            )}
+          </TabPane> */}
+        </Ant.Tabs>
       </Ant.Skeleton>
     </>
   );

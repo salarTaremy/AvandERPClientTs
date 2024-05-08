@@ -8,9 +8,7 @@ const Informationccounts = () => {
           <Ant.Form.Item
             rules={[
               { required: false },
-              {
-                max: 20,
-              },
+
             ]}
             name={"branchCode"}
             label="کد شعبه"

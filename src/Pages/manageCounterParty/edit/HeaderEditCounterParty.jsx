@@ -5,6 +5,7 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import * as url from "@/api/url";
+import qs from "qs";
 import PropTypes from "prop-types";
 import { useFetch, useFetchWithHandler } from "@/api";
 import { validateNationalCode } from "@/Tools";
@@ -15,9 +16,11 @@ const HeaderAddCounterParty = (prop) => {
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
-  const [cityList, cityLoading, cityError] = useFetch(url.CITY);
+
+  const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
   useRequestManager({ error: cityError });
   const [show, setShow] = useState(false);
+  const [idProvince, setIdProvince] = useState(null);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
 
@@ -36,15 +39,21 @@ const HeaderAddCounterParty = (prop) => {
       maxCodeData?.data &&
       form.setFieldsValue({ code: maxCodeData.data });
   }, [maxCodeData]);
-
+  useEffect(() => {
+    getAllCity();
+  }, [idProvince]);
   //====================================================================
   //                        Functions
   //=================================================================
 
-  const handleSelectProvince = async (value) => {
+  const getAllCity = async () => {
+
+    console.log(idProvince, "idProvince");
+
     const queryString = qs.stringify({
-      ProvinceId: value,
+      ProvinceId: idProvince,
     });
+
     await cityApi(`${url.CITY}?${queryString}`);
   };
 
@@ -361,7 +370,7 @@ const HeaderAddCounterParty = (prop) => {
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             rules={[{ required: true }]}
-            name={[name, "provinceId"]}
+            name={"provinceId"}
             label="استان"
           >
             <Ant.Select
@@ -369,7 +378,7 @@ const HeaderAddCounterParty = (prop) => {
               allowClear={true}
               placeholder={"انتخاب کنید..."}
               disabled={provinceLoading || false}
-              onChange={handleSelectProvince}
+              onChange={(value) => setIdProvince(value)}
               loading={provinceLoading}
               options={provinceList?.data}
               fieldNames={{ label: "name", value: "id" }}
@@ -379,7 +388,7 @@ const HeaderAddCounterParty = (prop) => {
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             rules={[{ required: true }]}
-            name={[name, "cityId"]}
+            name={"cityId"}
             label="شهر"
           >
             <Ant.Select

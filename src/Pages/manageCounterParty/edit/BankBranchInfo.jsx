@@ -5,16 +5,20 @@ import { DeleteOutlined } from "@ant-design/icons";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetch, useFetchWithHandler } from "@/api";
 import { PlusOutlined } from "@ant-design/icons";
-
-const BankBranchInfo = () => {
+import PropTypes from "prop-types";
+const BankBranchInfo = (prop) => {
+  const { form } = prop;
   const [bankList, bankLoading, bankError] = useFetch(url.BANK);
+  const [idBranchBank, setBranchBank] = useState(null);
   const [bankBranchList, bankBranchLoading, bankBranchError, bankBranchApi] =
     useFetchWithHandler();
+
   useRequestManager({ error: bankError });
   useRequestManager({ error: bankBranchError });
 
   const handleChangeBank = async (value) => {
     await bankBranchApi(`${url.BANKBRANCH_GetFORDROPDOWN}/${value}`);
+
   };
 
   return (
@@ -28,7 +32,7 @@ const BankBranchInfo = () => {
                   <Ant.Col lg={8} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
                       rules={[{ required: true }]}
-                      // name={[name, "bank"]}
+                      name={[name, "bankName"]}
                       label="بانک"
                     >
                       <Ant.Select
@@ -71,7 +75,7 @@ const BankBranchInfo = () => {
                         {
                           required: false,
                           pattern: new RegExp("^[0-9]"),
-                          message: "لطفا شماره حساب را درست وارد کنید!",
+                          message: "شماره حساب شامل عدد میباشد",
                         },
                       ]}
                       {...restField}
@@ -79,12 +83,7 @@ const BankBranchInfo = () => {
                       label="شماره حساب"
                       maxLength={10}
                     >
-                      <Ant.Input
-                        allowClear
-                        showCount
-
-                        maxLength={16}
-                      />
+                      <Ant.Input allowClear showCount maxLength={16} />
                     </Ant.Form.Item>
                   </Ant.Col>
 
@@ -178,3 +177,6 @@ const BankBranchInfo = () => {
   );
 };
 export default BankBranchInfo;
+BankBranchInfo.propTypes = {
+  from: PropTypes.any,
+};

@@ -156,26 +156,7 @@ const FilterPanel = (props) => {
             showCount
           />
         </Ant.Form.Item>
-        <Ant.Form.Item
-          // rules={[
-          //   {
-          //     required: false,
-          //   },
-          //   {
-          //     validator: (_, value) => {
-          //       if (validateNationalCode(value?.toString())) {
-          //         return Promise.resolve();
-          //       } else {
-          //         return Promise.reject("کد ملی نا معتبر");
-          //       }
-          //     },
-          //   },
-          // ]}
-          name={"NationalIdentity"}
-          label="کدملی"
-        >
-          <Ant.InputNumber className="w-full" allowClear showCount />
-        </Ant.Form.Item>
+
         <Ant.Form.Item name={"PhoneNumber"} label="شماره تلفن">
           <Ant.InputNumber className="w-full" allowClear showCount />
         </Ant.Form.Item>

@@ -21,6 +21,7 @@ import { useParams } from "react-router-dom";
 const FormEditCounterParty = () => {
   const params = useParams();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
+
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
   const [cityList, cityLoading, cityError] = useFetch(url.CITY);
@@ -75,9 +76,6 @@ const FormEditCounterParty = () => {
       ...value,
       id: parseInt(params.id),
       birthDateCalendarId: parseInt(newBirthDateCalendarId),
-      addressList: Array(0),
-      phoneNumberList: Array(0),
-      bankAccountList: Array(0),
     };
     dataList.addressList = value.addressList ? value.addressList : Array(0);
     dataList.phoneNumberList = value.phoneNumberList
@@ -162,17 +160,21 @@ const FormEditCounterParty = () => {
             </Ant.Button>
           </Ant.Flex>
 
-          <Ant.Tabs type="card" defaultActiveKey="1">
-            <TabPane tab="اطلاعات تماس " key="1">
-              <Contacts />
+          <Ant.Tabs
+
+            type="card"
+            defaultActiveKey="1"
+          >
+            <TabPane forceRender={true} tab="اطلاعات تماس " key="1">
+              <Contacts  />
             </TabPane>
-            <TabPane tab="آدرس" key="2">
+            <TabPane  forceRender={true} tab="آدرس" key="2">
               <Address form={form} />
             </TabPane>
-            <TabPane tab="اطلاعات حساب های بانکی" key="3">
+            <TabPane forceRender={true} tab="اطلاعات حساب های بانکی" key="3">
               <BankBranchInfo />
             </TabPane>
-            <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="4">
+            <TabPane forceRender={true} tab="اطلاعات تکمیلی طرف حساب ها" key="4">
               <Informationccounts />
             </TabPane>
           </Ant.Tabs>

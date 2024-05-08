@@ -1,4 +1,7 @@
 import React from "react";
+import { CheckOutlined, CloseOutlined, PhoneOutlined } from "@ant-design/icons";
+
+import { FaRegAddressBook } from "react-icons/fa6";
 import * as Ant from "antd";
 const AddressList = ({ data }) => {
   return (
@@ -6,21 +9,28 @@ const AddressList = ({ data }) => {
       {data?.map((item) => {
         return (
           <>
-            <Ant.Descriptions layout="vertical" size={"small"}>
-              <Ant.Descriptions.Item label="نام استان">
-                {item.provinceName}
-              </Ant.Descriptions.Item>
-              <Ant.Descriptions.Item label="نام شهر">
-                {item.cityName}
-              </Ant.Descriptions.Item>
-              <Ant.Descriptions.Item label="آدرس">
-                {item.address}
-              </Ant.Descriptions.Item>
-              {/* <Ant.Descriptions.Item label="آدرس اصلی">
-                <per>{JSON.stringify(item.isMainAddress)}</per>
-              </Ant.Descriptions.Item> */}
-            </Ant.Descriptions>
-            {/* <AiOutlinePhone /> {item.accountNumber} */}
+            <Ant.List itemLayout="horizontal">
+              <Ant.Card size="small">
+                <Ant.List.Item>
+                <FaRegAddressBook   className="mx-2" />
+                  {"استان:"}
+                  {" "}
+                  {item.provinceName}
+                  {" ,"}
+                  {"شهر :"}
+                  {" "}
+                  {item.cityName}
+                  {" ,"}
+                  {"آدرس :"}
+                  {" "}
+                  {item.address}
+
+                  {item?.isMainAddress}{" "}
+                  {item?.isMainAddress ? "( آدرس اصلی)" : ""}
+                </Ant.List.Item>
+
+              </Ant.Card>
+            </Ant.List>
           </>
         );
       })}
