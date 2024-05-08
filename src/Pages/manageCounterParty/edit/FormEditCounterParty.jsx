@@ -109,11 +109,8 @@ const FormEditCounterParty = () => {
               className="px-6"
               type="primary"
               htmlType="submit"
-              // onClick={() => {
-              //   form.submit();
-              // }}
             >
-              {"تایید"}
+              {"ذخیره"}
             </Ant.Button>
           </Ant.Flex>
 

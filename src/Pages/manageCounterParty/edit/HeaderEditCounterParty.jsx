@@ -11,7 +11,7 @@ import { useFetch, useFetchWithHandler } from "@/api";
 import { validateNationalCode } from "@/Tools";
 
 const HeaderAddCounterParty = (prop) => {
-  // const {form}=prop;
+  const {form}=prop;
 
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
@@ -30,10 +30,17 @@ const HeaderAddCounterParty = (prop) => {
     showSearch: true,
     filterOption: (input, option) => option.name.indexOf(input) >= 0,
   };
-  const [form] = Ant.Form.useForm();
+
   //====================================================================
   //                        useEffects
   //====================================================================
+
+  useEffect(() => {
+    const value=form.getFieldValue("counterpartyTypeId")
+    setShow(value === 2 ? true : false);
+  }, [form.getFieldValue("counterpartyTypeId")]);
+
+
   useEffect(() => {
     maxCodeData?.isSuccess &&
       maxCodeData?.data &&
