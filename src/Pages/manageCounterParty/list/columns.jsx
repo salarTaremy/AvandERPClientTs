@@ -14,6 +14,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       width: 80,
       align: "center",
       className: "text-xs sm:text-sm",
+
     },
     {
       title: "جزئیات حساب",
@@ -21,7 +22,9 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       key: "counterpartyTypeTitle",
       width: 100,
       className: "text-xs sm:text-sm",
-      sorter: (a, b) => a.name.localeCompare(b.counterpartyTypeTitle),
+      sorter: (a, b) =>
+        a.counterpartyTypeTitle.localeCompare(b.counterpartyTypeTitle),
+
     },
     {
       title: "عنوان طرف حساب",
@@ -29,7 +32,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       key: "counterpartyTitle",
       width: 100,
       className: "text-xs sm:text-sm",
-      sorter: (a, b) => a.address.localeCompare(b.counterpartyTitle),
+      sorter: (a, b) => a.counterpartyTitle.localeCompare(b.counterpartyTitle),
     },
     {
       title: "شناسه مالیاتی",

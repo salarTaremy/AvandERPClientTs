@@ -18,8 +18,8 @@ const DetailedCounterPartyList = (props) => {
   const borderedItems = [
     {
       key: "1",
-      label: "شناسه",
-      children: data?.data?.id,
+      label: "کد",
+      children: data?.data?.code,
     },
     {
       key: "2",
