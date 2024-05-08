@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
+import * as styles from "@/styles";
 
 const FormResetPasswordUser = (props) => {
-  const { onSuccess, obj, id } = props;
+  const { onSuccess, obj, id, userName } = props;
   const [loading, setLoading] = useState(false);
   const [form] = Ant.Form.useForm();
   const [resetPassData, resetPassLoading, resetPassError, resetPassApiCall] =
@@ -40,30 +41,39 @@ const FormResetPasswordUser = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Form.Item name="userName" label={"نام کاربری"}>
-          <Ant.Input allowClear showCount maxLength={200} disabled />
-        </Ant.Form.Item>
-        <Ant.Form.Item
-          name="passwordHash"
-          label={"رمز عبور"}
-          rules={[{ required: true }]}
-        >
-          <Ant.Input.Password allowClear showCount maxLength={200} />
-        </Ant.Form.Item>
-        <Ant.Form.Item>
-          <Ant.Button
-            block
-            type="primary"
-            loading={loading}
-            onClick={() => {
-              form.submit();
-            }}
+      <br></br>
+      <Ant.Card
+        loading={loading}
+        style={{ ...styles.CARD_DEFAULT_STYLES }}
+        className="w-full"
+        title={`تغییر رمز عبور کاربر "${userName}"`}
+        type="inner"
+      >
+        <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+          <Ant.Form.Item name="userName" label={"نام کاربری"}>
+            <Ant.Input allowClear showCount maxLength={200} disabled />
+          </Ant.Form.Item>
+          <Ant.Form.Item
+            name="passwordHash"
+            label={"رمز عبور"}
+            rules={[{ required: true }]}
           >
-            {"تایید"}
-          </Ant.Button>
-        </Ant.Form.Item>
-      </Ant.Form>
+            <Ant.Input.Password allowClear showCount maxLength={200} />
+          </Ant.Form.Item>
+          <Ant.Form.Item>
+            <Ant.Button
+              block
+              type="primary"
+              loading={loading}
+              onClick={() => {
+                form.submit();
+              }}
+            >
+              {"تایید"}
+            </Ant.Button>
+          </Ant.Form.Item>
+        </Ant.Form>
+      </Ant.Card>
     </>
   );
 };

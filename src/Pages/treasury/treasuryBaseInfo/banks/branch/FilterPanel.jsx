@@ -17,8 +17,8 @@ const FilterPanel = (props) => {
         showSearch: true,
         filterOption: (input, option) => option.name.indexOf(input) >= 0,
     };
-    const handleOnChangeCity = (val, option) => {
-        form.setFieldsValue({ id: undefined })
+    const handleOnChange = (val, option) => {
+        form.setFieldsValue({ cityId: undefined })
         setSelectedProvince(option.id)
     }
 
@@ -59,7 +59,7 @@ const FilterPanel = (props) => {
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        onChange={handleOnChangeCity}
+                        onChange={handleOnChange}
                         disabled={provinceLoading || false}
                         loading={provinceLoading}
                         options={provinceData?.data}

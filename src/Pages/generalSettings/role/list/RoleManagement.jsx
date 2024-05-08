@@ -18,7 +18,7 @@ import FilterPanel from "../list/FilterPanel";
 import RoleInfo from "../info/RoleInfo";
 import RoleActionList from "../action/RoleActionList";
 import RoleMenuList from "../menu/RoleMenuList";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+import ActionSwitchList from "../switch/ActionSwitchList";
 
 
 function RoleManagement() {
@@ -30,10 +30,12 @@ function RoleManagement() {
   const [modalState, setModalState] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
-
   useRequestManager({ error: error });
   useRequestManager({ error: delError, data: delSaving, loading: delLoading });
 
+  //====================================================================
+  //                        useEffects
+  //====================================================================
   useEffect(() => {
     filterObject &&
       setFilterCount(
@@ -50,6 +52,7 @@ function RoleManagement() {
   useEffect(() => {
     getRole();
   }, []);
+
   useEffect(() => {
     delSaving?.isSuccess &&
       setDataSource([
@@ -57,9 +60,11 @@ function RoleManagement() {
       ]);
   }, [delSaving]);
 
+  //====================================================================
+  //                        Functions
+  //====================================================================
   const getRole = async () => {
     const queryString = qs.stringify(filterObject);
-    console.log("fbxsgfmjndfjn", filterObject);
     await ApiCall(`${url.ROLE}?${queryString}`);
   };
 
@@ -67,6 +72,7 @@ function RoleManagement() {
     setFilterObject(filterObject);
     setOpenFilter(false);
   };
+
   const onRemoveFilter = () => {
     setFilterObject(null);
     setOpenFilter(false);
@@ -75,10 +81,12 @@ function RoleManagement() {
   const onDelete = async (id) => {
     await delApiCall(`${url.ROLE}/${id}`);
   };
+
   const onSuccessEdit = () => {
     setModalState(false);
     getRole();
   };
+
   const onEdit = (val) => {
     setModalContent(
       <FormEditRole
@@ -86,6 +94,7 @@ function RoleManagement() {
         myKey={val.id}
         obj={val}
         id={val.id}
+        name={val.persianTitle}
       />,
     );
     setModalState(true);
@@ -96,6 +105,7 @@ function RoleManagement() {
       <RoleInfo
         roleId={val.id}
         key={val.id}
+        name={val.persianTitle}
       />
     );
     setModalState(true);
@@ -106,6 +116,7 @@ function RoleManagement() {
       <RoleActionList
         id={val.id}
         key={val.id}
+        name={val.persianTitle}
       />
     );
     setModalState(true);
@@ -116,23 +127,47 @@ function RoleManagement() {
       <RoleMenuList
         id={val.id}
         key={val.id}
+        name={val.persianTitle}
       />
     );
     setModalState(true);
+  }
+
+  const onSwitch = (val) => {
+    setModalContent(
+      <ActionSwitchList
+        id={val.id}
+        key={val.id}
+        roleId={val.id}
+        name={val.persianTitle}
+        onSuccess={onSuccessSwitch}
+      />
+    );
+    setModalState(true);
+  }
+
+  const onSuccessSwitch = () => {
+    getRole
   }
 
   const onView = (id) => {
     console.log(id, "ooo");
     setModalState(true);
   };
+
   const onSuccessAdd = () => {
     setModalState(false);
     getRole();
   };
+
   const onAdd = () => {
     setModalContent(<FormAddRole key={uuid.v1()} onSuccess={onSuccessAdd} />);
     setModalState(true);
   };
+
+  //====================================================================
+  //                        Child Components
+  //====================================================================
   const title = () => {
     return (
       <ButtonList
@@ -154,7 +189,7 @@ function RoleManagement() {
         <Ant.Skeleton loading={loadingData}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
-            columns={columns(onDelete, onEdit, onView, onInfo, onAction, onMenu)}
+            columns={columns(onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch)}
             dataSource={dataSource}
             title={title}
           />
@@ -162,6 +197,10 @@ function RoleManagement() {
       </>
     );
   };
+  //====================================================================
+  //                        Component
+  //====================================================================
+
   return (
     <>
       <Ant.Modal

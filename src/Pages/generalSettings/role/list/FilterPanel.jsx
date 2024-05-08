@@ -53,10 +53,10 @@ const FilterPanel = (props) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        <Ant.Form.Item name={"name"} label="نام">
+        <Ant.Form.Item name={"name"} label="نام نقش">
           <Ant.Input allowClear />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"persianTitle"} label="عنوان">
+        <Ant.Form.Item name={"persianTitle"} label="عنوان نقش">
           <Ant.Input allowClear />
         </Ant.Form.Item>
         <Ant.Form.Item

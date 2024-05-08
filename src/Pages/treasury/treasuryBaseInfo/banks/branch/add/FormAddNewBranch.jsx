@@ -24,8 +24,8 @@ const FormAddNewBranch = (props) => {
         showSearch: true,
         filterOption: (input, option) => option.name.indexOf(input) >= 0,
     };
-    const handleOnChangeCity = (val, option) => {
-        form.setFieldsValue({ id: undefined })
+    const handleOnChange = (val, option) => {
+        form.setFieldsValue({ cityId: undefined })
         setSelectedProvince(option.id)
     }
 
@@ -77,7 +77,7 @@ const FormAddNewBranch = (props) => {
                 <Ant.Form.Item name={'provinceId'} label="نام استان" rules={[{ required: true }]}>
                     <Ant.Select
                         {...commonOptions}
-                        onChange={handleOnChangeCity}
+                        onChange={handleOnChange}
                         placeholder={"انتخاب کنید..."}
                         allowClear={true}
                         disabled={provinceLoading || false}

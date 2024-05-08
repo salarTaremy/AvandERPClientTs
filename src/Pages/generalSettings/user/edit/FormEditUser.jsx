@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
+import * as styles from "@/styles";
 
 const FormEditUser = (props) => {
-    const { onSuccess, obj, id } = props
+    const { onSuccess, obj, id,userName } = props
     const [loading, setLoading] = useState(false)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     useRequestManager({ error: editError, loading: editLoading, data: editData })
@@ -38,6 +39,14 @@ const FormEditUser = (props) => {
     //====================================================================
     return (
         <>
+        <br></br>
+         <Ant.Card
+                loading={loading}
+                style={{ ...styles.CARD_DEFAULT_STYLES }}
+                className="w-full"
+                title={`ویرایش کاربر "${userName}"`}
+                type="inner"
+            >
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="userName" label={'نام کاربری'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={50} />
@@ -61,6 +70,7 @@ const FormEditUser = (props) => {
                     </Ant.Button>
                 </Ant.Form.Item>
             </Ant.Form>
+            </Ant.Card>
         </>
     )
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import * as Ant from "antd";
 import { useEffect, useState } from "react";
-import columns from "../list/columns";
+import columns from "./columns";
 import * as defaultValues from "@/defaultValues";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
@@ -19,7 +19,7 @@ import FilterPanel from "./FilterPanel";
 import UserInfo from "../info/UserInfo";
 import FormSwitchUserRollList from "../rollSwitch/FormSwitchUserRollList";
 
-const UserList = () => {
+const UserManagement = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [dataSource, setDataSource] = useState(null);
@@ -61,27 +61,33 @@ const UserList = () => {
     const queryString = qs.stringify(filterObject);
     await ApiCall(`${url.USER}?${queryString}`);
   };
+
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
     setOpenFilter(false);
   };
+
   const onRemoveFilter = () => {
     setFilterObject(null);
     setOpenFilter(false);
   };
+
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.USER}/${id}`);
   };
+
   const onSuccessEdit = () => {
     setModalState(false);
     getAllUserList();
   };
+
   const onAdd = () => {
     setModalContent(
       <FormAddNewUser key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
     setModalState(true);
   };
+
   const onSuccessAdd = () => {
     setModalState(false);
     getAllUserList();
@@ -94,10 +100,12 @@ const UserList = () => {
         myKey={val.id}
         obj={val}
         id={val.id}
+        userName={val.userName}
       />,
     );
     setModalState(true);
   };
+
   const onSuccessReset = () => {
     setModalState(false);
     getAllUserList();
@@ -113,6 +121,7 @@ const UserList = () => {
         myKey={val.id}
         obj={val}
         id={val.id}
+        userName={val.userName}
       />,
     );
     setModalState(true);
@@ -132,7 +141,7 @@ const UserList = () => {
   const onSwitch = (val) => {
     setModalContent(
       <FormSwitchUserRollList
-      onSuccess={onSuccessSwitch}
+        onSuccess={onSuccessSwitch}
         key={val.id}
         userId={val.id}
         userName={val.userName}
@@ -145,6 +154,7 @@ const UserList = () => {
     setModalState(false);
     getAllUserList();
   };
+
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -164,6 +174,7 @@ const UserList = () => {
       />
     );
   };
+
   const Grid = () => {
     return (
       <>
@@ -178,6 +189,7 @@ const UserList = () => {
       </>
     );
   };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -223,4 +235,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default UserManagement;

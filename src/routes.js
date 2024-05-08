@@ -33,7 +33,7 @@ import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSampl
 //GeneralSettings
 import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
 import BranchList from './Pages/generalSettings/branch/list/BranchList'
-import UserList from './Pages/generalSettings/user/list/UserList'
+import UserManagement from './Pages/generalSettings/user/list/UserManagement'
 import UserRoleList from './Pages/generalSettings/userRole/list/UserRoleList'
 import Menus from './Pages/generalSettings/menuAccess/menus'
 import RoleOperations from './Pages/generalSettings/roleOperations/RoleOperations'
@@ -93,7 +93,7 @@ const routes = [
   { path: '/developers/samples/debounceSelectSample', name: 'نمونه سلکت باکس با امکان جستجوی سمت سرور', element: DebounceSelectSample },
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
-  { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserList },
+  { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
   { path: '/generalSettings/userRole/list', name: 'ارتباط کاربران با نقش ها', element: UserRoleList },
 
   { path: '/generalSettings/accessmenu/menus', name: 'دسترسی منوها', element: Menus },
