@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { useFetch, useFetchWithHandler } from "@/api";
 import { validateNationalCode } from "@/Tools";
 
-const HeaderAddCounterParty = (prop) => {
+const HeaderEditCounterParty = (prop) => {
   const {form}=prop;
 
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
@@ -20,7 +20,8 @@ const HeaderAddCounterParty = (prop) => {
   const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
   useRequestManager({ error: cityError });
   const [show, setShow] = useState(false);
-  const [idProvince, setIdProvince] = useState(null);
+  const [valueCity, setValueCity] = useState(null);
+
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
 
@@ -46,23 +47,37 @@ const HeaderAddCounterParty = (prop) => {
       maxCodeData?.data &&
       form.setFieldsValue({ code: maxCodeData.data });
   }, [maxCodeData]);
+
+
   useEffect(() => {
-    getAllCity();
-  }, [idProvince]);
+    cityList?.data && setValueCity(cityList?.data);
+  }, [cityList?.data]);
+
+
+
   //====================================================================
   //                        Functions
   //=================================================================
 
-  const getAllCity = async () => {
 
-    console.log(idProvince, "idProvince");
 
-    const queryString = qs.stringify({
-      ProvinceId: idProvince,
-    });
+  const handleSelectProvince = async (value) => {
 
-    await cityApi(`${url.CITY}?${queryString}`);
+    if (value == undefined) {
+      setValueCity(null);
+      form.setFieldsValue({ cityId: undefined });
+    } else {
+      const queryString = qs.stringify({
+        ProvinceId: value,
+      });
+
+      await cityApi(`${url.CITY}?${queryString}`);
+      form.setFieldsValue({ cityId: undefined });
+    }
   };
+
+
+
 
   const getMaxCode = async () => {
     await maxCodeApiCall(`${url.GETFIRST_FREE_CODE}`);
@@ -224,8 +239,7 @@ const HeaderAddCounterParty = (prop) => {
                 showSearch
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={cityLoading || false}
-                loading={cityLoading}
+
                 options={cityList?.data}
                 fieldNames={{ label: "name", value: "id" }}
               />
@@ -386,9 +400,11 @@ const HeaderAddCounterParty = (prop) => {
               allowClear={true}
               placeholder={"انتخاب کنید..."}
               disabled={provinceLoading || false}
-              onChange={(value) => setIdProvince(value)}
+              // onChange={(value) => setIdProvince(value)}
+              onChange={handleSelectProvince}
               loading={provinceLoading}
               options={provinceList?.data}
+
               fieldNames={{ label: "name", value: "id" }}
             />
           </Ant.Form.Item>
@@ -405,7 +421,7 @@ const HeaderAddCounterParty = (prop) => {
               placeholder={"انتخاب کنید..."}
               disabled={cityLoading || false}
               loading={cityLoading}
-              options={cityList?.data}
+              options={valueCity}
               fieldNames={{ label: "name", value: "id" }}
             />
           </Ant.Form.Item>
@@ -419,7 +435,7 @@ const HeaderAddCounterParty = (prop) => {
     </div>
   );
 };
-export default HeaderAddCounterParty;
-HeaderAddCounterParty.propTypes = {
+export default HeaderEditCounterParty;
+HeaderEditCounterParty.propTypes = {
   from: PropTypes.any,
 };

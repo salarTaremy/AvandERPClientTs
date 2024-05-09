@@ -1,40 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import { DeleteOutlined } from "@ant-design/icons";
 import useRequestManager from "@/hooks/useRequestManager";
 import { PlusOutlined } from "@ant-design/icons";
-import { useFetch,useFetchWithHandler } from "@/api";
+import { useFetch, useFetchWithHandler } from "@/api";
 import qs from "qs";
-const Address = () => {
+import PropTypes from "prop-types";
+const Address = (prop) => {
+  const { form } = prop;
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
-
-  const [cityList, cityLoading, cityError,cityApi] = useFetchWithHandler();
+  const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
   useRequestManager({ error: provinceError });
   useRequestManager({ error: cityError });
-
-
+  const [idProvince, setIdProvince] = useState(null);
+  const [valueCity, setValueCity] = useState(null);
   const commonOptions = {
-    placeholder: 'انتخاب کنید...',
+    placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) =>  option.name.indexOf(input) >= 0,
-  }
-
-
-
-
+    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+  };
 
   //====================================================================
+  //                        useEffects
+  //====================================================================
+
+
+  useEffect(() => {
+    cityList?.data && setValueCity(cityList?.data);
+  }, [cityList?.data]);
+  //====================================================================
   //                        Functions
-  //==============================================================
+  //====================================================================
 
+  const handleSelectProvince = async (value, key) => {
+    debugger;
+    setIdProvince({ key });
 
-  const handleSelectProvince = async(value) => {
-    const queryString = qs.stringify({
-      ProvinceId: value,
-    });
-    await cityApi(`${url.CITY}?${queryString}`);
+    const data = form.getFieldValue("addressList");
 
+    data[key].cityId = null;
+    form.getFieldValue("addressList", [...data]);
+
+    if (value == undefined) {
+      setValueCity(null);
+      form.getFieldValue({ cityId: undefined });
+    } else {
+      const queryString = qs.stringify({
+        ProvinceId: value,
+      });
+      await cityApi(`${url.CITY}?${queryString}`);
+      form.getFieldValue({ cityId: undefined });
+    }
   };
 
   //====================================================================
@@ -42,7 +59,7 @@ const Address = () => {
   //====================================================================
   return (
     <>
-      <Ant.Form.List  name="addressList">
+      <Ant.Form.List name="addressList">
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
@@ -54,14 +71,14 @@ const Address = () => {
                       {...restField}
                       name={[name, "provinceId"]}
                       label="استان"
-
                     >
                       <Ant.Select
-                           {...commonOptions}
+                        {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
                         disabled={provinceLoading || false}
-                        onChange={handleSelectProvince}
+                        // onChange={handleSelectProvince}
+                        onChange={(value) => handleSelectProvince(value, key)}
                         loading={provinceLoading}
                         options={provinceList?.data}
                         fieldNames={{ label: "name", value: "id" }}
@@ -76,12 +93,14 @@ const Address = () => {
                       label="شهر"
                     >
                       <Ant.Select
-                           {...commonOptions}
+                        {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        disabled={cityLoading || false}
-                        loading={cityLoading}
-                        options={cityList?.data}
+                        disabled={
+                          (idProvince?.key == key && cityLoading) || false
+                        }
+                        loading={cityLoading && idProvince?.key == key}
+                        options={valueCity}
                         fieldNames={{ label: "name", value: "id" }}
                       />
                     </Ant.Form.Item>
@@ -94,11 +113,7 @@ const Address = () => {
                       name={[name, "postalCode"]}
                       label="کدپستی"
                     >
-                      <Ant.InputNumber
-
-                        maxLength={10}
-                        style={{ width: 200 }}
-                      />
+                      <Ant.InputNumber maxLength={10} style={{ width: 200 }} />
                     </Ant.Form.Item>
                   </Ant.Col>
                   <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -150,3 +165,6 @@ const Address = () => {
   );
 };
 export default Address;
+Address.propTypes = {
+  from: PropTypes.any,
+};

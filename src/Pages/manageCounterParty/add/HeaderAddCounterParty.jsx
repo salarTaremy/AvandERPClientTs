@@ -9,11 +9,13 @@ import PropTypes from "prop-types";
 import { useFetch, useFetchWithHandler } from "@/api";
 import qs from "qs";
 import { validateNationalCode } from "@/Tools";
+import Dragger from "antd/es/upload/Dragger";
 const HeaderAddCounterParty = (prop) => {
   const { form } = prop;
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
   const [show, setShow] = useState(false);
+  const [valueCity, setValueCity] = useState(null);
 
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
@@ -39,15 +41,27 @@ const HeaderAddCounterParty = (prop) => {
       maxCodeData?.data &&
       form.setFieldsValue({ code: maxCodeData.data });
   }, [maxCodeData]);
+
+  useEffect(() => {
+    cityList?.data && setValueCity(cityList?.data);
+  }, [cityList?.data]);
+
   //====================================================================
   //                        Functions
   //====================================================================
 
   const handleSelectProvince = async (value) => {
-    const queryString = qs.stringify({
-      ProvinceId: value,
-    });
-    await cityApi(`${url.CITY}?${queryString}`);
+    if (value == undefined) {
+      setValueCity(null);
+      form.setFieldsValue({ cityId: undefined });
+    } else {
+      const queryString = qs.stringify({
+        ProvinceId: value,
+      });
+
+      await cityApi(`${url.CITY}?${queryString}`);
+      form.setFieldsValue({ cityId: undefined });
+    }
   };
 
   const getMaxCode = async () => {
@@ -363,7 +377,7 @@ const HeaderAddCounterParty = (prop) => {
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             rules={[{ required: true }]}
-            name={[name, "provinceId"]}
+            name={"provinceId"}
             label="استان"
           >
             <Ant.Select
@@ -381,7 +395,7 @@ const HeaderAddCounterParty = (prop) => {
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             rules={[{ required: true }]}
-            name={[name, "cityId"]}
+            name={"cityId"}
             label="شهر"
           >
             <Ant.Select
@@ -390,7 +404,7 @@ const HeaderAddCounterParty = (prop) => {
               placeholder={"انتخاب کنید..."}
               disabled={cityLoading || false}
               loading={cityLoading}
-              options={cityList?.data}
+              options={valueCity}
               fieldNames={{ label: "name", value: "id" }}
             />
           </Ant.Form.Item>

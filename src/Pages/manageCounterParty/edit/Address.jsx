@@ -14,7 +14,7 @@ const Address = (prop) => {
   useRequestManager({ error: provinceError });
   useRequestManager({ error: cityError });
   const [idProvince, setIdProvince] = useState(null);
-  const [itemsCity, setItemsCity] = useState([]);
+  const [valueCity, setValueCity] = useState(null);
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
@@ -26,31 +26,35 @@ const Address = (prop) => {
   //====================================================================
 
   useEffect(() => {
-    getAllCity();
-  }, [idProvince?.id]);
+    cityList?.data && setValueCity(cityList?.data);
 
-  // useEffect(() => {
-  //   setItemsCity((cityList?.isSuccess && cityList?.data) || null);
-  // }, [cityList]);
+  }, [cityList?.data]);
 
   //====================================================================
   //                        Functions
-  //==============================================================
-  const onchange = (value, key) => {
+  //====================================================================
+
+  const handleSelectProvince = async (value, key) => {
+    debugger;
+    setIdProvince({ key });
+
     const data = form.getFieldValue("addressList");
-    console.log(data, "data");
+
     data[key].cityId = null;
     form.getFieldValue("addressList", [...data]);
-    setIdProvince({ id: value, key });
+
+    if (value == undefined) {
+      setValueCity(null);
+      form.getFieldValue({ cityId: undefined });
+    } else {
+      const queryString = qs.stringify({
+        ProvinceId: value,
+      });
+      await cityApi(`${url.CITY}?${queryString}`);
+      form.getFieldValue({ cityId: undefined });
+    }
   };
 
-  const getAllCity = async () => {
-    const queryString = qs.stringify({
-      ProvinceId: idProvince.id,
-    });
-
-    await cityApi(`${url.CITY}?${queryString}`);
-  };
 
   //====================================================================
   //                        Component
@@ -69,14 +73,14 @@ const Address = (prop) => {
                       {...restField}
                       name={[name, "provinceId"]}
                       label="استان"
-                      initialValue={name.provinceId}
+
+                      initialValue={[name, "provinceId"]}
                     >
                       <Ant.Select
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        // onChange={(value) => setIdProvince(value)}
-                        onChange={(value) => onchange(value, key)}
+                        onChange={(value) => handleSelectProvince(value, key)}
                         disabled={provinceLoading || false}
                         loading={provinceLoading}
                         options={provinceList?.data}
@@ -89,6 +93,7 @@ const Address = (prop) => {
                       rules={[{ required: true }]}
                       {...restField}
                       name={[name, "cityId"]}
+
                       label="شهر"
                     >
                       <Ant.Select
@@ -96,8 +101,7 @@ const Address = (prop) => {
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
                         loading={cityLoading && idProvince?.key == key}
-                        // options={itemsCity}
-                        options={cityList?.data}
+                        options={valueCity}
                         fieldNames={{ label: "name", value: "id" }}
                       />
                     </Ant.Form.Item>

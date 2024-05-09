@@ -80,7 +80,7 @@ const FormAddCounterParty = () => {
               <Contacts />
             </TabPane>
             <TabPane tab="آدرس" key="2">
-              <Address />
+              <Address form={form} />
             </TabPane>
             <TabPane tab="اطلاعات حساب های بانکی" key="3">
               <BankBranchInfo />
