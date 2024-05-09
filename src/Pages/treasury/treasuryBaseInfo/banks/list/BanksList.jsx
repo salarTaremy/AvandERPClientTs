@@ -77,6 +77,7 @@ const banksList = () => {
                 myKey={val.id}
                 obj={val}
                 id={val.id}
+                bankTitle={val.title}
             />
         );
         setModalState(true);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
-import { useFetchWithHandler } from "@/api";
+import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ButtonList from "@/components/common/ButtonList";
 import FormAddNewBranch from "./add/FormAddNewBranch";
@@ -12,6 +12,8 @@ import qs from "qs";
 import FilterPanel from "./FilterPanel";
 import FilterDrawer from '@/components/common/FilterDrawer'
 import FilterBedge from '@/components/common/FilterBedge'
+import columns from "./columns";
+import FormEditBankBranch from './edit/FormEditBankBranch'
 
 
 const BranchList = (props) => {
@@ -24,6 +26,8 @@ const BranchList = (props) => {
     const [filterObject, setFilterObject] = useState()
     const [filterCount, setFilterCount] = useState(0)
     const [openFilter, setOpenFilter] = useState(false)
+    const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
+    useRequestManager({ error: delError, loading: delLoading, data: delSaving });
 
     //====================================================================
     //                        useEffects
@@ -38,6 +42,13 @@ const BranchList = (props) => {
     useEffect(() => {
         setDataSource((data?.isSuccess && data?.data) || null)
     }, [data]);
+
+    useEffect(() => {
+        delSaving?.isSuccess &&
+            setDataSource([
+                ...dataSource?.filter((c) => c.id !== delSaving?.data?.id),
+            ]);
+    }, [delSaving]);
 
     //====================================================================
     //                        Functions
@@ -62,39 +73,9 @@ const BranchList = (props) => {
         setOpenFilter(false)
     }
 
-    const cl = () => {
-        return [
-            {
-                title: "کد شعبه",
-                dataIndex: "code",
-                key: "code",
-                width: 100,
-                align: 'center',
-                className: "text-xs sm:text-sm",
-            },
-            {
-                title: "نام شعبه",
-                dataIndex: "name",
-                key: "name",
-                width: 100,
-                className: "text-xs sm:text-sm",
-            },
-            {
-                title: "نام استان",
-                dataIndex: "provinceTitle",
-                key: "provinceTitle",
-                width: 100,
-                className: "text-xs sm:text-sm",
-            },
-            {
-                title: "نام شهر",
-                dataIndex: "cityTitle",
-                key: "cityTitle",
-                width: 200,
-                className: "text-xs sm:text-sm",
-            },
-        ]
-    }
+    const onDelete = async (id) => {
+        await delApiCall(`${url.BANKBRANCH}/${id}`);
+    };
 
     const onAdd = () => {
         setModalContent(
@@ -107,6 +88,30 @@ const BranchList = (props) => {
         setModalState(false);
         getBranch();
         onSuccess()
+    };
+
+    const onSuccessEdit = () => {
+        setModalState(false);
+        getBranch();
+    };
+
+    //====================================================================
+    //                        Events
+    //====================================================================
+    const onEdit = (val) => {
+        setModalContent(
+            <FormEditBankBranch
+                onSuccess={onSuccessEdit}
+                myKey={val.id}
+                obj={val}
+                id={val.id}
+                bankTitle={bankTitle}
+                name={val.name}
+                bankId={val.bankId}
+            />,
+        );
+        console.log('vallllllll', val)
+        setModalState(true);
     };
 
     //====================================================================
@@ -132,8 +137,7 @@ const BranchList = (props) => {
                         {...defaultValues.TABLE_PROPS}
                         title={title}
                         className="mt-5"
-                        pagination={false}
-                        columns={cl()}
+                        columns={columns(onDelete, onEdit)}
                         dataSource={dataSource || null}
                     />
                 </Ant.Skeleton>
