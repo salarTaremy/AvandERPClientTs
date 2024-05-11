@@ -132,7 +132,7 @@ const CounterPartyList = () => {
       onSuccess={onSuccessBlock}
         key={val.id}
         counterPartyId={val.id}
-        counterPartyName={val.companyTitle}
+        counterPartyName={val.counterpartyTitle}
       />
     );
     setModalState(true);
