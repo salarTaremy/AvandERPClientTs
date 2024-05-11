@@ -11,7 +11,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import FilterPanel from "../action/FilterPanel";
 import qs from "qs";
 
-const RoleActionList = ({ id }) => {
+const RoleActionList = ({ id ,name}) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
@@ -128,7 +128,7 @@ const RoleActionList = ({ id }) => {
                 loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
                 className="w-full"
-                title={"عملیات"}
+                title={`عملیات نقش "${name}"`}
                 type="inner"
             >
                 <FilterDrawer

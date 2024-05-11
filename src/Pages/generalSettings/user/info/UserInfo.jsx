@@ -58,7 +58,7 @@ const UserInfo = ({ userId, userName }) => {
                 loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
                 className="w-full"
-                title={`لیست نقش های "${userName}"`}
+                title={`لیست نقش های کاربر "${userName}"`}
                 type="inner"
             >
                 <Ant.Skeleton loading={loading}>

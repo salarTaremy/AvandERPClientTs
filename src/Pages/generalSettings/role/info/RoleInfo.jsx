@@ -6,8 +6,9 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import qs from "qs";
+import * as styles from "@/styles";
 
-const RoleInfo = ({ roleId }) => {
+const RoleInfo = ({ roleId, name }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
@@ -83,15 +84,17 @@ const RoleInfo = ({ roleId }) => {
     //====================================================================
     return (
         <>
-            <Ant.Skeleton loading={loading}>
-                <Ant.Table
-                    {...defaultValues.TABLE_PROPS}
-                    className="mt-5"
-                    pagination={false}
-                    columns={cl(onDelete)}
-                    dataSource={dataSource || null}
-                />
-            </Ant.Skeleton>
+            <br></br>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={` لیست کاربران نقش "${name}"`} type="inner" loading={loading}>
+                <Ant.Skeleton loading={loading}>
+                    <Ant.Table
+                        {...defaultValues.TABLE_PROPS}
+                        className="mt-5"
+                        columns={cl(onDelete)}
+                        dataSource={dataSource || null}
+                    />
+                </Ant.Skeleton>
+            </Ant.Card>
         </>
     )
 }

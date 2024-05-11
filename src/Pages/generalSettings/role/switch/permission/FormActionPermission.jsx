@@ -9,35 +9,26 @@ import {
 }
     from '@/api'
 import * as defaultValues from "@/defaultValues";
-import ButtonList from "@/components/common/ButtonList";
-import FilterDrawer from '@/components/common/FilterDrawer'
-import FilterBedge from '@/components/common/FilterBedge'
-import FilterPanel from './FilterPanel';
 import qs from "qs"
 import useRequestManager from '@/hooks/useRequestManager'
 import * as styles from "@/styles";
 
-const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
+const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persianTitle }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [selectedUser, setSelectedUser] = useState(null)
-    const [filterObject, setFilterObject] = useState(null)
-    const [filterCount, setFilterCount] = useState(0)
-    const [openFilter, setOpenFilter] = useState(false)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [idActionsList, setIdActionsList] = useState([]);
 
+
     //====================================================================
     //                        useEffects
     //====================================================================
     useEffect(() => {
-        filterObject &&
-            setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
-        !filterObject && setFilterCount(0)
         getRoleScopeWithRoles()
-    }, [filterObject])
+    }, [])
 
     useEffect(() => {
         getRoleScopeWithRoles()
@@ -47,7 +38,7 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
         const TmpSelected = []
         if (listData?.isSuccess && listData?.data) {
             listData?.data.map((item) => {
-                if (item.userHasRole) {
+                if (item.roleHasAccess) {
                     TmpSelected.push(item.id)
                 }
             })
@@ -66,22 +57,11 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
     //====================================================================
     const getRoleScopeWithRoles = async () => {
         const req = {
-            roleScopePersianTitle: filterObject?.roleScopePersianTitle,
-            rolePersianTitle: filterObject?.rolePersianTitle,
-            UserId: userId,
+            appControllerId: appControllerId,
+            roleId: roleId,
         }
         const queryString = qs.stringify(req);
-        await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`)
-    }
-
-    const onFilterChanged = async (filterObject) => {
-        setFilterObject(filterObject)
-        setOpenFilter(false)
-    }
-
-    const onRemoveFilter = () => {
-        setFilterObject(null)
-        setOpenFilter(false)
+        await ApiCall(`${url.ACTIONS}?${queryString}`)
     }
 
     const updateActionId = (listId) => {
@@ -100,29 +80,26 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
 
     const onFinish = async () => {
         const data = {
-            userId: userId,
-            roleIdList: idActionsList,
+            roleId: roleId,
+            AppControllerId: appControllerId,
+            entityIdList: idActionsList,
         };
-        await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, data)
+        await editApiCall(url.UPDATE_ROLE_ACTION_ASSIGNMENT, data)
     }
-
-    // const onSuccessEdit = () => {
-    //     getRoleScopeWithRoles();
-    // };
 
     const columns = () => {
         return [
             {
-                title: "محدوده نقش",
-                dataIndex: "roleScopePersianTitle",
-                key: "roleScopePersianTitle",
+                title: "نام عملیات",
+                dataIndex: "actionName",
+                key: "actionName",
                 width: 100,
                 className: "text-xs sm:text-sm",
             },
             {
-                title: "نام نقش",
-                dataIndex: "rolePersianTitle",
-                key: "rolePersianTitle",
+                title: "عنوان",
+                dataIndex: "persianTitle",
+                key: "persianTitle",
                 width: 100,
                 className: "text-xs sm:text-sm",
             },
@@ -133,17 +110,6 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
     //====================================================================
     //                        Child Components
     //====================================================================
-    const title = () => {
-        return (
-            <ButtonList
-                filterCount={filterCount}
-                onFilter={() => {
-                    setOpenFilter(true);
-                }}
-            />
-        )
-    }
-
     const Grid = () => {
         return (
             <>
@@ -151,7 +117,6 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
                     <Ant.Table
                         rowSelection={{ ...rowSelection }}
                         {...defaultValues.TABLE_PROPS}
-                        title={title}
                         pagination={false}
                         columns={columns()}
                         dataSource={dataSource}
@@ -171,19 +136,10 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
                 loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
                 className="w-full"
-                title={`ویرایش نقش های کاربر  "${userName}"`}
+                title={`ویرایش دسترسی عملیات نقش "${name}"بخش"${persianTitle}"`}
                 type="inner"
             >
-                <FilterDrawer
-                    open={openFilter}
-                    onClose={() => setOpenFilter(false)}
-                    onRemoveFilter={onRemoveFilter}
-                >
-                    <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-                </FilterDrawer>
-                <FilterBedge filterCount={filterCount}>
-                    <Grid />
-                </FilterBedge>
+                <Grid />
                 <Ant.Button block
                     className='mt-8 '
                     loading={editLoading}
@@ -197,8 +153,8 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
     );
 }
 
-export default FormSwitchUserRollList
-FormSwitchUserRollList.propTypes = {
+export default FormActionPermission
+FormActionPermission.propTypes = {
     onFinish: PropTypes.func
 }
 

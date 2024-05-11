@@ -33,7 +33,7 @@ import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSampl
 //GeneralSettings
 import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
 import BranchList from './Pages/generalSettings/branch/list/BranchList'
-import UserList from './Pages/generalSettings/user/list/UserList'
+import UserManagement from './Pages/generalSettings/user/list/UserManagement'
 import UserRoleList from './Pages/generalSettings/userRole/list/UserRoleList'
 import Menus from './Pages/generalSettings/menuAccess/menus'
 import RoleOperations from './Pages/generalSettings/roleOperations/RoleOperations'
@@ -46,6 +46,7 @@ import DeliveryType from './Pages/salesCommerce/basicInformation/deliveryType/li
 import SaleDocumentType from './Pages/salesCommerce/basicInformation/saleDocumentType/list/SaleDocumentTypeList'
 import CustomerGroup from './Pages/salesCommerce/basicInformation/customerGroup/list/CustomerGroupList'
 import CustomerType from './Pages/salesCommerce/basicInformation/customerType/CustomerType'
+import CustomerGrade from './Pages/salesCommerce/basicInformation/customerGrade/list/CustomerGradeList'
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
@@ -56,9 +57,13 @@ import FormAddCounterParty from './Pages/manageCounterParty/add/FormAddCounterPa
 //Sale
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
 
+//Treasury
+import banks from './Pages/treasury/treasuryBaseInfo/banks/Banks'
+
 //Other Pagees
 import NotFoundPage from './Pages/NotFoundPage'
 import Home from './Pages/Home'
+import { element } from 'prop-types'
 
 
 const routes = [
@@ -88,7 +93,7 @@ const routes = [
   { path: '/developers/samples/debounceSelectSample', name: 'نمونه سلکت باکس با امکان جستجوی سمت سرور', element: DebounceSelectSample },
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
-  { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserList },
+  { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
   { path: '/generalSettings/userRole/list', name: 'ارتباط کاربران با نقش ها', element: UserRoleList },
 
   { path: '/generalSettings/accessmenu/menus', name: 'دسترسی منوها', element: Menus },
@@ -102,11 +107,14 @@ const routes = [
   { path: 'sale/type', name: 'نوع  فروش', element: SaleType },
   { path: 'sale/customerGroup', name: 'گروه مشتری', element: CustomerGroup },
   { path: 'sale/customerType', name: 'نوع مشتری', element: CustomerType },
+  { path: 'sale/customerGrade', name: 'رتبه مشتری', element: CustomerGrade },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
   { path: 'manage/counterparty/edit/:id', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
+
+  {path:'treasuryBaseInfo/banks', name:'بانک ها', element:banks},
 
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },

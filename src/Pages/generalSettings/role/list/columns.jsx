@@ -9,7 +9,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 
 
-const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
+const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) => {
   return [
     // {
     //   title: "شناسه",
@@ -21,7 +21,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
     //   className:"text-xs sm:text-sm",
     // },
     {
-      title: "نام",
+      title: "نام نقش",
       dataIndex: "name",
       key: "name",
       width: 100,
@@ -29,7 +29,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: "عنوان",
+      title: "عنوان نقش",
       dataIndex: "persianTitle",
       key: "persianTitle",
       width: 100,
@@ -71,6 +71,14 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
       className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
+          <Ant.Tooltip placement="top" title={'ویرایش عملیات'}>
+            <Ant.Button
+              className="text-violet-600"
+              onClick={() => onSwitch(val)}
+              icon={<VscGithubAction />}
+              type="text"
+            />
+          </Ant.Tooltip>
           <Ant.Tooltip placement="top" title={'عملیات'}>
             <Ant.Button
               className="text-green-600"
@@ -111,7 +119,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu) => {
           /> */}
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
-            title={` برای حذف نقش  "${val.name}" مطمئن هستید؟`}
+            title={` برای حذف نقش  "${val.persianTitle}" مطمئن هستید؟`}
           >
             <Ant.Tooltip placement="top" title={'حذف'}>
               <Ant.Button

@@ -4,24 +4,22 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
-import * as styles from "@/styles";
 
-const FormEditUser = (props) => {
-    const { onSuccess, obj, id,userName } = props
+const FormEditCustomerGrade = (props) => {
+    const { onSuccess, obj, id } = props
     const [loading, setLoading] = useState(false)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     useRequestManager({ error: editError, loading: editLoading, data: editData })
     const [form] = Ant.Form.useForm()
+
     //====================================================================
     //                        useEffects
     //====================================================================
     useEffect(() => {
-        form.setFieldValue('isActive', true)
-    }, [form])
-    useEffect(() => {
         form.resetFields()
         form.setFieldsValue({ ...obj })
     }, [obj])
+
     useEffect(() => {
         editData?.isSuccess && onSuccess()
     }, [editData])
@@ -30,8 +28,8 @@ const FormEditUser = (props) => {
     //=====================================================================
     const onFinish = async (values) => {
         setLoading(true)
-        const req = { ...values, id: id}
-        await editApiCall(url.USER, req)
+        const req = { ...values, id: id }
+        await editApiCall(url.CUSTOMER_GRADE, req)
         setLoading(false)
     }
     //====================================================================
@@ -39,25 +37,13 @@ const FormEditUser = (props) => {
     //====================================================================
     return (
         <>
-        <br></br>
-         <Ant.Card
-                loading={loading}
-                style={{ ...styles.CARD_DEFAULT_STYLES }}
-                className="w-full"
-                title={`ویرایش کاربر "${userName}"`}
-                type="inner"
-            >
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                <Ant.Form.Item name="userName" label={'نام کاربری'} rules={[{ required: true }]}>
-                    <Ant.Input allowClear showCount maxLength={50} />
+                <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
+                    <Ant.Input allowClear showCount maxLength={200} />
                 </Ant.Form.Item>
-                <Ant.Col span={24} >
-                    <Ant.Flex justify={'right'} align={'right'}>
-                        <Ant.Form.Item name="isActive" valuePropName="checked">
-                            <Ant.Checkbox checked>{'فعال'}</Ant.Checkbox>
-                        </Ant.Form.Item>
-                    </Ant.Flex>
-                </Ant.Col>
+                <Ant.Form.Item name="description" label="توضیحات" rules={[{ required: false }]}>
+                    <Ant.Input.TextArea allowClear showCount maxLength={400} />
+                </Ant.Form.Item>
                 <Ant.Form.Item>
                     <Ant.Button block
                         type="primary"
@@ -70,16 +56,16 @@ const FormEditUser = (props) => {
                     </Ant.Button>
                 </Ant.Form.Item>
             </Ant.Form>
-            </Ant.Card>
         </>
     )
 }
 
-export default FormEditUser
-FormEditUser.propTypes = {
+export default FormEditCustomerGrade
+FormEditCustomerGrade.propTypes = {
     onFinish: PropTypes.func,
     onSuccess: PropTypes.func,
     obj: PropTypes.any,
     id: PropTypes.number,
     loading: PropTypes.bool,
 }
+

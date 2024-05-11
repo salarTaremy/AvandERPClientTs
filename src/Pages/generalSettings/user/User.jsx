@@ -1,9 +1,9 @@
 import React from 'react'
-import UserList from './list/UserList'
+import UserManagement from './list/UserManagement'
 
 const User = () => {
   return (
-   <UserList/>
+   <UserManagement/>
   )
 }
 
