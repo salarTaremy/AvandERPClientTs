@@ -36,7 +36,6 @@ import BranchList from './Pages/generalSettings/branch/list/BranchList'
 import UserManagement from './Pages/generalSettings/user/list/UserManagement'
 import UserRoleList from './Pages/generalSettings/userRole/list/UserRoleList'
 import Menus from './Pages/generalSettings/menuAccess/menus'
-import RoleOperations from './Pages/generalSettings/roleOperations/RoleOperations'
 
 //salesCommerce
 import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/saleChannelList'
@@ -97,7 +96,6 @@ const routes = [
   { path: '/generalSettings/userRole/list', name: 'ارتباط کاربران با نقش ها', element: UserRoleList },
 
   { path: '/generalSettings/accessmenu/menus', name: 'دسترسی منوها', element: Menus },
-  { path: '/generalSettings/accessRoles', name: 'ارتباط نقش و عملیات', element: RoleOperations },
 
   { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
   { path: 'sale/paymentType', name: 'نوع پرداخت', element: PaymentType },
@@ -114,7 +112,7 @@ const routes = [
   { path: 'manage/counterparty/edit/:id', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
 
-  {path:'treasuryBaseInfo/banks', name:'بانک ها', element:banks},
+  { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: banks },
 
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
