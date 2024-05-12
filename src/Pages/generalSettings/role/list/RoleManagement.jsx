@@ -128,9 +128,15 @@ function RoleManagement() {
         id={val.id}
         key={val.id}
         name={val.persianTitle}
+        onSuccess={onSuccessMenu}
       />
     );
     setModalState(true);
+  }
+
+  const onSuccessMenu = () => {
+    setModalState(false);
+    getRole()
   }
 
   const onSwitch = (val) => {

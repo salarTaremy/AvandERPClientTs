@@ -34,8 +34,6 @@ import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSampl
 import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
 import BranchList from './Pages/generalSettings/branch/list/BranchList'
 import UserManagement from './Pages/generalSettings/user/list/UserManagement'
-import UserRoleList from './Pages/generalSettings/userRole/list/UserRoleList'
-import Menus from './Pages/generalSettings/menuAccess/menus'
 
 //salesCommerce
 import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/saleChannelList'
@@ -93,9 +91,6 @@ const routes = [
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
   { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
-  { path: '/generalSettings/userRole/list', name: 'ارتباط کاربران با نقش ها', element: UserRoleList },
-
-  { path: '/generalSettings/accessmenu/menus', name: 'دسترسی منوها', element: Menus },
 
   { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
   { path: 'sale/paymentType', name: 'نوع پرداخت', element: PaymentType },

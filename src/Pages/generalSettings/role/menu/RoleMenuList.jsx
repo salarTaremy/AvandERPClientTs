@@ -6,7 +6,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import * as styles from "@/styles";
 import qs from "qs";
 
-const RoleMenuList = ({ id, name }) => {
+const RoleMenuList = ({ id, name, onSuccess }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [items, setItems] = useState(null);
@@ -43,7 +43,11 @@ const RoleMenuList = ({ id, name }) => {
         items?.forEach((item) => {
             if (item?.roleHasAccess) {
                 checked.push(item.key);
-            }
+            } else (item?.children?.forEach((c) => {
+                if (c.roleHasAccess) {
+                    checked.push(c.key)
+                }
+            }))
         });
         setCheckedKeys(checked);
     }, [items]);
@@ -80,6 +84,7 @@ const RoleMenuList = ({ id, name }) => {
             entityIdList: checkedKeys
         };
         await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, req);
+        onSuccess()
     };
 
     //====================================================================
@@ -88,7 +93,7 @@ const RoleMenuList = ({ id, name }) => {
     return (
         <>
             <br />
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`دسترسی منو نقش "${name}"`} type="inner" loading={loading}>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`دسترسی منو نقش " ${name} "`} type="inner" loading={loading}>
                 <Ant.Skeleton loading={loading}>
                     <Ant.Tree
                         checkable
@@ -109,7 +114,7 @@ const RoleMenuList = ({ id, name }) => {
                         type="primary"
                         onClick={onFinish}
                     >
-                        {'تایید'}
+                        {'ذخیره'}
                     </Ant.Button>
                 </Ant.Affix>
             </Ant.Card>
