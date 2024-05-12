@@ -29,10 +29,6 @@ const CounterPartyStateList = (props) => {
         setDataSource((data?.isSuccess && data?.data) || null)
     }, [data]);
 
-    // useEffect(()=>{
-    //     onSuccess()
-    // },[data])
-
     //====================================================================
     //                        Functions
     //====================================================================
@@ -77,6 +73,7 @@ const CounterPartyStateList = (props) => {
     const onSuccessAdd = () => {
         setModalState(false);
         getCounterPartyState();
+        onSuccess()
     };
 
     //====================================================================

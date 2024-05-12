@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
-import * as defaultValues from "@/defaultValues";
-import { useFetchWithHandler } from "@/api";
+import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import * as styles from "@/styles";
+import qs from "qs";
 
 const RoleMenuList = ({ id, name }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
-    const [dataSource, setDataSource] = useState(null);
+    const [items, setItems] = useState(null);
+    const [
+        listRoleNavMenuAssignment,
+        loadingRoleNavMenuAssignment,
+        errorRoleNavMenuAssignment,
+        apiCallRoleNavMenuAssignment,
+    ] = usePutWithHandler();
+    useRequestManager({
+        error: errorRoleNavMenuAssignment,
+        data: listRoleNavMenuAssignment,
+        loading: loadingRoleNavMenuAssignment,
+    });
+    const [expandedKeys, setExpandedKeys] = useState([]);
+    const [checkedKeys, setCheckedKeys] = useState([]);
+    const [selectedKeys, setSelectedKeys] = useState([]);
+    const [autoExpandParent, setAutoExpandParent] = useState(true);
+    const checked = [];
+    const [bottom, setBottom] = useState(100);
 
     //====================================================================
     //                        useEffects
@@ -19,41 +36,82 @@ const RoleMenuList = ({ id, name }) => {
     }, []);
 
     useEffect(() => {
-        setDataSource((data?.isSuccess && data?.data.roleNavMenuList) || null);
-    }, [data]);
+        setItems((data?.isSuccess && data?.data[0]?.children) || null);
+    }, [data?.data]);
+
+    useEffect(() => {
+        items?.forEach((item) => {
+            if (item?.roleHasAccess) {
+                checked.push(item.key);
+            }
+        });
+        setCheckedKeys(checked);
+    }, [items]);
+
+    //====================================================================
+    //                        Events
+    //====================================================================
+    const onExpand = (expandedKeysValue) => {
+        setExpandedKeys(expandedKeysValue);
+        setAutoExpandParent(false);
+    };
+
+    const onCheck = (checkedKeysValue) => {
+        setCheckedKeys(checkedKeysValue);
+    };
+
+    const onSelect = (selectedKeysValue) => {
+        setSelectedKeys(selectedKeysValue);
+    };
 
     //====================================================================
     //                        Functions
     //====================================================================
     const getAllMenu = async () => {
-        await ApiCall(`${url.ROLE_GET_NAV_MENU_RELATED_TO_ROLE}/${id}`);
+        const queryString = qs.stringify({
+            roleId: id,
+        });
+        await ApiCall(`${url.NAV_MENU_TREE}?${queryString}`);
     };
 
-    const cl = [
-        {
-            title: "نام منو",
-            dataIndex: "name",
-            key: "name",
-            width: 100,
-        },
-    ]
+    const onFinish = async () => {
+        const req = {
+            roleId: id,
+            entityIdList: checkedKeys
+        };
+        await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, req);
+    };
 
     //====================================================================
     //                        Component
     //====================================================================
     return (
         <>
-            <br></br>
+            <br />
             <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`دسترسی منو نقش "${name}"`} type="inner" loading={loading}>
                 <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        {...defaultValues.TABLE_PROPS}
-                        className="mt-5"
-                        pagination={false}
-                        columns={cl}
-                        dataSource={dataSource || null}
+                    <Ant.Tree
+                        checkable
+                        onExpand={onExpand}
+                        expandedKeys={expandedKeys}
+                        autoExpandParent={autoExpandParent}
+                        onCheck={onCheck}
+                        checkedKeys={checkedKeys}
+                        onSelect={onSelect}
+                        selectedKeys={selectedKeys}
+                        treeData={items}
                     />
                 </Ant.Skeleton>
+                <Ant.Affix offsetBottom={bottom} style={{ position: 'absolute', bottom: 0, left: 30 }}>
+                    <Ant.Button
+                        block
+                        style={{ width: 150 }}
+                        type="primary"
+                        onClick={onFinish}
+                    >
+                        {'تایید'}
+                    </Ant.Button>
+                </Ant.Affix>
             </Ant.Card>
         </>
     )
