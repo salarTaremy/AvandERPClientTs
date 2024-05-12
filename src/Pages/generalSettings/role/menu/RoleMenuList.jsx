@@ -26,7 +26,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
     const [selectedKeys, setSelectedKeys] = useState([]);
     const [autoExpandParent, setAutoExpandParent] = useState(true);
     const checked = [];
-    const [bottom, setBottom] = useState(100);
+    const bottom = 100
 
     //====================================================================
     //                        useEffects

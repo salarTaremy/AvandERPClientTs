@@ -126,7 +126,7 @@ function RoleManagement() {
     setModalContent(
       <RoleMenuList
         id={val.id}
-        key={val.id}
+        key={uuid.v1()}
         name={val.persianTitle}
         onSuccess={onSuccessMenu}
       />
