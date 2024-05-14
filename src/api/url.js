@@ -120,6 +120,8 @@ export const USER_RESET_PASSWORD = 'User/ResetPassword'
 
 //Sales
 export const SALE_CHANNEL = 'SaleChannel'
+export const SALE_DOCUMENT_HEADER = 'SaleDocumentHeader'
+export const SALE_CUSTOMER_GET_FOR_DROPDOWN = '/Customer/GetForDropdown'
 
 //PaymentType
 export const PAYMENT_TYPE = 'PaymentType'

@@ -17,7 +17,7 @@ import qs from "qs"
 import useRequestManager from '@/hooks/useRequestManager'
 import * as styles from "@/styles";
 
-const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
+const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [selectedUser, setSelectedUser] = useState(null)
@@ -106,10 +106,6 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
         await editApiCall(url.ROLE_UPDATE_ROLE_USER_ASSIGNMENT, data)
     }
 
-    // const onSuccessEdit = () => {
-    //     getRoleScopeWithRoles();
-    // };
-
     const columns = () => {
         return [
             {
@@ -171,7 +167,7 @@ const FormSwitchUserRollList = ({ userId, userName,onSuccess }) => {
                 loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
                 className="w-full"
-                title={`ویرایش نقش های کاربر  "${userName}"`}
+                title={`ویرایش نقش های کاربر  " ${userName} "`}
                 type="inner"
             >
                 <FilterDrawer

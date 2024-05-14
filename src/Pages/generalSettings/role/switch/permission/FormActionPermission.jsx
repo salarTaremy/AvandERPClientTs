@@ -136,7 +136,7 @@ const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persia
                 loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
                 className="w-full"
-                title={`ویرایش دسترسی عملیات نقش "${name}"بخش"${persianTitle}"`}
+                title={`ویرایش دسترسی عملیات نقش " ${name} " بخش " ${persianTitle} "`}
                 type="inner"
             >
                 <Grid />

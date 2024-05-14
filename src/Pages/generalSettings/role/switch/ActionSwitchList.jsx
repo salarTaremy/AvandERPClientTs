@@ -12,6 +12,7 @@ import FilterDrawer from '@/components/common/FilterDrawer'
 import FilterBedge from '@/components/common/FilterBedge'
 import { VscGithubAction } from "react-icons/vsc";
 import FormActionPermission from "./permission/FormActionPermission";
+import * as uuid from "uuid";
 
 
 const ActionSwitchList = (props) => {
@@ -100,7 +101,7 @@ const ActionSwitchList = (props) => {
         setModalContent(
             <FormActionPermission
                 roleId={roleId}
-                key={val.id}
+                key={uuid.v1()}
                 onSuccess={onSuccessSwitch}
                 appControllerId={val.id}
                 name={name}
@@ -152,7 +153,7 @@ const ActionSwitchList = (props) => {
     return (
         <>
             <br></br>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={` ویرایش عملیات نقش"${name}"`} type="inner" loading={loading}>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={` ویرایش عملیات نقش" ${name} "`} type="inner" loading={loading}>
                 <Ant.Modal
                     open={modalState}
                     handleCancel={() => setModalState(false)}
