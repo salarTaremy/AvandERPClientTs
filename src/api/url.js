@@ -168,5 +168,8 @@ export const CUSTOMER_TYPE= 'CustomerType'
 // CustomerGrade
 export const CUSTOMER_GRADE='CustomerGrade'
 
+// CustomerManagement
+export const CUSTOMER='Customer'
+
 //GetFirstFreeCode
 export const GETFIRST_FREE_CODE='/Counterparty/GetFirstFreeCode'
