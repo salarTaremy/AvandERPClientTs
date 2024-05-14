@@ -11,7 +11,7 @@ import useAllLoading from "@/hooks/useAllLoading ";
 //====================================================================
 const CitySelector = (props) => {
   const { id } = props;
-  const [form] = Ant.Form.useForm()
+  const [form] = Ant.Form.useForm();
   const pageTitle = "شرح صفحه";
   const [CityData, CityLoading, CityError, CityApiCall] =
     api.useFetchWithHandler();
@@ -28,7 +28,7 @@ const CitySelector = (props) => {
   }, []);
   useEffect(() => {
     CityData?.isSuccess && setOptions(CityData?.data);
-    CityData?.isSuccess &&  form.setFieldValue('city',[1, 1002])
+    CityData?.isSuccess && form.setFieldValue("city", [1, 1001]);
   }, [CityData]);
   //====================================================================
   //                        Functions
@@ -46,14 +46,15 @@ const CitySelector = (props) => {
   //                        Child Components
   //====================================================================
   const onFinish = async (values) => {
-    
     console.log("onFinish", values);
-  }
+    alert(JSON.stringify(values, null, 1, 1));
+  };
   const CitySelector = () => {
     return (
       <>
-        <Ant.Form  form={form} onFinish={onFinish} >
-          <Ant.Form.Item name={'city'}  rules={[{ required: true }]}>
+        <Ant.Form form={form} onFinish={onFinish}>
+  
+          <Ant.Form.Item name={"city"} rules={[{ required: true }]}>
             <Ant.Cascader
               loading={CityLoading}
               options={options}
@@ -66,7 +67,11 @@ const CitySelector = (props) => {
               onSearch={(value) => console.log(value)}
             />
           </Ant.Form.Item>
-          <Ant.Button onClick={() => {form.submit()}}>
+          <Ant.Button
+            onClick={() => {
+              form.submit();
+            }}
+          >
             ok
           </Ant.Button>
         </Ant.Form>
