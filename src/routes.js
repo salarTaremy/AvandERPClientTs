@@ -29,6 +29,8 @@ import CustomValidator from './Pages/Developers/Samples/CustomValidator'
 import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSample'
+import CitySelector from './Pages/Developers/Samples/CitySelector'
+CitySelector
 
 //GeneralSettings
 import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
@@ -91,6 +93,7 @@ const routes = [
   { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
   { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
   { path: '/developers/samples/debounceSelectSample', name: 'نمونه سلکت باکس با امکان جستجوی سمت سرور', element: DebounceSelectSample },
+  { path: '/developers/samples/citySelector', name: 'نمونه DropDown درختی', element: CitySelector },
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
   { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
