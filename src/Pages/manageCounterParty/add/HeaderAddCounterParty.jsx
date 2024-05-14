@@ -9,30 +9,26 @@ import PropTypes from "prop-types";
 import { useFetch, useFetchWithHandler } from "@/api";
 import qs from "qs";
 import { validateNationalCode } from "@/Tools";
-import Dragger from "antd/es/upload/Dragger";
 const HeaderAddCounterParty = (prop) => {
   const { form } = prop;
   const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
     useFetch(url.COUNTER_PARTY_TYPE);
-  const [show, setShow] = useState(false);
+  const [isShow, setShow] = useState(false);
   const [valueCity, setValueCity] = useState(null);
 
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
-  useRequestManager({ error: cityError });
-  useRequestManager({ error: provinceError });
-  useRequestManager({ error: counterpartyTypeError });
-  useRequestManager({ error: maxCodeError });
-
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
     filterOption: (input, option) => option.name.indexOf(input) >= 0,
   };
-
-  // const [form] = Ant.Form.useForm();
+  useRequestManager({ error: cityError });
+  useRequestManager({ error: provinceError });
+  useRequestManager({ error: counterpartyTypeError });
+  useRequestManager({ error: maxCodeError });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -134,7 +130,7 @@ const HeaderAddCounterParty = (prop) => {
             <Ant.Input allowClear showCount maxLength={100} />
           </Ant.Form.Item>
         </Ant.Col>
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: false }, { max: 100 }]}
@@ -167,15 +163,10 @@ const HeaderAddCounterParty = (prop) => {
             name={"seccondCode"}
             label="کد دوم"
           >
-            <Ant.Input
-              allowClear
-              showCount
-              maxLength={20}
-
-            />
+            <Ant.Input allowClear showCount maxLength={20} />
           </Ant.Form.Item>
         </Ant.Col>
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"nationalCode"}
@@ -199,7 +190,7 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"birthCertificateNumber"}
@@ -216,7 +207,7 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item name={"birthDateCalendarId"} label={"تاریخ تولد"}>
               <MyDatePicker />
@@ -224,7 +215,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Col>
         )}
 
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"birthCertificatePlaceOfIssueCityId"}
@@ -246,7 +237,7 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Col>
         )}
 
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"companyRegistrationPlaceCityId"}
@@ -264,7 +255,7 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: false }, { max: 150 }]}
@@ -280,7 +271,7 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"companyRegistrationNumber"}
@@ -297,7 +288,7 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"nationalCode"}
@@ -305,8 +296,6 @@ const HeaderAddCounterParty = (prop) => {
               rules={[{ required: false }]}
             >
               <Ant.InputNumber
-                // allowClear
-                // showCount
                 minLength={5}
                 maxLength={11}
                 style={{ width: "100%" }}
@@ -314,7 +303,7 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"economicCode"}
@@ -331,7 +320,7 @@ const HeaderAddCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"legalEntityIdentity"}
@@ -429,7 +418,6 @@ const HeaderAddCounterParty = (prop) => {
           </Ant.Form.Item>
         </Ant.Col>
       </Ant.Row>
-      {/* </Ant.Form> */}
     </div>
   );
 };

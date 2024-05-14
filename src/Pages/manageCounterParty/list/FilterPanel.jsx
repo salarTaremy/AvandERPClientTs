@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
-import * as api from "@/api";
-import MyDatePicker from "@/components/common/MyDatePicker";
+
 import { PropTypes } from "prop-types";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetch, useFetchWithHandler } from "@/api";
 import qs from "qs";
-import { validateNationalCode } from "@/Tools";
+
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -18,12 +17,12 @@ const FilterPanel = (props) => {
     useFetch(url.COUNTER_PARTY_TYPE);
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [idProvince, setIdProvince] = useState(null);
+  const { onSubmit, filterObject } = props;
+  const [form] = Ant.Form.useForm();
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: provinceError });
   useRequestManager({ error: counterpartyTypeError });
   useRequestManager({ error: cityError });
-  const { onSubmit, filterObject } = props;
-  const [form] = Ant.Form.useForm();
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
@@ -34,7 +33,6 @@ const FilterPanel = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    // filterObject && form.setFieldsValue({ ...filterObject, fromDate: formattedFromDate, toDate: formattedToDate })
     filterObject && form.setFieldsValue({ ...filterObject });
   }, []);
 
@@ -52,8 +50,6 @@ const FilterPanel = (props) => {
   };
 
   const getAllCity = async () => {
-    console.log(idProvince, "idProvince");
-
     const queryString = qs.stringify({
       ProvinceId: idProvince,
     });

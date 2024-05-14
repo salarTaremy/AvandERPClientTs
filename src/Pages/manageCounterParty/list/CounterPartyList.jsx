@@ -21,8 +21,6 @@ const CounterPartyList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [dataSource, setDataSource] = useState(null);
-  useRequestManager({ error: error });
-  useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
   const [filterObject, setFilterObject] = useState();
@@ -32,7 +30,8 @@ const CounterPartyList = () => {
     current: 1,
     pageSize: 10,
   });
-
+  useRequestManager({ error: error });
+  useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -40,20 +39,12 @@ const CounterPartyList = () => {
   useEffect(() => {
     setPpagination({ ...pagination, current: 1 });
     filterObject &&
-      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
-    !filterObject && setFilterCount(0)
-    getAllCounterParty()
-  }, [filterObject])
-
-  // useEffect(() => {
-
-  //   filterObject &&
-  //     setFilterCount(
-  //       Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
-  //     );
-  //   !filterObject && setFilterCount(0);
-  //   getAllCounterParty();
-  // }, [filterObject]);
+      setFilterCount(
+        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+      );
+    !filterObject && setFilterCount(0);
+    getAllCounterParty();
+  }, [filterObject]);
 
   useEffect(() => {
     getAllCounterParty();
@@ -92,9 +83,9 @@ const CounterPartyList = () => {
   };
 
   const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
+    setFilterObject(filterObject);
+    setOpenFilter(false);
+  };
   const onRemoveFilter = () => {
     setFilterObject(null);
     setOpenFilter(false);
@@ -103,11 +94,7 @@ const CounterPartyList = () => {
     await delApiCall(`${url.COUNTER_PARTY}/${id}`);
   };
   const onAdd = () => {
-    setModalContent(
-      navigate("/manage/counterparty/new"),
-      // <FormAddCounterParty />,
-      // <FormAddCounterParty key={uuid.v1()} onSuccess={onSuccessAdd} />,
-    );
+    setModalContent(navigate("/manage/counterparty/new"));
     setModalState(true);
   };
   const onView = (id) => {
@@ -118,37 +105,32 @@ const CounterPartyList = () => {
   //                        Events
   //====================================================================
   const onEdit = async (id) => {
-    console.log(id, "afafafaf");
-    // alert("ff")
-
     navigate(generatePath("/manage/counterparty/edit/:id", { id }));
-
-    // setModalState(true);
   };
 
   const onBlock = (val) => {
     setModalContent(
       <CounterPartyStateList
-      onSuccess={onSuccessBlock}
+        onSuccess={onSuccessBlock}
         key={val.id}
         counterPartyId={val.id}
         counterPartyName={val.counterpartyTitle}
-      />
+      />,
     );
     setModalState(true);
-  }
+  };
 
-  const onSuccessBlock=()=>{
+  const onSuccessBlock = () => {
     getAllCounterParty();
-    setModalState(false)
-  }
+    setModalState(false);
+  };
   //====================================================================
   //                        Child Components
   //====================================================================
   const title = () => {
     return (
       <ButtonList
-      filterCount={filterCount}
+        filterCount={filterCount}
         onAdd={onAdd}
         onRefresh={() => {
           getAllCounterParty();
@@ -170,7 +152,7 @@ const CounterPartyList = () => {
             {...defaultValues.TABLE_PROPS}
             title={title}
             onChange={handleTableChange}
-            columns={columns(onDelSuccess, onEdit,onView,onBlock)}
+            columns={columns(onDelSuccess, onEdit, onView, onBlock)}
             dataSource={dataSource}
           />
         </Ant.Skeleton>
@@ -183,7 +165,7 @@ const CounterPartyList = () => {
   return (
     <>
       <Ant.Modal
-     {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_PROPS}
         open={modalState}
         handleCancel={() => setModalState(false)}
         onCancel={() => {

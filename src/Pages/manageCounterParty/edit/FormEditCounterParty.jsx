@@ -21,24 +21,16 @@ import { useParams } from "react-router-dom";
 const FormEditCounterParty = () => {
   const params = useParams();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
-
-  const [counterpartyTypeList, counterpartyTypeLoading, counterpartyTypeError] =
-    useFetch(url.COUNTER_PARTY_TYPE);
-  const [cityList, cityLoading, cityError] = useFetch(url.CITY);
-  useRequestManager({ error: cityError });
-
-  useRequestManager({ error: counterpartyTypeError });
-  useRequestManager({ error: editError, loading: editLoading, data: editData });
   const [form] = Ant.Form.useForm();
   const { TabPane } = Ant.Tabs;
-
   const [
     listDataHeader,
     listLoadingHeader,
     listErrorHeader,
     listApiCallHeader,
   ] = api.useFetchWithHandler();
-
+  useRequestManager({ error: listErrorHeader, loading: listLoadingHeader });
+  useRequestManager({ error: editData, loading: editLoading });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -47,15 +39,8 @@ const FormEditCounterParty = () => {
   }, []);
 
   useEffect(() => {
-    const list = form.getFieldsValue();
-
-    console.log(list, "list");
-  }, []);
-
-  useEffect(() => {
     console.log(listDataHeader?.data?.addressList, "addressList");
     form.setFieldsValue({ ...(listDataHeader?.data || null) });
-    // form.setFieldsValue({ cityId: undefined });
   }, [listDataHeader]);
 
   //====================================================================
@@ -66,14 +51,12 @@ const FormEditCounterParty = () => {
   };
 
   const onFinish = async (value) => {
-    console.log( "dataListEdit");
-
     const list = form.getFieldsValue();
     let newBirthDateCalendarId = list?.birthDateCalendarId
       ?.toString()
       .replace(/\//g, "");
 
-    console.log(newBirthDateCalendarId, "newBirthDateCalendarId");
+
     const dataList = {
       ...value,
       id: parseInt(params.id),
@@ -87,7 +70,6 @@ const FormEditCounterParty = () => {
       ? value.bankAccountList
       : Array(0);
 
-    console.log(dataList, "dataListEdit");
 
     await editApiCall(url.COUNTER_PARTY, dataList);
   };
@@ -105,30 +87,26 @@ const FormEditCounterParty = () => {
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <HeaderEditCounterParty form={form} />
           <Ant.Flex className="items-end " vertical>
-            <Ant.Button
-              className="px-6"
-              type="primary"
-              htmlType="submit"
-            >
+            <Ant.Button className="px-6" type="primary" htmlType="submit">
               {"ذخیره"}
             </Ant.Button>
           </Ant.Flex>
 
-          <Ant.Tabs
-
-            type="card"
-            defaultActiveKey="1"
-          >
+          <Ant.Tabs type="card" defaultActiveKey="1">
             <TabPane forceRender={true} tab="اطلاعات تماس " key="1">
-              <Contacts  />
+              <Contacts />
             </TabPane>
-            <TabPane  forceRender={true} tab="آدرس" key="2">
+            <TabPane forceRender={true} tab="آدرس" key="2">
               <Address form={form} />
             </TabPane>
             <TabPane forceRender={true} tab="اطلاعات حساب های بانکی" key="3">
               <BankBranchInfo />
             </TabPane>
-            <TabPane forceRender={true} tab="اطلاعات تکمیلی طرف حساب ها" key="4">
+            <TabPane
+              forceRender={true}
+              tab="اطلاعات تکمیلی طرف حساب ها"
+              key="4"
+            >
               <Informationccounts />
             </TabPane>
           </Ant.Tabs>

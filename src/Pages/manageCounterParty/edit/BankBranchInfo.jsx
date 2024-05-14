@@ -6,10 +6,8 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { useFetch, useFetchWithHandler } from "@/api";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
-const BankBranchInfo = (prop) => {
-  const { form } = prop;
+const BankBranchInfo = () => {
   const [bankList, bankLoading, bankError] = useFetch(url.BANK);
-  const [idBranchBank, setBranchBank] = useState(null);
   const [bankBranchList, bankBranchLoading, bankBranchError, bankBranchApi] =
     useFetchWithHandler();
 
@@ -18,7 +16,6 @@ const BankBranchInfo = (prop) => {
 
   const handleChangeBank = async (value) => {
     await bankBranchApi(`${url.BANKBRANCH_GetFORDROPDOWN}/${value}`);
-
   };
 
   return (
@@ -51,7 +48,6 @@ const BankBranchInfo = (prop) => {
                       rules={[{ required: true }]}
                       {...restField}
                       name={[name, "bankBranchId"]}
-
                       label="شعبه"
                     >
                       <Ant.Select

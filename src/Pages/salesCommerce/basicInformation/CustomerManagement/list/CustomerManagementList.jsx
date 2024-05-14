@@ -82,17 +82,9 @@ const CustomerManagementList = () => {
       PageNumber: pagination.PageNumber,
       PageSize: pagination.PageSize,
     });
-    console.log(queryString, "fafaqueryString");
     await ApiCall(`${url.CUSTOMER}?${queryString}`);
   };
-  const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject);
-    setOpenFilter(false);
-  };
-  const onRemoveFilter = () => {
-    setFilterObject(null);
-    setOpenFilter(false);
-  };
+
   const onAdd = () => {
     navigate("/sale/customerManagemen/new")
   };

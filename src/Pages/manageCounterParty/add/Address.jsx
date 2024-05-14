@@ -11,10 +11,10 @@ const Address = (prop) => {
   const { form } = prop;
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
-  useRequestManager({ error: provinceError });
-  useRequestManager({ error: cityError });
   const [idProvince, setIdProvince] = useState(null);
   const [valueCity, setValueCity] = useState(null);
+  useRequestManager({ error: provinceError });
+  useRequestManager({ error: cityError });
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
@@ -24,7 +24,6 @@ const Address = (prop) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-
 
   useEffect(() => {
     cityList?.data && setValueCity(cityList?.data);

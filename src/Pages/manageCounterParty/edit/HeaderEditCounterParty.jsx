@@ -17,7 +17,7 @@ const HeaderEditCounterParty = (prop) => {
     useFetch(url.COUNTER_PARTY_TYPE);
   const [provinceList, provinceLoading, provinceError] = useFetch(url.PROVINCE);
   const [cityList, cityLoading, cityError, cityApi] = useFetchWithHandler();
-  const [show, setShow] = useState(false);
+  const [isShow, setShow] = useState(false);
   const [valueCity, setValueCity] = useState(null);
   const [currentProvianceId, setCurrentProvianceId] = useState(null);
   const [defaultProvianceId, setDefaultProvianceId] = useState(null);
@@ -180,7 +180,7 @@ const HeaderEditCounterParty = (prop) => {
             <Ant.Input allowClear showCount maxLength={100} />
           </Ant.Form.Item>
         </Ant.Col>
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: false }, { max: 100 }]}
@@ -216,7 +216,7 @@ const HeaderEditCounterParty = (prop) => {
             <Ant.Input allowClear showCount maxLength={20} />
           </Ant.Form.Item>
         </Ant.Col>
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"nationalCode"}
@@ -240,7 +240,7 @@ const HeaderEditCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"birthCertificateNumber"}
@@ -257,7 +257,7 @@ const HeaderEditCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item name={"birthDateCalendarId"} label={"تاریخ تولد"}>
               <MyDatePicker />
@@ -265,7 +265,7 @@ const HeaderEditCounterParty = (prop) => {
           </Ant.Col>
         )}
 
-        {!show && (
+        {!isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"birthCertificatePlaceOfIssueCityId"}
@@ -285,7 +285,7 @@ const HeaderEditCounterParty = (prop) => {
           </Ant.Col>
         )}
 
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"companyRegistrationPlaceCityId"}
@@ -303,7 +303,7 @@ const HeaderEditCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: false }, { max: 150 }]}
@@ -319,7 +319,7 @@ const HeaderEditCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"companyRegistrationNumber"}
@@ -336,7 +336,7 @@ const HeaderEditCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"nationalCode"}
@@ -353,7 +353,7 @@ const HeaderEditCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"economicCode"}
@@ -370,7 +370,7 @@ const HeaderEditCounterParty = (prop) => {
             </Ant.Form.Item>
           </Ant.Col>
         )}
-        {show && (
+        {isShow && (
           <Ant.Col lg={8} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"legalEntityIdentity"}
@@ -438,7 +438,6 @@ const HeaderEditCounterParty = (prop) => {
               allowClear={true}
               placeholder={"انتخاب کنید..."}
               disabled={provinceLoading || false}
-              // onChange={(value) => setIdProvince(value)}
               onChange={handleSelectProvince}
               loading={provinceLoading}
               options={provinceList?.data}
