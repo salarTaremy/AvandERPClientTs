@@ -28,7 +28,7 @@ const CitySelector = (props) => {
   }, []);
   useEffect(() => {
     CityData?.isSuccess && setOptions(CityData?.data);
-    form.setFieldValue('ww',[1, 1002])
+    CityData?.isSuccess &&  form.setFieldValue('ww',[1, 1002])
   }, [CityData]);
   //====================================================================
   //                        Functions
