@@ -1,5 +1,5 @@
 
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { PropTypes } from 'prop-types'
 import * as Ant from 'antd'
 import * as url from '@/api/url'
@@ -11,45 +11,73 @@ import useAllLoading from '@/hooks/useAllLoading '
 //                        Declaration
 //====================================================================
 const CitySelector = (props) => {
-  const {id} = props
-  const pageTitle = 'شرح صفحه'
-  const [CityData, CityLoading, CityError, CityApiCall] = api.useFetchWithHandler()
-  // useRequestManager({ error: Error })
-  //...
-  //====================================================================
-  //                        useEffects
-  //====================================================================
-  useEffect(async () => {
+    const { id } = props
+    const pageTitle = 'شرح صفحه'
+    const [CityData, CityLoading, CityError, CityApiCall] = api.useFetchWithHandler()
+    const [options, setOptions] = useState([])
+      
 
-    await CityApiCall(url.CITY_TREE)
-  }, [])
-  //====================================================================
-  //                        Functions
-  //====================================================================
 
-  //====================================================================
-  //                        Child Components
-  //====================================================================
-  const CitySelector = () => {
+    const [selectedItem, setSelectedItem] = useState({value:null})
+    useRequestManager({ error: CityError })
+    //...
+    //====================================================================
+    //                        useEffects
+    //====================================================================
+
+    useEffect(async () => {
+        await CityApiCall(url.CITY_TREE)
+    }, [])
+    useEffect(() => {
+        CityData?.isSuccess && setOptions(CityData?.data)
+    }, [CityData])
+    //====================================================================
+    //                        Functions
+    //====================================================================
+    const onChange = (value, selectedOptions) => {
+        setSelectedItem({ value })
+    };
+    const filter = (inputValue, path) =>
+        path.some((option) => option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+    //====================================================================
+    //                        Child Components
+    //====================================================================
+
+
+    
+    const CitySelector = () => {
+        return (
+            <>
+
+
+                <Ant.Cascader
+                    loading={CityLoading}
+                    options={options}
+                    onChange={onChange}
+                    placeholder="لطفا انتخاب کنید ..."
+                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                    showSearch={{
+                        filter,
+                    }}
+                    onSearch={(value) => console.log(value)}
+                />
+                <Ant.Divider></Ant.Divider>
+                {JSON.stringify(selectedItem, null, 1, 1)}
+
+            </>
+        )
+    }
+    //====================================================================
+    //                        Component
+    //====================================================================
     return (
-      <>
-        <p>{CityLoading && 'Loading'}</p>
-        <p>{CityData && CityData && JSON.stringify() }</p>
-        <p>{CityData?.isSuccess == true  && JSON.stringify(CityData?.data[0].children[0],null,1,1 ) }</p>
-      </>
+        <Ant.Card Card title={pageTitle} type="inner" style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
+            <CitySelector />
+        </Ant.Card>
     )
-  }
-  //====================================================================
-  //                        Component
-  //====================================================================
-  return (
-    <Ant.Card Card title={pageTitle} type="inner" style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
-        <CitySelector/>
-    </Ant.Card>
-  )
 }
 
 export default CitySelector
 CitySelector.propTypes = {
-  id: PropTypes.any,
+    id: PropTypes.any,
 }
