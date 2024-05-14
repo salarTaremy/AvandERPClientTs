@@ -28,7 +28,7 @@ const CitySelector = (props) => {
   }, []);
   useEffect(() => {
     CityData?.isSuccess && setOptions(CityData?.data);
-    CityData?.isSuccess &&  form.setFieldValue('ww',[1, 1002])
+    CityData?.isSuccess &&  form.setFieldValue('city',[1, 1002])
   }, [CityData]);
   //====================================================================
   //                        Functions
@@ -53,7 +53,7 @@ const CitySelector = (props) => {
     return (
       <>
         <Ant.Form  form={form} onFinish={onFinish} >
-          <Ant.Form.Item name={'ww'}>
+          <Ant.Form.Item name={'city'}  rules={[{ required: true }]}>
             <Ant.Cascader
               loading={CityLoading}
               options={options}
