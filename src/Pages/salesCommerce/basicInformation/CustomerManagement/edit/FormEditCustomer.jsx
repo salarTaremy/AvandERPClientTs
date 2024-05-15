@@ -9,9 +9,11 @@ import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
-const FormAddCustomer = () => {
+import { useParams } from "react-router-dom";
+
+const FormEditCustomer = () => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
-  const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
+  const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
 
   const [empty, setEmpty] = useState(true);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
@@ -25,9 +27,11 @@ const FormAddCustomer = () => {
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
     url.SALE_CHANNEL,
   );
-  useRequestManager({ error: addError, loading: addLoading, data: addData });
+
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
+    const params = useParams();
+    useRequestManager({ error: editError, loading: editLoading, data: editData });
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
   useRequestManager({ error: customerGroupError });
@@ -48,16 +52,25 @@ const FormAddCustomer = () => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    form.resetFields();
-    addData?.isSuccess;
-  }, [addData]);
+  // useEffect(() => {
+  //   form.resetFields();
+  //   addData?.isSuccess;
+  // }, [addData]);
   useEffect(() => {
     maxCodeData?.isSuccess &&
       maxCodeData?.data &&
       form.setFieldsValue({ code: maxCodeData.data });
   }, [maxCodeData]);
 
+
+  useEffect(() => {
+    onEdit();
+  }, []);
+  useEffect(() => {
+    form.resetFields();
+    editData?.isSuccess &&
+      form.setFieldsValue({ ...(editData?.data || null) });
+  }, [editData]);
   //==================================================================
   //                        Functions
   //==================================================================
@@ -87,10 +100,10 @@ const FormAddCustomer = () => {
     }
   };
 
-  const onFinish = async (values) => {
-    const req = { ...values, counterpartyId: values?.counterpartyId[0].key };
-    await addApiCall(url.CUSTOMER, req);
+  const onEdit = async () => {
+    await editApiCall(`${url.CUSTOMER}/${params.id}`);
   };
+
 
   //====================================================================
   //                        Child Components
@@ -116,10 +129,10 @@ const FormAddCustomer = () => {
     <>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"ایجاد مشتری"}
+        title={"ویرایش مشتری"}
         type="inner"
       >
-        <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+        <Ant.Form form={form} onFinish={null} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
               <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
@@ -244,11 +257,13 @@ const FormAddCustomer = () => {
               </Ant.Card>
             </Ant.Col>
             <Ant.Col span={24} sm={14}>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
               {empty === true ? (
                 <Ant.Empty />
               ) : (
                 <HeaderCounterParty data={listData} />
               )}
+                </Ant.Card>
             </Ant.Col>
           </Ant.Row>
 
@@ -267,4 +282,4 @@ const FormAddCustomer = () => {
   );
 };
 
-export default FormAddCustomer;
+export default FormEditCustomer;

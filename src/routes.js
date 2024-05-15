@@ -48,6 +48,7 @@ import CustomerType from './Pages/salesCommerce/basicInformation/customerType/Cu
 import CustomerGrade from './Pages/salesCommerce/basicInformation/customerGrade/list/CustomerGradeList'
 import CustomerManagement from './Pages/salesCommerce/basicInformation/CustomerManagement/list/CustomerManagementList'
 import FormAddCustomer from './Pages/salesCommerce/basicInformation/CustomerManagement/add/FormAddCustomer'
+import FormEditCustomer from './Pages/salesCommerce/basicInformation/CustomerManagement/edit/FormEditCustomer'
 import SaleDocument from './Pages/salesCommerce/saleDocument/SaleDocument';
 
 //counterParty
@@ -108,7 +109,8 @@ const routes = [
   { path: 'sale/customerType', name: 'نوع مشتری', element: CustomerType },
   { path: 'sale/customerGrade', name: 'رتبه مشتری', element: CustomerGrade },
   { path: 'sale/customerManagemen', name: 'مدیریت مشتریان', element: CustomerManagement },
-  { path: 'sale/customerManagemen/new', name: 'ایجاد مشتری', element: FormAddCustomer },
+  { path: '/sale/customerManagemen/new', name: 'ایجاد مشتری', element: FormAddCustomer },
+  { path: '/sale/customerManagemen/edit/:id', name: 'ویرایش مشتری', element: FormEditCustomer },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },

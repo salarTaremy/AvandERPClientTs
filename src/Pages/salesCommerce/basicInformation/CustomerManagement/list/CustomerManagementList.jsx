@@ -4,11 +4,9 @@ import * as styles from "@/styles";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import qs from "qs";
-import * as uuid from "uuid";
 import * as defaultValues from "@/defaultValues";
 import columns from "./columns";
 import FormAddCustomer from '../add/FormAddCustomer'
-// import FormEditSupplier from '../edit/FormEditSupplier'
 // import FilterPanel from './FilterPanel'
 import FilterDrawer from "@/components/common/FilterDrawer";
 import useRequestManager from "@/hooks/useRequestManager";
@@ -16,7 +14,7 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
 import { useNavigate, generatePath } from "react-router-dom";
-// import SupplierDescription from '../description/SupplierDescription'
+
 
 const CustomerManagementList = () => {
   const navigate = useNavigate();
@@ -89,31 +87,29 @@ const CustomerManagementList = () => {
     navigate("/sale/customerManagemen/new")
   };
   const onDelete = async (id) => {
-    await delApiCall(`${url.SUPPLIER}/${id}`);
+    await delApiCall(`${url.CUSTOMER}/${id}`);
   };
 
-  const onSuccessAdd = () => {
-    setModalState(false);
-    getAllCustomer();
-  };
   const onSuccessEdit = () => {
-    setModalState(false);
-    getAllCustomer();
+    navigate("/sale/customerManagemen/edit")
+
   };
 
   //====================================================================
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    setModalContent(
-      <FormEditSupplier
-        onSuccess={onSuccessEdit}
-        myKey={val.id}
-        obj={val}
-        id={val.id}
-      />,
-    );
-    setModalState(true);
+    const id=val.id
+    navigate(generatePath("/sale/customerManagemen/edit/:id",{ id }))
+    // setModalContent(
+    //   <FormEditSupplier
+    //     onSuccess={onSuccessEdit}
+    //     myKey={val.id}
+    //     obj={val}
+    //     id={val.id}
+    //   />,
+    // );
+
   };
   const onView = (id) => {
     setModalContent(<SupplierDescription id={id} key={id} />);
