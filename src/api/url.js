@@ -153,6 +153,7 @@ export const PROVINCE='/Province'
 
 //City
 export const CITY='/City'
+export const CITY_TREE='/City/GetTree'
 
 //Bank
 export const BANK='/Bank'
