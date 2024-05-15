@@ -45,9 +45,8 @@ const FilterPanel = (props) => {
     //====================================================================
     const onFinish = (values) => {
         let customerFilter = {};
-        //debugger;
-        if (values?.customerId && values?.customerId.length > 0) {
-            customerFilter.customerId = [{label: values?.customerId[0].label, key: values?.customerId[0].value, value: values?.customerId[0].value}];       
+        if (values?.customerId) {
+            customerFilter.customerId = {label: values?.customerId.label, key: values?.customerId.value, value: values?.customerId.value};       
         }
         else {
             customerFilter.customerId  = undefined;
@@ -84,10 +83,12 @@ const FilterPanel = (props) => {
                 </Ant.Form.Item>
                 <Ant.Form.Item name={'customerId'} label="مشتری">
                     <DebounceSelect
-                        mode="multiple"
                         maxCount={1}
                         placeholder="بخشی از نام مشتری را تایپ کنید..."
                         fetchOptions={getCustomerForDropDown}
+                        onChange={(newValue) => {
+                            console.log("onChange debounce:" + newValue)
+                        }}
                     />
                 </Ant.Form.Item>
                 <Ant.Form.Item name={'fromIssueDateCalendarId'} label="از تاریخ">

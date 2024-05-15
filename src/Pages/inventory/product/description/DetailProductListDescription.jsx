@@ -47,8 +47,8 @@ const DetailProductListDescription = (props) => {
     // },
     {
       key: '6',
-      label: 'شناسه برند',
-      children: data?.data?.brandId,
+      label: 'برند',
+      children: data?.data?.brandName,
       span:6
 
     },

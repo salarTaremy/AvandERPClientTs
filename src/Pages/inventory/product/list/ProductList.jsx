@@ -31,6 +31,7 @@ const ProductList = () => {
   const [filterObject, setFilterObject] = useState()
   const [filterCount, setFilterCount] = useState(0)
   const [openFilter, setOpenFilter] = useState(false)
+  const [pagination, setPagination] = useState({current: 1, pageSize: 10});
   useRequestManager({ error: error })
   useRequestManager({ error: delError, data: delSaving, loading: delLoading })
   const navigateTo = useNavigate()
@@ -73,6 +74,9 @@ const ProductList = () => {
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.PRODUCT}/${id}`)
   }
+  const onTableChange = (pagination, filter, sorter) => {
+    setPagination(pagination);
+  }
   //====================================================================
   //                        Events
   //====================================================================
@@ -110,6 +114,8 @@ const ProductList = () => {
           title={title}
           columns={columns(onDelSuccess, onView, onEdit)}
           dataSource={dataSource}
+          pagination={pagination}
+          onChange={onTableChange}
         />
       </>
     )
