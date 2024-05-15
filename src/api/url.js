@@ -153,6 +153,7 @@ export const PROVINCE='/Province'
 
 //City
 export const CITY='/City'
+export const CITY_TREE='/City/GetTree'
 
 //Bank
 export const BANK='/Bank'
@@ -170,5 +171,10 @@ export const CUSTOMER_TYPE= 'CustomerType'
 // CustomerGrade
 export const CUSTOMER_GRADE='CustomerGrade'
 
+// CustomerManagement
+export const CUSTOMER='Customer'
+
+export const CUSTOMER_FREE_CODE='Customer/GetFirstFreeCode'
+
 //GetFirstFreeCode
-export const GETFIRST_FREE_CODE='/Counterparty/GetFirstFreeCode'
+export const COUNTER_PARTY_FREE_CODE='/Counterparty/GetFirstFreeCode'

@@ -142,7 +142,7 @@ const UserManagement = () => {
     setModalContent(
       <FormSwitchUserRollList
         onSuccess={onSuccessSwitch}
-        key={val.id}
+        key={uuid.v1()}
         userId={val.id}
         userName={val.userName}
       />

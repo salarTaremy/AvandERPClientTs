@@ -10,13 +10,20 @@ const BankBranchInfo = () => {
   const [bankList, bankLoading, bankError] = useFetch(url.BANK);
   const [bankBranchList, bankBranchLoading, bankBranchError, bankBranchApi] =
     useFetchWithHandler();
+
   useRequestManager({ error: bankError });
   useRequestManager({ error: bankBranchError });
+
+  //====================================================================
+  //                        Functions
+  //====================================================================
 
   const handleChangeBank = async (value) => {
     await bankBranchApi(`${url.BANKBRANCH_GetFORDROPDOWN}/${value}`);
   };
-
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
     <>
       <Ant.Form.List name="bankAccountList">
@@ -26,11 +33,7 @@ const BankBranchInfo = () => {
               <Ant.Space {...restField} key={key} style={{ display: "unset" }}>
                 <Ant.Row gutter={[16, 8]}>
                   <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      rules={[{ required: true }]}
-                      // name={[name, "bank"]}
-                      label="بانک"
-                    >
+                    <Ant.Form.Item rules={[{ required: true }]} label="بانک">
                       <Ant.Select
                         onChange={(e) => handleChangeBank(e)}
                         allowClear={true}
@@ -79,12 +82,7 @@ const BankBranchInfo = () => {
                       label="شماره حساب"
                       maxLength={10}
                     >
-                      <Ant.Input
-                        allowClear
-                        showCount
-
-                        maxLength={16}
-                      />
+                      <Ant.Input allowClear showCount maxLength={16} />
                     </Ant.Form.Item>
                   </Ant.Col>
 

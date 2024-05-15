@@ -29,13 +29,13 @@ import CustomValidator from './Pages/Developers/Samples/CustomValidator'
 import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSample'
+import CitySelector from './Pages/Developers/Samples/CitySelector'
+CitySelector
 
 //GeneralSettings
 import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
 import BranchList from './Pages/generalSettings/branch/list/BranchList'
 import UserManagement from './Pages/generalSettings/user/list/UserManagement'
-import UserRoleList from './Pages/generalSettings/userRole/list/UserRoleList'
-import Menus from './Pages/generalSettings/menuAccess/menus'
 
 //salesCommerce
 import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/saleChannelList'
@@ -46,6 +46,8 @@ import SaleDocumentType from './Pages/salesCommerce/basicInformation/saleDocumen
 import CustomerGroup from './Pages/salesCommerce/basicInformation/customerGroup/list/CustomerGroupList'
 import CustomerType from './Pages/salesCommerce/basicInformation/customerType/CustomerType'
 import CustomerGrade from './Pages/salesCommerce/basicInformation/customerGrade/list/CustomerGradeList'
+import CustomerManagement from './Pages/salesCommerce/basicInformation/CustomerManagement/list/CustomerManagementList'
+import FormAddCustomer from './Pages/salesCommerce/basicInformation/CustomerManagement/add/FormAddCustomer'
 import SaleDocument from './Pages/salesCommerce/saleDocument/SaleDocument';
 
 //counterParty
@@ -91,12 +93,10 @@ const routes = [
   { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
   { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
   { path: '/developers/samples/debounceSelectSample', name: 'نمونه سلکت باکس با امکان جستجوی سمت سرور', element: DebounceSelectSample },
+  { path: '/developers/samples/citySelector', name: 'نمونه DropDown درختی', element: CitySelector },
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
   { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
-  { path: '/generalSettings/userRole/list', name: 'ارتباط کاربران با نقش ها', element: UserRoleList },
-
-  { path: '/generalSettings/accessmenu/menus', name: 'دسترسی منوها', element: Menus },
 
   { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
   { path: 'sale/paymentType', name: 'نوع پرداخت', element: PaymentType },
@@ -107,7 +107,8 @@ const routes = [
   { path: 'sale/customerGroup', name: 'گروه مشتری', element: CustomerGroup },
   { path: 'sale/customerType', name: 'نوع مشتری', element: CustomerType },
   { path: 'sale/customerGrade', name: 'رتبه مشتری', element: CustomerGrade },
-  { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument},
+  { path: 'sale/customerManagemen', name: 'مدیریت مشتریان', element: CustomerManagement },
+  { path: 'sale/customerManagemen/new', name: 'ایجاد مشتری', element: FormAddCustomer },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
@@ -115,7 +116,7 @@ const routes = [
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
 
   { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: banks },
-
+  { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument},
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]

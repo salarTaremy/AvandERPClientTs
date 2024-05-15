@@ -27,7 +27,6 @@ const Address = (prop) => {
 
   useEffect(() => {
     cityList?.data && setValueCity(cityList?.data);
-
   }, [cityList?.data]);
 
   //====================================================================
@@ -35,7 +34,6 @@ const Address = (prop) => {
   //====================================================================
 
   const handleSelectProvince = async (value, key) => {
-    debugger;
     setIdProvince({ key });
 
     const data = form.getFieldValue("addressList");
@@ -55,7 +53,6 @@ const Address = (prop) => {
     }
   };
 
-
   //====================================================================
   //                        Component
   //====================================================================
@@ -73,7 +70,6 @@ const Address = (prop) => {
                       {...restField}
                       name={[name, "provinceId"]}
                       label="استان"
-
                       initialValue={[name, "provinceId"]}
                     >
                       <Ant.Select
@@ -93,7 +89,6 @@ const Address = (prop) => {
                       rules={[{ required: true }]}
                       {...restField}
                       name={[name, "cityId"]}
-
                       label="شهر"
                     >
                       <Ant.Select
