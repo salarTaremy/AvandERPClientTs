@@ -173,5 +173,7 @@ export const CUSTOMER_GRADE='CustomerGrade'
 // CustomerManagement
 export const CUSTOMER='Customer'
 
+export const CUSTOMER_FREE_CODE='Customer/GetFirstFreeCode'
+
 //GetFirstFreeCode
-export const GETFIRST_FREE_CODE='/Counterparty/GetFirstFreeCode'
+export const COUNTER_PARTY_FREE_CODE='/Counterparty/GetFirstFreeCode'

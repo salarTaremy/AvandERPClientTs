@@ -104,7 +104,7 @@ const HeaderEditCounterParty = (prop) => {
   };
 
   const getMaxCode = async () => {
-    await maxCodeApiCall(`${url.GETFIRST_FREE_CODE}`);
+    await maxCodeApiCall(`${url.COUNTER_PARTY_FREE_CODE}`);
   };
 
   //====================================================================
