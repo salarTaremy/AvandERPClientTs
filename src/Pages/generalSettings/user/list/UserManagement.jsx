@@ -18,6 +18,7 @@ import FormResetPasswordUser from "../reset/FormResetPasswordUser";
 import FilterPanel from "./FilterPanel";
 import UserInfo from "../info/UserInfo";
 import FormSwitchUserRollList from "../rollSwitch/FormSwitchUserRollList";
+import FormUsersOtherAccess from "../otherAccess/FormUsersOtherAccess";
 
 const UserManagement = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -155,6 +156,36 @@ const UserManagement = () => {
     getAllUserList();
   };
 
+  // const onBranch=(val)=>{
+  //   setModalContent(
+  //     <FormUsersBranchaccess
+  //       onSuccess={onSuccess}
+  //       key={uuid.v1()}
+  //       userId={val.id}
+  //       userName={val.userName}
+  //     />
+  //   )
+  //   setModalState(true);
+  // }
+
+  // const onSuccess = () => {
+  //   setModalState(false);
+  //   getAllUserList();
+  // };
+
+  const onOtherAccesses = (val) => {
+    setModalContent(
+      <FormUsersOtherAccess
+        // onSuccess={onSuccess}
+        key={uuid.v1()}
+        userId={val.id}
+        userName={val.userName}
+      />
+    )
+    setModalState(true);
+  }
+
+
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -182,7 +213,7 @@ const UserManagement = () => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             title={title}
-            columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch)}
+            columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch, onOtherAccesses)}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

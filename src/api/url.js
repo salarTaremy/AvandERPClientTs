@@ -150,32 +150,56 @@ export const COUNTER_PARTY_BLACK_LIST_STATE_GET_BY_COUNTER_PARTY_ID = 'Counterpa
 
 
 //Province
-export const PROVINCE='/Province'
+export const PROVINCE = '/Province'
 
 //City
-export const CITY='/City'
-export const CITY_TREE='/City/GetTree'
+export const CITY = '/City'
+export const CITY_TREE = '/City/GetTree'
+
 
 //Bank
-export const BANK='/Bank'
+export const BANK = '/Bank'
 
 //BankBranch
-export const BANKBRANCH='/BankBranch'
+export const BANKBRANCH = '/BankBranch'
 //BankBranchGetForDropdown
-export const BANKBRANCH_GetFORDROPDOWN='/BankBranch/GetForDropdown'
+export const BANKBRANCH_GetFORDROPDOWN = '/BankBranch/GetForDropdown'
 //CustomerGroup
 export const CUSTOMER_GROUP = 'CustomerGroup'
 
 // CustomerType
-export const CUSTOMER_TYPE= 'CustomerType'
+export const CUSTOMER_TYPE = 'CustomerType'
 
 // CustomerGrade
-export const CUSTOMER_GRADE='CustomerGrade'
+export const CUSTOMER_GRADE = 'CustomerGrade'
 
 // CustomerManagement
-export const CUSTOMER='Customer'
+export const CUSTOMER = 'Customer'
 
-export const CUSTOMER_FREE_CODE='Customer/GetFirstFreeCode'
+export const CUSTOMER_FREE_CODE = 'Customer/GetFirstFreeCode'
 
 //GetFirstFreeCode
-export const COUNTER_PARTY_FREE_CODE='/Counterparty/GetFirstFreeCode'
+export const GETFIRST_FREE_CODE = '/Counterparty/GetFirstFreeCode'
+
+
+//GetFirstFreeCode
+export const COUNTER_PARTY_FREE_CODE = '/Counterparty/GetFirstFreeCode'
+
+
+
+//AccessControl
+export const GET_ASSIGNED_BRANCHES = 'AccessControl/GetAssignedBranches'
+export const ASSIGN_BRANCH_TO_USER = 'AccessControl/AssignBranchToUser'
+export const REMOVE_ALL_BRANCH_PERMISSIONS_FOR_USER = 'AccessControl/RemoveAllBranchPermissionsForUser'
+export const GET_ASSIGNED_BRANDS = 'AccessControl/GetAssignedBrands'
+export const ASSIGN_BRAND_TO_USER = 'AccessControl/AssignBrandToUser'
+export const GET_ASSIGNED_CUSTOMER_GROUPS = 'AccessControl/GetAssignedCustomerGroups'
+export const ASSIGN_CUSTOMER_GROUP_TO_USER = 'AccessControl/AssignCustomerGroupToUser'
+export const GET_ASSIGNED_CUSTOMER_TYPES = 'AccessControl/GetAssignedCustomerTypes'
+export const ASSIGN_CUSTOMER_TYPE_TO_USER = 'AccessControl/AssignCustomerTypeToUser'
+export const GET_ASSIGNED_SALE_CHANNELS = 'AccessControl/GetAssignedSaleChannels'
+export const ASSIGN_SALE_CHANNEL_TO_USER = 'AccessControl/AssignSaleChannelToUser'
+export const GET_ASSIGNED_SALE_DOCUMENT_TYPES = 'AccessControl/GetAssignedSaleDocumentTypes'
+export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocumentTypeToUser'
+
+
