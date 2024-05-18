@@ -10,12 +10,13 @@ import ButtonList from "@/components/common/ButtonList";
 import FilterPanel from "./FilterPanel";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
+import SaleDocumentDescription from "../description/SaleDocumentDescription";
 
 //====================================================================
 //                        Declaration
 //====================================================================
 const SaleDocumentList = () => {
-    const pageTitle = "مدیریت صورتحساب ها";
+    const pageTitle = "مدیریت برگه های فروش";
     const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler();
     const [dataSource, setDataSource] = useState(null);
     const [openFilter, setOpenFilter] = useState(false);
@@ -25,6 +26,8 @@ const SaleDocumentList = () => {
         current: 1,
         pageSize: 10,
     });
+    const [documentDetailModalState, setDocumentDetailModalState] = useState(false);
+    const [documentDetailModalContent, setDocumentDetailModalContent] = useState(null);
     //====================================================================
     //                        useEffects
     //====================================================================
@@ -54,8 +57,8 @@ const SaleDocumentList = () => {
     //====================================================================
     const fillGrid = async () => {
         let customerFilter = {};
-        if (filterObject && filterObject.customerId && filterObject.customerId.length > 0){
-            customerFilter.customerId = filterObject.customerId[0].value;
+        if (filterObject && filterObject.customerId){
+            customerFilter.customerId = filterObject.customerId.value;
         }
         else {
             customerFilter.customerId = undefined;
@@ -94,8 +97,8 @@ const SaleDocumentList = () => {
     };
 
     const onView = async (id) => {
-        //TODO: not implemented
-        console.log("onView - " + id);
+        setDocumentDetailModalContent(<SaleDocumentDescription id={id}/>)
+        setDocumentDetailModalState(true);
     };
 
     //====================================================================
@@ -135,7 +138,18 @@ const SaleDocumentList = () => {
     //====================================================================
     return (
         <>
-            <Ant.Card style={{...styles.CARD_DEFAULT_STYLES}} loading={""} title={pageTitle} type="inner">
+            <Ant.Modal
+                open={documentDetailModalState}
+                centered
+                width={1200}
+                getContainer={null}
+                footer={null}
+                onCancel={() => setDocumentDetailModalState(false)}
+                onOk = {() => setDocumentDetailModalState(false)}
+            >
+                {documentDetailModalContent}
+            </Ant.Modal>
+            <Ant.Card style={{...styles.CARD_DEFAULT_STYLES}} loading={listLoading} title={pageTitle} type="inner">
                 <FilterDrawer
                     open={openFilter}
                     onClose={() => setOpenFilter(false)}

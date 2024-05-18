@@ -7,12 +7,11 @@ import qs from "qs";
 
 const DebounceSelectSample = () => {
   const [form] = Ant.Form.useForm();
-  const [value, setValue] = useState([]);
+  const [selectedValue, setSelectedValue] = useState({label: "انتخاب نشده", value: 0});
 
-  const onFinish = async (values) => {
-    console.log('Finished');
-  }
-
+  //====================================================================
+  //                        Functions
+  //====================================================================
   const getAllCounterPartyForDropDown = async (inputValue) => {
     const queryString = qs.stringify({
       CounterpartyName: inputValue
@@ -27,6 +26,34 @@ const DebounceSelectSample = () => {
     }
   }
 
+  //====================================================================
+  //                        Events
+  //====================================================================
+  const onFinish = async (values) => {
+    console.log('Finished');
+  }
+
+  const onChange = (newValue) => {
+    console.log("onChange");
+    if (newValue) {
+      setSelectedValue(newValue);
+    }
+    else {
+      setSelectedValue({label: "انتخاب نشده", value: 0});
+    }
+  }
+  const onClear = () => {
+    //optional event - raises when selected value cleared
+    console.log("onClear");
+  }
+  const onSelect = () => {
+    //optional event - raises when an option selected (useful for multiple selection)
+    console.log("onSelect");
+  }
+
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
     <Ant.Card>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
@@ -36,13 +63,16 @@ const DebounceSelectSample = () => {
             <Ant.Divider />
           </Ant.Col>
         </Ant.Row>
+        <Ant.Form.Item label={"مقدار انتخاب شده"}>
+            {`عنوان: ${selectedValue?.label} ---- شناسه: ${selectedValue?.value}`}
+        </Ant.Form.Item>
         <Ant.Form.Item name="counterpartyName" label={"نام طرف حساب "} rules={[{ required: true }]}>
           <DebounceSelect
-            mode="multiple"
-            maxCount={1}
             placeholder="انتخاب کنید..."
             fetchOptions={getAllCounterPartyForDropDown}
-            value={value}
+            onChange={onChange}
+            //onClear={onClear}
+            //onSelect={onSelect}
           />
         </Ant.Form.Item>
       </Ant.Form>

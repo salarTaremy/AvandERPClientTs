@@ -43,6 +43,7 @@ export const FrmEditAccountDocument = () => {
   useEffect(() => {
     onEditHeader();
   }, []);
+
   useEffect(() => {}, [dataEditList]);
 
   useEffect(() => {

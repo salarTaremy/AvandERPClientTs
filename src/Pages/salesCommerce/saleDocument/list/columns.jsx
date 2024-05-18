@@ -2,6 +2,7 @@ import React from "react";
 import * as Ant from "antd";
 import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { Typography } from 'antd';
 const { Text, Link } = Typography;
 
@@ -52,7 +53,7 @@ export const columns = (onDelete, onEdit, onView) => {
             width: 100,
             render: (text, record, index) => {
                 return (
-                    <Ant.Tag color={getDocumentTypeColor(record.saleDocumentTypeId)}>
+                    <Ant.Tag bordered={false} color={getDocumentTypeColor(record.saleDocumentTypeId)}>
                         {record.saleDocumentType}
                     </Ant.Tag>
                 )
@@ -69,7 +70,7 @@ export const columns = (onDelete, onEdit, onView) => {
                 return (
                     <>
                         {record.referenceId === 0 && <Text>-</Text>}
-                        {record.referenceId !== 0 && <Link>{record.referenceDocumentNumber}</Link>}
+                        {record.referenceId !== 0 && <Link onClick={() => onView(record.referenceId)}>{`${record.referenceDocumentType} شماره ${record.referenceDocumentNumber}`}</Link>}
                     </>
                 )
             }
@@ -115,7 +116,10 @@ export const columns = (onDelete, onEdit, onView) => {
             key: "subTotal",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 80,
+            render: (text, record, index) => (
+                record.subTotal.toLocaleString()
+            )
         },
         {
             title: "تخفیفات",
@@ -123,7 +127,10 @@ export const columns = (onDelete, onEdit, onView) => {
             key: "discounts",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 80,
+            render: (text, record, index) => (
+                record.discounts.toLocaleString()
+            )
         },
         {
             title: "مالیات و عوارض",
@@ -131,7 +138,10 @@ export const columns = (onDelete, onEdit, onView) => {
             key: "taxTotal",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 80,
+            render: (text, record, index) => (
+                record.taxTotal.toLocaleString()
+            )
         },
         {
             title: "مبلغ قابل پرداخت",
@@ -139,7 +149,10 @@ export const columns = (onDelete, onEdit, onView) => {
             key: "totalPrice",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 80,
+            render: (text, record, index) => (
+                record.totalPrice.toLocaleString()
+            )
         },
         {
             title: "عملیات",
@@ -164,6 +177,17 @@ export const columns = (onDelete, onEdit, onView) => {
                                 icon={<FiEdit/>}
                                 type="text"
                             />
+                            <Ant.Popconfirm
+                                onConfirm={() => onDelete(record.id)}
+                                title="حذف آیتم"
+                                description={`آیا از حذف برگه شماره ${record.documentNumber} مطمئن هستید؟`}
+                            >
+                                <Ant.Button
+                                    className="text-red-600"
+                                    icon={<RiDeleteBin6Line />}
+                                    type="text"
+                                />
+                            </Ant.Popconfirm>
                         </Ant.Space>
                     </>
                 )

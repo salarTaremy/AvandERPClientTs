@@ -45,8 +45,8 @@ const Account = () => {
       lookup[o.id].children = []
     })
     arr.forEach((o) => {
-      if (o.parent !== null) {
-        lookup[o.parent].children.push(o)
+      if (o.parent ) {
+        lookup[o.parent]?.children?.push(o)
       } else {
         tree.push(o)
       }
@@ -104,9 +104,9 @@ const Account = () => {
               <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}>
                 <Tree
                   // directoryNodeSelectedColor={'red'}
-                  onExpand={(expandedKeys, expanded, node) => {
-                    // console.log(expandedKeys)
-                  }}
+                  // onExpand={(expandedKeys, expanded, node) => {
+                  //   // console.log(expandedKeys)
+                  // }}
                   showIcon
                   // selectable={false}
                   blockNode

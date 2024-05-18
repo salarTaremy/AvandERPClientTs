@@ -121,6 +121,7 @@ export const USER_RESET_PASSWORD = 'User/ResetPassword'
 //Sales
 export const SALE_CHANNEL = 'SaleChannel'
 export const SALE_DOCUMENT_HEADER = 'SaleDocumentHeader'
+export const SALE_DOCUMENT_DETAIL = 'SaleDocumentDetail'
 export const SALE_CUSTOMER_GET_FOR_DROPDOWN = '/Customer/GetForDropdown'
 
 //PaymentType
@@ -153,6 +154,8 @@ export const PROVINCE = '/Province'
 
 //City
 export const CITY = '/City'
+export const CITY_TREE = '/City/GetTree'
+
 
 //Bank
 export const BANK = '/Bank'
@@ -170,8 +173,19 @@ export const CUSTOMER_TYPE = 'CustomerType'
 // CustomerGrade
 export const CUSTOMER_GRADE = 'CustomerGrade'
 
+// CustomerManagement
+export const CUSTOMER = 'Customer'
+
+export const CUSTOMER_FREE_CODE = 'Customer/GetFirstFreeCode'
+
 //GetFirstFreeCode
 export const GETFIRST_FREE_CODE = '/Counterparty/GetFirstFreeCode'
+
+
+//GetFirstFreeCode
+export const COUNTER_PARTY_FREE_CODE = '/Counterparty/GetFirstFreeCode'
+
+
 
 //AccessControl
 export const GET_ASSIGNED_BRANCHES = 'AccessControl/GetAssignedBranches'
@@ -187,3 +201,5 @@ export const GET_ASSIGNED_SALE_CHANNELS = 'AccessControl/GetAssignedSaleChannels
 export const ASSIGN_SALE_CHANNEL_TO_USER = 'AccessControl/AssignSaleChannelToUser'
 export const GET_ASSIGNED_SALE_DOCUMENT_TYPES = 'AccessControl/GetAssignedSaleDocumentTypes'
 export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocumentTypeToUser'
+
+
