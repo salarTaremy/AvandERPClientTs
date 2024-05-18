@@ -4,10 +4,9 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 import { FiEdit } from "react-icons/fi";
 import { VscKey } from "react-icons/vsc";
 import { VscGithubAction } from "react-icons/vsc";
-import { AiOutlineSwitcher } from "react-icons/ai";
+import { AiOutlineEllipsis } from "react-icons/ai";
 
-
-const columns = (onDelete, onEdit, onReset, onInfo,onSwitch) => {
+const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) => {
     return (
         [
             // {
@@ -63,6 +62,14 @@ const columns = (onDelete, onEdit, onReset, onInfo,onSwitch) => {
                 className: "text-xs sm:text-sm",
                 render: (text, val) => (
                     <>
+                        <Ant.Tooltip placement="top" title={' سایر دسترسی ها '}>
+                            <Ant.Button
+                                className="text-red-600"
+                                onClick={() => onOtherAccesses(val)}
+                                icon={<AiOutlineEllipsis />}
+                                type="text"
+                            />
+                        </Ant.Tooltip>
                         <Ant.Tooltip placement="top" title={'ویرایش نقش ها'}>
                             <Ant.Button
                                 className="text-violet-600"
