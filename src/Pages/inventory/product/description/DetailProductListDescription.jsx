@@ -27,7 +27,7 @@ const DetailProductListDescription = (props) => {
     {
       key: '3',
       label: 'کد دوم',
-      children: data?.data?.seccondCode,
+      children: data?.data?.secondCode,
       span:2
 
     },

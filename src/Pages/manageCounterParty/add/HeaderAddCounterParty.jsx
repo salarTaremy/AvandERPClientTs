@@ -160,7 +160,7 @@ const HeaderAddCounterParty = (prop) => {
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
             rules={[{ required: true }, { max: 20 }]}
-            name={"seccondCode"}
+            name={"secondCode"}
             label="کد دوم"
           >
             <Ant.Input allowClear showCount maxLength={20} />

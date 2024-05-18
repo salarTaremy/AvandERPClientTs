@@ -17,8 +17,8 @@ const columns = (onDelete, onView, onEdit) => {
             },
             {
                 title: 'کد دوم',
-                dataIndex: 'seccondCode',
-                key: 'seccondCode',
+                dataIndex: 'secondCode',
+                key: 'secondCode',
                 align: 'center',
                 width: 80,
                 className:"text-xs sm:text-sm",

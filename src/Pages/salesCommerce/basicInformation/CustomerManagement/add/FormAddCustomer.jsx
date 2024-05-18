@@ -4,7 +4,6 @@ import * as styles from "@/styles";
 import { useFetch, useFetchWithHandler, Get, usePostWithHandler } from "@/api";
 import qs from "qs";
 import * as url from "@/api/url";
-import * as defaultValues from "@/defaultValues";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
@@ -13,7 +12,8 @@ const FormAddCustomer = () => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
 
-  const [empty, setEmpty] = useState(true);
+
+  const [empty, setEmpty] = useState(undefined);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
   const [customerGroupList, customerGroupLoading, customerGroupError] =
@@ -66,8 +66,8 @@ const FormAddCustomer = () => {
     await maxCodeApiCall(`${url.CUSTOMER_FREE_CODE}`);
   };
   const handleCounterParty = async (val) => {
-    await ApiCall(`${url.COUNTER_PARTY}/${val[0].key}`);
-    setEmpty(false);
+    setEmpty(val);
+    await ApiCall(`${url.COUNTER_PARTY}/${val.key}`);
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
@@ -88,7 +88,9 @@ const FormAddCustomer = () => {
   };
 
   const onFinish = async (values) => {
-    const req = { ...values, counterpartyId: values?.counterpartyId[0].key };
+    console.log(values?.counterpartyId?.key, "fafa");
+    console.log(values, "vvvvvvvvv");
+    const req = { ...values, counterpartyId: values?.counterpartyId?.key };
     await addApiCall(url.CUSTOMER, req);
   };
 
@@ -114,11 +116,7 @@ const FormAddCustomer = () => {
 
   return (
     <>
-      <Ant.Card
-        style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"ایجاد مشتری"}
-        type="inner"
-      >
+      <Ant.Card title={"ایجاد مشتری"} type="inner">
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
@@ -141,7 +139,7 @@ const FormAddCustomer = () => {
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: false }, { max: 20 }]}
-                    name={"seccondCode"}
+                    name={"secondCode"}
                     label="کد دوم"
                   >
                     <Ant.Input allowClear showCount />
@@ -155,7 +153,6 @@ const FormAddCustomer = () => {
                   >
                     <DebounceSelect
                       onChange={handleCounterParty}
-                      mode="multiple"
                       maxCount={1}
                       placeholder="بخشی از نام مشتری را تایپ کنید..."
                       fetchOptions={getAllCounterPartyForDropDown}
@@ -197,7 +194,6 @@ const FormAddCustomer = () => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
-
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: false }]}
@@ -241,26 +237,29 @@ const FormAddCustomer = () => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
+
+                <Ant.Col>
+                  <Ant.Button
+                    type="primary"
+                    onClick={() => {
+                      form.submit();
+                    }}
+                  >
+                    {"تایید"}
+                  </Ant.Button>
+                </Ant.Col>
               </Ant.Card>
             </Ant.Col>
             <Ant.Col span={24} sm={14}>
-              {empty === true ? (
-                <Ant.Empty />
-              ) : (
-                <HeaderCounterParty data={listData} />
-              )}
+              <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                {empty == undefined ? (
+                  <Ant.Empty />
+                ) : (
+                  <HeaderCounterParty data={listData} />
+                )}
+              </Ant.Card>
             </Ant.Col>
           </Ant.Row>
-
-          <Ant.Button
-            className="mt-5"
-            type="primary"
-            onClick={() => {
-              form.submit();
-            }}
-          >
-            {"تایید"}
-          </Ant.Button>
         </Ant.Form>
       </Ant.Card>
     </>

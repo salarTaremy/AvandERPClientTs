@@ -12,7 +12,7 @@ export const FinalStep = ({ form }) => {
   const weight = form.getFieldValue('weight')
   const width = form.getFieldValue('width')
   const code = form.getFieldValue('code')
-  const seccondCode = form.getFieldValue('seccondCode')
+  const secondCode = form.getFieldValue('secondCode')
   const irCode = form.getFieldValue('irCode')
   const gtin = form.getFieldValue('gtin')
   const stuffId = form.getFieldValue('stuffId')
@@ -88,7 +88,7 @@ export const FinalStep = ({ form }) => {
           <br />
           {stuffId && `شناسه مالیاتی : ${stuffId}`}
           <br />
-          {seccondCode && `کد دوم : ${seccondCode}`}
+          {secondCode && `کد دوم : ${secondCode}`}
           <br />
         </>
       ),
