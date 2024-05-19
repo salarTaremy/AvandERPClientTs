@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as styles from "@/styles";
 import { useFetch, useFetchWithHandler, Get, usePutWithHandler } from "@/api";
-import qs from "qs";
+import qs, { stringify } from "qs";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 import { data } from "autoprefixer";
 
 const FormEditCustomer = () => {
@@ -34,6 +35,7 @@ const FormEditCustomer = () => {
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
   const params = useParams();
+  const navigate = useNavigate();
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
@@ -46,6 +48,7 @@ const FormEditCustomer = () => {
     loading: submitLoading,
     data: listSubmitData,
   });
+  const fieldNames = { value: "value", label: "label" };
   const [form] = Ant.Form.useForm();
   const commonOptions = {
     placeholder: "انتخاب کنید...",
@@ -111,13 +114,15 @@ const FormEditCustomer = () => {
     await editApiCall(`${url.CUSTOMER}/${params.id}`);
   };
   const onFinish = async (values) => {
+    debugger;
     console.log(values, "valuesEdit");
     const req = {
       ...values,
-      counterpartyId: values?.counterpartyId?.key,
+      counterpartyId: values?.counterpartyId,
       id: parseInt(params.id),
     };
     await submitApiCall(url.CUSTOMER, req);
+    navigate("/sale/customerManagemen");
   };
 
   //====================================================================
@@ -182,12 +187,12 @@ const FormEditCustomer = () => {
                     label="طرف حساب مرتبط"
                   >
                     <DebounceSelect
-                      fieldNames={{ label: "counterpartyName", value: "id" }}
                       onChange={handleCounterParty}
                       // fieldNames={{ label: "counterpartyName", value: "counterpartyId" }}
                       maxCount={1}
                       placeholder="بخشی از نام مشتری را تایپ کنید..."
                       fetchOptions={getAllCounterPartyForDropDown}
+                      fieldNames={fieldNames}
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
@@ -270,6 +275,17 @@ const FormEditCustomer = () => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
+                <Ant.Col>
+                  <Ant.Button
+                    block
+                    type="primary"
+                    onClick={() => {
+                      form.submit();
+                    }}
+                  >
+                    {"تایید"}
+                  </Ant.Button>
+                </Ant.Col>
               </Ant.Card>
             </Ant.Col>
             <Ant.Col span={24} sm={14}>
@@ -282,16 +298,6 @@ const FormEditCustomer = () => {
               </Ant.Card>
             </Ant.Col>
           </Ant.Row>
-
-          <Ant.Button
-            className="mt-5"
-            type="primary"
-            onClick={() => {
-              form.submit();
-            }}
-          >
-            {"تایید"}
-          </Ant.Button>
         </Ant.Form>
       </Ant.Card>
     </>

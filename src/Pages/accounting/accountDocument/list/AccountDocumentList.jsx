@@ -70,9 +70,7 @@ const AccountDocumentList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const expandedRowRender = (record, index, indent, expanded) => {
-    return <AccountDocumentDetailView key={record.id} id={record.id} />;
-  };
+
   const fillGrid = async () => {
     const queryString = qs.stringify({
       ...filterObject,

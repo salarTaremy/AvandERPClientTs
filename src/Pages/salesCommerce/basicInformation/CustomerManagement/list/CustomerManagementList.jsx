@@ -6,12 +6,13 @@ import * as url from "@/api/url";
 import qs from "qs";
 import * as defaultValues from "@/defaultValues";
 import columns from "./columns";
-import FormAddCustomer from '../add/FormAddCustomer'
-// import FilterPanel from './FilterPanel'
-import FilterDrawer from "@/components/common/FilterDrawer";
+
+import FilterPanel from '../list/FilterPanel'
+import FilterDrawer from '@/components/common/FilterDrawer'
+import FilterBedge from '@/components/common/FilterBedge'
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
-import FilterBedge from "@/components/common/FilterBedge";
+
 import ButtonList from "@/components/common/ButtonList";
 import { useNavigate, generatePath } from "react-router-dom";
 
@@ -22,8 +23,8 @@ const CustomerManagementList = () => {
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [openFilter, setOpenFilter] = useState(false);
   const [modalState, setModalState] = useState(false);
-  const [filterCount, setFilterCount] = useState(0);
-  const [filterObject, setFilterObject] = useState();
+  const [filterObject, setFilterObject] = useState()
+  const [filterCount, setFilterCount] = useState(0)
   const [modalContent, setModalContent] = useState();
   const [dataSource, setDataSource] = useState(null);
   const [pagination, setPpagination] = useState({
@@ -70,13 +71,17 @@ const CustomerManagementList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const onFilterChanged = async (filterObject) => {
+    setFilterObject(filterObject)
+    setOpenFilter(false)
+  }
   const handleTableChange = (pagination, filters, sorter) => {
     setPpagination(pagination);
   };
 
   const getAllCustomer = async () => {
     const queryString = qs.stringify({
-      //   ...filterObject,
+        ...filterObject,
       PageNumber: pagination.PageNumber,
       PageSize: pagination.PageSize,
     });
@@ -86,14 +91,15 @@ const CustomerManagementList = () => {
   const onAdd = () => {
     navigate("/sale/customerManagemen/new")
   };
+  const onRemoveFilter = () => {
+    setFilterObject(null)
+    setOpenFilter(false)
+  }
   const onDelete = async (id) => {
     await delApiCall(`${url.CUSTOMER}/${id}`);
   };
 
-  const onSuccessEdit = () => {
-    navigate("/sale/customerManagemen/edit")
 
-  };
 
   //====================================================================
   //                        Events
@@ -122,7 +128,7 @@ const CustomerManagementList = () => {
   const title = () => {
     return (
       <ButtonList
-        // filterCount={filterCount}
+        filterCount={filterCount}
         onAdd={onAdd}
         onFilter={() => {
           setOpenFilter(true);
@@ -174,13 +180,13 @@ const CustomerManagementList = () => {
         title={" لیست مدیریت مشتریان"}
         type="inner"
       >
-        {/* <FilterDrawer
+        <FilterDrawer
             open={openFilter}
             onClose={() => setOpenFilter(false)}
             onRemoveFilter={onRemoveFilter}
           >
             <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-          </FilterDrawer> */}
+          </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>

@@ -8,10 +8,10 @@ import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
+import { useNavigate } from "react-router-dom";
 const FormAddCustomer = () => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
-
 
   const [empty, setEmpty] = useState(undefined);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
@@ -21,13 +21,15 @@ const FormAddCustomer = () => {
   const [customerTypeList, customerTypeLoading, customerTypeError] = useFetch(
     url.CUSTOMER_TYPE,
   );
+  const [customerGradeList, customerGradeLoading, customerGradeError] =
+  useFetch(url.CUSTOMER_GRADE);
   const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
     url.SALE_CHANNEL,
   );
+  const navigate = useNavigate();
   useRequestManager({ error: addError, loading: addLoading, data: addData });
-  const [customerGradeList, customerGradeLoading, customerGradeError] =
-    useFetch(url.CUSTOMER_GRADE);
+
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
   useRequestManager({ error: customerGroupError });
@@ -45,6 +47,7 @@ const FormAddCustomer = () => {
     showSearch: true,
     filterOption: (input, option) => option.name.indexOf(input) >= 0,
   };
+
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -88,10 +91,9 @@ const FormAddCustomer = () => {
   };
 
   const onFinish = async (values) => {
-    console.log(values?.counterpartyId?.key, "fafa");
-    console.log(values, "vvvvvvvvv");
     const req = { ...values, counterpartyId: values?.counterpartyId?.key };
     await addApiCall(url.CUSTOMER, req);
+    navigate("/sale/customerManagemen");
   };
 
   //====================================================================
@@ -240,6 +242,7 @@ const FormAddCustomer = () => {
 
                 <Ant.Col>
                   <Ant.Button
+                    block
                     type="primary"
                     onClick={() => {
                       form.submit();
