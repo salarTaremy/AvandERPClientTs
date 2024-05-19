@@ -2,22 +2,15 @@ import React from 'react'
 import * as Ant from 'antd'
 import { useEffect, useState } from "react";
 import * as url from '@/api/url'
-import {
-    useFetchWithHandler,
-    usePutWithHandler,
-}
-    from '@/api'
+import { useFetchWithHandler } from '@/api'
 import * as defaultValues from "@/defaultValues";
-import useRequestManager from '@/hooks/useRequestManager'
 
 
 const FormUsersBranchAccess = ({ userId, onSuccessBranch }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    // const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    // useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
- 
+
 
     //====================================================================
     //                        useEffects

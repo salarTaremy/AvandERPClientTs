@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import * as Ant from "antd";
-import FormUsersBranchaccess from './FormUsersBranchAccess';
+import FormUsersBranchAccess from './FormUsersBranchAccess';
 
 const General = ({ userId, onSuccessBranch }) => {
     const { TabPane } = Ant.Tabs;
@@ -15,7 +15,7 @@ const General = ({ userId, onSuccessBranch }) => {
                 defaultActiveKey="1"
             >
                 <TabPane forceRender={true} tab=" شعب " key="1">
-                    {<FormUsersBranchaccess userId={userId} onSuccessBranch={onSuccessBranch} />}
+                    <FormUsersBranchAccess userId={userId} onSuccessBranch={onSuccessBranch} />
                 </TabPane>
 
             </Ant.Tabs>
