@@ -6,7 +6,7 @@ import { useFetch, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import TBL from "../../../accounting/accountDocument/add/Table";
 import * as api from "@/api";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 export const FrmEditAccountDocument = () => {
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
@@ -21,6 +21,7 @@ export const FrmEditAccountDocument = () => {
     listErrorHeader,
     listApiCallHeader,
   ] = api.useFetchWithHandler();
+  const navigate = useNavigate()
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [dataEditList, setDataEdit] = useState([]);
   const [sumDebtorEdit, setSumDebtorEdit] = useState(0);
@@ -97,6 +98,7 @@ export const FrmEditAccountDocument = () => {
     };
 
     await editApiCall(url.ACCOUNT_DOCUMENT, dto);
+    navigate('/accounting/accountDocument')
   };
 
   //====================================================================

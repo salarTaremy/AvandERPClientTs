@@ -49,7 +49,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"code"} label="کد">
           <Ant.Input allowClear />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"seccondCode"} label="کد دوم">
+        <Ant.Form.Item name={"secondCode"} label="کد دوم">
           <Ant.Input allowClear />
         </Ant.Form.Item>
         <Ant.Form.Item name={"name"} label="نام کالا">

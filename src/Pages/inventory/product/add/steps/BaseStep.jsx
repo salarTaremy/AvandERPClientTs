@@ -107,7 +107,7 @@ export const BaseStep = ({ form }) => {
             />
           </Form.Item>
 
-          <Form.Item name={'seccondCode'} label={'کد دوم کالا'}>
+          <Form.Item name={'secondCode'} label={'کد دوم کالا'}>
             <Input placeholder="کد دوم کالا'" allowClear />
           </Form.Item>
           <Form.Item name={'seccondName'} label={'نام دوم کالا/خدمت'}>

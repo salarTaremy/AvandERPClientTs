@@ -5,7 +5,7 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, usePostWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import TBL from "./Table";
-
+import {useNavigate } from "react-router-dom";
 export const FrmAddAccountDocument = () => {
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
@@ -24,7 +24,7 @@ export const FrmAddAccountDocument = () => {
   const [dataDetailObject, setDataDetailObject] = useState();
   const [sumDebtor, setSumDebtor] = useState(0);
   const [sumCreditor, setSumCreditor] = useState(0);
-
+  const navigate = useNavigate()
   useEffect(() => {
     form.resetFields();
   }, [form]);
@@ -72,6 +72,7 @@ export const FrmAddAccountDocument = () => {
     };
 
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
+    navigate('/accounting/accountDocument')
   };
 
   //====================================================================

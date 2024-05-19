@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as styles from "@/styles";
-import { useFetch, useFetchWithHandler, Get, usePostWithHandler } from "@/api";
-import qs from "qs";
+import { useFetch, useFetchWithHandler, Get, usePutWithHandler } from "@/api";
+import qs, { stringify } from "qs";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
+import { data } from "autoprefixer";
 
 const FormEditCustomer = () => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
+  const [listSubmitData, submitLoading, submitError, submitApiCall] =
+    usePutWithHandler();
 
-  const [empty, setEmpty] = useState(true);
+  const [empty, setEmpty] = useState(undefined);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
   const [customerGroupList, customerGroupLoading, customerGroupError] =
@@ -30,14 +34,21 @@ const FormEditCustomer = () => {
 
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
-    const params = useParams();
-    useRequestManager({ error: editError, loading: editLoading, data: editData });
+  const params = useParams();
+  const navigate = useNavigate();
+  useRequestManager({ error: editError, loading: editLoading, data: editData });
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
   useRequestManager({ error: customerGroupError });
   useRequestManager({ error: maxCodeError });
   useRequestManager({ error: branchError });
   useRequestManager({ error: saleChannelError });
+  useRequestManager({
+    error: submitError,
+    loading: submitLoading,
+    data: listSubmitData,
+  });
+  const fieldNames = { value: "value", label: "label" };
   const [form] = Ant.Form.useForm();
   const commonOptions = {
     placeholder: "انتخاب کنید...",
@@ -62,14 +73,12 @@ const FormEditCustomer = () => {
       form.setFieldsValue({ code: maxCodeData.data });
   }, [maxCodeData]);
 
-
   useEffect(() => {
     onEdit();
   }, []);
   useEffect(() => {
     form.resetFields();
-    editData?.isSuccess &&
-      form.setFieldsValue({ ...(editData?.data || null) });
+    editData?.isSuccess && form.setFieldsValue({ ...(editData?.data || null) });
   }, [editData]);
   //==================================================================
   //                        Functions
@@ -79,8 +88,9 @@ const FormEditCustomer = () => {
     await maxCodeApiCall(`${url.CUSTOMER_FREE_CODE}`);
   };
   const handleCounterParty = async (val) => {
-    await ApiCall(`${url.COUNTER_PARTY}/${val[0].key}`);
-    setEmpty(false);
+    setEmpty(val);
+    console.log(val, "klklk");
+    await ApiCall(`${url.COUNTER_PARTY}/${val?.key}`);
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
@@ -103,7 +113,17 @@ const FormEditCustomer = () => {
   const onEdit = async () => {
     await editApiCall(`${url.CUSTOMER}/${params.id}`);
   };
-
+  const onFinish = async (values) => {
+    debugger;
+    console.log(values, "valuesEdit");
+    const req = {
+      ...values,
+      counterpartyId: values?.counterpartyId,
+      id: parseInt(params.id),
+    };
+    await submitApiCall(url.CUSTOMER, req);
+    navigate("/sale/customerManagemen");
+  };
 
   //====================================================================
   //                        Child Components
@@ -132,7 +152,7 @@ const FormEditCustomer = () => {
         title={"ویرایش مشتری"}
         type="inner"
       >
-        <Ant.Form form={form} onFinish={null} layout="vertical">
+        <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
               <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
@@ -154,7 +174,7 @@ const FormEditCustomer = () => {
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: false }, { max: 20 }]}
-                    name={"seccondCode"}
+                    name={"secondCode"}
                     label="کد دوم"
                   >
                     <Ant.Input allowClear showCount />
@@ -168,10 +188,11 @@ const FormEditCustomer = () => {
                   >
                     <DebounceSelect
                       onChange={handleCounterParty}
-                      mode="multiple"
+                      // fieldNames={{ label: "counterpartyName", value: "counterpartyId" }}
                       maxCount={1}
                       placeholder="بخشی از نام مشتری را تایپ کنید..."
                       fetchOptions={getAllCounterPartyForDropDown}
+                      fieldNames={fieldNames}
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
@@ -254,28 +275,29 @@ const FormEditCustomer = () => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
+                <Ant.Col>
+                  <Ant.Button
+                    block
+                    type="primary"
+                    onClick={() => {
+                      form.submit();
+                    }}
+                  >
+                    {"تایید"}
+                  </Ant.Button>
+                </Ant.Col>
               </Ant.Card>
             </Ant.Col>
             <Ant.Col span={24} sm={14}>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
-              {empty === true ? (
-                <Ant.Empty />
-              ) : (
-                <HeaderCounterParty data={listData} />
-              )}
-                </Ant.Card>
+              <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                {empty == undefined ? (
+                  <Ant.Empty />
+                ) : (
+                  <HeaderCounterParty data={listData} />
+                )}
+              </Ant.Card>
             </Ant.Col>
           </Ant.Row>
-
-          <Ant.Button
-            className="mt-5"
-            type="primary"
-            onClick={() => {
-              form.submit();
-            }}
-          >
-            {"تایید"}
-          </Ant.Button>
         </Ant.Form>
       </Ant.Card>
     </>
