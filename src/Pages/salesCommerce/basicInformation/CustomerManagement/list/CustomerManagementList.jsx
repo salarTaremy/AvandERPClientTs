@@ -15,7 +15,7 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 
 import ButtonList from "@/components/common/ButtonList";
 import { useNavigate, generatePath } from "react-router-dom";
-
+import CustomerDescription from '../description/CustomerDescription'
 
 const CustomerManagementList = () => {
   const navigate = useNavigate();
@@ -88,39 +88,33 @@ const CustomerManagementList = () => {
     await ApiCall(`${url.CUSTOMER}?${queryString}`);
   };
 
-  const onAdd = () => {
-    navigate("/sale/customerManagemen/new")
-  };
+
   const onRemoveFilter = () => {
     setFilterObject(null)
     setOpenFilter(false)
   }
-  const onDelete = async (id) => {
-    await delApiCall(`${url.CUSTOMER}/${id}`);
-  };
-
-
 
   //====================================================================
   //                        Events
   //====================================================================
+  const onView = (id) => {
+    setModalContent(<CustomerDescription id={id}/>)
+    setModalState(true)
+  }
+
+  const onAdd = () => {
+    navigate("/sale/customerManagemen/new")
+  };
+
+  const onDelete = async (id) => {
+    await delApiCall(`${url.CUSTOMER}/${id}`);
+  };
   const onEdit = (val) => {
     const id=val.id
     navigate(generatePath("/sale/customerManagemen/edit/:id",{ id }))
-    // setModalContent(
-    //   <FormEditSupplier
-    //     onSuccess={onSuccessEdit}
-    //     myKey={val.id}
-    //     obj={val}
-    //     id={val.id}
-    //   />,
-    // );
 
   };
-  const onView = (id) => {
-    setModalContent(<SupplierDescription id={id} key={id} />);
-    setModalState(true);
-  };
+
   //====================================================================
   //                        Child Components
   //=====================================================================
@@ -160,6 +154,7 @@ const CustomerManagementList = () => {
   return (
     <>
       <Ant.Modal
+          {...defaultValues.MODAL_PROPS}
         open={modalState}
         centered
         getContainer={null}
