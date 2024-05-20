@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 import * as Ant from "antd";
 import * as url from "@/api/url";
@@ -73,8 +72,6 @@ const CustomerDescription = (props) => {
       label: "نام گروه",
       children: data?.data?.groupName,
     },
-
-    ,
   ];
 
   //====================================================================
@@ -84,7 +81,7 @@ const CustomerDescription = (props) => {
     <Ant.Skeleton active={true} loading={loading}>
       <Ant.Descriptions
         bordered
-        // layout="vertical"
+        layout="vertical"
         title={"جزئیات مشتری"}
         size={"middle"}
         items={borderedItems}
