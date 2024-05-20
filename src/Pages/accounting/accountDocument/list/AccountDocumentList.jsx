@@ -31,7 +31,7 @@ const AccountDocumentList = () => {
   const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
-  const [pagination, setPpagination] = useState({
+  const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
   });
@@ -41,7 +41,7 @@ const AccountDocumentList = () => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    setPpagination({ ...pagination, current: 1 });
+    setPagination({ ...pagination, current: 1 });
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
@@ -56,7 +56,7 @@ const AccountDocumentList = () => {
 
   useEffect(() => {
     setDataSource(listData?.data);
-    setPpagination({
+    setPagination({
       ...pagination,
       total: listData?.data[0]?.totalCount,
     });
@@ -86,7 +86,7 @@ const AccountDocumentList = () => {
     setOpenFilter(false);
   };
   const handleTableChange = (pagination, filters, sorter) => {
-    setPpagination(pagination);
+    setPagination(pagination);
   };
   const onRemoveFilter = () => {
     setFilterObject(null);

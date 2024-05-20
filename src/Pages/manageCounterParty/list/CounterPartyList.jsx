@@ -26,7 +26,7 @@ const CounterPartyList = () => {
   const [filterObject, setFilterObject] = useState();
   const [filterCount, setFilterCount] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
-  const [pagination, setPpagination] = useState({
+  const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
   });
@@ -37,13 +37,13 @@ const CounterPartyList = () => {
   //====================================================================
 
   useEffect(() => {
-    setPpagination({ ...pagination, current: 1 });
+    setPagination({ ...pagination, current: 1 });
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getAllCounterParty();
+
   }, [filterObject]);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const CounterPartyList = () => {
 
   useEffect(() => {
     setDataSource(listData?.data);
-    setPpagination({
+    setPagination({
       ...pagination,
       total: listData?.data[0]?.totalCount,
     });
@@ -74,12 +74,12 @@ const CounterPartyList = () => {
       PageNumber: pagination.current,
       RowsOfPage: pagination.pageSize,
     });
-    console.log(queryString, "fafaqueryString");
+
     await ApiCall(`${url.COUNTER_PARTY}?${queryString}`);
   };
 
   const handleTableChange = (pagination, filters, sorter) => {
-    setPpagination(pagination);
+    setPagination(pagination);
   };
 
   const onFilterChanged = async (filterObject) => {
