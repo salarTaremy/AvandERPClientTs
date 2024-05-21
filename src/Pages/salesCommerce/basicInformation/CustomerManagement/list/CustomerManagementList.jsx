@@ -7,15 +7,15 @@ import qs from "qs";
 import * as defaultValues from "@/defaultValues";
 import columns from "./columns";
 
-import FilterPanel from '../list/FilterPanel'
-import FilterDrawer from '@/components/common/FilterDrawer'
-import FilterBedge from '@/components/common/FilterBedge'
+import FilterPanel from "../list/FilterPanel";
+import FilterDrawer from "@/components/common/FilterDrawer";
+import FilterBedge from "@/components/common/FilterBedge";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 
 import ButtonList from "@/components/common/ButtonList";
 import { useNavigate, generatePath } from "react-router-dom";
-
+import CustomerDescription from "../description/CustomerDescription";
 
 const CustomerManagementList = () => {
   const navigate = useNavigate();
@@ -23,13 +23,13 @@ const CustomerManagementList = () => {
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [openFilter, setOpenFilter] = useState(false);
   const [modalState, setModalState] = useState(false);
-  const [filterObject, setFilterObject] = useState()
-  const [filterCount, setFilterCount] = useState(0)
+  const [filterObject, setFilterObject] = useState();
+  const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [dataSource, setDataSource] = useState(null);
-  const [pagination, setPpagination] = useState({
-    PageNumber: 1,
-    PageSize: 10,
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
   });
 
   useRequestManager({ error: error });
@@ -38,32 +38,21 @@ const CustomerManagementList = () => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    setPpagination({ ...pagination, PageNumber: 1 });
+    setPagination({ ...pagination, current: 1 });
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getAllCustomer();
   }, [filterObject]);
 
   useEffect(() => {
-    setDataSource((listData?.isSuccess && listData?.data) || null);
-  }, [listData]);
-  useEffect(() => {
-    delSaving?.isSuccess &&
-      setDataSource([
-        ...dataSource?.filter((c) => c.id !== delSaving?.data?.id),
-      ]);
-  }, [delSaving]);
-
-  useEffect(() => {
     getAllCustomer();
-  }, [pagination.PageNumber, pagination.PageSize]);
+  }, [pagination.current, pagination.pageSize]);
 
   useEffect(() => {
     setDataSource(listData?.data);
-    setPpagination({
+    setPagination({
       ...pagination,
       total: listData?.data[0]?.totalCount,
     });
@@ -72,55 +61,47 @@ const CustomerManagementList = () => {
   //                        Functions
   //====================================================================
   const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
+    setFilterObject(filterObject);
+    setOpenFilter(false);
+  };
   const handleTableChange = (pagination, filters, sorter) => {
-    setPpagination(pagination);
+    setPagination(pagination);
   };
 
   const getAllCustomer = async () => {
     const queryString = qs.stringify({
-        ...filterObject,
-      PageNumber: pagination.PageNumber,
-      PageSize: pagination.PageSize,
+      ...filterObject,
+      PageNumber: pagination.current,
+      PageSize: pagination.pageSize,
     });
     await ApiCall(`${url.CUSTOMER}?${queryString}`);
   };
 
-  const onAdd = () => {
-    navigate("/sale/customerManagemen/new")
-  };
   const onRemoveFilter = () => {
-    setFilterObject(null)
-    setOpenFilter(false)
-  }
-  const onDelete = async (id) => {
-    await delApiCall(`${url.CUSTOMER}/${id}`);
+    setFilterObject(null);
+    setOpenFilter(false);
   };
-
-
 
   //====================================================================
   //                        Events
   //====================================================================
-  const onEdit = (val) => {
-    const id=val.id
-    navigate(generatePath("/sale/customerManagemen/edit/:id",{ id }))
-    // setModalContent(
-    //   <FormEditSupplier
-    //     onSuccess={onSuccessEdit}
-    //     myKey={val.id}
-    //     obj={val}
-    //     id={val.id}
-    //   />,
-    // );
-
-  };
   const onView = (id) => {
-    setModalContent(<SupplierDescription id={id} key={id} />);
+    setModalContent(<CustomerDescription id={id} />);
     setModalState(true);
   };
+
+  const onAdd = () => {
+    navigate("/sale/customerManagemen/new");
+  };
+
+  const onDelete = async (id) => {
+    await delApiCall(`${url.CUSTOMER}/${id}`);
+  };
+  const onEdit = (val) => {
+    const id = val.id;
+    navigate(generatePath("/sale/customerManagemen/edit/:id", { id }));
+  };
+
   //====================================================================
   //                        Child Components
   //=====================================================================
@@ -142,15 +123,16 @@ const CustomerManagementList = () => {
   const Grid = () => {
     return (
       <>
-        <Ant.Table
-          pagination={pagination}
-          onChange={handleTableChange}
-          loading={delLoading}
-          {...defaultValues.TABLE_PROPS}
-          columns={columns(onDelete, onEdit, onView)}
-          title={title}
-          dataSource={dataSource}
-        />
+        <Ant.Skeleton loading={loadingData}>
+          <Ant.Table
+            pagination={pagination}
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            onChange={handleTableChange}
+            columns={columns(onDelete, onEdit, onView)}
+            dataSource={dataSource}
+          />
+        </Ant.Skeleton>
       </>
     );
   };
@@ -160,6 +142,7 @@ const CustomerManagementList = () => {
   return (
     <>
       <Ant.Modal
+        {...defaultValues.MODAL_PROPS}
         open={modalState}
         centered
         getContainer={null}
@@ -181,12 +164,12 @@ const CustomerManagementList = () => {
         type="inner"
       >
         <FilterDrawer
-            open={openFilter}
-            onClose={() => setOpenFilter(false)}
-            onRemoveFilter={onRemoveFilter}
-          >
-            <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-          </FilterDrawer>
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>

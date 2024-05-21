@@ -26,7 +26,7 @@ const getDocumentTypeColor = (saleDocumentTypeId) => {
 };
 
 
-export const columns = (onDelete, onEdit, onView) => {
+export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
     return [
         {
             title: "شماره برگه",
@@ -99,7 +99,7 @@ export const columns = (onDelete, onEdit, onView) => {
             className: "text-xs sm:text-sm",
             width: 100,
             render: (text, record, index) => (
-                <Link href="#">{record.customerName}</Link>
+                <Link onClick={() => onViewCustomer(record.customerId)}>{record.customerName}</Link>
             )
         },
         {

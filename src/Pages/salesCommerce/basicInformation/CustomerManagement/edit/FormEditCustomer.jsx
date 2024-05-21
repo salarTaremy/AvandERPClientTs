@@ -114,8 +114,6 @@ const FormEditCustomer = () => {
     await editApiCall(`${url.CUSTOMER}/${params.id}`);
   };
   const onFinish = async (values) => {
-    debugger;
-    console.log(values, "valuesEdit");
     const req = {
       ...values,
       counterpartyId: values?.counterpartyId,
