@@ -35,6 +35,7 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
     const [oldTypeIdList, setOldTypeIdList] = useState([])
     const [oldChannelIdList, setOldChannelIdList] = useState([])
     const [oldDocumentIdList, setOldDocumentIdList] = useState([])
+    const bottom = 100
 
     //====================================================================
     //                        useEffects
@@ -137,16 +138,16 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
                         />}
                     </TabPane>
                 </Ant.Tabs>
-                <Ant.Button block
-                    className='mt-8 '
-                    loading={editLoading}
-                    type="primary"
-                    bottom='10'
-                    position='fixed'
-                    onClick={onFinish}
-                >
-                    {'ذخیره'}
-                </Ant.Button>
+                <Ant.Affix offsetBottom={bottom} style={{ position: 'absolute', bottom: 0, left: 30, right: 30 }}>
+                    <Ant.Button block
+                        className='mt-8 '
+                        loading={editLoading}
+                        type="primary"
+                        onClick={onFinish}
+                    >
+                        {'ذخیره'}
+                    </Ant.Button>
+                </Ant.Affix>
             </Ant.Card>
         </>
     )

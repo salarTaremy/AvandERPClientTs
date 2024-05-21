@@ -136,7 +136,6 @@ function RoleManagement() {
 
   const onSuccessMenu = () => {
     setModalState(false);
-    getRole()
   }
 
   const onSwitch = (val) => {

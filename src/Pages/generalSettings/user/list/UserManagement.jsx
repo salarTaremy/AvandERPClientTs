@@ -153,7 +153,6 @@ const UserManagement = () => {
 
   const onSuccessSwitch = () => {
     setModalState(false);
-    getAllUserList();
   };
 
   const onOtherAccesses = (val) => {
@@ -170,7 +169,6 @@ const UserManagement = () => {
 
   const onSuccessAccess = () => {
     setModalState(false);
-    getAllUserList();
   }
 
   //====================================================================
