@@ -2,22 +2,15 @@ import React from 'react'
 import * as Ant from 'antd'
 import { useEffect, useState } from "react";
 import * as url from '@/api/url'
-import {
-    useFetchWithHandler,
-    usePutWithHandler,
-}
-    from '@/api'
+import { useFetchWithHandler } from '@/api'
 import * as defaultValues from "@/defaultValues";
-import useRequestManager from '@/hooks/useRequestManager'
 
 
-const FormUsersCustomerGroupAccess = ({ userId, onSuccess }) => {
+const FormUsersCustomerGroupAccess = ({ userId, onSuccessCustomerGroupAccess, oldGroupId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  
+
     //====================================================================
     //                        useEffects
     //====================================================================
@@ -35,13 +28,11 @@ const FormUsersCustomerGroupAccess = ({ userId, onSuccess }) => {
             })
         }
         setSelectedRowKeys([...TmpSelected])
-
+        onSuccessCustomerGroupAccess([...TmpSelected])
+        oldGroupId([...TmpSelected])
+        
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
-
-    useEffect(() => {
-        editData?.isSuccess && onSuccess()
-    }, [editData])
 
     //====================================================================
     //                        Functions
@@ -50,10 +41,9 @@ const FormUsersCustomerGroupAccess = ({ userId, onSuccess }) => {
         await ApiCall(`${url.GET_ASSIGNED_CUSTOMER_GROUPS}/${userId}`)
     }
 
-
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
-
+        onSuccessCustomerGroupAccess(newSelectedRowKeys)
     };
 
     const rowSelection = {

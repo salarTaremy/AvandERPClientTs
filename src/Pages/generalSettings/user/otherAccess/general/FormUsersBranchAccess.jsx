@@ -6,7 +6,7 @@ import { useFetchWithHandler } from '@/api'
 import * as defaultValues from "@/defaultValues";
 
 
-const FormUsersBranchAccess = ({ userId, onSuccessBranch }) => {
+const FormUsersBranchAccess = ({ userId, onSuccessBranch,oldBranchId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -29,6 +29,8 @@ const FormUsersBranchAccess = ({ userId, onSuccessBranch }) => {
             })
         }
         setSelectedRowKeys([...TmpSelected])
+        onSuccessBranch([...TmpSelected])
+        oldBranchId([...TmpSelected])
 
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);

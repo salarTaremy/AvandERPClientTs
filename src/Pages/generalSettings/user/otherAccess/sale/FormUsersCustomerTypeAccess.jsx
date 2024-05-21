@@ -2,22 +2,15 @@ import React from 'react'
 import * as Ant from 'antd'
 import { useEffect, useState } from "react";
 import * as url from '@/api/url'
-import {
-    useFetchWithHandler,
-    usePutWithHandler,
-}
-    from '@/api'
+import { useFetchWithHandler } from '@/api'
 import * as defaultValues from "@/defaultValues";
-import useRequestManager from '@/hooks/useRequestManager'
 
 
-const FormUsersCustomerTypeAccess = ({ userId, onSuccess }) => {
+const FormUsersCustomerTypeAccess = ({ userId, onSuccessCustomerTypeAccess, oldTypeId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-   
+
     //====================================================================
     //                        useEffects
     //====================================================================
@@ -29,19 +22,17 @@ const FormUsersCustomerTypeAccess = ({ userId, onSuccess }) => {
         const TmpSelected = []
         if (listData?.isSuccess && listData?.data) {
             listData?.data.map((item) => {
-                if (item.userHasAccessToCustomerGroup) {
+                if (item.userHasAccessToCustomerType) {
                     TmpSelected.push(item.id)
                 }
             })
         }
         setSelectedRowKeys([...TmpSelected])
+        onSuccessCustomerTypeAccess([...TmpSelected])
+        oldTypeId([...TmpSelected])
 
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
-
-    useEffect(() => {
-        editData?.isSuccess && onSuccess()
-    }, [editData])
 
     //====================================================================
     //                        Functions
@@ -50,10 +41,9 @@ const FormUsersCustomerTypeAccess = ({ userId, onSuccess }) => {
         await ApiCall(`${url.GET_ASSIGNED_CUSTOMER_TYPES}/${userId}`)
     }
 
-
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
-      
+        onSuccessCustomerTypeAccess(newSelectedRowKeys)
     };
 
     const rowSelection = {

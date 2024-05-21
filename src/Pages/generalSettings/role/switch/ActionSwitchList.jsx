@@ -25,6 +25,8 @@ const ActionSwitchList = (props) => {
     const [filterObject, setFilterObject] = useState()
     const [filterCount, setFilterCount] = useState(0)
     const [openFilter, setOpenFilter] = useState(false)
+    const [pagination, setPagination] = useState({});
+
 
     //====================================================================
     //                        useEffects
@@ -48,6 +50,10 @@ const ActionSwitchList = (props) => {
             persianTitle: filterObject?.persianTitle,
         });
         await ApiCall(`${url.APPLICATION_CONTROLLER}?${queryString}`);
+    };
+
+    const handleTableChange = (pagination) => {
+        setPagination(pagination);
     };
 
     const onFilterChanged = async (filterObject) => {
@@ -137,9 +143,11 @@ const ActionSwitchList = (props) => {
                 <Ant.Skeleton loading={loading}>
                     <Ant.Table
                         {...defaultValues.TABLE_PROPS}
+                        pagination={pagination}
                         title={title}
                         className="mt-5"
                         columns={cl(onPermission)}
+                        onChange={handleTableChange}
                         dataSource={dataSource || null}
                     />
                 </Ant.Skeleton>
