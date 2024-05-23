@@ -8,12 +8,14 @@ import { useFetch, useFetchWithHandler } from "../api";
 import { json } from "react-router-dom";
 
 const Home = () => {
+  
   const [data, loading, error, call] = useFetchWithHandler();
   useRequestManager({ error });
 
   useEffect(() => {
     call(url.ACCOUNT);
   }, []);
+
   return (
     <Ant.Card>
       <p>{JSON.stringify(data?.data[0])}</p>
