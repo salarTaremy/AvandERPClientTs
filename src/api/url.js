@@ -124,6 +124,10 @@ export const SALE_DOCUMENT_HEADER = 'SaleDocumentHeader'
 export const SALE_DOCUMENT_DETAIL = 'SaleDocumentDetail'
 export const SALE_CUSTOMER_GET_FOR_DROPDOWN = '/Customer/GetForDropdown'
 
+//Sales - TaxPayersSystem (سامانه مودیان)
+export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDocumentType'
+export const TPS_SALE_DOCUMENT_ISSUE = 'TaxPayersSystemBasicInformation/GetSaleDocumentIssue'
+
 //PaymentType
 export const PAYMENT_TYPE = 'PaymentType'
 

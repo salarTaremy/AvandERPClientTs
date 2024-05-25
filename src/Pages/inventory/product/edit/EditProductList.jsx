@@ -162,8 +162,10 @@ const EditProductList = () => {
     //====================================================================
     return (
         <>
-            <Ant.Card title={'ویرایش کالا و خدمات'} type="inner" >
-                <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={listLoading}>
+            < >
+                <>
+                <h3>{'ویرایش کالا'}</h3>
+                <br></br>
                     <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                         <Ant.Card title={'اطلاعات پایه'} type="inner" >
                             <Ant.Row gutter={[16, 8]}>
@@ -227,6 +229,7 @@ const EditProductList = () => {
                                 </Ant.Col>
                             </Ant.Row>
                         </Ant.Card>
+                        <br></br>
                         <Ant.Card title={'واحد کالا'} type="inner" >
                             <Ant.Row gutter={[16, 8]}>
                                 <Ant.Col span={24} sm={8}>
@@ -252,6 +255,7 @@ const EditProductList = () => {
                                 </Ant.Col>
                             </Ant.Row>
                         </Ant.Card>
+                        <br></br>
                         <Ant.Card title={'برند و تامین کننده'} type="inner" >
                             <Ant.Row gutter={[16, 8]}>
                                 <Ant.Col span={24} sm={8}>
@@ -277,6 +281,7 @@ const EditProductList = () => {
                                 </Ant.Col>
                             </Ant.Row>
                         </Ant.Card>
+                        <br></br>
                         <Ant.Card title={'بارکد'} type="inner" >
                             <Ant.Row gutter={[16, 8]}>
                                 <Ant.Col span={24} sm={8}>
@@ -306,6 +311,7 @@ const EditProductList = () => {
                                 </Ant.Col>
                             </Ant.Row>
                         </Ant.Card>
+                        <br></br>
                         <Ant.Card title={'گزارشات فصلی(169)'} type="inner" >
                             <Ant.Row gutter={[16, 8]}>
                                 <Ant.Col span={24} sm={8}>
@@ -323,6 +329,7 @@ const EditProductList = () => {
                                 </Ant.Col>
                             </Ant.Row>
                         </Ant.Card>
+                        <br></br>
                         <Ant.Card title={'مشخصات فنی'} type="inner" >
                             <Ant.Row gutter={[16, 8]}>
                                 <Ant.Col span={24} sm={8}>
@@ -343,6 +350,7 @@ const EditProductList = () => {
                                 </Ant.Col>
                             </Ant.Row>
                         </Ant.Card>
+                        <br></br>
                         <Ant.Col lg={6} md={12} sm={12} xs={24}>
                             <Ant.Form.Item name="typeId" label="شناسه نوع" className='hidden' rules={[{ required: true }]} >
                                 <Ant.Input allowClear showCount maxLength={50} />
@@ -374,8 +382,8 @@ const EditProductList = () => {
                             </Ant.Form.Item>
                         </Ant.Col>
                     </Ant.Form>
-                </Ant.Card >
-            </Ant.Card >
+                </>
+            </ >
         </>
     )
 }

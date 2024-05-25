@@ -2,19 +2,12 @@ import React from 'react'
 import * as Ant from 'antd'
 import { useEffect, useState } from "react";
 import * as url from '@/api/url'
-import {
-    useFetchWithHandler,
-    usePutWithHandler,
-}
-    from '@/api'
+import { useFetchWithHandler } from '@/api'
 import * as defaultValues from "@/defaultValues";
-import useRequestManager from '@/hooks/useRequestManager'
 
-const FormUsersSaleChannelaccess = ({ userId, onSuccess }) => {
+const FormUsersSaleChannelAccess = ({ userId, onSuccessSaleChannelAccess, oldChannelId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     //====================================================================
@@ -34,13 +27,11 @@ const FormUsersSaleChannelaccess = ({ userId, onSuccess }) => {
             })
         }
         setSelectedRowKeys([...TmpSelected])
+        onSuccessSaleChannelAccess([...TmpSelected])
+        oldChannelId([...TmpSelected])
 
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
-
-    useEffect(() => {
-        editData?.isSuccess && onSuccess()
-    }, [editData])
 
     //====================================================================
     //                        Functions
@@ -51,7 +42,7 @@ const FormUsersSaleChannelaccess = ({ userId, onSuccess }) => {
 
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
-
+        onSuccessSaleChannelAccess(newSelectedRowKeys)
     };
 
     const rowSelection = {
@@ -89,4 +80,4 @@ const FormUsersSaleChannelaccess = ({ userId, onSuccess }) => {
     )
 }
 
-export default FormUsersSaleChannelaccess
+export default FormUsersSaleChannelAccess

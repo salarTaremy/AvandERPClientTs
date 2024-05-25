@@ -21,8 +21,37 @@ const columns = (onDelete, onEdit) => {
       className:"text-xs sm:text-sm",
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
-
-
+    {
+      title: "ماهیت",
+      dataIndex: "nature",
+      key: "nature",
+      width: 100,
+      className:"text-xs sm:text-sm",
+      sorter: (a, b) => a.title.localeCompare(b.nature),
+    },
+    {
+      title: "شناسه ماهیت",
+      dataIndex: "natureId",
+      key: "natureId",
+      width: 100,
+      className:"text-xs sm:text-sm",
+      hidden: "true"
+    },
+    {
+      title: "برگه متناظر در سامانه مودیان",
+      dataIndex: "mappedTaxPayersSystemSaleDocumentIssue",
+      key: "mappedTaxPayersSystemSaleDocumentIssue",
+      width: 100,
+      className:"text-xs sm:text-sm",
+    },
+    {
+      title: "شناسه برگه متناظر در سامانه مودیان",
+      dataIndex: "mappedTaxPayersSystemSaleDocumentIssueId",
+      key: "mappedTaxPayersSystemSaleDocumentIssueId",
+      width: 100,
+      className:"text-xs sm:text-sm",
+      hidden: "true"
+    },
     {
       title: "عملیات",
       dataIndex: "operation",

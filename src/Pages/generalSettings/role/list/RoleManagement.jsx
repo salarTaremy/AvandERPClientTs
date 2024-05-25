@@ -136,7 +136,6 @@ function RoleManagement() {
 
   const onSuccessMenu = () => {
     setModalState(false);
-    getRole()
   }
 
   const onSwitch = (val) => {
@@ -229,7 +228,7 @@ function RoleManagement() {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         loading={loadingData}
         className="w-full"
-        title={"لیست نقش ها"}
+        title={"مدیریت نقش ها"}
         type="inner"
       >
         <FilterDrawer

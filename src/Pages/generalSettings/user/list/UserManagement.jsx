@@ -153,30 +153,12 @@ const UserManagement = () => {
 
   const onSuccessSwitch = () => {
     setModalState(false);
-    getAllUserList();
   };
-
-  // const onBranch=(val)=>{
-  //   setModalContent(
-  //     <FormUsersBranchaccess
-  //       onSuccess={onSuccess}
-  //       key={uuid.v1()}
-  //       userId={val.id}
-  //       userName={val.userName}
-  //     />
-  //   )
-  //   setModalState(true);
-  // }
-
-  // const onSuccess = () => {
-  //   setModalState(false);
-  //   getAllUserList();
-  // };
 
   const onOtherAccesses = (val) => {
     setModalContent(
       <FormUsersOtherAccess
-        // onSuccess={onSuccess}
+        onSuccess={onSuccessAccess}
         key={uuid.v1()}
         userId={val.id}
         userName={val.userName}
@@ -185,6 +167,9 @@ const UserManagement = () => {
     setModalState(true);
   }
 
+  const onSuccessAccess = () => {
+    setModalState(false);
+  }
 
   //====================================================================
   //                        Child Components
