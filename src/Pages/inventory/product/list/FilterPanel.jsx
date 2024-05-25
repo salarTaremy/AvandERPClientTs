@@ -55,7 +55,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"name"} label="نام کالا">
           <Ant.Input allowClear />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"seccondName"} label="نام دوم کالا">
+        <Ant.Form.Item name={"secondName"} label="نام دوم کالا">
           <Ant.Input allowClear />
         </Ant.Form.Item>
         <Ant.Form.Item
