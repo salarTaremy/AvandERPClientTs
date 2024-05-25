@@ -223,7 +223,7 @@ const EditProductList = () => {
                                     <Ant.Form.Item name={'secondCode'} label={'کد دوم کالا'}>
                                         <Ant.Input placeholder="کد دوم کالا'" allowClear />
                                     </Ant.Form.Item>
-                                    <Ant.Form.Item name={'seccondName'} label={'نام دوم کالا/خدمت'}>
+                                    <Ant.Form.Item name={'secondName'} label={'نام دوم کالا/خدمت'}>
                                         <Ant.Input placeholder="'نام دوم کالا/خدمت'" allowClear />
                                     </Ant.Form.Item>
                                 </Ant.Col>

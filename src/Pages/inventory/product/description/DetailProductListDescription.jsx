@@ -61,7 +61,7 @@ const DetailProductListDescription = (props) => {
     }, {
       key: '8',
       label: 'نام دوم کالا',
-      children: data?.data?.seccondName,
+      children: data?.data?.secondName,
       span:6
     },
   ]
