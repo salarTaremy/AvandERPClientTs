@@ -176,6 +176,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
                                 className="text-blue-600"
                                 icon={<FiEdit/>}
                                 type="text"
+                                disabled
                             />
                             <Ant.Popconfirm
                                 onConfirm={() => onDelete(record.id)}
@@ -186,6 +187,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
                                     className="text-red-600"
                                     icon={<RiDeleteBin6Line />}
                                     type="text"
+                                    disabled
                                 />
                             </Ant.Popconfirm>
                         </Ant.Space>

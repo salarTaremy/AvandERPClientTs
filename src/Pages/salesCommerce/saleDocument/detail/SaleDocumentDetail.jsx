@@ -6,6 +6,7 @@ import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import { columns } from "./column";
 import DetailProductListDescription from "../../../inventory/product/description/DetailProductListDescription";
+import PriceCircularHeaderDescription from "../../priceCircular/priceCircularHeader/description/PriceCircularHeaderDescription";
 import useRequestManager from "@/hooks/useRequestManager";
 
 //====================================================================
@@ -55,7 +56,8 @@ const SaleDocumentDetail = (props) => {
         setModalContent(<DetailProductListDescription id={productId}/>);
     }
     const onPriceCircularView = (priceCircularId) => {
-        console.log("onPriceCircularView: " + priceCircularId);
+        setModalOpenState(true);
+        setModalContent(<PriceCircularHeaderDescription priceCircularDetailId={priceCircularId}/>);
     }
     const handleTableChange = (pagination, filter, sorter) => {
         setPagination(pagination);
