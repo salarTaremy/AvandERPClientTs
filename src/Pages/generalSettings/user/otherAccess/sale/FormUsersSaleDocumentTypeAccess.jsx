@@ -2,19 +2,13 @@ import React from 'react'
 import * as Ant from 'antd'
 import { useEffect, useState } from "react";
 import * as url from '@/api/url'
-import {
-    useFetchWithHandler,
-    usePutWithHandler,
-}
-    from '@/api'
+import { useFetchWithHandler } from '@/api'
 import * as defaultValues from "@/defaultValues";
-import useRequestManager from '@/hooks/useRequestManager'
 
-const FormUsersSaleDocumentTypeAccess = ({ userId, onSuccess }) => {
+
+const FormUsersSaleDocumentTypeAccess = ({ userId, onSuccessSaleDocumentTypeAccess, oldDocumentId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     //====================================================================
@@ -34,13 +28,11 @@ const FormUsersSaleDocumentTypeAccess = ({ userId, onSuccess }) => {
             })
         }
         setSelectedRowKeys([...TmpSelected])
+        onSuccessSaleDocumentTypeAccess([...TmpSelected])
+        oldDocumentId([...TmpSelected])
 
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
-
-    useEffect(() => {
-        editData?.isSuccess && onSuccess()
-    }, [editData])
 
     //====================================================================
     //                        Functions
@@ -51,7 +43,7 @@ const FormUsersSaleDocumentTypeAccess = ({ userId, onSuccess }) => {
 
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
-
+        onSuccessSaleDocumentTypeAccess(newSelectedRowKeys)
     };
 
     const rowSelection = {

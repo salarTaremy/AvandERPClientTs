@@ -11,13 +11,13 @@ import * as defaultValues from "@/defaultValues";
 import useRequestManager from '@/hooks/useRequestManager'
 
 
-const FormUsersBrandAccess = ({ userId, onSuccess }) => {
+const FormUsersBrandAccess = ({ userId, onSuccessBrand, oldBrandId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-   
+
     //====================================================================
     //                        useEffects
     //====================================================================
@@ -35,6 +35,8 @@ const FormUsersBrandAccess = ({ userId, onSuccess }) => {
             })
         }
         setSelectedRowKeys([...TmpSelected])
+        onSuccessBrand([...TmpSelected])
+        oldBrandId([...TmpSelected])
 
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
@@ -52,7 +54,7 @@ const FormUsersBrandAccess = ({ userId, onSuccess }) => {
 
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
-      
+        onSuccessBrand(newSelectedRowKeys)
     };
 
     const rowSelection = {
