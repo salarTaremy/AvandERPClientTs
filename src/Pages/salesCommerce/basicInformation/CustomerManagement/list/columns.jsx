@@ -6,19 +6,13 @@ import { GrView } from "react-icons/gr";
 const columns = (onDelete, onEdit,onView) => {
   return [
     {
-      title: "نام",
-      dataIndex: "firstName",
-      key: "firstName",
+      title: "نام و نام خانوادگی",
+      dataIndex: "customerName",
+      key: "customerName",
       width: 80,
       className: "text-xs sm:text-sm",
     },
-    {
-      title: "نام خانوادگی",
-      dataIndex: "lastName",
-      key: "lastName",
-      width: 80,
-      className: "text-xs sm:text-sm",
-    },
+
     {
       title: "نوع طرف حساب",
       dataIndex: "counterpartyTypeTitle",

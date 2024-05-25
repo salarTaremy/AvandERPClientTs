@@ -128,13 +128,6 @@ const HeaderEditCounterParty = (prop) => {
   //====================================================================
   return (
     <div>
-      {JSON.stringify("defaultProvianceId : " + defaultProvianceId, null, 1, 1)}
-      <br></br>
-      {JSON.stringify("currentProvianceId : " + currentProvianceId, null, 1, 1)}
-      <br></br>
-      {JSON.stringify(form.getFieldValue("provinceId"), null, 1, 1)}
-      <br></br>
-      {valueCity && JSON.stringify(valueCity[0], null, 1, 1)}
       <Ant.Row gutter={[16, 8]}>
         <Ant.Col lg={8} md={12} sm={12} xs={24}>
           <Ant.Form.Item
