@@ -32,8 +32,8 @@ const columns = (onDelete, onView, onEdit) => {
             },
             {
                 title: 'نام دوم کالا',
-                dataIndex: 'seccondName',
-                key: 'seccondName',
+                dataIndex: 'secondName',
+                key: 'secondName',
                 width: 80,
                 className:"text-xs sm:text-sm",
             },

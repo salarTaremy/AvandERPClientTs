@@ -12,7 +12,7 @@ import useAllLoading from "@/hooks/useAllLoading ";
 const CitySelector = (props) => {
   const { id } = props;
   const [form] = Ant.Form.useForm();
-  const pageTitle = "شرح صفحه";
+  const pageTitle = "انتخاب درختی";
   const [CityData, CityLoading, CityError, CityApiCall] =
     api.useFetchWithHandler();
   const [options, setOptions] = useState([]);
@@ -72,7 +72,7 @@ const CitySelector = (props) => {
               form.submit();
             }}
           >
-            ok
+            {'پست'}
           </Ant.Button>
         </Ant.Form>
 

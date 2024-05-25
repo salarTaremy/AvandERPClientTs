@@ -123,6 +123,7 @@ export const SALE_CHANNEL = 'SaleChannel'
 export const SALE_DOCUMENT_HEADER = 'SaleDocumentHeader'
 export const SALE_DOCUMENT_DETAIL = 'SaleDocumentDetail'
 export const SALE_CUSTOMER_GET_FOR_DROPDOWN = '/Customer/GetForDropdown'
+export const PRICE_CIRCULAR_HEADER_GET_BY_DETAIL_ID = 'PriceCircularHeader/GetByPriceCircularDetailId'
 
 //Sales - TaxPayersSystem (سامانه مودیان)
 export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDocumentType'

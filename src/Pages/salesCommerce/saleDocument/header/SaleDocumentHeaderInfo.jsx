@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { Typography } from "antd";
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
+import SaleDocumentDescription from "../description/SaleDocumentDescription";
 import * as defaultValues from "@/defaultValues";
 //====================================================================
 //                        Declaration
@@ -11,9 +12,14 @@ const SaleDocumentHeaderInfo = (props) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const title = `${saleDocumentData?.saleDocumentType} شماره ${saleDocumentData?.documentNumber}`;
+  const referenceDocumentId= saleDocumentData?.referenceId;
   const referenceDocumentNumber =
     saleDocumentData?.referenceDocumentNumber !== 0 ? (
-      <Typography.Link href="#">{`${saleDocumentData?.referenceDocumentType} شماره ${saleDocumentData?.referenceDocumentNumber}`}</Typography.Link>
+      <Typography.Link onClick={() => {
+        onViewReferenceDocument(referenceDocumentId);
+      }}>
+        {`${saleDocumentData?.referenceDocumentType} شماره ${saleDocumentData?.referenceDocumentNumber}`}
+      </Typography.Link>
     ) : (
       "-"
     );
@@ -47,7 +53,7 @@ const SaleDocumentHeaderInfo = (props) => {
         >
           {saleDocumentData?.customerName}
         </Typography.Link>
-      ), //customerId
+      ), 
     },
     {
       key: "5",
@@ -57,11 +63,13 @@ const SaleDocumentHeaderInfo = (props) => {
   ];
 
   const onViewCustomer = (id) => {
-    console.log(id, "hahahahaj");
     setModalContent(<CustomerDescription id={id} />);
-
     setModalState(true);
   };
+  const onViewReferenceDocument = (referenceDocumentId) =>{
+    setModalContent(<SaleDocumentDescription id={referenceDocumentId} />);
+    setModalState(true);
+  }
 
   //====================================================================
   //                        Component
