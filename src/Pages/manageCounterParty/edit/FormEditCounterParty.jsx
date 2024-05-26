@@ -78,8 +78,6 @@ const FormEditCounterParty = ({ onSuccess, id }) => {
     await editApiCall(url.COUNTER_PARTY, dataList);
   };
 
-  // Fix Bug
-
 
   //====================================================================
   //                        Component

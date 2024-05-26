@@ -29,6 +29,7 @@ const DebounceSelect = ({ fetchOptions, debounceTimeout = 1000, ...props }) => {
   return (
     <>
       <Select
+
         labelInValue
         filterOption={false}
         showSearch

@@ -36,7 +36,7 @@ const FormEditCustomer = () => {
     useFetch(url.CUSTOMER_GRADE);
   const params = useParams();
   const navigate = useNavigate();
-  useRequestManager({ error: editError, loading: editLoading, data: editData });
+  useRequestManager({ error: editError });
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
   useRequestManager({ error: customerGroupError });
@@ -153,7 +153,7 @@ const FormEditCustomer = () => {
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
-              <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+              <Ant.Card loading={editLoading} style={{ ...styles.CARD_DEFAULT_STYLES }}>
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }, { max: 10 }]}
@@ -189,8 +189,9 @@ const FormEditCustomer = () => {
                       // fieldNames={{ label: "counterpartyName", value: "counterpartyId" }}
                       maxCount={1}
                       placeholder="بخشی از نام مشتری را تایپ کنید..."
+
                       fetchOptions={getAllCounterPartyForDropDown}
-                      fieldNames={fieldNames}
+                    fieldNames={{ label: "label", value: "value" }}
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
