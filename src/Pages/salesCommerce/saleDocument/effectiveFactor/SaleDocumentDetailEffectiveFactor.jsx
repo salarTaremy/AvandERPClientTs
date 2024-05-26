@@ -52,8 +52,8 @@ const SaleDocumentDetailEffectiveFactor = (props) => {
                     renderItem={(item) => (
                         <Ant.List.Item>
                             <Ant.List.Item.Meta
-                                title={item.saleEffectiveFactorTitle}
-                                description={`مقدار ${item.percentage ? item.percentage + " درصد" : item.amount + " ریال"} ${item.saleEffectiveOperativeType} برای این آیتم محاسبه شده است.`}
+                                title={item.saleEffectiveOperativeType}
+                                description={`مقدار ${item.percentage ? item.percentage + " درصد" : item.amount + " ریال"} ${item.saleEffectiveFactorTitle} برای این آیتم محاسبه شده است.`}
                             />
                             <Ant.Row gutter={[12,12]}>
                                 <Ant.Col span={24}>
