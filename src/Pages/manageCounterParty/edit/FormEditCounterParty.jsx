@@ -29,8 +29,8 @@ const FormEditCounterParty = () => {
     listErrorHeader,
     listApiCallHeader,
   ] = api.useFetchWithHandler();
-  useRequestManager({ error: listErrorHeader, loading: listLoadingHeader });
-  useRequestManager({ error: editData, loading: editLoading });
+  useRequestManager({ error: listErrorHeader });
+  useRequestManager({ error: editData});
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -73,6 +73,9 @@ const FormEditCounterParty = () => {
 
     await editApiCall(url.COUNTER_PARTY, dataList);
   };
+
+  // Fix Bug
+
 
   //====================================================================
   //                        Component
