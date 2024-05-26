@@ -43,7 +43,7 @@ const CounterPartyList = () => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-
+    getAllCounterParty();
   }, [filterObject]);
 
   useEffect(() => {
