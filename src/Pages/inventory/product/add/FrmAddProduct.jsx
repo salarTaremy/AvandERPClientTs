@@ -35,7 +35,7 @@ const { Step } = Steps
   //====================================================================
   //                        Declaration
   //====================================================================
-export const FrmAddProduct = () => {
+export const FrmAddProduct = ({onSuccessAdd}) => {
   const [formValues, setFormValues] = useState({}) // ایجاد متغیر موقت برای ذخیره تمام مقادیر ورودی فرم
   const [unitsData, unitsLoading, unitsError] = useFetch(url.PRODUCT_UNIT)
   const [savingData, savingLoading, savingError, savingApiCall] = usePostWithHandler()
@@ -77,6 +77,7 @@ export const FrmAddProduct = () => {
 
   const onFinish = async (values) => {
     await savingApiCall(url.PRODUCT, { ...formValues })
+    onSuccessAdd()
   }
 
   const onFinishFailed = (errorInfo) => {
