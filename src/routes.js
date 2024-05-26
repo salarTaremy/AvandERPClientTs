@@ -50,6 +50,7 @@ import CustomerManagement from './Pages/salesCommerce/basicInformation/CustomerM
 import FormAddCustomer from './Pages/salesCommerce/basicInformation/CustomerManagement/add/FormAddCustomer'
 import FormEditCustomer from './Pages/salesCommerce/basicInformation/CustomerManagement/edit/FormEditCustomer'
 import SaleDocument from './Pages/salesCommerce/saleDocument/SaleDocument';
+import SaleEffectiveFactor from './Pages/salesCommerce/basicInformation/saleEffectiveFactor/list/SaleEffectiveFactor';
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
@@ -111,6 +112,7 @@ const routes = [
   { path: 'sale/customerManagemen', name: 'مدیریت مشتریان', element: CustomerManagement },
   { path: '/sale/customerManagemen/new', name: 'ایجاد مشتری', element: FormAddCustomer },
   { path: '/sale/customerManagemen/edit/:id', name: 'ویرایش مشتری', element: FormEditCustomer },
+  { path: '/sale/saleEffectiveFactor', name: 'مدیریت عوامل موثر بر برگه فروش', element: SaleEffectiveFactor },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
