@@ -124,6 +124,20 @@ const FormAddCustomer = ({ onSucces }) => {
               <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
                 <Ant.Col>
                   <Ant.Form.Item
+                    rules={[{ required: true }]}
+                    name={"counterpartyId"}
+                    label="طرف حساب مرتبط"
+                  >
+                    <DebounceSelect
+                      onChange={handleCounterParty}
+                      maxCount={1}
+                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
+                      fetchOptions={getAllCounterPartyForDropDown}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col>
+                  <Ant.Form.Item
                     rules={[{ required: true }, { max: 10 }]}
                     name={"code"}
                     label="کد"
@@ -139,7 +153,7 @@ const FormAddCustomer = ({ onSucces }) => {
                 </Ant.Col>
                 <Ant.Col>
                   <Ant.Form.Item
-                    rules={[{ required: false }, { max: 20 }]}
+                    rules={[{ required: true }, { max: 20 }]}
                     name={"secondCode"}
                     label="کد دوم"
                   >
@@ -149,21 +163,6 @@ const FormAddCustomer = ({ onSucces }) => {
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }]}
-                    name={"counterpartyId"}
-                    label="طرف حساب مرتبط"
-                  >
-                    <DebounceSelect
-                      onChange={handleCounterParty}
-                      maxCount={1}
-                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
-                      fetchOptions={getAllCounterPartyForDropDown}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-
-                <Ant.Col>
-                  <Ant.Form.Item
-                    rules={[{ required: false }]}
                     name={"groupId"}
                     label="گروه"
                   >
@@ -180,7 +179,7 @@ const FormAddCustomer = ({ onSucces }) => {
                 </Ant.Col>
                 <Ant.Col>
                   <Ant.Form.Item
-                    rules={[{ required: false }]}
+                    rules={[{ required: true }]}
                     name={"typeId"}
                     label="نوع"
                   >
@@ -197,7 +196,7 @@ const FormAddCustomer = ({ onSucces }) => {
                 </Ant.Col>
                 <Ant.Col>
                   <Ant.Form.Item
-                    rules={[{ required: false }]}
+                    rules={[{ required: true }]}
                     name={"branchId"}
                     label="شعبه"
                   >
@@ -213,7 +212,11 @@ const FormAddCustomer = ({ onSucces }) => {
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col>
-                  <Ant.Form.Item name={"saleChannelIdList"} label="کانال فروش">
+                  <Ant.Form.Item
+                    name={"saleChannelIdList"}
+                    label="کانال فروش"
+                    rules={[{ required: true }]}
+                  >
                     <Ant.Select
                       mode="multiple"
                       allowClear={true}
@@ -253,13 +256,15 @@ const FormAddCustomer = ({ onSucces }) => {
               </Ant.Card>
             </Ant.Col>
             <Ant.Col span={24} sm={14}>
-              <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
-                {empty == undefined ? (
-                  <Ant.Empty />
-                ) : (
-                  <HeaderCounterParty data={listData} />
-                )}
-              </Ant.Card>
+              <Ant.Skeleton loading={loadingData}>
+                <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                  {empty == undefined ? (
+                    <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
+                  ) : (
+                    <HeaderCounterParty data={listData} />
+                  )}
+                </Ant.Card>
+              </Ant.Skeleton>
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>

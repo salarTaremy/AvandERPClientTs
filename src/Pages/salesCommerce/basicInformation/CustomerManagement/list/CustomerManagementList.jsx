@@ -149,7 +149,7 @@ const CustomerManagementList = () => {
   return (
     <>
       <Ant.Modal
-        {...defaultValues.MODAL_PROPS}
+        // {...defaultValues.MODAL_PROPS}
         open={modalState}
         centered
         getContainer={null}
@@ -160,7 +160,7 @@ const CustomerManagementList = () => {
         onOk={() => {
           setModalState(false);
         }}
-        {...defaultValues.MODAL_PROPS}
+        width={1300}
       >
         {modalContent}
       </Ant.Modal>
