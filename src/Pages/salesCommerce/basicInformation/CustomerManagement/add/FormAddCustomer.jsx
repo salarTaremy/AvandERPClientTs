@@ -228,7 +228,6 @@ const FormAddCustomer = ({ onSucces }) => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
-
                 <Ant.Col>
                   <Ant.Form.Item name={"gradeId"} label="رتبه">
                     <Ant.Select
@@ -241,7 +240,6 @@ const FormAddCustomer = ({ onSucces }) => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
-
                 <Ant.Col>
                   <Ant.Button
                     block

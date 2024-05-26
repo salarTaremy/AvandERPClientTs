@@ -13,9 +13,11 @@ import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import DetailedCounterPartyList from "./../description/DetailedCounterPartyList";
 import { useNavigate, generatePath } from "react-router-dom";
-
+import * as uuid from "uuid";
 import qs from "qs";
 import CounterPartyStateList from "../state/CounterPartyStateList";
+import FormAddCounterParty from "../add/FormAddCounterParty";
+import FormEditCounterParty from "../edit/FormEditCounterParty";
 const CounterPartyList = () => {
   const navigate = useNavigate();
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -93,19 +95,33 @@ const CounterPartyList = () => {
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.COUNTER_PARTY}/${id}`);
   };
+  const onSuccessAdd = () => {
+    setModalState(false);
+    getAllCounterParty();
+  };
   const onAdd = () => {
-    setModalContent(navigate("/manage/counterparty/new"));
+    setModalContent(<FormAddCounterParty  onSuccess={onSuccessAdd} />);
     setModalState(true);
   };
   const onView = (id) => {
     setModalContent(<DetailedCounterPartyList id={id} key={id} />);
     setModalState(true);
   };
+
+  const onSuccessEdit = () => {
+    setModalState(false);
+    getAllCounterParty();
+  };
   //====================================================================
   //                        Events
   //====================================================================
-  const onEdit = async (id) => {
-    navigate(generatePath("/manage/counterparty/edit/:id", { id }));
+  const onEdit = async (val) => {
+    setModalContent(<FormEditCounterParty
+      onSuccess={onSuccessEdit}
+      id={val.id}
+      key={val.id}
+    />);
+    setModalState(true);
   };
 
   const onBlock = (val) => {
@@ -174,6 +190,7 @@ const CounterPartyList = () => {
         }}
         footer={null}
         centered
+        width={1300}
       >
         {modalContent}
       </Ant.Modal>

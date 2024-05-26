@@ -18,7 +18,7 @@ import Informationccounts from "./Informationccounts";
 import * as api from "@/api";
 import { useParams } from "react-router-dom";
 
-const FormEditCounterParty = () => {
+const FormEditCounterParty = ({ onSuccess, id }) => {
   const params = useParams();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [form] = Ant.Form.useForm();
@@ -30,7 +30,7 @@ const FormEditCounterParty = () => {
     listApiCallHeader,
   ] = api.useFetchWithHandler();
   useRequestManager({ error: listErrorHeader });
-  useRequestManager({ error: editData});
+  useRequestManager({ error: editData });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -43,11 +43,15 @@ const FormEditCounterParty = () => {
     form.setFieldsValue({ ...(listDataHeader?.data || null) });
   }, [listDataHeader]);
 
+  useEffect(() => {
+    editData?.isSuccess && onSuccess();
+  }, [editData]);
+
   //====================================================================
   //                        Functions
   //====================================================================
   const onEditHeader = async () => {
-    await listApiCallHeader(`${url.COUNTER_PARTY}/${params.id}`);
+    await listApiCallHeader(`${url.COUNTER_PARTY}/${id}`);
   };
 
   const onFinish = async (value) => {
@@ -59,7 +63,7 @@ const FormEditCounterParty = () => {
 
     const dataList = {
       ...value,
-      id: parseInt(params.id),
+      id: id,
       birthDateCalendarId: parseInt(newBirthDateCalendarId),
     };
     dataList.addressList = value.addressList ? value.addressList : Array(0);
@@ -82,27 +86,24 @@ const FormEditCounterParty = () => {
   //====================================================================
   return (
     <>
+      <br />
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"ویرایش طرف حساب"}
         type="inner"
       >
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
-          <HeaderEditCounterParty form={form} />
-          <Ant.Flex className="items-end " vertical>
-            <Ant.Button className="px-6" type="primary" htmlType="submit">
-              {"ذخیره"}
-            </Ant.Button>
-          </Ant.Flex>
-
           <Ant.Tabs type="card" defaultActiveKey="1">
             <TabPane forceRender={true} tab="اطلاعات تماس " key="1">
+              <HeaderEditCounterParty form={form} />
+            </TabPane>
+            <TabPane forceRender={true} tab="اطلاعات تماس " key="2">
               <Contacts />
             </TabPane>
-            <TabPane forceRender={true} tab="آدرس" key="2">
+            <TabPane forceRender={true} tab="آدرس" key="3">
               <Address form={form} />
             </TabPane>
-            <TabPane forceRender={true} tab="اطلاعات حساب های بانکی" key="3">
+            <TabPane forceRender={true} tab="اطلاعات حساب های بانکی" key="4">
               <BankBranchInfo />
             </TabPane>
             <TabPane
@@ -113,8 +114,13 @@ const FormEditCounterParty = () => {
               <Informationccounts />
             </TabPane>
           </Ant.Tabs>
+          <Ant.Flex className="items-end " vertical>
+            <Ant.Button className="px-6" type="primary" htmlType="submit" style={{ width: 150 }}>
+              {"ذخیره"}
+            </Ant.Button>
+          </Ant.Flex>
         </Ant.Form>
-      </Ant.Card>
+      </Ant.Card >
     </>
   );
 };
