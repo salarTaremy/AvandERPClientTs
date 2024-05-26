@@ -99,6 +99,7 @@ const CustomerManagementList = () => {
   };
   const onEdit = (val) => {
     const id = val.id;
+    console.log(val.id,"ghggg")
     navigate(generatePath("/sale/customerManagemen/edit/:id", { id }));
   };
 
