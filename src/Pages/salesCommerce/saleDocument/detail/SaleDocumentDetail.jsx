@@ -7,6 +7,7 @@ import * as defaultValues from "@/defaultValues";
 import { columns } from "./column";
 import DetailProductListDescription from "../../../inventory/product/description/DetailProductListDescription";
 import PriceCircularHeaderDescription from "../../priceCircular/priceCircularHeader/description/PriceCircularHeaderDescription";
+import SaleDocumentDetailEffectiveFactor from "../effectiveFactor/SaleDocumentDetailEffectiveFactor";
 import useRequestManager from "@/hooks/useRequestManager";
 
 //====================================================================
@@ -52,12 +53,16 @@ const SaleDocumentDetail = (props) => {
         console.log("onView: " + id);
     }
     const onProductView = (productId) => {
-        setModalOpenState(true);
         setModalContent(<DetailProductListDescription id={productId}/>);
+        setModalOpenState(true);
     }
     const onPriceCircularView = (priceCircularId) => {
-        setModalOpenState(true);
         setModalContent(<PriceCircularHeaderDescription priceCircularDetailId={priceCircularId}/>);
+        setModalOpenState(true);
+    }
+    const onEffectiveFactorDetailView = (saleDocDetailId, effectiveFactorNature) => {
+        setModalContent(<SaleDocumentDetailEffectiveFactor saleDocumentDetailId={saleDocDetailId} effectiveFactorNature={effectiveFactorNature}/>);
+        setModalOpenState(true);
     }
     const handleTableChange = (pagination, filter, sorter) => {
         setPagination(pagination);
@@ -81,7 +86,7 @@ const SaleDocumentDetail = (props) => {
                 </Ant.Modal>
                 <Ant.Skeleton loading={listLoading}>
                     <Ant.Table
-                        columns={columns(onDelete, onEdit, onView, onProductView, onPriceCircularView)}
+                        columns={columns(onDelete, onEdit, onView, onProductView, onPriceCircularView, onEffectiveFactorDetailView)}
                         dataSource={dataSource}
                         pagination={pagination}
                         {...defaultValues.TABLE_PROPS}

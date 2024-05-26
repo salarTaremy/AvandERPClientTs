@@ -116,7 +116,7 @@ const SaleDocumentList = () => {
       <>
         <ButtonList
           filterCount={filterCount}
-          // onAdd={() => console.log("grid-onAdd")}
+          onAdd={() => console.log("grid-onAdd")}
           onRefresh={() => fillGrid()}
           onFilter={() => setOpenFilter(true)}
         />
