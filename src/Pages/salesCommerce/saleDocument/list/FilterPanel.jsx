@@ -78,6 +78,12 @@ const FilterPanel = (props) => {
     return (
         <>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical" onFinishFailed={null}>
+            <Ant.Form.Item name={'documentNumber'} label="شماره برگه">
+                    <Ant.InputNumber allowClear min={1} style={{ width: "100%" }}/>
+                </Ant.Form.Item>
+                <Ant.Form.Item name={'serialNumber'} label="شماره سریال ">
+                    <Ant.InputNumber allowClear min={1} style={{ width: "100%" }}/>
+                </Ant.Form.Item>
                 <Ant.Form.Item name={'customerCode'} label="کد مشتری">
                     <Ant.InputNumber allowClear min={1} style={{ width: "100%" }}/>
                 </Ant.Form.Item>
@@ -117,9 +123,10 @@ const FilterPanel = (props) => {
                         fieldNames={{label: 'title', value: 'id'}}
                     />
                 </Ant.Form.Item>
-                <Ant.Form.Item name={'branchId'} label="نام شعبه">
+                <Ant.Form.Item name={'branchIds'} label="نام شعبه">
                     <Ant.Select 
                         allowClear={true}
+                        mode="multiple"
                         placeholder={'انتخاب کنید...'}
                         disable={branchLoading || false}
                         loading={branchLoading}

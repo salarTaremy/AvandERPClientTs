@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "antd";
 
-export const columns = (onDelete, onEdit, onView, onProductView, onPriceCircularView) => {
+export const columns = (onDelete, onEdit, onView, onProductView, onPriceCircularView, onEffectiveFactorDetailView) => {
     return [
         {
             title: 'کد کالا',
@@ -62,7 +62,6 @@ export const columns = (onDelete, onEdit, onView, onProductView, onPriceCircular
             className: 'text-xs sm:text-sm',
             width: 100,
             render: (text, record, index)  => (
-                //TODO: navigate to priceCircularView page
                 <Typography.Link onClick={() => onPriceCircularView(record.priceCircularDetailId)}>{record.unitPrice.toLocaleString()}</Typography.Link>
             )
         },
@@ -85,7 +84,10 @@ export const columns = (onDelete, onEdit, onView, onProductView, onPriceCircular
             className: 'text-xs sm:text-sm',
             width: 100,
             render: (text, record, index) => (
-                record.discount.toLocaleString()
+                record.discount == 0 ? record.discount 
+                :   <Typography.Link onClick={() => onEffectiveFactorDetailView(record.id, -1)}>
+                        {record.discount.toLocaleString()}
+                    </Typography.Link>
             )
         },
         {
@@ -107,7 +109,10 @@ export const columns = (onDelete, onEdit, onView, onProductView, onPriceCircular
             className: 'text-xs sm:text-sm',
             width: 200,
             render: (text, record, index) => (
-                record.taxTotal.toLocaleString()
+                record.taxTotal == 0 ? record.taxTotal 
+                :   <Typography.Link onClick={() => onEffectiveFactorDetailView(record.id, 1)}>
+                        {record.taxTotal.toLocaleString()}
+                    </Typography.Link>
             )
         },
         {
