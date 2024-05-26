@@ -61,35 +61,37 @@ const FormAddCounterParty = () => {
         type="inner"
       >
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
-          <HeaderAddCounterParty form={form} />
-          <Ant.Flex className="items-end " vertical>
-            <Ant.Button
-              className="px-6"
-              type="primary"
-              htmlType="submit"
-              onClick={() => {
-                form.submit();
-              }}
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Flex>
-
           <Ant.Tabs type="card" defaultActiveKey="1">
-            <TabPane tab="اطلاعات تماس " key="1">
+            <TabPane tab="اطلاعات پایه " key="1">
+              <HeaderAddCounterParty form={form} />
+            </TabPane>
+            <TabPane tab="اطلاعات تماس " key="2">
               <Contacts />
             </TabPane>
-            <TabPane tab="آدرس" key="2">
+            <TabPane tab="آدرس" key="3">
               <Address form={form} />
             </TabPane>
-            <TabPane tab="اطلاعات حساب های بانکی" key="3">
+            <TabPane tab="اطلاعات حساب های بانکی" key="4">
               <BankBranchInfo />
             </TabPane>
-            <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="4">
+            <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="5">
               <Informationccounts />
             </TabPane>
           </Ant.Tabs>
         </Ant.Form>
+        <Ant.Flex className="items-end " vertical>
+          <Ant.Button
+            className="px-6"
+            type="primary"
+            htmlType="submit"
+            style={{ width: 150 }}
+            onClick={() => {
+              form.submit();
+            }}
+          >
+            {"تایید"}
+          </Ant.Button>
+        </Ant.Flex>
       </Ant.Card>
     </div>
   );

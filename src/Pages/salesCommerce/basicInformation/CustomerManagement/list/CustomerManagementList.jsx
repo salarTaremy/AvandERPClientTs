@@ -6,7 +6,7 @@ import * as url from "@/api/url";
 import qs from "qs";
 import * as defaultValues from "@/defaultValues";
 import columns from "./columns";
-
+import * as uuid from "uuid";
 import FilterPanel from "../list/FilterPanel";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
@@ -16,6 +16,7 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import ButtonList from "@/components/common/ButtonList";
 import { useNavigate, generatePath } from "react-router-dom";
 import CustomerDescription from "../description/CustomerDescription";
+import FormAddCustomer from "../add/FormAddCustomer";
 
 const CustomerManagementList = () => {
   const navigate = useNavigate();
@@ -90,8 +91,14 @@ const CustomerManagementList = () => {
     setModalState(true);
   };
 
+  const onSuccessAdd = () => {
+    setModalState(false);
+    getAllCustomer();
+  };
+
   const onAdd = () => {
-    navigate("/sale/customerManagemen/new");
+    setModalContent(<FormAddCustomer key={uuid.v1()} onSucces={onSuccessAdd} />);
+    setModalState(true);
   };
 
   const onDelete = async (id) => {
@@ -153,6 +160,7 @@ const CustomerManagementList = () => {
         onOk={() => {
           setModalState(false);
         }}
+        {...defaultValues.MODAL_PROPS}
       >
         {modalContent}
       </Ant.Modal>
@@ -160,7 +168,7 @@ const CustomerManagementList = () => {
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         loading={loadingData}
-        title={" لیست مدیریت مشتریان"}
+        title={"  مدیریت مشتریان"}
         type="inner"
       >
         <FilterDrawer

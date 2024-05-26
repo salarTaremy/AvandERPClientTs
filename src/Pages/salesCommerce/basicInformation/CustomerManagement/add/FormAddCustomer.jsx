@@ -8,8 +8,9 @@ import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
-import { useNavigate } from "react-router-dom";
-const FormAddCustomer = () => {
+
+
+const FormAddCustomer = ({ onSucces }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
 
@@ -22,14 +23,12 @@ const FormAddCustomer = () => {
     url.CUSTOMER_TYPE,
   );
   const [customerGradeList, customerGradeLoading, customerGradeError] =
-  useFetch(url.CUSTOMER_GRADE);
+    useFetch(url.CUSTOMER_GRADE);
   const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
     url.SALE_CHANNEL,
   );
-  const navigate = useNavigate();
   useRequestManager({ error: addError, loading: addLoading, data: addData });
-
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
   useRequestManager({ error: customerGroupError });
@@ -53,7 +52,7 @@ const FormAddCustomer = () => {
   //====================================================================
   useEffect(() => {
     form.resetFields();
-    addData?.isSuccess;
+    addData?.isSuccess && onSucces();
   }, [addData]);
   useEffect(() => {
     maxCodeData?.isSuccess &&
@@ -93,7 +92,6 @@ const FormAddCustomer = () => {
   const onFinish = async (values) => {
     const req = { ...values, counterpartyId: values?.counterpartyId?.key };
     await addApiCall(url.CUSTOMER, req);
-    navigate("/sale/customerManagemen");
   };
 
   //====================================================================
@@ -118,6 +116,7 @@ const FormAddCustomer = () => {
 
   return (
     <>
+      <br />
       <Ant.Card title={"ایجاد مشتری"} type="inner">
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
@@ -156,7 +155,7 @@ const FormAddCustomer = () => {
                     <DebounceSelect
                       onChange={handleCounterParty}
                       maxCount={1}
-                      placeholder="بخشی از نام مشتری را تایپ کنید..."
+                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
                       fetchOptions={getAllCounterPartyForDropDown}
                     />
                   </Ant.Form.Item>
