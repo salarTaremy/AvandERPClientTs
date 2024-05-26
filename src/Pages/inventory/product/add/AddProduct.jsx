@@ -2,11 +2,12 @@ import React from 'react'
 import { FrmAddProduct } from './FrmAddProduct'
 import { Card } from 'antd'
 
-const AddProduct = () => {
+const AddProduct = ({ onSuccessAdd }) => {
   return (
     <>
+      <br />
       <Card title="تعریف کالا/خدمت" type="inner">
-        <FrmAddProduct />
+        <FrmAddProduct onSuccessAdd={onSuccessAdd} />
       </Card>
     </>
   )

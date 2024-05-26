@@ -77,7 +77,7 @@ const AccountDocumentList = () => {
       page: pagination.current,
       result: pagination.pageSize,
     });
-    console.log(queryString,"queryString")
+    console.log(queryString, "queryString")
     await listApiCall(`${url.ACCOUNT_DOCUMENT}?${queryString}`);
   };
 
@@ -142,9 +142,9 @@ const AccountDocumentList = () => {
           onChange={handleTableChange}
           {...defaultValues.TABLE_PROPS}
           title={title}
-          // expandable={{
-          //   expandedRowRender,
-          // }}
+        // expandable={{
+        //   expandedRowRender,
+        // }}
         />
       </>
     );
@@ -166,6 +166,7 @@ const AccountDocumentList = () => {
         onOk={() => {
           setModalState(false);
         }}
+        {...defaultValues.MODAL_PROPS}
       >
         {modalContent}
       </Ant.Modal>

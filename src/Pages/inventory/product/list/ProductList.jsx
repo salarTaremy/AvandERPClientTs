@@ -11,12 +11,14 @@ import FilterDrawer from '@/components/common/FilterDrawer'
 import FilterBedge from '@/components/common/FilterBedge'
 import ButtonList from '@/components/common/ButtonList'
 import useRequestManager from '@/hooks/useRequestManager'
+import * as uuid from 'uuid'
 import {
   useFetchWithHandler,
   useDelWithHandler,
 } from '@/api'
 import DetailProductListDescription from '../description/DetailProductListDescription'
 import { useNavigate, generatePath } from "react-router-dom"
+import AddProduct from '../add/AddProduct'
 
 
 //====================================================================
@@ -31,7 +33,7 @@ const ProductList = () => {
   const [filterObject, setFilterObject] = useState()
   const [filterCount, setFilterCount] = useState(0)
   const [openFilter, setOpenFilter] = useState(false)
-  const [pagination, setPagination] = useState({current: 1, pageSize: 10});
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useRequestManager({ error: error })
   useRequestManager({ error: delError, data: delSaving, loading: delLoading })
   const navigateTo = useNavigate()
@@ -63,20 +65,35 @@ const ProductList = () => {
     const queryString = qs.stringify(filterObject)
     await ApiCall(`${url.PRODUCT}?${queryString}`)
   }
+
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject)
     setOpenFilter(false)
   }
+
   const onRemoveFilter = () => {
     setFilterObject(null)
     setOpenFilter(false)
   }
+
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.PRODUCT}/${id}`)
   }
+
   const onTableChange = (pagination, filter, sorter) => {
     setPagination(pagination);
   }
+
+  const onAdd = () => {
+    setModalContent(<AddProduct key={uuid.v1()} onSuccessAdd={onSuccessAdd} />)
+    setModalState(true)
+  }
+
+  const onSuccessAdd = () => {
+    setModalState(false);
+    getAllProductList();
+  };
+
   //====================================================================
   //                        Events
   //====================================================================
@@ -95,6 +112,7 @@ const ProductList = () => {
     return (
       <ButtonList
         filterCount={filterCount}
+        onAdd={onAdd}
         onRefresh={() => {
           getAllProductList()
         }}
@@ -137,20 +155,21 @@ const ProductList = () => {
         }}
         footer={null}
         centered
+        {...defaultValues.MODAL_PROPS}
       >
         {modalContent}
       </Ant.Modal>
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={loading} title={'مدیریت کالا و خدمات'} type="inner" >
-          <FilterDrawer
-            open={openFilter}
-            onClose={() => setOpenFilter(false)}
-            onRemoveFilter={onRemoveFilter}
-          >
-            <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-          </FilterDrawer>
-          <FilterBedge filterCount={filterCount}>
-            <Grid />
-          </FilterBedge>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Grid />
+        </FilterBedge>
 
       </Ant.Card>
     </>
