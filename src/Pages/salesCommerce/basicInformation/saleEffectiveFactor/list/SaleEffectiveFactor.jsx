@@ -7,50 +7,104 @@ import * as api from "@/api";
 import * as defaultValues from "@/defaultValues";
 import { columns } from "./columns";
 import ButtonList from "@/components/common/ButtonList";
+import * as uuid from "uuid";
+import FilterPanel from './FilterPanel'
+import FilterDrawer from '@/components/common/FilterDrawer'
+import FilterBedge from '@/components/common/FilterBedge'
+import FormSaleEffectiveFactorAdd from "../add/FormSaleEffectiveFactorAdd";
+import FormSaleEffectiveFactorEdit from "../edit/FormSaleEffectiveFactorEdit";
+import SaleEffectiveFactorDescription from "../description/SaleEffectiveFactorDescription";
+import useRequestManager from '@/hooks/useRequestManager'
 
 //====================================================================
 //                        Declaration
 //====================================================================
 const SaleEffectiveFactor = () => {
     const pageTitle = "مدیریت عوامل موثر بر برگه فروش";
-    const [listData, listLoading, listError, listApiCall] =
-      api.useFetchWithHandler();
+    const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler();
+    const [deleteSaving, deleteLoading, deleteError, deleteApiCall] = api.useDelWithHandler()
     const [dataSource, setDataSource] = useState(null);
-    const [modalState, setModalState] = useState(false);
+    const [modalOpenState, setModalOpenState] = useState(false);
     const [modalContent, setModalContent] = useState(null);
+    const [filterObject, setFilterObject] = useState()
+    const [filterCount, setFilterCount] = useState(0)
+    const [openFilter, setOpenFilter] = useState(false)
+    const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+    useRequestManager({ error: listError });
+    useRequestManager({ error: deleteError, data: deleteSaving, loading: deleteLoading });
 
     //====================================================================
     //                        useEffects
     //====================================================================
     useEffect(() => {
-      fillGrid();
-    }, []);
+      filterObject &&
+        setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+      !filterObject && setFilterCount(0)
+      getEffectiveFactorList();
+    }, [filterObject]);
 
     useEffect(() => {
       setDataSource(listData?.data);
     }, [listData]);
 
+    useEffect(() => {
+      deleteSaving?.isSuccess &&
+        setDataSource([...dataSource?.filter((c) => c.id !== deleteSaving?.data?.id)])
+    }, [deleteSaving])
+
     //====================================================================
     //                        Functions
     //====================================================================
-    const fillGrid = async () => {
-        await listApiCall(`${url.SALE_EFFECTIVE_FACTOR}`);
+    const getEffectiveFactorList = async () => {
+        const queryString = qs.stringify(filterObject);
+        await listApiCall(`${url.SALE_EFFECTIVE_FACTOR}?${queryString}`);
     };
+
+    const onTableChange = (pagination, filter, sorter) => {
+      setPagination(pagination);
+    }
 
     const onDelete = async (id) => {
-      //TODO: not implemented
-      console.log("onDelete - " + id);
+      await deleteApiCall(`${url.SALE_EFFECTIVE_FACTOR}/${id}`)
     };
 
-    const onEdit = async (id) => {
-      //TODO: not implemented
-      console.log("onEdit - " + id);
+    const onEdit = async (value) => {
+      console.log(value);
+      setModalContent(
+        <FormSaleEffectiveFactorEdit onSuccess={onSuccessEdit} myKey={value.id} obj={value} id={value.id} />,
+      );
+      setModalOpenState(true);
     };
+
+    const onSuccessEdit = async () => {
+      setModalOpenState(false)
+      getEffectiveFactorList()
+    }
 
     const onView = async (id) => {
-    //   setModalContent(<SaleDocumentDescription id={id} />);
-    //   setModalState(true);
+      setModalContent(<SaleEffectiveFactorDescription id={id} />);
+      setModalOpenState(true);
     };
+
+    const onSuccessAdd = () => {
+        setModalOpenState(false);
+        getEffectiveFactorList();
+    };
+
+    const onAdd = async () => {
+        setModalContent(<FormSaleEffectiveFactorAdd key={uuid.v1()} onSuccess={onSuccessAdd} />);
+        setModalOpenState(true);
+    }
+
+    const onFilterChanged = async (filterObject) => {
+      setFilterObject(filterObject)
+      setOpenFilter(false)
+    }
+  
+    const onRemoveFilter = () => {
+      setFilterObject(null)
+      setOpenFilter(false)
+    }
 
     //====================================================================
     //                        Child Components
@@ -59,8 +113,10 @@ const SaleEffectiveFactor = () => {
       return (
         <>
           <ButtonList
-            onAdd={() => console.log("grid-onAdd")}
-            onRefresh={() => fillGrid()}
+            filterCount={filterCount}
+            onAdd={onAdd}
+            onFilter={() => setOpenFilter(true)}
+            onRefresh={getEffectiveFactorList}
           />
         </>
       );
@@ -75,6 +131,8 @@ const SaleEffectiveFactor = () => {
               dataSource={dataSource}
               {...defaultValues.TABLE_PROPS}
               title={title}
+              pagination={pagination}
+              onChange={onTableChange}
             />
           </Ant.Skeleton>
         </>
@@ -87,13 +145,14 @@ const SaleEffectiveFactor = () => {
     return (
       <>
         <Ant.Modal
-          open={modalState}
+          open={modalOpenState}
           centered
           {...defaultValues.MODAL_PROPS}
+          width={500}
           getContainer={null}
           footer={null}
-          onCancel={() => setModalState(false)}
-          onOk={() => setModalState(false)}
+          onCancel={() => setModalOpenState(false)}
+          onOk={() => setModalOpenState(false)}
         >
           {modalContent}
         </Ant.Modal>
@@ -103,7 +162,16 @@ const SaleEffectiveFactor = () => {
           title={pageTitle}
           type="inner"
         >
-        <Grid />
+             <FilterDrawer
+              open={openFilter}
+              onClose={() => setOpenFilter(false)}
+              onRemoveFilter={onRemoveFilter}
+            >
+              <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+            </FilterDrawer>
+            <FilterBedge filterCount={filterCount}>
+              <Grid />
+            </FilterBedge>
         </Ant.Card>
       </>
     );
