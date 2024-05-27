@@ -127,6 +127,7 @@ export const PRICE_CIRCULAR_HEADER_GET_BY_DETAIL_ID = 'PriceCircularHeader/GetBy
 export const SALE_DOCUMENT_DETAIL_EFFECTIVE_FACTOR = 'SaleDocumentDetailEffectiveFactor'
 export const SALE_EFFECTIVE_FACTOR = 'SaleEffectiveFactor'
 export const SALE_EFFECTIVE_FACTOR_TYPE = 'SaleEffectiveFactor/GetSaleEffectiveFactorType'
+export const PRICE_CIRCULAR_HEADER = 'PriceCircularHeader'
 
 //Sales - TaxPayersSystem (سامانه مودیان)
 export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDocumentType'
