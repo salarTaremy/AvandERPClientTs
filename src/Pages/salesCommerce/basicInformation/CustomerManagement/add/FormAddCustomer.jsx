@@ -220,7 +220,7 @@ const FormAddCustomer = ({ onSucces }) => {
                     <Ant.Select
                       mode="multiple"
                       allowClear={true}
-                      placeHolder={"انتخاب کنید..."}
+                      placeholder={"انتخاب کنید..."}
                       disable={saleChannelLoading || false}
                       loading={saleChannelLoading}
                       options={saleChannelData?.data}
