@@ -71,7 +71,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
           <Ant.Tooltip placement="top" title={"ویرایش"}>
             <Ant.Button
               className="text-blue-600"
-              onClick={() => onEdit(val.id)}
+              onClick={() => onEdit(val)}
               icon={<FiEdit />}
               type="text"
             />
@@ -85,7 +85,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
           />
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
-            title={`برای حذف  "${val.companyTitle}" مطمئن هستید؟`}
+            title={`برای حذف  "${val.counterpartyTitle}" مطمئن هستید؟`}
           >
             <Ant.Button
               className="text-red-600"

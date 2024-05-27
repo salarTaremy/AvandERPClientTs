@@ -21,7 +21,7 @@ import FormAddCustomer from "../add/FormAddCustomer";
 const CustomerManagementList = () => {
   const navigate = useNavigate();
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
-  const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
+  const [DeleteData, DeleteLoading, DeleteError, DeleteApiCall] = useDelWithHandler();
   const [openFilter, setOpenFilter] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [filterObject, setFilterObject] = useState();
@@ -34,7 +34,7 @@ const CustomerManagementList = () => {
   });
 
   useRequestManager({ error: error });
-  useRequestManager({ error: delError, data: delSaving, loading: delLoading });
+  useRequestManager({ error: DeleteError, data: DeleteData, loading: DeleteLoading });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -45,8 +45,15 @@ const CustomerManagementList = () => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
+    getAllCustomer();
   }, [filterObject]);
 
+
+
+  useEffect(() => {
+    DeleteData?.isSuccess &&
+      setDataSource([...dataSource?.filter((c) => c.id !== DeleteData?.data?.id)])
+  }, [DeleteData])
   useEffect(() => {
     getAllCustomer();
   }, [pagination.current, pagination.pageSize]);
@@ -102,11 +109,10 @@ const CustomerManagementList = () => {
   };
 
   const onDelete = async (id) => {
-    await delApiCall(`${url.CUSTOMER}/${id}`);
+    await DeleteApiCall(`${url.CUSTOMER}/${id}`);
   };
   const onEdit = (val) => {
     const id = val.id;
-    console.log(val.id,"ghggg")
     navigate(generatePath("/sale/customerManagemen/edit/:id", { id }));
   };
 

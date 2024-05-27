@@ -10,7 +10,7 @@ import Contacts from "./Contacts";
 import BankBranchInfo from "./BankBranchInfo";
 import HeaderAddCounterParty from "./HeaderAddCounterParty";
 import Informationccounts from "./Informationccounts";
-const FormAddCounterParty = () => {
+const FormAddCounterParty = ({onSuccess}) => {
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
   useFetch(url.COUNTER_PARTY_TYPE);
   useRequestManager({ error: addError, loading: addLoading, data: addData });
@@ -21,7 +21,9 @@ const FormAddCounterParty = () => {
   //====================================================================
   //                        useEffects
   //====================================================================
-
+  useEffect(() => {
+    addData?.isSuccess && onSuccess();
+  }, [addData]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -55,6 +57,7 @@ const FormAddCounterParty = () => {
   //====================================================================
   return (
     <div>
+      <br />
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"ایجاد طرف حساب"}
