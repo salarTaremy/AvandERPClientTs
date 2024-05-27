@@ -3,6 +3,7 @@ import * as Ant from "antd";
 import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { MinusCircleTwoTone, PlusCircleTwoTone } from "@ant-design/icons";
 
 export const columns = (onDelete, onEdit, onView) => {
     return [
@@ -16,11 +17,22 @@ export const columns = (onDelete, onEdit, onView) => {
         },
         {
             title: 'نوع',
-            dataIndex: 'saleEffectiveOperativeType', //SaleEffectiveOperativeTypeId
+            dataIndex: 'saleEffectiveOperativeType',
             key: 'saleEffectiveOperativeType',
             align: 'center',
             className: 'text-xs sm:text-sm',
-            width: 100
+            width: 100,
+            render: (text, record, index) => {
+                return (
+                    <>
+                        <Ant.Space>
+                            {(record.saleEffectiveOperativeTypeNature == 1) && <PlusCircleTwoTone twoToneColor="#52c41a" />}
+                            {(record.saleEffectiveOperativeTypeNature == -1) && <MinusCircleTwoTone twoToneColor="#eb2f96"/>}
+                            <span>{record.saleEffectiveOperativeType}</span> 
+                        </Ant.Space>
+                    </>
+                )
+            }
         },
         {
             title: 'مقدار درصدی',
@@ -28,7 +40,10 @@ export const columns = (onDelete, onEdit, onView) => {
             key: 'percentage',
             align: 'center',
             className: 'text-xs sm:text-sm',
-            width: 80
+            width: 80,
+            render: (text, record, index) => (
+                `${record.percentage}%`
+            )
         },
         {
             title: 'مقدار ریالی',
@@ -36,7 +51,10 @@ export const columns = (onDelete, onEdit, onView) => {
             key: 'amount',
             align: 'center',
             className: 'text-xs sm:text-sm',
-            width: 80
+            width: 80,
+            render: (text, record, index) => (
+                record.amount.toLocaleString()
+            )
         },
         {
             title: 'مجاز به ویرایش',
@@ -44,7 +62,7 @@ export const columns = (onDelete, onEdit, onView) => {
             key: 'allowEdit',
             align: 'center',
             className: 'text-xs sm:text-sm',
-            width: 80,
+            width: 50,
             render: (text, record, index) => {
                 return (
                     <>
@@ -55,6 +73,15 @@ export const columns = (onDelete, onEdit, onView) => {
             }
         },
         {
+            title: 'توضیحات',
+            dataIndex: 'description',
+            key: 'description',
+            align: 'center',
+            className: 'text-xs sm:text-sm',
+            width: 80,
+            hidden: 'true'
+        },
+        {
             title: 'عملیات',
             dataIndex: 'operation',
             key: 'operation',
@@ -63,13 +90,15 @@ export const columns = (onDelete, onEdit, onView) => {
             width: 80,
             render: (text, value) => (
                 <>
-                    <Ant.Tooltip placement="top" title={'ویرایش '}>
+                    <Ant.Tooltip placement="top" title={'مشاهده جزییات'}>
                         <Ant.Button
-                            onClick={() => onView(record.id)}
+                            onClick={() => onView(value.id)}
                             className="text-sky-600"
                             icon={<GrView/>}
                             type="text"
                         />
+                    </Ant.Tooltip>
+                    <Ant.Tooltip placement="top" title={'ویرایش'}>
                         <Ant.Button
                             className="text-blue-600"
                             onClick={() => onEdit(value)}
@@ -80,7 +109,7 @@ export const columns = (onDelete, onEdit, onView) => {
                     <Ant.Tooltip placement="top" title={' حذف'}>
                             <Ant.Popconfirm
                                 onConfirm={() => onDelete(value.id)}
-                                title={`برای حذف بانک "${value.title}" مطمئن هستید؟`}
+                                title={`آیا از حذف "${value.name}" مطمئن هستید؟`}
                             >
                             <Ant.Button
                                 className="text-red-600"
