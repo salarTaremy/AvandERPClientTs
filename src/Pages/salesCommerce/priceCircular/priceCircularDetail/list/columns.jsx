@@ -4,55 +4,56 @@ import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export const columns = (onDelete, onEdit, onView) => {
+export const columns = (onDelete, onEdit, onProductView) => {
     return [
         {
-            title: "عنوان",
-            dataIndex: "title",
-            key: "title",
-            align: "center",
-            className: "text-xs sm:text-sm",
-            width: 120
-        },
-        {
-            title: "تاریخ شروع",
-            dataIndex: "startDate",
-            key: "startDate",
+            title: "کد کالا",
+            dataIndex: "productCode",
+            key: "productCode",
             align: "center",
             className: "text-xs sm:text-sm",
             width: 80
         },
         {
-            title: "تاریخ پایان",
-            dataIndex: "endDate",
-            key: "endDate",
+            title: "نام کالا",
+            dataIndex: "productName",
+            key: "productName",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 400,
+            render: (text, record, index) => (
+                <Ant.Typography.Link onClick={() => onProductView(record.productId)}>{record.productName}</Ant.Typography.Link>
+            )
         },
         {
-            title: "وضعیت",
-            dataIndex: "isActive",
-            key: "isActive",
+            title: "سری ساخت",
+            dataIndex: "batchNumber",
+            key: "batchNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 70,
-            render: (text, record, index) => {
-                return (
-                    <>
-                        {record.isActive && <Ant.Tag color="green">فعال</Ant.Tag>}
-                        {!record.isActive && <Ant.Tag color="red">غیرفعال</Ant.Tag>}
-                    </>
-                )
-            }
+            width: 100
         },
         {
-            title: "توضیحات",
-            dataIndex: "description",
-            key: "description",
+            title: "قیمت",
+            dataIndex: "price",
+            key: "price",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 200
+            width: 120,
+            render: (text, record, index) => (
+                record.price.toLocaleString()
+            )
+        },
+        {
+            title: "قیمت مصرف کننده",
+            dataIndex: "consumerPrice",
+            key: "consumerPrice",
+            align: "center",
+            className: "text-xs sm:text-sm",
+            width: 120,
+            render: (text, record, index) => (
+                record.consumerPrice.toLocaleString()
+            )
         },
         {
             title: "عملیات",
@@ -66,12 +67,6 @@ export const columns = (onDelete, onEdit, onView) => {
                     <>
                         <Ant.Space>
                             <Ant.Button
-                                onClick={() => onView(record)}
-                                className="text-sky-600"
-                                icon={<GrView/>}
-                                type="text"
-                            />
-                            <Ant.Button
                                 onClick={() => onEdit(record.id)}
                                 className="text-blue-600"
                                 icon={<FiEdit/>}
@@ -80,7 +75,7 @@ export const columns = (onDelete, onEdit, onView) => {
                             <Ant.Popconfirm
                                 onConfirm={() => onDelete(record.id)}
                                 title="حذف آیتم"
-                                description={`آیا از حذف بخشنامه "${record.title}" مطمئن هستید؟`}
+                                description={`آیا از حذف  این سطر مطمئن هستید؟`}
                             >
                                 <Ant.Button
                                     className="text-red-600"
