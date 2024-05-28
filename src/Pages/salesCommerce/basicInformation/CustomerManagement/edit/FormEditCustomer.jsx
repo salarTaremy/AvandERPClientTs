@@ -13,7 +13,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { data } from "autoprefixer";
 
-const FormEditCustomer = ({ onSuccess, id }) => {
+const FormEditCustomer = ({ onSuccess, id, name }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
   const [listSubmitData, submitLoading, submitError, submitApiCall] =
@@ -148,7 +148,7 @@ const FormEditCustomer = ({ onSuccess, id }) => {
       <br />
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"ویرایش مشتری"}
+        title={`ویرایش مشتری " ${name} "`}
         type="inner"
       >
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">

@@ -123,9 +123,9 @@ const CustomerManagementList = () => {
       onSuccess={onSuccessEdit}
       id={val.id}
       key={val.id}
+      name={val.customerName}
     />);
     setModalState(true);
-    console.log('id',val.id)
   };
 
   //====================================================================
