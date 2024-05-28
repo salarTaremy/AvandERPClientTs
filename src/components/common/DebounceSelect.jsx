@@ -4,7 +4,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { Select, Spin } from "antd";
 import debounce from "lodash.debounce";
 
-const DebounceSelect = ({ fetchOptions, debounceTimeout = 1000, ...props }) => {
+const DebounceSelect = ({ fetchOptions , debounceTimeout = 1000,fieldNames, ...props }) => {
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState([]);
   const fetchRef = useRef(0);
@@ -25,11 +25,10 @@ const DebounceSelect = ({ fetchOptions, debounceTimeout = 1000, ...props }) => {
       });
     };
     return debounce(loadOptions, debounceTimeout);
-  }, [fetchOptions, debounceTimeout]);
+  }, [fetchOptions, debounceTimeout,fieldNames]);
   return (
     <>
       <Select
-
         labelInValue
         filterOption={false}
         showSearch
@@ -38,6 +37,7 @@ const DebounceSelect = ({ fetchOptions, debounceTimeout = 1000, ...props }) => {
         notFoundContent={fetching ? <Spin size="small" /> : null}
         {...props}
         options={options}
+        fieldNames={fieldNames}
 
       />
     </>

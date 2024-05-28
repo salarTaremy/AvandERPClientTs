@@ -10,6 +10,13 @@ export const TABLE_PROPS = {
 }
 
 export const MODAL_PROPS = {
-  width : 1000
+  size: 'middel'
+}
+
+export const MODAL_LARGE = {
+  width: 1000
+}
+export const MODAL_EXTRA_LARGE = {
+  width: 1300
 }
 

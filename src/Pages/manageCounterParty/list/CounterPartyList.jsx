@@ -182,7 +182,8 @@ const CounterPartyList = () => {
   return (
     <>
       <Ant.Modal
-        {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_PROPS }
+        {...defaultValues.MODAL_EXTRA_LARGE}
         open={modalState}
         handleCancel={() => setModalState(false)}
         onCancel={() => {
@@ -190,7 +191,7 @@ const CounterPartyList = () => {
         }}
         footer={null}
         centered
-        width={1300}
+
       >
         {modalContent}
       </Ant.Modal>

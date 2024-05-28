@@ -48,6 +48,16 @@ const HeaderCounterParty = ({ data }) => {
       label: "کد اقتصادی",
       children: data?.data?.economicCode,
     },
+    {
+      key: "8",
+      label: "کد ملی",
+      children: data?.data?.nationalCode,
+    },
+    {
+      key: "9",
+      label: " ایمیل",
+      children: data?.data?.email,
+    },
   ];
   return (
     <>

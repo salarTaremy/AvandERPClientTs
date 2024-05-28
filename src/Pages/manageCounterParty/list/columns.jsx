@@ -17,7 +17,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
 
     },
     {
-      title: "جزئیات حساب",
+      title: "نوع حساب",
       dataIndex: "counterpartyTypeTitle",
       key: "counterpartyTypeTitle",
       width: 100,

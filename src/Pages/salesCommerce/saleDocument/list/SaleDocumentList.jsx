@@ -149,7 +149,8 @@ const SaleDocumentList = () => {
         open={documentDetailModalState}
         centered
         {...defaultValues.MODAL_PROPS}
-        width={1300}
+        {...defaultValues.MODAL_EXTRA_LARGE}
+
         getContainer={null}
         footer={null}
         onCancel={() => setDocumentDetailModalState(false)}

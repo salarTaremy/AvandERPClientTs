@@ -14,12 +14,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { data } from "autoprefixer";
 
 const FormEditCustomer = () => {
+  const fieldNamesList={ label: 'label', value: 'value' }
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
   const [listSubmitData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
 
   const [empty, setEmpty] = useState(undefined);
+  const [debounceValue, setDebounceValue] = useState(null);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
   const [customerGroupList, customerGroupLoading, customerGroupError] =
@@ -48,7 +50,7 @@ const FormEditCustomer = () => {
     loading: submitLoading,
     data: listSubmitData,
   });
-  const fieldNames = { value: "value", label: "label" };
+
   const [form] = Ant.Form.useForm();
   const commonOptions = {
     placeholder: "انتخاب کنید...",
@@ -106,7 +108,9 @@ const FormEditCustomer = () => {
       return response?.data.map((item) => ({
         label: `${item.counterpartyName} `,
         value: item.id,
-      }));
+      }
+
+    ));
     }
   };
 
@@ -153,7 +157,10 @@ const FormEditCustomer = () => {
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
-              <Ant.Card loading={editLoading} style={{ ...styles.CARD_DEFAULT_STYLES }}>
+              <Ant.Card
+                loading={editLoading}
+                style={{ ...styles.CARD_DEFAULT_STYLES }}
+              >
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }, { max: 10 }]}
@@ -186,12 +193,11 @@ const FormEditCustomer = () => {
                   >
                     <DebounceSelect
                       onChange={handleCounterParty}
-                      // fieldNames={{ label: "counterpartyName", value: "counterpartyId" }}
                       maxCount={1}
                       placeholder="بخشی از نام مشتری را تایپ کنید..."
-
                       fetchOptions={getAllCounterPartyForDropDown}
-                    fieldNames={{ label: "label", value: "value" }}
+                      fieldNames={fieldNamesList}
+                      // fieldNames={{ label: "label", value: "value" }}
                     />
                   </Ant.Form.Item>
                 </Ant.Col>

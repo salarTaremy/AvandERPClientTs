@@ -133,7 +133,7 @@ const FilterPanel = (props) => {
         </Ant.Form.Item> */}
         <Ant.Form.Item
           rules={[{ required: false }, { max: 150 }]}
-          name={"counterpartyTitle"}
+          name={"CounterpartyName"}
           label="عنوان طرف حساب"
         >
           <Ant.Input
@@ -143,19 +143,6 @@ const FilterPanel = (props) => {
             style={{ width: "100%" }}
           />
         </Ant.Form.Item>
-        <Ant.Form.Item
-          rules={[{ required: false }, { max: 150 }]}
-          name={"companyTitle"}
-          label="عنوان شرکت/سازمان"
-        >
-          <Ant.Input
-            allowClear
-            showCount
-            maxLength={150}
-            style={{ width: "100%" }}
-          />
-        </Ant.Form.Item>
-
         <Ant.Form.Item name={"code"} label="کد">
           <Ant.InputNumber
             maxLength={10}
