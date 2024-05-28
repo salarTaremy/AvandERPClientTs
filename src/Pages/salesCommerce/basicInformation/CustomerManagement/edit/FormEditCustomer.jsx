@@ -13,7 +13,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { data } from "autoprefixer";
 
-const FormEditCustomer = () => {
+const FormEditCustomer = ({ onSuccess, id }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
   const [listSubmitData, submitLoading, submitError, submitApiCall] =
@@ -35,7 +35,6 @@ const FormEditCustomer = () => {
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
   const params = useParams();
-  const navigate = useNavigate();
   useRequestManager({ error: editError });
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
@@ -80,6 +79,7 @@ const FormEditCustomer = () => {
     form.resetFields();
     editData?.isSuccess && form.setFieldsValue({ ...(editData?.data || null) });
   }, [editData]);
+
   //==================================================================
   //                        Functions
   //==================================================================
@@ -87,10 +87,10 @@ const FormEditCustomer = () => {
   const getMaxCode = async () => {
     await maxCodeApiCall(`${url.CUSTOMER_FREE_CODE}`);
   };
-  const handleCounterParty = async (val) => {
-    setEmpty(val);
+  const handleCounterParty = async () => {
+    setEmpty(id);
     console.log(val, "klklk");
-    await ApiCall(`${url.COUNTER_PARTY}/${val?.key}`);
+    await ApiCall(`${url.COUNTER_PARTY}/${id}`);
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
@@ -111,16 +111,16 @@ const FormEditCustomer = () => {
   };
 
   const onEdit = async () => {
-    await editApiCall(`${url.CUSTOMER}/${params.id}`);
+    await editApiCall(`${url.CUSTOMER}/${id}`);
   };
   const onFinish = async (values) => {
     const req = {
       ...values,
       counterpartyId: values?.counterpartyId,
-      id: parseInt(params.id),
+      id: id,
     };
     await submitApiCall(url.CUSTOMER, req);
-    navigate("/sale/customerManagemen");
+    onSuccess()
   };
 
   //====================================================================
@@ -145,6 +145,7 @@ const FormEditCustomer = () => {
 
   return (
     <>
+      <br />
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"ویرایش مشتری"}
@@ -154,6 +155,23 @@ const FormEditCustomer = () => {
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
               <Ant.Card loading={editLoading} style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                <Ant.Col>
+                  <Ant.Form.Item
+                    rules={[{ required: true }]}
+                    name={"counterpartyId"}
+                    label="طرف حساب مرتبط"
+                  >
+                    <DebounceSelect
+                      onChange={handleCounterParty}
+                      // fieldNames={{ label: "counterpartyName", value: "counterpartyId" }}
+                      maxCount={1}
+                      placeholder="بخشی از نام مشتری را تایپ کنید..."
+
+                      fetchOptions={getAllCounterPartyForDropDown}
+                      fieldNames={{ label: "label", value: "value" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }, { max: 10 }]}
@@ -178,24 +196,6 @@ const FormEditCustomer = () => {
                     <Ant.Input allowClear showCount />
                   </Ant.Form.Item>
                 </Ant.Col>
-                <Ant.Col>
-                  <Ant.Form.Item
-                    rules={[{ required: true }]}
-                    name={"counterpartyId"}
-                    label="طرف حساب مرتبط"
-                  >
-                    <DebounceSelect
-                      onChange={handleCounterParty}
-                      // fieldNames={{ label: "counterpartyName", value: "counterpartyId" }}
-                      maxCount={1}
-                      placeholder="بخشی از نام مشتری را تایپ کنید..."
-
-                      fetchOptions={getAllCounterPartyForDropDown}
-                    fieldNames={{ label: "label", value: "value" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: false }]}
