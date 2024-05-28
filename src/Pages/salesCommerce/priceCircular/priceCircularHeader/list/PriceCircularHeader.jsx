@@ -13,7 +13,7 @@ import FilterDrawer from '@/components/common/FilterDrawer';
 import FilterBedge from '@/components/common/FilterBedge';
 // import FormSaleEffectiveFactorAdd from "../add/FormSaleEffectiveFactorAdd";
 // import FormSaleEffectiveFactorEdit from "../edit/FormSaleEffectiveFactorEdit";
-// import SaleEffectiveFactorDescription from "../description/SaleEffectiveFactorDescription";
+import PriceCircularDetailList from "../../priceCircularDetail/list/PriceCircularDetailList";
 import useRequestManager from '@/hooks/useRequestManager';
 
 //====================================================================
@@ -81,9 +81,9 @@ const PriceCircularHeader = () => {
       getPriceCircularList()
     }
 
-    const onView = async (id) => {
-    //   setModalContent(<SaleEffectiveFactorDescription id={id} />);
-    //  setModalOpenState(true);
+    const onView = async (value) => {
+      setModalContent(<PriceCircularDetailList priceCircularHeaderId={value.id} priceCircularHeaderName={value.title}/>);
+      setModalOpenState(true);
     };
 
     const onSuccessAdd = () => {
@@ -148,7 +148,7 @@ const PriceCircularHeader = () => {
             open={modalOpenState}
             centered
             {...defaultValues.MODAL_PROPS}
-            width={500}
+            width={1300}
             getContainer={null}
             footer={null}
             onCancel={() => setModalOpenState(false)}

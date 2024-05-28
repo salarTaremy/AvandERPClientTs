@@ -66,7 +66,7 @@ export const columns = (onDelete, onEdit, onView) => {
                     <>
                         <Ant.Space>
                             <Ant.Button
-                                onClick={() => onView(record.id)}
+                                onClick={() => onView(record)}
                                 className="text-sky-600"
                                 icon={<GrView/>}
                                 type="text"

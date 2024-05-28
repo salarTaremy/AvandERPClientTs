@@ -17,6 +17,7 @@ import ButtonList from "@/components/common/ButtonList";
 import { useNavigate, generatePath } from "react-router-dom";
 import CustomerDescription from "../description/CustomerDescription";
 import FormAddCustomer from "../add/FormAddCustomer";
+import FormEditCustomer from "../edit/FormEditCustomer";
 
 const CustomerManagementList = () => {
   const navigate = useNavigate();
@@ -111,9 +112,20 @@ const CustomerManagementList = () => {
   const onDelete = async (id) => {
     await DeleteApiCall(`${url.CUSTOMER}/${id}`);
   };
+
+  const onSuccessEdit = () => {
+    setModalState(false);
+    getAllCustomer();
+  };
+
   const onEdit = (val) => {
-    const id = val.id;
-    navigate(generatePath("/sale/customerManagemen/edit/:id", { id }));
+    setModalContent(<FormEditCustomer
+      onSuccess={onSuccessEdit}
+      id={val.id}
+      key={val.id}
+      name={val.customerName}
+    />);
+    setModalState(true);
   };
 
   //====================================================================

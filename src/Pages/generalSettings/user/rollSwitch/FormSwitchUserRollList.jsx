@@ -66,10 +66,11 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     //====================================================================
     const getRoleScopeWithRoles = async () => {
         const req = {
-            roleScopePersianTitle: filterObject?.roleScopePersianTitle,
+            roleScopePersianTitle: filterObject?.persianTitle,
             rolePersianTitle: filterObject?.rolePersianTitle,
             UserId: userId,
         }
+        console.log('req',filterObject)
         const queryString = qs.stringify(req);
         await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`)
     }

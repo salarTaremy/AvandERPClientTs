@@ -76,6 +76,9 @@ export const PRODUCT_NATURE = '/productNature'
 //ProductNatureDetail
 export const PRODUCT_NATURE_DETAIL = '/productNatureDetail'
 
+//BatchNumber
+export const BATCH_NUMBER = '/batchNumber'
+
 //Brand
 export const BRAND = '/brand'
 export const BRAND_MAX_CODE = "/brand/maxCode"
@@ -128,6 +131,7 @@ export const SALE_DOCUMENT_DETAIL_EFFECTIVE_FACTOR = 'SaleDocumentDetailEffectiv
 export const SALE_EFFECTIVE_FACTOR = 'SaleEffectiveFactor'
 export const SALE_EFFECTIVE_FACTOR_TYPE = 'SaleEffectiveFactor/GetSaleEffectiveFactorType'
 export const PRICE_CIRCULAR_HEADER = 'PriceCircularHeader'
+export const PRICE_CIRCULAR_DETAIL = 'PriceCircularDetail'
 
 //Sales - TaxPayersSystem (سامانه مودیان)
 export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDocumentType'
