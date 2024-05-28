@@ -51,7 +51,7 @@ const FilterPanel = (props) => {
                         disabled={roleLoading || false}
                         loading={roleLoading}
                         options={roleData?.data}
-                        fieldNames={{ label: "persianTitle", value: "id" }}
+                        fieldNames={{ label: "persianTitle", value: "persianTitle" }}
                     />
                 </Ant.Form.Item>
                 <Ant.Form.Item name={'rolePersianTitle'} label="نام نقش ">
