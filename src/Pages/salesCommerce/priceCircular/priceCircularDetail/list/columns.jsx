@@ -4,7 +4,7 @@ import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export const columns = (onDelete, onEdit, onProductView) => {
+export const columns = (onProductView, onBatchNumberView) => {
     return [
         {
             title: "کد کالا",
@@ -31,7 +31,10 @@ export const columns = (onDelete, onEdit, onProductView) => {
             key: "batchNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100
+            width: 100,
+            render: (text, record, index) => (
+                <Ant.Typography.Link onClick={() => onBatchNumberView(record.batchNumberId)}>{record.batchNumber}</Ant.Typography.Link>
+            )
         },
         {
             title: "قیمت",

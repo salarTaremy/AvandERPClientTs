@@ -76,6 +76,9 @@ export const PRODUCT_NATURE = '/productNature'
 //ProductNatureDetail
 export const PRODUCT_NATURE_DETAIL = '/productNatureDetail'
 
+//BatchNumber
+export const BATCH_NUMBER = '/batchNumber'
+
 //Brand
 export const BRAND = '/brand'
 export const BRAND_MAX_CODE = "/brand/maxCode"

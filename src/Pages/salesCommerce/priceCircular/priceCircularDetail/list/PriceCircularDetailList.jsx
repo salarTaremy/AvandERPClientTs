@@ -7,6 +7,7 @@ import * as defaultValues from "@/defaultValues";
 import { columns } from "./columns";
 import useRequestManager from "@/hooks/useRequestManager";
 import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription";
+import BatchNumberDescription from "../../../../inventory/batchNumber/description/BatchNumberDescription";
 
 //====================================================================
 //                        Declaration
@@ -44,17 +45,14 @@ const PriceCircularDetailList = (props) => {
         });
         await listApiCall(`${url.PRICE_CIRCULAR_DETAIL}?${queryString}`);
     }
-
-    const onDelete = (id) => {
-        console.log("onDelete: " + id);
-    }
-
-    const onEdit = (id) => {
-        console.log("onEdit: " + id);
-    }
    
     const onProductView = (productId) => {
         setModalContent(<DetailProductListDescription id={productId}/>);
+        setModalOpenState(true);
+    }
+    
+    const onBatchNumberView = (batchNumberId) => {
+        setModalContent(<BatchNumberDescription id={batchNumberId}/>);
         setModalOpenState(true);
     }
 
@@ -82,7 +80,7 @@ const PriceCircularDetailList = (props) => {
                 </Ant.Modal>
                 <Ant.Skeleton loading={listLoading}>
                     <Ant.Table
-                        columns={columns(onDelete, onEdit, onProductView)}
+                        columns={columns(onProductView, onBatchNumberView)}
                         dataSource={dataSource}
                         pagination={pagination}
                         {...defaultValues.TABLE_PROPS}
