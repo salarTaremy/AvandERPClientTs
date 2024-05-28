@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import * as api from "@/api";
 import * as url from "@/api/url";
 import * as Ant from "antd";
 import { Typography } from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
+import PriceCircularDetailList from "../../priceCircularDetail/list/PriceCircularDetailList";
 
 //====================================================================
 //                        Declaration
@@ -13,12 +14,20 @@ const PriceCircularHeaderDescription = (props) => {
     const pageTitle = "بخشنامه قیمت مرتبط";
     const [priceCircularHeaderData, priceCircularHeaderLoading, priceCircularHeaderError] = 
         api.useFetch(`${url.PRICE_CIRCULAR_HEADER_GET_BY_DETAIL_ID}/${priceCircularDetailId}`);
+    const [modalOpenState, setModalOpenState] = useState(false);
+    const [modalContent, setModalContent] = useState(false);
     useRequestManager({error: priceCircularHeaderError});
+    
+    const onViewPriceCircularDetail = () => {
+        setModalContent(<PriceCircularDetailList priceCircularHeaderId={priceCircularHeaderData?.data?.id} priceCircularHeaderName={priceCircularHeaderData?.data?.title}/>);
+        setModalOpenState(true);
+    }
+
     const descriptionItems = [
         {
             key: "1",
             label: "عنوان",
-            children: <Typography.Link href="#">{priceCircularHeaderData?.data?.title}</Typography.Link>
+            children: <Typography.Link onClick={onViewPriceCircularDetail}>{priceCircularHeaderData?.data?.title}</Typography.Link>
         },
         {
             key: "2",
@@ -48,6 +57,17 @@ const PriceCircularHeaderDescription = (props) => {
     return (
         <>
         <Ant.Skeleton active={true} loading={priceCircularHeaderLoading}>
+                <Ant.Modal
+                    open={modalOpenState}
+                    centered
+                    width={1300}
+                    getContainer={null}
+                    footer={null}
+                    onCancel={() => setModalOpenState(false)}
+                    onOk={() => setModalOpenState(false)}
+                >
+                    {modalContent}
+                </Ant.Modal>
             <Ant.Descriptions
                 column={{
                     xs: 1,
