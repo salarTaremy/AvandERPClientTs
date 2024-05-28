@@ -55,38 +55,5 @@ export const columns = (onDelete, onEdit, onProductView) => {
                 record.consumerPrice.toLocaleString()
             )
         },
-        {
-            title: "عملیات",
-            key: "id",
-            align: "center",
-            className: "text-xs sm:text-sm",
-            width: 120,
-            fixed: "right",
-            render: (text, record, index) => {
-                return (
-                    <>
-                        <Ant.Space>
-                            <Ant.Button
-                                onClick={() => onEdit(record.id)}
-                                className="text-blue-600"
-                                icon={<FiEdit/>}
-                                type="text"
-                            />
-                            <Ant.Popconfirm
-                                onConfirm={() => onDelete(record.id)}
-                                title="حذف آیتم"
-                                description={`آیا از حذف  این سطر مطمئن هستید؟`}
-                            >
-                                <Ant.Button
-                                    className="text-red-600"
-                                    icon={<RiDeleteBin6Line />}
-                                    type="text"
-                                />
-                            </Ant.Popconfirm>
-                        </Ant.Space>
-                    </>
-                )
-            }
-        },
     ];
 }
