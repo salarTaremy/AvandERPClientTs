@@ -17,7 +17,7 @@ import HeaderEditCounterParty from "./HeaderEditCounterParty";
 import Informationccounts from "./Informationccounts";
 import * as api from "@/api";
 import { useParams } from "react-router-dom";
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditCounterParty = ({ onSuccess, id }) => {
   const params = useParams();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
@@ -60,7 +60,6 @@ const FormEditCounterParty = ({ onSuccess, id }) => {
       ?.toString()
       .replace(/\//g, "");
 
-
     const dataList = {
       ...value,
       id: id,
@@ -74,22 +73,16 @@ const FormEditCounterParty = ({ onSuccess, id }) => {
       ? value.bankAccountList
       : Array(0);
 
-
     await editApiCall(url.COUNTER_PARTY, dataList);
   };
-
 
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <br />
-      <Ant.Card
-        style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"ویرایش طرف حساب"}
-        type="inner"
-      >
+      <ModalHeader title={"ویرایش طرف حساب"} />
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <Ant.Tabs type="card" defaultActiveKey="1">
             <TabPane forceRender={true} tab="اطلاعات تماس " key="1">
@@ -113,12 +106,17 @@ const FormEditCounterParty = ({ onSuccess, id }) => {
             </TabPane>
           </Ant.Tabs>
           <Ant.Flex className="items-end " vertical>
-            <Ant.Button className="px-6" type="primary" htmlType="submit" style={{ width: 150 }}>
+            <Ant.Button
+              className="px-6"
+              type="primary"
+              htmlType="submit"
+              style={{ width: 150 }}
+            >
               {"ذخیره"}
             </Ant.Button>
           </Ant.Flex>
         </Ant.Form>
-      </Ant.Card >
+      </Ant.Card>
     </>
   );
 };

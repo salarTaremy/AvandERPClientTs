@@ -13,7 +13,7 @@ import {
   usePutWithHandler,
 } from "@/api";
 import ButtonList from "@/components/common/ButtonList";
-import FormDocumentType from "../form/FormDocumentType";
+import FormDocumentType from "../add/FormAddDocumentType";
 
 const DocumentTypeList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();

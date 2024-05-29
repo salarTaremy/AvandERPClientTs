@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { forwardRef, useImperativeHandle } from 'react'
 import * as Ant from 'antd'
 import PropTypes from 'prop-types'
+import ModalHeader from "@/components/common/ModalHeader";
 const FormDocumentType = forwardRef((props, ref) => {
   const { obj, onFinish, loading } = props
   const [form] = Ant.Form.useForm()
@@ -17,12 +18,7 @@ const FormDocumentType = forwardRef((props, ref) => {
   return (
     <>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row>
-          <Ant.Col span={24}>
-            {'ایجاد نوع سند حسابداری'}
-            <Ant.Divider />
-          </Ant.Col>
-        </Ant.Row>
+        <ModalHeader title={' نوع سند حسابداری'} />
         <Ant.Form.Item name="name" label={'نوع سند'} rules={[{ required: true }]}>
           <Ant.Input allowClear showCount maxLength={200} />
         </Ant.Form.Item>
