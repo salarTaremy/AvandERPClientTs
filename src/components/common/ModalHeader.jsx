@@ -7,7 +7,7 @@ const ModalHeader = (props) => {
       <Ant.Col span={24}>
         {props.icon}
         <strong className="mr-2">{props.title}</strong>
-        <Ant.Divider> </Ant.Divider>
+        <Ant.Divider/>
       </Ant.Col>
     </Ant.Row>
   );
