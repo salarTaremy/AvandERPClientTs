@@ -29,7 +29,7 @@ const PriceCircularDetailList = (props) => {
     //                        useEffects
     //====================================================================
     useEffect(() => {
-        getPriceCircularDetailList(); 
+        getPriceCircularDetailList();
     }, [priceCircularHeaderId]);
 
     useEffect(() => {
@@ -41,16 +41,16 @@ const PriceCircularDetailList = (props) => {
     //====================================================================
     const getPriceCircularDetailList = async () => {
         const queryString = qs.stringify({
-            priceCircularHeaderId: props.priceCircularHeaderId 
+            priceCircularHeaderId: props.priceCircularHeaderId
         });
         await listApiCall(`${url.PRICE_CIRCULAR_DETAIL}?${queryString}`);
     }
-   
+
     const onProductView = (productId) => {
         setModalContent(<DetailProductListDescription id={productId}/>);
         setModalOpenState(true);
     }
-    
+
     const onBatchNumberView = (batchNumberId) => {
         setModalContent(<BatchNumberDescription id={batchNumberId}/>);
         setModalOpenState(true);
@@ -70,7 +70,8 @@ const PriceCircularDetailList = (props) => {
                 <Ant.Modal
                     open={modalOpenState}
                     centered
-                    width={800}
+                    {...defaultValues.MODAL_PROPS}
+                    {...defaultValues.MODAL_LARGE}
                     getContainer={null}
                     footer={null}
                     onCancel={() => setModalOpenState(false)}

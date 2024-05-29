@@ -91,7 +91,6 @@ function RoleManagement() {
 
   const onEdit = (val) => {
     setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
-    console.log(modalSize,"modalSize")
     setModalContent(
       <FormEditRole
         onSuccess={onSuccessEdit}

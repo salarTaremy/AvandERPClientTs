@@ -4,6 +4,7 @@ import { usePostWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
+import HeaderModal from "@/components/common/HeaderModal";
 
 const FormAddNewUser = (props) => {
     const { onSuccess } = props
@@ -35,12 +36,8 @@ const FormAddNewUser = (props) => {
     return (
         <>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                <Ant.Row>
-                    <Ant.Col span={24}>
-                        {'ایجاد کاربر جدید '}
-                        <Ant.Divider />
-                    </Ant.Col>
-                </Ant.Row>
+
+                <HeaderModal title={'ایجاد کاربر جدید '} />
                 <Ant.Form.Item name="userName" label={'نام کاربری'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={50} />
                 </Ant.Form.Item>

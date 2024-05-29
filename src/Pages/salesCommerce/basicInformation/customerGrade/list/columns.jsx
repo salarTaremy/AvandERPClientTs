@@ -12,6 +12,7 @@ const columns = (onDelete, onEdit) => {
                 key: "title",
                 width: 100,
                 className: "text-xs sm:text-sm",
+                align:'center'
             },
             {
                 title: "توضیحات",

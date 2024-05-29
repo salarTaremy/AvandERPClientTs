@@ -128,7 +128,7 @@ const BrandList = () => {
   return (
     <>
      <Ant.Modal
-     width={800}
+       {...defaultValues.MODAL_PROPS}
         open={modalState}
         centered
         getContainer={null}

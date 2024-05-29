@@ -5,6 +5,7 @@ import * as Ant from "antd";
 import { Typography } from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
 import PriceCircularDetailList from "../../priceCircularDetail/list/PriceCircularDetailList";
+import * as defaultValues from "@/defaultValues";
 
 //====================================================================
 //                        Declaration
@@ -12,12 +13,12 @@ import PriceCircularDetailList from "../../priceCircularDetail/list/PriceCircula
 const PriceCircularHeaderDescription = (props) => {
     const {priceCircularDetailId } = props;
     const pageTitle = "بخشنامه قیمت مرتبط";
-    const [priceCircularHeaderData, priceCircularHeaderLoading, priceCircularHeaderError] = 
+    const [priceCircularHeaderData, priceCircularHeaderLoading, priceCircularHeaderError] =
         api.useFetch(`${url.PRICE_CIRCULAR_HEADER_GET_BY_DETAIL_ID}/${priceCircularDetailId}`);
     const [modalOpenState, setModalOpenState] = useState(false);
     const [modalContent, setModalContent] = useState(false);
     useRequestManager({error: priceCircularHeaderError});
-    
+
     const onViewPriceCircularDetail = () => {
         setModalContent(<PriceCircularDetailList priceCircularHeaderId={priceCircularHeaderData?.data?.id} priceCircularHeaderName={priceCircularHeaderData?.data?.title}/>);
         setModalOpenState(true);
@@ -60,7 +61,8 @@ const PriceCircularHeaderDescription = (props) => {
                 <Ant.Modal
                     open={modalOpenState}
                     centered
-                    width={1300}
+                    {...defaultValues.MODAL_PROPS}
+                    {...defaultValues.MODAL_EXTRA_LARGE}
                     getContainer={null}
                     footer={null}
                     onCancel={() => setModalOpenState(false)}

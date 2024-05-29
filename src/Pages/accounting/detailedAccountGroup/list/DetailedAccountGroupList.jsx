@@ -25,10 +25,10 @@ const DetailedAccountGroupList = () => {
   const [editSaving, editLoading, editArror, editApiCall] = usePutWithHandler();
   const [editingValue, setEditingValue] = useState({});
   const [dataSource, setDataSource] = useState(null);
-  const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
-  const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
-  const [isDescription, setDescription] = useState(false);
+  const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
+  const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const formAccountGroup = useRef();
   useRequestManager({ error: listError });
 
@@ -60,7 +60,6 @@ const DetailedAccountGroupList = () => {
 
   useEffect(() => {
     if (editSaving && editSaving?.isSuccess) {
-      setIsModalOpenEdit(false);
       getAllAccountGroup();
     }
   }, [editSaving]);
@@ -97,12 +96,23 @@ const DetailedAccountGroupList = () => {
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    setEditingValue(val);
-    setIsModalOpenEdit(true);
+    // setEditingValue(val);
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList);
+    setModalContent(
+      <FrmEditDetailedAccountGroup
+        obj={val}
+        onFinish={onSubmitEdit}
+        loading={editLoading}
+      />,
+    );
+    setModalState(true);
   };
+
   const onView = (id) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE });
     setModalContent(<DetailedAccountGroupDescription id={id} key={id} />);
-    setDescription(true);
+    setModalState(true);
   };
   //====================================================================
   //                        Child Components
@@ -138,39 +148,29 @@ const DetailedAccountGroupList = () => {
   //====================================================================
   return (
     <>
-      <Ant.Modal
-        open={isModalOpenEdit}
-        handleCancel={() => setIsModalOpenEdit(false)}
-        onCancel={() => {
-          setIsModalOpenEdit(false);
-        }}
-        footer={null}
-        centered
+      <Ant.Card
+        style={{ ...styles.CARD_DEFAULT_STYLES }}
+        title={"گروه های تفصیل"}
+        type="inner"
       >
-        <FrmEditDetailedAccountGroup
-          obj={editingValue}
-          onFinish={onSubmitEdit}
-          loading={editLoading}
-        />
-      </Ant.Modal>
-
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"گروه های تفصیل"} type="inner">
         <Ant.Skeleton loading={listLoading}>
           <Grid />
         </Ant.Skeleton>
       </Ant.Card>
 
       <Ant.Modal
-        width={800}
-        open={isDescription}
-        handleCancel={() => {
-          setDescription(false);
-        }}
-        onCancel={() => {
-          setDescription(false);
-        }}
-        footer={null}
+        open={modalState}
         centered
+        getContainer={null}
+        footer={null}
+        onCancel={() => {
+          setModalState(false);
+        }}
+        onOk={() => {
+          setModalState(false);
+        }}
+        {...defaultValues.MODAL_PROPS}
+        {...modalSize}
       >
         {modalContent}
       </Ant.Modal>

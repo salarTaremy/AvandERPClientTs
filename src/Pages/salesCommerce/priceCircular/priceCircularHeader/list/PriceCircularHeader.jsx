@@ -42,16 +42,16 @@ const PriceCircularHeader = () => {
         !filterObject && setFilterCount(0)
         getPriceCircularList();
       }, [filterObject]);
-  
+
       useEffect(() => {
         setDataSource(listData?.data);
       }, [listData]);
-  
+
       useEffect(() => {
         deleteSaving?.isSuccess &&
           setDataSource([...dataSource?.filter((c) => c.id !== deleteSaving?.data?.id)])
       }, [deleteSaving])
-  
+
     //====================================================================
     //                        Functions
     //====================================================================
@@ -100,7 +100,7 @@ const PriceCircularHeader = () => {
       setFilterObject(filterObject)
       setOpenFilter(false)
     }
-  
+
     const onRemoveFilter = () => {
       setFilterObject(null)
       setOpenFilter(false)
@@ -138,7 +138,7 @@ const PriceCircularHeader = () => {
           </>
         );
       };
-  
+
     //====================================================================
     //                        Component
     //====================================================================
@@ -148,7 +148,7 @@ const PriceCircularHeader = () => {
             open={modalOpenState}
             centered
             {...defaultValues.MODAL_PROPS}
-            width={1300}
+            {...defaultValues.MODAL_EXTRA_LARGE}
             getContainer={null}
             footer={null}
             onCancel={() => setModalOpenState(false)}

@@ -19,12 +19,14 @@ const BrandDescription = (props) => {
     {
       key: '1',
       label: 'شناسه',
+      span: 3,
       children: data?.data?.id,
 
     },
     {
       key: '2',
       label: 'کد ',
+      span: 3,
       children: data?.data?.code,
     },
     {

@@ -145,7 +145,7 @@ const ProductList = () => {
   return (
     <>
       <Ant.Modal
-        width={800}
+
         open={modalState}
         handleCancel={() => {
           setModalState(false)
@@ -154,8 +154,9 @@ const ProductList = () => {
           setModalState(false)
         }}
         footer={null}
-        centered
+
         {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_LARGE}
       >
         {modalContent}
       </Ant.Modal>

@@ -30,6 +30,7 @@ const DetailedAccountList = () => {
   const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
+  const [modalSize, setModalSize] = useState({...defaultValues.MODAL_LARGE});
   useRequestManager({ error: listError });
   useRequestManager({ error: delError, data: delData, loading: delLoading });
   //====================================================================
@@ -76,6 +77,8 @@ const DetailedAccountList = () => {
     fillGrid();
   };
   const onAdd = () => {
+    const updateList = { ...defaultValues.MODAL_LARGE, width:520 };
+    setModalSize(updateList)
     setModalContent(
       <FrmAddDetailedAccount onSuccess={onSuccessAdd} key={uuid.v1()} />,
     );
@@ -85,6 +88,8 @@ const DetailedAccountList = () => {
     await delApiCall(`${url.DETAILED_ACCOUNT}/${id}`);
   };
   const onEdit = (val) => {
+    const updateList = { ...defaultValues.MODAL_LARGE, width:520 };
+    setModalSize(updateList)
     setModalContent(
       <FrmEditDetailedAccount
         onSuccess={onSuccessEdit}
@@ -96,6 +101,7 @@ const DetailedAccountList = () => {
     setModalState(true);
   };
   const onView = (id) => {
+    setModalSize({...defaultValues.MODAL_LARGE})
     setModalContent(<DetailedAccountDescription id={id} key={id} />);
     setModalState(true);
   };
@@ -137,7 +143,8 @@ const DetailedAccountList = () => {
       <Ant.Modal
         open={modalState}
         centered
-        width={800}
+        {...defaultValues.MODAL_PROPS}
+        {...modalSize}
         getContainer={null}
         footer={null}
         onCancel={() => {

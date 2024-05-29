@@ -14,139 +14,149 @@ import FormAddNewBanks from "../add/FormAddNewBanks";
 import BranchList from "../branch/BranchList";
 
 const banksList = () => {
-    const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
-    const [dataSource, setDataSource] = useState(null);
-    useRequestManager({ error: error });
-    useRequestManager({ error: delError, loading: delLoading, data: delSaving });
-    const [modalState, setModalState] = useState(false);
-    const [modalContent, setModalContent] = useState();
-    //====================================================================
-    //                        useEffects
-    //====================================================================
-    useEffect(() => {
-        getAllBanks();
-    }, []);
+  const [listData, loading, error, ApiCall] = useFetchWithHandler();
+  const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
+  const [dataSource, setDataSource] = useState(null);
+  useRequestManager({ error: error });
+  useRequestManager({ error: delError, loading: delLoading, data: delSaving });
+  const [modalState, setModalState] = useState(false);
+  const [modalContent, setModalContent] = useState();
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+  useEffect(() => {
+    getAllBanks();
+  }, []);
 
-    useEffect(() => {
-        setDataSource((listData?.isSuccess && listData?.data) || null);
-    }, [listData]);
+  useEffect(() => {
+    setDataSource((listData?.isSuccess && listData?.data) || null);
+  }, [listData]);
 
-    useEffect(() => {
-        delSaving?.isSuccess &&
-            setDataSource([
-                ...dataSource?.filter((c) => c.id !== delSaving?.data?.id),
-            ]);
-    }, [delSaving]);
+  useEffect(() => {
+    delSaving?.isSuccess &&
+      setDataSource([
+        ...dataSource?.filter((c) => c.id !== delSaving?.data?.id),
+      ]);
+  }, [delSaving]);
 
-    //====================================================================
-    //                        Functions
-    //====================================================================
-    const getAllBanks = async () => {
-        await ApiCall(url.BANK);
-    };
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const getAllBanks = async () => {
+    await ApiCall(url.BANK);
+  };
 
-    const onDelete = async (id) => {
-        await delApiCall(`${url.BANK}/${id}`);
-    };
+  const onDelete = async (id) => {
+    await delApiCall(`${url.BANK}/${id}`);
+  };
 
-    const onSuccessEdit = () => {
-        setModalState(false);
-        getAllBanks();
-    };
+  const onSuccessEdit = () => {
+    setModalState(false);
+    getAllBanks();
+  };
 
-    const onAdd = () => {
-        setModalContent(
-            <FormAddNewBanks key={uuid.v1()} onSuccess={onSuccessAdd} />
-        );
-        setModalState(true);
-    };
-
-    const onSuccessAdd = () => {
-        setModalState(false);
-        getAllBanks();
-    };
-
-    //====================================================================
-    //                        Events
-    //====================================================================
-    const onEdit = (val) => {
-        setModalContent(
-            <FormEditBanks
-                onSuccess={onSuccessEdit}
-                myKey={val.id}
-                obj={val}
-                id={val.id}
-                bankTitle={val.title}
-            />
-        );
-        setModalState(true);
-    };
-
-    const onBranch = (val) => {
-        setModalContent(
-            <BranchList
-                onSuccess={onSuccessEdit}
-                key={val.id}
-                bankId={val.id}
-                bankTitle={val.title}
-            />
-        );
-        setModalState(true);
-    }
-    //====================================================================
-    //                        Child Components
-    //====================================================================
-    const title = () => {
-        return (
-            <ButtonList
-                onAdd={() => {
-                    onAdd();
-                }}
-                onRefresh={() => {
-                    getAllBanks();
-                }}
-            />
-        );
-    };
-
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        size="small"
-                        {...defaultValues.TABLE_PROPS}
-                        title={title}
-                        columns={columns(onDelete, onEdit, onBranch)}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        );
-    };
-    //====================================================================
-    //                        Component
-    //====================================================================
-    return (
-        <>
-            <Ant.Modal
-                open={modalState}
-                handleCancel={() => setModalState(false)}
-                onCancel={() => {
-                    setModalState(false);
-                }}
-                footer={null}
-                centered
-                {...defaultValues.MODAL_PROPS}
-            >
-                {modalContent}
-            </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"بانک ها"} type="inner" loading={loading}>
-                <Grid />
-            </Ant.Card>
-        </>
+  const onAdd = () => {
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
+    setModalSize(updateList);
+    setModalContent(
+      <FormAddNewBanks key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
-}
+    setModalState(true);
+  };
 
-export default banksList
+  const onSuccessAdd = () => {
+    setModalState(false);
+    getAllBanks();
+  };
+
+  //====================================================================
+  //                        Events
+  //====================================================================
+  const onEdit = (val) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE });
+    setModalContent(
+      <FormEditBanks
+        onSuccess={onSuccessEdit}
+        myKey={val.id}
+        obj={val}
+        id={val.id}
+        bankTitle={val.title}
+      />,
+    );
+    setModalState(true);
+  };
+
+  const onBranch = (val) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE });
+    setModalContent(
+      <BranchList
+        onSuccess={onSuccessEdit}
+        key={val.id}
+        bankId={val.id}
+        bankTitle={val.title}
+      />,
+    );
+    setModalState(true);
+  };
+  //====================================================================
+  //                        Child Components
+  //====================================================================
+  const title = () => {
+    return (
+      <ButtonList
+        onAdd={() => {
+          onAdd();
+        }}
+        onRefresh={() => {
+          getAllBanks();
+        }}
+      />
+    );
+  };
+
+  const Grid = () => {
+    return (
+      <>
+        <Ant.Skeleton loading={loading}>
+          <Ant.Table
+            size="small"
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            columns={columns(onDelete, onEdit, onBranch)}
+            dataSource={dataSource}
+          />
+        </Ant.Skeleton>
+      </>
+    );
+  };
+  //====================================================================
+  //                        Component
+  //====================================================================
+  return (
+    <>
+      <Ant.Modal
+        open={modalState}
+        handleCancel={() => setModalState(false)}
+        onCancel={() => {
+          setModalState(false);
+        }}
+        footer={null}
+        {...defaultValues.MODAL_PROPS}
+        {...modalSize}
+      >
+        {modalContent}
+      </Ant.Modal>
+      <Ant.Card
+        style={{ ...styles.CARD_DEFAULT_STYLES }}
+        title={"بانک ها"}
+        type="inner"
+        loading={loading}
+      >
+        <Grid />
+      </Ant.Card>
+    </>
+  );
+};
+
+export default banksList;
