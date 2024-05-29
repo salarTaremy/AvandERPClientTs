@@ -4,7 +4,7 @@ import * as url from "@/api/url";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import * as api from "@/api";
 import PropTypes from "prop-types";
-
+import ModalHeader from "@/components/common/ModalHeader";
 import { usePostWithHandler, useFetchWithHandler,useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 const FormAddBrand = (props) => {
@@ -49,10 +49,8 @@ const FormAddBrand = (props) => {
     <>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
-          <Ant.Col span={24}>
-            {"ایجاد نقش"}
-            <Ant.Divider />
-          </Ant.Col>
+
+          <ModalHeader title={'ایجاد نقش '} />
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
             <Ant.Form.Item
               name="name"

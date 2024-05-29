@@ -5,8 +5,8 @@ import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
 
-import HeaderModal from "@/components/common/HeaderModal";
-
+import ModalHeader from "@/components/common/ModalHeader";
+import { IoPeopleSharp } from "react-icons/io5";
 const FormAddNewCustomerGrup = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ const FormAddNewCustomerGrup = (props) => {
   return (
     <>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <HeaderModal title={"ایجاد گروه مشتری جدید"} />
+        <ModalHeader title={"ایجاد گروه مشتری جدید"} icon={<IoPeopleSharp />} />
         <Ant.Form.Item
           name="title"
           label={"عنوان"}
