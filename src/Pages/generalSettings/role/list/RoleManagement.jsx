@@ -30,6 +30,8 @@ function RoleManagement() {
   const [modalState, setModalState] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
+
+  const [modalSize, setModalSize] = useState({...defaultValues.MODAL_EXTRA_LARGE});
   useRequestManager({ error: error });
   useRequestManager({ error: delError, data: delSaving, loading: delLoading });
 
@@ -88,6 +90,8 @@ function RoleManagement() {
   };
 
   const onEdit = (val) => {
+    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
+    console.log(modalSize,"modalSize")
     setModalContent(
       <FormEditRole
         onSuccess={onSuccessEdit}
@@ -101,6 +105,7 @@ function RoleManagement() {
   };
 
   const onInfo = (val) => {
+    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
     setModalContent(
       <RoleInfo
         roleId={val.id}
@@ -112,6 +117,8 @@ function RoleManagement() {
   }
 
   const onAction = (val) => {
+
+    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
     setModalContent(
       <RoleActionList
         id={val.id}
@@ -123,6 +130,8 @@ function RoleManagement() {
   }
 
   const onMenu = (val) => {
+
+    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
     setModalContent(
       <RoleMenuList
         id={val.id}
@@ -139,6 +148,8 @@ function RoleManagement() {
   }
 
   const onSwitch = (val) => {
+
+    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
     setModalContent(
       <ActionSwitchList
         id={val.id}
@@ -166,6 +177,8 @@ function RoleManagement() {
   };
 
   const onAdd = () => {
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width:520 };
+    setModalSize(updateList)
     setModalContent(<FormAddRole key={uuid.v1()} onSuccess={onSuccessAdd} />);
     setModalState(true);
   };
@@ -220,8 +233,8 @@ function RoleManagement() {
           setModalState(false);
         }}
         {...defaultValues.MODAL_PROPS}
+        {...modalSize}
       >
-        {" "}
         {modalContent}
       </Ant.Modal>
       <Ant.Card
