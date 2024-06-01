@@ -7,6 +7,8 @@ import { useFetch, useFetchWithHandler, usePostWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import useAllLoading from '@/hooks/useAllLoading '
 import { PlusOutlined } from '@ant-design/icons'
+import * as defaultValues from "@/defaultValues";
+import ModalHeader from "@/components/common/ModalHeader";
 import FrmAddDetailedAccountGroup from '../../detailedAccountGroup/add/FrmAddDetailedAccountGroup'
 export const FrmAddDetailedAccount = (props) => {
   const { onSuccess} = props
@@ -78,18 +80,18 @@ export const FrmAddDetailedAccount = (props) => {
         onCancel={() => {
           setOpenModalAdd(false)
         }}
+        {...defaultValues.MODAL_PROPS}
         onOk={() => {
           setOpenModalAdd(false)
         }}
       >
         <FrmAddDetailedAccountGroup />
       </Ant.Modal>
+
+      <ModalHeader title= {' ایجاد حساب تفصیلی'}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical" onFinishFailed={null}>
         <Ant.Row gutter={[16, 8]}>
-          <Ant.Col span={24}>
-            {' ایجاد حساب تفصیلی'}
-            <Ant.Divider />
-          </Ant.Col>
+
           <Ant.Col span={24} md={24} lg={12}>
             <Ant.Form.Item name={'detailedAccountGroupId'} label="گروه تفصیلی" rules={[{ required: true }]}>
               <Ant.Select

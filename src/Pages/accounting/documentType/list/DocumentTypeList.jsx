@@ -13,7 +13,9 @@ import {
   usePutWithHandler,
 } from "@/api";
 import ButtonList from "@/components/common/ButtonList";
-import FormDocumentType from "../add/FormAddDocumentType";
+import FormAddDocumentType from "../add/FormAddDocumentType";
+import FormEditDocumentType from "../edit/FormEditDocumentType";
+import * as uuid from "uuid";
 
 const DocumentTypeList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -27,11 +29,9 @@ const DocumentTypeList = () => {
     loading: editLoading,
     data: editSaving,
   });
-  const [editingValue, setEditingValue] = useState({});
-  const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
-  const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
+  const [modalState, setModalState] = useState(false);
+  const [modalContent, setModalContent] = useState();
   const [dataSource, setDataSource] = useState(null);
-  const formDocumentType = useRef();
 
   //====================================================================
   //                        useEffects
@@ -39,24 +39,6 @@ const DocumentTypeList = () => {
   useEffect(() => {
     getAllDocumentType();
   }, []);
-  useEffect(() => {
-    if (!isModalOpenAdd) return;
-    formDocumentType.current.resetFields();
-  }, [isModalOpenAdd]);
-
-  useEffect(() => {
-    if (addSaving && addSaving?.isSuccess) {
-      setIsModalOpenAdd(false);
-      getAllDocumentType();
-    }
-  }, [addSaving]);
-
-  useEffect(() => {
-    if (editSaving && editSaving?.isSuccess) {
-      setIsModalOpenEdit(false);
-      getAllDocumentType();
-    }
-  }, [editSaving]);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -77,21 +59,37 @@ const DocumentTypeList = () => {
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.ACCOUNTING_DOCUMENT_TYPE}/${id}`);
   };
-  const onSubmitAdd = async (val) => {
-    const data = { ...val, isSystematic: true };
-    await addApiCall(url.ACCOUNTING_DOCUMENT_TYPE, data);
+
+  const onSuccessAdd = () => {
+    setModalState(false);
+    getAllDocumentType();
   };
-  const onSubmitEdit = async (val) => {
-    const data = { ...val, isSystematic: true, id: editingValue.id };
-    await editApiCall(url.ACCOUNTING_DOCUMENT_TYPE, data);
+
+  const onSuccessEdit = () => {
+    setModalState(false);
+    getAllDocumentType();
   };
 
   //====================================================================
   //                        Events
   //====================================================================
+
+  const onAdd = () => {
+    setModalContent(
+      <FormAddDocumentType key={uuid.v1()} onSuccess={onSuccessAdd} />,
+    );
+    setModalState(true);
+  };
   const onEdit = (val) => {
-    setEditingValue(val);
-    setIsModalOpenEdit(true);
+    setModalContent(
+      <FormEditDocumentType
+        onSuccess={onSuccessEdit}
+        myKey={val.id}
+        obj={val}
+        id={val.id}
+      />,
+    );
+    setModalState(true);
   };
   //====================================================================
   //                        Child Components
@@ -100,9 +98,7 @@ const DocumentTypeList = () => {
   const title = () => {
     return (
       <ButtonList
-        onAdd={() => {
-          setIsModalOpenAdd(true);
-        }}
+        onAdd={onAdd}
         onRefresh={() => {
           getAllDocumentType();
         }}
@@ -127,48 +123,25 @@ const DocumentTypeList = () => {
   return (
     <>
       <Ant.Modal
-        open={isModalOpenEdit}
-        handleCancel={() => setIsModalOpenEdit(false)}
+        open={modalState}
+        handleCancel={() => setModalState(false)}
         onCancel={() => {
-          setIsModalOpenEdit(false);
+          setModalState(false);
         }}
         footer={null}
         centered
+        {...defaultValues.MODAL_PROPS}
       >
-        <FormDocumentType
-          obj={editingValue}
-          onFinish={onSubmitEdit}
-          loading={editLoading}
-        />
+        {modalContent}
       </Ant.Modal>
       <Ant.Card
-        loading={false}
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"انواع سند حسابداری"}
+        title={"لیست سند حسابداری"}
         type="inner"
+        loading={loading}
       >
-        <Ant.Skeleton loading={loading}>
-          <Grid />
-        </Ant.Skeleton>
+        <Grid />
       </Ant.Card>
-
-      <Ant.Modal
-        open={isModalOpenAdd}
-        handleCancel={() => {
-          setIsModalOpenAdd(false);
-        }}
-        onCancel={() => {
-          setIsModalOpenAdd(false);
-        }}
-        footer={null}
-        centered
-      >
-        <FormDocumentType
-          onFinish={onSubmitAdd}
-          ref={formDocumentType}
-          loading={addLoading}
-        />
-      </Ant.Modal>
     </>
   );
 };

@@ -7,7 +7,7 @@ import {
     useFetch
 } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditSaleType = (props) => {
     const { onSuccess, obj, id } = props
     const [loading, setLoading] = useState(false)
@@ -48,6 +48,7 @@ const FormEditSaleType = (props) => {
     //====================================================================
     return (
         <>
+                  <ModalHeader title=  {'ویرایش نوع فروش '}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="title" label={'عنوان فروش'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={200} />

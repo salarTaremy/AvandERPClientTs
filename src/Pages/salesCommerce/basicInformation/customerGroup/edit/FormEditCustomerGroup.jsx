@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
-
+import ModalHeader from "@/components/common/ModalHeader";
+import { IoPeopleSharp } from "react-icons/io5";
 const FormEditCustomerGroup = (props) => {
     const { onSuccess, obj, id } = props
     const [loading, setLoading] = useState(false)
@@ -38,6 +39,7 @@ const FormEditCustomerGroup = (props) => {
     //====================================================================
     return (
         <>
+            <ModalHeader title={"ویرایش گروه مشتری"}  icon={<IoPeopleSharp />}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={200} />

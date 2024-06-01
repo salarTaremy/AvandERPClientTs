@@ -118,6 +118,7 @@ const BranchList = () => {
         }}
         footer={null}
         centered
+        {...defaultValues.MODAL_PROPS}
       >
         {modalContent}
       </Ant.Modal>

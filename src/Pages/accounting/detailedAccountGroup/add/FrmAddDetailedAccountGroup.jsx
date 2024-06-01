@@ -5,6 +5,7 @@ import * as Ant from 'antd'
 import PropTypes from 'prop-types'
 import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import useRequestManager from '@/hooks/useRequestManager'
+import ModalHeader from "@/components/common/ModalHeader";
 import * as url from '@/api/url'
 const FrmAddDetailedAccountGroup = forwardRef((props, ref) => {
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] = useFetchWithHandler()
@@ -50,13 +51,8 @@ const FrmAddDetailedAccountGroup = forwardRef((props, ref) => {
   //====================================================================
   return (
     <>
+      <ModalHeader title={" ایجاد گروه تفصیلی"} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row>
-          <Ant.Col span={24}>
-            {'ایجاد گروه تفصیلی'}
-            <Ant.Divider />
-          </Ant.Col>
-        </Ant.Row>
         <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>
           <Ant.Input addonBefore={<AddonBefore />} style={{ textAlign: 'center' }} />
         </Ant.Form.Item>

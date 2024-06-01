@@ -5,7 +5,7 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import * as api from "@/api";
 import PropTypes from "prop-types";
 import ModalHeader from "@/components/common/ModalHeader";
-import { usePostWithHandler, useFetchWithHandler,useFetch } from "@/api";
+import { usePostWithHandler, useFetchWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 const FormAddBrand = (props) => {
   const { onSuccess } = props;
@@ -47,10 +47,9 @@ const FormAddBrand = (props) => {
 
   return (
     <>
+      <ModalHeader title={"ایجاد نقش "} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
-
-          <ModalHeader title={'ایجاد نقش '} />
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
             <Ant.Form.Item
               name="name"
@@ -72,13 +71,10 @@ const FormAddBrand = (props) => {
           <Ant.Col md={12} lg={12} sm={24} xs={24}>
             <Ant.Form.Item
               name="roleScopeId"
-
               label={"محدوده نقش"}
               rules={[{ required: true }]}
             >
               <Ant.Select
-
-
                 placeholder={"انتخاب کنید..."}
                 disabled={roleScopeLoading || false}
                 loading={roleScopeLoading}
@@ -92,12 +88,10 @@ const FormAddBrand = (props) => {
               name="isDenied"
               defaultChecked={false}
               label={"مجاز/غیرمجاز"}
-
             >
               <Ant.Switch
                 checkedChildren={<CheckOutlined />}
                 unCheckedChildren={<CloseOutlined />}
-
               />
             </Ant.Form.Item>
           </Ant.Col>

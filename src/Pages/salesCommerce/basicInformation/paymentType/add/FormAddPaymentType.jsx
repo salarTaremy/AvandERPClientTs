@@ -4,7 +4,7 @@ import { usePostWithHandler, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddPaymentType = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -32,13 +32,8 @@ const FormAddPaymentType = (props) => {
 
   return (
     <>
+     <ModalHeader title=  {"ایجاد نوع پرداخت"}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row>
-          <Ant.Col span={24}>
-            {"ایجاد نوع پرداخت"}
-            <Ant.Divider />
-          </Ant.Col>
-        </Ant.Row>
         <Ant.Form.Item
           name="title"
           label={"عنوان"}

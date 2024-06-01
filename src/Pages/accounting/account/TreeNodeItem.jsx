@@ -12,6 +12,7 @@ import useRequestManager from '@/hooks/useRequestManager'
 import { BsFillJournalBookmarkFill, BsBook, BsJournalCheck, BsFillLockFill } from 'react-icons/bs'
 import Swal from 'sweetalert2'
 import FrmLinkAccountDetailAccount from './edit/FrmLinkAccountDetailAccount'
+import * as defaultValues from "@/defaultValues";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -78,6 +79,8 @@ const TreeNodeItem = (props) => {
         onOk={() => {
           setModalState(false)
         }}
+        {...defaultValues.MODAL_PROPS}
+
       >
         {item.level === 0 && <FrmAddAccountGroup onSuccess={onSuccess} />}
         {item.level === 1 && <FrmAddAccountHeader onSuccess={onSuccess} accountGroupId={item.id} />}
@@ -87,6 +90,7 @@ const TreeNodeItem = (props) => {
         open={modalStateLink}
         key={item.id}
         centered
+        {...defaultValues.MODAL_PROPS}
         footer={null}
         onCancel={() => {
           setModalStateLink(false)

@@ -5,6 +5,7 @@ import * as url from '@/api/url'
 import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import { usePostWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddSupplier = (props) => {
   const { onSuccess } = props
   const [loading, setLoading] = useState(false)
@@ -53,13 +54,9 @@ const FormAddSupplier = (props) => {
   }
   return (
     <>
+         <ModalHeader title= {'ایجاد تأمین کننده'} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row>
-          <Ant.Col span={24}>
-            {'ایجاد تأمین کننده'}
-            <Ant.Divider />
-          </Ant.Col>
-        </Ant.Row>
+
         <Ant.Form.Item name="name" label={'نام'} rules={[{ required: true }]}>
           <Ant.Input allowClear showCount maxLength={200} />
         </Ant.Form.Item>

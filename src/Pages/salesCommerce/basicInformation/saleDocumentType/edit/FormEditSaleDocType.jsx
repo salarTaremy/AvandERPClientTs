@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { usePutWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditSaleDocumentType = (props) => {
   const { onSuccess, obj, id } = props;
   const [loading, setLoading] = useState(false);
@@ -13,8 +13,8 @@ const FormEditSaleDocumentType = (props) => {
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   const [form] = Ant.Form.useForm();
   const natureList = [
-    {id: 0, title: 'خنثی'}, 
-    {id: 1, title: 'فروش'}, 
+    {id: 0, title: 'خنثی'},
+    {id: 1, title: 'فروش'},
     {id: -1, title: 'مرجوعی'}
   ];
 
@@ -42,24 +42,25 @@ const FormEditSaleDocumentType = (props) => {
   //====================================================================
   return (
     <>
+      <ModalHeader title=  {"ویرایش نوع برگه های فروش"}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>
           <Ant.Input allowClear showCount maxLength={100} />
         </Ant.Form.Item>
         <Ant.Form.Item name="natureId" label={"ماهیت"} rules={[{ required: true }]}>
-          <Ant.Select 
+          <Ant.Select
             allowClear
             placeHolder={'انتخاب کنید...'}
             options={natureList}
             fieldNames={{label: 'title', value: 'id'}}/>
         </Ant.Form.Item>
         <Ant.Form.Item name="mappedTaxPayersSystemSaleDocumentIssueId" label={"برگه متناظر در سامانه مودیان"}>
-          <Ant.Select 
+          <Ant.Select
             allowClear={true}
             placeHolder={'انتخاب کنید...'}
             disable={mappedDocIssueLoading || false}
             loading={mappedDocIssueLoading}
-            options={mappedDocIssueData?.data} 
+            options={mappedDocIssueData?.data}
             fieldNames={{label: 'title', value: 'id'}}
           />
         </Ant.Form.Item>
