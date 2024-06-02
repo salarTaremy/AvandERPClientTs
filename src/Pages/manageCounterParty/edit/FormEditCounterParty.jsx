@@ -85,7 +85,7 @@ const FormEditCounterParty = ({ onSuccess, id }) => {
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <Ant.Tabs type="card" defaultActiveKey="1">
-            <TabPane forceRender={true} tab="اطلاعات تماس " key="1">
+            <TabPane forceRender={true} tab="اطلاعات پایه " key="1">
               <HeaderEditCounterParty form={form} />
             </TabPane>
             <TabPane forceRender={true} tab="اطلاعات تماس " key="2">
