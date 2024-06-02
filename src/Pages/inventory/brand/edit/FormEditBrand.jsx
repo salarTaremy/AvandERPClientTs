@@ -7,6 +7,7 @@ import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import { useFetchWithHandler } from '@/api'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditBrand = (props) => {
   const { onSuccess, obj, id, myKey } = props
   const [loading, setLoading] = useState(false)
@@ -60,13 +61,9 @@ const FormEditBrand = (props) => {
 
   return (
     <>
+      <ModalHeader title= {'ویرایش برند'}/>
       <Ant.Form form={form} key={myKey} onFinish={onFinish} layout="vertical">
-        <Ant.Row>
-          <Ant.Col span={24}>
-            {'ویرایش برند'}
-            <Ant.Divider />
-          </Ant.Col>
-        </Ant.Row>
+
 
         <Ant.Form.Item name={'supplierId'} label="تأمین کننده" rules={[{ required: true }]}>
           <Ant.Select

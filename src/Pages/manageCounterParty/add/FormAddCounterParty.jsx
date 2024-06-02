@@ -10,6 +10,7 @@ import Contacts from "./Contacts";
 import BankBranchInfo from "./BankBranchInfo";
 import HeaderAddCounterParty from "./HeaderAddCounterParty";
 import Informationccounts from "./Informationccounts";
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddCounterParty = ({onSuccess}) => {
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
   useFetch(url.COUNTER_PARTY_TYPE);
@@ -56,13 +57,9 @@ const FormAddCounterParty = ({onSuccess}) => {
   //                        Component
   //====================================================================
   return (
-    <div>
-      <br />
-      <Ant.Card
-        style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"ایجاد طرف حساب"}
-        type="inner"
-      >
+    <>
+
+       <ModalHeader title={'ایجاد طرف حساب '} />
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <Ant.Tabs type="card" defaultActiveKey="1">
             <TabPane tab="اطلاعات پایه " key="1">
@@ -95,8 +92,8 @@ const FormAddCounterParty = ({onSuccess}) => {
             {"تایید"}
           </Ant.Button>
         </Ant.Flex>
-      </Ant.Card>
-    </div>
+
+    </>
   );
 };
 export default FormAddCounterParty;

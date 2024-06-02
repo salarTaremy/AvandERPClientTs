@@ -8,6 +8,7 @@ import useRequestManager from '@/hooks/useRequestManager'
 import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import { PlusOutlined } from '@ant-design/icons'
 import { usePutWithHandler, useFetchWithHandler, useFetch } from '@/api'
+import ModalHeader from "@/components/common/ModalHeader";
 
 export const FrmEditDetailedAccount = (props) => {
   const { onSuccess, id, obj } = props
@@ -79,12 +80,9 @@ export const FrmEditDetailedAccount = (props) => {
   const [openModalEdit, setOpenModalEdit] = useState(false)
   return (
     <>
+          <ModalHeader title=  {'ویرایش حساب تفصیلی'}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical" onFinishFailed={null}>
         <Ant.Row gutter={[16, 8]}>
-          <Ant.Col span={24}>
-            {'ویرایش حساب تفصیلی'}
-            <Ant.Divider />
-          </Ant.Col>
           <Ant.Col span={24} md={24} lg={12}>
             <Ant.Form.Item
               name={'detailedAccountGroupId'}

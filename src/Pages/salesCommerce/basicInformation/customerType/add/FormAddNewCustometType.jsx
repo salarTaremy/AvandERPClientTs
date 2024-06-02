@@ -4,7 +4,7 @@ import { usePostWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddNewCustometType = (props) => {
     const { onSuccess } = props
     const [loading, setLoading] = useState(false)
@@ -35,13 +35,8 @@ const FormAddNewCustometType = (props) => {
     //====================================================================
     return (
         <>
+           <ModalHeader title= {'ایجاد نوع مشتری جدید'}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                <Ant.Row>
-                    <Ant.Col span={24}>
-                        {'ایجاد نوع مشتری جدید'}
-                        <Ant.Divider />
-                    </Ant.Col>
-                </Ant.Row>
                 <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={200} />
                 </Ant.Form.Item>

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import { usePostWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddBrand = (props) => {
   const { onSuccess } = props
   const [loading, setLoading] = useState(false)
@@ -64,13 +65,8 @@ const FormAddBrand = (props) => {
   }
   return (
     <>
+        <ModalHeader title={'ایجاد برند'} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row>
-          <Ant.Col span={24}>
-            {'ایجاد برند'}
-            <Ant.Divider />
-          </Ant.Col>
-        </Ant.Row>
         <Ant.Form.Item name={'supplierId'} label="تأمین کنندگان" rules={[{ required: true }]}>
           <Ant.Select
               {...commonOptions}

@@ -9,7 +9,7 @@ import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
 
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddCustomer = ({ onSucces }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
@@ -116,8 +116,8 @@ const FormAddCustomer = ({ onSucces }) => {
 
   return (
     <>
-      <br />
-      <Ant.Card title={"ایجاد مشتری"} type="inner">
+
+<ModalHeader title= {'ایجاد مشتری'}/>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
@@ -266,7 +266,7 @@ const FormAddCustomer = ({ onSucces }) => {
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
-      </Ant.Card>
+
     </>
   );
 };

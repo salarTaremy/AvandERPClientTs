@@ -4,7 +4,7 @@ import { usePostWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddCurrency = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -13,8 +13,8 @@ const FormAddCurrency = (props) => {
   useRequestManager({ error: addError, loading: addLoading, data: addData });
   const [form] = Ant.Form.useForm();
   const natureList = [
-    {id: 0, title: 'خنثی'}, 
-    {id: 1, title: 'فروش'}, 
+    {id: 0, title: 'خنثی'},
+    {id: 1, title: 'فروش'},
     {id: -1, title: 'مرجوعی'}
   ];
   //====================================================================
@@ -38,30 +38,26 @@ const FormAddCurrency = (props) => {
 
   return (
     <>
+                   <ModalHeader title=  {"ایجاد نوع برگه های فروش"}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row>
-          <Ant.Col span={24}>
-            {"ایجاد نوع برگه های فروش"}
-            <Ant.Divider />
-          </Ant.Col>
-        </Ant.Row>
+
         <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>
           <Ant.Input allowClear showCount maxLength={100} />
         </Ant.Form.Item>
         <Ant.Form.Item name="nature" label={"ماهیت"} rules={[{ required: true }]}>
-          <Ant.Select 
+          <Ant.Select
             allowClear
             placeHolder={'انتخاب کنید...'}
             options={natureList}
             fieldNames={{label: 'title', value: 'id'}}/>
         </Ant.Form.Item>
         <Ant.Form.Item name="mappedTaxPayersSystemSaleDocumentIssueId" label={"برگه متناظر در سامانه مودیان"}>
-          <Ant.Select 
+          <Ant.Select
             allowClear={true}
             placeHolder={'انتخاب کنید...'}
             disable={mappedDocIssueLoading || false}
             loading={mappedDocIssueLoading}
-            options={mappedDocIssueData?.data} 
+            options={mappedDocIssueData?.data}
             fieldNames={{label: 'title', value: 'id'}}
           />
         </Ant.Form.Item>

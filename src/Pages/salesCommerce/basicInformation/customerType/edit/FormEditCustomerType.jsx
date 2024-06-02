@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditCustomerType = (props) => {
     const { onSuccess, obj, id } = props
     const [loading, setLoading] = useState(false)
@@ -38,6 +38,7 @@ const FormEditCustomerType = (props) => {
     //====================================================================
     return (
         <>
+             <ModalHeader title= {'ویرایش نوع مشتری '}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={200} />

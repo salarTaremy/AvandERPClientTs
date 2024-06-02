@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditSaleChannel = (props) => {
     const { onSuccess, obj, id } = props
     const [loading, setLoading] = useState(false)
@@ -36,6 +36,7 @@ const FormEditSaleChannel = (props) => {
     //====================================================================
     return (
         <>
+        <ModalHeader title=  {'ویرایش کانال فروش '}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={100} />

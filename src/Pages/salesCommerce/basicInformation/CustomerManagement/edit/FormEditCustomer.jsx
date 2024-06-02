@@ -10,7 +10,7 @@ import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useParams, useNavigate } from "react-router-dom";
-
+import ModalHeader from "@/components/common/ModalHeader";
 import { data } from "autoprefixer";
 
 const FormEditCustomer = () => {
@@ -149,12 +149,7 @@ const FormEditCustomer = () => {
 
   return (
     <>
-      <br />
-      <Ant.Card
-        style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={`ویرایش مشتری " ${name} "`}
-        type="inner"
-      >
+<ModalHeader title= {'ویرایش مشتری'}/>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
@@ -322,7 +317,7 @@ const FormEditCustomer = () => {
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
-      </Ant.Card>
+
     </>
   );
 };

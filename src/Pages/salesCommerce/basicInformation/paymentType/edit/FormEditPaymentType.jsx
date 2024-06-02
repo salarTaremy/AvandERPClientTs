@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditPaymentType = (props) => {
   const { onSuccess, obj, id } = props;
   const [loading, setLoading] = useState(false);
@@ -36,6 +36,7 @@ const FormEditPaymentType = (props) => {
   //====================================================================
   return (
     <>
+         <ModalHeader title=  {"ویرایش نوع پرداخت"}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item
           name="title"
