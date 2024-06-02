@@ -6,6 +6,7 @@ import { usePutWithHandler, useFetchWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const FormEditRole = (props) => {
   const { onSuccess, obj, id, myKey, name } = props;
@@ -47,71 +48,69 @@ const FormEditRole = (props) => {
   //====================================================================
   return (
     <>
-      <br></br>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`ویرایش نقش"${name}"`} type="inner" loading={loading}>
-        <Ant.Form form={form} key={myKey} onFinish={onFinish} layout="vertical">
-          <Ant.Row gutter={[16, 8]}>
-            <Ant.Col span={12} md={12} lg={12}>
-              <Ant.Form.Item
-                name="name"
-                label={"نام نقش"}
-                rules={[{ required: true }]}
-              >
-                <Ant.Input allowClear showCount maxLength={200} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={12} md={12} lg={12}>
-              <Ant.Form.Item
-                name="persianTitle"
-                label={"عنوان نقش"}
-                rules={[{ required: true }]}
-              >
-                <Ant.Input allowClear showCount maxLength={200} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={12} md={12} lg={12}>
-              <Ant.Form.Item
-                name="roleScopeId"
-                label={"محدوده نقش"}
-                rules={[{ required: true }]}
-              >
-                <Ant.Select
-
-                  placeholder={"انتخاب کنید..."}
-                  disabled={roleScopeLoading || false}
-                  loading={roleScopeLoading}
-                  options={roleScopeData?.data}
-                  fieldNames={{ label: "name", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={12} md={12} lg={12}>
-              <Ant.Form.Item
-                name="isDenied"
-                label={"عدم دسترسی"}
-                rules={[{ required: true }]}
-              >
-                <Ant.Switch
-                  checkedChildren={<CheckOutlined />}
-                  unCheckedChildren={<CloseOutlined />}
-                  defaultChecked
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-          </Ant.Row>
-          <Ant.Form.Item>
-            <Ant.Button
-              type="primary"
-              onClick={() => {
-                form.submit();
-              }}
-              block
+      <ModalHeader title={`ویرایش نقش"${name}"`} />
+      <Ant.Form form={form} key={myKey} onFinish={onFinish} layout="vertical">
+        <Ant.Row gutter={[16, 8]}>
+          <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Form.Item
+              name="name"
+              label={"نام نقش"}
+              rules={[{ required: true }]}
             >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
-        </Ant.Form>
-      </Ant.Card>
+              <Ant.Input allowClear showCount maxLength={200} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Form.Item
+              name="persianTitle"
+              label={"عنوان نقش"}
+              rules={[{ required: true }]}
+            >
+              <Ant.Input allowClear showCount maxLength={200} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Form.Item
+              name="roleScopeId"
+              label={"محدوده نقش"}
+              rules={[{ required: true }]}
+            >
+              <Ant.Select
+
+                placeholder={"انتخاب کنید..."}
+                disabled={roleScopeLoading || false}
+                loading={roleScopeLoading}
+                options={roleScopeData?.data}
+                fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Form.Item
+              name="isDenied"
+              label={"عدم دسترسی"}
+              rules={[{ required: true }]}
+            >
+              <Ant.Switch
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                defaultChecked
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+        </Ant.Row>
+        <Ant.Form.Item>
+          <Ant.Button
+            type="primary"
+            onClick={() => {
+              form.submit();
+            }}
+            block
+          >
+            {"تایید"}
+          </Ant.Button>
+        </Ant.Form.Item>
+      </Ant.Form>
     </>
   );
 };

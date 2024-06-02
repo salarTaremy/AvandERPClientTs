@@ -3,8 +3,8 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import * as styles from "@/styles";
 import qs from "qs";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const RoleMenuList = ({ id, name, onSuccess }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -92,32 +92,30 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
     //====================================================================
     return (
         <>
-            <br />
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`دسترسی منو نقش " ${name} "`} type="inner" loading={loading}>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Tree
-                        checkable
-                        onExpand={onExpand}
-                        expandedKeys={expandedKeys}
-                        autoExpandParent={autoExpandParent}
-                        onCheck={onCheck}
-                        checkedKeys={checkedKeys}
-                        onSelect={onSelect}
-                        selectedKeys={selectedKeys}
-                        treeData={items}
-                    />
-                </Ant.Skeleton>
-                <Ant.Affix offsetBottom={bottom} style={{ position: 'absolute', bottom: 0, left: 30 }}>
-                    <Ant.Button
-                        block
-                        style={{ width: 150 }}
-                        type="primary"
-                        onClick={onFinish}
-                    >
-                        {'ذخیره'}
-                    </Ant.Button>
-                </Ant.Affix>
-            </Ant.Card>
+            <ModalHeader title={`دسترسی منو نقش " ${name} "`} />
+            <Ant.Skeleton loading={loading}>
+                <Ant.Tree
+                    checkable
+                    onExpand={onExpand}
+                    expandedKeys={expandedKeys}
+                    autoExpandParent={autoExpandParent}
+                    onCheck={onCheck}
+                    checkedKeys={checkedKeys}
+                    onSelect={onSelect}
+                    selectedKeys={selectedKeys}
+                    treeData={items}
+                />
+            </Ant.Skeleton>
+            <Ant.Affix offsetBottom={bottom} style={{ position: 'absolute', bottom: 0, left: 30 }}>
+                <Ant.Button
+                    block
+                    style={{ width: 150 }}
+                    type="primary"
+                    onClick={onFinish}
+                >
+                    {'ذخیره'}
+                </Ant.Button>
+            </Ant.Affix>
         </>
     )
 }

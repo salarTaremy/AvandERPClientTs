@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const FormEditUser = (props) => {
   const { onSuccess, obj, id, userName } = props;
@@ -39,41 +39,35 @@ const FormEditUser = (props) => {
   //====================================================================
   return (
     <>
+      <ModalHeader title={`ویرایش کاربر "${userName}"`} />
+      <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+        <Ant.Form.Item
+          name="userName"
+          label={"نام کاربری"}
+          rules={[{ required: true }]}
+        >
+          <Ant.Input allowClear showCount maxLength={50} />
+        </Ant.Form.Item>
 
-      <Ant.Card
-        loading={loading}
-        title={`ویرایش کاربر "${userName}"`}
-        type="inner"
-      >
-        <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-          <Ant.Form.Item
-            name="userName"
-            label={"نام کاربری"}
-            rules={[{ required: true }]}
+        <Ant.Flex justify={"right"} align={"right"}>
+          <Ant.Form.Item name="isActive" valuePropName="checked">
+            <Ant.Checkbox checked>{"فعال"}</Ant.Checkbox>
+          </Ant.Form.Item>
+        </Ant.Flex>
+
+        <Ant.Form.Item>
+          <Ant.Button
+            block
+            type="primary"
+            loading={loading}
+            onClick={() => {
+              form.submit();
+            }}
           >
-            <Ant.Input allowClear showCount maxLength={50} />
-          </Ant.Form.Item>
-
-            <Ant.Flex justify={"right"} align={"right"}>
-              <Ant.Form.Item name="isActive" valuePropName="checked">
-                <Ant.Checkbox checked>{"فعال"}</Ant.Checkbox>
-              </Ant.Form.Item>
-            </Ant.Flex>
-
-          <Ant.Form.Item>
-            <Ant.Button
-              block
-              type="primary"
-              loading={loading}
-              onClick={() => {
-                form.submit();
-              }}
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
-        </Ant.Form>
-      </Ant.Card>
+            {"تایید"}
+          </Ant.Button>
+        </Ant.Form.Item>
+      </Ant.Form>
     </>
   );
 };

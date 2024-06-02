@@ -5,7 +5,7 @@ import * as defaultValues from "@/defaultValues";
 import { useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ButtonList from "@/components/common/ButtonList";
-import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 import qs from "qs";
 import FilterPanel from "./FilterPanel";
 import FilterDrawer from '@/components/common/FilterDrawer'
@@ -13,6 +13,7 @@ import FilterBedge from '@/components/common/FilterBedge'
 import { VscGithubAction } from "react-icons/vsc";
 import FormActionPermission from "./permission/FormActionPermission";
 import * as uuid from "uuid";
+import * as styles from "@/styles";
 
 
 const ActionSwitchList = (props) => {
@@ -160,20 +161,24 @@ const ActionSwitchList = (props) => {
     //====================================================================
     return (
         <>
-            <br></br>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={` ویرایش عملیات نقش" ${name} "`} type="inner" loading={loading}>
-                <Ant.Modal
-                    open={modalState}
-                    handleCancel={() => setModalState(false)}
-                    onCancel={() => {
-                        setModalState(false);
-                    }}
-                    footer={null}
-                    centered
-                    {...defaultValues.MODAL_PROPS}
-                >
-                    {modalContent}
-                </Ant.Modal>
+            <ModalHeader title={` ویرایش عملیات نقش" ${name} "`} />
+            <Ant.Modal
+                open={modalState}
+                handleCancel={() => setModalState(false)}
+                onCancel={() => {
+                    setModalState(false);
+                }}
+                footer={null}
+                centered
+                {...defaultValues.MODAL_PROPS}
+            >
+                {modalContent}
+            </Ant.Modal>
+            <Ant.Card
+                loading={loading}
+                style={{ ...styles.CARD_DEFAULT_STYLES }}
+                type="inner"
+            >
                 <FilterDrawer
                     open={openFilter}
                     onClose={() => setOpenFilter(false)}

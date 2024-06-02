@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const FormResetPasswordUser = (props) => {
   const { onSuccess, obj, id, userName } = props;
@@ -41,39 +41,31 @@ const FormResetPasswordUser = (props) => {
   //====================================================================
   return (
     <>
-      <br></br>
-      <Ant.Card
-        loading={loading}
-        style={{ ...styles.CARD_DEFAULT_STYLES }}
-        className="w-full"
-        title={`تغییر رمز عبور کاربر "${userName}"`}
-        type="inner"
-      >
-        <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-          <Ant.Form.Item name="userName" label={"نام کاربری"}>
-            <Ant.Input allowClear showCount maxLength={200} disabled />
-          </Ant.Form.Item>
-          <Ant.Form.Item
-            name="passwordHash"
-            label={"رمز عبور"}
-            rules={[{ required: true }]}
+      <ModalHeader title={`تغییر رمز عبور " ${userName}"`} />
+      <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+        <Ant.Form.Item name="userName" label={"نام کاربری"}>
+          <Ant.Input allowClear showCount maxLength={200} disabled />
+        </Ant.Form.Item>
+        <Ant.Form.Item
+          name="passwordHash"
+          label={"رمز عبور"}
+          rules={[{ required: true }]}
+        >
+          <Ant.Input.Password allowClear showCount maxLength={200} />
+        </Ant.Form.Item>
+        <Ant.Form.Item>
+          <Ant.Button
+            block
+            type="primary"
+            loading={loading}
+            onClick={() => {
+              form.submit();
+            }}
           >
-            <Ant.Input.Password allowClear showCount maxLength={200} />
-          </Ant.Form.Item>
-          <Ant.Form.Item>
-            <Ant.Button
-              block
-              type="primary"
-              loading={loading}
-              onClick={() => {
-                form.submit();
-              }}
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
-        </Ant.Form>
-      </Ant.Card>
+            {"تایید"}
+          </Ant.Button>
+        </Ant.Form.Item>
+      </Ant.Form>
     </>
   );
 };

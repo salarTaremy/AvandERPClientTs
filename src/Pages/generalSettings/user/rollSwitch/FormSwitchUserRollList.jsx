@@ -16,6 +16,7 @@ import FilterPanel from './FilterPanel';
 import qs from "qs"
 import useRequestManager from '@/hooks/useRequestManager'
 import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     const [dataSource, setDataSource] = useState(null);
@@ -70,7 +71,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
             rolePersianTitle: filterObject?.rolePersianTitle,
             UserId: userId,
         }
-        console.log('req',filterObject)
+        console.log('req', filterObject)
         const queryString = qs.stringify(req);
         await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`)
     }
@@ -163,12 +164,10 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     //====================================================================
     return (
         <>
-            <br></br>
+            <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} />
             <Ant.Card
                 loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
-                className="w-full"
-                title={`ویرایش نقش های کاربر  " ${userName} "`}
                 type="inner"
             >
                 <FilterDrawer
@@ -181,15 +180,15 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
                 <FilterBedge filterCount={filterCount}>
                     <Grid />
                 </FilterBedge>
-                <Ant.Button block
-                    className='mt-8 '
-                    loading={editLoading}
-                    type="primary"
-                    onClick={onFinish}
-                >
-                    {'تایید'}
-                </Ant.Button>
             </Ant.Card>
+            <Ant.Button block
+                className='mt-8 '
+                loading={editLoading}
+                type="primary"
+                onClick={onFinish}
+            >
+                {'تایید'}
+            </Ant.Button>
         </>
     );
 }

@@ -11,7 +11,7 @@ import {
 import * as defaultValues from "@/defaultValues";
 import qs from "qs"
 import useRequestManager from '@/hooks/useRequestManager'
-import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persianTitle }) => {
     const [dataSource, setDataSource] = useState(null);
@@ -131,24 +131,16 @@ const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persia
     //====================================================================
     return (
         <>
-            <br></br>
-            <Ant.Card
-                loading={loading}
-                style={{ ...styles.CARD_DEFAULT_STYLES }}
-                className="w-full"
-                title={`ویرایش دسترسی عملیات نقش " ${name} " بخش " ${persianTitle} "`}
-                type="inner"
+            <ModalHeader title={`ویرایش دسترسی عملیات نقش " ${name} " بخش " ${persianTitle} "`} />
+            <Grid />
+            <Ant.Button block
+                className='mt-8 '
+                loading={editLoading}
+                type="primary"
+                onClick={onFinish}
             >
-                <Grid />
-                <Ant.Button block
-                    className='mt-8 '
-                    loading={editLoading}
-                    type="primary"
-                    onClick={onFinish}
-                >
-                    {'تایید'}
-                </Ant.Button>
-            </Ant.Card>
+                {'تایید'}
+            </Ant.Button>
         </>
     );
 }

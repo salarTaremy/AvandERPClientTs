@@ -5,7 +5,7 @@ import * as defaultValues from "@/defaultValues";
 import qs from "qs";
 import { useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const UserInfo = ({ userId, userName }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -53,24 +53,16 @@ const UserInfo = ({ userId, userName }) => {
     //====================================================================
     return (
         <>
-        <br></br>
-            <Ant.Card
-                loading={loading}
-                style={{ ...styles.CARD_DEFAULT_STYLES }}
-                className="w-full"
-                title={`لیست نقش های کاربر "${userName}"`}
-                type="inner"
-            >
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        {...defaultValues.TABLE_PROPS}
-                        className="mt-5"
-                        pagination={false}
-                        columns={cl}
-                        dataSource={dataSource || null}
-                    />
-                </Ant.Skeleton>
-            </Ant.Card>
+            <ModalHeader title={`لیست نقش های کاربر "${userName}"`} />
+            <Ant.Skeleton loading={loading}>
+                <Ant.Table
+                    {...defaultValues.TABLE_PROPS}
+                    className="mt-5"
+                    pagination={false}
+                    columns={cl}
+                    dataSource={dataSource || null}
+                />
+            </Ant.Skeleton>
         </>
     )
 }

@@ -177,54 +177,51 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <br></br>
-
-        <ModalHeader title={` سایر دسترسی های کاربر  " ${userName} "`} />
-        <Ant.Tabs tabPosition={mode}>
-          <TabPane forceRender={true} tab=" عمومی " key="1">
-            {
-              <General
-                userId={userId}
-                onSuccessBranch={onSuccessBranch}
-                oldBranchId={oldBranchId}
-              />
-            }
-          </TabPane>
-          <TabPane forceRender={true} tab=" فروش " key="2">
-            {
-              <Sale
-                userId={userId}
-                onSuccessBrand={onSuccessBrand}
-                oldBrandId={oldBrandId}
-                onSuccessCustomerGroupAccess={onSuccessCustomerGroupAccess}
-                oldGroupId={oldGroupId}
-                onSuccessCustomerTypeAccess={onSuccessCustomerTypeAccess}
-                oldTypeId={oldTypeId}
-                onSuccessSaleChannelAccess={onSuccessSaleChannelAccess}
-                oldChannelId={oldChannelId}
-                onSuccessSaleDocumentTypeAccess={
-                  onSuccessSaleDocumentTypeAccess
-                }
-                oldDocumentId={oldDocumentId}
-              />
-            }
-          </TabPane>
-        </Ant.Tabs>
-        <Ant.Affix
-          offsetBottom={bottom}
-          style={{ position: "absolute", bottom: 0, left: 30, right: 30 }}
+      <ModalHeader title={` سایر دسترسی های کاربر  " ${userName} "`} />
+      <Ant.Tabs tabPosition={mode}>
+        <TabPane forceRender={true} tab=" عمومی " key="1">
+          {
+            <General
+              userId={userId}
+              onSuccessBranch={onSuccessBranch}
+              oldBranchId={oldBranchId}
+            />
+          }
+        </TabPane>
+        <TabPane forceRender={true} tab=" فروش " key="2">
+          {
+            <Sale
+              userId={userId}
+              onSuccessBrand={onSuccessBrand}
+              oldBrandId={oldBrandId}
+              onSuccessCustomerGroupAccess={onSuccessCustomerGroupAccess}
+              oldGroupId={oldGroupId}
+              onSuccessCustomerTypeAccess={onSuccessCustomerTypeAccess}
+              oldTypeId={oldTypeId}
+              onSuccessSaleChannelAccess={onSuccessSaleChannelAccess}
+              oldChannelId={oldChannelId}
+              onSuccessSaleDocumentTypeAccess={
+                onSuccessSaleDocumentTypeAccess
+              }
+              oldDocumentId={oldDocumentId}
+            />
+          }
+        </TabPane>
+      </Ant.Tabs>
+      <Ant.Affix
+        offsetBottom={bottom}
+        style={{ position: "absolute", bottom: 0, left: 30, right: 30 }}
+      >
+        <Ant.Button
+          block
+          className="mt-8 "
+          loading={editLoading}
+          type="primary"
+          onClick={onFinish}
         >
-          <Ant.Button
-            block
-            className="mt-8 "
-            loading={editLoading}
-            type="primary"
-            onClick={onFinish}
-          >
-            {"ذخیره"}
-          </Ant.Button>
-        </Ant.Affix>
-
+          {"ذخیره"}
+        </Ant.Button>
+      </Ant.Affix>
     </>
   );
 };

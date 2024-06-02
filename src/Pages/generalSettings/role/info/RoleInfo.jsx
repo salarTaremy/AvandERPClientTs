@@ -6,7 +6,7 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import qs from "qs";
-import * as styles from "@/styles";
+import ModalHeader from "@/components/common/ModalHeader";
 
 const RoleInfo = ({ roleId, name }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -84,17 +84,15 @@ const RoleInfo = ({ roleId, name }) => {
     //====================================================================
     return (
         <>
-            <br></br>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={` لیست کاربران نقش "${name}"`} type="inner" loading={loading}>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        {...defaultValues.TABLE_PROPS}
-                        className="mt-5"
-                        columns={cl(onDelete)}
-                        dataSource={dataSource || null}
-                    />
-                </Ant.Skeleton>
-            </Ant.Card>
+            <ModalHeader title={` لیست کاربران نقش "${name}"`} />
+            <Ant.Skeleton loading={loading}>
+                <Ant.Table
+                    {...defaultValues.TABLE_PROPS}
+                    className="mt-5"
+                    columns={cl(onDelete)}
+                    dataSource={dataSource || null}
+                />
+            </Ant.Skeleton>
         </>
     )
 }

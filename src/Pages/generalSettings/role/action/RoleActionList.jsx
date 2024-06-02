@@ -5,13 +5,14 @@ import * as defaultValues from "@/defaultValues";
 import { useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ButtonList from "@/components/common/ButtonList";
-import * as styles from "@/styles";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterPanel from "../action/FilterPanel";
 import qs from "qs";
+import ModalHeader from "@/components/common/ModalHeader";
+import * as styles from "@/styles";
 
-const RoleActionList = ({ id ,name}) => {
+const RoleActionList = ({ id, name }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
@@ -20,6 +21,7 @@ const RoleActionList = ({ id ,name}) => {
     const [openFilter, setOpenFilter] = useState(false);
     const [modalState, setModalState] = useState(false);
     const [modalContent, setModalContent] = useState();
+    const [pagination, setPagination] = useState({});
 
     //====================================================================
     //                        useEffects
@@ -58,6 +60,10 @@ const RoleActionList = ({ id ,name}) => {
         setOpenFilter(false);
     };
 
+    const handleTableChange = (pagination) => {
+        setPagination(pagination);
+    };
+
     const cl = [
         {
             title: "نام بخش (controller) ",
@@ -92,9 +98,11 @@ const RoleActionList = ({ id ,name}) => {
                 <Ant.Skeleton loading={loading}>
                     <Ant.Table
                         {...defaultValues.TABLE_PROPS}
+                        pagination={pagination}
                         title={title}
                         className="mt-5"
                         columns={cl}
+                        onChange={handleTableChange}
                         dataSource={dataSource || null}
                     />
                 </Ant.Skeleton>
@@ -106,29 +114,10 @@ const RoleActionList = ({ id ,name}) => {
     //====================================================================
     return (
         <>
-            <Ant.Modal
-                open={modalState}
-                handleCancel={() => {
-                    setModalState(false)
-                }}
-                onCancel={() => {
-                    setModalState(false);
-                }}
-                onFinish={() => {
-                    setModalState(false);
-                }}
-                footer={null}
-                centered
-                {...defaultValues.MODAL_PROPS}
-            >
-                {modalContent}
-            </Ant.Modal>
-            <br></br>
+            <ModalHeader title={`عملیات نقش "${name}"`} />
             <Ant.Card
                 loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
-                className="w-full"
-                title={`عملیات نقش "${name}"`}
                 type="inner"
             >
                 <FilterDrawer
