@@ -52,7 +52,7 @@ const ListSample = (props) => {
   //====================================================================
   //                        Child Components
   //====================================================================
-  const title = () => {
+  const Title = () => {
     return (
       <ButtonList
         filterCount={filterCount}
@@ -71,7 +71,7 @@ const ListSample = (props) => {
         <Ant.Table
           {...defaultValues.TABLE_PROPS}
           columns={columns()}
-          title={title}
+          title={Title}
           dataSource={(listData?.isSuccess && listData?.data) || null}
         />
       </>
@@ -82,8 +82,8 @@ const ListSample = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={listLoading} title={pageTitle} type="inner">
-
+    <>
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={listLoading} title={pageTitle} type="inner">
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -94,8 +94,40 @@ const ListSample = (props) => {
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
+      </Ant.Card>
+      <Ant.Space direction='vertical' >
 
-    </Ant.Card>
+        {/* <Ant.Divider  orientation='left'>{'صفحه تست'}</Ant.Divider> */}
+        {'صفحه تست'}
+        <Title />
+
+
+        <Ant.Card style={{ overflow: 'auto' }} >
+          <FilterDrawer
+            open={openFilter}
+            onClose={() => setOpenFilter(false)}
+            onRemoveFilter={onRemoveFilter}
+          >
+            <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+          </FilterDrawer>
+          <FilterBedge filterCount={filterCount}>
+            {/* <Grid /> */}
+            <Ant.Table
+              {...defaultValues.TABLE_PROPS}
+              columns={columns()}
+
+              dataSource={(listData?.isSuccess && listData?.data) || null}
+            />
+          </FilterBedge>
+        </Ant.Card>
+
+        <Ant.Card>
+          ddddd
+        </Ant.Card>
+      </Ant.Space>
+    </>
+
+
   )
 }
 
