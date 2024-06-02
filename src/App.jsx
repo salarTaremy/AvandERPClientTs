@@ -38,12 +38,12 @@ const App = () => {
     },
     algorithm: getTheme(),
     components: {
-      // Button: {
-      //   colorPrimary: `#c034eb`,
-      //   colorPrimaryHover: `#d776f5`,
-      //   colorPrimaryActive: `#ba0af0`,
-      //   // lineWidth: 0,
-      // },
+      Button: {
+        // colorPrimary: `#c034eb`,
+        // colorPrimaryHover: `#d776f5`,
+        // colorPrimaryActive: `#ba0af0`,
+        // lineWidth: 0,
+      },
       Drawer: {
         motionDurationSlow: "0.5s",
         // colorBgMask:'#347654',
