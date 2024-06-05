@@ -215,4 +215,6 @@ export const ASSIGN_SALE_CHANNEL_TO_USER = 'AccessControl/AssignSaleChannelToUse
 export const GET_ASSIGNED_SALE_DOCUMENT_TYPES = 'AccessControl/GetAssignedSaleDocumentTypes'
 export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocumentTypeToUser'
 
-
+//WareHouse
+export const WAREHOUSE = 'Warehouse'
+export const WAREHOUSE_TYPE = 'WarehouseType'

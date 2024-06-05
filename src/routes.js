@@ -22,6 +22,7 @@ import SupplierList from './Pages/inventory/supplier/list/SupplierList'
 import BrandList from './Pages/inventory/brand/list/BrandList'
 import ProductList from './Pages/inventory/product/list/ProductList'
 import EditProductList from './Pages/inventory/product/edit/EditProductList'
+import WarehouseManagment from './Pages/inventory/wareHouse/list/WarehouseManagment'
 
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
@@ -88,6 +89,7 @@ const routes = [
   { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
   { path: '/inventory/product/list', name: 'فهرست کالا', element: ProductList },
   { path: '/inventory/product/edit/:id', name: 'ویرایش کالا', element: EditProductList },
+  { path: '/inventory/Warehouse', name: ' مدیریت انبارها', element: WarehouseManagment },
   { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
   { path: '/base/brand', name: 'برند', element: BrandList },
   { path: '/permissions/menuPermissions', name: 'پرمیشن ها', element: MenuPermissions },
@@ -114,7 +116,7 @@ const routes = [
   { path: '/sale/customerManagemen/new', name: 'ایجاد مشتری', element: FormAddCustomer },
   { path: '/sale/customerManagemen/edit/:id', name: 'ویرایش مشتری', element: FormEditCustomer },
   { path: '/sale/saleEffectiveFactor', name: 'مدیریت عوامل موثر بر برگه فروش', element: SaleEffectiveFactor },
-  { path: '/sale/priceCircularManagement', name: 'مدیریت بخشنامه قیمت', element: PriceCircularHeader},
+  { path: '/sale/priceCircularManagement', name: 'مدیریت بخشنامه قیمت', element: PriceCircularHeader },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
@@ -122,7 +124,7 @@ const routes = [
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
 
   { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: banks },
-  { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument},
+  { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument },
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]
