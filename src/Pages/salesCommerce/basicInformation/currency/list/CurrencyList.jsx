@@ -75,8 +75,12 @@ const CurrencyList = () => {
   const onEdit = (val) => {
 
     setModalContent(
-      <FormEditCurrency onSuccess={onSuccessEdit} obj={val} id={val.id} />,
-
+      <FormEditCurrency
+        onSuccess={onSuccessEdit}
+        obj={val}
+        id={val.id}
+        key={val.id}
+      />,
     );
     setModalState(true);
   };
@@ -135,7 +139,7 @@ const CurrencyList = () => {
       >
 
 
-          <Grid />
+        <Grid />
 
       </Ant.Card>
     </>

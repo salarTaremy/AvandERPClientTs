@@ -74,8 +74,7 @@ const CustomerGroupList = () => {
         setModalContent(
             <FormEditCustomerGroup
                 onSuccess={onSuccessEdit}
-                myKey={val.id}
-                obj={val}
+                key={val.id}
                 id={val.id}
             />
         );

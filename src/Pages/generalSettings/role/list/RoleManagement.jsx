@@ -31,7 +31,7 @@ function RoleManagement() {
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
 
-  const [modalSize, setModalSize] = useState({...defaultValues.MODAL_EXTRA_LARGE});
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
   useRequestManager({ error: error });
   useRequestManager({ error: delError, data: delSaving, loading: delLoading });
 
@@ -90,12 +90,11 @@ function RoleManagement() {
   };
 
   const onEdit = (val) => {
-    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setModalContent(
       <FormEditRole
         onSuccess={onSuccessEdit}
-        myKey={val.id}
-        obj={val}
+        key={val.id}
         id={val.id}
         name={val.persianTitle}
       />,
@@ -104,7 +103,7 @@ function RoleManagement() {
   };
 
   const onInfo = (val) => {
-    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setModalContent(
       <RoleInfo
         roleId={val.id}
@@ -117,7 +116,7 @@ function RoleManagement() {
 
   const onAction = (val) => {
 
-    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setModalContent(
       <RoleActionList
         id={val.id}
@@ -130,7 +129,7 @@ function RoleManagement() {
 
   const onMenu = (val) => {
 
-    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setModalContent(
       <RoleMenuList
         id={val.id}
@@ -148,7 +147,7 @@ function RoleManagement() {
 
   const onSwitch = (val) => {
 
-    setModalSize({...defaultValues.MODAL_EXTRA_LARGE})
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setModalContent(
       <ActionSwitchList
         id={val.id}
@@ -176,7 +175,7 @@ function RoleManagement() {
   };
 
   const onAdd = () => {
-    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width:520 };
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
     setModalSize(updateList)
     setModalContent(<FormAddRole key={uuid.v1()} onSuccess={onSuccessAdd} />);
     setModalState(true);

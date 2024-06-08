@@ -208,20 +208,15 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
           }
         </TabPane>
       </Ant.Tabs>
-      <Ant.Affix
-        offsetBottom={bottom}
-        style={{ position: "absolute", bottom: 0, left: 30, right: 30 }}
+      <Ant.Button
+        block
+        className="mt-8 "
+        loading={editLoading}
+        type="primary"
+        onClick={onFinish}
       >
-        <Ant.Button
-          block
-          className="mt-8 "
-          loading={editLoading}
-          type="primary"
-          onClick={onFinish}
-        >
-          {"ذخیره"}
-        </Ant.Button>
-      </Ant.Affix>
+        {"ذخیره"}
+      </Ant.Button>
     </>
   );
 };

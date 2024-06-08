@@ -74,7 +74,7 @@ const DeliveryType = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditDeliveryType onSuccess={onSuccessEdit} obj={val} id={val.id} />,
+      <FormEditDeliveryType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id} />,
 
     );
     setModalState(true);
@@ -134,7 +134,7 @@ const DeliveryType = () => {
       >
 
 
-          <Grid />
+        <Grid />
 
       </Ant.Card>
     </>

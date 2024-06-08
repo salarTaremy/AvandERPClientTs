@@ -70,7 +70,7 @@ const SaleChannelList = () => {
     setModalContent(
       <FormEditSaleChannel
         onSuccess={onSuccessEdit}
-        myKey={val.id}
+        key={val.id}
         obj={val}
         id={val.id}
       />,

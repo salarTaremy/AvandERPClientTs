@@ -13,8 +13,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import ModalHeader from "@/components/common/ModalHeader";
 import { data } from "autoprefixer";
 
-const FormEditCustomer = () => {
-  const fieldNamesList={ label: 'label', value: 'value' }
+const FormEditCustomer = ({ id }) => {
+  const fieldNamesList = { label: 'label', value: 'value' }
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
   const [listSubmitData, submitLoading, submitError, submitApiCall] =
@@ -110,7 +110,7 @@ const FormEditCustomer = () => {
         value: item.id,
       }
 
-    ));
+      ));
     }
   };
 
@@ -149,7 +149,8 @@ const FormEditCustomer = () => {
 
   return (
     <>
-<ModalHeader title= {'ویرایش مشتری'}/>
+      <ModalHeader title={'ویرایش مشتری'} />
+      <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
@@ -198,23 +199,6 @@ const FormEditCustomer = () => {
                     <Ant.Input allowClear showCount />
                   </Ant.Form.Item>
                 </Ant.Col>
-                <Ant.Col>
-                  <Ant.Form.Item
-                    rules={[{ required: true }]}
-                    name={"counterpartyId"}
-                    label="طرف حساب مرتبط"
-                  >
-                    <DebounceSelect
-                      onChange={handleCounterParty}
-                      maxCount={1}
-                      placeholder="بخشی از نام مشتری را تایپ کنید..."
-                      fetchOptions={getAllCounterPartyForDropDown}
-                      fieldNames={fieldNamesList}
-                      // fieldNames={{ label: "label", value: "value" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: false }]}
@@ -317,7 +301,7 @@ const FormEditCustomer = () => {
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
-
+      </Ant.Skeleton>
     </>
   );
 };

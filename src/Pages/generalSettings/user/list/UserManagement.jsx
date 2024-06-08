@@ -31,7 +31,7 @@ const UserManagement = () => {
   const [filterObject, setFilterObject] = useState();
   const [filterCount, setFilterCount] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
-  const [modalSize, setModalSize] = useState({...defaultValues.MODAL_LARGE});
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
 
   //====================================================================
   //                        useEffects
@@ -84,7 +84,7 @@ const UserManagement = () => {
   };
 
   const onAdd = () => {
-    const updateList = { ...defaultValues.MODAL_LARGE, width:520 };
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList)
     setModalContent(
       <FormAddNewUser key={uuid.v1()} onSuccess={onSuccessAdd} />,
@@ -119,13 +119,12 @@ const UserManagement = () => {
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    const updateList = { ...defaultValues.MODAL_LARGE, width:520 };
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList)
     setModalContent(
       <FormEditUser
         onSuccess={onSuccessEdit}
-        myKey={val.id}
-        obj={val}
+        key={val.id}
         id={val.id}
         userName={val.userName}
       />,
@@ -134,7 +133,7 @@ const UserManagement = () => {
   };
 
   const onInfo = (val) => {
-    setModalSize({...defaultValues.MODAL_LARGE})
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(
       <UserInfo
         userId={val.id}
@@ -146,7 +145,7 @@ const UserManagement = () => {
   }
 
   const onSwitch = (val) => {
-    setModalSize({...defaultValues.MODAL_LARGE})
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(
       <FormSwitchUserRollList
         onSuccess={onSuccessSwitch}
@@ -163,7 +162,7 @@ const UserManagement = () => {
   };
 
   const onOtherAccesses = (val) => {
-    setModalSize({...defaultValues.MODAL_LARGE})
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(
       <FormUsersOtherAccess
         onSuccess={onSuccessAccess}

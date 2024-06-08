@@ -34,6 +34,7 @@ const FormEditWareHouse = (props) => {
     form.resetFields()
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
   }, [listData])
+
   //======================================================================
   //                        Functions
   //======================================================================
@@ -72,121 +73,123 @@ const FormEditWareHouse = (props) => {
   return (
     <>
       <ModalHeader title={`ویرایش '${name}'`} />
-      <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row gutter={[16, 8]}>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="title"
-              label={"نام انبار"}
-              rules={[{ required: true }]}
+      <Ant.Skeleton loading={loadingData}>
+        <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+          <Ant.Row gutter={[16, 8]}>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="title"
+                label={"نام انبار"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Input allowClear showCount maxLength={100} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="warehouseKeeperId"
+                label={"نام انباردار"}
+                rules={[{ required: true }]}
+              >
+                <DebounceSelect
+                  maxCount={1}
+                  placeholder="بخشی از نام  انباردار را تایپ کنید..."
+                  fetchOptions={getAllCounterPartyForDropDown}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="warehouseTypeId"
+                label={" نوع انبار"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Select
+                  placeholder={"انتخاب کنید..."}
+                  disabled={warehouseTypeLoading || false}
+                  loading={warehouseTypeLoading}
+                  options={warehouseTypeData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="branchIds"
+                label={"شعب"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Select
+                  placeholder={"انتخاب کنید..."}
+                  mode="multiple"
+                  disabled={branchLoading || false}
+                  loading={branchLoading}
+                  options={branchData?.data}
+                  fieldNames={{ label: "name", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="gln"
+                label={"GLN "}
+                rules={[{ required: true }]}
+              >
+                <Ant.Input allowClear showCount maxLength={13} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="postalCode"
+                label={"کد پستی"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Input allowClear showCount maxLength={10} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={24} lg={24} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="address"
+                label={"آدرس"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Input.TextArea allowClear showCount maxLength={400} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={24} lg={24} sm={24} xs={24}>
+              <Ant.Form.Item
+                name="description"
+                label={"توضیحات"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Input.TextArea allowClear showCount maxLength={400} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item name="isActive" label="فعال">
+                <Ant.Switch defaultChecked={false} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={12} lg={12} sm={24} xs={24}>
+              <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
+                <Ant.Switch defaultChecked={false} />
+              </Ant.Form.Item>
+            </Ant.Col>
+          </Ant.Row>
+          <Ant.Form.Item>
+            <Ant.Button
+              loading={loading}
+              type="primary"
+              onClick={() => {
+                form.submit();
+              }}
+              block
             >
-              <Ant.Input allowClear showCount maxLength={100} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="warehouseKeeperId"
-              label={"نام انباردار"}
-              rules={[{ required: true }]}
-            >
-              <DebounceSelect
-                maxCount={1}
-                placeholder="بخشی از نام  انباردار را تایپ کنید..."
-                fetchOptions={getAllCounterPartyForDropDown}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="warehouseTypeId"
-              label={" نوع انبار"}
-              rules={[{ required: true }]}
-            >
-              <Ant.Select
-                placeholder={"انتخاب کنید..."}
-                disabled={warehouseTypeLoading || false}
-                loading={warehouseTypeLoading}
-                options={warehouseTypeData?.data}
-                fieldNames={{ label: "title", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="branchIds"
-              label={"شعب"}
-              rules={[{ required: true }]}
-            >
-              <Ant.Select
-                placeholder={"انتخاب کنید..."}
-                mode="multiple"
-                disabled={branchLoading || false}
-                loading={branchLoading}
-                options={branchData?.data}
-                fieldNames={{ label: "name", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="gln"
-              label={"GLN "}
-              rules={[{ required: true }]}
-            >
-              <Ant.Input allowClear showCount maxLength={13} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="postalCode"
-              label={"کد پستی"}
-              rules={[{ required: true }]}
-            >
-              <Ant.Input allowClear showCount maxLength={10} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="address"
-              label={"آدرس"}
-              rules={[{ required: true }]}
-            >
-              <Ant.Input.TextArea allowClear showCount maxLength={400} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="description"
-              label={"توضیحات"}
-              rules={[{ required: true }]}
-            >
-              <Ant.Input.TextArea allowClear showCount maxLength={400} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item name="isActive" label="فعال">
-              <Ant.Switch defaultChecked={false} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
-              <Ant.Switch defaultChecked={false} />
-            </Ant.Form.Item>
-          </Ant.Col>
-        </Ant.Row>
-        <Ant.Form.Item>
-          <Ant.Button
-            loading={loading}
-            type="primary"
-            onClick={() => {
-              form.submit();
-            }}
-            block
-          >
-            {"تایید"}
-          </Ant.Button>
-        </Ant.Form.Item>
-      </Ant.Form>
+              {"تایید"}
+            </Ant.Button>
+          </Ant.Form.Item>
+        </Ant.Form>
+      </Ant.Skeleton>
     </>
   );
 }

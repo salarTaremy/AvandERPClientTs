@@ -9,11 +9,12 @@ import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
 const FormEditBrand = (props) => {
-  const { onSuccess, obj, id, myKey } = props
+  const { onSuccess, id, key } = props
   const [loading, setLoading] = useState(false)
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
   const [selectData, selectLoading, selectError] = api.useFetch(url.SUPPLIER)
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] = useFetchWithHandler()
+  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   useRequestManager({ error: editError, loading: editLoading, data: editData })
   const [form] = Ant.Form.useForm()
   useRequestManager({ error: selectError })
@@ -21,12 +22,14 @@ const FormEditBrand = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    form.resetFields()
-    form.setFieldsValue({ ...obj })
-  }, [obj])
+    getBrandById()
+  }, []);
+
   useEffect(() => {
-    editData?.isSuccess && onSuccess()
-  }, [editData])
+    form.resetFields()
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
+  }, [listData])
+
   useEffect(() => {
     maxCodeData?.isSuccess &&
       maxCodeData?.data?.maxCode &&
@@ -35,6 +38,10 @@ const FormEditBrand = (props) => {
   //====================================================================
   //                        Functions
   //======================================================================
+  const getBrandById = async () => {
+    await ApiCall(`${url.BRAND}/${id}`)
+  }
+
   const getMaxCode = async () => {
     await maxCodeApiCall(url.BRAND_MAX_CODE)
   }
@@ -43,6 +50,7 @@ const FormEditBrand = (props) => {
     const req = { ...values, id: id }
     await editApiCall(url.BRAND, req)
     setLoading(false)
+    onSuccess()
   }
 
   //====================================================================
@@ -61,38 +69,38 @@ const FormEditBrand = (props) => {
 
   return (
     <>
-      <ModalHeader title= {'ویرایش برند'}/>
-      <Ant.Form form={form} key={myKey} onFinish={onFinish} layout="vertical">
-
-
-        <Ant.Form.Item name={'supplierId'} label="تأمین کننده" rules={[{ required: true }]}>
-          <Ant.Select
-            allowClear={true}
-            placeholder={'انتخاب کنید...'}
-            disabled={selectLoading || false}
-            loading={selectLoading}
-            options={selectData?.data}
-            fieldNames={{ label: 'name', value: 'id' }}
-          />
-        </Ant.Form.Item>
-        <Ant.Form.Item name="name" label={'نام برند'} rules={[{ required: true }]}>
-          <Ant.Input allowClear showCount maxLength={200} />
-        </Ant.Form.Item>
-        <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>
-          <Ant.Input addonBefore={<AddonBefore />} style={{ textAlign: 'center' }} />
-        </Ant.Form.Item>
-        <Ant.Form.Item>
-          <Ant.Button
-            type="primary"
-            onClick={() => {
-              form.submit()
-            }}
-            block
-          >
-            {'تایید'}
-          </Ant.Button>
-        </Ant.Form.Item>
-      </Ant.Form>
+      <ModalHeader title={'ویرایش برند'} />
+      <Ant.Skeleton loading={loadingData}>
+        <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
+          <Ant.Form.Item name={'supplierId'} label="تأمین کننده" rules={[{ required: true }]}>
+            <Ant.Select
+              allowClear={true}
+              placeholder={'انتخاب کنید...'}
+              disabled={selectLoading || false}
+              loading={selectLoading}
+              options={selectData?.data}
+              fieldNames={{ label: 'name', value: 'id' }}
+            />
+          </Ant.Form.Item>
+          <Ant.Form.Item name="name" label={'نام برند'} rules={[{ required: true }]}>
+            <Ant.Input allowClear showCount maxLength={200} />
+          </Ant.Form.Item>
+          <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>
+            <Ant.Input addonBefore={<AddonBefore />} style={{ textAlign: 'center' }} />
+          </Ant.Form.Item>
+          <Ant.Form.Item>
+            <Ant.Button
+              type="primary"
+              onClick={() => {
+                form.submit()
+              }}
+              block
+            >
+              {'تایید'}
+            </Ant.Button>
+          </Ant.Form.Item>
+        </Ant.Form>
+      </Ant.Skeleton>
     </>
   )
 }

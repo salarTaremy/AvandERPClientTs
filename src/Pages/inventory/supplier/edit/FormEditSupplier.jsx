@@ -7,9 +7,10 @@ import useRequestManager from '@/hooks/useRequestManager'
 import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import ModalHeader from "@/components/common/ModalHeader";
 const FormEditSupplier = (props) => {
-  const { onSuccess, obj, id, myKey } = props
+  const { onSuccess, id, key } = props
   const [loading, setLoading] = useState(false)
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
+  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] = useFetchWithHandler()
   useRequestManager({ error: maxCodeError })
   useRequestManager({ error: editError, loading: editLoading, data: editData })
@@ -18,21 +19,33 @@ const FormEditSupplier = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    form.resetFields()
-    form.setFieldsValue({ ...obj })
-  }, [obj])
+    getSupplierById()
+  }, []);
+
   useEffect(() => {
-    editData?.isSuccess && onSuccess()
-  }, [editData])
+    form.resetFields()
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
+  }, [listData])
+
+  useEffect(() => {
+    maxCodeData?.isSuccess &&
+      maxCodeData?.data?.maxCode &&
+      form.setFieldsValue({ code: maxCodeData.data.maxCode })
+  }, [maxCodeData])
   //====================================================================
   //                        Functions
   //======================================================================
+  const getSupplierById = async () => {
+    await ApiCall(`${url.SUPPLIER}/${id}`)
+  }
+
   const onFinish = async (values) => {
     console.log(values, 'values')
     setLoading(true)
     const req = { ...values, id: id }
     await editApiCall(url.SUPPLIER, req)
     setLoading(false)
+    onSuccess()
   }
   const getMaxCode = async () => {
     await maxCodeApiCall(url.BRAND_MAX_CODE)
@@ -53,33 +66,35 @@ const FormEditSupplier = (props) => {
   //====================================================================
   return (
     <>
-        <ModalHeader title={'ویرایش تأمین کننده'} />
-      <Ant.Form form={form} key={myKey} onFinish={onFinish} layout="vertical">
-        <Ant.Form.Item name="name" label={'نام'} rules={[{ required: true }]}>
-          <Ant.Input allowClear showCount maxLength={200} />
-        </Ant.Form.Item>
+      <ModalHeader title={'ویرایش تأمین کننده'} />
+      <Ant.Skeleton loading={loadingData}>
+        <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
+          <Ant.Form.Item name="name" label={'نام'} rules={[{ required: true }]}>
+            <Ant.Input allowClear showCount maxLength={200} />
+          </Ant.Form.Item>
 
-        <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>
-          <Ant.Input
-            allowClear
-            showCount
-            maxLength={12}
-            addonBefore={<AddonBefore />}
-            style={{ textAlign: 'center' }}
-          />
-        </Ant.Form.Item>
-        <Ant.Form.Item>
-          <Ant.Button
-            type="primary"
-            onClick={() => {
-              form.submit()
-            }}
-            block
-          >
-            {'تایید'}
-          </Ant.Button>
-        </Ant.Form.Item>
-      </Ant.Form>
+          <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>
+            <Ant.Input
+              allowClear
+              showCount
+              maxLength={12}
+              addonBefore={<AddonBefore />}
+              style={{ textAlign: 'center' }}
+            />
+          </Ant.Form.Item>
+          <Ant.Form.Item>
+            <Ant.Button
+              type="primary"
+              onClick={() => {
+                form.submit()
+              }}
+              block
+            >
+              {'تایید'}
+            </Ant.Button>
+          </Ant.Form.Item>
+        </Ant.Form>
+      </Ant.Skeleton>
     </>
   )
 }

@@ -84,7 +84,7 @@ const SupplierList = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditSupplier onSuccess={onSuccessEdit} myKey={val.id} obj={val} id={val.id} />,
+      <FormEditSupplier onSuccess={onSuccessEdit} key={val.id} obj={val} id={val.id} />,
     )
     setModalState(true)
   }

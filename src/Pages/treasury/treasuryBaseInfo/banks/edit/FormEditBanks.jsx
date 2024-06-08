@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import * as Ant from 'antd'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
-import { usePutWithHandler } from '@/api'
+import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import * as styles from "@/styles";
 
 const FormEditBanks = (props) => {
-    const { onSuccess, obj, id, bankTitle } = props
+    const { onSuccess, id, bankTitle } = props
     const [loading, setLoading] = useState(false)
+    const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     useRequestManager({ error: editError, loading: editLoading, data: editData })
     const [form] = Ant.Form.useForm()
@@ -17,21 +18,26 @@ const FormEditBanks = (props) => {
     //                        useEffects
     //====================================================================
     useEffect(() => {
-        form.resetFields()
-        form.setFieldsValue({ ...obj })
-    }, [obj])
+        getBanksById()
+    }, []);
 
     useEffect(() => {
-        editData?.isSuccess && onSuccess()
-    }, [editData])
+        form.resetFields()
+        listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
+    }, [listData])
     //=====================================================================
     //                        Functions
     //=====================================================================
+    const getBanksById = async () => {
+        await ApiCall(`${url.BANK}/${id}`);
+    };
+
     const onFinish = async (values) => {
         setLoading(true)
         const req = { ...values, id: id }
-        await editApiCall(url.BANk, req)
+        await editApiCall(url.BANK, req)
         setLoading(false)
+        onSuccess()
     }
     //====================================================================
     //                        Component
@@ -40,22 +46,24 @@ const FormEditBanks = (props) => {
         <>
             <br></br>
             <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`ویرایش بانک "${bankTitle}"`} type="inner" loading={loading}>
-                <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                    <Ant.Form.Item name="title" label={'نام بانک'} rules={[{ required: true }]}>
-                        <Ant.Input allowClear showCount maxLength={200} />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item>
-                        <Ant.Button block
-                            type="primary"
-                            loading={loading}
-                            onClick={() => {
-                                form.submit()
-                            }}
-                        >
-                            {'تایید'}
-                        </Ant.Button>
-                    </Ant.Form.Item>
-                </Ant.Form>
+                <Ant.Skeleton loading={loadingData}>
+                    <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+                        <Ant.Form.Item name="title" label={'نام بانک'} rules={[{ required: true }]}>
+                            <Ant.Input allowClear showCount maxLength={200} />
+                        </Ant.Form.Item>
+                        <Ant.Form.Item>
+                            <Ant.Button block
+                                type="primary"
+                                loading={loading}
+                                onClick={() => {
+                                    form.submit()
+                                }}
+                            >
+                                {'تایید'}
+                            </Ant.Button>
+                        </Ant.Form.Item>
+                    </Ant.Form>
+                </Ant.Skeleton>
             </Ant.Card>
         </>
     )

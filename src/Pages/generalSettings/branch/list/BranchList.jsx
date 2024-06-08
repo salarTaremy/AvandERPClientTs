@@ -69,8 +69,7 @@ const BranchList = () => {
     setModalContent(
       <FormEditBranch
         onSuccess={onSuccessEdit}
-        myKey={val.id}
-        obj={val}
+        key={val.id}
         id={val.id}
       />,
     );

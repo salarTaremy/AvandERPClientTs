@@ -84,7 +84,7 @@ const DocumentTypeList = () => {
     setModalContent(
       <FormEditDocumentType
         onSuccess={onSuccessEdit}
-        myKey={val.id}
+        key={val.id}
         obj={val}
         id={val.id}
       />,

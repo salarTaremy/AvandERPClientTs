@@ -72,7 +72,7 @@ const SaleDocumentTypeList = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditSaleDocType onSuccess={onSuccessEdit} obj={val} id={val.id} />,
+      <FormEditSaleDocType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id}/>,
     );
     setModalState(true);
   };

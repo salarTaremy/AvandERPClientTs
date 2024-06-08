@@ -91,7 +91,7 @@ const PaymentTypeList = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditPaymentType onSuccess={onSuccessEdit} obj={val} id={val.id} />,
+      <FormEditPaymentType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id}/>,
     );
     setModalState(true);
   };

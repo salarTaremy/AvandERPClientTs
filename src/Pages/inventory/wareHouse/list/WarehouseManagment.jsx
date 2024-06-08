@@ -88,7 +88,7 @@ const WareHouseManagment = () => {
         setModalContent(
             <FormEditWarehouse
                 onSuccess={onSuccessEdit}
-                myKey={val.id}
+                key={val.id}
                 id={val.id}
                 name={val.title}
             />,
