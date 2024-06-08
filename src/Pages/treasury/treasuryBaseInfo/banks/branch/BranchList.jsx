@@ -15,7 +15,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import columns from "./columns";
 import FormEditBankBranch from "./edit/FormEditBankBranch";
 import ModalHeader from "@/components/common/ModalHeader";
-
+import CardContent from "@/components/common/CardContent";
 const BranchList = (props) => {
   const { bankId, bankTitle, onSuccess } = props;
   const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -169,7 +169,7 @@ const BranchList = (props) => {
         {modalContent}
       </Ant.Modal>
       <ModalHeader title={` بانک "${bankTitle}"`} />
-      <Ant.Card loading={loading}>
+      <CardContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -180,7 +180,7 @@ const BranchList = (props) => {
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
-      </Ant.Card>
+        </CardContent>
     </>
   );
 };

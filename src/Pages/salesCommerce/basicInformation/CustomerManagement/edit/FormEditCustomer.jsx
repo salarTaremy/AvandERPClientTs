@@ -158,6 +158,7 @@ const FormEditCustomer = ({ id }) => {
                 loading={editLoading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
               >
+
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }]}

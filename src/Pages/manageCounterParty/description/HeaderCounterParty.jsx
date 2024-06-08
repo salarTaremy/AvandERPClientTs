@@ -1,6 +1,7 @@
 import React from "react";
 import * as Ant from "antd";
-import PropTypes from 'prop-types'
+
+import ModalHeader from "@/components/common/ModalHeader";
 const HeaderCounterParty = ({ data }) => {
   const borderedItems = [
     {
@@ -61,10 +62,10 @@ const HeaderCounterParty = ({ data }) => {
   ];
   return (
     <>
+      <ModalHeader title={"جزئیات طرف حساب"} />
       <Ant.Descriptions
         bordered
         layout="vertical"
-        title={"جزئیات طرف حساب"}
         size={"middle"}
         items={borderedItems}
       />

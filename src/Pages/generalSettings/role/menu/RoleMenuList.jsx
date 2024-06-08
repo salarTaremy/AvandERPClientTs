@@ -5,119 +5,117 @@ import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
+import CardContent from "@/components/common/CardContent";
 
 const RoleMenuList = ({ id, name, onSuccess }) => {
-    const [data, loading, error, ApiCall] = useFetchWithHandler();
-    useRequestManager({ error: error });
-    const [items, setItems] = useState(null);
-    const [
-        listRoleNavMenuAssignment,
-        loadingRoleNavMenuAssignment,
-        errorRoleNavMenuAssignment,
-        apiCallRoleNavMenuAssignment,
-    ] = usePutWithHandler();
-    useRequestManager({
-        error: errorRoleNavMenuAssignment,
-        data: listRoleNavMenuAssignment,
-        loading: loadingRoleNavMenuAssignment,
+  const [data, loading, error, ApiCall] = useFetchWithHandler();
+  useRequestManager({ error: error });
+  const [items, setItems] = useState(null);
+  const [
+    listRoleNavMenuAssignment,
+    loadingRoleNavMenuAssignment,
+    errorRoleNavMenuAssignment,
+    apiCallRoleNavMenuAssignment,
+  ] = usePutWithHandler();
+  useRequestManager({
+    error: errorRoleNavMenuAssignment,
+    data: listRoleNavMenuAssignment,
+    loading: loadingRoleNavMenuAssignment,
+  });
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const [checkedKeys, setCheckedKeys] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
+  const [autoExpandParent, setAutoExpandParent] = useState(true);
+  const checked = [];
+  const bottom = 100;
+
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+  useEffect(() => {
+    getAllMenu();
+  }, []);
+
+  useEffect(() => {
+    setItems((data?.isSuccess && data?.data[0]?.children) || null);
+  }, [data?.data]);
+
+  useEffect(() => {
+    items?.forEach((item) => {
+      if (item?.roleHasAccess) {
+        checked.push(item.key);
+      } else
+        item?.children?.forEach((c) => {
+          if (c.roleHasAccess) {
+            checked.push(c.key);
+          }
+        });
     });
-    const [expandedKeys, setExpandedKeys] = useState([]);
-    const [checkedKeys, setCheckedKeys] = useState([]);
-    const [selectedKeys, setSelectedKeys] = useState([]);
-    const [autoExpandParent, setAutoExpandParent] = useState(true);
-    const checked = [];
-    const bottom = 100
+    setCheckedKeys(checked);
+  }, [items]);
 
-    //====================================================================
-    //                        useEffects
-    //====================================================================
-    useEffect(() => {
-        getAllMenu();
-    }, []);
+  //====================================================================
+  //                        Events
+  //====================================================================
+  const onExpand = (expandedKeysValue) => {
+    setExpandedKeys(expandedKeysValue);
+    setAutoExpandParent(false);
+  };
 
-    useEffect(() => {
-        setItems((data?.isSuccess && data?.data[0]?.children) || null);
-    }, [data?.data]);
+  const onCheck = (checkedKeysValue) => {
+    setCheckedKeys(checkedKeysValue);
+  };
 
-    useEffect(() => {
-        items?.forEach((item) => {
-            if (item?.roleHasAccess) {
-                checked.push(item.key);
-            } else (item?.children?.forEach((c) => {
-                if (c.roleHasAccess) {
-                    checked.push(c.key)
-                }
-            }))
-        });
-        setCheckedKeys(checked);
-    }, [items]);
+  const onSelect = (selectedKeysValue) => {
+    setSelectedKeys(selectedKeysValue);
+  };
 
-    //====================================================================
-    //                        Events
-    //====================================================================
-    const onExpand = (expandedKeysValue) => {
-        setExpandedKeys(expandedKeysValue);
-        setAutoExpandParent(false);
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const getAllMenu = async () => {
+    const queryString = qs.stringify({
+      roleId: id,
+    });
+    await ApiCall(`${url.NAV_MENU_TREE}?${queryString}`);
+  };
+
+  const onFinish = async () => {
+    const req = {
+      roleId: id,
+      entityIdList: checkedKeys,
     };
+    await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, req);
+    onSuccess();
+  };
 
-    const onCheck = (checkedKeysValue) => {
-        setCheckedKeys(checkedKeysValue);
-    };
+  //====================================================================
+  //                        Component
+  //====================================================================
+  return (
+    <>
+      <ModalHeader title={`دسترسی منو نقش " ${name} "`} />
+      <Ant.Skeleton loading={loading}>
+        <CardContent>
+          <Ant.Tree
+            checkable
+            onExpand={onExpand}
+            expandedKeys={expandedKeys}
+            autoExpandParent={autoExpandParent}
+            onCheck={onCheck}
+            checkedKeys={checkedKeys}
+            onSelect={onSelect}
+            selectedKeys={selectedKeys}
+            treeData={items}
+          />
+        </CardContent>
+      </Ant.Skeleton>
 
-    const onSelect = (selectedKeysValue) => {
-        setSelectedKeys(selectedKeysValue);
-    };
+      <Ant.Button type="primary" onClick={onFinish}>
+        {"ذخیره"}
+      </Ant.Button>
+    </>
+  );
+};
 
-    //====================================================================
-    //                        Functions
-    //====================================================================
-    const getAllMenu = async () => {
-        const queryString = qs.stringify({
-            roleId: id,
-        });
-        await ApiCall(`${url.NAV_MENU_TREE}?${queryString}`);
-    };
-
-    const onFinish = async () => {
-        const req = {
-            roleId: id,
-            entityIdList: checkedKeys
-        };
-        await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, req);
-        onSuccess()
-    };
-
-    //====================================================================
-    //                        Component
-    //====================================================================
-    return (
-        <>
-            <ModalHeader title={`دسترسی منو نقش " ${name} "`} />
-            <Ant.Skeleton loading={loading}>
-                <Ant.Tree
-                    checkable
-                    onExpand={onExpand}
-                    expandedKeys={expandedKeys}
-                    autoExpandParent={autoExpandParent}
-                    onCheck={onCheck}
-                    checkedKeys={checkedKeys}
-                    onSelect={onSelect}
-                    selectedKeys={selectedKeys}
-                    treeData={items}
-                />
-            </Ant.Skeleton>
-            <Ant.Affix offsetBottom={bottom} style={{ position: 'absolute', bottom: 0, left: 30 }}>
-                <Ant.Button
-                    block
-                    style={{ width: 150 }}
-                    type="primary"
-                    onClick={onFinish}
-                >
-                    {'ذخیره'}
-                </Ant.Button>
-            </Ant.Affix>
-        </>
-    )
-}
-
-export default RoleMenuList
+export default RoleMenuList;

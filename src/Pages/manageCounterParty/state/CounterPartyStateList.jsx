@@ -8,7 +8,7 @@ import ButtonList from "@/components/common/ButtonList";
 import FormAddNewState from "./add/FormAddNewState";
 import * as styles from "@/styles";
 import * as uuid from "uuid";
-
+import ModalHeader from "@/components/common/ModalHeader";
 
 const CounterPartyStateList = (props) => {
     const { counterPartyId, counterPartyName, onSuccess } = props
@@ -112,6 +112,8 @@ const CounterPartyStateList = (props) => {
             <Ant.Modal
                 open={modalState}
                 handleCancel={() => setModalState(false)}
+
+                {...defaultValues.MODAL_PROPS}
                 onCancel={() => {
                     setModalState(false);
                 }}
@@ -121,9 +123,10 @@ const CounterPartyStateList = (props) => {
                 {modalContent}
             </Ant.Modal>
             <br></br>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`وضعیت اعتبار "${counterPartyName}"`} type="inner" loading={loading}>
+
+            <ModalHeader  title={`وضعیت اعتبار "${counterPartyName}"`} />
                 <Grid />
-            </Ant.Card>
+
         </>
     );
 }
