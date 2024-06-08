@@ -8,7 +8,7 @@ import {
     usePostWithHandler,
     useFetchWithHandler
 } from "@/api";
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormAddNewBranch = (props) => {
     const { onSuccess, bankId } = props
     const [loading, setLoading] = useState(false)
@@ -61,13 +61,8 @@ const FormAddNewBranch = (props) => {
     //====================================================================
     return (
         <>
+            <ModalHeader title={'ایجاد شعبه جدید'} />
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                <Ant.Row>
-                    <Ant.Col span={24}>
-                        {'ایجاد شعبه جدید'}
-                        <Ant.Divider />
-                    </Ant.Col>
-                </Ant.Row>
                 <Ant.Form.Item name={'code'} label="کد شعبه" rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={100} />
                 </Ant.Form.Item>

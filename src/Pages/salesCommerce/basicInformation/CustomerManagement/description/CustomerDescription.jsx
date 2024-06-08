@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-
+import ModalHeader from "@/components/common/ModalHeader";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -79,10 +79,10 @@ const CustomerDescription = (props) => {
   //====================================================================
   return (
     <Ant.Skeleton active={true} loading={loading}>
+         <ModalHeader title= {"جزئیات مشتری"}/>
       <Ant.Descriptions
         bordered
         layout="vertical"
-        title={"جزئیات مشتری"}
         size={"middle"}
         items={borderedItems}
       />

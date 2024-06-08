@@ -1,15 +1,12 @@
-import React from 'react'
-import { FrmAddProduct } from './FrmAddProduct'
-import { Card } from 'antd'
-
+import React from "react";
+import { FrmAddProduct } from "./FrmAddProduct";
+import ModalHeader from "@/components/common/ModalHeader";
 const AddProduct = ({ onSuccessAdd }) => {
   return (
     <>
-      <br />
-      <Card title="تعریف کالا/خدمت" type="inner">
-        <FrmAddProduct onSuccessAdd={onSuccessAdd} />
-      </Card>
+      <ModalHeader title={"تعریف کالا/خدمت"} />
+      <FrmAddProduct onSuccessAdd={onSuccessAdd} />
     </>
-  )
-}
-export default AddProduct
+  );
+};
+export default AddProduct;

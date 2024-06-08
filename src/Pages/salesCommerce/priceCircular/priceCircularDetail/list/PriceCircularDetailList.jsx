@@ -8,7 +8,7 @@ import { columns } from "./columns";
 import useRequestManager from "@/hooks/useRequestManager";
 import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription";
 import BatchNumberDescription from "../../../../inventory/batchNumber/description/BatchNumberDescription";
-
+import ModalHeader from "@/components/common/ModalHeader";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -66,7 +66,7 @@ const PriceCircularDetailList = (props) => {
     const Grid = () => {
         return (
             <>
-                <Ant.Typography.Title level={5} className="pb-4">{pageTitle}</Ant.Typography.Title>
+                <ModalHeader title= {pageTitle}/>
                 <Ant.Modal
                     open={modalOpenState}
                     centered

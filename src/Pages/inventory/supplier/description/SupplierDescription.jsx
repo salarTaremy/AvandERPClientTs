@@ -5,7 +5,7 @@ import * as Ant from 'antd'
 import * as url from '@/api/url'
 import * as api from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
-
+import ModalHeader from "@/components/common/ModalHeader";
 
 
 //====================================================================
@@ -43,12 +43,9 @@ const SupplierDescription = (props) => {
   //====================================================================
   return (
     <Ant.Skeleton active={true} loading={loading}>
+      <ModalHeader title= {'جزئیات تأمین کننده'}/>
       <Ant.Descriptions
         bordered
-        // layout="vertical"
-        title={'جزئیات  تأمین کننده'}
-        size={'middle'}
-
         items={borderedItems}
       />
     </Ant.Skeleton>

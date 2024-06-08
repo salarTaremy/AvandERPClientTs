@@ -1,35 +1,32 @@
-import React from 'react'
-import { PropTypes } from 'prop-types'
-import * as Ant from 'antd'
-import * as url from '@/api/url'
-import * as api from '@/api'
-import useRequestManager from '@/hooks/useRequestManager'
-
+import React from "react";
+import { PropTypes } from "prop-types";
+import * as Ant from "antd";
+import * as url from "@/api/url";
+import * as api from "@/api";
+import useRequestManager from "@/hooks/useRequestManager";
+import ModalHeader from "@/components/common/ModalHeader";
 const DetailProductListDescription = (props) => {
-  const { id } = props
-  const [data, loading, error] = api.useFetch(`${url.PRODUCT}/${id}`)
-  useRequestManager({ error: error })
+  const { id } = props;
+  const [data, loading, error] = api.useFetch(`${url.PRODUCT}/${id}`);
+  useRequestManager({ error: error });
   const borderedItems = [
     {
-      key: '1',
-      label: 'شناسه',
+      key: "1",
+      label: "شناسه",
       children: data?.data?.id,
-      span:2
-
+      span: 2,
     },
     {
-      key: '2',
-      label: 'کد',
+      key: "2",
+      label: "کد",
       children: data?.data?.code,
-      span:2
-
+      span: 2,
     },
     {
-      key: '3',
-      label: 'کد دوم',
+      key: "3",
+      label: "کد دوم",
       children: data?.data?.secondCode,
-      span:2
-
+      span: 2,
     },
     // {
     //   key: '4',
@@ -46,43 +43,36 @@ const DetailProductListDescription = (props) => {
 
     // },
     {
-      key: '6',
-      label: 'برند',
+      key: "6",
+      label: "برند",
       children: data?.data?.brandName,
-      span:6
-
+      span: 6,
     },
     {
-      key: '7',
-      label: 'نام کالا',
+      key: "7",
+      label: "نام کالا",
       children: data?.data?.name,
-      span:6
-
-    }, {
-      key: '8',
-      label: 'نام دوم کالا',
-      children: data?.data?.secondName,
-      span:6
+      span: 6,
     },
-  ]
+    {
+      key: "8",
+      label: "نام دوم کالا",
+      children: data?.data?.secondName,
+      span: 6,
+    },
+  ];
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <Ant.Skeleton active={true} loading={loading}>
-    <Ant.Descriptions
-      bordered
-      // layout="vertical"
-      title={'جزئیات کالا/خدمات '}
-      size={'middle'}
+      <ModalHeader title={"جزئیات کالا/خدمات"} />
+      <Ant.Descriptions bordered items={borderedItems} />
+    </Ant.Skeleton>
+  );
+};
 
-      items={borderedItems}
-    />
-  </Ant.Skeleton>
-  )
-}
-
-export default DetailProductListDescription
+export default DetailProductListDescription;
 DetailProductListDescription.propTypes = {
   id: PropTypes.number,
-}
+};
