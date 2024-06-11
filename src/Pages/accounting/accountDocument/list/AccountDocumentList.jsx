@@ -7,7 +7,6 @@ import * as styles from "@/styles";
 import * as defaultValues from "@/defaultValues";
 import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import * as uuid from "uuid";
 import { columns } from "./columns";
 import ButtonList from "@/components/common/ButtonList";
 import FilterPanel from "./FilterPanel";
@@ -16,6 +15,10 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import AccountDocumentDetailView from "./AccountDocumentDetailView";
 import AccountDocumentDescription from "@/Pages/accounting/accountDocument/description/AccountDocumentDescription";
 import { useNavigate, generatePath } from "react-router-dom";
+import * as uuid from 'uuid'
+import FrmAddAccountDocument from "./../add/FrmAddAccountDocument"
+
+import FrmEditAccountDocument from "./../edit/FrmEditAccountDocument"
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -70,6 +73,10 @@ const AccountDocumentList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const onSuccessEdit = () => {
+    setModalState(false)
+    fillGrid()
+  }
 
   const fillGrid = async () => {
     const queryString = qs.stringify({
@@ -93,21 +100,21 @@ const AccountDocumentList = () => {
     setOpenFilter(false);
   };
   const onAdd = () => {
-    navigate("/accounting/accountDocument/new");
-    // setModalContent(<FrmAddAccountDocument key={uuid.v1()} />)
-    // setModalState(true)
+    // navigate("/accounting/accountDocument/new");
+    setModalContent(<FrmAddAccountDocument key={uuid.v1()} />)
+    setModalState(true)
   };
   const onDelete = async (id) => {
     await delApiCall(`${url.ACCOUNT_DOCUMENT}/${id}`);
   };
   const onEdit = (id) => {
     console.log(id, "valval");
-    //  listApiCallEdit(`${url.ACCOUNT_DOCUMENT}/${id}`)
-    id &&
-      navigate(generatePath("/accounting/accountDocument/edit/:id", { id }));
 
-    // setModalContent(<FrmEditAccountDocument id={id} key={id} />)
-    // setModalState(true)
+    // id &&
+    //   navigate(generatePath("/accounting/accountDocument/edit/:id", { id }));
+
+    setModalContent(<FrmEditAccountDocument onSuccess={onSuccessEdit} id={id} key={id} />)
+    setModalState(true)
   };
   const onView = (id) => {
     setModalContent(<AccountDocumentDescription id={id} key={id} />);

@@ -4,8 +4,9 @@ import * as url from "@/api/url";
 import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, usePostWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
+import ModalHeader from "@/components/common/ModalHeader";
 import TBL from "./Table";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const FrmAddAccountDocument = () => {
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
@@ -24,7 +25,7 @@ export const FrmAddAccountDocument = () => {
   const [dataDetailObject, setDataDetailObject] = useState();
   const [sumDebtor, setSumDebtor] = useState(0);
   const [sumCreditor, setSumCreditor] = useState(0);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     form.resetFields();
   }, [form]);
@@ -72,7 +73,7 @@ export const FrmAddAccountDocument = () => {
     };
 
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
-    navigate('/accounting/accountDocument')
+    navigate("/accounting/accountDocument");
   };
 
   //====================================================================
@@ -107,107 +108,90 @@ export const FrmAddAccountDocument = () => {
   //====================================================================
   //                        Component
   //====================================================================
-  const text = <strong>{"ایجاد سند حسابداری"}</strong>;
+
   return (
     <>
-      <Ant.Collapse
-        defaultActiveKey={["1"]}
-        items={[
-          {
-            key: "1",
-            label: text,
+      <ModalHeader title= {'ایجاد سند حسابداری'} />
+      <Ant.Form form={form} layout="vertical" onFinish Failed={null}>
+        <Ant.Row gutter={[16, 8]}>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              rules={[{ required: true }]}
+              name={"branchId"}
+              label="شعبه سند"
+            >
+              <Ant.Select
+                allowClear={true}
+                placeholder={"انتخاب کنید..."}
+                disabled={branchLoading || false}
+                loading={branchLoading}
+                options={branchData?.data}
+                fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              rules={[{ required: true }]}
+              name={"AccountingDocumentTypeId"}
+              label="نوع سند "
+            >
+              <Ant.Select
+                allowClear={true}
+                placeholder={"انتخاب کنید..."}
+                disabled={accTypeLoading || false}
+                loading={accTypeLoading}
+                options={accTypeData?.data}
+                fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              rules={[{ required: true }]}
+              name={"accountingDocumentStateId"}
+              label="وضعیت "
+            >
+              <Ant.Select
+                allowClear={true}
+                placeholder={"انتخاب کنید..."}
+                disabled={accStateLoading || false}
+                loading={accStateLoading}
+                options={
+                  accStateData?.data && [
+                    ...accStateData?.data?.filter((c) => c.id <= 2),
+                  ]
+                }
+                fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
 
-            children: (
-              <>
-                <Ant.Form form={form} layout="vertical" onFinish Failed={null}>
-                  <Ant.Row gutter={[16, 8]}>
-                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
-                      <Ant.Form.Item
-                        rules={[{ required: true }]}
-                        name={"branchId"}
-                        label="شعبه سند"
-                      >
-                        <Ant.Select
-                          allowClear={true}
-                          placeholder={"انتخاب کنید..."}
-                          disabled={branchLoading || false}
-                          loading={branchLoading}
-                          options={branchData?.data}
-                          fieldNames={{ label: "name", value: "id" }}
-                        />
-                      </Ant.Form.Item>
-                    </Ant.Col>
-                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
-                      <Ant.Form.Item
-                        rules={[{ required: true }]}
-                        name={"AccountingDocumentTypeId"}
-                        label="نوع سند "
-                      >
-                        <Ant.Select
-                          allowClear={true}
-                          placeholder={"انتخاب کنید..."}
-                          disabled={accTypeLoading || false}
-                          loading={accTypeLoading}
-                          options={accTypeData?.data}
-                          fieldNames={{ label: "name", value: "id" }}
-                        />
-                      </Ant.Form.Item>
-                    </Ant.Col>
-                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
-                      <Ant.Form.Item
-                        rules={[{ required: true }]}
-                        name={"accountingDocumentStateId"}
-                        label="وضعیت "
-                      >
-                        <Ant.Select
-                          allowClear={true}
-                          placeholder={"انتخاب کنید..."}
-                          disabled={accStateLoading || false}
-                          loading={accStateLoading}
-                          options={
-                            accStateData?.data && [
-                              ...accStateData?.data?.filter((c) => c.id <= 2),
-                            ]
-                          }
-                          fieldNames={{ label: "name", value: "id" }}
-                        />
-                      </Ant.Form.Item>
-                    </Ant.Col>
-
-                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
-                      <Ant.Form.Item
-                        rules={[{ required: true }]}
-                        name={"subNumber"}
-                        label="شماره فرعی"
-                      >
-                        <Ant.InputNumber min={0} style={{ width: "100%" }} />
-                      </Ant.Form.Item>
-                    </Ant.Col>
-                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
-                      <Ant.Form.Item name={"calendarId"} label="تاریخ">
-                        <MyDatePicker />
-                      </Ant.Form.Item>
-                    </Ant.Col>
-                    <Ant.Col lg={18} md={12} sm={12} xs={24}>
-                      <Ant.Form.Item
-                        name={"description"}
-                        label="توضیحات"
-                        rules={[{ required: false }]}
-                      >
-                        <Ant.Input.TextArea
-                          allowClear
-                          showCount
-                          maxLength={400}
-                        />
-                      </Ant.Form.Item>
-                    </Ant.Col>
-                  </Ant.Row>
-                </Ant.Form>
-              </>
-            ),
-          },
-        ]}
-      />
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              rules={[{ required: true }]}
+              name={"subNumber"}
+              label="شماره فرعی"
+            >
+              <Ant.InputNumber min={0} style={{ width: "100%" }} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
+            <Ant.Form.Item name={"calendarId"} label="تاریخ">
+              <MyDatePicker />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col lg={18} md={12} sm={12} xs={24}>
+            <Ant.Form.Item
+              name={"description"}
+              label="توضیحات"
+              rules={[{ required: false }]}
+            >
+              <Ant.Input.TextArea allowClear showCount maxLength={400} />
+            </Ant.Form.Item>
+          </Ant.Col>
+        </Ant.Row>
+      </Ant.Form>
 
       <TBL
         updateDebtor={updateDebtor}

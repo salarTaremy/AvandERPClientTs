@@ -104,7 +104,7 @@ const HeaderComponent = (props) => {
   //====================================================================
   return (
     <>
-      <Header className="px-1 xl:px-9">
+      <Header className="p-0">
         <Ant.Row>
           <Ant.Col span={12}>
             <Ant.Space className="item-end">

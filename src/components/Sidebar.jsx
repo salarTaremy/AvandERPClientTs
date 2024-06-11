@@ -16,11 +16,10 @@ import { AppstoreOutlined } from "@ant-design/icons";
 const { Sider } = Layout;
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
-  height: "74vh",
-  right: 0,
+  height: "84vh",
+
   backgroundColor: "transparent",
-  top: 0,
-  bottom: 0,
+
 };
 
 const AppSidebar = (props) => {
@@ -109,7 +108,7 @@ const AppSidebar = (props) => {
               </Ant.Button>
             </Ant.Space>
           </Ant.Flex>
-          <Ant.Divider></Ant.Divider>
+          <Ant.Divider className="mb-0"></Ant.Divider>
         </div>
       </div>
     </>
@@ -121,7 +120,7 @@ const AppSidebar = (props) => {
     <>
       <Sider
         width={280}
-        className="sidebar hidden lg:block"
+        className=" hidden lg:block"
         collapsed={collapsedSider}
         items={items}
       >
@@ -143,7 +142,7 @@ const AppSidebar = (props) => {
           />
         )}
         {!showImageSider && Searchbox}
-        <div style={sliderStyle} className="flex justify-center sider-menu ">
+        <div style={sliderStyle} className="flex justify-center  ">
           {loading || (
             <Menu
               mode="inline"
