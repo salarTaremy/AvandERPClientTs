@@ -5,7 +5,7 @@ import * as url from '@/api/url'
 import { usePutWithHandler, useFetchWithHandler, useFetch } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import * as styles from "@/styles";
-
+import ModalHeader from "@/components/common/ModalHeader";
 const FormEditBranch = (props) => {
     const { onSuccess, obj, id, name, bankTitle, bankId } = props
     const [loading, setLoading] = useState(false)
@@ -62,8 +62,8 @@ const FormEditBranch = (props) => {
     //====================================================================
     return (
         <>
-            <br></br>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={`ویرایش بانک "${bankTitle}" شعبه "${name}"`} type="inner" loading={loading}>
+            <ModalHeader title={`ویرایش بانک "${bankTitle}" شعبه "${name}"`} />
+
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name={'code'} label="کد شعبه" rules={[{ required: true }]}>
                         <Ant.Input allowClear showCount maxLength={100} />
@@ -106,7 +106,7 @@ const FormEditBranch = (props) => {
                         </Ant.Button>
                     </Ant.Form.Item>
                 </Ant.Form>
-            </Ant.Card>
+
         </>
     )
 }

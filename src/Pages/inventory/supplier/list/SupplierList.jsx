@@ -130,6 +130,7 @@ const SupplierList = () => {
     <>
       <Ant.Modal
         open={modalState}
+        {...defaultValues.MODAL_PROPS}
         centered
         getContainer={null}
         footer={null}

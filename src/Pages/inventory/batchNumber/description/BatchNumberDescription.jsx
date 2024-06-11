@@ -4,7 +4,7 @@ import * as url from "@/api/url";
 import * as Ant from "antd";
 import { Typography } from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
-
+import ModalHeader from "@/components/common/ModalHeader";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -13,7 +13,7 @@ const BatchNumberDescription = (props) => {
     const pageTitle = "سری ساخت";
     const [batchNumberData, batchNumberLoading, batchNumberError] = api.useFetch(`${url.BATCH_NUMBER}/${id}`);
     useRequestManager({error: batchNumberError});
-    
+
     const descriptionItems = [
         {
             key: "1",
@@ -42,7 +42,8 @@ const BatchNumberDescription = (props) => {
     //====================================================================
     return (
         <>
-        <Ant.Skeleton active={true} loading={batchNumberLoading}>        
+        <Ant.Skeleton active={true} loading={batchNumberLoading}>
+        <ModalHeader title={pageTitle}/>
             <Ant.Descriptions
                 column={{
                     xs: 1,
@@ -52,7 +53,7 @@ const BatchNumberDescription = (props) => {
                     xl: 4,
                     xxl: 4
                 }}
-                title={pageTitle}
+
                 bordered
                 layout="vertical"
                 size="medium"

@@ -4,6 +4,7 @@ import { Typography } from "antd";
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
 import SaleDocumentDescription from "../description/SaleDocumentDescription";
 import * as defaultValues from "@/defaultValues";
+import ModalHeader from "@/components/common/ModalHeader";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -53,7 +54,7 @@ const SaleDocumentHeaderInfo = (props) => {
         >
           {saleDocumentData?.customerName}
         </Typography.Link>
-      ), 
+      ),
     },
     {
       key: "5",
@@ -93,10 +94,11 @@ const SaleDocumentHeaderInfo = (props) => {
       </Ant.Modal>
 
       <Ant.Skeleton loading={loading}>
+      <ModalHeader title= {title}/>
         <Ant.Descriptions
           bordered={false}
           layout="horizontal"
-          title={title}
+
           size="small"
           items={borderedItems}
           className={className}

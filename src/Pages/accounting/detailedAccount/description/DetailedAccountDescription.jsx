@@ -1,72 +1,73 @@
-import React, { useEffect, useState } from 'react'
-import { PropTypes } from 'prop-types'
-import * as Ant from 'antd'
-import * as url from '@/api/url'
-import * as styles from '@/styles'
-import * as api from '@/api'
-import useRequestManager from '@/hooks/useRequestManager'
-import Loading from '@/components/common/Loading'
+import React, { useEffect, useState } from "react";
+import { PropTypes } from "prop-types";
+import * as Ant from "antd";
+import * as url from "@/api/url";
+import * as styles from "@/styles";
+import * as api from "@/api";
+import useRequestManager from "@/hooks/useRequestManager";
+import Loading from "@/components/common/Loading";
+import ModalHeader from "@/components/common/ModalHeader";
 //====================================================================
 //                        Declaration
 //====================================================================
 const DetailedAccountDescription = (props) => {
-  const { id } = props
-  const [data, loading, error] = api.useFetch(`${url.DETAILED_ACCOUNT}/${id}`)
-  useRequestManager({ error: error })
+  const { id } = props;
+  const [data, loading, error] = api.useFetch(`${url.DETAILED_ACCOUNT}/${id}`);
+  useRequestManager({ error: error });
   const borderedItems = [
     {
-      key: '1',
-      label: 'شناسه',
+      key: "1",
+      label: "شناسه",
       children: data?.data?.id,
     },
     {
-      key: '2',
-      label: ' کد کامل',
+      key: "2",
+      label: " کد کامل",
       children: data?.data?.fullCode,
     },
     {
-      key: '3',
-      label: 'کد نوع تفصیل',
+      key: "3",
+      label: "کد نوع تفصیل",
       children: data?.data?.detailedAccountGroupCode,
     },
     {
-      key: '4',
-      label: 'وضعیت حساب',
+      key: "4",
+      label: "وضعیت حساب",
       //children: data?.data?.isActive.toString(),
       span: 3,
       children: (
         <Ant.Badge
           status={
-            (loading && 'default') ||
-            (data?.data?.isActive && 'success') ||
-            (!data?.data?.isActive && 'error')
+            (loading && "default") ||
+            (data?.data?.isActive && "success") ||
+            (!data?.data?.isActive && "error")
           }
           text={
             (loading && <Ant.Spin />) ||
-            (data?.data?.isActive && 'فعال') ||
-            (!data?.data?.isActive && 'غیر فعال')
+            (data?.data?.isActive && "فعال") ||
+            (!data?.data?.isActive && "غیر فعال")
           }
         />
       ),
     },
     {
-      key: '5',
-      label: 'نام حساب',
+      key: "5",
+      label: "نام حساب",
       span: 3,
       children: data?.data?.name,
     },
     {
-      key: '6',
-      label: 'نام دوم حساب',
+      key: "6",
+      label: "نام دوم حساب",
       span: 3,
       children: data?.data?.secondName,
     },
     {
-      key: '7',
-      label: 'نوع تفصیل',
+      key: "7",
+      label: "نوع تفصیل",
       children: data?.data?.detailedAccountGroupName,
     },
-  ]
+  ];
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -86,30 +87,30 @@ const DetailedAccountDescription = (props) => {
   const BlankPage = () => {
     return (
       <>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
+        <p>{"......"}</p>
+        <p>{"......"}</p>
+        <p>{"......"}</p>
+        <p>{"......"}</p>
       </>
-    )
-  }
+    );
+  };
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <Ant.Skeleton active={true} loading={loading}>
+      <ModalHeader title={"جزئیات حساب تفصیل"} />
       <Ant.Descriptions
         bordered
         // layout="vertical"
-        title={'جزئیات حساب تفصیل'}
-        size={'middle'}
+        size={"middle"}
         // extra={<Ant.Button>ok</Ant.Button>}
         items={borderedItems}
       />
     </Ant.Skeleton>
-  )
-}
-export default DetailedAccountDescription
+  );
+};
+export default DetailedAccountDescription;
 DetailedAccountDescription.propTypes = {
   id: PropTypes.number,
-}
+};

@@ -37,8 +37,8 @@ const FormAddNewCustomerGrup = (props) => {
   //====================================================================
   return (
     <>
+      <ModalHeader title={"ایجاد گروه مشتری جدید"} icon={<IoPeopleSharp />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <ModalHeader title={"ایجاد گروه مشتری جدید"} icon={<IoPeopleSharp />} />
         <Ant.Form.Item
           name="title"
           label={"عنوان"}

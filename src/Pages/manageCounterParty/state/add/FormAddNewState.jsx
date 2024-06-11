@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, usePostWithHandler } from "@/api";
-
+import ModalHeader from "@/components/common/ModalHeader";
 
 const FormAddNewState = (props) => {
     const { onSuccess, counterPartyId } = props
@@ -45,13 +45,9 @@ const FormAddNewState = (props) => {
     //====================================================================
     return (
         <>
+
+        <ModalHeader  title= {'ایجاد وضعیت جدید طرف حساب '} />
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                <Ant.Row>
-                    <Ant.Col span={24}>
-                        {'ایجاد وضعیت جدید طرف حساب '}
-                        <Ant.Divider />
-                    </Ant.Col>
-                </Ant.Row>
                 <Ant.Form.Item name={"dateCalendarId"} label="تاریخ" rules={[{ required: true }]}>
                     <MyDatePicker />
                 </Ant.Form.Item>

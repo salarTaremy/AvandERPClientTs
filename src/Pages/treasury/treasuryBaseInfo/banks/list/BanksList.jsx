@@ -52,6 +52,7 @@ const banksList = () => {
   };
 
   const onSuccessEdit = () => {
+
     setModalState(false);
     getAllBanks();
   };
@@ -74,7 +75,8 @@ const banksList = () => {
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    setModalSize({ ...defaultValues.MODAL_LARGE });
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
+    setModalSize(updateList);
     setModalContent(
       <FormEditBanks
         onSuccess={onSuccessEdit}
