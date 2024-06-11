@@ -159,7 +159,8 @@ export const COUNTER_PARTY_BLACK_LIST = 'CounterpartyBlackList'
 export const COUNTER_PARTY_BLACK_LIST_STATE = 'CounterpartyBlackListState'
 export const COUNTER_PARTY_GET_FOR_DROPDOWN = '/Counterparty/GetForDropdown'
 export const COUNTER_PARTY_BLACK_LIST_STATE_GET_BY_COUNTER_PARTY_ID = 'CounterpartyBlackList/GetByCounterpartyId'
-
+export const COUNTERPARTY_ADDRESS = 'CounterpartyAddress'
+export const COUNTERPARTY_BANK_ACCOUNT = 'CounterpartyBankAccount'
 
 
 //Province
@@ -218,3 +219,6 @@ export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocume
 //WareHouse
 export const WAREHOUSE = 'Warehouse'
 export const WAREHOUSE_TYPE = 'WarehouseType'
+
+//CityDistrict
+export const CITY_DISTRICT = 'CityDistrict'

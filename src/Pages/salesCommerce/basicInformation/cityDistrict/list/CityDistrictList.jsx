@@ -1,34 +1,33 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React from 'react'
 import * as Ant from "antd";
-import * as styles from "@/styles";
-import qs from "qs";
-import * as url from "@/api/url";
-import * as uuid from "uuid";
-import FilterBedge from "@/components/common/FilterBedge";
-import { useFetchWithHandler, useDelWithHandler } from "@/api";
-import useRequestManager from "@/hooks/useRequestManager";
+import { useEffect, useState } from "react";
 import columns from "./columns";
-import ButtonList from "@/components/common/ButtonList";
 import * as defaultValues from "@/defaultValues";
+import * as styles from "@/styles";
+import * as url from "@/api/url";
+import ButtonList from "@/components/common/ButtonList";
+import useRequestManager from "@/hooks/useRequestManager";
+import { useFetchWithHandler, useDelWithHandler } from "@/api";
+import * as uuid from "uuid";
+import FormEditCityDistrict from '../edit/FormEditCityDistrict'
+import FormAddCityDistrict from '../add/FormAddCityDistrict';
 import FilterDrawer from "@/components/common/FilterDrawer";
-import FilterPanel from "../list/FilterPanel";
-import FormAddNewWarehouse from "../add/FormAddNewWarehouse";
-import FormEditWarehouse from '../edit/FormEditWarehouse'
+import FilterBedge from "@/components/common/FilterBedge";
+import FilterPanel from './FilterPanel';
+import qs from "qs";
 
-const WareHouseManagment = () => {
-    const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+
+const CityDistrictList = () => {
+    const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
     const [dataSource, setDataSource] = useState(null);
+    useRequestManager({ error: error });
+    useRequestManager({ error: delError, loading: delLoading, data: delSaving });
+    const [modalState, setModalState] = useState(false);
     const [modalContent, setModalContent] = useState();
     const [filterObject, setFilterObject] = useState();
-    const [modalState, setModalState] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
     const [filterCount, setFilterCount] = useState(0);
-
-    const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
-    useRequestManager({ error: error });
-    useRequestManager({ error: delError, data: delSaving, loading: delLoading });
 
     //====================================================================
     //                        useEffects
@@ -39,7 +38,7 @@ const WareHouseManagment = () => {
                 Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
             );
         !filterObject && setFilterCount(0);
-        getWarehouse();
+        getAllCityDistrict();
     }, [filterObject]);
 
     useEffect(() => {
@@ -56,9 +55,10 @@ const WareHouseManagment = () => {
     //====================================================================
     //                        Functions
     //====================================================================
-    const getWarehouse = async () => {
+    const getAllCityDistrict = async () => {
         const queryString = qs.stringify(filterObject);
-        await ApiCall(`${url.WAREHOUSE}?${queryString}`);
+        console.log('queryString',filterObject)
+        await ApiCall(`${url.CITY_DISTRICT}?${queryString}`);
     };
 
     const onFilterChanged = async (filterObject) => {
@@ -72,49 +72,53 @@ const WareHouseManagment = () => {
     };
 
     const onDelete = async (id) => {
-        await delApiCall(`${url.WAREHOUSE}/${id}`);
+        await delApiCall(`${url.CITY_DISTRICT}/${id}`);
     };
 
     const onSuccessEdit = () => {
         setModalState(false);
-        getWarehouse();
+        getAllCityDistrict();
     };
 
-    const onEdit = (val) => {
+    const onAdd = () => {
         setModalContent(
-            <FormEditWarehouse
-                onSuccess={onSuccessEdit}
-                key={val.id}
-                id={val.id}
-                name={val.title}
-            />,
+            <FormAddCityDistrict key={uuid.v1()} onSuccess={onSuccessAdd} />
         );
         setModalState(true);
     };
 
     const onSuccessAdd = () => {
         setModalState(false);
-        getWarehouse();
+        getAllCityDistrict();
     };
 
-    const onAdd = () => {
-        setModalContent(<FormAddNewWarehouse key={uuid.v1()} onSuccess={onSuccessAdd} />);
+    //====================================================================
+    //                        Events
+    //====================================================================
+    const onEdit = (val) => {
+        setModalContent(
+            <FormEditCityDistrict
+                onSuccess={onSuccessEdit}
+                key={val.id}
+                id={val.id}
+            />
+        );
         setModalState(true);
     };
-
     //====================================================================
     //                        Child Components
     //====================================================================
     const title = () => {
         return (
             <ButtonList
-                filterCount={filterCount}
-                onAdd={onAdd}
+                onAdd={() => {
+                    onAdd();
+                }}
                 onFilter={() => {
                     setOpenFilter(true);
                 }}
                 onRefresh={() => {
-                    getWarehouse();
+                    getAllCityDistrict();
                 }}
             />
         );
@@ -123,12 +127,13 @@ const WareHouseManagment = () => {
     const Grid = () => {
         return (
             <>
-                <Ant.Skeleton loading={loadingData}>
+                <Ant.Skeleton loading={loading}>
                     <Ant.Table
+                        size="small"
                         {...defaultValues.TABLE_PROPS}
+                        title={title}
                         columns={columns(onDelete, onEdit)}
                         dataSource={dataSource}
-                        title={title}
                     />
                 </Ant.Skeleton>
             </>
@@ -137,32 +142,20 @@ const WareHouseManagment = () => {
     //====================================================================
     //                        Component
     //====================================================================
-
     return (
         <>
             <Ant.Modal
                 open={modalState}
-                centered
-                getContainer={null}
-                footer={null}
+                handleCancel={() => setModalState(false)}
                 onCancel={() => {
                     setModalState(false);
                 }}
-                onOk={() => {
-                    setModalState(false);
-                }}
-                {...defaultValues.MODAL_PROPS}
-                {...modalSize}
+                footer={null}
+                centered
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card
-                style={{ ...styles.CARD_DEFAULT_STYLES }}
-                loading={loadingData}
-                className="w-full"
-                title={"مدیریت انبارها"}
-                type="inner"
-            >
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"مناطق شهری "} type="inner" loading={loading}>
                 <FilterDrawer
                     open={openFilter}
                     onClose={() => setOpenFilter(false)}
@@ -178,4 +171,5 @@ const WareHouseManagment = () => {
     );
 }
 
-export default WareHouseManagment
+export default CityDistrictList
+

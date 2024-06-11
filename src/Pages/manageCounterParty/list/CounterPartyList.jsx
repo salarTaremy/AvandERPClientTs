@@ -16,8 +16,10 @@ import { useNavigate, generatePath } from "react-router-dom";
 import * as uuid from "uuid";
 import qs from "qs";
 import CounterPartyStateList from "../state/CounterPartyStateList";
-import FormAddCounterParty from "../add/FormAddCounterParty";
 import FormEditCounterParty from "../edit/FormEditCounterParty";
+
+import { FormCounterpartyAdd } from "../add/FormCounterpartyAdd";
+
 const CounterPartyList = () => {
   const navigate = useNavigate();
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -71,8 +73,14 @@ const CounterPartyList = () => {
   //                        Functions
   //====================================================================
   const getAllCounterParty = async () => {
+    const cityFilter = {};
+    if (filterObject && filterObject?.cityId) {
+      cityFilter.cityId = filterObject?.cityId[1];
+    }
+
     const queryString = qs.stringify({
       ...filterObject,
+      ...cityFilter,
       PageNumber: pagination.current,
       RowsOfPage: pagination.pageSize,
     });
@@ -100,7 +108,7 @@ const CounterPartyList = () => {
     getAllCounterParty();
   };
   const onAdd = () => {
-    setModalContent(<FormAddCounterParty  onSuccess={onSuccessAdd} />);
+    setModalContent(<FormCounterpartyAdd key={uuid.v1()} onSuccess={onSuccessAdd} />);
     setModalState(true);
   };
   const onView = (id) => {
@@ -191,13 +199,12 @@ const CounterPartyList = () => {
         }}
         footer={null}
         centered
-
       >
         {modalContent}
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"لیست طرف حساب ها"}
+        title={"مدیریت طرف حساب ها"}
         type="inner"
         loading={loading}
       >

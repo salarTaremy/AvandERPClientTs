@@ -53,6 +53,7 @@ import FormEditCustomer from './Pages/salesCommerce/basicInformation/CustomerMan
 import SaleDocument from './Pages/salesCommerce/saleDocument/SaleDocument';
 import SaleEffectiveFactor from './Pages/salesCommerce/basicInformation/saleEffectiveFactor/list/SaleEffectiveFactor';
 import PriceCircularHeader from './Pages/salesCommerce/priceCircular/priceCircularHeader/list/PriceCircularHeader';
+import CityDistrictList from './Pages/salesCommerce/basicInformation/cityDistrict/list/CityDistrictList'
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
@@ -117,6 +118,7 @@ const routes = [
   { path: '/sale/customerManagemen/edit/:id', name: 'ویرایش مشتری', element: FormEditCustomer },
   { path: '/sale/saleEffectiveFactor', name: 'مدیریت عوامل موثر بر برگه فروش', element: SaleEffectiveFactor },
   { path: '/sale/priceCircularManagement', name: 'مدیریت بخشنامه قیمت', element: PriceCircularHeader },
+  { path: 'sale/cityDistrict', name: 'مناطق شهری', element: CityDistrictList },
 
   { path: 'manage/counterparty', name: 'مدیریت طرف حساب ها', element: CounterParty },
   { path: 'manage/counterparty/new', name: 'ایجاد طرف حساب ها', element: FormAddCounterParty },
