@@ -7,7 +7,6 @@ import * as url from "@/api/url";
 import { useFetchWithHandler } from "@/api";
 import { validateNationalCode } from "@/Tools";
 import useRequestManager from "@/hooks/useRequestManager";
-import qs from "qs";
 
 //====================================================================
 //                        Declaration
@@ -29,14 +28,13 @@ export const BasicInfoStep = (props) => {
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
 
-  const [counterpartyFetchedData, counterpartyFetchLoading, counterpartyFetchError, counterpartyFetchApiCall] =
-  useFetchWithHandler();
+  const [
+    counterpartyFetchedData,
+    counterpartyFetchLoading,
+    counterpartyFetchError,
+    counterpartyFetchApiCall,
+  ] = useFetchWithHandler();
 
-  const commonOptions = {
-    placeholder: "انتخاب کنید...",
-    showSearch: true,
-    filterOption: (input, option) => option.name.indexOf(input) >= 0,
-  };
   useRequestManager({ error: cityError });
   useRequestManager({ error: maxCodeError });
 
@@ -55,40 +53,72 @@ export const BasicInfoStep = (props) => {
 
   useEffect(() => {
     cityList?.isSuccess && setCityOptions(cityList?.data);
-    counterpartyId === 0 && cityList?.isSuccess && form.setFieldValue("cityId", [1, 1002]);
+    counterpartyId === 0 &&
+      cityList?.isSuccess &&
+      form.setFieldValue("cityId", [1, 1002]);
   }, [cityList]);
 
   useEffect(() => {
     if (counterpartyId !== 0) {
       fetchCounterparty(counterpartyId);
+    } else {
+      form.setFieldsValue({ counterpartyTypeId: counterpartyType });
     }
-  }, [counterpartyId])
+  }, [counterpartyId]);
 
   useEffect(() => {
-    const provinceId = counterpartyFetchedData?.data.provinceId;
-    const cityId = counterpartyFetchedData?.data.cityId;
-    const otherValues = {};
-    otherValues.cityId =  [provinceId, cityId];
-    // if (counterpartyFetchedData?.data.birthDateCalendarId) {
-    //   const yearFrom = counterpartyFetchedData?.data.birthDateCalendarId.substr(0,4);
-    //   const monthFrom = counterpartyFetchedData?.databirthDateCalendarId.substr(4,2);
-    //   const dayFrom = counterpartyFetchedData?.data.birthDateCalendarId.substr(6,2);
-    //   const formattedFromDate = `${yearFrom}/${monthFrom}/${dayFrom}`
-    //   otherValues.birthDateCalendarId = formattedFromDate;
-    // }
+    if (counterpartyFetchedData) {
+      const provinceId = counterpartyFetchedData.data.provinceId;
+      const cityId = counterpartyFetchedData.data.cityId;
+      const otherValues = {};
+      otherValues.cityId = [provinceId, cityId];
 
-    // if (counterpartyFetchedData?.data.birthCertificatePlaceOfIssueCityId) {
-    //   otherValues.birthCertificatePlaceOfIssueCityId = [provinceId, counterpartyFetchedData?.data.birthCertificatePlaceOfIssueCityId];
-    // }
+      //set birthDateCalendarId field
+      if (counterpartyFetchedData.data.birthDateCalendarId) {
+        const birthDateCalendarId =
+          counterpartyFetchedData.data.birthDateCalendarId.toString();
+        const yearFrom = birthDateCalendarId.substr(0, 4);
+        const monthFrom = birthDateCalendarId.substr(4, 2);
+        const dayFrom = birthDateCalendarId.substr(6, 2);
+        const formattedFromDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
+        otherValues.birthDateCalendarId = formattedFromDate;
+      }
 
-    form.setFieldsValue({
-      ...(counterpartyFetchedData?.data || null),
-      ...otherValues,
-    });
-    setSelectedCity([provinceId, cityId]);
-    setIsIndividual(counterpartyFetchedData?.data.counterpartyTypeId === 1);
-    setCounterpartyType(counterpartyFetchedData?.data.counterpartyTypeId);
-  }, [counterpartyFetchedData])
+      //set birthCertificatePlaceOfIssueCityId field
+      if (counterpartyFetchedData.data.birthCertificatePlaceOfIssueCityId) {
+        otherValues.birthCertificatePlaceOfIssueCityId = [
+          counterpartyFetchedData.data.birthCertificatePlaceOfIssueProvinceId,
+          counterpartyFetchedData.data.birthCertificatePlaceOfIssueCityId,
+        ];
+        setSelectedBirthCertificateCity([
+          counterpartyFetchedData.data.birthCertificatePlaceOfIssueProvinceId,
+          counterpartyFetchedData.data.birthCertificatePlaceOfIssueCityId,
+        ]);
+      }
+
+      //set companyRegistrationPlaceCityId field
+      if (counterpartyFetchedData.data.companyRegistrationPlaceCityId) {
+        otherValues.companyRegistrationPlaceCityId = [
+          counterpartyFetchedData.data.companyRegistrationPlaceProvinceId,
+          counterpartyFetchedData.data.companyRegistrationPlaceCityId,
+        ];
+
+        setSelectedBirthCertificateCity([
+          counterpartyFetchedData.data.companyRegistrationPlaceProvinceId,
+          counterpartyFetchedData.data.companyRegistrationPlaceCityId,
+        ]);
+      }
+
+      form.setFieldsValue({
+        ...(counterpartyFetchedData.data || null),
+        ...otherValues,
+      });
+
+      setSelectedCity([provinceId, cityId]);
+      setIsIndividual(counterpartyFetchedData.data.counterpartyTypeId === 1);
+      setCounterpartyType(counterpartyFetchedData.data.counterpartyTypeId);
+    }
+  }, [counterpartyFetchedData]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -120,12 +150,12 @@ export const BasicInfoStep = (props) => {
     setIsIndividual(selectedValue === 1 ? true : false);
     setCounterpartyType(selectedValue);
     counterpartyId === 0 && form.resetFields();
-    form.setFieldsValue({counterpartyTypeId: selectedValue});
+    form.setFieldsValue({ counterpartyTypeId: selectedValue });
   };
 
   const fetchCounterparty = async (id) => {
     await counterpartyFetchApiCall(`${url.COUNTER_PARTY}/${id}`);
-  }
+  };
 
   //====================================================================
   //                        Child Components
@@ -149,379 +179,432 @@ export const BasicInfoStep = (props) => {
   return (
     <>
       <Ant.Card
-        style={{ maxHeight: "60vh", overflow: "scroll", boxShadow: "none" }}
+        style={{
+          minHeight: "60vh",
+          maxHeight: "60vh",
+          overflow: "scroll",
+          boxShadow: "none",
+        }}
         bordered={false}
         className="mb-4"
       >
-        <Ant.Row gutter={[16, 8]}>
-          <Ant.Col lg={8} md={12} sm={12} xs={24}>
-            <Ant.Form.Item
-              rules={[{ required: true }]}
-              name={"counterpartyTypeId"}
-              label="نوع"
-            >
-              <Ant.Radio.Group
-                onChange={onCounterpartyTypeChange}
-              >
-                <Ant.Radio value={1}>حقیقی</Ant.Radio>
-                <Ant.Radio value={2}>حقوقی</Ant.Radio>
-              </Ant.Radio.Group>
-            </Ant.Form.Item>
-          </Ant.Col>
-        </Ant.Row>
-        <Ant.Card title={"کدگذاری"} type="inner" size="small">
+        <Ant.Skeleton loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
               <Ant.Form.Item
                 rules={[{ required: true }]}
-                name={"code"}
-                label="کد"
+                name={"counterpartyTypeId"}
+                label="نوع"
               >
-                <Ant.Input
-                  allowClear
-                  showCount
-                  maxLength={20}
-                  addonBefore={<AddonBefore />}
-                  style={{ textAlign: "center" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: false }, { max: 20 }]}
-                name={"secondCode"}
-                label="کد دوم"
-              >
-                <Ant.Input allowClear showCount maxLength={20} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item name="isActive" label="وضعیت">
-                <Ant.Switch
-                  checkedChildren="فعال"
-                  unCheckedChildren="غیرفعال"
-                  defaultChecked={true}
-                />
+                <Ant.Radio.Group onChange={onCounterpartyTypeChange}>
+                  <Ant.Radio value={1}>حقیقی</Ant.Radio>
+                  <Ant.Radio value={2}>حقوقی</Ant.Radio>
+                </Ant.Radio.Group>
               </Ant.Form.Item>
             </Ant.Col>
           </Ant.Row>
-        </Ant.Card>
 
-        <Ant.Card title={"اطلاعات هویتی"} type="inner" className="mt-6" size="small">
-          <Ant.Row gutter={[16, 8]}>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: isIndividual }, { max: 100 }]}
-                name={"firstName"}
-                label="نام"
-              >
-                <Ant.Input allowClear showCount maxLength={100} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={8} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: isIndividual }, { max: 100 }]}
-                name={"lastName"}
-                label="نام خانوادگی"
-              >
-                <Ant.Input allowClear showCount maxLength={100} />
-              </Ant.Form.Item>
-            </Ant.Col>
-
-            {/*  individual counterparty */}
-            {isIndividual && (
+          {/*** کدگذاری ***/}
+          <Ant.Card title={"کدگذاری"} type="inner" size="small">
+            <Ant.Row gutter={[16, 8]}>
               <Ant.Col lg={8} md={12} sm={12} xs={24}>
                 <Ant.Form.Item
-                  rules={[{ required: false }, { max: 100 }]}
-                  name={"fatherName"}
-                  label="نام پدر"
-                >
-                  <Ant.Input allowClear showCount maxLength={100} />
-                </Ant.Form.Item>
-              </Ant.Col>
-            )}
-            {isIndividual && (
-              <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                <Ant.Form.Item
-                  name={"nationalCode"}
-                  rules={[
-                    {
-                      required: true,
-                    },
-                    {
-                      validator: (_, value) => {
-                        if (validateNationalCode(value?.toString())) {
-                          return Promise.resolve();
-                        } else {
-                          return Promise.reject("کد ملی نا معتبر");
-                        }
-                      },
-                    },
-                  ]}
-                  label="کدملی"
-                >
-                  <Ant.Input allowClear showCount min={0} maxLength={10} />
-                </Ant.Form.Item>
-              </Ant.Col>
-            )}
-            {isIndividual && (
-              <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                <Ant.Form.Item
-                  name={"birthCertificateNumber"}
-                  label="شماره شناسنامه"
-                  rules={[{ required: false }, { max: 10 }]}
+                  rules={[{ required: true }]}
+                  name={"code"}
+                  label="کد"
                 >
                   <Ant.Input
                     allowClear
                     showCount
-                    min={0}
-                    maxLength={10}
-                    style={{ width: "100%" }}
+                    maxLength={20}
+                    addonBefore={<AddonBefore />}
+                    style={{ textAlign: "center" }}
                   />
                 </Ant.Form.Item>
               </Ant.Col>
-            )}
-            {isIndividual && (
               <Ant.Col lg={8} md={12} sm={12} xs={24}>
                 <Ant.Form.Item
-                  name={"birthCertificatePlaceOfIssueCityId"}
-                  label="محل صدور شناسنامه"
-                  rules={[{ required: false }]}
-                >
-                  <Ant.Cascader
-                    loading={cityLoading}
-                    options={cityOptions}
-                    onChange={onBirthCertificatePlaceOfIssueChange}
-                    placeholder="لطفا انتخاب کنید ..."
-                    fieldNames={{
-                      label: "name",
-                      value: "id",
-                      children: "children",
-                    }}
-                    showSearch={{
-                      filterCity,
-                    }}
-                    onSearch={(value) => console.log(value)}
-                    style={{ width: "100%" }}
-                  />
-                </Ant.Form.Item>
-              </Ant.Col>
-            )}
-            {isIndividual && (
-              <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                <Ant.Form.Item
-                  name={"birthDateCalendarId"}
-                  label={"تاریخ تولد"}
-                >
-                  <MyDatePicker />
-                </Ant.Form.Item>
-              </Ant.Col>
-            )}
-
-            {/*  legal counterparty */}
-            {!isIndividual && (
-              <Ant.Col lg={16} md={12} sm={12} xs={24}>
-                <Ant.Form.Item
-                  rules={[{ required: !isIndividual }, { max: 150 }]}
-                  name={"companyTitle"}
-                  label="عنوان شرکت/سازمان"
-                >
-                  <Ant.Input
-                    allowClear
-                    showCount
-                    maxLength={150}
-                    style={{ width: "100%" }}
-                  />
-                </Ant.Form.Item>
-              </Ant.Col>
-            )}
-            {!isIndividual && (
-              <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                <Ant.Form.Item
-                  name={"companyRegistrationNumber"}
-                  label="شماره ثبت شرکت/سازمان"
-                  rules={[
-                    { 
-                    required: false, 
-                    pattern: new RegExp("^[0-9]"),
-                     message: "لطفا کد ثبت را به درستی وارد نمایید." 
-                    },
-                  ]}
-                >
-                   <Ant.Input
-                    allowClear
-                    showCount
-                    maxLength={10}
-                    style={{ width: "100%" }}
-                  />
-                </Ant.Form.Item>
-              </Ant.Col>
-            )}
-            {!isIndividual && (
-              <Ant.Col lg={12} md={12} sm={12} xs={24}>
-                <Ant.Form.Item
-                  name={"companyRegistrationPlaceCityId"}
-                  label="محل ثبت شرکت/سازمان"
-                  rules={[{ required: false }]}
-                >
-                  <Ant.Cascader
-                    loading={cityLoading}
-                    options={cityOptions}
-                    onChange={onCompanyRegistrationPlaceChange}
-                    placeholder="لطفا انتخاب کنید ..."
-                    fieldNames={{
-                      label: "name",
-                      value: "id",
-                      children: "children",
-                    }}
-                    showSearch={{
-                      filterCity,
-                    }}
-                    onSearch={(value) => console.log(value)}
-                    style={{ width: "100%" }}
-                  />
-                </Ant.Form.Item>
-              </Ant.Col>
-            )}
-            {!isIndividual && (
-              <Ant.Col lg={6} md={12} sm={12} xs={24}>
-                <Ant.Form.Item
-                  name={"economicCode"}
-                  label="کداقتصادی"
                   rules={[
                     {
                       required: false,
                       pattern: new RegExp("^[0-9]"),
-                      message: "کد اقتصادی نمی تواند شامل کاراکترهای غیرعددی باشد",
+                      message: "کد دوم نمی تواند شامل کاراکترهای غیرعددی باشد",
                     },
                   ]}
+                  name={"secondCode"}
+                  label="کد دوم"
                 >
-                  <Ant.Input
-                    allowClear
-                    showCount
-                    maxLength={12}
+                  <Ant.Input allowClear showCount maxLength={20} />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                <Ant.Form.Item name="isActive" label="وضعیت">
+                  <Ant.Switch
+                    checkedChildren="فعال"
+                    unCheckedChildren="غیرفعال"
+                    defaultChecked={true}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+            </Ant.Row>
+          </Ant.Card>
+
+          {/*** اطلاعات هویتی ***/}
+          <Ant.Card title={"اطلاعات هویتی"} type="inner" className="mt-6" size="small">
+            <Ant.Row gutter={[16, 8]}>
+              <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                <Ant.Form.Item
+                  rules={[{ required: isIndividual }, { max: 100 }]}
+                  name={"firstName"}
+                  label="نام"
+                >
+                  <Ant.Input allowClear showCount maxLength={100} />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                <Ant.Form.Item
+                  rules={[{ required: isIndividual }, { max: 100 }]}
+                  name={"lastName"}
+                  label="نام خانوادگی"
+                >
+                  <Ant.Input allowClear showCount maxLength={100} />
+                </Ant.Form.Item>
+              </Ant.Col>
+
+              {/*  individual counterparty */}
+              {isIndividual && (
+                <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    rules={[{ required: false }, { max: 100 }]}
+                    name={"fatherName"}
+                    label="نام پدر"
+                  >
+                    <Ant.Input allowClear showCount maxLength={100} />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {isIndividual && (
+                <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"nationalCode"}
+                    rules={[
+                      {
+                        required: true,
+                      },
+                      {
+                        validator: (_, value) => {
+                          if (validateNationalCode(value?.toString())) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              " کد ملی وارد شده نامعتبر است",
+                            );
+                          }
+                        },
+                      },
+                    ]}
+                    label="کدملی"
+                  >
+                    <Ant.Input allowClear showCount min={0} maxLength={10} />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {isIndividual && (
+                <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"birthCertificateNumber"}
+                    label="شماره شناسنامه"
+                    rules={[{ required: false }, { max: 10 }]}
+                  >
+                    <Ant.Input
+                      allowClear
+                      showCount
+                      min={0}
+                      maxLength={10}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {isIndividual && (
+                <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"birthCertificatePlaceOfIssueCityId"}
+                    label="محل صدور شناسنامه"
+                    rules={[{ required: false }]}
+                  >
+                    <Ant.Cascader
+                      loading={cityLoading}
+                      options={cityOptions}
+                      onChange={onBirthCertificatePlaceOfIssueChange}
+                      placeholder="لطفا انتخاب کنید ..."
+                      fieldNames={{
+                        label: "name",
+                        value: "id",
+                        children: "children",
+                      }}
+                      showSearch={{
+                        filterCity,
+                      }}
+                      onSearch={(value) => console.log(value)}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {isIndividual && (
+                <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"birthDateCalendarId"}
+                    label={"تاریخ تولد"}
+                  >
+                    <MyDatePicker />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+
+              {/*  legal counterparty */}
+              {!isIndividual && (
+                <Ant.Col lg={16} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    rules={[{ required: !isIndividual }, { max: 150 }]}
+                    name={"companyTitle"}
+                    label="عنوان شرکت/سازمان"
+                  >
+                    <Ant.Input
+                      allowClear
+                      showCount
+                      maxLength={150}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {!isIndividual && (
+                <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"companyRegistrationNumber"}
+                    label="شماره ثبت شرکت/سازمان"
+                    rules={[
+                      {
+                        required: false,
+                        pattern: new RegExp("^[0-9]"),
+                        message: "لطفا کد ثبت را به درستی وارد نمایید.",
+                      },
+                    ]}
+                  >
+                    <Ant.Input
+                      allowClear
+                      showCount
+                      maxLength={10}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {!isIndividual && (
+                <Ant.Col lg={12} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"companyRegistrationPlaceCityId"}
+                    label="محل ثبت شرکت/سازمان"
+                    rules={[{ required: false }]}
+                  >
+                    <Ant.Cascader
+                      loading={cityLoading}
+                      options={cityOptions}
+                      onChange={onCompanyRegistrationPlaceChange}
+                      placeholder="لطفا انتخاب کنید ..."
+                      fieldNames={{
+                        label: "name",
+                        value: "id",
+                        children: "children",
+                      }}
+                      showSearch={{
+                        filterCity,
+                      }}
+                      onSearch={(value) => console.log(value)}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {!isIndividual && (
+                <Ant.Col lg={6} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"economicCode"}
+                    label="کداقتصادی"
+                    rules={[
+                      {
+                        required: false,
+                        pattern: new RegExp("^[0-9]"),
+                        message:
+                          "کد اقتصادی نمی تواند شامل کاراکترهای غیرعددی باشد",
+                      },
+                      {
+                        validator: (_, value) => {
+                          if (value == null || value?.toString().length == 14) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              "کد اقتصادی باید 14 کاراکتر باشد",
+                            );
+                          }
+                        },
+                      },
+                    ]}
+                  >
+                    <Ant.Input
+                      allowClear
+                      showCount
+                      maxLength={14}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+              {!isIndividual && (
+                <Ant.Col lg={6} md={12} sm={12} xs={24}>
+                  <Ant.Form.Item
+                    name={"legalEntityIdentity"}
+                    label="شناسه ملی"
+                    rules={[
+                      {
+                        required: !isIndividual,
+                        pattern: new RegExp("^[0-9]"),
+                        message:
+                          "شناسه ملی نمی تواند شامل کاراکترهای غیرعددی باشد",
+                      },
+                      {
+                        validator: (_, value) => {
+                          if (value?.toString().length == 11) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              "شناسه ملی باید 11 کاراکتر باشد",
+                            );
+                          }
+                        },
+                      },
+                    ]}
+                  >
+                    <Ant.Input
+                      allowClear
+                      showCount
+                      maxLength={11}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+              )}
+            </Ant.Row>
+          </Ant.Card>
+
+          {/*** اطلاعات جغرافیایی ***/}
+          <Ant.Card title={"اطلاعات جغرافیایی"} type="inner" className="mt-6" size="small" >
+            <Ant.Row gutter={[16, 8]}>
+              <Ant.Col lg={12} md={12} sm={12} xs={24}>
+                <Ant.Form.Item
+                  name={"cityId"}
+                  label="شهر"
+                  rules={[{ required: true }]}
+                >
+                  <Ant.Cascader
+                    loading={cityLoading}
+                    options={cityOptions}
+                    onChange={onCityChange}
+                    placeholder="لطفا انتخاب کنید ..."
+                    fieldNames={{
+                      label: "name",
+                      value: "id",
+                      children: "children",
+                    }}
+                    showSearch={{
+                      filterCity,
+                    }}
+                    onSearch={(value) => console.log(value)}
                     style={{ width: "100%" }}
                   />
                 </Ant.Form.Item>
               </Ant.Col>
-            )}
-            {!isIndividual && (
+
               <Ant.Col lg={6} md={12} sm={12} xs={24}>
                 <Ant.Form.Item
-                  name={"legalEntityIdentity"}
-                  label="شناسه ملی"
-                  rules={[
-                    {
-                      required: !isIndividual,
-                      pattern: new RegExp("^[0-9]"),
-                      message: "شناسه ملی نمی تواند شامل کاراکترهای غیرعددی باشد",
-                    },
-                  ]}
+                  name={"longitude"}
+                  label="طول جغرافیایی"
+                  rules={[{ required: false }]}
                 >
-                  <Ant.Input
-                    allowClear
-                    showCount
-                    maxLength={11}
+                  <Ant.InputNumber
+                    min={0}
+                    decimalSeparator={"."}
+                    step={0.01}
                     style={{ width: "100%" }}
                   />
                 </Ant.Form.Item>
               </Ant.Col>
-            )}
-          </Ant.Row>
-        </Ant.Card>
+              <Ant.Col lg={6} md={12} sm={12} xs={24}>
+                <Ant.Form.Item
+                  name={"latitude"}
+                  label="عرض جغرافیایی"
+                  rules={[{ required: false }]}
+                >
+                  <Ant.InputNumber
+                    min={0}
+                    decimalSeparator={"."}
+                    step={0.01}
+                    style={{ width: "100%" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+            </Ant.Row>
+          </Ant.Card>
 
-        <Ant.Card title={"اطلاعات جغرافیایی"} type="inner" className="mt-6" size="small">
-          <Ant.Row gutter={[16, 8]}>
-            <Ant.Col lg={12} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                name={"cityId"}
-                label="شهر"
-                rules={[{ required: true }]}
-              >
-                <Ant.Cascader
-                  loading={cityLoading}
-                  options={cityOptions}
-                  onChange={onCityChange}
-                  placeholder="لطفا انتخاب کنید ..."
-                  fieldNames={{
-                    label: "name",
-                    value: "id",
-                    children: "children",
-                  }}
-                  showSearch={{
-                    filterCity,
-                  }}
-                  onSearch={(value) => console.log(value)}
-                  style={{ width: "100%" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-
-            <Ant.Col lg={6} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                name={"longitude"}
-                label="طول جغرافیایی"
-                rules={[{ required: false }]}
-              >
-                <Ant.InputNumber
-                  min={0}
-                  decimalSeparator={"."}
-                  step={0.01}
-                  style={{ width: "100%" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={6} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                name={"latitude"}
-                label="عرض جغرافیایی"
-                rules={[{ required: false }]}
-              >
-                <Ant.InputNumber
-                  min={0}
-                  decimalSeparator={"."}
-                  step={0.01}
-                  style={{ width: "100%" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-          </Ant.Row>
-        </Ant.Card>
-
-        <Ant.Card title={"اطلاعات تکمیلی"} type="inner" className="mt-6" size="small">
-          <Ant.Row gutter={[16, 8]}>
-            <Ant.Col lg={10} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                name={"email"}
-                label="ایمیل"
-                maxLength={100}
-                rules={[
-                  {
-                    required: false,
-                    pattern: new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}"),
-                    message: "آدرس ایمیل وارد شده معتبر نیست.",
-                  },
-                ]}
-              >
-                <Ant.Input />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col lg={6} md={12} sm={12} xs={24}>
-              <Ant.Form.Item
-                rules={[{ required: false }, { max: 20 }]}
-                name={"branchCode"}
-                label="کد شعبه"
-              >
-                <Ant.InputNumber
-                  allowClear
-                  showCount
-                  maxLength={20}
-                  style={{ width: "100%" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-          </Ant.Row>
-        </Ant.Card>
+          {/*** اطلاعات تکمیلی ***/}
+          <Ant.Card
+            title={"اطلاعات تکمیلی"}
+            type="inner"
+            className="mt-6"
+            size="small"
+          >
+            <Ant.Row gutter={[16, 8]}>
+              <Ant.Col lg={10} md={12} sm={12} xs={24}>
+                <Ant.Form.Item
+                  name={"email"}
+                  label="ایمیل"
+                  maxLength={100}
+                  rules={[
+                    {
+                      required: false,
+                      pattern: new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}"),
+                      message: "آدرس ایمیل وارد شده معتبر نیست.",
+                    },
+                  ]}
+                >
+                  <Ant.Input />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col lg={6} md={12} sm={12} xs={24}>
+                <Ant.Form.Item
+                  rules={[
+                    {
+                      required: false,
+                      pattern: new RegExp("^[0-9]"),
+                      message: "کد شعبه نمی تواند شامل کاراکترهای غیرعددی باشد",
+                    },
+                  ]}
+                  name={"branchCode"}
+                  label="کد شعبه"
+                >
+                  <Ant.Input
+                    allowClear
+                    showCount
+                    maxLength={10}
+                    style={{ width: "100%" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+            </Ant.Row>
+          </Ant.Card>
+        </Ant.Skeleton>
       </Ant.Card>
     </>
   );
