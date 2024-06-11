@@ -15,14 +15,6 @@ export const BasicInfoStep = (props) => {
   const { form, counterpartyId } = props;
   const [isIndividual, setIsIndividual] = useState(true);
   const [counterpartyType, setCounterpartyType] = useState(1);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedBirthCertificateCity, setSelectedBirthCertificateCity] =
-    useState(null);
-  const [
-    selectedCompanyRegistrationPlaceCity,
-    setSelectedCompanyRegistrationPlaceCity,
-  ] = useState(null);
-
   const [cityList, cityLoading, cityError, cityApiCall] = useFetchWithHandler();
   const [cityOptions, setCityOptions] = useState([]);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
@@ -90,10 +82,6 @@ export const BasicInfoStep = (props) => {
           counterpartyFetchedData.data.birthCertificatePlaceOfIssueProvinceId,
           counterpartyFetchedData.data.birthCertificatePlaceOfIssueCityId,
         ];
-        setSelectedBirthCertificateCity([
-          counterpartyFetchedData.data.birthCertificatePlaceOfIssueProvinceId,
-          counterpartyFetchedData.data.birthCertificatePlaceOfIssueCityId,
-        ]);
       }
 
       //set companyRegistrationPlaceCityId field
@@ -102,11 +90,6 @@ export const BasicInfoStep = (props) => {
           counterpartyFetchedData.data.companyRegistrationPlaceProvinceId,
           counterpartyFetchedData.data.companyRegistrationPlaceCityId,
         ];
-
-        setSelectedBirthCertificateCity([
-          counterpartyFetchedData.data.companyRegistrationPlaceProvinceId,
-          counterpartyFetchedData.data.companyRegistrationPlaceCityId,
-        ]);
       }
 
       form.setFieldsValue({
@@ -114,7 +97,6 @@ export const BasicInfoStep = (props) => {
         ...otherValues,
       });
 
-      setSelectedCity([provinceId, cityId]);
       setIsIndividual(counterpartyFetchedData.data.counterpartyTypeId === 1);
       setCounterpartyType(counterpartyFetchedData.data.counterpartyTypeId);
     }
@@ -127,23 +109,11 @@ export const BasicInfoStep = (props) => {
     await maxCodeApiCall(`${url.COUNTER_PARTY_FREE_CODE}`);
   };
 
-  function onCityChange(value, selectedOptions) {
-    setSelectedCity(value);
-  }
-
   const filterCity = (inputValue, path) =>
     path.some(
       (option) =>
         option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
     );
-
-  const onBirthCertificatePlaceOfIssueChange = (value) => {
-    setSelectedBirthCertificateCity(value);
-  };
-
-  const onCompanyRegistrationPlaceChange = (value) => {
-    setSelectedCompanyRegistrationPlaceCity(value);
-  };
 
   const onCounterpartyTypeChange = (event) => {
     const selectedValue = event.target.value;
@@ -336,8 +306,7 @@ export const BasicInfoStep = (props) => {
                     <Ant.Cascader
                       loading={cityLoading}
                       options={cityOptions}
-                      onChange={onBirthCertificatePlaceOfIssueChange}
-                      placeholder="لطفا انتخاب کنید ..."
+                      placeholder="لطفا انتخاب کنید..."
                       fieldNames={{
                         label: "name",
                         value: "id",
@@ -346,7 +315,6 @@ export const BasicInfoStep = (props) => {
                       showSearch={{
                         filterCity,
                       }}
-                      onSearch={(value) => console.log(value)}
                       style={{ width: "100%" }}
                     />
                   </Ant.Form.Item>
@@ -412,8 +380,7 @@ export const BasicInfoStep = (props) => {
                     <Ant.Cascader
                       loading={cityLoading}
                       options={cityOptions}
-                      onChange={onCompanyRegistrationPlaceChange}
-                      placeholder="لطفا انتخاب کنید ..."
+                      placeholder="لطفا انتخاب کنید..."
                       fieldNames={{
                         label: "name",
                         value: "id",
@@ -422,7 +389,6 @@ export const BasicInfoStep = (props) => {
                       showSearch={{
                         filterCity,
                       }}
-                      onSearch={(value) => console.log(value)}
                       style={{ width: "100%" }}
                     />
                   </Ant.Form.Item>
@@ -511,8 +477,7 @@ export const BasicInfoStep = (props) => {
                   <Ant.Cascader
                     loading={cityLoading}
                     options={cityOptions}
-                    onChange={onCityChange}
-                    placeholder="لطفا انتخاب کنید ..."
+                    placeholder="لطفا انتخاب کنید..."
                     fieldNames={{
                       label: "name",
                       value: "id",
@@ -521,7 +486,6 @@ export const BasicInfoStep = (props) => {
                     showSearch={{
                       filterCity,
                     }}
-                    onSearch={(value) => console.log(value)}
                     style={{ width: "100%" }}
                   />
                 </Ant.Form.Item>

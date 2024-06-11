@@ -73,8 +73,14 @@ const CounterPartyList = () => {
   //                        Functions
   //====================================================================
   const getAllCounterParty = async () => {
+    const cityFilter = {};
+    if (filterObject && filterObject?.cityId) {
+      cityFilter.cityId = filterObject?.cityId[1];
+    }
+
     const queryString = qs.stringify({
       ...filterObject,
+      ...cityFilter,
       PageNumber: pagination.current,
       RowsOfPage: pagination.pageSize,
     });
