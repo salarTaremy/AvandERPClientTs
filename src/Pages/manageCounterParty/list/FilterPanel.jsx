@@ -99,15 +99,64 @@ const FilterPanel = (props) => {
         </Ant.Form.Item>
 
         <Ant.Form.Item
+          name={"nationalCode"}
+          label="کد ملی"
+          maxLength={10}
+          rules={[
+            {
+              required: false,
+              pattern: new RegExp("^[0-9]"),
+              message:
+                "کد ملی نمی تواند شامل کاراکترهای غیرعددی باشد",
+            },
+          ]}
+        >
+          <Ant.Input 
+            allowClear
+            showCount
+            maxLength={10}
+            style={{ width: "100%" }}
+          />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item
           name={"legalEntityIdentity"}
           label="شناسه ملی"
-          rules={[{ required: false }]}
           maxLength={11}
+          rules={[
+            {
+              required: false,
+              pattern: new RegExp("^[0-9]"),
+              message:
+                "کد اقتصادی نمی تواند شامل کاراکترهای غیرعددی باشد",
+            },
+          ]}
         >
           <Ant.Input 
             allowClear
             showCount
             maxLength={11}
+            style={{ width: "100%" }}
+          />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item
+          name={"economicCode"}
+          label="کد اقتصادی"
+          maxLength={14}
+          rules={[
+            {
+              required: false,
+              pattern: new RegExp("^[0-9]"),
+              message:
+                "کد اقتصادی نمی تواند شامل کاراکترهای غیرعددی باشد",
+            },
+          ]}
+        >
+          <Ant.Input 
+            allowClear
+            showCount
+            maxLength={14}
             style={{ width: "100%" }}
           />
         </Ant.Form.Item>
