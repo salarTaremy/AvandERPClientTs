@@ -6,9 +6,10 @@ import useRequestManager from "@/hooks/useRequestManager";
 import * as url from "@/api/url";
 import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
 import Address from "./Address";
-import Contacts from "./Contacts";
+// import Contacts from "./Contacts";
+import CounterpartyAddressList from "../counterpartyContactInfo/address/list/CounterpartyAddressList";
 import BankBranchInfo from "./BankBranchInfo";
-import HeaderAddCounterParty from "./HeaderAddCounterParty";
+import CounterpartyBasicInfoAdd from "./CounterpartyBasicInfoAdd";
 import Informationccounts from "./Informationccounts";
 import ModalHeader from "@/components/common/ModalHeader";
 const FormAddCounterParty = ({onSuccess}) => {
@@ -63,20 +64,22 @@ const FormAddCounterParty = ({onSuccess}) => {
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <Ant.Tabs type="card" defaultActiveKey="1">
             <TabPane tab="اطلاعات پایه " key="1">
-              <HeaderAddCounterParty form={form} />
+              {/* <HeaderAddCounterParty form={form} /> */}
+              <CounterpartyBasicInfoAdd form={form}/>
             </TabPane>
             <TabPane tab="اطلاعات تماس " key="2">
-              <Contacts />
+              {/* <Contacts /> */}
+              <CounterpartyAddressList />
             </TabPane>
-            <TabPane tab="آدرس" key="3">
+            {/* <TabPane tab="آدرس" key="3">
               <Address form={form} />
-            </TabPane>
+            </TabPane> */}
             <TabPane tab="اطلاعات حساب های بانکی" key="4">
               <BankBranchInfo />
             </TabPane>
-            <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="5">
+            {/* <TabPane tab="اطلاعات تکمیلی طرف حساب ها" key="5">
               <Informationccounts />
-            </TabPane>
+            </TabPane> */}
           </Ant.Tabs>
         </Ant.Form>
         <Ant.Flex className="items-end " vertical>

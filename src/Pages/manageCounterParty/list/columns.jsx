@@ -17,7 +17,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
 
     },
     {
-      title: "نوع حساب",
+      title: "نوع طرف حساب",
       dataIndex: "counterpartyTypeTitle",
       key: "counterpartyTypeTitle",
       width: 100,
@@ -35,16 +35,10 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       sorter: (a, b) => a.counterpartyTitle.localeCompare(b.counterpartyTitle),
     },
     {
-      title: "شناسه مالیاتی",
+      title: "شناسه ملی",
       dataIndex: "legalEntityIdentity",
       key: "legalEntityIdentity",
-      width: 100,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "شماره تلفن",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
+      align: "center",
       width: 100,
       className: "text-xs sm:text-sm",
     },

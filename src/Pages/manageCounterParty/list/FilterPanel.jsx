@@ -67,7 +67,7 @@ const FilterPanel = (props) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        <Ant.Form.Item name={"counterpartyTypeId"} label="نوع">
+        <Ant.Form.Item name={"counterpartyTypeId"} label="نوع طرف حساب">
           <Ant.Select
             allowClear={true}
             disabled={counterpartyTypeLoading || false}
@@ -76,6 +76,36 @@ const FilterPanel = (props) => {
             fieldNames={{ label: "name", value: "id" }}
             placeholder={"انتخاب کنید..."}
           />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item
+          rules={[{ required: false }, { max: 150 }]}
+          name={"CounterpartyName"}
+          label="عنوان طرف حساب"
+        >
+          <Ant.Input
+            allowClear
+            showCount
+            maxLength={150}
+            style={{ width: "100%" }}
+          />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"code"} label="کد">
+          <Ant.InputNumber
+            maxLength={10}
+            className="w-full"
+            allowClear
+            showCount
+          />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item
+          name={"legalEntityIdentity"}
+          label="شناسه ملی"
+          rules={[{ required: false }]}
+          maxLength={11}
+        >
+          <Ant.InputNumber min={0} style={{ width: "100%" }} />
         </Ant.Form.Item>
 
         <Ant.Form.Item name={"provinceId"} label="استان">
@@ -131,39 +161,7 @@ const FilterPanel = (props) => {
         >
           <Ant.Input allowClear showCount maxLength={100} />
         </Ant.Form.Item> */}
-        <Ant.Form.Item
-          rules={[{ required: false }, { max: 150 }]}
-          name={"CounterpartyName"}
-          label="عنوان طرف حساب"
-        >
-          <Ant.Input
-            allowClear
-            showCount
-            maxLength={150}
-            style={{ width: "100%" }}
-          />
-        </Ant.Form.Item>
-        <Ant.Form.Item name={"code"} label="کد">
-          <Ant.InputNumber
-            maxLength={10}
-            className="w-full"
-            allowClear
-            showCount
-          />
-        </Ant.Form.Item>
-
-        <Ant.Form.Item name={"PhoneNumber"} label="شماره تلفن">
-          <Ant.InputNumber className="w-full" allowClear showCount />
-        </Ant.Form.Item>
-
-        <Ant.Form.Item
-          name={"legalEntityIdentity"}
-          label="شناسه مالیاتی"
-          rules={[{ required: false }]}
-          maxLength={11}
-        >
-          <Ant.InputNumber min={0} style={{ width: "100%" }} />
-        </Ant.Form.Item>
+       
         <Ant.Form.Item name={"isActive"} label="فعال">
           <Ant.Switch defaultChecked={true} />
         </Ant.Form.Item>
