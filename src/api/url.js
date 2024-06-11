@@ -218,3 +218,6 @@ export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocume
 //WareHouse
 export const WAREHOUSE = 'Warehouse'
 export const WAREHOUSE_TYPE = 'WarehouseType'
+
+//CityDistrict
+export const CITY_DISTRICT = 'CityDistrict'
