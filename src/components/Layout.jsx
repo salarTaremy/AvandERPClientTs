@@ -34,17 +34,15 @@ const LayoutComponent = () => {
   //============================================================
   return (
     <>
-      <div className="wrapper">
-        <Layout
-          style={{
-            minHeight: "100vh",
-          }}
-        >
-          <Sidebar
-            collapsedSider={collapsed}
-            showImageSider={showImage}
+      <div className="wrapper container mx-auto">
+        <Layout  hasSider>
+          <Sidebar collapsedSider={collapsed} showImageSider={showImage} />
+          <SidebarMobile
+            openSide={open}
+            onCloseSide={onClose}
+            closeItemMenu={onClose}
           />
-          <Layout>
+          <Layout >
             <Header
               collapsed={collapsed}
               showDrawer={showDrawer}
@@ -52,10 +50,13 @@ const LayoutComponent = () => {
             />
             <Content />
             <Footer />
+
           </Layout>
         </Layout>
-        <SidebarMobile openSide={open} onCloseSide={onClose} closeItemMenu={onClose} />
+
+
       </div>
+
     </>
   );
 };

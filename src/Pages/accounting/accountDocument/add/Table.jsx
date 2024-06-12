@@ -567,7 +567,7 @@ export const Table = (props) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        <Ant.Card className="w-full mt-4">
+
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col span={24} md={24} lg={24}>
               <Ant.Skeleton loading={allLoading}>
@@ -590,7 +590,7 @@ export const Table = (props) => {
               </Ant.Skeleton>
             </Ant.Col>
           </Ant.Row>
-        </Ant.Card>
+
       </Ant.Form>
     </>
   );

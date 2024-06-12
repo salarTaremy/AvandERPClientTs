@@ -3,11 +3,14 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, usePutWithHandler } from "@/api";
+import PropTypes from 'prop-types'
 import useRequestManager from "@/hooks/useRequestManager";
 import TBL from "../../../accounting/accountDocument/add/Table";
 import * as api from "@/api";
+import ModalHeader from "@/components/common/ModalHeader";
 import { useParams,useNavigate } from "react-router-dom";
-export const FrmEditAccountDocument = () => {
+export const FrmEditAccountDocument = (props) => {
+  const { onSuccess, id, key } = props
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
   );
@@ -57,7 +60,7 @@ export const FrmEditAccountDocument = () => {
   //                        Functions
   //====================================================================
   const onEditHeader = async () => {
-    await listApiCallHeader(`${url.ACCOUNT_DOCUMENT}/${params.id}`);
+    await listApiCallHeader(`${url.ACCOUNT_DOCUMENT}/${id}`);
   };
 
   const dataEdit = (data) => {
@@ -73,7 +76,8 @@ export const FrmEditAccountDocument = () => {
     let valueHeader = form.getFieldsValue();
 
     const header = {
-      id: parseInt(params.id),
+      // id: parseInt(params.id),
+      id: id,
       documentNumber: 0,
       branchId: valueHeader.branchId,
       calendarId: parseInt(
@@ -139,14 +143,7 @@ export const FrmEditAccountDocument = () => {
   );
   return (
     <>
-      <Ant.Collapse
-        defaultActiveKey={["1"]}
-        items={[
-          {
-            key: "1",
-            label: text,
-            children: (
-              <>
+    <ModalHeader title= {'ویرایش سند حسابداری'} />
                 <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
                   <Ant.Row gutter={[16, 8]}>
                     <Ant.Col lg={6} md={12} sm={12} xs={24}>
@@ -227,11 +224,7 @@ export const FrmEditAccountDocument = () => {
                     </Ant.Col>
                   </Ant.Row>
                 </Ant.Form>
-              </>
-            ),
-          },
-        ]}
-      />
+
 
       <TBL
         updateDebtorEdit={updateDebtorEdit}
@@ -244,3 +237,10 @@ export const FrmEditAccountDocument = () => {
   );
 };
 export default FrmEditAccountDocument;
+FrmEditAccountDocument.propTypes = {
+  onSuccess: PropTypes.func,
+  obj: PropTypes.any,
+  id: PropTypes.number,
+  myKey: PropTypes.number,
+}
+

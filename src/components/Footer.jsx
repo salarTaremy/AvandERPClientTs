@@ -20,7 +20,8 @@ const FooterComponent = () => {
   }, []);
   return (
     <>
-      <Footer className="footer py-3">
+
+      <Footer className="footer py-2">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           {/* <div>{`کاربر:${autUser.userName}`}</div> */}
           <div>{ipAddress && `IP Address : ${ipAddress}`}</div>
