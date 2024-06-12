@@ -58,18 +58,18 @@ export const FrmAddAccountDocument = () => {
     };
     const detailsList = [];
 
-    // for (let key in values) {
-    //   if (typeof values[key] === "object") {
-    //     detailsList.push(values[key]);
-    //   }
-    // }
-    // const filteredAnyObj = detailsList.filter(
-    //   (obj) => Object.keys(obj).length > 0,
-    // );
-    // delete header.details;
+    for (let key in values) {
+      if (typeof values[key] === "object") {
+        detailsList.push(values[key]);
+      }
+    }
+    const filteredAnyObj = detailsList.filter(
+      (obj) => Object.keys(obj).length > 0,
+    );
+    delete header.details;
     const dto = {
       header,
-      details: [],
+      details: filteredAnyObj,
     };
 
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
@@ -111,10 +111,10 @@ export const FrmAddAccountDocument = () => {
 
   return (
     <>
-      <ModalHeader title={"ایجاد سند حسابداری"} />
-      <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
-        <Ant.Row gutter={[8, 8]}>
-          <Ant.Col span={24}>
+      <ModalHeader title= {'ایجاد سند حسابداری'} />
+      <Ant.Form form={form} layout="vertical" onFinish Failed={null}>
+        <Ant.Row gutter={[16, 8]}>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
               name={"branchId"}
@@ -130,7 +130,7 @@ export const FrmAddAccountDocument = () => {
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24}>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
               name={"AccountingDocumentTypeId"}
@@ -146,7 +146,7 @@ export const FrmAddAccountDocument = () => {
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24}>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
               name={"accountingDocumentStateId"}
@@ -167,7 +167,7 @@ export const FrmAddAccountDocument = () => {
             </Ant.Form.Item>
           </Ant.Col>
 
-          <Ant.Col lg={8} >
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
               name={"subNumber"}
@@ -176,12 +176,12 @@ export const FrmAddAccountDocument = () => {
               <Ant.InputNumber min={0} style={{ width: "100%" }} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col lg={16}>
+          <Ant.Col lg={6} md={12} sm={12} xs={24}>
             <Ant.Form.Item name={"calendarId"} label="تاریخ">
               <MyDatePicker />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24}>
+          <Ant.Col lg={18} md={12} sm={12} xs={24}>
             <Ant.Form.Item
               name={"description"}
               label="توضیحات"
@@ -190,27 +190,16 @@ export const FrmAddAccountDocument = () => {
               <Ant.Input.TextArea allowClear showCount maxLength={400} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Form.Item>
-            <Ant.Button
-              type="primary"
-              onClick={() => {
-                form.submit();
-              }}
-              block
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
         </Ant.Row>
       </Ant.Form>
 
-      {/* <TBL
+      <TBL
         updateDebtor={updateDebtor}
         updateCreditor={updateCreditor}
         footer={FooterContent}
         dataObject={dataDetailObject}
         onSubmit={onFinish}
-      /> */}
+      />
     </>
   );
 };

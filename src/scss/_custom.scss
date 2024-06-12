@@ -10,22 +10,20 @@ body {
     sans-serif;
   // font-size: 13px;
 }
-.App{
-  text-align: right;
-}
+
 .ant-card{
   box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.500);
 }
 
+
 .wrapper {
   display: flex;
   flex-direction: column;
-;
-
-
 }
+
 Header{
- box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.500);
+ box-shadow: -6px 2px 6px 0px rgba(128, 128, 128, 0.5);
+ z-index: 1;
 }
 .content {
   flex: 1;

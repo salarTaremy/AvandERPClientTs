@@ -87,18 +87,18 @@ export const FrmEditAccountDocument = (props) => {
       description: valueHeader.description,
     };
 
-    // const detailsList = [];
+    const detailsList = [];
 
-    // for (let key in values) {
-    //   if (typeof values[key] === "object") {
-    //     detailsList.push(values[key]);
-    //   }
-    // }
+    for (let key in values) {
+      if (typeof values[key] === "object") {
+        detailsList.push(values[key]);
+      }
+    }
 
-    // delete header.details;
+    delete header.details;
     const dto = {
       header,
-      details: [],
+      details: detailsList,
     };
 
     await editApiCall(url.ACCOUNT_DOCUMENT, dto);
@@ -144,9 +144,9 @@ export const FrmEditAccountDocument = (props) => {
   return (
     <>
     <ModalHeader title= {'ویرایش سند حسابداری'} />
-                <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
-                  <Ant.Row gutter={[8, 8]}>
-                    <Ant.Col span={24}>
+                <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
+                  <Ant.Row gutter={[16, 8]}>
+                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item
                         rules={[{ required: true }]}
                         name={"branchId"}
@@ -162,7 +162,7 @@ export const FrmEditAccountDocument = (props) => {
                         />
                       </Ant.Form.Item>
                     </Ant.Col>
-                    <Ant.Col  span={24}>
+                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item
                         rules={[{ required: true }]}
                         name={"accountingDocumentTypeId"}
@@ -178,7 +178,7 @@ export const FrmEditAccountDocument = (props) => {
                         />
                       </Ant.Form.Item>
                     </Ant.Col>
-                    <Ant.Col  span={24}>
+                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item
                         rules={[{ required: true }]}
                         name={"accountingDocumentStateId"}
@@ -195,7 +195,7 @@ export const FrmEditAccountDocument = (props) => {
                       </Ant.Form.Item>
                     </Ant.Col>
 
-                    <Ant.Col lg={8}>
+                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item
                         rules={[{ required: true }]}
                         name={"subNumber"}
@@ -204,12 +204,12 @@ export const FrmEditAccountDocument = (props) => {
                         <Ant.InputNumber min={0} style={{ width: "100%" }} />
                       </Ant.Form.Item>
                     </Ant.Col>
-                    <Ant.Col lg={16}>
+                    <Ant.Col lg={6} md={12} sm={12} xs={24}>
                       <Ant.Form.Item name={"persianDateTilte"} label="تاریخ">
                         <MyDatePicker />
                       </Ant.Form.Item>
                     </Ant.Col>
-                    <Ant.Col  span={24}>
+                    <Ant.Col lg={18} md={12} sm={12} xs={24}>
                       <Ant.Form.Item
                         name={"description"}
                         label="توضیحات"
@@ -226,13 +226,13 @@ export const FrmEditAccountDocument = (props) => {
                 </Ant.Form>
 
 
-      {/* <TBL
+      <TBL
         updateDebtorEdit={updateDebtorEdit}
         updateCreditorEdit={updateCreditorEdit}
         footer={FooterContent}
         dataEdit={dataEdit}
         onSubmit={onFinish}
-      /> */}
+      />
     </>
   );
 };

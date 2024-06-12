@@ -34,6 +34,7 @@ const AccountDocumentList = () => {
   const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -101,6 +102,8 @@ const AccountDocumentList = () => {
   };
   const onAdd = () => {
     // navigate("/accounting/accountDocument/new");
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList)
     setModalContent(<FrmAddAccountDocument key={uuid.v1()} />)
     setModalState(true)
   };
@@ -112,11 +115,13 @@ const AccountDocumentList = () => {
 
     // id &&
     //   navigate(generatePath("/accounting/accountDocument/edit/:id", { id }));
-
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList)
     setModalContent(<FrmEditAccountDocument onSuccess={onSuccessEdit} id={id} key={id} />)
     setModalState(true)
   };
   const onView = (id) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(<AccountDocumentDescription id={id} key={id} />);
     setModalState(true);
   };
@@ -164,7 +169,7 @@ const AccountDocumentList = () => {
       <Ant.Modal
         open={modalState}
         {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_EXTRA_LARGE}
+        {...modalSize}
         getContainer={null}
         footer={null}
         onCancel={() => {
