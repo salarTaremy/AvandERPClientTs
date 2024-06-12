@@ -56,9 +56,14 @@ const FormEditPhoneNumber = (props) => {
                     <Ant.Form.Item
                         name="phoneNumber"
                         label={"شماره تماس"}
-                        rules={[{ required: true }]}
+                        rules={[{
+                            required: true,
+                            pattern: new RegExp("^[0-9]"),
+                            message:
+                                " شماره تماس نمی تواند شامل کاراکترهای غیرعددی باشد"
+                        }]}
                     >
-                        <Ant.Input allowClear showCount maxLength={11}  />
+                        <Ant.Input allowClear showCount maxLength={11} />
                     </Ant.Form.Item>
                     <Ant.Form.Item>
                         <Ant.Button
