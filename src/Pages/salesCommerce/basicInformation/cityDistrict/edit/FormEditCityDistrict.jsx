@@ -35,9 +35,9 @@ const FormEditCityDistrict = (props) => {
     useEffect(() => {
         form.resetFields()
         listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
-        const provinceId = listData?.data?.provinceCode; //TODO: provinceId must be provided
-        const cityId = listData?.data?.cityId;
-        listData?.isSuccess && form.setFieldValue("cityId", [provinceId, cityId]);
+        const provinceName = listData?.data?.provinceName;
+        const cityName = listData?.data?.cityName;
+        listData?.isSuccess && form.setFieldValue("cityId", [provinceName, cityName]);
     }, [listData])
     //=====================================================================
     //                        Functions
