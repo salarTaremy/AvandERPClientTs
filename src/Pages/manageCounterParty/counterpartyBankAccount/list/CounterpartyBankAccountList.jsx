@@ -9,6 +9,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import FormCounterpartyBankAccountAdd from "../add/FormCounterpartyBankAccountAdd";
 import * as uuid from "uuid";
+import FormEditCounterpartyBankAccount from "../edit/FormEditCounterpartyBankAccount";
 
 //====================================================================
 //                        Declaration
@@ -85,12 +86,12 @@ const CounterpartyBankAccountList = (props) => {
   };
 
   const onEdit = async (id) => {
-    // setModalContent(<FormCounterpartyBankAccountEdit
-    //   onSuccess={onSuccessEdit}
-    //   id={id}
-    //   key={id}
-    // />);
-    // setModalState(true);
+    setModalContent(<FormEditCounterpartyBankAccount
+      onSuccess={onSuccessEdit}
+      id={id}
+      key={id}
+    />);
+    setModalState(true);
   };
 
   const onSuccessEdit = () => {
