@@ -70,10 +70,10 @@ const FilterPanel = (props) => {
                     />
                 </Ant.Form.Item>
                 <Ant.Form.Item name="title" label={' منطقه'} rules={[{ required: false }]}>
-                    <Ant.Input allowClear showCount maxLength={8} />
+                    <Ant.Input allowClear showCount  />
                 </Ant.Form.Item>
                 <Ant.Form.Item name="description" label="توضیحات" rules={[{ required: false }]}>
-                    <Ant.Input.TextArea allowClear showCount maxLength={400} />
+                    <Ant.Input.TextArea allowClear showCount />
                 </Ant.Form.Item>
                 <Ant.Form.Item>
                     <Ant.Button

@@ -36,7 +36,7 @@ export const columns = (onDelete, onEdit, onPhoneNumberAdd) => {
         <Ant.Tooltip placement="top" title={"افزودن شماره تماس"}>
             <Ant.Button
               className="text-blue-600"
-              onClick={() => onPhoneNumberAdd(value.id)}
+              onClick={() => onPhoneNumberAdd(value)}
               icon={<PhoneOutlined />}
               type="text"
             />

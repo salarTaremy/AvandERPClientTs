@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
@@ -10,6 +10,7 @@ import qs from "qs";
 import { columns } from "./columns";
 import FormCounterpartyAddressAdd from "../add/FormCounterpartyAddressAdd";
 import FormCounterpartyAddressEdit from "../edit/FormCounterpartyAddressEdit";
+import PhoneNumberList from "../phone/PhoneNumberList";
 
 //====================================================================
 //                        Declaration
@@ -58,7 +59,7 @@ const CounterpartyAddressList = (props) => {
   //                        Functions
   //====================================================================
   const getCounterpartyAddressList = async () => {
-    const queryString = qs.stringify({counterpartyId: counterpartyId});
+    const queryString = qs.stringify({ counterpartyId: counterpartyId });
     await ApiCall(`${url.COUNTERPARTY_ADDRESS}?${queryString}`);
   };
 
@@ -83,9 +84,9 @@ const CounterpartyAddressList = (props) => {
     );
     setModalState(true);
   };
-  const onPhoneNumberAdd = (addressId) => {
-    // setModalContent(<PhoneNumberList addressId={addressId} key={addressId} />);
-    // setModalState(true);
+  const onPhoneNumberAdd = (value) => {
+    setModalContent(<PhoneNumberList addressId={value.id} key={value.id} />);
+    setModalState(true);
   };
 
   const onEdit = (id) => {

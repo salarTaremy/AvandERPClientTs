@@ -28,6 +28,7 @@ const CityDistrictList = () => {
     const [filterObject, setFilterObject] = useState();
     const [openFilter, setOpenFilter] = useState(false);
     const [filterCount, setFilterCount] = useState(0);
+    const [pagination, setPagination] = useState({});
 
     //====================================================================
     //                        useEffects
@@ -56,8 +57,15 @@ const CityDistrictList = () => {
     //                        Functions
     //====================================================================
     const getAllCityDistrict = async () => {
-        const queryString = qs.stringify(filterObject);
-        console.log('queryString',filterObject)
+        const cityFilter = {};
+        if (filterObject?.cityId) {
+            cityFilter.cityId = filterObject?.cityId[1];
+        }
+        const queryString = qs.stringify({
+            description: filterObject?.description,
+            title: filterObject?.title,
+            ...cityFilter
+        })
         await ApiCall(`${url.CITY_DISTRICT}?${queryString}`);
     };
 
@@ -69,6 +77,10 @@ const CityDistrictList = () => {
     const onRemoveFilter = () => {
         setFilterObject(null);
         setOpenFilter(false);
+    };
+
+    const handleTableChange = (pagination) => {
+        setPagination(pagination);
     };
 
     const onDelete = async (id) => {
@@ -131,8 +143,10 @@ const CityDistrictList = () => {
                     <Ant.Table
                         size="small"
                         {...defaultValues.TABLE_PROPS}
+                        pagination={pagination}
                         title={title}
                         columns={columns(onDelete, onEdit)}
+                        onChange={handleTableChange}
                         dataSource={dataSource}
                     />
                 </Ant.Skeleton>
