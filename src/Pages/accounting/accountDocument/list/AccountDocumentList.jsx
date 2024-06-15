@@ -78,6 +78,11 @@ const AccountDocumentList = () => {
     setModalState(false)
     fillGrid()
   }
+  const onSuccessAdd = () => {
+    setModalState(false)
+    fillGrid();
+
+  }
 
   const fillGrid = async () => {
     const queryString = qs.stringify({
@@ -104,14 +109,13 @@ const AccountDocumentList = () => {
     // navigate("/accounting/accountDocument/new");
     const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList)
-    setModalContent(<FrmAddAccountDocument key={uuid.v1()} />)
+    setModalContent(<FrmAddAccountDocument onSuccess={onSuccessAdd} key={uuid.v1()} />)
     setModalState(true)
   };
   const onDelete = async (id) => {
     await delApiCall(`${url.ACCOUNT_DOCUMENT}/${id}`);
   };
   const onEdit = (id) => {
-    console.log(id, "valval");
 
     // id &&
     //   navigate(generatePath("/accounting/accountDocument/edit/:id", { id }));
@@ -128,6 +132,7 @@ const AccountDocumentList = () => {
   //====================================================================
   //                        Child Components
   //====================================================================
+
   const title = () => {
     return (
       <ButtonList

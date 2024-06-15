@@ -5,9 +5,11 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, usePostWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import PropTypes from 'prop-types'
 import TBL from "./Table";
 import { useNavigate } from "react-router-dom";
-export const FrmAddAccountDocument = () => {
+export const FrmAddAccountDocument = (props) => {
+  const { onSuccess} = props;
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
   );
@@ -26,13 +28,17 @@ export const FrmAddAccountDocument = () => {
   const [sumDebtor, setSumDebtor] = useState(0);
   const [sumCreditor, setSumCreditor] = useState(0);
   const navigate = useNavigate();
+
+
+  //====================================================================
+  //                       useEffects
+  //====================================================================
+  useEffect(() => {
+    addData?.isSuccess && onSuccess()
+  }, [addData])
   useEffect(() => {
     form.resetFields();
   }, [form]);
-
-  //====================================================================
-  //
-  //====================================================================
 
   //====================================================================
   //                        Functions
@@ -45,18 +51,25 @@ export const FrmAddAccountDocument = () => {
   };
 
   const onFinish = async (values) => {
-    let valueHeader = form.getFieldsValue();
+    console.log(values, "valuesvalues");
+
     const header = {
+      ...values,
       documentNumber: 0,
-      branchId: valueHeader.branchId,
-      accountingDocumentTypeId: valueHeader.AccountingDocumentTypeId,
-      accountingDocumentStateId: valueHeader.accountingDocumentStateId,
-      calendarId: parseInt(
-        valueHeader?.calendarId?.toString().replace(/\//g, ""),
-      ),
-      subNumber: valueHeader.subNumber,
+      calendarId: parseInt(values?.calendarId?.toString().replace(/\//g, "")),
     };
-    const detailsList = [];
+    // let valueHeader = form.getFieldsValue();
+    // const header = {
+    //   documentNumber: 0,
+    //   branchId: valueHeader.branchId,
+    //   accountingDocumentTypeId: valueHeader.AccountingDocumentTypeId,
+    //   accountingDocumentStateId: valueHeader.accountingDocumentStateId,
+    //   calendarId: parseInt(
+    //     valueHeader?.calendarId?.toString().replace(/\//g, ""),
+    //   ),
+    //   subNumber: valueHeader.subNumber,
+    // };
+    // const detailsList = [];
 
     // for (let key in values) {
     //   if (typeof values[key] === "object") {
@@ -69,9 +82,9 @@ export const FrmAddAccountDocument = () => {
     // delete header.details;
     const dto = {
       header,
-      details: [],
+      // details: [],
     };
-
+    console.log(dto, "dto");
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
     navigate("/accounting/accountDocument");
   };
@@ -114,6 +127,21 @@ export const FrmAddAccountDocument = () => {
       <ModalHeader title={"ایجاد سند حسابداری"} />
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <Ant.Row gutter={[8, 8]}>
+          <Ant.Col lg={16}>
+            <Ant.Form.Item name={"calendarId"} label="تاریخ">
+              <MyDatePicker />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col lg={8}>
+            <Ant.Form.Item
+              rules={[{ required: true }]}
+              name={"subNumber"}
+              label="شماره فرعی"
+            >
+              <Ant.InputNumber min={0} style={{ width: "100%" }} />
+            </Ant.Form.Item>
+          </Ant.Col>
+
           <Ant.Col span={24}>
             <Ant.Form.Item
               rules={[{ required: true }]}
@@ -167,20 +195,6 @@ export const FrmAddAccountDocument = () => {
             </Ant.Form.Item>
           </Ant.Col>
 
-          <Ant.Col lg={8} >
-            <Ant.Form.Item
-              rules={[{ required: true }]}
-              name={"subNumber"}
-              label="شماره فرعی"
-            >
-              <Ant.InputNumber min={0} style={{ width: "100%" }} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col lg={16}>
-            <Ant.Form.Item name={"calendarId"} label="تاریخ">
-              <MyDatePicker />
-            </Ant.Form.Item>
-          </Ant.Col>
           <Ant.Col span={24}>
             <Ant.Form.Item
               name={"description"}
@@ -190,17 +204,19 @@ export const FrmAddAccountDocument = () => {
               <Ant.Input.TextArea allowClear showCount maxLength={400} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Form.Item>
-            <Ant.Button
-              type="primary"
-              onClick={() => {
-                form.submit();
-              }}
-              block
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
+          <Ant.Col span={24}>
+            <Ant.Form.Item>
+              <Ant.Button
+                type="primary"
+                onClick={() => {
+                  form.submit();
+                }}
+                block
+              >
+                {"تایید"}
+              </Ant.Button>
+            </Ant.Form.Item>
+          </Ant.Col>
         </Ant.Row>
       </Ant.Form>
 
@@ -215,3 +231,6 @@ export const FrmAddAccountDocument = () => {
   );
 };
 export default FrmAddAccountDocument;
+FrmAddAccountDocument.propTypes = {
+  onSuccess: PropTypes.func,
+};
