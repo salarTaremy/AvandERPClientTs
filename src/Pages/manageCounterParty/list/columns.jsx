@@ -34,12 +34,20 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       sorter: (a, b) => a.counterpartyTitle.localeCompare(b.counterpartyTitle),
     },
     {
-      title: "شناسه ملی",
+      title: "شناسه/کد ملی",
       dataIndex: "legalEntityIdentity",
       key: "legalEntityIdentity",
       align: "center",
       width: 100,
       className: "text-xs sm:text-sm",
+      render: (text, record, index) => {
+        return (
+          <>
+            {(record.counterpartyTypeId == 1 && record.nationalCode) && `${record.nationalCode}`}
+            {record.counterpartyTypeId == 2 && `${record.legalEntityIdentity}`}
+          </>
+        )
+      }
     },
     {
       title: "کد اقتصادی",
