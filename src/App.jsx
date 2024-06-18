@@ -1,7 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout";
-import { ConfigProvider, theme } from "antd";
+import { BackTop, ConfigProvider, theme } from "antd";
 import faIR from "antd/locale/fa_IR";
 import "./scss/style.scss";
 import "./index.css";
@@ -43,6 +43,14 @@ const App = () => {
         // colorPrimaryHover: `#d776f5`,
         // colorPrimaryActive: `#ba0af0`,
         // lineWidth: 0,
+      },
+      Modal:{
+        //  contentBg:'#transparent',
+        // footerBg:'transparent',
+        // headerBg:'#ffffff',
+        //titleColor
+        //titleFontSize
+        //titleLineHeight
       },
       Drawer: {
         motionDurationSlow: "0.5s",

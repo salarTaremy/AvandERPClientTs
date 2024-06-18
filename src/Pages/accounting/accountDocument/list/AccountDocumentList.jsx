@@ -34,6 +34,7 @@ const AccountDocumentList = () => {
   const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
@@ -77,6 +78,11 @@ const AccountDocumentList = () => {
     setModalState(false)
     fillGrid()
   }
+  const onSuccessAdd = () => {
+    setModalState(false)
+    fillGrid();
+
+  }
 
   const fillGrid = async () => {
     const queryString = qs.stringify({
@@ -101,28 +107,32 @@ const AccountDocumentList = () => {
   };
   const onAdd = () => {
     // navigate("/accounting/accountDocument/new");
-    setModalContent(<FrmAddAccountDocument key={uuid.v1()} />)
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList)
+    setModalContent(<FrmAddAccountDocument onSuccess={onSuccessAdd} key={uuid.v1()} />)
     setModalState(true)
   };
   const onDelete = async (id) => {
     await delApiCall(`${url.ACCOUNT_DOCUMENT}/${id}`);
   };
   const onEdit = (id) => {
-    console.log(id, "valval");
 
     // id &&
     //   navigate(generatePath("/accounting/accountDocument/edit/:id", { id }));
-
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList)
     setModalContent(<FrmEditAccountDocument onSuccess={onSuccessEdit} id={id} key={id} />)
     setModalState(true)
   };
   const onView = (id) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(<AccountDocumentDescription id={id} key={id} />);
     setModalState(true);
   };
   //====================================================================
   //                        Child Components
   //====================================================================
+
   const title = () => {
     return (
       <ButtonList
@@ -164,7 +174,7 @@ const AccountDocumentList = () => {
       <Ant.Modal
         open={modalState}
         {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_EXTRA_LARGE}
+        {...modalSize}
         getContainer={null}
         footer={null}
         onCancel={() => {

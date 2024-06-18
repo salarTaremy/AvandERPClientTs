@@ -13,12 +13,14 @@ const SaleDocumentHeaderInfo = (props) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const title = `${saleDocumentData?.saleDocumentType} شماره ${saleDocumentData?.documentNumber}`;
-  const referenceDocumentId= saleDocumentData?.referenceId;
+  const referenceDocumentId = saleDocumentData?.referenceId;
   const referenceDocumentNumber =
     saleDocumentData?.referenceDocumentNumber !== 0 ? (
-      <Typography.Link onClick={() => {
-        onViewReferenceDocument(referenceDocumentId);
-      }}>
+      <Typography.Link
+        onClick={() => {
+          onViewReferenceDocument(referenceDocumentId);
+        }}
+      >
         {`${saleDocumentData?.referenceDocumentType} شماره ${saleDocumentData?.referenceDocumentNumber}`}
       </Typography.Link>
     ) : (
@@ -67,10 +69,10 @@ const SaleDocumentHeaderInfo = (props) => {
     setModalContent(<CustomerDescription id={id} />);
     setModalState(true);
   };
-  const onViewReferenceDocument = (referenceDocumentId) =>{
+  const onViewReferenceDocument = (referenceDocumentId) => {
     setModalContent(<SaleDocumentDescription id={referenceDocumentId} />);
     setModalState(true);
-  }
+  };
 
   //====================================================================
   //                        Component
@@ -79,6 +81,7 @@ const SaleDocumentHeaderInfo = (props) => {
     <>
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_EXTRA_LARGE}
         open={modalState}
         centered
         getContainer={null}
@@ -94,11 +97,10 @@ const SaleDocumentHeaderInfo = (props) => {
       </Ant.Modal>
 
       <Ant.Skeleton loading={loading}>
-      <ModalHeader title= {title}/>
+        <ModalHeader title={title} />
         <Ant.Descriptions
           bordered={false}
           layout="horizontal"
-
           size="small"
           items={borderedItems}
           className={className}

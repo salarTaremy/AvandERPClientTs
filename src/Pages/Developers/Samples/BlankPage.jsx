@@ -45,12 +45,12 @@ const BlankPage = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Card Card title={pageTitle} type="inner">
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false}>
+    
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false} title={pageTitle} type='inner' >
         <BlankPage/>
         {/* Write Code Here */}
       </Ant.Card>
-    </Ant.Card>
+
   )
 }
 

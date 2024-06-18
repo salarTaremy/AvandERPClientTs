@@ -24,6 +24,7 @@ import ProductList from './Pages/inventory/product/list/ProductList'
 import EditProductList from './Pages/inventory/product/edit/EditProductList'
 import WarehouseManagment from './Pages/inventory/wareHouse/list/WarehouseManagment'
 
+
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
 import CustomValidator from './Pages/Developers/Samples/CustomValidator'
