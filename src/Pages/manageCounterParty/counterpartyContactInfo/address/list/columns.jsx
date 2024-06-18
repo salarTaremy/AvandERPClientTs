@@ -7,12 +7,19 @@ import { PhoneOutlined } from "@ant-design/icons";
 export const columns = (onDelete, onEdit, onPhoneNumberAdd) => {
   return [
     {
+      title: "عنوان",
+      dataIndex: "title",
+      key: "title",
+      className: "text-xs sm:text-sm",
+      width: 100,
+    },
+    {
       title: "نشانی",
       dataIndex: "address",
       key: "address",
       align: "right",
       className: "text-xs sm:text-sm",
-      width: 500,
+      width: 400,
       render: (text, record, index) =>
         `${record.provinceName}، ${record.cityName}، ${record.address}`,
     },

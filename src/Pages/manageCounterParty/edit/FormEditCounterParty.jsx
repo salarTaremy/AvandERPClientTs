@@ -1,79 +1,105 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
-import * as styles from "@/styles";
-import MyDatePicker from "@/components/common/MyDatePicker";
-import useRequestManager from "@/hooks/useRequestManager";
 import * as url from "@/api/url";
+import { Steps, Form } from "antd";
 import {
-  useFetch,
-  useFetchWithHandler,
-  usePostWithHandler,
   usePutWithHandler,
 } from "@/api";
-import Address from "./Address";
-import Contacts from "./Contacts";
-import BankBranchInfo from "./BankBranchInfo";
-import HeaderEditCounterParty from "./HeaderEditCounterParty";
-import Informationccounts from "./Informationccounts";
-import * as api from "@/api";
-import { useParams } from "react-router-dom";
 import ModalHeader from "@/components/common/ModalHeader";
-const FormEditCounterParty = ({ onSuccess, id }) => {
-  const params = useParams();
-  const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
+import { BasicInfoStep } from "../edit/steps/BasicInfoStep";
+import CounterpartyAddressList from "@/Pages/manageCounterParty/counterpartyContactInfo/address/list/CounterpartyAddressList";
+import CounterpartyBankAccountList from "@/Pages/manageCounterParty/counterpartyBankAccount/list/CounterpartyBankAccountList";
+
+
+
+const FormEditCounterParty = ({ onSuccess, id, key }) => {
   const [form] = Ant.Form.useForm();
-  const { TabPane } = Ant.Tabs;
+  const { Step } = Steps;
+
   const [
-    listDataHeader,
-    listLoadingHeader,
-    listErrorHeader,
-    listApiCallHeader,
-  ] = api.useFetchWithHandler();
-  useRequestManager({ error: listErrorHeader });
-  useRequestManager({ error: editData });
+    counterpartyEditedData,
+    counterpartyEditLoading,
+    counterpartyEditError,
+    counterpartyEditApiCall,
+  ] = usePutWithHandler();
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formValues, setFormValues] = useState({}); // ایجاد متغیر موقت برای ذخیره تمام مقادیر ورودی فرم
+
+  const steps = () => [
+    {
+      title: "اطلاعات پایه",
+      content:
+        <Ant.Form
+          form={form}
+          key={key}
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <BasicInfoStep form={form} id={id} />
+        </Ant.Form>,
+    },
+    {
+      title: "اطلاعات تماس",
+      content: <CounterpartyAddressList counterpartyId={id} />,
+    },
+    {
+      title: "اطلاعات حساب بانکی",
+      content: <CounterpartyBankAccountList counterpartyId={id} />,
+    },
+  ];
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    onEditHeader();
-  }, []);
-
-  useEffect(() => {
-    console.log(listDataHeader?.data?.addressList, "addressList");
-    form.setFieldsValue({ ...(listDataHeader?.data || null) });
-  }, [listDataHeader]);
-
-  useEffect(() => {
-    editData?.isSuccess && onSuccess();
-  }, [editData]);
+    counterpartyEditedData?.isSuccess && onSuccessEdit();
+  }, [counterpartyEditedData]);
 
   //====================================================================
   //                        Functions
   //====================================================================
-  const onEditHeader = async () => {
-    await listApiCallHeader(`${url.COUNTER_PARTY}/${id}`);
+  const onSuccessEdit = () => {
+    setCurrentStep(currentStep + 1);
+  }
+
+  const onFinish = async (values) => {
+    await counterpartyEditApiCall(url.COUNTER_PARTY, { ...formValues, id: id });
   };
 
-  const onFinish = async (value) => {
-    const list = form.getFieldsValue();
-    let newBirthDateCalendarId = list?.birthDateCalendarId
-      ?.toString()
-      .replace(/\//g, "");
+  const onFinishFailed = (errorInfo) => {
+    console.error("Failed:", errorInfo);
+  };
 
-    const dataList = {
-      ...value,
-      id: id,
-      birthDateCalendarId: parseInt(newBirthDateCalendarId),
-    };
-    dataList.addressList = value.addressList ? value.addressList : Array(0);
-    dataList.phoneNumberList = value.phoneNumberList
-      ? value.phoneNumberList
-      : Array(0);
-    dataList.bankAccountList = value.bankAccountList
-      ? value.bankAccountList
-      : Array(0);
+  const onSave = async (e) => {
+    try {
+      await form.validateFields();
+      const formFields = await form.getFieldsValue();
+      const cityFields = {};
+      cityFields.cityId = formFields.cityId[1];
+      if (formFields.birthCertificatePlaceOfIssueCityId) {
+        cityFields.birthCertificatePlaceOfIssueCityId = formFields.birthCertificatePlaceOfIssueCityId[1];
+      }
+      if (formFields.companyRegistrationPlaceCityId) {
+        cityFields.companyRegistrationPlaceCityId = formFields.companyRegistrationPlaceCityId[1];
+      }
+      const dateFields = {};
+      if (formFields.birthDateCalendarId) {
+        dateFields.birthDateCalendarId = formFields.birthDateCalendarId.toString().replace(/\//g, "");
+      }
+      setFormValues({ ...formValues, ...formFields, ...cityFields, ...dateFields });
+      form.submit();
+    } catch (error) {
+      steps()[currentStep + 1].status = "error";
+      console.error("خطا در اعتبارسنجی فرم:", error);
+    }
+  };
 
-    await editApiCall(url.COUNTER_PARTY, dataList);
+  const nextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const prevStep = () => {
+    setCurrentStep(currentStep - 1);
   };
 
   //====================================================================
@@ -82,42 +108,57 @@ const FormEditCounterParty = ({ onSuccess, id }) => {
   return (
     <>
       <ModalHeader title={"ویرایش طرف حساب"} />
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
-        <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
-          <Ant.Tabs type="card" defaultActiveKey="1">
-            <TabPane forceRender={true} tab="اطلاعات پایه " key="1">
-              <HeaderEditCounterParty form={form} />
-            </TabPane>
-            <TabPane forceRender={true} tab="اطلاعات تماس " key="2">
-              <Contacts />
-            </TabPane>
-            <TabPane forceRender={true} tab="آدرس" key="3">
-              <Address form={form} />
-            </TabPane>
-            <TabPane forceRender={true} tab="اطلاعات حساب های بانکی" key="4">
-              <BankBranchInfo />
-            </TabPane>
-            <TabPane
-              forceRender={true}
-              tab="اطلاعات تکمیلی طرف حساب ها"
-              key="4"
-            >
-              <Informationccounts />
-            </TabPane>
-          </Ant.Tabs>
-          <Ant.Flex className="items-end " vertical>
-            <Ant.Button
-              className="px-6"
-              type="primary"
-              htmlType="submit"
-              style={{ width: 150 }}
-            >
-              {"ذخیره"}
-            </Ant.Button>
-          </Ant.Flex>
-        </Ant.Form>
-      </Ant.Card>
+      <div style={{ minHeight: "100px" }}>
+        <Steps current={currentStep} size="small" className="mb-4">
+          {steps().map((step, index) => (
+            <Step key={index} title={step.title} />
+          ))}
+        </Steps>
+        <>{steps()[currentStep].content}</>
+        <Ant.Row gutter={[16, 8]} justify="end">
+          {currentStep > 0 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button
+                onClick={prevStep}
+                block
+              >
+                {"قبلی"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+          {currentStep === 0 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button
+                type="primary"
+                block
+                onClick={onSave}
+              >
+                {"ذخیره و ادامه"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+          {currentStep !== 0 && currentStep < steps().length - 1 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button type="primary" onClick={nextStep} block>
+                {"بعدی"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+          {currentStep === steps().length - 1 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button
+                type="primary"
+                block
+                onClick={onSuccess}
+              >
+                {"اتمام"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+        </Ant.Row>
+      </div>
     </>
+    // )
   );
 };
 export default FormEditCounterParty;
