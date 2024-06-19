@@ -64,19 +64,19 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     editData?.isSuccess && onSuccess();
   }, [editData]);
 
-    //====================================================================
-    //                        Functions
-    //====================================================================
-    const getRoleScopeWithRoles = async () => {
-      const req = {
-        roleScopePersianTitle: filterObject?.persianTitle,
-        rolePersianTitle: filterObject?.rolePersianTitle,
-        UserId: userId,
-      };
-      console.log("req", filterObject);
-      const queryString = qs.stringify(req);
-      await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`);
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const getRoleScopeWithRoles = async () => {
+    const req = {
+      roleScopePersianTitle: filterObject?.persianTitle,
+      rolePersianTitle: filterObject?.rolePersianTitle,
+      UserId: userId,
     };
+    console.log("req", filterObject);
+    const queryString = qs.stringify(req);
+    await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`);
+  };
 
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
@@ -160,37 +160,38 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     );
   };
 
-    //====================================================================
-    //                        Component
-    //====================================================================
-    return (
-        <>
-            <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} />
+  //====================================================================
+  //                        Component
+  //====================================================================
+  return (
+    <>
+      <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} />
 
-                 <CardContent>
-                <FilterDrawer
-                    open={openFilter}
-                    onClose={() => setOpenFilter(false)}
-                    onRemoveFilter={onRemoveFilter}
-                >
-                    <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-                </FilterDrawer>
-                <FilterBedge filterCount={filterCount}>
-                    <Grid />
-                </FilterBedge>
-                </CardContent>
+      <CardContent>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Grid />
+        </FilterBedge>
+      </CardContent>
 
-            <Ant.Button block
-                className='mt-8 '
-                loading={editLoading}
-                type="primary"
-                onClick={onFinish}
-            >
-                {'تایید'}
-            </Ant.Button>
-        </>
-    );
-}
+      <Ant.Button
+        block
+        className="mt-8"
+        loading={editLoading}
+        type="primary"
+        onClick={onFinish}
+      >
+        {"تایید"}
+      </Ant.Button>
+    </>
+  );
+};
 
 export default FormSwitchUserRollList;
 FormSwitchUserRollList.propTypes = {

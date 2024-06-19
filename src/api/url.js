@@ -219,6 +219,8 @@ export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocume
 //WareHouse
 export const WAREHOUSE = 'Warehouse'
 export const WAREHOUSE_TYPE = 'WarehouseType'
+export const  LINK_PRODUCT_WARE_HOUSE= 'LinkProductWarehouse'
+export const  LINK_PRODUCT_WARE_HOUSE_ADD_LIST= '/LinkProductWarehouse/AddList'
 
 //CityDistrict
 export const CITY_DISTRICT = 'CityDistrict'
