@@ -106,7 +106,7 @@ const FilterPanel = (props) => {
                 <Ant.Form.Item name={'saleChannelId'} label="کانال فروش">
                     <Ant.Select
                         allowClear={true}
-                        placeHolder={'انتخاب کنید...'}
+                        placeholder={'انتخاب کنید...'}
                         disable={saleChannelLoading || false}
                         loading={saleChannelLoading}
                         options={saleChannelData?.data}

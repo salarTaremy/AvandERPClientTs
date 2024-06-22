@@ -25,7 +25,7 @@ const columns = (onDelete, onEdit) => {
       title: "آدرس",
       dataIndex: "address",
       key: "address",
-      width: 100,
+      width: 400,
       className:"text-xs sm:text-sm",
       sorter: (a, b) => a.address.localeCompare(b.address),
     },
@@ -33,7 +33,7 @@ const columns = (onDelete, onEdit) => {
       title: "توضیحات",
       dataIndex: "description",
       key: "description",
-      width: 400,
+      width: 300,
       className:"text-xs sm:text-sm",
     },
     {

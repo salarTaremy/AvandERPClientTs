@@ -51,8 +51,8 @@ const HeaderCounterParty = ({ data }) => {
     },
     {
       key: "8",
-      label: "کد ملی",
-      children: data?.data?.nationalCode,
+      label: "شناسه ملی",
+      children: data?.data?.legalEntityIdentity,
     },
     {
       key: "9",

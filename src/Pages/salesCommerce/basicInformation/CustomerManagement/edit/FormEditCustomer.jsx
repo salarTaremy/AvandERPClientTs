@@ -3,6 +3,7 @@ import * as Ant from "antd";
 import * as styles from "@/styles";
 import { useFetch, useFetchWithHandler, Get, usePutWithHandler } from "@/api";
 import qs, { stringify } from "qs";
+import * as uuid from "uuid";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import DebounceSelect from "@/components/common/DebounceSelect";
@@ -12,11 +13,15 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { useParams, useNavigate } from "react-router-dom";
 import ModalHeader from "@/components/common/ModalHeader";
 import { data } from "autoprefixer";
+import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGrup";
+import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
 
-const FormEditCustomer = ({ id }) => {
+const FormEditCustomer = ({ id, onSuccess }) => {
   const fieldNamesList = { label: 'label', value: 'value' }
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
+  const [modalState, setModalState] = useState(false);
+  const [modalContent, setModalContent] = useState();
   const [listSubmitData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
 
@@ -24,16 +29,12 @@ const FormEditCustomer = ({ id }) => {
   const [debounceValue, setDebounceValue] = useState(null);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
-  const [customerGroupList, customerGroupLoading, customerGroupError] =
-    useFetch(url.CUSTOMER_GROUP);
-  const [customerTypeList, customerTypeLoading, customerTypeError] = useFetch(
-    url.CUSTOMER_TYPE,
-  );
   const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
     url.SALE_CHANNEL,
   );
-
+  const [customerGroupList, customerGroupLoading, customerGroupError, customerGroupApiCall] = useFetchWithHandler()
+  const [customerTypeList, customerTypeLoading, customerTypeError, customerTypeApiCall] = useFetchWithHandler()
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
   const params = useParams();
@@ -64,10 +65,11 @@ const FormEditCustomer = ({ id }) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  // useEffect(() => {
-  //   form.resetFields();
-  //   addData?.isSuccess;
-  // }, [addData]);
+  useEffect(() => {
+    getCustomerGroup()
+    getCustomerType()
+  }, [])
+
   useEffect(() => {
     maxCodeData?.isSuccess &&
       maxCodeData?.data &&
@@ -77,6 +79,7 @@ const FormEditCustomer = ({ id }) => {
   useEffect(() => {
     onEdit();
   }, []);
+
   useEffect(() => {
     form.resetFields();
     editData?.isSuccess && form.setFieldsValue({ ...(editData?.data || null) });
@@ -85,10 +88,18 @@ const FormEditCustomer = ({ id }) => {
   //==================================================================
   //                        Functions
   //==================================================================
-
   const getMaxCode = async () => {
     await maxCodeApiCall(`${url.CUSTOMER_FREE_CODE}`);
   };
+
+  const getCustomerGroup = async () => {
+    await customerGroupApiCall(url.CUSTOMER_GROUP)
+  }
+
+  const getCustomerType = async () => {
+    await customerTypeApiCall(url.CUSTOMER_TYPE)
+  }
+
   const handleCounterParty = async () => {
     setEmpty(id);
     console.log(val, "klklk");
@@ -117,6 +128,7 @@ const FormEditCustomer = ({ id }) => {
   const onEdit = async () => {
     await editApiCall(`${url.CUSTOMER}/${id}`);
   };
+
   const onFinish = async (values) => {
     const req = {
       ...values,
@@ -126,6 +138,26 @@ const FormEditCustomer = ({ id }) => {
     await submitApiCall(url.CUSTOMER, req);
     onSuccess()
   };
+
+  const onSuccessAdd = () => {
+    setModalState(false);
+    getCustomerGroup()
+  };
+
+  const onAddGroup = () => {
+    setModalContent(<FormAddNewCustomerGrup key={uuid.v1()} onSuccess={onSuccessAdd} />);
+    setModalState(true);
+  };
+
+  const onSuccessAddType = () => {
+    setModalState(false);
+    getCustomerType()
+  };
+
+  const onAddType = () => {
+    setModalContent(<FormAddNewCustometType key={uuid.v1()} onSuccess={onSuccessAddType} />);
+    setModalState(true);
+  }
 
   //====================================================================
   //                        Child Components
@@ -146,10 +178,25 @@ const FormEditCustomer = ({ id }) => {
   //====================================================================
   //                        Component
   //====================================================================
-
   return (
     <>
       <ModalHeader title={'ویرایش مشتری'} />
+      <Ant.Modal
+        {...defaultValues.MODAL_PROPS}
+        open={modalState}
+        centered
+        getContainer={null}
+        footer={null}
+        onCancel={() => {
+          setModalState(false);
+        }}
+        onOk={() => {
+          setModalState(false);
+        }}
+
+      >
+        {modalContent}
+      </Ant.Modal>
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
@@ -193,51 +240,74 @@ const FormEditCustomer = ({ id }) => {
                 </Ant.Col>
                 <Ant.Col>
                   <Ant.Form.Item
-                    rules={[{ required: false }, { max: 20 }]}
+                    rules={[{ required: true }, { max: 20 }]}
                     name={"secondCode"}
                     label="کد دوم"
                   >
                     <Ant.Input allowClear showCount />
                   </Ant.Form.Item>
                 </Ant.Col>
+                <Ant.Row gutter={[10, 8]}>
+                  <Ant.Col span={21}>
+                    <Ant.Form.Item
+                      rules={[{ required: true }]}
+                      name={"groupId"}
+                      label="گروه"
+                    >
+                      <Ant.Select
+                        {...commonOptions}
+                        allowClear={true}
+                        placeholder={"انتخاب کنید..."}
+                        disabled={customerGroupLoading || false}
+                        loading={customerGroupLoading}
+                        options={customerGroupList?.data}
+                        fieldNames={{ label: "title", value: "id" }}
+                      />
+                    </Ant.Form.Item>
+                  </Ant.Col>
+                  <Ant.Col >
+                    <Ant.Tooltip title={"افزودن"}>
+                      <Ant.Button
+                        className="mt-8 "
+                        onClick={() => { onAddGroup() }}
+                      >
+                        {"+"}
+                      </Ant.Button>
+                    </Ant.Tooltip>
+                  </Ant.Col>
+                </Ant.Row>
+                <Ant.Row gutter={[10, 8]}>
+                  <Ant.Col span={21}>
+                    <Ant.Form.Item
+                      rules={[{ required: true }]}
+                      name={"typeId"}
+                      label="نوع"
+                    >
+                      <Ant.Select
+                        {...commonOptions}
+                        allowClear={true}
+                        placeholder={"انتخاب کنید..."}
+                        disabled={customerTypeLoading || false}
+                        loading={customerTypeLoading}
+                        options={customerTypeList?.data}
+                        fieldNames={{ label: "title", value: "id" }}
+                      />
+                    </Ant.Form.Item>
+                  </Ant.Col>
+                  <Ant.Col >
+                    <Ant.Tooltip title={"افزودن"}>
+                      <Ant.Button
+                        className="mt-8 "
+                        onClick={() => { onAddType() }}
+                      >
+                        {"+"}
+                      </Ant.Button>
+                    </Ant.Tooltip>
+                  </Ant.Col>
+                </Ant.Row>
                 <Ant.Col>
                   <Ant.Form.Item
-                    rules={[{ required: false }]}
-                    name={"groupId"}
-                    label="گروه"
-                  >
-                    <Ant.Select
-                      {...commonOptions}
-                      allowClear={true}
-                      placeholder={"انتخاب کنید..."}
-                      disabled={customerGroupLoading || false}
-                      loading={customerGroupLoading}
-                      options={customerGroupList?.data}
-                      fieldNames={{ label: "title", value: "id" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col>
-                  <Ant.Form.Item
-                    rules={[{ required: false }]}
-                    name={"typeId"}
-                    label="نوع"
-                  >
-                    <Ant.Select
-                      {...commonOptions}
-                      allowClear={true}
-                      placeholder={"انتخاب کنید..."}
-                      disabled={customerTypeLoading || false}
-                      loading={customerTypeLoading}
-                      options={customerTypeList?.data}
-                      fieldNames={{ label: "title", value: "id" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-
-                <Ant.Col>
-                  <Ant.Form.Item
-                    rules={[{ required: false }]}
+                    rules={[{ required: true }]}
                     name={"branchId"}
                     label="شعبه"
                   >
@@ -253,11 +323,15 @@ const FormEditCustomer = ({ id }) => {
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col>
-                  <Ant.Form.Item name={"saleChannelIdList"} label="کانال فروش">
+                  <Ant.Form.Item
+                    name={"saleChannelIdList"}
+                    label="کانال فروش"
+                    rules={[{ required: true }]}
+                  >
                     <Ant.Select
                       mode="multiple"
                       allowClear={true}
-                      placeHolder={"انتخاب کنید..."}
+                      placeholder={"انتخاب کنید..."}
                       disable={saleChannelLoading || false}
                       loading={saleChannelLoading}
                       options={saleChannelData?.data}
@@ -267,10 +341,14 @@ const FormEditCustomer = ({ id }) => {
                 </Ant.Col>
 
                 <Ant.Col>
-                  <Ant.Form.Item name={"gradeId"} label="رتبه">
+                  <Ant.Form.Item
+                    name={"gradeId"}
+                    label="رتبه"
+                    rules={[{ required: true }]}
+                  >
                     <Ant.Select
                       allowClear={true}
-                      placeHolder={"انتخاب کنید..."}
+                      placeholder={"انتخاب کنید..."}
                       disable={customerGradeLoading || false}
                       loading={customerGradeLoading}
                       options={customerGradeList?.data}
