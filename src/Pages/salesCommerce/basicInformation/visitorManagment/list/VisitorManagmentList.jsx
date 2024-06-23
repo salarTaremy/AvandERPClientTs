@@ -1,34 +1,34 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React from 'react'
 import * as Ant from "antd";
-import * as styles from "@/styles";
-import qs from "qs";
-import * as url from "@/api/url";
-import * as uuid from "uuid";
-import FilterBedge from "@/components/common/FilterBedge";
-import { useFetchWithHandler, useDelWithHandler } from "@/api";
-import useRequestManager from "@/hooks/useRequestManager";
-import columns from "./columns";
-import ButtonList from "@/components/common/ButtonList";
+import { useEffect, useState } from "react";
+import columns from "./columns"
 import * as defaultValues from "@/defaultValues";
+import * as styles from "@/styles";
+import * as url from "@/api/url";
+import ButtonList from "@/components/common/ButtonList";
+import useRequestManager from "@/hooks/useRequestManager";
+import { useFetchWithHandler, useDelWithHandler } from "@/api";
+import * as uuid from "uuid";
 import FilterDrawer from "@/components/common/FilterDrawer";
-import FilterPanel from "../list/FilterPanel";
-import FormAddNewWarehouse from "../add/FormAddNewWarehouse";
-import FormEditWarehouse from '../edit/FormEditWarehouse'
+import FilterBedge from "@/components/common/FilterBedge";
+import FilterPanel from './FilterPanel';
+import qs from "qs";
+import FormEditVisitor from '../edit/FormEditVisitor';
+import FormAddVisitor from '../add/FormAddVisitor';
 
-const WareHouseManagment = () => {
-    const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+
+const VisitorManagmentList = () => {
+    const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
     const [dataSource, setDataSource] = useState(null);
+    useRequestManager({ error: error });
+    useRequestManager({ error: delError, loading: delLoading, data: delSaving });
+    const [modalState, setModalState] = useState(false);
     const [modalContent, setModalContent] = useState();
     const [filterObject, setFilterObject] = useState();
-    const [modalState, setModalState] = useState(false);
     const [openFilter, setOpenFilter] = useState(false);
     const [filterCount, setFilterCount] = useState(0);
     const [pagination, setPagination] = useState({});
-    const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
-    useRequestManager({ error: error });
-    useRequestManager({ error: delError, data: delSaving, loading: delLoading });
 
     //====================================================================
     //                        useEffects
@@ -39,7 +39,7 @@ const WareHouseManagment = () => {
                 Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
             );
         !filterObject && setFilterCount(0);
-        getWarehouse();
+        getAllVisitor();
     }, [filterObject]);
 
     useEffect(() => {
@@ -56,9 +56,12 @@ const WareHouseManagment = () => {
     //====================================================================
     //                        Functions
     //====================================================================
-    const getWarehouse = async () => {
-        const queryString = qs.stringify(filterObject);
-        await ApiCall(`${url.WAREHOUSE}?${queryString}`);
+    const getAllVisitor = async () => {
+        const queryString = qs.stringify({
+            ...filterObject,
+            CounterpartyId: filterObject?.counterpartyId?.value
+        })
+        await ApiCall(`${url.VISITOR}?${queryString}`);
     };
 
     const onFilterChanged = async (filterObject) => {
@@ -71,54 +74,58 @@ const WareHouseManagment = () => {
         setOpenFilter(false);
     };
 
+    const handleTableChange = (pagination) => {
+        setPagination(pagination);
+    };
+
     const onDelete = async (id) => {
-        await delApiCall(`${url.WAREHOUSE}/${id}`);
+        await delApiCall(`${url.VISITOR}/${id}`);
     };
 
     const onSuccessEdit = () => {
         setModalState(false);
-        getWarehouse();
+        getAllVisitor();
     };
 
-    const onEdit = (val) => {
+    const onAdd = () => {
         setModalContent(
-            <FormEditWarehouse
-                onSuccess={onSuccessEdit}
-                key={val.id}
-                id={val.id}
-                name={val.title}
-            />,
+            <FormAddVisitor key={uuid.v1()} onSuccess={onSuccessAdd} />
         );
         setModalState(true);
     };
 
     const onSuccessAdd = () => {
         setModalState(false);
-        getWarehouse();
+        getAllVisitor();
     };
 
-    const onAdd = () => {
-        setModalContent(<FormAddNewWarehouse key={uuid.v1()} onSuccess={onSuccessAdd} />);
+    //====================================================================
+    //                        Events
+    //====================================================================
+    const onEdit = (val) => {
+        setModalContent(
+            <FormEditVisitor
+                onSuccess={onSuccessEdit}
+                key={uuid.v1()}
+                id={val.id}
+            />
+        );
         setModalState(true);
     };
-
-    const handleTableChange = (pagination) => {
-        setPagination(pagination);
-    };
-
     //====================================================================
     //                        Child Components
     //====================================================================
     const title = () => {
         return (
             <ButtonList
-                filterCount={filterCount}
-                onAdd={onAdd}
+                onAdd={() => {
+                    onAdd();
+                }}
                 onFilter={() => {
                     setOpenFilter(true);
                 }}
                 onRefresh={() => {
-                    getWarehouse();
+                    getAllVisitor();
                 }}
             />
         );
@@ -127,14 +134,15 @@ const WareHouseManagment = () => {
     const Grid = () => {
         return (
             <>
-                <Ant.Skeleton loading={loadingData}>
+                <Ant.Skeleton loading={loading}>
                     <Ant.Table
+                        size="small"
                         {...defaultValues.TABLE_PROPS}
                         pagination={pagination}
+                        title={title}
                         columns={columns(onDelete, onEdit)}
                         onChange={handleTableChange}
                         dataSource={dataSource}
-                        title={title}
                     />
                 </Ant.Skeleton>
             </>
@@ -143,32 +151,22 @@ const WareHouseManagment = () => {
     //====================================================================
     //                        Component
     //====================================================================
-
     return (
         <>
             <Ant.Modal
+                {...defaultValues.MODAL_PROPS}
+                {...defaultValues.MODAL_EXTRA_LARGE}
                 open={modalState}
-                centered
-                getContainer={null}
-                footer={null}
+                handleCancel={() => setModalState(false)}
                 onCancel={() => {
                     setModalState(false);
                 }}
-                onOk={() => {
-                    setModalState(false);
-                }}
-                {...defaultValues.MODAL_PROPS}
-                {...modalSize}
+                footer={null}
+                centered
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card
-                style={{ ...styles.CARD_DEFAULT_STYLES }}
-                loading={loadingData}
-                className="w-full"
-                title={"مدیریت انبارها"}
-                type="inner"
-            >
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"مدیریت ویزیتورها"} type="inner" loading={loading}>
                 <FilterDrawer
                     open={openFilter}
                     onClose={() => setOpenFilter(false)}
@@ -184,4 +182,6 @@ const WareHouseManagment = () => {
     );
 }
 
-export default WareHouseManagment
+export default VisitorManagmentList
+
+

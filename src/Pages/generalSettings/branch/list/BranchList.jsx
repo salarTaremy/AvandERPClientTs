@@ -20,6 +20,7 @@ const BranchList = () => {
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
+  const [pagination, setPagination] = useState({});
 
   //====================================================================
   //                        useEffects
@@ -62,6 +63,11 @@ const BranchList = () => {
     setModalState(false);
     getAllBranchList();
   };
+
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
+  };
+  
   //====================================================================
   //                        Events
   //====================================================================
@@ -96,8 +102,10 @@ const BranchList = () => {
           <Ant.Table
             size="small"
             {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
             title={title}
             columns={columns(onDelSuccess, onEdit)}
+            onChange={handleTableChange}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

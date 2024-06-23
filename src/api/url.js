@@ -222,3 +222,7 @@ export const WAREHOUSE_TYPE = 'WarehouseType'
 
 //CityDistrict
 export const CITY_DISTRICT = 'CityDistrict'
+
+//Visitor
+export const VISITOR ='Visitor'
+export const VISITOR_FREE_CODE = 'Visitor/GetFirstFreeCode'
