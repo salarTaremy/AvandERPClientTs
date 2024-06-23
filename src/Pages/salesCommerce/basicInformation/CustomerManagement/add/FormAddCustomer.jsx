@@ -68,11 +68,13 @@ const FormAddCustomer = ({ onSucces }) => {
     await maxCodeApiCall(`${url.CUSTOMER_FREE_CODE}`);
   };
   const handleCounterParty = async (val) => {
+    console.log(val,"vvvvvavava")
     setEmpty(val);
     await ApiCall(`${url.COUNTER_PARTY}/${val.key}`);
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
+    console.log(inputValue,"createFatemeh")
     const queryString = qs.stringify({
       counterpartyName: inputValue,
     });

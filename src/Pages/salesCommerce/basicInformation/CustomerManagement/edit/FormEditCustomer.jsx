@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as styles from "@/styles";
-import { useFetch, useFetchWithHandler, Get, usePutWithHandler } from "@/api";
-import qs, { stringify } from "qs";
+import { useFetch, useFetchWithHandler, usePutWithHandler } from "@/api";
 import * as url from "@/api/url";
-import * as defaultValues from "@/defaultValues";
-import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
-import { useParams, useNavigate } from "react-router-dom";
 import ModalHeader from "@/components/common/ModalHeader";
-import { data } from "autoprefixer";
+
 
 const FormEditCustomer = ({ id }) => {
-  const fieldNamesList = { label: 'label', value: 'value' }
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = useFetchWithHandler();
   const [listSubmitData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
-
   const [empty, setEmpty] = useState(undefined);
-  const [debounceValue, setDebounceValue] = useState(null);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
   const [customerGroupList, customerGroupLoading, customerGroupError] =
@@ -33,10 +26,9 @@ const FormEditCustomer = ({ id }) => {
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
     url.SALE_CHANNEL,
   );
-
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
-  const params = useParams();
+
   useRequestManager({ error: editError });
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
@@ -64,10 +56,6 @@ const FormEditCustomer = ({ id }) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  // useEffect(() => {
-  //   form.resetFields();
-  //   addData?.isSuccess;
-  // }, [addData]);
   useEffect(() => {
     maxCodeData?.isSuccess &&
       maxCodeData?.data &&
@@ -75,13 +63,14 @@ const FormEditCustomer = ({ id }) => {
   }, [maxCodeData]);
 
   useEffect(() => {
-    onEdit();
+    setValue();
   }, []);
+
   useEffect(() => {
     form.resetFields();
     editData?.isSuccess && form.setFieldsValue({ ...(editData?.data || null) });
+    editData?.data?.counterpartyId && handleCounterParty();
   }, [editData]);
-
   //==================================================================
   //                        Functions
   //==================================================================
@@ -89,34 +78,17 @@ const FormEditCustomer = ({ id }) => {
   const getMaxCode = async () => {
     await maxCodeApiCall(`${url.CUSTOMER_FREE_CODE}`);
   };
+
   const handleCounterParty = async () => {
-    setEmpty(id);
-    console.log(val, "klklk");
-    await ApiCall(`${url.COUNTER_PARTY}/${id}`);
+    const counterpartyId =  editData?.data?.counterpartyId;
+    setEmpty(counterpartyId);
+    await ApiCall(`${url.COUNTER_PARTY}/${counterpartyId}`);
   };
 
-  const getAllCounterPartyForDropDown = async (inputValue) => {
-    const queryString = qs.stringify({
-      counterpartyName: inputValue,
-    });
-
-    const response = await Get(
-      `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
-      "",
-    );
-    if (response?.data) {
-      return response?.data.map((item) => ({
-        label: `${item.counterpartyName} `,
-        value: item.id,
-      }
-
-      ));
-    }
-  };
-
-  const onEdit = async () => {
+  const setValue = async () => {
     await editApiCall(`${url.CUSTOMER}/${id}`);
   };
+
   const onFinish = async (values) => {
     const req = {
       ...values,
@@ -124,7 +96,7 @@ const FormEditCustomer = ({ id }) => {
       id: id,
     };
     await submitApiCall(url.CUSTOMER, req);
-    onSuccess()
+    onSuccess();
   };
 
   //====================================================================
@@ -149,7 +121,7 @@ const FormEditCustomer = ({ id }) => {
 
   return (
     <>
-      <ModalHeader title={'ویرایش مشتری'} />
+      <ModalHeader title={"ویرایش مشتری"} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
@@ -158,24 +130,6 @@ const FormEditCustomer = ({ id }) => {
                 loading={editLoading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
               >
-
-                <Ant.Col>
-                  <Ant.Form.Item
-                    rules={[{ required: true }]}
-                    name={"counterpartyId"}
-                    label="طرف حساب مرتبط"
-                  >
-                    <DebounceSelect
-                      onChange={handleCounterParty}
-                      // fieldNames={{ label: "counterpartyName", value: "counterpartyId" }}
-                      maxCount={1}
-                      placeholder="بخشی از نام مشتری را تایپ کنید..."
-
-                      fetchOptions={getAllCounterPartyForDropDown}
-                      fieldNames={{ label: "label", value: "value" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }, { max: 10 }]}
@@ -294,7 +248,7 @@ const FormEditCustomer = ({ id }) => {
             <Ant.Col span={24} sm={14}>
               <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
                 {empty == undefined ? (
-                  <Ant.Empty />
+                  <Ant.Empty loading={editLoading} />
                 ) : (
                   <HeaderCounterParty data={listData} />
                 )}

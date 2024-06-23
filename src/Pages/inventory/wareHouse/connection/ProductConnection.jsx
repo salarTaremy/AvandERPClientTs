@@ -150,8 +150,8 @@ const ProductConnection = (props) => {
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Grid />
-          <Ant.Form.Item>
-            <Ant.Button type="primary" onClick={submit}>
+          <Ant.Form.Item >
+            <Ant.Button className="mt-6" type="primary" onClick={submit}>
               {"تایید"}
             </Ant.Button>
           </Ant.Form.Item>

@@ -22,7 +22,8 @@ import FormEditCustomer from "../edit/FormEditCustomer";
 const CustomerManagementList = () => {
   const navigate = useNavigate();
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
-  const [DeleteData, DeleteLoading, DeleteError, DeleteApiCall] = useDelWithHandler();
+  const [DeleteData, DeleteLoading, DeleteError, DeleteApiCall] =
+    useDelWithHandler();
   const [openFilter, setOpenFilter] = useState(false);
   const [modalState, setModalState] = useState(false);
   const [filterObject, setFilterObject] = useState();
@@ -35,7 +36,11 @@ const CustomerManagementList = () => {
   });
 
   useRequestManager({ error: error });
-  useRequestManager({ error: DeleteError, data: DeleteData, loading: DeleteLoading });
+  useRequestManager({
+    error: DeleteError,
+    data: DeleteData,
+    loading: DeleteLoading,
+  });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -49,12 +54,12 @@ const CustomerManagementList = () => {
     getAllCustomer();
   }, [filterObject]);
 
-
-
   useEffect(() => {
     DeleteData?.isSuccess &&
-      setDataSource([...dataSource?.filter((c) => c.id !== DeleteData?.data?.id)])
-  }, [DeleteData])
+      setDataSource([
+        ...dataSource?.filter((c) => c.id !== DeleteData?.data?.id),
+      ]);
+  }, [DeleteData]);
   useEffect(() => {
     getAllCustomer();
   }, [pagination.current, pagination.pageSize]);
@@ -105,7 +110,9 @@ const CustomerManagementList = () => {
   };
 
   const onAdd = () => {
-    setModalContent(<FormAddCustomer key={uuid.v1()} onSucces={onSuccessAdd} />);
+    setModalContent(
+      <FormAddCustomer key={uuid.v1()} onSucces={onSuccessAdd} />,
+    );
     setModalState(true);
   };
 
@@ -119,12 +126,14 @@ const CustomerManagementList = () => {
   };
 
   const onEdit = (val) => {
-    setModalContent(<FormEditCustomer
-      onSuccess={onSuccessEdit}
-      id={val.id}
-      key={val.id}
-      name={val.customerName}
-    />);
+    setModalContent(
+      <FormEditCustomer
+        onSuccess={onSuccessEdit}
+        id={val.id}
+        key={val.id}
+        name={val.customerName}
+      />,
+    );
     setModalState(true);
   };
 
@@ -180,7 +189,6 @@ const CustomerManagementList = () => {
         onOk={() => {
           setModalState(false);
         }}
-
       >
         {modalContent}
       </Ant.Modal>
@@ -188,7 +196,7 @@ const CustomerManagementList = () => {
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         loading={loadingData}
-        title={"  مدیریت مشتریان"}
+        title={"مدیریت مشتریان"}
         type="inner"
       >
         <FilterDrawer

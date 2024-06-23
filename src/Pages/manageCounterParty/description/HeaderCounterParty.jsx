@@ -49,26 +49,20 @@ const HeaderCounterParty = ({ data }) => {
       label: "کد اقتصادی",
       children: data?.data?.economicCode,
     },
-    {
-      key: "8",
-      label: "کد ملی",
-      children: data?.data?.nationalCode,
-    },
-    {
-      key: "9",
-      label: " ایمیل",
-      children: data?.data?.email,
-    },
   ];
   return (
     <>
       <ModalHeader title={"جزئیات طرف حساب"} />
-      <Ant.Descriptions
-        bordered
-        layout="vertical"
-        size={"middle"}
-        items={borderedItems}
-      />
+      {data?.data == null ? (
+        <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
+      ) : (
+        <Ant.Descriptions
+          bordered
+          layout="vertical"
+          size={"middle"}
+          items={borderedItems}
+        />
+      )}
     </>
   );
 };
