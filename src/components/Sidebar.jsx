@@ -120,7 +120,7 @@ const AppSidebar = (props) => {
     <>
       <Sider
         width={280}
-        className="border-sidebar hidden lg:block"
+        className="sidebar hidden lg:block"
         collapsed={collapsedSider}
         items={items}
       >
