@@ -96,7 +96,7 @@ const FormEditCustomer = ({ id }) => {
       id: id,
     };
     await submitApiCall(url.CUSTOMER, req);
-    onSuccess();
+
   };
 
   //====================================================================
