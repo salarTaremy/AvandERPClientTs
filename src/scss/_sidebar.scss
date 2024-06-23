@@ -1,4 +1,3 @@
-
 .sidebar-nav .nav-link {
   color: #038fdd;
 }
@@ -6,3 +5,10 @@
 .sidebar-nav .nav-link:hover {
   color: #fa8c15;
 }
+
+.border-sidebar {
+  // border-left:1px solid rgba(128, 128, 128, 0.26);
+  box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.500);
+}
+
+

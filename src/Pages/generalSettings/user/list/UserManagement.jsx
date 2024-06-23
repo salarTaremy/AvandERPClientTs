@@ -32,6 +32,7 @@ const UserManagement = () => {
   const [filterCount, setFilterCount] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
+  const [pagination, setPagination] = useState({});
 
   //====================================================================
   //                        useEffects
@@ -113,6 +114,10 @@ const UserManagement = () => {
   const onSuccessReset = () => {
     setModalState(false);
     getAllUserList();
+  };
+
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
   };
 
   //====================================================================
@@ -204,8 +209,10 @@ const UserManagement = () => {
         <Ant.Skeleton loading={loading}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
             title={title}
             columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch, onOtherAccesses)}
+            onChange={handleTableChange}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

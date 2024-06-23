@@ -136,7 +136,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"saleChannelIdList"} label="کانال فروش">
           <Ant.Select
             allowClear={true}
-            placeHolder={"انتخاب کنید..."}
+            placeholder={"انتخاب کنید..."}
             disable={saleChannelLoading || false}
             loading={saleChannelLoading}
             options={saleChannelData?.data}
@@ -147,7 +147,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"gradeId"} label="رتبه">
           <Ant.Select
             allowClear={true}
-            placeHolder={"انتخاب کنید..."}
+            placeholder={"انتخاب کنید..."}
             disable={customerGradeLoading || false}
             loading={customerGradeLoading}
             options={customerGradeList?.data}

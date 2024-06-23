@@ -224,3 +224,7 @@ export const  LINK_PRODUCT_WARE_HOUSE_ADD_LIST= '/LinkProductWarehouse/AddList'
 
 //CityDistrict
 export const CITY_DISTRICT = 'CityDistrict'
+
+//Visitor
+export const VISITOR ='Visitor'
+export const VISITOR_FREE_CODE = 'Visitor/GetFirstFreeCode'

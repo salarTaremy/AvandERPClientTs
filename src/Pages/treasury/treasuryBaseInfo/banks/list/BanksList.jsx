@@ -22,6 +22,8 @@ const banksList = () => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
+  const [pagination, setPagination] = useState({});
+
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -69,6 +71,10 @@ const banksList = () => {
   const onSuccessAdd = () => {
     setModalState(false);
     getAllBanks();
+  };
+
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
   };
 
   //====================================================================
@@ -123,8 +129,10 @@ const banksList = () => {
           <Ant.Table
             size="small"
             {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
             title={title}
             columns={columns(onDelete, onEdit, onBranch)}
+            onChange={handleTableChange}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

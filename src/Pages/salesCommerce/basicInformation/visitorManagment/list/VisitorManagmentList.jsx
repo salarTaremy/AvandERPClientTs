@@ -1,18 +1,23 @@
-import React from "react";
+import React from 'react'
 import * as Ant from "antd";
 import { useEffect, useState } from "react";
-import columns from "./columns";
+import columns from "./columns"
 import * as defaultValues from "@/defaultValues";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
-import FormEditCustomerGroup from "../edit/FormEditCustomerGroup";
 import * as uuid from "uuid";
-import FormAddNewCustomerGrup from "../add/FormaddNewCustomerGrup";
+import FilterDrawer from "@/components/common/FilterDrawer";
+import FilterBedge from "@/components/common/FilterBedge";
+import FilterPanel from './FilterPanel';
+import qs from "qs";
+import FormEditVisitor from '../edit/FormEditVisitor';
+import FormAddVisitor from '../add/FormAddVisitor';
 
-const CustomerGroupList = () => {
+
+const VisitorManagmentList = () => {
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
     const [dataSource, setDataSource] = useState(null);
@@ -20,14 +25,22 @@ const CustomerGroupList = () => {
     useRequestManager({ error: delError, loading: delLoading, data: delSaving });
     const [modalState, setModalState] = useState(false);
     const [modalContent, setModalContent] = useState();
+    const [filterObject, setFilterObject] = useState();
+    const [openFilter, setOpenFilter] = useState(false);
+    const [filterCount, setFilterCount] = useState(0);
     const [pagination, setPagination] = useState({});
 
     //====================================================================
     //                        useEffects
     //====================================================================
     useEffect(() => {
-        getAllCustomerGroup();
-    }, []);
+        filterObject &&
+            setFilterCount(
+                Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+            );
+        !filterObject && setFilterCount(0);
+        getAllVisitor();
+    }, [filterObject]);
 
     useEffect(() => {
         setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -43,33 +56,47 @@ const CustomerGroupList = () => {
     //====================================================================
     //                        Functions
     //====================================================================
-    const getAllCustomerGroup = async () => {
-        await ApiCall(url.CUSTOMER_GROUP);
+    const getAllVisitor = async () => {
+        const queryString = qs.stringify({
+            ...filterObject,
+            CounterpartyId: filterObject?.counterpartyId?.value
+        })
+        await ApiCall(`${url.VISITOR}?${queryString}`);
+    };
+
+    const onFilterChanged = async (filterObject) => {
+        setFilterObject(filterObject);
+        setOpenFilter(false);
+    };
+
+    const onRemoveFilter = () => {
+        setFilterObject(null);
+        setOpenFilter(false);
+    };
+
+    const handleTableChange = (pagination) => {
+        setPagination(pagination);
     };
 
     const onDelete = async (id) => {
-        await delApiCall(`${url.CUSTOMER_GROUP}/${id}`);
+        await delApiCall(`${url.VISITOR}/${id}`);
     };
 
     const onSuccessEdit = () => {
         setModalState(false);
-        getAllCustomerGroup();
+        getAllVisitor();
     };
 
     const onAdd = () => {
         setModalContent(
-            <FormAddNewCustomerGrup key={uuid.v1()} onSuccess={onSuccessAdd} />
+            <FormAddVisitor key={uuid.v1()} onSuccess={onSuccessAdd} />
         );
         setModalState(true);
     };
 
     const onSuccessAdd = () => {
         setModalState(false);
-        getAllCustomerGroup();
-    };
-
-    const handleTableChange = (pagination) => {
-        setPagination(pagination);
+        getAllVisitor();
     };
 
     //====================================================================
@@ -77,9 +104,9 @@ const CustomerGroupList = () => {
     //====================================================================
     const onEdit = (val) => {
         setModalContent(
-            <FormEditCustomerGroup
+            <FormEditVisitor
                 onSuccess={onSuccessEdit}
-                key={val.id}
+                key={uuid.v1()}
                 id={val.id}
             />
         );
@@ -94,8 +121,11 @@ const CustomerGroupList = () => {
                 onAdd={() => {
                     onAdd();
                 }}
+                onFilter={() => {
+                    setOpenFilter(true);
+                }}
                 onRefresh={() => {
-                    getAllCustomerGroup();
+                    getAllVisitor();
                 }}
             />
         );
@@ -124,6 +154,8 @@ const CustomerGroupList = () => {
     return (
         <>
             <Ant.Modal
+                {...defaultValues.MODAL_PROPS}
+                {...defaultValues.MODAL_EXTRA_LARGE}
                 open={modalState}
                 handleCancel={() => setModalState(false)}
                 onCancel={() => {
@@ -134,11 +166,22 @@ const CustomerGroupList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"گروه مشتری"} type="inner" loading={loading}>
-                <Grid />
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"مدیریت ویزیتورها"} type="inner" loading={loading}>
+                <FilterDrawer
+                    open={openFilter}
+                    onClose={() => setOpenFilter(false)}
+                    onRemoveFilter={onRemoveFilter}
+                >
+                    <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+                </FilterDrawer>
+                <FilterBedge filterCount={filterCount}>
+                    <Grid />
+                </FilterBedge>
             </Ant.Card>
         </>
     );
 }
 
-export default CustomerGroupList;
+export default VisitorManagmentList
+
+

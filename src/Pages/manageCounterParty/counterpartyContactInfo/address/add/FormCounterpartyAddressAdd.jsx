@@ -10,7 +10,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 //                        Declaration
 //====================================================================
 const FormCounterpartyAddressAdd = (props) => {
-  const {onSuccess, counterpartyId, key} = props;
+  const { onSuccess, counterpartyId, key } = props;
   const [loading, setLoading] = useState(false);
   const [cityList, cityLoading, cityError, cityApiCall] = useFetchWithHandler();
   const [
@@ -59,6 +59,7 @@ const FormCounterpartyAddressAdd = (props) => {
     otherValues.cityId = selectedCity[1];
     otherValues.counterpartyId = counterpartyId;
     const req = { ...values, ...otherValues };
+    console.log('req', req)
     await addressSaveApiCall(url.COUNTERPARTY_ADDRESS, req);
     setLoading(false);
   };
@@ -128,15 +129,15 @@ const FormCounterpartyAddressAdd = (props) => {
             </Ant.Col>
           </Ant.Row>
           <Ant.Button
-                loading={addressSaveLoading}
-                type="primary"
-                onClick={() => {
-                  form.submit();
-                }}
-                block
-              >
-                {"ذخیره"}
-              </Ant.Button>
+            loading={addressSaveLoading}
+            type="primary"
+            onClick={() => {
+              form.submit();
+            }}
+            block
+          >
+            {"ذخیره"}
+          </Ant.Button>
         </Ant.Space>
       </Ant.Form>
     </>

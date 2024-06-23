@@ -28,6 +28,7 @@ const BranchList = (props) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
+  const [pagination, setPagination] = useState({})
 
   //====================================================================
   //                        useEffects
@@ -101,6 +102,9 @@ const BranchList = (props) => {
     getBranch();
   };
 
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
+  };
   //====================================================================
   //                        Events
   //====================================================================
@@ -141,9 +145,11 @@ const BranchList = (props) => {
         <Ant.Skeleton loading={loading}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
             title={title}
             className="mt-5"
             columns={columns(onDelete, onEdit)}
+            onChange={handleTableChange}
             dataSource={dataSource || null}
           />
         </Ant.Skeleton>
@@ -180,7 +186,7 @@ const BranchList = (props) => {
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
-        </CardContent>
+      </CardContent>
     </>
   );
 };

@@ -40,7 +40,7 @@ const FilterPanel = (props) => {
                 <Ant.Form.Item name={'saleEffectiveOperativeTypeId'} label="نوع">
                     <Ant.Select
                         allowClear={true}
-                        placeHolder={'انتخاب کنید...'}
+                        placeholder={'انتخاب کنید...'}
                         disable={effectiveFactorTypeLoading || false}
                         loading={effectiveFactorTypeLoading}
                         options={effectiveFactorTypeData?.data}

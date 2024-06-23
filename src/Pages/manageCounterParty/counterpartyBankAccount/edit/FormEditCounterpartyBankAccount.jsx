@@ -23,7 +23,16 @@ const FormEditCounterpartyBankAccount = (props) => {
     useRequestManager({ error: bankError });
     useRequestManager({ error: bankBranchError });
     const [form] = Ant.Form.useForm();
+    const [selectedBank, setSelectedBank] = useState(null)
 
+    const commonOptions = {
+        showSearch: true,
+        filterOption: (input, option) => option.title.indexOf(input) >= 0,
+    };
+    const onBankChange = (val, option) => {
+        form.setFieldsValue({ bankBranchId: undefined })
+        setSelectedBank(option.id)
+    }
     //====================================================================
     //                        useEffects
     //====================================================================
@@ -35,17 +44,19 @@ const FormEditCounterpartyBankAccount = (props) => {
         form.resetFields()
         listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
     }, [listData])
+
+    useEffect(() => {
+        setSelectedBank(listData?.data.bankId)
+    }, [listData?.data.bankId])
+
+    useEffect(() => {
+        selectedBank && bankBranchApiCall(`${url.BANKBRANCH_GetFORDROPDOWN}/${selectedBank}`)
+    }, [selectedBank])
     //=====================================================================
     //                        Functions
     //=====================================================================
     const getBankAccountById = async () => {
         await ApiCall(`${url.COUNTERPARTY_BANK_ACCOUNT}/${id}`)
-    };
-
-    const onBankChange = async (value) => {
-        await bankBranchApiCall(
-            `${url.BANKBRANCH_GetFORDROPDOWN}/${value}`,
-        );
     };
 
     const onFinish = async (values) => {
@@ -66,8 +77,9 @@ const FormEditCounterpartyBankAccount = (props) => {
                     <Ant.Space style={{ display: "unset" }}>
                         <Ant.Row gutter={[16, 8]}>
                             <Ant.Col lg={12} md={12} sm={12} xs={24}>
-                                <Ant.Form.Item rules={[{ required: true }]} label="بانک">
+                                <Ant.Form.Item rules={[{ required: true }]} name={'bankId'} label="بانک">
                                     <Ant.Select
+                                        {...commonOptions}
                                         onChange={onBankChange}
                                         allowClear={true}
                                         placeholder={"انتخاب کنید..."}

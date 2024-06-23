@@ -58,14 +58,14 @@ const FormEditSaleDocumentType = (props) => {
           <Ant.Form.Item name="natureId" label={"ماهیت"} rules={[{ required: true }]}>
             <Ant.Select
               allowClear
-              placeHolder={'انتخاب کنید...'}
+              placeholder={'انتخاب کنید...'}
               options={natureList}
               fieldNames={{ label: 'title', value: 'id' }} />
           </Ant.Form.Item>
           <Ant.Form.Item name="mappedTaxPayersSystemSaleDocumentIssueId" label={"برگه متناظر در سامانه مودیان"}>
             <Ant.Select
               allowClear={true}
-              placeHolder={'انتخاب کنید...'}
+              placeholder={'انتخاب کنید...'}
               disable={mappedDocIssueLoading || false}
               loading={mappedDocIssueLoading}
               options={mappedDocIssueData?.data}
