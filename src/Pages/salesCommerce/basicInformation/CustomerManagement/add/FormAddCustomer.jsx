@@ -13,6 +13,8 @@ import ModalHeader from "@/components/common/ModalHeader";
 import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGrup";
 import * as defaultValues from "@/defaultValues";
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
+import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
+import { MdOutlineAdd } from "react-icons/md";
 
 const FormAddCustomer = ({ onSucces }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -85,13 +87,13 @@ const FormAddCustomer = ({ onSucces }) => {
   }
 
   const handleCounterParty = async (val) => {
-    console.log(val,"vvvvvavava")
+    console.log(val, "vvvvvavava")
     setEmpty(val);
     await ApiCall(`${url.COUNTER_PARTY}/${val.key}`);
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
-    console.log(inputValue,"createFatemeh")
+    console.log(inputValue, "createFatemeh")
     const queryString = qs.stringify({
       counterpartyName: inputValue,
     });
@@ -150,6 +152,22 @@ const FormAddCustomer = ({ onSucces }) => {
     setModalState(true);
   }
 
+  const onSuccessEdit = () => {
+    setModalState(false);
+    handleCounterParty()
+  };
+
+  const onHeaderEdit = (data) => {
+    setModalContent(
+      <FormEditCounterParty
+        onSuccess={onSuccessEdit}
+        key={uuid.v1()}
+        id={(data)}
+      />
+    );
+    setModalState(true);
+  }
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -159,6 +177,7 @@ const FormAddCustomer = ({ onSucces }) => {
       <ModalHeader title={'ایجاد مشتری'} />
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_LARGE}
         open={modalState}
         centered
         getContainer={null}
@@ -214,7 +233,7 @@ const FormAddCustomer = ({ onSucces }) => {
                   <Ant.Input allowClear showCount />
                 </Ant.Form.Item>
               </Ant.Col>
-              <Ant.Row gutter={[10, 8]}>
+              <Ant.Row gutter={[19]}>
                 <Ant.Col span={21}>
                   <Ant.Form.Item
                     rules={[{ required: true }]}
@@ -237,13 +256,12 @@ const FormAddCustomer = ({ onSucces }) => {
                     <Ant.Button
                       className="mt-8"
                       onClick={() => { onAddGroup() }}
-                    >
-                      {"+"}
-                    </Ant.Button>
+                      icon={<MdOutlineAdd />}
+                    />
                   </Ant.Tooltip>
                 </Ant.Col>
               </Ant.Row>
-              <Ant.Row gutter={[10, 8]}>
+              <Ant.Row gutter={[19]}>
                 <Ant.Col span={21}>
                   <Ant.Form.Item
                     rules={[{ required: true }]}
@@ -266,9 +284,8 @@ const FormAddCustomer = ({ onSucces }) => {
                     <Ant.Button
                       className="mt-8 "
                       onClick={() => { onAddType() }}
-                    >
-                      {"+"}
-                    </Ant.Button>
+                      icon={<MdOutlineAdd />}
+                    />
                   </Ant.Tooltip>
                 </Ant.Col>
               </Ant.Row>
@@ -337,7 +354,7 @@ const FormAddCustomer = ({ onSucces }) => {
                 {empty == undefined ? (
                   <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                 ) : (
-                  <HeaderCounterParty data={listData} />
+                  <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                 )}
               </Ant.Card>
             </Ant.Skeleton>

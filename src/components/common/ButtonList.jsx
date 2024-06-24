@@ -2,15 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as style from '@/styles'
 import { Button, Space, Tooltip, Dropdown, Menu, Popconfirm, Badge } from 'antd'
-import { FaFilter ,FaFolderPlus} from "react-icons/fa6";
-import { FiEdit ,FiRefreshCw,FiFilter  } from 'react-icons/fi'
+import { FaFilter, FaFolderPlus } from "react-icons/fa6";
+import { FiEdit, FiRefreshCw, FiFilter } from 'react-icons/fi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 //Example For Items:
 //const items = [{ icon: <MailOutlined />, className: 'text-red-600', onClick: () => {}, children: 'Click Me !' }]
 
 const ButtonBar = (props) => {
   const { items } = props
-  const { onAdd, onEdit, onDelete, onFilter ,onRefresh} = props
+  const { onAdd, onEdit, onDelete, onFilter, onRefresh } = props
+  const { addTooltip, editTooltip, deleteTooltip, refreshTooltip, filterTooltip } = props
   const { onDeleteConfirmMessage, filterCount } = props
   const iconOnly = true
   const size = iconOnly ? 'large' : ''
@@ -22,8 +23,8 @@ const ButtonBar = (props) => {
     return (
 
       onAdd && (
-        <Tooltip  title={iconOnly && 'ایجاد ایتم جدید'} size={size}>
-          <Button  onClick={onAdd}  size={size} icon={<FaFolderPlus />} className='text-green-600 border-green-600'>
+        <Tooltip title={iconOnly && (addTooltip || 'ایجاد ایتم جدید')} size={size}>
+          <Button onClick={onAdd} size={size} icon={<FaFolderPlus />} className='text-green-600 border-green-600'>
             {iconOnly || 'ایتم جدید'}
           </Button>
         </Tooltip>
@@ -33,7 +34,7 @@ const ButtonBar = (props) => {
   const BtnEdit = () => {
     return (
       onEdit && (
-        <Tooltip title={iconOnly && 'ویرایش ایتم مورد نظر'} size={size}>
+        <Tooltip title={iconOnly && (editTooltip || 'ویرایش ایتم مورد نظر')} size={size}>
           <Button onClick={onEdit} size={size} icon={<FiEdit />} className='text-sky-600 border-sky-600'>
             {iconOnly || 'ویرایش'}
           </Button>
@@ -44,7 +45,7 @@ const ButtonBar = (props) => {
   const BtnDelete = () => {
     return (
       onDelete && (
-        <Tooltip title={iconOnly && 'حذف ایتم'} size={size}>
+        <Tooltip title={iconOnly && (deleteTooltip || 'حذف ایتم')} size={size}>
           <Popconfirm
             title="حذف"
             onConfirm={onDelete}
@@ -63,7 +64,7 @@ const ButtonBar = (props) => {
   const BtnFilter = () => {
     return (
       onFilter && (
-        <Tooltip title={iconOnly && 'فیلتر'} size={size}>
+        <Tooltip title={iconOnly && (filterTooltip || 'فیلتر')} size={size}>
           <Badge count={filterCount} color="purple">
             <Button onClick={onFilter} size={size} icon={<FiFilter />} className='text-purple-600 border-purple-600'>
               {iconOnly || 'فیلتر'}
@@ -76,10 +77,10 @@ const ButtonBar = (props) => {
   const BtnRefresh = () => {
     return (
       onRefresh && (
-        <Tooltip title={iconOnly && 'بازخوانی'} size={size}>
-            <Button onClick={onRefresh} size={size} icon={<FiRefreshCw />} className='text-blue-600 border-blue-600'>
-              {iconOnly || 'فیلتر'}
-            </Button>
+        <Tooltip title={iconOnly && (refreshTooltip || 'بازخوانی')} size={size}>
+          <Button onClick={onRefresh} size={size} icon={<FiRefreshCw />} className='text-blue-600 border-blue-600'>
+            {iconOnly || 'فیلتر'}
+          </Button>
         </Tooltip>
       )
     )
