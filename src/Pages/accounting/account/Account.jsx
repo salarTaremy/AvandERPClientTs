@@ -10,6 +10,7 @@ import { RequestManager } from '@/components/common/RequestManager'
 import { FrmEditAccount } from './edit/FrmEditAccount'
 import { FrmEditAccountGroup } from './edit/FrmEditAccountGroup'
 import { FrmEditAccountHeader } from './edit/FrmEditAccountHeader'
+import CardContent from "@/components/common/CardContent";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -101,7 +102,8 @@ const Account = () => {
         <Ant.Form form={form} layout="vertical" onFinish={null} onFinishFailed={null}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
-              <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}>
+              {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
+              <CardContent bordered loading={accLoading}>
                 <Tree
                   // directoryNodeSelectedColor={'red'}
                   // onExpand={(expandedKeys, expanded, node) => {
@@ -118,11 +120,13 @@ const Account = () => {
                   //  expandedKeys={ expandedKeys}
                   showLine={true}
                 />
-              </Ant.Card>
+              {/* </Ant.Card> */}
+              </CardContent>
             </Ant.Col>
 
             <Ant.Col span={24} sm={14}>
-              <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}>
+              {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
+              <CardContent bordered loading={accLoading}>
                 {/* {selectedNode && <p>{selectedNode?.level}</p>} */}
                 {!selectedNode && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 0 && <Ant.Empty description={emptyDescription} />}
@@ -135,7 +139,9 @@ const Account = () => {
                 {selectedNode?.level === 3 && (
                   <FrmEditAccount key={selectedNode?.id} accountId={selectedNode?.id} />
                 )}
-              </Ant.Card>
+                 </CardContent>
+              {/* </Ant.Card> */}
+
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
