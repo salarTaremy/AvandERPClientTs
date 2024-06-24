@@ -1,39 +1,21 @@
 import React from "react";
 import * as Ant from "antd";
+
 const CardContent = (props) => {
   const { Shadow, bordered } = props;
+  const cardStyle = {
+    overflow: "auto",
+    maxHeight: "70vh",
+    minHeight: "70vh",
+    border: bordered ?  "1px solid rgb(217 217 217 / 45%)" :"none" ,
+    boxShadow: Shadow ? "0 2px 8px rgba(0, 0, 0, 0.09)" : "none",
+  };
+
   return (
-    <>
-      {Shadow && (
-        <Ant.Card
-          {...props}
-          style={{
-            overflow: "auto",
-            border: "none",
-            maxHeight: "70vh",
-            minHeight: "70vh",
-          }}
-          type="inner"
-        >
-          {props.children}
-        </Ant.Card>
-      )}
-      {bordered && (
-        <Ant.Card
-        {...props}
-          style={{
-            boxShadow: "none",
-            overflow: "auto",
-            maxHeight: "70vh",
-            minHeight: "70vh",
-          }}
-          type="inner"
-        >
-          {props.children}
-        </Ant.Card>
-      )}
-    </>
+    <Ant.Card {...props} style={cardStyle} type="inner">
+      {props.children}
+    </Ant.Card>
   );
 };
 
-export default CardContent;
+export default CardContent
