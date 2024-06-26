@@ -3,23 +3,25 @@ import * as Ant from 'antd'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import * as styles from "@/styles";
+import * as defaultValues from "@/defaultValues";
+import * as uuid from "uuid";
 import { usePutWithHandler, useFetchWithHandler, useFetch, Get } from '@/api'
-import qs from "qs";
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
-import CardContent from "@/components/common/CardContent";
-import DebounceSelect from "@/components/common/DebounceSelect";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
-
+import FormEditCounterParty from '@/Pages/manageCounterParty/edit/FormEditCounterParty';
+import CardContent from "@/components/common/CardContent";
 const FormEditVisitor = (props) => {
     const { onSuccess, id } = props
-    const [loading, setLoading] = useState(false)
+    const [modalState, setModalState] = useState(false);
+    const [modalContent, setModalContent] = useState();
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+    const [counterpartyListData, counterpartyLoadingData, counterpartyError, counterpartyApiCall] = useFetchWithHandler();
     const [freeCodeData, freeCodeLoading, freeCodeError, freeCodeApiCall] = useFetchWithHandler()
     useRequestManager({ error: freeCodeError })
-    useRequestManager({ error: editError, loading: editLoading, data: editData })
+    useRequestManager({ error: editError })
     const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(url.SALE_CHANNEL);
     const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
     useRequestManager({ error: saleChannelError });
@@ -43,8 +45,9 @@ const FormEditVisitor = (props) => {
 
     useEffect(() => {
         form.resetFields()
-        listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
-    }, [listData])
+        listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+        listData?.data?.counterpartyId && handleCounterParty();
+    }, [listData]);
 
     useEffect(() => {
         freeCodeData?.isSuccess &&
@@ -58,42 +61,41 @@ const FormEditVisitor = (props) => {
         await ApiCall(`${url.VISITOR}/${id}`)
     }
 
-    const handleCounterParty = async (val) => {
-        await ApiCall(`${url.COUNTER_PARTY}/${val.key}`);
-    };
-
-    const getAllCounterPartyForDropDown = async (inputValue) => {
-        const queryString = qs.stringify({
-            counterpartyName: inputValue,
-        });
-
-        const response = await Get(
-            `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
-            "",
-        );
-        if (response?.data) {
-            return response?.data.map((item) => ({
-                label: `${item.counterpartyName} `,
-                value: item.id,
-            }));
-        }
+    const handleCounterParty = async () => {
+        const counterpartyId = listData?.data?.counterpartyId;
+        await counterpartyApiCall(`${url.COUNTER_PARTY}/${counterpartyId}`);
     };
 
     const onFinish = async (values) => {
-        setLoading(true)
         const req = {
             ...values,
             counterpartyId: values?.counterpartyId,
             id: id,
         }
         await editApiCall(url.VISITOR, req)
-        setLoading(false)
         onSuccess()
     }
 
     const getFreeCode = async () => {
         await freeCodeApiCall(`${url.VISITOR_FREE_CODE}`)
     }
+
+    const onSuccessEdit = () => {
+        setModalState(false);
+        handleCounterParty()
+    };
+
+    const onHeaderEdit = (data) => {
+        setModalContent(
+            <FormEditCounterParty
+                onSuccess={onSuccessEdit}
+                key={uuid.v1()}
+                id={(data)}
+            />
+        );
+        setModalState(true);
+    }
+
 
     //====================================================================
     //                        Child Components
@@ -111,26 +113,29 @@ const FormEditVisitor = (props) => {
     return (
         <>
             <ModalHeader title={'ویرایش ویزیتور'} />
+            <Ant.Modal
+                {...defaultValues.MODAL_PROPS}
+                {...defaultValues.MODAL_LARGE}
+                open={modalState}
+                centered
+                getContainer={null}
+                footer={null}
+                onCancel={() => {
+                    setModalState(false);
+                }}
+                onOk={() => {
+                    setModalState(false);
+                }}
+
+            >
+                {modalContent}
+            </Ant.Modal>
             <Ant.Skeleton loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Row gutter={[16, 8]}>
                         <Ant.Col span={24} sm={10}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                             <CardContent bordered>
-                                <Ant.Col>
-                                    <Ant.Form.Item
-                                        rules={[{ required: true }]}
-                                        name={"counterpartyId"}
-                                        label="طرف حساب مرتبط"
-                                    >
-                                        <DebounceSelect
-                                            onChange={handleCounterParty}
-                                            freecount={1}
-                                            placeholder="بخشی از نام طرف حساب را تایپ کنید..."
-                                            fetchOptions={getAllCounterPartyForDropDown}
-                                        />
-                                    </Ant.Form.Item>
-                                </Ant.Col>
                                 <Ant.Col>
                                     <Ant.Form.Item
                                         rules={[{ required: true }]}
@@ -196,21 +201,15 @@ const FormEditVisitor = (props) => {
                             {/* </Ant.Card> */}
                         </Ant.Col>
                         <Ant.Col span={24} sm={14}>
-                            <Ant.Skeleton loading={loadingData}>
-                                {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-                                <CardContent bordered>
-                                    {/* {empty == undefined ? (
-                                        <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
-                                    ) : ( */}
-                                        <HeaderCounterParty data={listData} />
-                                    {/* )} */}
-                                    </CardContent>
-                                {/* </Ant.Card> */}
-                            </Ant.Skeleton>
+                            {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                            <CardContent bordered>
+                                <HeaderCounterParty data={counterpartyListData} onHeaderEdit={onHeaderEdit} />
+                            {/* </Ant.Card> */}
+                            </CardContent>
                         </Ant.Col>
                     </Ant.Row>
                 </Ant.Form>
-            </Ant.Skeleton >
+            </Ant.Skeleton>
         </>
     )
 }

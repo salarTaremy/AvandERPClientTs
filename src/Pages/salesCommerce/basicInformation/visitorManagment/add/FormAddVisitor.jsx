@@ -5,14 +5,16 @@ import { useFetch, useFetchWithHandler, Get, usePostWithHandler } from "@/api";
 import qs from "qs";
 import * as url from "@/api/url";
 import * as uuid from "uuid";
+import CardContent from "@/components/common/CardContent";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
-import CardContent from "@/components/common/CardContent";
+import { MdOutlineAdd } from "react-icons/md";
 import * as defaultValues from "@/defaultValues";
 import { FormCounterpartyAdd } from "@/Pages/manageCounterParty/add/FormCounterpartyAdd";
+import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 
 const FormAddVisitor = ({ onSuccess }) => {
     const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -100,6 +102,22 @@ const FormAddVisitor = ({ onSuccess }) => {
         setModalState(true);
     };
 
+    const onSuccessEdit = () => {
+        setModalState(false);
+        handleCounterParty()
+    };
+
+    const onHeaderEdit = (data) => {
+        setModalContent(
+            <FormEditCounterParty
+                onSuccess={onSuccessEdit}
+                key={uuid.v1()}
+                id={(data)}
+            />
+        );
+        setModalState(true);
+    }
+
     //====================================================================
     //                        Child Components
     //===================================================================
@@ -144,7 +162,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                     <Ant.Col span={24} sm={10}>
                         {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                         <CardContent bordered>
-                            <Ant.Row gutter={[10, 8]}>
+                            <Ant.Row gutter={[19]}>
                                 <Ant.Col span={21}>
                                     <Ant.Form.Item
                                         rules={[{ required: true }]}
@@ -159,14 +177,13 @@ const FormAddVisitor = ({ onSuccess }) => {
                                         />
                                     </Ant.Form.Item>
                                 </Ant.Col>
-                                <Ant.Col>
+                                <Ant.Col span={3}>
                                     <Ant.Tooltip title={"افزودن"}>
                                         <Ant.Button
                                             className="mt-8"
                                             onClick={() => { onAddCounterparty() }}
-                                        >
-                                            {"+"}
-                                        </Ant.Button>
+                                            icon={<MdOutlineAdd />}
+                                        />
                                     </Ant.Tooltip>
                                 </Ant.Col>
                             </Ant.Row>
@@ -241,7 +258,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                                 {empty == undefined ? (
                                     <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                                 ) : (
-                                    <HeaderCounterParty data={listData} />
+                                    <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                                 )}
                                 </CardContent>
                             {/* </Ant.Card> */}

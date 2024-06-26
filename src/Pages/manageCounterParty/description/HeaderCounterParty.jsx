@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Ant from "antd";
-
+import { FiEdit } from "react-icons/fi";
+import * as defaultValues from "@/defaultValues";
 import ModalHeader from "@/components/common/ModalHeader";
-const HeaderCounterParty = ({ data }) => {
+import ButtonList from "@/components/common/ButtonList";
+
+const HeaderCounterParty = ({ data, onHeaderEdit }) => {
+  const [modalState, setModalState] = useState(false);
+  const [modalContent, setModalContent] = useState();
   const borderedItems = [
     {
       key: "1",
@@ -60,9 +65,33 @@ const HeaderCounterParty = ({ data }) => {
       children: data?.data?.email,
     },
   ];
+
   return (
     <>
+
       <ModalHeader title={"جزئیات طرف حساب"} />
+      <Ant.Modal
+        {...defaultValues.MODAL_PROPS}
+        open={modalState}
+        handleCancel={() => setModalState(false)}
+        onCancel={() => {
+          setModalState(false);
+        }}
+        footer={null}
+        centered
+      >
+        {modalContent}
+      </Ant.Modal>
+      <ButtonList
+        className='mt-2'
+        editTooltip='ویرایش طرف حساب'
+        onEdit={() => {
+          onHeaderEdit(data?.data?.id)
+        }}
+      >
+
+      </ButtonList>
+
       {data?.data == null ? (
         <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
       ) : (
@@ -71,6 +100,7 @@ const HeaderCounterParty = ({ data }) => {
           layout="vertical"
           size={"middle"}
           items={borderedItems}
+          className="mt-4"
         />
       )}
     </>

@@ -12,6 +12,8 @@ import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGrup";
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
+import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
+import { MdOutlineAdd } from "react-icons/md";
 
 const FormEditCustomer = ({ id }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -95,7 +97,7 @@ const FormEditCustomer = ({ id }) => {
   }
 
   const handleCounterParty = async () => {
-    const counterpartyId =  editData?.data?.counterpartyId;
+    const counterpartyId = editData?.data?.counterpartyId;
     setEmpty(counterpartyId);
     await ApiCall(`${url.COUNTER_PARTY}/${counterpartyId}`);
   };
@@ -134,6 +136,22 @@ const FormEditCustomer = ({ id }) => {
     setModalState(true);
   }
 
+  const onSuccessEdit = () => {
+    setModalState(false);
+    handleCounterParty()
+  };
+
+  const onHeaderEdit = (data) => {
+    setModalContent(
+      <FormEditCounterParty
+        onSuccess={onSuccessEdit}
+        key={uuid.v1()}
+        id={(data)}
+      />
+    );
+    setModalState(true);
+  }
+
   //====================================================================
   //                        Child Components
   //===================================================================
@@ -158,6 +176,7 @@ const FormEditCustomer = ({ id }) => {
       <ModalHeader title={'ویرایش مشتری'} />
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_LARGE}
         open={modalState}
         centered
         getContainer={null}
@@ -205,7 +224,7 @@ const FormEditCustomer = ({ id }) => {
                     <Ant.Input allowClear showCount />
                   </Ant.Form.Item>
                 </Ant.Col>
-                <Ant.Row gutter={[10, 8]}>
+                <Ant.Row gutter={[19]}>
                   <Ant.Col span={21}>
                     <Ant.Form.Item
                       rules={[{ required: true }]}
@@ -228,13 +247,12 @@ const FormEditCustomer = ({ id }) => {
                       <Ant.Button
                         className="mt-8 "
                         onClick={() => { onAddGroup() }}
-                      >
-                        {"+"}
-                      </Ant.Button>
+                        icon={<MdOutlineAdd />}
+                      />
                     </Ant.Tooltip>
                   </Ant.Col>
                 </Ant.Row>
-                <Ant.Row gutter={[10, 8]}>
+                <Ant.Row gutter={[19]}>
                   <Ant.Col span={21}>
                     <Ant.Form.Item
                       rules={[{ required: true }]}
@@ -257,9 +275,8 @@ const FormEditCustomer = ({ id }) => {
                       <Ant.Button
                         className="mt-8 "
                         onClick={() => { onAddType() }}
-                      >
-                        {"+"}
-                      </Ant.Button>
+                        icon={<MdOutlineAdd />}
+                      />
                     </Ant.Tooltip>
                   </Ant.Col>
                 </Ant.Row>
