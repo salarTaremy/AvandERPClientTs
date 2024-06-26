@@ -16,6 +16,8 @@ import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometTyp
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 import { MdOutlineAdd } from "react-icons/md";
 import CardContent from "@/components/common/CardContent";
+import { FaUserPlus } from "react-icons/fa6";
+
 const FormAddCustomer = ({ onSucces }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
@@ -174,7 +176,7 @@ const FormAddCustomer = ({ onSucces }) => {
 
   return (
     <>
-      <ModalHeader title={'ایجاد مشتری'} />
+      <ModalHeader title={'ایجاد مشتری'} icon={<FaUserPlus />} />
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_LARGE}

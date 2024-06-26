@@ -16,12 +16,12 @@ import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounte
 //                        Declaration
 //====================================================================
 const CustomerDescription = (props) => {
-  const { id } = props;
+  const { id,onSuccess } = props;
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [data, loading, error] = api.useFetch(`${url.CUSTOMER}/${id}`);
-   useRequestManager({ error: error });
+  useRequestManager({ error: error });
   const borderedItems = [
     {
       key: "1",
@@ -93,7 +93,8 @@ const CustomerDescription = (props) => {
 
   const onSuccessEdit = () => {
     setModalState(false);
-   };
+    onSuccess()
+  };
 
   const onHeaderEdit = (data) => {
     setModalContent(

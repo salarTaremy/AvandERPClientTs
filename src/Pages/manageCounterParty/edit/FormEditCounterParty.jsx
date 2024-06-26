@@ -102,6 +102,10 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
     setCurrentStep(currentStep - 1);
   };
 
+  const onSuccessEnd=()=>{
+    onSuccess()
+  }
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -149,7 +153,7 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
               <Ant.Button
                 type="primary"
                 block
-                onClick={onSuccess}
+                onClick={onSuccessEnd}
               >
                 {"اتمام"}
               </Ant.Button>

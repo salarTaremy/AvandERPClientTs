@@ -4,7 +4,7 @@ import * as defaultValues from "@/defaultValues";
 import ModalHeader from "@/components/common/ModalHeader";
 import ButtonList from "@/components/common/ButtonList";
 
-const HeaderCounterParty = ({ data, onHeaderEdit, id }) => {
+const HeaderCounterParty = ({ data, onHeaderEdit }) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
   const borderedItems = [

@@ -5,6 +5,8 @@ import * as url from "@/api/url";
 import { usePutWithHandler, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { BsCurrencyExchange } from "react-icons/bs";
+
 const FormEditCurrency = (props) => {
   const { onSuccess, obj, id } = props;
   const [loading, setLoading] = useState(false);
@@ -43,7 +45,7 @@ const FormEditCurrency = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ویرایش نوع ارز"} />
+      <ModalHeader title={"ویرایش نوع ارز"} icon={<BsCurrencyExchange />} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>

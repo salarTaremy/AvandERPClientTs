@@ -99,8 +99,13 @@ const CustomerManagementList = () => {
   //====================================================================
   //                        Events
   //====================================================================
+  const onSuccessView =()=>{
+    setModalState(false);
+    getAllCustomer();
+  }
+  
   const onView = (id) => {
-    setModalContent(<CustomerDescription id={id} />);
+    setModalContent(<CustomerDescription id={id} onSuccess={onSuccessView} />);
     setModalState(true);
   };
 

@@ -29,6 +29,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   });
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [idActionsList, setIdActionsList] = useState([]);
+  const [pagination, setPagination] = useState({});
 
   //====================================================================
   //                        useEffects
@@ -76,6 +77,10 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     console.log("req", filterObject);
     const queryString = qs.stringify(req);
     await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`);
+  };
+
+  const handleTableChange = (pagination, filters, sorter) => {
+    setPagination(pagination);
   };
 
   const onFilterChanged = async (filterObject) => {
@@ -151,8 +156,9 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
             rowSelection={{ ...rowSelection }}
             {...defaultValues.TABLE_PROPS}
             title={title}
-            pagination={false}
+            pagination={pagination}
             columns={columns()}
+            onChange={handleTableChange}
             dataSource={dataSource}
           />
         </Ant.Skeleton>

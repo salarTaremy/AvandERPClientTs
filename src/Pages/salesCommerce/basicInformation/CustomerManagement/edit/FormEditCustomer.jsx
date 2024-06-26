@@ -14,6 +14,7 @@ import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGr
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 import { MdOutlineAdd } from "react-icons/md";
+import { FaUserPen } from "react-icons/fa6";
 
 const FormEditCustomer = ({ id }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -173,7 +174,7 @@ const FormEditCustomer = ({ id }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={'ویرایش مشتری'} />
+      <ModalHeader title={'ویرایش مشتری'} icon={<FaUserPen />}/>
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_LARGE}
@@ -351,7 +352,7 @@ const FormEditCustomer = ({ id }) => {
                 {/* {empty == undefined ? (
                   <Ant.Empty loading={editLoading} />
                 ) : ( */}
-                  <HeaderCounterParty data={listData} />
+                  <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit}/>
                 {/* )} */}
                 </CardContent>
               {/* </Ant.Card> */}
