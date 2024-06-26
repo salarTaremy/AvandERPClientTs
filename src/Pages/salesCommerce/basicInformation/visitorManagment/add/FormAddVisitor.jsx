@@ -10,7 +10,7 @@ import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
-
+import CardContent from "@/components/common/CardContent";
 import * as defaultValues from "@/defaultValues";
 import { FormCounterpartyAdd } from "@/Pages/manageCounterParty/add/FormCounterpartyAdd";
 
@@ -142,7 +142,8 @@ const FormAddVisitor = ({ onSuccess }) => {
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Row gutter={[16, 8]}>
                     <Ant.Col span={24} sm={10}>
-                        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                        {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                        <CardContent bordered>
                             <Ant.Row gutter={[10, 8]}>
                                 <Ant.Col span={21}>
                                     <Ant.Form.Item
@@ -230,17 +231,20 @@ const FormAddVisitor = ({ onSuccess }) => {
                                     {"تایید"}
                                 </Ant.Button>
                             </Ant.Col>
-                        </Ant.Card>
+                            </CardContent>
+                        {/* </Ant.Card> */}
                     </Ant.Col>
                     <Ant.Col span={24} sm={14}>
                         <Ant.Skeleton loading={loadingData}>
-                            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                            {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                            <CardContent bordered>
                                 {empty == undefined ? (
                                     <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                                 ) : (
                                     <HeaderCounterParty data={listData} />
                                 )}
-                            </Ant.Card>
+                                </CardContent>
+                            {/* </Ant.Card> */}
                         </Ant.Skeleton>
                     </Ant.Col>
                 </Ant.Row>

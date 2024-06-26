@@ -7,13 +7,13 @@ import { usePutWithHandler, useFetchWithHandler, useFetch, Get } from '@/api'
 import qs from "qs";
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import CardContent from "@/components/common/CardContent";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 
 const FormEditVisitor = (props) => {
     const { onSuccess, id } = props
-    const [empty, setEmpty] = useState(undefined);
     const [loading, setLoading] = useState(false)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -59,7 +59,6 @@ const FormEditVisitor = (props) => {
     }
 
     const handleCounterParty = async (val) => {
-        setEmpty(val);
         await ApiCall(`${url.COUNTER_PARTY}/${val.key}`);
     };
 
@@ -116,7 +115,8 @@ const FormEditVisitor = (props) => {
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Row gutter={[16, 8]}>
                         <Ant.Col span={24} sm={10}>
-                            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                            {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                            <CardContent bordered>
                                 <Ant.Col>
                                     <Ant.Form.Item
                                         rules={[{ required: true }]}
@@ -192,17 +192,20 @@ const FormEditVisitor = (props) => {
                                         {'تایید'}
                                     </Ant.Button>
                                 </Ant.Form.Item>
-                            </Ant.Card>
+                                </CardContent>
+                            {/* </Ant.Card> */}
                         </Ant.Col>
                         <Ant.Col span={24} sm={14}>
                             <Ant.Skeleton loading={loadingData}>
-                                <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
-                                    {empty == undefined ? (
+                                {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                                <CardContent bordered>
+                                    {/* {empty == undefined ? (
                                         <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
-                                    ) : (
+                                    ) : ( */}
                                         <HeaderCounterParty data={listData} />
-                                    )}
-                                </Ant.Card>
+                                    {/* )} */}
+                                    </CardContent>
+                                {/* </Ant.Card> */}
                             </Ant.Skeleton>
                         </Ant.Col>
                     </Ant.Row>

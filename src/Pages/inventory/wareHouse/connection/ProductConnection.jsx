@@ -52,7 +52,6 @@ const ProductConnection = (props) => {
   //                        Functions
   //===================================================================
   const getAllProductWarehouse = async () => {
-    console.log(id,"idid")
     const req = {
       ...filterObject,
       WarehouseId: id,
