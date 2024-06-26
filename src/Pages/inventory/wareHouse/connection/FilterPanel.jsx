@@ -77,7 +77,7 @@ const FilterPanel = (props) => {
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
             <Ant.Form.Item
-              name={"brandId"}
+              name={"BrandIdList"}
               label="نام برند"
               valuePropName="checked"
             >

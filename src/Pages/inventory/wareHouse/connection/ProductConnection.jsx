@@ -22,6 +22,7 @@ const ProductConnection = (props) => {
   const [filterObject, setFilterObject] = useState();
   const [dataSource, setDataSource] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [pagination, setPagination] = useState({});
   useRequestManager({ error: error });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
 
@@ -111,6 +112,9 @@ const ProductConnection = (props) => {
       className: "text-xs sm:text-sm",
     },
   ];
+  const handleTableChange = (pagination, filters, sorter) => {
+    setPagination(pagination);
+  };
   //====================================================================
   //====================================================================
 
@@ -133,8 +137,9 @@ const ProductConnection = (props) => {
         <Ant.Table
           rowSelection={{ ...rowSelection }}
           {...defaultValues.TABLE_PROPS}
+          onChange={handleTableChange}
           title={title}
-          pagination={true}
+          pagination={pagination}
           columns={cl}
           rowKey="productId"
           dataSource={dataSource}
