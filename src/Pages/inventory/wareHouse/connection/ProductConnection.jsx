@@ -23,7 +23,7 @@ const ProductConnection = (props) => {
   const [dataSource, setDataSource] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   useRequestManager({ error: error });
-  useRequestManager({ error: addError, loading: addLoading , data: addData,});
+  useRequestManager({ error: addError, loading: addLoading, data: addData });
 
   //====================================================================
   //                        useEffects
@@ -31,13 +31,6 @@ const ProductConnection = (props) => {
   // useEffect(() => {
   //   getAllProductWarehouse();
   // }, []);
-
-
-
-  useEffect(() => {
-
-    setDataSource((listData?.isSuccess && listData?.data) || null);
-  }, [listData]);
 
   useEffect(() => {
     filterObject &&
@@ -47,6 +40,22 @@ const ProductConnection = (props) => {
     !filterObject && setFilterCount(0);
     getAllProductWarehouse();
   }, [filterObject]);
+
+  useEffect(() => {
+    const TmpSelected = [];
+    if (listData?.isSuccess && listData?.data) {
+      listData?.data.map((item) => {
+        if (item.isInWarehouse) {
+          TmpSelected.push(item.productId);
+        }
+      });
+    }
+    setSelectedRowKeys([...TmpSelected]);
+    // onSuccessBrand([...TmpSelected])
+    // oldBrandId([...TmpSelected])
+
+    setDataSource((listData?.isSuccess && listData?.data) || null);
+  }, [listData]);
 
   //====================================================================
   //                        Functions
@@ -66,6 +75,7 @@ const ProductConnection = (props) => {
       productIdList: selectedRowKeys,
     };
     await addApiCall(url.LINK_PRODUCT_WARE_HOUSE_ADD_LIST, data);
+    onSuccess();
   };
 
   const onFilterChanged = async (filterObject) => {
@@ -120,17 +130,15 @@ const ProductConnection = (props) => {
   const Grid = () => {
     return (
       <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            rowSelection={{ ...rowSelection }}
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            pagination={true}
-            columns={cl}
-            rowKey="productId"
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
+        <Ant.Table
+          rowSelection={{ ...rowSelection }}
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          pagination={true}
+          columns={cl}
+          rowKey="productId"
+          dataSource={dataSource}
+        />
       </>
     );
   };
@@ -141,22 +149,33 @@ const ProductConnection = (props) => {
   return (
     <>
       <ModalHeader title={"تخصیص کالا به انبار"} />
-      <CardContent >
-        <FilterDrawer
-          open={openFilter}
-          onClose={() => setOpenFilter(false)}
-          onRemoveFilter={onRemoveFilter}
-        >
-          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-        </FilterDrawer>
-        <FilterBedge filterCount={filterCount}>
-          <Grid />
-          <Ant.Form.Item >
-            <Ant.Button className="mt-6" type="primary" onClick={submit}>
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
-        </FilterBedge>
+      <CardContent>
+        <Ant.Skeleton loading={loading}>
+          <FilterDrawer
+            open={openFilter}
+            onClose={() => setOpenFilter(false)}
+            onRemoveFilter={onRemoveFilter}
+          >
+            <FilterPanel
+              filterObject={filterObject}
+              onSubmit={onFilterChanged}
+            />
+          </FilterDrawer>
+          <FilterBedge filterCount={filterCount}>
+            <Grid />
+            <Ant.Form.Item className="text-end">
+              <Ant.Button
+                disabled={addLoading}
+                loading={addLoading}
+                className="mt-6"
+                type="primary"
+                onClick={submit}
+              >
+                {"تایید"}
+              </Ant.Button>
+            </Ant.Form.Item>
+          </FilterBedge>
+        </Ant.Skeleton>
       </CardContent>
     </>
   );
