@@ -5,6 +5,7 @@ import { useFetch, useFetchWithHandler, Get, usePostWithHandler } from "@/api";
 import qs from "qs";
 import * as url from "@/api/url";
 import * as uuid from "uuid";
+import CardContent from "@/components/common/CardContent";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
@@ -159,7 +160,8 @@ const FormAddVisitor = ({ onSuccess }) => {
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Row gutter={[16, 8]}>
                     <Ant.Col span={24} sm={10}>
-                        <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                        {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                        <CardContent bordered>
                             <Ant.Row gutter={[19]}>
                                 <Ant.Col span={21}>
                                     <Ant.Form.Item
@@ -246,17 +248,20 @@ const FormAddVisitor = ({ onSuccess }) => {
                                     {"تایید"}
                                 </Ant.Button>
                             </Ant.Col>
-                        </Ant.Card>
+                            </CardContent>
+                        {/* </Ant.Card> */}
                     </Ant.Col>
                     <Ant.Col span={24} sm={14}>
                         <Ant.Skeleton loading={loadingData}>
-                            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                            {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                            <CardContent bordered>
                                 {empty == undefined ? (
                                     <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                                 ) : (
                                     <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                                 )}
-                            </Ant.Card>
+                                </CardContent>
+                            {/* </Ant.Card> */}
                         </Ant.Skeleton>
                     </Ant.Col>
                 </Ant.Row>

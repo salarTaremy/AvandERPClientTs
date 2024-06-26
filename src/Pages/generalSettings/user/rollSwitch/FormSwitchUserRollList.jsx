@@ -167,7 +167,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     <>
       <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} />
 
-      <CardContent>
+      <CardContent >
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}

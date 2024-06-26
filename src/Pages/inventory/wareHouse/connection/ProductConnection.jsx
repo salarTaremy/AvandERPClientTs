@@ -28,13 +28,14 @@ const ProductConnection = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    getAllProductWarehouse();
-  }, []);
+  // useEffect(() => {
+  //   getAllProductWarehouse();
+  // }, []);
 
 
 
   useEffect(() => {
+
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
 
@@ -140,7 +141,7 @@ const ProductConnection = (props) => {
   return (
     <>
       <ModalHeader title={"تخصیص کالا به انبار"} />
-      <CardContent>
+      <CardContent >
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}

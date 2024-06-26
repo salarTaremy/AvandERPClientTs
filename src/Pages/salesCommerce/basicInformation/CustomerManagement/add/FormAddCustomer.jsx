@@ -15,7 +15,7 @@ import * as defaultValues from "@/defaultValues";
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 import { MdOutlineAdd } from "react-icons/md";
-
+import CardContent from "@/components/common/CardContent";
 const FormAddCustomer = ({ onSucces }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
@@ -194,7 +194,8 @@ const FormAddCustomer = ({ onSucces }) => {
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} sm={10}>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+
+            <CardContent bordered >
               <Ant.Col>
                 <Ant.Form.Item
                   rules={[{ required: true }]}
@@ -346,17 +347,20 @@ const FormAddCustomer = ({ onSucces }) => {
                   {"تایید"}
                 </Ant.Button>
               </Ant.Col>
-            </Ant.Card>
+
+            </CardContent>
           </Ant.Col>
           <Ant.Col span={24} sm={14}>
             <Ant.Skeleton loading={loadingData}>
-              <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+
+              <CardContent bordered >
                 {empty == undefined ? (
                   <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                 ) : (
                   <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                 )}
-              </Ant.Card>
+                </CardContent>
+
             </Ant.Skeleton>
           </Ant.Col>
         </Ant.Row>

@@ -11,7 +11,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import FormEditCounterParty from '@/Pages/manageCounterParty/edit/FormEditCounterParty';
-
+import CardContent from "@/components/common/CardContent";
 const FormEditVisitor = (props) => {
     const { onSuccess, id } = props
     const [modalState, setModalState] = useState(false);
@@ -134,7 +134,8 @@ const FormEditVisitor = (props) => {
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Row gutter={[16, 8]}>
                         <Ant.Col span={24} sm={10}>
-                            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                            {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                            <CardContent bordered>
                                 <Ant.Col>
                                     <Ant.Form.Item
                                         rules={[{ required: true }]}
@@ -196,12 +197,15 @@ const FormEditVisitor = (props) => {
                                         {'تایید'}
                                     </Ant.Button>
                                 </Ant.Form.Item>
-                            </Ant.Card>
+                                </CardContent>
+                            {/* </Ant.Card> */}
                         </Ant.Col>
                         <Ant.Col span={24} sm={14}>
-                            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}>
+                            {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
+                            <CardContent bordered>
                                 <HeaderCounterParty data={counterpartyListData} onHeaderEdit={onHeaderEdit} />
-                            </Ant.Card>
+                            {/* </Ant.Card> */}
+                            </CardContent>
                         </Ant.Col>
                     </Ant.Row>
                 </Ant.Form>
