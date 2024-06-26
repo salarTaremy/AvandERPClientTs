@@ -1,16 +1,27 @@
+import React, { useState } from "react";
 import { PropTypes } from "prop-types";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as api from "@/api";
+import * as uuid from "uuid";
+import { Typography } from "antd";
+import { useFetchWithHandler } from "@/api";
+import * as defaultValues from "@/defaultValues";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import HeaderCounterParty from "@/Pages/manageCounterParty/description/HeaderCounterParty";
+import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
+
 //====================================================================
 //                        Declaration
 //====================================================================
 const CustomerDescription = (props) => {
   const { id } = props;
+  const [modalState, setModalState] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [data, loading, error] = api.useFetch(`${url.CUSTOMER}/${id}`);
-  useRequestManager({ error: error });
+   useRequestManager({ error: error });
   const borderedItems = [
     {
       key: "1",
@@ -40,7 +51,13 @@ const CustomerDescription = (props) => {
     {
       key: "6",
       label: "طرف حساب های مرتبط",
-      children: data?.data?.relatedCounterpartyName,
+      children: (
+        <Typography.Link
+          onClick={() => onViewCounterparty(data?.data?.relatedCounterpartyName)}
+        >
+          {data?.data?.relatedCounterpartyName}
+        </Typography.Link>
+      ),
     },
     {
       key: "7",
@@ -74,19 +91,53 @@ const CustomerDescription = (props) => {
     },
   ];
 
+  const onSuccessEdit = () => {
+    setModalState(false);
+   };
+
+  const onHeaderEdit = (data) => {
+    setModalContent(
+      <FormEditCounterParty
+        onSuccess={onSuccessEdit}
+        key={uuid.v1()}
+        id={(data.counterpartyId)}
+      />
+    );
+    setModalState(true);
+  }
+
+  const onViewCounterparty = () => {
+    setModalContent(<HeaderCounterParty data={data} onHeaderEdit={onHeaderEdit} />);
+    setModalState(true);
+  };
+
   //====================================================================
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
-         <ModalHeader title= {"جزئیات مشتری"}/>
-      <Ant.Descriptions
-        bordered
-        layout="vertical"
-        size={"middle"}
-        items={borderedItems}
-      />
-    </Ant.Skeleton>
+    <>
+      <Ant.Modal
+        open={modalState}
+        handleCancel={() => setModalState(false)}
+        onCancel={() => {
+          setModalState(false);
+        }}
+        footer={null}
+        {...defaultValues.MODAL_PROPS}
+        {...modalSize}
+      >
+        {modalContent}
+      </Ant.Modal>
+      <ModalHeader title={"جزئیات مشتری"} />
+      <Ant.Skeleton active={true} loading={loading}>
+        <Ant.Descriptions
+          bordered
+          layout="vertical"
+          size={"middle"}
+          items={borderedItems}
+        />
+      </Ant.Skeleton>
+    </>
   );
 };
 export default CustomerDescription;

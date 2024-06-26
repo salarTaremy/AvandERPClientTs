@@ -145,7 +145,7 @@ const FormEditCustomer = ({ id }) => {
       <FormEditCounterParty
         onSuccess={onSuccessEdit}
         key={uuid.v1()}
-        id={(data)}
+        id={(data.id)}
       />
     );
     setModalState(true);

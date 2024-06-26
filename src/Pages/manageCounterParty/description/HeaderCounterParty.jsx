@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import * as Ant from "antd";
-import { FiEdit } from "react-icons/fi";
 import * as defaultValues from "@/defaultValues";
 import ModalHeader from "@/components/common/ModalHeader";
 import ButtonList from "@/components/common/ButtonList";
 
-const HeaderCounterParty = ({ data, onHeaderEdit }) => {
+const HeaderCounterParty = ({ data, onHeaderEdit, id }) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
   const borderedItems = [
@@ -86,14 +85,14 @@ const HeaderCounterParty = ({ data, onHeaderEdit }) => {
         className='mt-2'
         editTooltip='ویرایش طرف حساب'
         onEdit={() => {
-          onHeaderEdit(data?.data?.id)
+          onHeaderEdit(data?.data)
         }}
       >
 
       </ButtonList>
 
       {data?.data == null ? (
-        <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
+        <Ant.Skeleton loading={true} className="w-11/12 h-full " />
       ) : (
         <Ant.Descriptions
           bordered
