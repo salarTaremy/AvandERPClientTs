@@ -32,7 +32,6 @@ const ProductConnection = (props) => {
   //   getAllProductWarehouse();
   // }, []);
 
-
   useEffect(() => {
     filterObject &&
       setFilterCount(
@@ -43,22 +42,20 @@ const ProductConnection = (props) => {
   }, [filterObject]);
 
   useEffect(() => {
-    const TmpSelected = []
+    const TmpSelected = [];
     if (listData?.isSuccess && listData?.data) {
-        listData?.data.map((item) => {
-            if (item.isInWarehouse) {
-                TmpSelected.push(item.productId)
-            }
-        })
+      listData?.data.map((item) => {
+        if (item.isInWarehouse) {
+          TmpSelected.push(item.productId);
+        }
+      });
     }
-    setSelectedRowKeys([...TmpSelected])
+    setSelectedRowKeys([...TmpSelected]);
     // onSuccessBrand([...TmpSelected])
     // oldBrandId([...TmpSelected])
 
     setDataSource((listData?.isSuccess && listData?.data) || null);
-}, [listData]);
-
-
+  }, [listData]);
 
   //====================================================================
   //                        Functions
@@ -78,7 +75,7 @@ const ProductConnection = (props) => {
       productIdList: selectedRowKeys,
     };
     await addApiCall(url.LINK_PRODUCT_WARE_HOUSE_ADD_LIST, data);
-    onSuccess()
+    onSuccess();
   };
 
   const onFilterChanged = async (filterObject) => {
@@ -133,17 +130,15 @@ const ProductConnection = (props) => {
   const Grid = () => {
     return (
       <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            rowSelection={{ ...rowSelection }}
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            pagination={true}
-            columns={cl}
-            rowKey="productId"
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
+        <Ant.Table
+          rowSelection={{ ...rowSelection }}
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          pagination={true}
+          columns={cl}
+          rowKey="productId"
+          dataSource={dataSource}
+        />
       </>
     );
   };
@@ -155,21 +150,32 @@ const ProductConnection = (props) => {
     <>
       <ModalHeader title={"تخصیص کالا به انبار"} />
       <CardContent>
-        <FilterDrawer
-          open={openFilter}
-          onClose={() => setOpenFilter(false)}
-          onRemoveFilter={onRemoveFilter}
-        >
-          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-        </FilterDrawer>
-        <FilterBedge filterCount={filterCount}>
-          <Grid />
-          <Ant.Form.Item className="text-end">
-            <Ant.Button disabled={addLoading} loading={addLoading} className="mt-6" type="primary" onClick={submit}>
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
-        </FilterBedge>
+        <Ant.Skeleton loading={loading}>
+          <FilterDrawer
+            open={openFilter}
+            onClose={() => setOpenFilter(false)}
+            onRemoveFilter={onRemoveFilter}
+          >
+            <FilterPanel
+              filterObject={filterObject}
+              onSubmit={onFilterChanged}
+            />
+          </FilterDrawer>
+          <FilterBedge filterCount={filterCount}>
+            <Grid />
+            <Ant.Form.Item className="text-end">
+              <Ant.Button
+                disabled={addLoading}
+                loading={addLoading}
+                className="mt-6"
+                type="primary"
+                onClick={submit}
+              >
+                {"تایید"}
+              </Ant.Button>
+            </Ant.Form.Item>
+          </FilterBedge>
+        </Ant.Skeleton>
       </CardContent>
     </>
   );
