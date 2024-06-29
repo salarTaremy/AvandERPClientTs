@@ -5,6 +5,7 @@ import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaUserPlus } from "react-icons/fa6";
 
 const FormAddNewUser = (props) => {
     const { onSuccess } = props
@@ -37,7 +38,7 @@ const FormAddNewUser = (props) => {
         <>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
 
-                <ModalHeader title={'ایجاد کاربر جدید '} />
+                <ModalHeader title={'ایجاد کاربر جدید '} icon={<FaUserPlus />} />
                 <Ant.Form.Item name="userName" label={'نام کاربری'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={50} />
                 </Ant.Form.Item>

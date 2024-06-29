@@ -15,6 +15,7 @@ import { MdOutlineAdd } from "react-icons/md";
 import * as defaultValues from "@/defaultValues";
 import { FormCounterpartyAdd } from "@/Pages/manageCounterParty/add/FormCounterpartyAdd";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
+import { FaUserPlus } from "react-icons/fa6";
 
 const FormAddVisitor = ({ onSuccess }) => {
     const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -140,7 +141,7 @@ const FormAddVisitor = ({ onSuccess }) => {
 
     return (
         <>
-            <ModalHeader title={'ایجاد ویزیتور'} />
+            <ModalHeader title={'ایجاد ویزیتور'} icon={<FaUserPlus />}/>
             <Ant.Modal
                 {...defaultValues.MODAL_PROPS}
                 {...defaultValues.MODAL_LARGE}

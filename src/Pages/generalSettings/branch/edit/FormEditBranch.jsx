@@ -5,6 +5,8 @@ import * as url from '@/api/url'
 import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaCodeBranch } from "react-icons/fa";
+
 const FormEditBranch = (props) => {
     const { onSuccess, id } = props
     const [loading, setLoading] = useState(false)
@@ -44,7 +46,7 @@ const FormEditBranch = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={"ویرایش شعبه "} />
+            <ModalHeader title={"ویرایش شعبه "} icon={<FaCodeBranch />} />
             <Ant.Skeleton loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name="name" label={'نام شعبه'} rules={[{ required: true }]}>

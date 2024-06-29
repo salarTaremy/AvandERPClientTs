@@ -17,6 +17,7 @@ import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounte
 import { MdOutlineAdd } from "react-icons/md";
 import CardContent from "@/components/common/CardContent";
 import { FaUserPlus } from "react-icons/fa6";
+import { FormCounterpartyAdd } from "@/Pages/manageCounterParty/add/FormCounterpartyAdd";
 
 const FormAddCustomer = ({ onSucces }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -170,6 +171,16 @@ const FormAddCustomer = ({ onSucces }) => {
     setModalState(true);
   }
 
+  const onSuccessAddCounterparty = () => {
+    setModalState(false);
+  };
+
+  const onAddCounterparty = () => {
+    console.log('asasas')
+    setModalContent(< FormCounterpartyAdd key={uuid.v1()} onSuccess={onSuccessAddCounterparty} />);
+    setModalState(true);
+  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -198,20 +209,31 @@ const FormAddCustomer = ({ onSucces }) => {
           <Ant.Col span={24} sm={10}>
 
             <CardContent bordered >
-              <Ant.Col>
-                <Ant.Form.Item
-                  rules={[{ required: true }]}
-                  name={"counterpartyId"}
-                  label="طرف حساب مرتبط"
-                >
-                  <DebounceSelect
-                    onChange={handleCounterParty}
-                    maxCount={1}
-                    placeholder="بخشی از نام طرف حساب را تایپ کنید..."
-                    fetchOptions={getAllCounterPartyForDropDown}
-                  />
-                </Ant.Form.Item>
-              </Ant.Col>
+              <Ant.Row gutter={[19]}>
+                <Ant.Col span={21}>
+                  <Ant.Form.Item
+                    rules={[{ required: true }]}
+                    name={"counterpartyId"}
+                    label="طرف حساب مرتبط"
+                  >
+                    <DebounceSelect
+                      onChange={handleCounterParty}
+                      maxCount={1}
+                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
+                      fetchOptions={getAllCounterPartyForDropDown}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col span={3}>
+                  <Ant.Tooltip title={"افزودن"}>
+                    <Ant.Button
+                      className="mt-8"
+                      onClick={() => { onAddCounterparty() }}
+                      icon={<MdOutlineAdd />}
+                    />
+                  </Ant.Tooltip>
+                </Ant.Col>
+              </Ant.Row>
               <Ant.Col>
                 <Ant.Form.Item
                   rules={[{ required: true }, { max: 10 }]}
@@ -361,7 +383,7 @@ const FormAddCustomer = ({ onSucces }) => {
                 ) : (
                   <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                 )}
-                </CardContent>
+              </CardContent>
 
             </Ant.Skeleton>
           </Ant.Col>

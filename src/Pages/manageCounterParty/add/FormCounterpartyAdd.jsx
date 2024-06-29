@@ -9,6 +9,7 @@ import { BasicInfoStep } from "./steps/BasicInfoStep";
 import CounterpartyAddressList from "../counterpartyContactInfo/address/list/CounterpartyAddressList";
 import CounterpartyBankAccountList from "../counterpartyBankAccount/list/CounterpartyBankAccountList";
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaUserPlus } from "react-icons/fa6";
 const { Step } = Steps;
 
 //====================================================================
@@ -133,7 +134,7 @@ export const FormCounterpartyAdd = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"افزودن طرف حساب"} />
+      <ModalHeader title={"افزودن طرف حساب"} icon={<FaUserPlus />}/>
       <RequestManager
         error={counterpartyAddError}
         data={counterpartyAddedData}

@@ -11,7 +11,9 @@ import ModalHeader from "@/components/common/ModalHeader";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import FormEditCounterParty from '@/Pages/manageCounterParty/edit/FormEditCounterParty';
+import { FaUserPen } from "react-icons/fa6";
 import CardContent from "@/components/common/CardContent";
+
 const FormEditVisitor = (props) => {
     const { onSuccess, id } = props
     const [modalState, setModalState] = useState(false);
@@ -112,7 +114,7 @@ const FormEditVisitor = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={'ویرایش ویزیتور'} />
+            <ModalHeader title={'ویرایش ویزیتور'} icon={<FaUserPen />} />
             <Ant.Modal
                 {...defaultValues.MODAL_PROPS}
                 {...defaultValues.MODAL_LARGE}
@@ -197,14 +199,14 @@ const FormEditVisitor = (props) => {
                                         {'تایید'}
                                     </Ant.Button>
                                 </Ant.Form.Item>
-                                </CardContent>
+                            </CardContent>
                             {/* </Ant.Card> */}
                         </Ant.Col>
                         <Ant.Col span={24} sm={14}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                             <CardContent bordered>
                                 <HeaderCounterParty data={counterpartyListData} onHeaderEdit={onHeaderEdit} />
-                            {/* </Ant.Card> */}
+                                {/* </Ant.Card> */}
                             </CardContent>
                         </Ant.Col>
                     </Ant.Row>

@@ -5,6 +5,8 @@ import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaCodeBranch } from "react-icons/fa";
+
 const FormAddNewBranch = (props) => {
     const { onSuccess } = props
     const [loading, setLoading] = useState(false)
@@ -32,7 +34,7 @@ const FormAddNewBranch = (props) => {
 
     return (
         <>
-          <ModalHeader title={"ایجاد شعبه "} />
+          <ModalHeader title={"ایجاد شعبه "} icon={<FaCodeBranch />} />
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
 
                 <Ant.Form.Item name="name" label={'نام شعبه'} rules={[{ required: true }]}>
