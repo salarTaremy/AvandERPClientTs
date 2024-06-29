@@ -5,9 +5,10 @@ const ModalHeader = (props) => {
   return (
     <Ant.Row>
       <Ant.Col span={24}>
-       <span className="relative inset-y-1">{props.icon}</span>
-        <strong className="mr-1">{props.title}</strong>
-
+        <Ant.Space>
+          <span className="relative inset-y-1">{props.icon}</span>
+          <strong >{props.title}</strong>
+        </Ant.Space>
         <Ant.Divider />
       </Ant.Col>
     </Ant.Row>
