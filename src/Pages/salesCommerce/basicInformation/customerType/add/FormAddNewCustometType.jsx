@@ -5,6 +5,8 @@ import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdCategory } from "react-icons/md";
+
 const FormAddNewCustometType = (props) => {
     const { onSuccess } = props
     const [loading, setLoading] = useState(false)
@@ -35,7 +37,7 @@ const FormAddNewCustometType = (props) => {
     //====================================================================
     return (
         <>
-           <ModalHeader title= {'ایجاد نوع مشتری جدید'}/>
+           <ModalHeader title= {'ایجاد نوع مشتری جدید'} icon={<MdCategory />}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={200} />

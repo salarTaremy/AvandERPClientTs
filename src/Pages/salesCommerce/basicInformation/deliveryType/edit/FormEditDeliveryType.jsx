@@ -5,6 +5,8 @@ import * as url from "@/api/url";
 import { usePutWithHandler, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { TbTruckDelivery } from "react-icons/tb";
+
 const FormEditDeliveryType = (props) => {
   const { onSuccess, obj, id } = props;
   const [loading, setLoading] = useState(false);
@@ -43,7 +45,7 @@ const FormEditDeliveryType = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ویرایش نوع تحویل"} />
+      <ModalHeader title={"ویرایش نوع تحویل"} icon={<TbTruckDelivery />} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>

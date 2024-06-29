@@ -5,6 +5,8 @@ import * as url from '@/api/url'
 import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdCategory } from "react-icons/md";
+
 const FormEditCustomerType = (props) => {
     const { onSuccess, id } = props
     const [loading, setLoading] = useState(false)
@@ -44,7 +46,7 @@ const FormEditCustomerType = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={'ویرایش نوع مشتری '} />
+            <ModalHeader title={'ویرایش نوع مشتری '} icon={<MdCategory />} />
             <Ant.Skeleton loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>

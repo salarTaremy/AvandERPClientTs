@@ -16,6 +16,8 @@ import columns from "./columns";
 import FormEditBankBranch from "./edit/FormEditBankBranch";
 import ModalHeader from "@/components/common/ModalHeader";
 import CardContent from "@/components/common/CardContent";
+import { BsBank2 } from "react-icons/bs";
+
 const BranchList = (props) => {
   const { bankId, bankTitle, onSuccess } = props;
   const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -174,7 +176,7 @@ const BranchList = (props) => {
       >
         {modalContent}
       </Ant.Modal>
-      <ModalHeader title={` بانک "${bankTitle}"`} />
+      <ModalHeader title={` شعب بانک "${bankTitle}"`} icon={<BsBank2 />} />
       <CardContent>
         <FilterDrawer
           open={openFilter}

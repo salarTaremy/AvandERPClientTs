@@ -8,6 +8,7 @@ import { usePostWithHandler, useFetch, Get } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import qs from "qs";
+import { FaWarehouse } from "react-icons/fa6";
 
 const FormAddNewWarehouse = (props) => {
   const { onSuccess } = props;
@@ -65,7 +66,7 @@ const FormAddNewWarehouse = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ایجاد انبار "} />
+      <ModalHeader title={"ایجاد انبار "} icon={<FaWarehouse />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col md={12} lg={12} sm={24} xs={24}>

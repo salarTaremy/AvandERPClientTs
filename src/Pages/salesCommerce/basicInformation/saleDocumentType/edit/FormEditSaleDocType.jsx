@@ -5,6 +5,8 @@ import * as url from "@/api/url";
 import { usePutWithHandler, useFetch, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaFileInvoiceDollar } from "react-icons/fa6";
+
 const FormEditSaleDocumentType = (props) => {
   const { onSuccess, id } = props;
   const [loading, setLoading] = useState(false);
@@ -49,7 +51,7 @@ const FormEditSaleDocumentType = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ویرایش نوع برگه های فروش"} />
+      <ModalHeader title={"ویرایش نوع برگه های فروش"} icon={<FaFileInvoiceDollar />} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>
