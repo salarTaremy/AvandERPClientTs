@@ -5,6 +5,8 @@ import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import ModalHeader from "@/components/common/ModalHeader";
+import { PiMedalFill } from "react-icons/pi";
+
 const FormAddNewCustomerGrade = (props) => {
     const { onSuccess } = props
     const [loading, setLoading] = useState(false)
@@ -35,7 +37,7 @@ const FormAddNewCustomerGrade = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title= {'ایجاد رتبه مشتری جدید'}/>
+            <ModalHeader title={'ایجاد رتبه مشتری جدید'} icon={<PiMedalFill />} />
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={200} />

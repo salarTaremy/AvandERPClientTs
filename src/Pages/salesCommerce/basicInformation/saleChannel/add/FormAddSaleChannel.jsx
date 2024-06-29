@@ -5,7 +5,7 @@ import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import ModalHeader from "@/components/common/ModalHeader";
-import { BiSolidCategoryAlt } from "react-icons/bi";
+import { BiSolidCategory } from "react-icons/bi";
 
 const FormAddSaleChannel = (props) => {
     const { onSuccess } = props
@@ -34,7 +34,7 @@ const FormAddSaleChannel = (props) => {
 
     return (
         <>
-        <ModalHeader title=  {'ایجاد کانال فروش '} icon={<BiSolidCategoryAlt />}/>
+        <ModalHeader title=  {'ایجاد کانال فروش '} icon={<BiSolidCategory />}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={100} />

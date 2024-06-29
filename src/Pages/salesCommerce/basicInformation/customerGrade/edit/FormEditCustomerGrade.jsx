@@ -5,6 +5,8 @@ import * as url from '@/api/url'
 import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { PiMedalFill } from "react-icons/pi";
+
 const FormEditCustomerGrade = (props) => {
     const { onSuccess, id } = props
     const [loading, setLoading] = useState(false)
@@ -43,7 +45,7 @@ const FormEditCustomerGrade = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={'ویرایش رتبه مشتری '} />
+            <ModalHeader title={'ویرایش رتبه مشتری '} icon={<PiMedalFill />} />
             <Ant.Skeleton loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>

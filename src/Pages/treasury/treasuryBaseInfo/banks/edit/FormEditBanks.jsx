@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { usePutWithHandler, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import * as styles from "@/styles";
 import ModalHeader from "@/components/common/ModalHeader";
+import { BsBank2 } from "react-icons/bs";
+
 const FormEditBanks = (props) => {
   const { onSuccess, id, bankTitle } = props;
   const [loading, setLoading] = useState(false);
@@ -44,7 +45,7 @@ const FormEditBanks = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`ویرایش بانک "${bankTitle}"`} />
+      <ModalHeader title={`ویرایش بانک "${bankTitle}"`} icon={<BsBank2 />} />
 
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
