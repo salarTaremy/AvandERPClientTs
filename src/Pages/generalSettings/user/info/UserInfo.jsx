@@ -11,6 +11,8 @@ const UserInfo = ({ userId, userName }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
+    const [pagination, setPagination] = useState({});
+
 
     //====================================================================
     //                        useEffects
@@ -31,6 +33,10 @@ const UserInfo = ({ userId, userName }) => {
             userId: userId
         });
         await ApiCall(`${url.ROLE}?${queryString}`);
+    };
+
+    const handleTableChange = (pagination, filters, sorter) => {
+        setPagination(pagination);
     };
 
     const cl = [
@@ -58,8 +64,9 @@ const UserInfo = ({ userId, userName }) => {
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}
                     className="mt-5"
-                    pagination={false}
+                    pagination={pagination}
                     columns={cl}
+                    onChange={handleTableChange}
                     dataSource={dataSource || null}
                 />
             </Ant.Skeleton>

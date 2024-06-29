@@ -126,6 +126,7 @@ const CustomerDescription = (props) => {
         footer={null}
         {...defaultValues.MODAL_PROPS}
         {...modalSize}
+        centered
       >
         {modalContent}
       </Ant.Modal>
