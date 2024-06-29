@@ -33,7 +33,7 @@ export const BasicInfoStep = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  //
+
   useEffect(() => {
     maxCodeData?.isSuccess &&
       maxCodeData?.data &&
