@@ -175,9 +175,9 @@ export const BasicInfoStep = (props) => {
           </Ant.Row>
 
           {/*** کدگذاری ***/}
-
-          {/* <Ant.Card title={"کدگذاری"} type="inner" size="small"> */}
-          <CardContent title={"کدگذاری"} bordered size="small">
+          <Ant.Space direction="vertical" >
+      {/* <Ant.Card title={"کدگذاری"} type="inner" size="small"> */}
+      <CardContent title={"کدگذاری"} bordered size="small">
             <Ant.Row gutter={[16, 8]}>
               <Ant.Col lg={8} md={12} sm={12} xs={24}>
                 <Ant.Form.Item
@@ -224,7 +224,7 @@ export const BasicInfoStep = (props) => {
 
           {/*** اطلاعات هویتی ***/}
           <CardContent
-            className="mt-6"
+            className=""
             title={"اطلاعات هویتی"}
             bordered
             size="small"
@@ -232,7 +232,7 @@ export const BasicInfoStep = (props) => {
             {/* <Ant.Card
               title={"اطلاعات هویتی"}
               type="inner"
-              className="mt-6"
+              className=""
               size="small"
             > */}
             <Ant.Row gutter={[16, 8]}>
@@ -482,7 +482,7 @@ export const BasicInfoStep = (props) => {
           {/*** اطلاعات جغرافیایی ***/}
 
           <CardContent
-            className="mt-6"
+            className=""
             title={"اطلاعات هویتی"}
             bordered
             size="small"
@@ -544,7 +544,7 @@ export const BasicInfoStep = (props) => {
           {/*** اطلاعات تکمیلی ***/}
 
           <CardContent
-            className="mt-6"
+            className=""
             title={"اطلاعات تکمیلی"}
             bordered
             size="small"
@@ -588,6 +588,9 @@ export const BasicInfoStep = (props) => {
               </Ant.Col>
             </Ant.Row>
           </CardContent>
+          </Ant.Space>
+
+
         </Ant.Skeleton>
       </Ant.Card>
     </>
