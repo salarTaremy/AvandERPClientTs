@@ -7,7 +7,7 @@ import * as url from "@/api/url";
 import { useFetchWithHandler } from "@/api";
 import { validateNationalCode } from "@/Tools";
 import useRequestManager from "@/hooks/useRequestManager";
-
+import CardContent from "@/components/common/CardContent";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -175,7 +175,9 @@ export const BasicInfoStep = (props) => {
           </Ant.Row>
 
           {/*** کدگذاری ***/}
-          <Ant.Card title={"کدگذاری"} type="inner" size="small">
+
+          {/* <Ant.Card title={"کدگذاری"} type="inner" size="small"> */}
+          <CardContent title={"کدگذاری"} bordered size="small">
             <Ant.Row gutter={[16, 8]}>
               <Ant.Col lg={8} md={12} sm={12} xs={24}>
                 <Ant.Form.Item
@@ -217,10 +219,22 @@ export const BasicInfoStep = (props) => {
                 </Ant.Form.Item>
               </Ant.Col>
             </Ant.Row>
-          </Ant.Card>
+          </CardContent>
+          {/* </Ant.Card> */}
 
           {/*** اطلاعات هویتی ***/}
-          <Ant.Card title={"اطلاعات هویتی"} type="inner" className="mt-6" size="small">
+          <CardContent
+            className="mt-6"
+            title={"اطلاعات هویتی"}
+            bordered
+            size="small"
+          >
+            {/* <Ant.Card
+              title={"اطلاعات هویتی"}
+              type="inner"
+              className="mt-6"
+              size="small"
+            > */}
             <Ant.Row gutter={[16, 8]}>
               <Ant.Col lg={8} md={12} sm={12} xs={24}>
                 <Ant.Form.Item
@@ -463,10 +477,16 @@ export const BasicInfoStep = (props) => {
                 </Ant.Col>
               )}
             </Ant.Row>
-          </Ant.Card>
-
+            {/* </Ant.Card> */}
+          </CardContent>
           {/*** اطلاعات جغرافیایی ***/}
-          <Ant.Card title={"اطلاعات جغرافیایی"} type="inner" className="mt-6" size="small" >
+
+          <CardContent
+            className="mt-6"
+            title={"اطلاعات هویتی"}
+            bordered
+            size="small"
+          >
             <Ant.Row gutter={[16, 8]}>
               <Ant.Col lg={12} md={12} sm={12} xs={24}>
                 <Ant.Form.Item
@@ -520,13 +540,13 @@ export const BasicInfoStep = (props) => {
                 </Ant.Form.Item>
               </Ant.Col>
             </Ant.Row>
-          </Ant.Card>
-
+          </CardContent>
           {/*** اطلاعات تکمیلی ***/}
-          <Ant.Card
-            title={"اطلاعات تکمیلی"}
-            type="inner"
+
+          <CardContent
             className="mt-6"
+            title={"اطلاعات تکمیلی"}
+            bordered
             size="small"
           >
             <Ant.Row gutter={[16, 8]}>
@@ -567,7 +587,7 @@ export const BasicInfoStep = (props) => {
                 </Ant.Form.Item>
               </Ant.Col>
             </Ant.Row>
-          </Ant.Card>
+          </CardContent>
         </Ant.Skeleton>
       </Ant.Card>
     </>
