@@ -140,7 +140,7 @@ export const FormCounterpartyAdd = (props) => {
         data={counterpartyAddedData}
         loading={counterpartyAddLoading}
       />
-      <div style={{ minHeight: "100px" }}>
+      {/* <div style={{ minHeight: "100px" }}> */}
         <Steps current={currentStep} size="small" className="mb-4">
           {steps().map((step, index) => (
             <Step key={index} title={step.title} />
@@ -190,7 +190,7 @@ export const FormCounterpartyAdd = (props) => {
               </Ant.Col>
             )}
           </Ant.Row>
-      </div>
+      {/* </div> */}
     </>
     // )
   );
