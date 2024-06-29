@@ -5,6 +5,8 @@ import * as url from "@/api/url";
 import { usePutWithHandler, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdOutlinePayment } from "react-icons/md";
+
 const FormEditPaymentType = (props) => {
   const { onSuccess, id } = props;
   const [loading, setLoading] = useState(false);
@@ -43,7 +45,7 @@ const FormEditPaymentType = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ویرایش نوع پرداخت"} />
+      <ModalHeader title={"ویرایش نوع پرداخت"} icon={<MdOutlinePayment />} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item

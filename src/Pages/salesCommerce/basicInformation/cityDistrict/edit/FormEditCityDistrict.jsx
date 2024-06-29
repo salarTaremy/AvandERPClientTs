@@ -5,6 +5,7 @@ import * as url from '@/api/url'
 import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { BsFillPinMapFill } from "react-icons/bs";
 
 const FormEditCityDistrict = (props) => {
     const { onSuccess, id } = props
@@ -73,7 +74,7 @@ const FormEditCityDistrict = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={"ویرایش منطقه شهری "} />
+            <ModalHeader title={"ویرایش منطقه شهری "} icon={<BsFillPinMapFill />} />
             <Ant.Skeleton loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item

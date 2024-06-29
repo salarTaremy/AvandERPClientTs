@@ -5,6 +5,7 @@ import * as url from "@/api/url";
 import { usePutWithHandler, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaUserPen } from "react-icons/fa6";
 
 const FormEditUser = (props) => {
   const { onSuccess, id, userName } = props;
@@ -43,7 +44,7 @@ const FormEditUser = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`ویرایش کاربر "${userName}"`} />
+      <ModalHeader title={`ویرایش کاربر "${userName}"`} icon={<FaUserPen />} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item

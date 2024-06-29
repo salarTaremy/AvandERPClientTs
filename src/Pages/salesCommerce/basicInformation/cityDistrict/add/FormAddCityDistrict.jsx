@@ -5,6 +5,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import ModalHeader from "@/components/common/ModalHeader";
+import { BsFillPinMapFill } from "react-icons/bs";
 
 const FormAddCityDistrict = (props) => {
     const { onSuccess } = props;
@@ -59,7 +60,7 @@ const FormAddCityDistrict = (props) => {
     return (
         <>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                <ModalHeader title={"ایجاد منطقه شهری جدید"} />
+                <ModalHeader title={"ایجاد منطقه شهری جدید"} icon={<BsFillPinMapFill />}/>
                 <Ant.Form.Item
                     name="cityId"
                     label={"نام استان و شهر"}

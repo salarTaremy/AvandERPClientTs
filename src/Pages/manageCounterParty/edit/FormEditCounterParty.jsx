@@ -9,7 +9,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import { BasicInfoStep } from "../edit/steps/BasicInfoStep";
 import CounterpartyAddressList from "@/Pages/manageCounterParty/counterpartyContactInfo/address/list/CounterpartyAddressList";
 import CounterpartyBankAccountList from "@/Pages/manageCounterParty/counterpartyBankAccount/list/CounterpartyBankAccountList";
-
+import { FaUserPen } from "react-icons/fa6";
 
 
 const FormEditCounterParty = ({ onSuccess, id, key }) => {
@@ -111,7 +111,7 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ویرایش طرف حساب"} />
+      <ModalHeader title={"ویرایش طرف حساب"} icon={<FaUserPen />} />
       <div style={{ minHeight: "100px" }}>
         <Steps current={currentStep} size="small" className="mb-4">
           {steps().map((step, index) => (
