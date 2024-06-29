@@ -105,19 +105,11 @@ const Account = () => {
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CardContent bordered loading={accLoading}>
                 <Tree
-                  // directoryNodeSelectedColor={'red'}
-                  // onExpand={(expandedKeys, expanded, node) => {
-                  //   // console.log(expandedKeys)
-                  // }}
                   showIcon
-                  // selectable={false}
                   blockNode
-                  //onSelect={onSelect}
                   treeData={treeData}
                   autoExpandParent={true}
-                  //  defaultExpandAll={true}
                   defaultExpandedKeys={expandedKeys}
-                  //  expandedKeys={ expandedKeys}
                   showLine={true}
                 />
               {/* </Ant.Card> */}
