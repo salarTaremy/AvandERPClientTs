@@ -9,6 +9,8 @@ import FormAddNewState from "./add/FormAddNewState";
 import * as styles from "@/styles";
 import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
+import { GrValidate } from "react-icons/gr";
+
 
 const CounterPartyStateList = (props) => {
     const { counterPartyId, counterPartyName, onSuccess } = props
@@ -17,6 +19,7 @@ const CounterPartyStateList = (props) => {
     const [dataSource, setDataSource] = useState(null);
     const [modalState, setModalState] = useState(false);
     const [modalContent, setModalContent] = useState();
+    const [pagination, setPagination] = useState({})
 
     //====================================================================
     //                        useEffects
@@ -76,6 +79,10 @@ const CounterPartyStateList = (props) => {
         onSuccess()
     };
 
+    const handleTableChange = (pagination) => {
+        setPagination(pagination);
+    };
+
     //====================================================================
     //                        Child Components
     //====================================================================
@@ -95,8 +102,9 @@ const CounterPartyStateList = (props) => {
                         {...defaultValues.TABLE_PROPS}
                         title={title}
                         className="mt-5"
-                        pagination={false}
+                        pagination={pagination}
                         columns={cl()}
+                        onChange={handleTableChange}
                         dataSource={dataSource || null}
                     />
                 </Ant.Skeleton>
@@ -124,8 +132,8 @@ const CounterPartyStateList = (props) => {
             </Ant.Modal>
             <br></br>
 
-            <ModalHeader  title={`وضعیت اعتبار "${counterPartyName}"`} />
-                <Grid />
+            <ModalHeader title={`وضعیت اعتبار "${counterPartyName}"`} icon={<GrValidate />} />
+            <Grid />
 
         </>
     );

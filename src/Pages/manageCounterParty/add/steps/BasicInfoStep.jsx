@@ -156,7 +156,6 @@ export const BasicInfoStep = (props) => {
           boxShadow: "none",
         }}
         bordered={false}
-        className="mb-4"
       >
         <Ant.Skeleton loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>

@@ -5,6 +5,7 @@ import * as url from "@/api/url";
 import { usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdOutlineLockReset } from "react-icons/md";
 
 const FormResetPasswordUser = (props) => {
   const { onSuccess, obj, id, userName } = props;
@@ -41,7 +42,7 @@ const FormResetPasswordUser = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`تغییر رمز عبور " ${userName}"`} />
+      <ModalHeader title={`تغییر رمز عبور " ${userName}"`} icon={<MdOutlineLockReset />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item name="userName" label={"نام کاربری"}>
           <Ant.Input allowClear showCount maxLength={200} disabled />

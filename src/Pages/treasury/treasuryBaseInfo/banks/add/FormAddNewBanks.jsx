@@ -5,6 +5,8 @@ import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import ModalHeader from "@/components/common/ModalHeader";
+import { BsBank2 } from "react-icons/bs";
+
 const FormAddNewBanks = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -35,7 +37,7 @@ const FormAddNewBanks = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ایجاد بانک جدید"} />
+      <ModalHeader title={"ایجاد بانک جدید"} icon={<BsBank2 />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item
           name="title"

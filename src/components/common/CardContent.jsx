@@ -5,7 +5,7 @@ const CardContent = (props) => {
   const { Shadow, bordered } = props;
   const cardStyle = {
     overflow: "auto",
-    maxHeight: "80vh",
+    maxHeight: "77vh",
     // minHeight: "70vh",
     border: bordered ?  "1px solid rgb(217 217 217 / 45%)" :"none" ,
     boxShadow: Shadow ? "0 2px 8px rgba(0, 0, 0, 0.09)" : "none",

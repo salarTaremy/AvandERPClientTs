@@ -8,6 +8,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import qs from "qs";
 import * as api from "@/api";
+import { FaWarehouse } from "react-icons/fa6";
 
 const FormEditWareHouse = (props) => {
   const { onSuccess, id, name } = props;
@@ -72,7 +73,7 @@ const FormEditWareHouse = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`ویرایش '${name}'`} />
+      <ModalHeader title={`ویرایش '${name}'`} icon={<FaWarehouse />}/>
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>

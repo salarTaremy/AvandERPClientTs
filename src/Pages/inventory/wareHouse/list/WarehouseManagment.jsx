@@ -27,7 +27,7 @@ const WareHouseManagment = () => {
   const [modalState, setModalState] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
-
+  const [pagination, setPagination] = useState({});
   const [modalSize, setModalSize] = useState({
     ...defaultValues.MODAL_EXTRA_LARGE,
   });
@@ -122,6 +122,11 @@ const WareHouseManagment = () => {
     setModalState(true);
   };
 
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
+  };
+
+
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -146,7 +151,9 @@ const WareHouseManagment = () => {
         <Ant.Skeleton loading={loadingData}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
             columns={columns(onDelete, onEdit,onConnection)}
+            onChange={handleTableChange}
             dataSource={dataSource}
             title={title}
           />

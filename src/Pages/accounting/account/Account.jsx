@@ -98,26 +98,18 @@ const Account = () => {
   return (
     <>
       <RequestManager error={accError} />
-      <Ant.Card  title={'درختواره حساب ها'} type="inner">
+      <Ant.Card  title={'درختواره حساب ها'} type="inner" >
         <Ant.Form form={form} layout="vertical" onFinish={null} onFinishFailed={null}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CardContent bordered loading={accLoading}>
                 <Tree
-                  // directoryNodeSelectedColor={'red'}
-                  // onExpand={(expandedKeys, expanded, node) => {
-                  //   // console.log(expandedKeys)
-                  // }}
                   showIcon
-                  // selectable={false}
                   blockNode
-                  //onSelect={onSelect}
                   treeData={treeData}
                   autoExpandParent={true}
-                  //  defaultExpandAll={true}
                   defaultExpandedKeys={expandedKeys}
-                  //  expandedKeys={ expandedKeys}
                   showLine={true}
                 />
               {/* </Ant.Card> */}
@@ -127,7 +119,6 @@ const Account = () => {
             <Ant.Col span={24} sm={14}>
               {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CardContent bordered loading={accLoading}>
-                {/* {selectedNode && <p>{selectedNode?.level}</p>} */}
                 {!selectedNode && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 0 && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 1 && (
