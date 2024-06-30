@@ -474,7 +474,7 @@ export const BasicInfoStep = (props) => {
 
             <CardContent
               className=""
-              title={"اطلاعات هویتی"}
+              title={"اطلاعات جغرافیایی "}
               bordered
               size="small"
             >

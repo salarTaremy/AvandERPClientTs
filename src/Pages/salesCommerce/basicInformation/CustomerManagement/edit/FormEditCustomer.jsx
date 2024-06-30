@@ -13,8 +13,8 @@ import ModalHeader from "@/components/common/ModalHeader";
 import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGrup";
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
-import { MdOutlineAdd } from "react-icons/md";
 import { FaUserPen } from "react-icons/fa6";
+import { PlusOutlined } from '@ant-design/icons'
 
 const FormEditCustomer = ({ id }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -174,7 +174,7 @@ const FormEditCustomer = ({ id }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={'ویرایش مشتری'} icon={<FaUserPen />}/>
+      <ModalHeader title={'ویرایش مشتری'} icon={<FaUserPen />} />
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_LARGE}
@@ -200,7 +200,7 @@ const FormEditCustomer = ({ id }) => {
                 loading={editLoading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
               > */}
-                <CardContent bordered loading={editLoading}>
+              <CardContent bordered loading={editLoading}>
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }, { max: 10 }]}
@@ -225,62 +225,66 @@ const FormEditCustomer = ({ id }) => {
                     <Ant.Input allowClear showCount />
                   </Ant.Form.Item>
                 </Ant.Col>
-                <Ant.Row gutter={[19]}>
-                  <Ant.Col span={21}>
-                    <Ant.Form.Item
-                      rules={[{ required: true }]}
-                      name={"groupId"}
-                      label="گروه"
-                    >
-                      <Ant.Select
-                        {...commonOptions}
-                        allowClear={true}
-                        placeholder={"انتخاب کنید..."}
-                        disabled={customerGroupLoading || false}
-                        loading={customerGroupLoading}
-                        options={customerGroupList?.data}
-                        fieldNames={{ label: "title", value: "id" }}
-                      />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                  <Ant.Col >
-                    <Ant.Tooltip title={"افزودن"}>
-                      <Ant.Button
-                        className="mt-8 "
-                        onClick={() => { onAddGroup() }}
-                        icon={<MdOutlineAdd />}
-                      />
-                    </Ant.Tooltip>
-                  </Ant.Col>
-                </Ant.Row>
-                <Ant.Row gutter={[19]}>
-                  <Ant.Col span={21}>
-                    <Ant.Form.Item
-                      rules={[{ required: true }]}
-                      name={"typeId"}
-                      label="نوع"
-                    >
-                      <Ant.Select
-                        {...commonOptions}
-                        allowClear={true}
-                        placeholder={"انتخاب کنید..."}
-                        disabled={customerTypeLoading || false}
-                        loading={customerTypeLoading}
-                        options={customerTypeList?.data}
-                        fieldNames={{ label: "title", value: "id" }}
-                      />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                  <Ant.Col >
-                    <Ant.Tooltip title={"افزودن"}>
-                      <Ant.Button
-                        className="mt-8 "
-                        onClick={() => { onAddType() }}
-                        icon={<MdOutlineAdd />}
-                      />
-                    </Ant.Tooltip>
-                  </Ant.Col>
-                </Ant.Row>
+                <Ant.Col >
+                  <Ant.Form.Item
+                    rules={[{ required: true }]}
+                    name={"groupId"}
+                    label="گروه"
+                  >
+                    <Ant.Select
+                      {...commonOptions}
+                      allowClear={true}
+                      placeholder={"انتخاب کنید..."}
+                      disabled={customerGroupLoading || false}
+                      loading={customerGroupLoading}
+                      options={customerGroupList?.data}
+                      fieldNames={{ label: "title", value: "id" }}
+                      dropdownRender={(menu) => (
+                        <>
+                          {menu}
+                          <Ant.Button
+                            onClick={() => { onAddGroup() }}
+                            block
+                            type="primary"
+                            icon={<PlusOutlined />}
+                          >
+                            {'ایجاد گروه مشتری جدید'}
+                          </Ant.Button>
+                        </>
+                      )}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col >
+                  <Ant.Form.Item
+                    rules={[{ required: true }]}
+                    name={"typeId"}
+                    label="نوع"
+                  >
+                    <Ant.Select
+                      {...commonOptions}
+                      allowClear={true}
+                      placeholder={"انتخاب کنید..."}
+                      disabled={customerTypeLoading || false}
+                      loading={customerTypeLoading}
+                      options={customerTypeList?.data}
+                      fieldNames={{ label: "title", value: "id" }}
+                      dropdownRender={(menu) => (
+                        <>
+                          {menu}
+                          <Ant.Button
+                            onClick={() => { onAddType() }}
+                            block
+                            type="primary"
+                            icon={<PlusOutlined />}
+                          >
+                            {'ایجاد نوع مشتری جدید'}
+                          </Ant.Button>
+                        </>
+                      )}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }]}
@@ -343,18 +347,18 @@ const FormEditCustomer = ({ id }) => {
                     {"تایید"}
                   </Ant.Button>
                 </Ant.Col>
-                </CardContent>
+              </CardContent>
               {/* </Ant.Card> */}
             </Ant.Col>
             <Ant.Col span={24} sm={14}>
               {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-                <CardContent bordered loading={editLoading} >
+              <CardContent bordered loading={editLoading} >
                 {/* {empty == undefined ? (
                   <Ant.Empty loading={editLoading} />
                 ) : ( */}
-                  <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit}/>
+                <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                 {/* )} */}
-                </CardContent>
+              </CardContent>
               {/* </Ant.Card> */}
             </Ant.Col>
           </Ant.Row>
