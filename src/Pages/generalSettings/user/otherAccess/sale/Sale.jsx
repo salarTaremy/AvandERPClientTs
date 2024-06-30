@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import FormUsersBrandAccess from './FormUsersBrandAccess';
 import FormUsersCustomerGroupAccess from './FormUsersCustomerGroupAccess';
 import FormUsersCustomerTypeAccess from './FormUsersCustomerTypeAccess';
-import FormUsersSaleChannelaccess from './FormUsersSaleChannelAccess';
+import FormUsersSaleChannelaccess from './FormUsersSaleChannelaccess';
 import FormUsersSaleDocumentTypeAccess from './FormUsersSaleDocumentTypeAccess';
 
 

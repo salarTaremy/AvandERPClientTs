@@ -10,7 +10,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import FormEditCustomerGroup from "../edit/FormEditCustomerGroup";
 import * as uuid from "uuid";
-import FormAddNewCustomerGrup from "../add/FormaddNewCustomerGrup";
+import FormAddNewCustomerGrup from "../add/FormAddNewCustomerGrup";
 
 const CustomerGroupList = () => {
     const [listData, loading, error, ApiCall] = useFetchWithHandler();

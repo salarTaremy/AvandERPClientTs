@@ -7,7 +7,7 @@ import "./scss/style.scss";
 import "./index.css";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
-
+import Login from "./Pages/login/Login";
 const toastProps = {
   position: "bottom-left",
   autoClose: 3000,
@@ -20,7 +20,7 @@ const toastProps = {
   pauseOnHover: true,
   theme: "colored",
 };
-import Login from "@/pages/login/Login";
+
 //==============================================================
 const App = () => {
   const themeName = useSelector((state) => state.theme);

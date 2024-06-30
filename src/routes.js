@@ -40,7 +40,8 @@ import BranchList from './Pages/generalSettings/branch/list/BranchList'
 import UserManagement from './Pages/generalSettings/user/list/UserManagement'
 
 //salesCommerce
-import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/saleChannelList'
+// import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/saleChannelList'
+import SaleChannel from './Pages/salesCommerce/basicInformation/saleChannel/list/SaleChannelList'
 import PaymentType from './Pages/salesCommerce/basicInformation/paymentType/list/PaymentTypeList'
 import Currency from './Pages/salesCommerce/basicInformation/currency/list/CurrencyList'
 import DeliveryType from './Pages/salesCommerce/basicInformation/deliveryType/list/DeliveryTypeList'
@@ -59,7 +60,8 @@ import VisitorManagmentList from './Pages/salesCommerce/basicInformation/visitor
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
-import CounterPartyBlackList from './Pages/manageCounterParty/CounterPartyBlackList/list/counterPartyBlackList'
+//import CounterPartyBlackList from './Pages/manageCounterParty/CounterPartyBlackList/list/counterPartyBlackList'
+  import CounterPartyBlackList from './Pages/manageCounterParty/counterPartyBlackList/list/CounterPartyBlackList'
 import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounterParty'
 
 
