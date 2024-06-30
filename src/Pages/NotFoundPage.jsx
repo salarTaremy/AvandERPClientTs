@@ -3,7 +3,11 @@ import * as Ant from "antd";
 const NotFoundPage = () => {
   return (
     <Ant.Card>
-      <p>{"این صفحه موجود نیست"}</p>
+      <Ant.Result
+    status="404"
+    title="404"
+    subTitle="اوه... این صفحه وجود نداره !"
+  />
     </Ant.Card>
   );
 };
