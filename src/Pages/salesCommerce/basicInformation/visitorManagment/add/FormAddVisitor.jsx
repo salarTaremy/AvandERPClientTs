@@ -11,11 +11,11 @@ import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
-import { MdOutlineAdd } from "react-icons/md";
 import * as defaultValues from "@/defaultValues";
 import { FormCounterpartyAdd } from "@/Pages/manageCounterParty/add/FormCounterpartyAdd";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 import { FaUserPlus } from "react-icons/fa6";
+import { PlusOutlined } from '@ant-design/icons'
 
 const FormAddVisitor = ({ onSuccess }) => {
     const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -141,7 +141,7 @@ const FormAddVisitor = ({ onSuccess }) => {
 
     return (
         <>
-            <ModalHeader title={'ایجاد ویزیتور'} icon={<FaUserPlus />}/>
+            <ModalHeader title={'ایجاد ویزیتور'} icon={<FaUserPlus />} />
             <Ant.Modal
                 {...defaultValues.MODAL_PROPS}
                 {...defaultValues.MODAL_LARGE}
@@ -163,31 +163,33 @@ const FormAddVisitor = ({ onSuccess }) => {
                     <Ant.Col span={24} sm={10}>
                         {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                         <CardContent bordered>
-                            <Ant.Row gutter={[19]}>
-                                <Ant.Col span={21}>
-                                    <Ant.Form.Item
-                                        rules={[{ required: true }]}
-                                        name={"counterpartyId"}
-                                        label="طرف حساب مرتبط"
-                                    >
-                                        <DebounceSelect
-                                            onChange={handleCounterParty}
-                                            maxCount={1}
-                                            placeholder="بخشی از نام طرف حساب را تایپ کنید..."
-                                            fetchOptions={getAllCounterPartyForDropDown}
-                                        />
-                                    </Ant.Form.Item>
-                                </Ant.Col>
-                                <Ant.Col span={3}>
-                                    <Ant.Tooltip title={"افزودن"}>
-                                        <Ant.Button
-                                            className="mt-8"
-                                            onClick={() => { onAddCounterparty() }}
-                                            icon={<MdOutlineAdd />}
-                                        />
-                                    </Ant.Tooltip>
-                                </Ant.Col>
-                            </Ant.Row>
+                            <Ant.Col s>
+                                <Ant.Form.Item
+                                    rules={[{ required: true }]}
+                                    name={"counterpartyId"}
+                                    label="طرف حساب مرتبط"
+                                >
+                                    <DebounceSelect
+                                        onChange={handleCounterParty}
+                                        maxCount={1}
+                                        placeholder="بخشی از نام طرف حساب را تایپ کنید..."
+                                        fetchOptions={getAllCounterPartyForDropDown}
+                                        dropdownRender={(menu) => (
+                                            <>
+                                                {menu}
+                                                <Ant.Button
+                                                    onClick={() => { onAddCounterparty() }}
+                                                    block
+                                                    type="primary"
+                                                    icon={<PlusOutlined />}
+                                                >
+                                                    {'ایجاد طرف حساب جدید'}
+                                                </Ant.Button>
+                                            </>
+                                        )}
+                                    />
+                                </Ant.Form.Item>
+                            </Ant.Col>
                             <Ant.Col>
                                 <Ant.Form.Item
                                     rules={[{ required: true }]}
@@ -249,7 +251,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                                     {"تایید"}
                                 </Ant.Button>
                             </Ant.Col>
-                            </CardContent>
+                        </CardContent>
                         {/* </Ant.Card> */}
                     </Ant.Col>
                     <Ant.Col span={24} sm={14}>
@@ -261,7 +263,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                                 ) : (
                                     <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                                 )}
-                                </CardContent>
+                            </CardContent>
                             {/* </Ant.Card> */}
                         </Ant.Skeleton>
                     </Ant.Col>
