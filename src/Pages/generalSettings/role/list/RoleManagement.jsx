@@ -165,7 +165,6 @@ function RoleManagement() {
   }
 
   const onView = (id) => {
-    console.log(id, "ooo");
     setModalState(true);
   };
 

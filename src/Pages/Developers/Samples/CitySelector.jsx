@@ -35,7 +35,6 @@ const CitySelector = (props) => {
   //====================================================================
   function onChange(value, selectedOptions) {
     setSelectedItem(value);
-    console.log("Onchenge", selectedOptions);
   }
   const filter = (inputValue, path) =>
     path.some(
@@ -46,7 +45,6 @@ const CitySelector = (props) => {
   //                        Child Components
   //====================================================================
   const onFinish = async (values) => {
-    console.log("onFinish", values);
     alert(JSON.stringify(values, null, 1, 1));
   };
   const CitySelector = () => {

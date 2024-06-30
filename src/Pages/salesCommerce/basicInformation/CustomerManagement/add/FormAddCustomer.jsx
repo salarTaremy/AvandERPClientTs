@@ -14,10 +14,10 @@ import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGr
 import * as defaultValues from "@/defaultValues";
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
-import { MdOutlineAdd } from "react-icons/md";
 import CardContent from "@/components/common/CardContent";
-import { FaUserPlus } from "react-icons/fa6";
+import { PlusOutlined } from '@ant-design/icons'
 import { FormCounterpartyAdd } from "@/Pages/manageCounterParty/add/FormCounterpartyAdd";
+import { FaUserPlus } from "react-icons/fa6";
 
 const FormAddCustomer = ({ onSucces }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -90,13 +90,11 @@ const FormAddCustomer = ({ onSucces }) => {
   }
 
   const handleCounterParty = async (val) => {
-    console.log(val, "vvvvvavava")
     setEmpty(val);
     await ApiCall(`${url.COUNTER_PARTY}/${val.key}`);
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
-    console.log(inputValue, "createFatemeh")
     const queryString = qs.stringify({
       counterpartyName: inputValue,
     });
@@ -176,7 +174,6 @@ const FormAddCustomer = ({ onSucces }) => {
   };
 
   const onAddCounterparty = () => {
-    console.log('asasas')
     setModalContent(< FormCounterpartyAdd key={uuid.v1()} onSuccess={onSuccessAddCounterparty} />);
     setModalState(true);
   };
@@ -207,36 +204,37 @@ const FormAddCustomer = ({ onSucces }) => {
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} sm={10}>
-
             <CardContent bordered >
-              <Ant.Row gutter={[19]}>
-                <Ant.Col span={21}>
-                  <Ant.Form.Item
-                    rules={[{ required: true }]}
-                    name={"counterpartyId"}
-                    label="طرف حساب مرتبط"
-                  >
-                    <DebounceSelect
-                      onChange={handleCounterParty}
-                      maxCount={1}
-                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
-                      fetchOptions={getAllCounterPartyForDropDown}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col span={3}>
-                  <Ant.Tooltip title={"افزودن"}>
-                    <Ant.Button
-                      className="mt-8"
-                      onClick={() => { onAddCounterparty() }}
-                      icon={<MdOutlineAdd />}
-                    />
-                  </Ant.Tooltip>
-                </Ant.Col>
-              </Ant.Row>
               <Ant.Col>
                 <Ant.Form.Item
-                  rules={[{ required: true }, { max: 10 }]}
+                  rules={[{ required: true }]}
+                  name={"counterpartyId"}
+                  label="طرف حساب مرتبط"
+                >
+                  <DebounceSelect
+                    onChange={handleCounterParty}
+                    maxCount={1}
+                    placeholder="بخشی از نام طرف حساب را تایپ کنید..."
+                    fetchOptions={getAllCounterPartyForDropDown}
+                    dropdownRender={(menu) => (
+                      <>
+                        {menu}
+                        <Ant.Button
+                          onClick={() => { onAddCounterparty() }}
+                          block
+                          type="primary"
+                          icon={<PlusOutlined />}
+                        >
+                          {'ایجاد طرف حساب جدید'}
+                        </Ant.Button>
+                      </>
+                    )}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col>
+                <Ant.Form.Item
+                  rules={[{ required: true }]}
                   name={"code"}
                   label="کد"
                 >
@@ -251,69 +249,77 @@ const FormAddCustomer = ({ onSucces }) => {
               </Ant.Col>
               <Ant.Col>
                 <Ant.Form.Item
-                  rules={[{ required: true }, { max: 20 }]}
+                  rules={[{ required: true }]}
                   name={"secondCode"}
                   label="کد دوم"
                 >
-                  <Ant.Input allowClear showCount />
+                  <Ant.Input
+                    allowClear
+                    showCount
+                    maxLength={20}
+                  />
                 </Ant.Form.Item>
               </Ant.Col>
-              <Ant.Row gutter={[19]}>
-                <Ant.Col span={21}>
-                  <Ant.Form.Item
-                    rules={[{ required: true }]}
-                    name={"groupId"}
-                    label="گروه"
-                  >
-                    <Ant.Select
-                      {...commonOptions}
-                      allowClear={true}
-                      placeholder={"انتخاب کنید..."}
-                      disabled={customerGroupLoading || false}
-                      loading={customerGroupLoading}
-                      options={customerGroupList?.data}
-                      fieldNames={{ label: "title", value: "id" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col >
-                  <Ant.Tooltip title={"افزودن"}>
-                    <Ant.Button
-                      className="mt-8"
-                      onClick={() => { onAddGroup() }}
-                      icon={<MdOutlineAdd />}
-                    />
-                  </Ant.Tooltip>
-                </Ant.Col>
-              </Ant.Row>
-              <Ant.Row gutter={[19]}>
-                <Ant.Col span={21}>
-                  <Ant.Form.Item
-                    rules={[{ required: true }]}
-                    name={"typeId"}
-                    label="نوع"
-                  >
-                    <Ant.Select
-                      {...commonOptions}
-                      allowClear={true}
-                      placeholder={"انتخاب کنید..."}
-                      disabled={customerTypeLoading || false}
-                      loading={customerTypeLoading}
-                      options={customerTypeList?.data}
-                      fieldNames={{ label: "title", value: "id" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col >
-                  <Ant.Tooltip title={"افزودن"}>
-                    <Ant.Button
-                      className="mt-8 "
-                      onClick={() => { onAddType() }}
-                      icon={<MdOutlineAdd />}
-                    />
-                  </Ant.Tooltip>
-                </Ant.Col>
-              </Ant.Row>
+              <Ant.Col>
+                <Ant.Form.Item
+                  rules={[{ required: true }]}
+                  name={"groupId"}
+                  label="گروه"
+                >
+                  <Ant.Select
+                    {...commonOptions}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disabled={customerGroupLoading || false}
+                    loading={customerGroupLoading}
+                    options={customerGroupList?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                    dropdownRender={(menu) => (
+                      <>
+                        {menu}
+                        <Ant.Button
+                          onClick={() => { onAddGroup() }}
+                          block
+                          type="primary"
+                          icon={<PlusOutlined />}
+                        >
+                          {'ایجاد گروه مشتری جدید'}
+                        </Ant.Button>
+                      </>
+                    )}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col>
+                <Ant.Form.Item
+                  rules={[{ required: true }]}
+                  name={"typeId"}
+                  label="نوع"
+                >
+                  <Ant.Select
+                    {...commonOptions}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disabled={customerTypeLoading || false}
+                    loading={customerTypeLoading}
+                    options={customerTypeList?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                    dropdownRender={(menu) => (
+                      <>
+                        {menu}
+                        <Ant.Button
+                          onClick={() => { onAddType() }}
+                          block
+                          type="primary"
+                          icon={<PlusOutlined />}
+                        >
+                          {'ایجاد نوع مشتری جدید'}
+                        </Ant.Button>
+                      </>
+                    )}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
               <Ant.Col>
                 <Ant.Form.Item
                   rules={[{ required: true }]}

@@ -51,7 +51,6 @@ export const FrmAddAccountDocument = (props) => {
   };
 
   const onFinish = async (values) => {
-    console.log(values, "valuesvalues");
 
     const header = {
       ...values,
@@ -84,7 +83,6 @@ export const FrmAddAccountDocument = (props) => {
       header,
       // details: [],
     };
-    console.log(dto, "dto");
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
     navigate("/accounting/accountDocument");
   };
