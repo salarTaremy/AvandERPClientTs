@@ -104,7 +104,6 @@ const EditProductList = () => {
 
     useEffect(() => {
         form.resetFields()
-        console.log(listData?.data,"listData?.data")
         listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
     }, [listData])
 
@@ -146,12 +145,10 @@ const EditProductList = () => {
     //                        Functions
     //=====================================================================
     const getProductList = async () => {
-        console.log('product', params.id)
         await ApiCall(`${url.PRODUCT}/${params.id}`)
     }
 
     const onFinish = async (values) => {
-        console.log(values, 'values')
         setLoading(true)
         const req = { ...values, id: params.id }
         await editApiCall(url.PRODUCT, req)

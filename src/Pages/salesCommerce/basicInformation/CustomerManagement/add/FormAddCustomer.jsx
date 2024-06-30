@@ -90,13 +90,11 @@ const FormAddCustomer = ({ onSucces }) => {
   }
 
   const handleCounterParty = async (val) => {
-    console.log(val, "vvvvvavava")
     setEmpty(val);
     await ApiCall(`${url.COUNTER_PARTY}/${val.key}`);
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
-    console.log(inputValue, "createFatemeh")
     const queryString = qs.stringify({
       counterpartyName: inputValue,
     });
@@ -176,7 +174,6 @@ const FormAddCustomer = ({ onSucces }) => {
   };
 
   const onAddCounterparty = () => {
-    console.log('asasas')
     setModalContent(< FormCounterpartyAdd key={uuid.v1()} onSuccess={onSuccessAddCounterparty} />);
     setModalState(true);
   };

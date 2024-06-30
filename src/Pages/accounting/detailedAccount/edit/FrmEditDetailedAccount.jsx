@@ -69,7 +69,6 @@ export const FrmEditDetailedAccount = (props) => {
     return <>{selectedItem?.code}</>
   }
   const handleOnChange = (val, option) => {
-    console.log(option, 'optionoption')
     form.setFieldsValue({ code: undefined })
     setSelectedDetailedAccGrpId(option.id)
   }

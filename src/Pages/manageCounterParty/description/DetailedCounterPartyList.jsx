@@ -97,8 +97,8 @@ const DetailedCounterPartyList = (props) => {
         <Ant.Divider />
         <Ant.Tabs type="card" defaultActiveKey="1">
           <TabPane tab="اطلاعات تماس " key="1">
-            {data?.data?.phoneNumberList &&
-            data?.data?.phoneNumberList.length == 0 ? (
+            {data?.data?.addressList[0]?.phoneNumberList &&
+            data?.data?.addressList[0]?.phoneNumberList.length == 0 ? (
               <Ant.Empty />
             ) : (
               <PhoneNumberList data={data?.data?.phoneNumberList} />
