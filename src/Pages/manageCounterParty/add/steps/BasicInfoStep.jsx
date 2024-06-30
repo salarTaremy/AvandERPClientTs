@@ -148,14 +148,8 @@ export const BasicInfoStep = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Card
-        style={{
-          minHeight: "60vh",
-          maxHeight: "60vh",
-          overflow: "scroll",
-          boxShadow: "none",
-        }}
-        bordered={false}
+      <CardContent
+      Height = "70vh"
       >
         <Ant.Skeleton loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>
@@ -172,9 +166,9 @@ export const BasicInfoStep = (props) => {
               </Ant.Form.Item>
             </Ant.Col>
           </Ant.Row>
+          <Ant.Space direction="vertical">
 
           {/*** کدگذاری ***/}
-          <Ant.Space direction="vertical">
             <CardContent title={"کدگذاری"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -588,7 +582,7 @@ export const BasicInfoStep = (props) => {
             </CardContent>
           </Ant.Space>
         </Ant.Skeleton>
-      </Ant.Card>
+      </CardContent>
     </>
   );
 };
