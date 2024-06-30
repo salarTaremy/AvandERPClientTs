@@ -1,7 +1,7 @@
 import React from "react";
 import * as Ant from "antd";
 
-const CardContent = (props) => {
+const CoustomContent = (props) => {
   const { Shadow, bordered,Height } = props;
   const cardStyle = {
     overflow: "auto",
@@ -21,4 +21,4 @@ const CardContent = (props) => {
   );
 };
 
-export default CardContent
+export default CoustomContent

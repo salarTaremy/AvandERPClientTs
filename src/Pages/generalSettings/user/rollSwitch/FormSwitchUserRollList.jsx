@@ -13,7 +13,7 @@ import qs from "qs";
 import useRequestManager from "@/hooks/useRequestManager";
 import * as styles from "@/styles";
 import ModalHeader from "@/components/common/ModalHeader";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   const [dataSource, setDataSource] = useState(null);
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -173,7 +173,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     <>
       <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} />
 
-      <CardContent >
+      <CoustomContent >
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -184,7 +184,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
-      </CardContent>
+      </CoustomContent>
 
       <Ant.Button
         block

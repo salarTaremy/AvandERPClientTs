@@ -10,7 +10,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import FilterPanel from "../action/FilterPanel";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 import * as styles from "@/styles";
 
 const RoleActionList = ({ id, name }) => {
@@ -116,7 +116,7 @@ const RoleActionList = ({ id, name }) => {
   return (
     <>
       <ModalHeader title={`عملیات نقش "${name}"`} />
-      <CardContent>
+      <CoustomContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -127,7 +127,7 @@ const RoleActionList = ({ id, name }) => {
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
-      </CardContent>
+      </CoustomContent>
     </>
   );
 };

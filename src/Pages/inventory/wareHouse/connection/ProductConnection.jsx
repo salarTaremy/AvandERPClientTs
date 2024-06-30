@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import * as Ant from "antd";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import * as defaultValues from "@/defaultValues";
 import ButtonList from "@/components/common/ButtonList";
@@ -154,7 +154,7 @@ const ProductConnection = (props) => {
   return (
     <>
       <ModalHeader title={"تخصیص کالا به انبار"} />
-      <CardContent>
+      <CoustomContent>
         <Ant.Skeleton loading={loading}>
           <FilterDrawer
             open={openFilter}
@@ -181,7 +181,7 @@ const ProductConnection = (props) => {
             </Ant.Form.Item>
           </FilterBedge>
         </Ant.Skeleton>
-      </CardContent>
+      </CoustomContent>
     </>
   );
 };

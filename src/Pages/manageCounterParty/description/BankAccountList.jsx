@@ -1,7 +1,7 @@
 import React from "react";
 import * as Ant from "antd";
 import { AiTwotoneBank } from "react-icons/ai";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 const BankAccountList = ({ data }) => {
   return (
     <>
@@ -9,7 +9,7 @@ const BankAccountList = ({ data }) => {
         return (
           <>
             <Ant.List itemLayout="horizontal">
-              <CardContent bordered >
+              <CoustomContent bordered >
                 <Ant.List.Item>
                   <AiTwotoneBank className="mx-2" />
                   {"بانک :"} {item.bankName}
@@ -24,7 +24,7 @@ const BankAccountList = ({ data }) => {
                   {" , "}
                   {"شماره شبا :"} {item.shebaNumber}{" "}
                 </Ant.List.Item>
-              </CardContent>
+              </CoustomContent>
             </Ant.List>
           </>
         );

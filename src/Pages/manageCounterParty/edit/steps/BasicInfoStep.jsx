@@ -7,7 +7,7 @@ import * as url from "@/api/url";
 import { useFetchWithHandler } from "@/api";
 import { validateNationalCode } from "@/Tools";
 import useRequestManager from "@/hooks/useRequestManager";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -143,7 +143,7 @@ export const BasicInfoStep = (props) => {
   //====================================================================
   return (
     <>
-   <CardContent
+   <CoustomContent
       Height = "70vh"
       >
         <Ant.Skeleton loading={counterpartyFetchLoading}>
@@ -164,7 +164,7 @@ export const BasicInfoStep = (props) => {
 
           {/*** کدگذاری ***/}
           <Ant.Space direction="vertical">
-            <CardContent title={"کدگذاری"} bordered size="small">
+            <CoustomContent title={"کدگذاری"} bordered size="small">
               {/* <Ant.Card title={"کدگذاری"} type="inner" size="small"> */}
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -208,11 +208,11 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CardContent>
+            </CoustomContent>
 
             {/*** اطلاعات هویتی ***/}
 
-            <CardContent title={"اطلاعات هویتی"} bordered size="small">
+            <CoustomContent title={"اطلاعات هویتی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -458,11 +458,11 @@ export const BasicInfoStep = (props) => {
                   </Ant.Col>
                 )}
               </Ant.Row>
-            </CardContent>
+            </CoustomContent>
 
             {/*** اطلاعات جغرافیایی ***/}
 
-            <CardContent title={"اطلاعات جغرافیایی"} bordered size="small">
+            <CoustomContent title={"اطلاعات جغرافیایی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={12} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -516,11 +516,11 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CardContent>
+            </CoustomContent>
 
             {/*** اطلاعات تکمیلی ***/}
 
-            <CardContent title={"اطلاعات تکمیلی"} bordered size="small">
+            <CoustomContent title={"اطلاعات تکمیلی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={10} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -560,10 +560,10 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CardContent>
+            </CoustomContent>
           </Ant.Space>
         </Ant.Skeleton>
-      </CardContent>
+      </CoustomContent>
     </>
   );
 };

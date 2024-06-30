@@ -1,12 +1,12 @@
 import React from "react";
 import { CheckOutlined, CloseOutlined, PhoneOutlined } from "@ant-design/icons";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 import { FaRegAddressBook } from "react-icons/fa6";
 import * as Ant from "antd";
 const AddressList = ({ data }) => {
   return (
     <>
-      <CardContent bordered Height="20vh">
+      <CoustomContent bordered Height="20vh">
         <Ant.List>
           {data?.map((item) => {
             return (
@@ -45,7 +45,7 @@ const AddressList = ({ data }) => {
             );
           })}
         </Ant.List>
-      </CardContent>
+      </CoustomContent>
     </>
   );
 };

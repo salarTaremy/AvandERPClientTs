@@ -6,7 +6,7 @@ import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -200,7 +200,7 @@ const FormEditCustomer = ({ id }) => {
                 loading={editLoading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
               > */}
-              <CardContent bordered loading={editLoading}>
+              <CoustomContent bordered loading={editLoading}>
                 <Ant.Col>
                   <Ant.Form.Item
                     rules={[{ required: true }, { max: 10 }]}
@@ -347,18 +347,18 @@ const FormEditCustomer = ({ id }) => {
                     {"تایید"}
                   </Ant.Button>
                 </Ant.Col>
-              </CardContent>
+              </CoustomContent>
               {/* </Ant.Card> */}
             </Ant.Col>
             <Ant.Col span={24} sm={14}>
               {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-              <CardContent bordered loading={editLoading} >
+              <CoustomContent bordered loading={editLoading} >
                 {/* {empty == undefined ? (
                   <Ant.Empty loading={editLoading} />
                 ) : ( */}
                 <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
                 {/* )} */}
-              </CardContent>
+              </CoustomContent>
               {/* </Ant.Card> */}
             </Ant.Col>
           </Ant.Row>

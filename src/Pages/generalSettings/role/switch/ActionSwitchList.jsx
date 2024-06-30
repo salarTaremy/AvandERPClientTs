@@ -14,7 +14,7 @@ import { VscGithubAction } from "react-icons/vsc";
 import FormActionPermission from "./permission/FormActionPermission";
 import * as uuid from "uuid";
 import * as styles from "@/styles";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 
 const ActionSwitchList = (props) => {
   const { roleId, name, onSuccess } = props;
@@ -175,7 +175,7 @@ const ActionSwitchList = (props) => {
         {modalContent}
       </Ant.Modal>
 
-      <CardContent>
+      <CoustomContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -186,7 +186,7 @@ const ActionSwitchList = (props) => {
         <FilterBedge filterCount={filterCount}>
           <Grid />
         </FilterBedge>
-      </CardContent>
+      </CoustomContent>
     </>
   );
 };

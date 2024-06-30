@@ -5,7 +5,7 @@ import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 
 const RoleMenuList = ({ id, name, onSuccess }) => {
   const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -96,7 +96,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
     <>
       <ModalHeader title={`دسترسی منو نقش " ${name} "`} />
       <Ant.Skeleton loading={loading}>
-        <CardContent>
+        <CoustomContent>
           <Ant.Tree
             checkable
             onExpand={onExpand}
@@ -108,7 +108,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
             selectedKeys={selectedKeys}
             treeData={items}
           />
-        </CardContent>
+        </CoustomContent>
       </Ant.Skeleton>
 
       <Ant.Button type="primary" onClick={onFinish}>

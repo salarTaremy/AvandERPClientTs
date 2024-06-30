@@ -10,7 +10,7 @@ import { RequestManager } from '@/components/common/RequestManager'
 import { FrmEditAccount } from './edit/FrmEditAccount'
 import { FrmEditAccountGroup } from './edit/FrmEditAccountGroup'
 import { FrmEditAccountHeader } from './edit/FrmEditAccountHeader'
-import CardContent from "@/components/common/CardContent";
+import CoustomContent from "@/components/common/CoustomContent";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -103,7 +103,7 @@ const Account = () => {
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
-              <CardContent bordered Height="77vh" loading={accLoading}>
+              <CoustomContent bordered Height="77vh" loading={accLoading}>
                 <Tree
                   showIcon
                   blockNode
@@ -113,12 +113,12 @@ const Account = () => {
                   showLine={true}
                 />
               {/* </Ant.Card> */}
-              </CardContent>
+              </CoustomContent>
             </Ant.Col>
 
             <Ant.Col span={24} sm={14}>
               {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
-              <CardContent bordered Height="77vh" loading={accLoading}>
+              <CoustomContent bordered Height="77vh" loading={accLoading}>
                 {!selectedNode && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 0 && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 1 && (
@@ -130,7 +130,7 @@ const Account = () => {
                 {selectedNode?.level === 3 && (
                   <FrmEditAccount key={selectedNode?.id} accountId={selectedNode?.id} />
                 )}
-                 </CardContent>
+                 </CoustomContent>
               {/* </Ant.Card> */}
 
             </Ant.Col>
