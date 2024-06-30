@@ -98,7 +98,6 @@ const FormAddVisitor = ({ onSuccess }) => {
     };
 
     const onAddCounterparty = () => {
-        console.log('asasas')
         setModalContent(< FormCounterpartyAdd key={uuid.v1()} onSuccess={onSuccessAdd} />);
         setModalState(true);
     };

@@ -18,20 +18,11 @@ export const ACC = (props) => {
     const [accountData, accountLoading, accountError] = useFetch(url.ACCOUNT)
 
     const onChangeAccount = (value, key) => {
-        console.log(value, 'value')
-        console.log(key, 'key')
-        console.log(key, 'key')
-        console.log(record, 'record')
 
         const selected = accountData?.data.find((account) => account.id === value)
-
-        console.log(selected.code, 'selected')
         setSelectedAccount(selected?.code || null)
         // setSelectedAccount(selected.code)
         // alert(selected.code)
-
-        console.log(selectedAccount, 'selectedAccount')
-
 
         setDataSource((prevDataSource) =>
             // code: accountData?.data.find(acc => acc.id === value)?.code || null

@@ -74,9 +74,7 @@ export const FrmEditAccountDocument = (props) => {
     setSumCreditorEdit(creditor);
   };
   const onFinish = async (values) => {
-    alert("jjj");
     // let valueHeader = form.getFieldsValue();
-    console.log(values, "editaaaaaaaaa");
     const header = {
       ...values,
       documentNumber: 0,
@@ -110,7 +108,7 @@ export const FrmEditAccountDocument = (props) => {
       header,
       // details: [],
     };
-    console.log(header, "headerheader");
+
     await editApiCall(url.ACCOUNT_DOCUMENT, dto);
     navigate("/accounting/accountDocument");
   };

@@ -19,7 +19,6 @@ const getStateColor = (stateId) => {
   }
 };
 const getTypeColor = (typeId) => {
-  console.log("faaaajjeee  eeeeee");
   switch (typeId) {
     case 1:
       return "green";

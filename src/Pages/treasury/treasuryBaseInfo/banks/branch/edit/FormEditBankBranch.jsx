@@ -46,7 +46,6 @@ const FormEditBranch = (props) => {
     //                        Functions
     //=====================================================================
     const onFinish = async (values) => {
-        console.log(values, 'values')
         setLoading(true)
         const req = {
             ...values,

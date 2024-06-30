@@ -43,7 +43,6 @@ const FormEditSaleType = (props) => {
     };
 
     const onFinish = async (values) => {
-        console.log(values, 'values')
         setLoading(true)
         const req = { ...values, id: id }
         await editApiCall(url.SALETYPE, req)
