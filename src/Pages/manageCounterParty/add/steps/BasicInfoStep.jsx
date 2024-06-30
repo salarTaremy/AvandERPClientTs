@@ -166,7 +166,7 @@ export const BasicInfoStep = (props) => {
               </Ant.Form.Item>
             </Ant.Col>
           </Ant.Row>
-          <Ant.Space direction="vertical">
+
 
           {/*** کدگذاری ***/}
             <CoustomContent title={"کدگذاری"} bordered size="small">
@@ -580,7 +580,7 @@ export const BasicInfoStep = (props) => {
                 </Ant.Col>
               </Ant.Row>
             </CoustomContent>
-          </Ant.Space>
+
         </Ant.Skeleton>
       </CoustomContent>
     </>
