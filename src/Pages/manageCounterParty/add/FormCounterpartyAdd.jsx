@@ -152,7 +152,7 @@ export const FormCounterpartyAdd = (props) => {
         loading={counterpartyAddLoading}
       />
       <Ant.Space direction="vertical" >
-        <Steps current={currentStep} size="small" className="mb-4">
+        <Steps current={currentStep} size="small" >
           {steps().map((step, index) => (
             <Step key={index} title={step.title} />
           ))}

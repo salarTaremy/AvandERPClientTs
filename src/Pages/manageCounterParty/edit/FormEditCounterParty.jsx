@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import { Steps, Form } from "antd";
-import {
-  usePutWithHandler,
-} from "@/api";
+import { usePutWithHandler } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { BasicInfoStep } from "../edit/steps/BasicInfoStep";
 import CounterpartyAddressList from "@/Pages/manageCounterParty/counterpartyContactInfo/address/list/CounterpartyAddressList";
 import CounterpartyBankAccountList from "@/Pages/manageCounterParty/counterpartyBankAccount/list/CounterpartyBankAccountList";
 import { FaUserPen } from "react-icons/fa6";
-
 
 const FormEditCounterParty = ({ onSuccess, id, key }) => {
   const [form] = Ant.Form.useForm();
@@ -28,7 +25,7 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
   const steps = () => [
     {
       title: "اطلاعات پایه",
-      content:
+      content: (
         <Ant.Form
           form={form}
           key={key}
@@ -37,7 +34,8 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
           onFinishFailed={onFinishFailed}
         >
           <BasicInfoStep form={form} id={id} />
-        </Ant.Form>,
+        </Ant.Form>
+      ),
     },
     {
       title: "اطلاعات تماس",
@@ -60,7 +58,7 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
   //====================================================================
   const onSuccessEdit = () => {
     setCurrentStep(currentStep + 1);
-  }
+  };
 
   const onFinish = async (values) => {
     await counterpartyEditApiCall(url.COUNTER_PARTY, { ...formValues, id: id });
@@ -77,16 +75,25 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
       const cityFields = {};
       cityFields.cityId = formFields.cityId[1];
       if (formFields.birthCertificatePlaceOfIssueCityId) {
-        cityFields.birthCertificatePlaceOfIssueCityId = formFields.birthCertificatePlaceOfIssueCityId[1];
+        cityFields.birthCertificatePlaceOfIssueCityId =
+          formFields.birthCertificatePlaceOfIssueCityId[1];
       }
       if (formFields.companyRegistrationPlaceCityId) {
-        cityFields.companyRegistrationPlaceCityId = formFields.companyRegistrationPlaceCityId[1];
+        cityFields.companyRegistrationPlaceCityId =
+          formFields.companyRegistrationPlaceCityId[1];
       }
       const dateFields = {};
       if (formFields.birthDateCalendarId) {
-        dateFields.birthDateCalendarId = formFields.birthDateCalendarId.toString().replace(/\//g, "");
+        dateFields.birthDateCalendarId = formFields.birthDateCalendarId
+          .toString()
+          .replace(/\//g, "");
       }
-      setFormValues({ ...formValues, ...formFields, ...cityFields, ...dateFields });
+      setFormValues({
+        ...formValues,
+        ...formFields,
+        ...cityFields,
+        ...dateFields,
+      });
       form.submit();
     } catch (error) {
       steps()[currentStep + 1].status = "error";
@@ -102,9 +109,9 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
     setCurrentStep(currentStep - 1);
   };
 
-  const onSuccessEnd=()=>{
-    onSuccess()
-  }
+  const onSuccessEnd = () => {
+    onSuccess();
+  };
 
   //====================================================================
   //                        Component
@@ -112,31 +119,25 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
   return (
     <>
       <ModalHeader title={"ویرایش طرف حساب"} icon={<FaUserPen />} />
-      <div style={{ minHeight: "100px" }}>
-        <Steps current={currentStep} size="small" className="mb-4">
-          {steps().map((step, index) => (
-            <Step key={index} title={step.title} />
-          ))}
-        </Steps>
-        <>{steps()[currentStep].content}</>
+      <Ant.Space direction="vertical">
+      <Steps current={currentStep} size="small" >
+        {steps().map((step, index) => (
+          <Step key={index} title={step.title} />
+        ))}
+      </Steps>
+      <>{steps()[currentStep].content}</>
+
         <Ant.Row gutter={[16, 8]} justify="end">
           {currentStep > 0 && (
             <Ant.Col span={24} sm={12} md={4}>
-              <Ant.Button
-                onClick={prevStep}
-                block
-              >
+              <Ant.Button onClick={prevStep} block>
                 {"قبلی"}
               </Ant.Button>
             </Ant.Col>
           )}
           {currentStep === 0 && (
             <Ant.Col span={24} sm={12} md={4}>
-              <Ant.Button
-                type="primary"
-                block
-                onClick={onSave}
-              >
+              <Ant.Button type="primary" block onClick={onSave}>
                 {"ذخیره و ادامه"}
               </Ant.Button>
             </Ant.Col>
@@ -150,17 +151,13 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
           )}
           {currentStep === steps().length - 1 && (
             <Ant.Col span={24} sm={12} md={4}>
-              <Ant.Button
-                type="primary"
-                block
-                onClick={onSuccessEnd}
-              >
+              <Ant.Button type="primary" block onClick={onSuccessEnd}>
                 {"اتمام"}
               </Ant.Button>
             </Ant.Col>
           )}
         </Ant.Row>
-      </div>
+      </Ant.Space>
     </>
     // )
   );
