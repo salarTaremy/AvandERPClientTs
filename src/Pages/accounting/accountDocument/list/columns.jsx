@@ -99,14 +99,14 @@ export const columns = (onDelete, onEdit, onView) => {
       className: "text-xs sm:text-sm",
       width: 80,
       render: (text, record, index) => (
- <>
-        <Ant.Tag color={getStateColor(record.stateId)} key={record.id}>
-          {record.stateName}
-        </Ant.Tag>
-                <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
-                {record.typeName}
-              </Ant.Tag>
- </>
+        <>
+          <Ant.Tag color={getStateColor(record.stateId)} key={record.id}>
+            {record.stateName}
+          </Ant.Tag>
+          <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
+            {record.typeName}
+          </Ant.Tag>
+        </>
       ),
     },
     {
