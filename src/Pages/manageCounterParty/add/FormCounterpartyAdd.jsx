@@ -36,19 +36,20 @@ export const FormCounterpartyAdd = (props) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [form] = Form.useForm();
 
-  const steps =() =>   [
+  const steps = () => [
     {
       title: "اطلاعات پایه",
-      content: 
-      <Ant.Form
-        form={form}
-        key={uuid.v1()}
-        layout="vertical"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
-        <BasicInfoStep form={form} counterpartyId={counterpartyId}/>
-      </Ant.Form>,
+      content: (
+        <Ant.Form
+          form={form}
+          key={uuid.v1()}
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <BasicInfoStep form={form} counterpartyId={counterpartyId} />
+        </Ant.Form>
+      ),
     },
     {
       title: "اطلاعات تماس",
@@ -81,16 +82,17 @@ export const FormCounterpartyAdd = (props) => {
 
   const onSuccessEdit = () => {
     setCurrentStep(currentStep + 1);
-  }
+  };
 
   const onFinish = async (values) => {
     if (counterpartyId === 0) {
       await counterpartyAddApiCall(url.COUNTER_PARTY, { ...formValues });
+    } else {
+      await counterpartyEditApiCall(url.COUNTER_PARTY, {
+        ...formValues,
+        id: counterpartyId,
+      });
     }
-    else {
-      await counterpartyEditApiCall(url.COUNTER_PARTY, { ...formValues, id: counterpartyId });
-    }
-    
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -104,16 +106,25 @@ export const FormCounterpartyAdd = (props) => {
       const cityFields = {};
       cityFields.cityId = formFields.cityId[1];
       if (formFields.birthCertificatePlaceOfIssueCityId) {
-        cityFields.birthCertificatePlaceOfIssueCityId = formFields.birthCertificatePlaceOfIssueCityId[1];
+        cityFields.birthCertificatePlaceOfIssueCityId =
+          formFields.birthCertificatePlaceOfIssueCityId[1];
       }
       if (formFields.companyRegistrationPlaceCityId) {
-        cityFields.companyRegistrationPlaceCityId = formFields.companyRegistrationPlaceCityId[1];
+        cityFields.companyRegistrationPlaceCityId =
+          formFields.companyRegistrationPlaceCityId[1];
       }
       const dateFields = {};
       if (formFields.birthDateCalendarId) {
-        dateFields.birthDateCalendarId = formFields.birthDateCalendarId.toString().replace(/\//g, "");
+        dateFields.birthDateCalendarId = formFields.birthDateCalendarId
+          .toString()
+          .replace(/\//g, "");
       }
-      setFormValues({ ...formValues, ...formFields, ...cityFields, ...dateFields });
+      setFormValues({
+        ...formValues,
+        ...formFields,
+        ...cityFields,
+        ...dateFields,
+      });
       form.submit();
     } catch (error) {
       steps()[currentStep + 1].status = "error";
@@ -134,63 +145,60 @@ export const FormCounterpartyAdd = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"افزودن طرف حساب"} icon={<FaUserPlus />}/>
+      <ModalHeader title={"افزودن طرف حساب"} icon={<FaUserPlus />} />
       <RequestManager
         error={counterpartyAddError}
         data={counterpartyAddedData}
         loading={counterpartyAddLoading}
       />
-      {/* <div style={{ minHeight: "100px" }}> */}
+      <Ant.Space direction="vertical" >
         <Steps current={currentStep} size="small" className="mb-4">
           {steps().map((step, index) => (
             <Step key={index} title={step.title} />
           ))}
         </Steps>
-          <>{steps()[currentStep].content}</>
-          <Ant.Row gutter={[16, 8]} justify="end">
-            {currentStep > 0 && (
-              <Ant.Col span={24} sm={12} md={4}>
-                <Ant.Button
-                  disabled={counterpartyAddLoading}
-                  onClick={prevStep}
-                  block
-                >
-                  {"قبلی"}
-                </Ant.Button>
-              </Ant.Col>
-            )}
-            {currentStep === 0 && (
-              <Ant.Col span={24} sm={12} md={4}>
-                <Ant.Button
-                  loading={counterpartyAddLoading}
-                  type="primary"
-                  block
-                  onClick={onSave}
-                >
-                  {"ذخیره و ادامه"}
-                </Ant.Button>
-              </Ant.Col>
-            )}
-            {currentStep !== 0 && currentStep < steps().length - 1 && (
-              <Ant.Col span={24} sm={12} md={4}>
-                <Ant.Button type="primary" onClick={nextStep} block>
-                  {"بعدی"}
-                </Ant.Button>
-              </Ant.Col>
-            )}
-            {currentStep === steps().length - 1 && (
-              <Ant.Col span={24} sm={12} md={4}>
-                <Ant.Button
-                  type="primary"
-                  block
-                  onClick={onSuccess}
-                >
-                  {"اتمام"}
-                </Ant.Button>
-              </Ant.Col>
-            )}
-          </Ant.Row>
-      {/* </div> */}
+        <>{steps()[currentStep].content}</>
+
+        <Ant.Row gutter={[16, 8]} justify="end">
+          {currentStep > 0 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button
+                disabled={counterpartyAddLoading}
+                onClick={prevStep}
+                block
+              >
+                {"قبلی"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+          {currentStep === 0 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button
+                loading={counterpartyAddLoading}
+                type="primary"
+                block
+                onClick={onSave}
+              >
+                {"ذخیره و ادامه"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+          {currentStep !== 0 && currentStep < steps().length - 1 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button type="primary" onClick={nextStep} block>
+                {"بعدی"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+          {currentStep === steps().length - 1 && (
+            <Ant.Col span={24} sm={12} md={4}>
+              <Ant.Button type="primary" block onClick={onSuccess}>
+                {"اتمام"}
+              </Ant.Button>
+            </Ant.Col>
+          )}
+        </Ant.Row>
+      </Ant.Space>
     </>
     // )
   );
