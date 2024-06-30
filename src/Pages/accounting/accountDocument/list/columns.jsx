@@ -92,29 +92,21 @@ export const columns = (onDelete, onEdit, onView) => {
       width: 80,
     },
     {
-      title: "وضعیت",
+      title: "وضعیت/نوع",
       dataIndex: "stateName",
       key: "stateName",
       align: "center",
       className: "text-xs sm:text-sm",
       width: 80,
       render: (text, record, index) => (
+ <>
         <Ant.Tag color={getStateColor(record.stateId)} key={record.id}>
           {record.stateName}
         </Ant.Tag>
-      ),
-    },
-    {
-      title: "نوع",
-      dataIndex: "typeName",
-      key: "typeName",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 80,
-      render: (text, record, index) => (
-        <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
-          {record.typeName}
-        </Ant.Tag>
+                <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
+                {record.typeName}
+              </Ant.Tag>
+ </>
       ),
     },
     {
