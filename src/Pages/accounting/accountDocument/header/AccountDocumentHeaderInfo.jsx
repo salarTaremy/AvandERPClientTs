@@ -7,7 +7,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 //                        Declaration
 //====================================================================
 const AccountDocumentHeaderInfo = (props) => {
-  const { id, accountDocumentData, accountDocumentLoading } = props;
+  const { id, accountDocumentData } = props;
 
   const borderedItems = [
     {
@@ -59,14 +59,8 @@ const AccountDocumentHeaderInfo = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton active={true} loading={accountDocumentLoading}>
-        <ModalHeader title={"مشاهده سند حسابداری"} />
-        <Ant.Descriptions
-          bordered={false}
-          size="small"
-          items={borderedItems}
-        />
-      </Ant.Skeleton>
+      <ModalHeader title={"مشاهده سند حسابداری"} />
+      <Ant.Descriptions bordered={false} size="small" items={borderedItems} />
     </>
   );
 };

@@ -13,22 +13,27 @@ import * as styles from "@/styles";
 //====================================================================
 const AccountDocumentDescription = (props) => {
   const { id } = props;
-  const [accountDocumentData, accountDocumentLoading, accountDocumentError] = api.useFetch(`${url.ACCOUNT_DOCUMENT}/${id}`);
+  const [accountDocumentData, accountDocumentLoading, accountDocumentError] =
+    api.useFetch(`${url.ACCOUNT_DOCUMENT}/${id}`);
   useRequestManager({ error: accountDocumentError });
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <AccountDocumentHeaderInfo id={id} accountDocumentData={accountDocumentData} loading={accountDocumentLoading} />
-      <AccountDocumentDetail accountDocumentHeaderId={id} />
-      <AccountDocumentFooterInfo id={id} accountDocumentData={accountDocumentData} loading={accountDocumentLoading}  />
+      <Ant.Skeleton active={true} loading={accountDocumentLoading}>
+        <AccountDocumentHeaderInfo
+          id={id}
+          accountDocumentData={accountDocumentData}
+        />
+        <AccountDocumentDetail accountDocumentHeaderId={id} />
+        <AccountDocumentFooterInfo
+          id={id}
+          accountDocumentData={accountDocumentData}
+        />
+      </Ant.Skeleton>
     </>
-  )
-}
+  );
+};
 
 export default AccountDocumentDescription;
-
-
-
-
