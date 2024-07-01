@@ -20,10 +20,9 @@ const AccountDocumentDescription = (props) => {
   //====================================================================
   return (
     <>
-      <br />
-      <AccountDocumentHeaderInfo id={id} accountDocumentData={accountDocumentData} loading={accountDocumentLoading} className="pb-5" />
+      <AccountDocumentHeaderInfo id={id} accountDocumentData={accountDocumentData} loading={accountDocumentLoading} />
       <AccountDocumentDetail accountDocumentHeaderId={id} />
-      <AccountDocumentFooterInfo id={id} accountDocumentData={accountDocumentData} loading={accountDocumentLoading} className="pt-5" />
+      <AccountDocumentFooterInfo id={id} accountDocumentData={accountDocumentData} loading={accountDocumentLoading}  />
     </>
   )
 }

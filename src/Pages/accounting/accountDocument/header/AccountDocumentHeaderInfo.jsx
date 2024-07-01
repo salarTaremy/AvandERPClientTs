@@ -7,7 +7,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 //                        Declaration
 //====================================================================
 const AccountDocumentHeaderInfo = (props) => {
-  const { id, className, accountDocumentData, accountDocumentLoading } = props;
+  const { id, accountDocumentData, accountDocumentLoading } = props;
 
   const borderedItems = [
     {
@@ -65,7 +65,6 @@ const AccountDocumentHeaderInfo = (props) => {
           bordered={false}
           size="small"
           items={borderedItems}
-          className={className}
         />
       </Ant.Skeleton>
     </>
