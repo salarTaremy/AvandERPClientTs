@@ -151,6 +151,7 @@ const banksList = () => {
           setModalState(false);
         }}
         footer={null}
+        centered
         {...defaultValues.MODAL_PROPS}
         {...modalSize}
       >
