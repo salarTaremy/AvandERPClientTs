@@ -112,7 +112,7 @@ const CounterPartyList = () => {
     setModalState(true);
   };
   const onView = (id) => {
-    setModalContent(<DetailedCounterPartyList id={id} key={id} />);
+    setModalContent(<DetailedCounterPartyList id={id} key={uuid.v1()} />);
     setModalState(true);
   };
 

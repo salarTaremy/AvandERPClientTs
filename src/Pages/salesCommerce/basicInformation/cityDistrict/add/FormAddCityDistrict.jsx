@@ -90,7 +90,7 @@ const FormAddCityDistrict = (props) => {
                     label="توضیحات"
                     rules={[{ required: false }]}
                 >
-                    <Ant.Input.TextArea allowClear showCount maxLength={400} />
+                    <Ant.Input.TextArea allowClear showCount maxLength={400} rows={4}/>
                 </Ant.Form.Item>
                 <Ant.Form.Item>
                     <Ant.Button

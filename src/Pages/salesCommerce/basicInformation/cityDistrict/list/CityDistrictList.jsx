@@ -111,7 +111,7 @@ const CityDistrictList = () => {
         setModalContent(
             <FormEditCityDistrict
                 onSuccess={onSuccessEdit}
-                key={val.id}
+                key={uuid.v1()}
                 id={val.id}
             />
         );

@@ -36,9 +36,10 @@ const FormEditCityDistrict = (props) => {
     useEffect(() => {
         form.resetFields()
         listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
-        const provinceName = listData?.data?.provinceName;
-        const cityName = listData?.data?.cityName;
-        listData?.isSuccess && form.setFieldValue("cityId", [provinceName, cityName]);
+        const provinceId= listData?.data?.provinceId;
+        const cityId = listData?.data?.cityId;
+        listData?.isSuccess && form.setFieldValue("cityId", [provinceId, cityId]);
+        setSelectedCity([provinceId, cityId])
     }, [listData])
     //=====================================================================
     //                        Functions
@@ -66,6 +67,7 @@ const FormEditCityDistrict = (props) => {
             cityId: selectedCity[1]
         }
         await editApiCall(url.CITY_DISTRICT, req)
+        console.log('value',req)
         setLoading(false)
         onSuccess()
     }
@@ -99,7 +101,7 @@ const FormEditCityDistrict = (props) => {
                         <Ant.Input allowClear showCount maxLength={8} />
                     </Ant.Form.Item>
                     <Ant.Form.Item name="description" label="توضیحات" rules={[{ required: false }]}>
-                        <Ant.Input.TextArea allowClear showCount maxLength={400} />
+                        <Ant.Input.TextArea allowClear showCount maxLength={400} rows={4} />
                     </Ant.Form.Item>
                     <Ant.Form.Item>
                         <Ant.Button block

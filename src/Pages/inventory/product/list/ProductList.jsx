@@ -154,7 +154,7 @@ const ProductList = () => {
           setModalState(false)
         }}
         footer={null}
-
+        centered
         {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_LARGE}
       >
