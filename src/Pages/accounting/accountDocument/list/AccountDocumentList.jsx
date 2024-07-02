@@ -17,7 +17,7 @@ import AccountDocumentDescription from "@/Pages/accounting/accountDocument/descr
 import { useNavigate, generatePath } from "react-router-dom";
 import * as uuid from 'uuid'
 import FrmAddAccountDocument from "./../add/FrmAddAccountDocument"
-
+import AddItemDetailList from "./../add/AddItemDetailList"
 import FrmEditAccountDocument from "./../edit/FrmEditAccountDocument"
 //====================================================================
 //                        Declaration
@@ -129,6 +129,11 @@ const AccountDocumentList = () => {
     setModalContent(<AccountDocumentDescription id={id} key={id} />);
     setModalState(true);
   };
+  const addItem = (id) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE })
+    setModalContent(<AddItemDetailList  />);
+    setModalState(true);
+  };
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -137,6 +142,7 @@ const AccountDocumentList = () => {
     return (
       <ButtonList
         filterCount={filterCount}
+
         onAdd={onAdd}
         onRefresh={() => {
           fillGrid();
@@ -152,7 +158,7 @@ const AccountDocumentList = () => {
     return (
       <>
         <Ant.Table
-          columns={columns(onDelete, onEdit, onView)}
+          columns={columns(onDelete, onEdit, onView,addItem)}
           dataSource={dataSource}
           pagination={pagination}
           // loading={delLoading }

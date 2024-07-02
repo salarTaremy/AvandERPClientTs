@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrView } from "react-icons/gr";
 import { FiEdit, FiCalendar, FiClock } from "react-icons/fi";
-
+import { GrAddCircle } from "react-icons/gr";
 const getStateColor = (stateId) => {
   switch (stateId) {
     case 1:
@@ -35,7 +35,7 @@ const getTypeColor = (typeId) => {
   }
 };
 
-export const columns = (onDelete, onEdit, onView) => {
+export const columns = (onDelete, onEdit, onView,addItem) => {
   return [
     {
       title: "شماره",
@@ -120,6 +120,12 @@ export const columns = (onDelete, onEdit, onView) => {
         return (
           <>
             <Ant.Space>
+            <Ant.Button
+                onClick={() => addItem(record.id)}
+                className="text-green-600"
+                icon={<GrAddCircle />}
+                type="text"
+              />
               <Ant.Popconfirm
                 onConfirm={() => onDelete(record.id)}
                 title="حدف ایتم"
