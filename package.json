@@ -31,7 +31,9 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "sweetalert2": "^11.12.1",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "stimulsoft-reports-js": "^2023.1.1",
+    "stimulsoft-dashboards-js": "^2023.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
