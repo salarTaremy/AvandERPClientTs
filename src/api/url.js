@@ -136,6 +136,8 @@ export const PRICE_CIRCULAR_DETAIL = 'PriceCircularDetail'
 //Sales - TaxPayersSystem (سامانه مودیان)
 export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDocumentType'
 export const TPS_SALE_DOCUMENT_ISSUE = 'TaxPayersSystemBasicInformation/GetSaleDocumentIssue'
+export const TPS_INVOICE_MANAGEMENT = 'TaxPayersSystemInvoiceManagement'
+export const TPS_INVOICE_INQUIRY = 'TaxPayersSystemInvoiceManagement/Inquiry'
 
 //PaymentType
 export const PAYMENT_TYPE = 'PaymentType'

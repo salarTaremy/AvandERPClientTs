@@ -1,0 +1,185 @@
+import React, { useEffect, useState } from "react";
+import qs from "qs";
+import * as url from "@/api/url";
+import * as api from "@/api";
+import * as Ant from "antd";
+import DebounceSelect from "@/components/common/DebounceSelect";
+import MyDatePicker from "@/components/common/MyDatePicker";
+import useRequestManager from "@/hooks/useRequestManager";
+
+//====================================================================
+//                        Declaration
+//====================================================================
+const FilterPanel = (props) => {
+  const [form] = Ant.Form.useForm();
+  const [
+    saleDocumentIssueData,
+    saleDocumentIssueLoading,
+    saleDocumentIssueError,
+  ] = api.useFetch(url.TPS_SALE_DOCUMENT_ISSUE);
+  const [saleDocTypeData, saleDocTypeLoading, saleDocTypeError] = api.useFetch(
+    url.SALE_DOCUMENT_TYPE,
+  );
+  const { onSubmit, filterObject } = props;
+  useRequestManager({ error: saleDocumentIssueError });
+  useRequestManager({ error: saleDocTypeError });
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+  useEffect(() => {
+    const dateFilter = {};
+    console.log("filterObject", filterObject);
+    if (filterObject?.fromIssueDateCalendarId) {
+      const yearFrom = filterObject?.fromIssueDateCalendarId.substr(0, 4);
+      const monthFrom = filterObject?.fromIssueDateCalendarId.substr(4, 2);
+      const dayFrom = filterObject?.fromIssueDateCalendarId.substr(6, 2);
+      const formattedFromDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
+      dateFilter.fromIssueDateCalendarId = formattedFromDate;
+    }
+    if (filterObject?.toIssueDateCalendarId) {
+      const yearTo = filterObject?.toIssueDateCalendarId.substr(0, 4);
+      const monthTo = filterObject?.toIssueDateCalendarId.substr(4, 2);
+      const dayTo = filterObject?.toIssueDateCalendarId.substr(6, 2);
+      const formattedToDate = `${yearTo}/${monthTo}/${dayTo}`;
+      dateFilter.toIssueDateCalendarId = formattedToDate;
+    }
+    if (filterObject?.fromDateSentCalendarId) {
+      const yearTo = filterObject?.fromDateSentCalendarId.substr(0, 4);
+      const monthTo = filterObject?.fromDateSentCalendarId.substr(4, 2);
+      const dayTo = filterObject?.fromDateSentCalendarId.substr(6, 2);
+      const formattedFromDateSent = `${yearTo}/${monthTo}/${dayTo}`;
+      dateFilter.fromDateSentCalendarId = formattedFromDateSent;
+    }
+    if (filterObject?.toDateSentCalendarId) {
+      const yearTo = filterObject?.toDateSentCalendarId.substr(0, 4);
+      const monthTo = filterObject?.toDateSentCalendarId.substr(4, 2);
+      const dayTo = filterObject?.toDateSentCalendarId.substr(6, 2);
+      const formattedToDateSent = `${yearTo}/${monthTo}/${dayTo}`;
+      dateFilter.toDateSentCalendarId = formattedToDateSent;
+    }
+    filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
+  }, []);
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const onFinish = (values) => {
+    let customerFilter = {};
+    if (values?.customerId) {
+      customerFilter.customerId = {
+        label: values?.customerId.label,
+        key: values?.customerId.value,
+        value: values?.customerId.value,
+      };
+    } else {
+      customerFilter.customerId = undefined;
+    }
+    onSubmit({
+      ...values,
+      ...customerFilter,
+      fromIssueDateCalendarId: values?.fromIssueDateCalendarId
+        ?.toString()
+        .replace(/\//g, ""),
+        toIssueDateCalendarId: values?.toIssueDateCalendarId
+        ?.toString()
+        .replace(/\//g, ""),
+      fromDateSentCalendarId: values?.fromDateSentCalendarId
+        ?.toString()
+        .replace(/\//g, ""),
+      toDateSentCalendarId: values?.toDateSentCalendarId
+        ?.toString()
+        .replace(/\//g, ""),
+    });
+  };
+  const getCustomerForDropDown = async (searchText) => {
+    const queryString = qs.stringify({
+      customerName: searchText,
+    });
+
+    const response = await api.Get(
+      `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
+      "",
+    );
+    if (response?.data) {
+      return response?.data.map((item) => ({
+        label: `${item.customerName}`,
+        value: item.id,
+      }));
+    }
+  };
+  //====================================================================
+  //                        Component
+  //====================================================================
+  return (
+    <>
+      <Ant.Form
+        form={form}
+        onFinish={onFinish}
+        layout="vertical"
+        onFinishFailed={null}
+      >
+        {/*Status*/}
+        <Ant.Form.Item name={"documentSerialNumber"} label="شماره سریال">
+          <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"documentFiscalId"} label="شناسه مالیاتی">
+          <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"customerId"} label="مشتری">
+          <DebounceSelect
+            maxCount={1}
+            placeholder="بخشی از نام مشتری را تایپ کنید..."
+            fetchOptions={getCustomerForDropDown}
+            onChange={(newValue) => {
+              console.log("onChange debounce:" + newValue);
+            }}
+          />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"customerLegalEntityIdentity"} label="کد/شناسه ملی">
+          <Ant.Input allowClear style={{ width: "100%" }} />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"customerEconomicCode"} label="کد اقتصادی">
+          <Ant.Input allowClear style={{ width: "100%" }} />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"fromIssueDateCalendarId"} label="از تاریخ صدور">
+          <MyDatePicker />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"toIssueDateCalendarId"} label="تا تاریخ صدور">
+          <MyDatePicker />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"fromDateSentCalendarId"} label="از تاریخ ارسال">
+          <MyDatePicker />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"toDateSentCalendarId"} label="تا تاریخ ارسال">
+          <MyDatePicker />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"saleDocumentIssueId"} label="الگوی صورتحساب">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={saleDocumentIssueLoading || false}
+            loading={saleDocumentIssueLoading}
+            options={saleDocumentIssueData?.data}
+            fieldNames={{ label: "title", value: "id" }}
+          />
+        </Ant.Form.Item>
+        <Ant.Form.Item name={"saleDocumentTypeId"} label="نوع برگه فروش">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={saleDocTypeLoading || false}
+            loading={saleDocTypeLoading}
+            options={saleDocTypeData?.data}
+            fieldNames={{ label: "title", value: "id" }}
+          />
+        </Ant.Form.Item>
+        <Ant.Form.Item>
+          <Ant.Button block type="primary" onClick={() => form.submit()}>
+            {"اعمال"}
+          </Ant.Button>
+        </Ant.Form.Item>
+      </Ant.Form>
+    </>
+  );
+};
+
+export default FilterPanel;
