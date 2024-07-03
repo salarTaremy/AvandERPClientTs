@@ -9,6 +9,7 @@ import {
     useFetchWithHandler
 } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaCodeBranch } from "react-icons/fa";
 const FormAddNewBranch = (props) => {
     const { onSuccess, bankId } = props
     const [loading, setLoading] = useState(false)
@@ -61,7 +62,7 @@ const FormAddNewBranch = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={'ایجاد شعبه جدید'} />
+            <ModalHeader title={'ایجاد شعبه جدید'} icon={<FaCodeBranch />}/>
             <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                 <Ant.Form.Item name={'code'} label="کد شعبه" rules={[{ required: true }]}>
                     <Ant.Input allowClear showCount maxLength={100} />

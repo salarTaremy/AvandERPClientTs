@@ -10,6 +10,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import * as defaultValues from "@/defaultValues";
 import ModalHeader from "@/components/common/ModalHeader";
 import FrmAddDetailedAccountGroup from '../../detailedAccountGroup/add/FrmAddDetailedAccountGroup'
+import { HiDocumentPlus } from "react-icons/hi2";
 export const FrmAddDetailedAccount = (props) => {
   const { onSuccess} = props
   const [form] = Ant.Form.useForm()
@@ -88,7 +89,7 @@ export const FrmAddDetailedAccount = (props) => {
         <FrmAddDetailedAccountGroup />
       </Ant.Modal>
 
-      <ModalHeader title= {' ایجاد حساب تفصیلی'}/>
+      <ModalHeader title= {' ایجاد حساب تفصیلی'} icon={<HiDocumentPlus />}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical" onFinishFailed={null}>
         <Ant.Row gutter={[16, 8]}>
 

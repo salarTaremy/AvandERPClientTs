@@ -6,6 +6,7 @@ import qs from "qs";
 import { useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { TiThList } from "react-icons/ti";
 
 const UserInfo = ({ userId, userName }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -59,7 +60,7 @@ const UserInfo = ({ userId, userName }) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={`لیست نقش های کاربر "${userName}"`} />
+            <ModalHeader title={`لیست نقش های کاربر "${userName}"`} icon={<TiThList />} />
             <Ant.Skeleton loading={loading}>
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}

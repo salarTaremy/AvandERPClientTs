@@ -7,6 +7,7 @@ import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
 import * as url from '@/api/url'
+import { HiDocumentPlus } from "react-icons/hi2";
 const FrmAddDetailedAccountGroup = forwardRef((props, ref) => {
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] = useFetchWithHandler()
   const { onFinish, loading } = props
@@ -51,7 +52,7 @@ const FrmAddDetailedAccountGroup = forwardRef((props, ref) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={" ایجاد گروه تفصیلی"} />
+      <ModalHeader title={" ایجاد گروه تفصیلی"} icon={<HiDocumentPlus />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>
           <Ant.Input addonBefore={<AddonBefore />} style={{ textAlign: 'center' }} />
