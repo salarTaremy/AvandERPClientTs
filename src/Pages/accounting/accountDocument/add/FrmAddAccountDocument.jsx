@@ -8,6 +8,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import PropTypes from 'prop-types'
 import TBL from "./Table";
 import { useNavigate } from "react-router-dom";
+import { HiDocumentPlus } from "react-icons/hi2";
  const FrmAddAccountDocument = (props) => {
   const { onSuccess} = props;
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
@@ -122,7 +123,7 @@ import { useNavigate } from "react-router-dom";
 
   return (
     <>
-      <ModalHeader title={"ایجاد سند حسابداری"} />
+      <ModalHeader title={"ایجاد سند حسابداری"} icon={<HiDocumentPlus />} />
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <Ant.Row gutter={[8, 8]}>
           <Ant.Col lg={16}>
