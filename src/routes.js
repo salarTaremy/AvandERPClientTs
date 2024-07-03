@@ -57,6 +57,7 @@ import SaleEffectiveFactor from './Pages/salesCommerce/basicInformation/saleEffe
 import PriceCircularHeader from './Pages/salesCommerce/priceCircular/priceCircularHeader/list/PriceCircularHeader';
 import CityDistrictList from './Pages/salesCommerce/basicInformation/cityDistrict/list/CityDistrictList'
 import VisitorManagmentList from './Pages/salesCommerce/basicInformation/visitorManagment/list/VisitorManagmentList'
+import InvoiceManagement from  './Pages/salesCommerce/taxPayersSystem/invoiceManagement/InvoiceManagement';
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
@@ -131,6 +132,7 @@ const routes = [
 
   { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: banks },
   { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument },
+  { path: 'taxPayersSystem/InvoiceManagement', name: 'مدیریت صورتحساب ها', element: InvoiceManagement },
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]
