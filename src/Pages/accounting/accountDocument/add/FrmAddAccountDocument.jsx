@@ -8,7 +8,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import PropTypes from 'prop-types'
 import TBL from "./Table";
 import { useNavigate } from "react-router-dom";
-export const FrmAddAccountDocument = (props) => {
+ const FrmAddAccountDocument = (props) => {
   const { onSuccess} = props;
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
