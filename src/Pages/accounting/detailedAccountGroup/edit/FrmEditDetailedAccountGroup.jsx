@@ -7,6 +7,7 @@ import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import useRequestManager from '@/hooks/useRequestManager'
 import * as url from '@/api/url'
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdEditDocument } from "react-icons/md";
 const FrmEditDetailedAccountGroup = forwardRef((props, ref) => {
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] = useFetchWithHandler()
   const { obj, onFinish, loading } = props
@@ -52,7 +53,7 @@ const FrmEditDetailedAccountGroup = forwardRef((props, ref) => {
   //====================================================================
   return (
     <>
-       <ModalHeader title={" ویرایش گروه تفصیلی"} />
+       <ModalHeader title={" ویرایش گروه تفصیلی"} icon={<MdEditDocument />}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>
           <Ant.Input addonBefore={<AddonBefore />} style={{ textAlign: 'center' }} />

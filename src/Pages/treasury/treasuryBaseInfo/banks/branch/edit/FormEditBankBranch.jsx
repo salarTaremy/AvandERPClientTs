@@ -6,6 +6,7 @@ import { usePutWithHandler, useFetchWithHandler, useFetch } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import * as styles from "@/styles";
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaCodeBranch } from "react-icons/fa";
 const FormEditBranch = (props) => {
     const { onSuccess, obj, id, name, bankTitle, bankId } = props
     const [loading, setLoading] = useState(false)
@@ -61,50 +62,50 @@ const FormEditBranch = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={`ویرایش بانک "${bankTitle}" شعبه "${name}"`} />
+            <ModalHeader title={`ویرایش شعبه " ${name} " بانک " ${bankTitle} "`} icon={<FaCodeBranch />} />
 
-                <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-                    <Ant.Form.Item name={'code'} label="کد شعبه" rules={[{ required: true }]}>
-                        <Ant.Input allowClear showCount maxLength={100} />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item name={'name'} label="نام شعبه" rules={[{ required: true }]}>
-                        <Ant.Input allowClear showCount maxLength={100} />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item name={'provinceId'} label="نام استان" rules={[{ required: true }]}>
-                        <Ant.Select
-                            {...commonOptions}
-                            onChange={handleOnChange}
-                            placeholder={"انتخاب کنید..."}
-                            allowClear={true}
-                            disabled={provinceLoading || false}
-                            loading={provinceLoading}
-                            options={provinceData?.data}
-                            fieldNames={{ label: 'name', value: 'id' }}
-                        />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item name={'cityId'} label="نام شهر" rules={[{ required: true }]}>
-                        <Ant.Select
-                            {...commonOptions}
-                            placeholder={"انتخاب کنید..."}
-                            allowClear={true}
-                            disabled={cityLoading || false}
-                            loading={cityLoading}
-                            options={cityData?.data}
-                            fieldNames={{ label: 'name', value: 'id' }}
-                        />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item>
-                        <Ant.Button block
-                            type="primary"
-                            loading={loading}
-                            onClick={() => {
-                                form.submit()
-                            }}
-                        >
-                            {'تایید'}
-                        </Ant.Button>
-                    </Ant.Form.Item>
-                </Ant.Form>
+            <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+                <Ant.Form.Item name={'code'} label="کد شعبه" rules={[{ required: true }]}>
+                    <Ant.Input allowClear showCount maxLength={100} />
+                </Ant.Form.Item>
+                <Ant.Form.Item name={'name'} label="نام شعبه" rules={[{ required: true }]}>
+                    <Ant.Input allowClear showCount maxLength={100} />
+                </Ant.Form.Item>
+                <Ant.Form.Item name={'provinceId'} label="نام استان" rules={[{ required: true }]}>
+                    <Ant.Select
+                        {...commonOptions}
+                        onChange={handleOnChange}
+                        placeholder={"انتخاب کنید..."}
+                        allowClear={true}
+                        disabled={provinceLoading || false}
+                        loading={provinceLoading}
+                        options={provinceData?.data}
+                        fieldNames={{ label: 'name', value: 'id' }}
+                    />
+                </Ant.Form.Item>
+                <Ant.Form.Item name={'cityId'} label="نام شهر" rules={[{ required: true }]}>
+                    <Ant.Select
+                        {...commonOptions}
+                        placeholder={"انتخاب کنید..."}
+                        allowClear={true}
+                        disabled={cityLoading || false}
+                        loading={cityLoading}
+                        options={cityData?.data}
+                        fieldNames={{ label: 'name', value: 'id' }}
+                    />
+                </Ant.Form.Item>
+                <Ant.Form.Item>
+                    <Ant.Button block
+                        type="primary"
+                        loading={loading}
+                        onClick={() => {
+                            form.submit()
+                        }}
+                    >
+                        {'تایید'}
+                    </Ant.Button>
+                </Ant.Form.Item>
+            </Ant.Form>
 
         </>
     )

@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { MinusCircleTwoTone, PlusCircleTwoTone } from "@ant-design/icons";
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaFileInvoiceDollar } from "react-icons/fa6";
 const FormSaleEffectiveFactorAdd = (props) => {
     const { onSuccess } = props;
     const [loading, setLoading] = useState(false);
@@ -34,7 +35,7 @@ const FormSaleEffectiveFactorAdd = (props) => {
 
     return (
       <>
-            <ModalHeader title= {"ایجاد عامل موثر بر برگه فروش"}/>
+            <ModalHeader title= {"ایجاد عامل موثر بر برگه فروش"} icon={<FaFileInvoiceDollar />}/>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="name" label={"نام"} rules={[{ required: true }]} >
             <Ant.Input allowClear showCount maxLength={100} />

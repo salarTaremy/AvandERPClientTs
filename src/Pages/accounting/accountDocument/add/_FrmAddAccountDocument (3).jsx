@@ -7,6 +7,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import TBL from "./Table";
 import { useNavigate } from "react-router-dom";
+import { HiDocumentPlus } from "react-icons/hi2";
 export const FrmAddAccountDocument = () => {
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
@@ -111,7 +112,7 @@ export const FrmAddAccountDocument = () => {
 
   return (
     <>
-      <ModalHeader title= {'ایجاد سند حسابداری'} />
+      <ModalHeader title= {'ایجاد سند حسابداری'} icon={<HiDocumentPlus />} />
       <Ant.Form form={form} layout="vertical" onFinish Failed={null}>
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col lg={6} md={12} sm={12} xs={24}>

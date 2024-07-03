@@ -12,6 +12,7 @@ import * as url from "@/api/url";
 import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import { useFetchWithHandler, usePostWithHandler } from "@/api";
+import { FaWarehouse } from "react-icons/fa6";
 import qs from "qs";
 const ProductConnection = (props) => {
   const { onSuccess, id } = props;
@@ -153,7 +154,7 @@ const ProductConnection = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"تخصیص کالا به انبار"} />
+      <ModalHeader title={"تخصیص کالا به انبار"} icon={<FaWarehouse />}/>
       <CoustomContent>
         <Ant.Skeleton loading={loading}>
           <FilterDrawer

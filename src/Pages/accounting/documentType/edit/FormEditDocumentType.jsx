@@ -6,6 +6,7 @@ import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
 import * as url from '@/api/url'
+import { MdEditDocument } from "react-icons/md";
 const FormEditDocumentType = (props) => {
   const { onSuccess, id } = props;
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,7 @@ const FormEditDocumentType = (props) => {
   };
   return (
     <>
-      <ModalHeader title={" ویرایش سند حسابداری"} />
+      <ModalHeader title={" ویرایش سند حسابداری"} icon={<MdEditDocument />}/>
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item

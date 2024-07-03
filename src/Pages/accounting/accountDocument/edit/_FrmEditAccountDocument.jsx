@@ -9,6 +9,7 @@ import TBL from "../../../accounting/accountDocument/add/Table";
 import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { useParams,useNavigate } from "react-router-dom";
+import { MdEditDocument } from "react-icons/md";
 export const FrmEditAccountDocument = (props) => {
   const { onSuccess, id, key } = props
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
@@ -143,7 +144,7 @@ export const FrmEditAccountDocument = (props) => {
   );
   return (
     <>
-    <ModalHeader title= {'ویرایش سند حسابداری'} />
+    <ModalHeader title= {'ویرایش سند حسابداری'} icon={<MdEditDocument />} />
                 <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
                   <Ant.Row gutter={[16, 8]}>
                     <Ant.Col lg={6} md={12} sm={12} xs={24}>

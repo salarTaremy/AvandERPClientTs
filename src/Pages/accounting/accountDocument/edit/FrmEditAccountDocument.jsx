@@ -8,6 +8,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import TBL from "../../../accounting/accountDocument/add/Table";
 import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdEditDocument } from "react-icons/md";
 
 import { useParams, useNavigate } from "react-router-dom";
 export const FrmEditAccountDocument = (props) => {
@@ -150,7 +151,7 @@ export const FrmEditAccountDocument = (props) => {
   );
   return (
     <>
-      <ModalHeader title={"ویرایش سند حسابداری"} />
+      <ModalHeader title={"ویرایش سند حسابداری"} icon={<MdEditDocument />}/>
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <Ant.Row gutter={[8, 8]}>
           <Ant.Col lg={16}>
