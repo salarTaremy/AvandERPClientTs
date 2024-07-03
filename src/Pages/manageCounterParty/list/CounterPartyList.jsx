@@ -111,8 +111,24 @@ const CounterPartyList = () => {
     setModalContent(<FormCounterpartyAdd key={uuid.v1()} onSuccess={onSuccessAdd} />);
     setModalState(true);
   };
+
+  const onSuccessEditHeader = () => {
+    setModalState(false);
+    handleCounterParty()
+  };
+
+  const onHeaderEdit = (data) => {
+    setModalContent(
+      <FormEditCounterParty
+        onSuccess={onSuccessEditHeader}
+        key={uuid.v1()}
+        id={(data.id)}
+      />
+    );
+    setModalState(true);
+  }
   const onView = (id) => {
-    setModalContent(<DetailedCounterPartyList id={id} key={uuid.v1()} />);
+    setModalContent(<DetailedCounterPartyList id={id} key={uuid.v1()} onHeaderEdit={onHeaderEdit} />);
     setModalState(true);
   };
 
@@ -190,7 +206,7 @@ const CounterPartyList = () => {
   return (
     <>
       <Ant.Modal
-        {...defaultValues.MODAL_PROPS }
+        {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_LARGE}
         open={modalState}
         handleCancel={() => setModalState(false)}

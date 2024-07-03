@@ -11,7 +11,7 @@ import HeaderCounterParty from "./HeaderCounterParty";
 const { TabPane } = Ant.Tabs;
 
 const DetailedCounterPartyList = (props) => {
-  const { id } = props;
+  const { id, onHeaderEdit } = props;
   const [data, loading, error] = api.useFetch(`${url.COUNTER_PARTY}/${id}`);
   useRequestManager({ error: error });
 
@@ -21,7 +21,7 @@ const DetailedCounterPartyList = (props) => {
   return (
     <>
       <Ant.Skeleton active={true} loading={loading}>
-        <HeaderCounterParty data={data} />
+        <HeaderCounterParty data={data} onHeaderEdit={onHeaderEdit} />
         <Ant.Divider />
         <Ant.Tabs type="card" defaultActiveKey="1">
           <TabPane tab="اطلاعات تماس" key="1">
