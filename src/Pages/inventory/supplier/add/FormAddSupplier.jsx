@@ -6,6 +6,7 @@ import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import { usePostWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaBoxOpen } from "react-icons/fa";
 const FormAddSupplier = (props) => {
   const { onSuccess } = props
   const [loading, setLoading] = useState(false)
@@ -54,7 +55,7 @@ const FormAddSupplier = (props) => {
   }
   return (
     <>
-         <ModalHeader title= {'ایجاد تأمین کننده'} />
+         <ModalHeader title= {'ایجاد تأمین کننده'} icon={<FaBoxOpen />}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
 
         <Ant.Form.Item name="name" label={'نام'} rules={[{ required: true }]}>

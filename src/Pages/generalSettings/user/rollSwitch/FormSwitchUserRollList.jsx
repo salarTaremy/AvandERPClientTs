@@ -14,6 +14,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import * as styles from "@/styles";
 import ModalHeader from "@/components/common/ModalHeader";
 import CoustomContent from "@/components/common/CoustomContent";
+import { AiOutlineDeploymentUnit } from "react-icons/ai";
 const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   const [dataSource, setDataSource] = useState(null);
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -171,7 +172,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} />
+      <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} icon={<AiOutlineDeploymentUnit />} />
 
       <CoustomContent >
         <FilterDrawer

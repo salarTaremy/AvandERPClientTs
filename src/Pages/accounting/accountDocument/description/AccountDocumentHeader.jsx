@@ -5,6 +5,7 @@ import * as url from "@/api/url";
 import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { HiDocumentSearch } from "react-icons/hi";
 
 //====================================================================
 //                        Declaration
@@ -64,7 +65,7 @@ const AccountDocumentHeader = (props) => {
   return (
     <>
       <Ant.Skeleton active={true} loading={loading}>
-        <ModalHeader title={"مشاهده سند حسابداری"} />
+        <ModalHeader title={"مشاهده سند حسابداری"} icon={<HiDocumentSearch />} />
         <Ant.Descriptions bordered={false} size="small" items={borderedItems} />
       </Ant.Skeleton>
     </>

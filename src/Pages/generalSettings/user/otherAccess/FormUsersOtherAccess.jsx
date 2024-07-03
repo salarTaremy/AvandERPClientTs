@@ -7,6 +7,7 @@ import * as url from "@/api/url";
 import General from "./general/General";
 import Sale from "./sale/Sale";
 import ModalHeader from "@/components/common/ModalHeader";
+import { PiUserCircleCheckFill } from "react-icons/pi";
 
 const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
   const { TabPane } = Ant.Tabs;
@@ -177,7 +178,7 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={` سایر دسترسی های کاربر  " ${userName} "`} />
+      <ModalHeader title={` سایر دسترسی های کاربر  " ${userName} "`} icon={<PiUserCircleCheckFill />}/>
       <Ant.Tabs tabPosition={mode}>
         <TabPane forceRender={true} tab=" عمومی " key="1">
           {

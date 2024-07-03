@@ -8,6 +8,7 @@ import { useFetchWithHandler } from '@/api'
 import { usePutWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { TbBrandAirtable } from "react-icons/tb";
 const FormEditBrand = (props) => {
   const { onSuccess, id, key } = props
   const [loading, setLoading] = useState(false)
@@ -69,7 +70,7 @@ const FormEditBrand = (props) => {
 
   return (
     <>
-      <ModalHeader title={'ویرایش برند'} />
+      <ModalHeader title={'ویرایش برند'} icon={<TbBrandAirtable />}/>
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name={'supplierId'} label="تأمین کننده" rules={[{ required: true }]}>

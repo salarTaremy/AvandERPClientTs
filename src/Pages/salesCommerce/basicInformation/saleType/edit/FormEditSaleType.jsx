@@ -9,6 +9,7 @@ import {
 } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { SiAnytype } from "react-icons/si";
 const FormEditSaleType = (props) => {
     const { onSuccess, id } = props
     const [loading, setLoading] = useState(false)
@@ -54,7 +55,7 @@ const FormEditSaleType = (props) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={'ویرایش نوع فروش '} />
+            <ModalHeader title={'ویرایش نوع فروش '} icon={<SiAnytype />} />
             <Ant.Skeleton loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name="title" label={'عنوان فروش'} rules={[{ required: true }]}>

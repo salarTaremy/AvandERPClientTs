@@ -15,6 +15,7 @@ import FormActionPermission from "./permission/FormActionPermission";
 import * as uuid from "uuid";
 import * as styles from "@/styles";
 import CoustomContent from "@/components/common/CoustomContent";
+import { SiGithubactions } from "react-icons/si";
 
 const ActionSwitchList = (props) => {
   const { roleId, name, onSuccess } = props;
@@ -161,7 +162,7 @@ const ActionSwitchList = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={` ویرایش عملیات نقش" ${name} "`} />
+      <ModalHeader title={` ویرایش عملیات نقش" ${name} "`} icon={<SiGithubactions />}/>
       <Ant.Modal
         open={modalState}
         handleCancel={() => setModalState(false)}

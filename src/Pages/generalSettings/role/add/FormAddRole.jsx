@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import ModalHeader from "@/components/common/ModalHeader";
 import { usePostWithHandler, useFetchWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
+import { AiOutlineDeploymentUnit } from "react-icons/ai";
 const FormAddBrand = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -47,7 +48,7 @@ const FormAddBrand = (props) => {
 
   return (
     <>
-      <ModalHeader title={"ایجاد نقش "} />
+      <ModalHeader title={"ایجاد نقش "} icon={<AiOutlineDeploymentUnit />}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
