@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import FormUsersBrandAccess from './FormUsersBrandAccess';
 import FormUsersCustomerGroupAccess from './FormUsersCustomerGroupAccess';
 import FormUsersCustomerTypeAccess from './FormUsersCustomerTypeAccess';
-import FormUsersSaleChannelaccess from './FormUsersSaleChannelAccess';
+import FormUsersSaleChannelAccess from './FormUsersSaleChannelAccess';
 import FormUsersSaleDocumentTypeAccess from './FormUsersSaleDocumentTypeAccess';
 
 
@@ -54,7 +54,7 @@ const Sale = (props) => {
                     />
                 </TabPane>
                 <TabPane forceRender={true} tab=" کانال فروش " key="4">
-                    <FormUsersSaleChannelaccess
+                    <FormUsersSaleChannelAccess
                         userId={userId}
                         onSuccessSaleChannelAccess={onSuccessSaleChannelAccess}
                         oldChannelId={oldChannelId}
