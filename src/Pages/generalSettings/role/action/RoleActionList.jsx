@@ -11,6 +11,7 @@ import FilterPanel from "../action/FilterPanel";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
 import CoustomContent from "@/components/common/CoustomContent";
+import { TiThList } from "react-icons/ti";
 import * as styles from "@/styles";
 
 const RoleActionList = ({ id, name }) => {
@@ -115,7 +116,7 @@ const RoleActionList = ({ id, name }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`عملیات نقش "${name}"`} />
+      <ModalHeader title={`لیست عملیات نقش "${name}"`} icon={<TiThList />} />
       <CoustomContent>
         <FilterDrawer
           open={openFilter}

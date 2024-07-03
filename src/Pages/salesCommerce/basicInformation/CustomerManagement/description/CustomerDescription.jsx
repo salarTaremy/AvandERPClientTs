@@ -11,6 +11,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import HeaderCounterParty from "@/Pages/manageCounterParty/description/HeaderCounterParty";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
+import { MdDescription } from "react-icons/md";
 
 //====================================================================
 //                        Declaration
@@ -130,7 +131,7 @@ const CustomerDescription = (props) => {
       >
         {modalContent}
       </Ant.Modal>
-      <ModalHeader title={"جزئیات مشتری"} />
+      <ModalHeader title={"جزئیات مشتری"} icon={<MdDescription />}/>
       <Ant.Skeleton active={true} loading={loading}>
         <Ant.Descriptions
           bordered

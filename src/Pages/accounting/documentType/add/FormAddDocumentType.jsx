@@ -5,6 +5,7 @@ import { usePostWithHandler } from '@/api'
 import * as url from '@/api/url'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
+import { HiDocumentPlus } from "react-icons/hi2";
 const FormAddDocumentType =  (props) => {
   const { onSuccess } = props
   const [loading, setLoading] = useState(false)
@@ -31,7 +32,7 @@ const FormAddDocumentType =  (props) => {
     //====================================================================
   return (
     <>
-      <ModalHeader title={" نوع سند حسابداری"} />
+      <ModalHeader title={" نوع سند حسابداری"} icon={<HiDocumentPlus />}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item
           name="name"

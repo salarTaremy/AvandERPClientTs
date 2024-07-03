@@ -6,6 +6,7 @@ import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import ModalHeader from "@/components/common/ModalHeader";
+import { FaBoxOpen } from "react-icons/fa";
 const FormEditSupplier = (props) => {
   const { onSuccess, id, key } = props
   const [loading, setLoading] = useState(false)
@@ -66,7 +67,7 @@ const FormEditSupplier = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={'ویرایش تأمین کننده'} />
+      <ModalHeader title={'ویرایش تأمین کننده'} icon={<FaBoxOpen />} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="name" label={'نام'} rules={[{ required: true }]}>

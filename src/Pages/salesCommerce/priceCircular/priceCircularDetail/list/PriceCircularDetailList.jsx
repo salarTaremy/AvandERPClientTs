@@ -9,6 +9,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription";
 import BatchNumberDescription from "../../../../inventory/batchNumber/description/BatchNumberDescription";
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdDescription } from "react-icons/md";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -66,7 +67,7 @@ const PriceCircularDetailList = (props) => {
     const Grid = () => {
         return (
             <>
-                <ModalHeader title= {pageTitle}/>
+                <ModalHeader title= {pageTitle} icon={<MdDescription />}/>
                 <Ant.Modal
                     open={modalOpenState}
                     centered

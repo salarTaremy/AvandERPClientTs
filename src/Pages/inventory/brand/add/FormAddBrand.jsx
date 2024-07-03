@@ -7,6 +7,7 @@ import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import { usePostWithHandler, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import { TbBrandAirtable } from "react-icons/tb";
 const FormAddBrand = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -73,7 +74,7 @@ const FormAddBrand = (props) => {
   };
   return (
     <>
-      <ModalHeader title={"ایجاد برند"} />
+      <ModalHeader title={"ایجاد برند"} icon={<TbBrandAirtable />}/>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item
           name={"supplierId"}

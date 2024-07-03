@@ -8,10 +8,14 @@ import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 const FrmAddItemDetail = () => {
   const [form] = Ant.Form.useForm();
-//   const [accounGrouptData, accountGroupLoading, accountGroupError,accoupGroupApicall] = useFetch(url.ACCOUNT);
+  //   const [accounGrouptData, accountGroupLoading, accountGroupError,accoupGroupApicall] = useFetch(url.ACCOUNT);
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
-  const [accounGrouptData, accountGroupLoading, accountGroupError,accoupGroupApicall] =
-  api.useFetchWithHandler();
+  const [
+    accounGrouptData,
+    accountGroupLoading,
+    accountGroupError,
+    accoupGroupApicall,
+  ] = api.useFetchWithHandler();
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
   const commonOptions = {
@@ -23,9 +27,8 @@ const FrmAddItemDetail = () => {
   //                        useEffects
   //====================================================================
 
-
   useEffect(() => {
-    accoupGroupApicall(url.ACCOUNT_GROUP);
+    accoupGroupApicall(url.ACCOUNT_TREE);
   }, []);
 
   useEffect(() => {
@@ -38,7 +41,7 @@ const FrmAddItemDetail = () => {
   return (
     <>
       <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
-        <ModalHeader title={"حساب"} />
+        <ModalHeader title={"افزودن آرتیکل سند"} />
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
@@ -75,7 +78,7 @@ const FrmAddItemDetail = () => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"detailedAccountId4"}
-              label="حساب تفصیلی"
+              label="حساب تفصیلی سطح چهار"
               rules={[
                 {
                   required: false,
@@ -95,7 +98,7 @@ const FrmAddItemDetail = () => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"detailedAccountId5"}
-              label="حساب تفصیلی"
+              label="حساب تفصیلی سطح پنج"
               rules={[
                 {
                   required: false,
@@ -115,7 +118,7 @@ const FrmAddItemDetail = () => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"detailedAccountId6"}
-              label="حساب تفصیلی"
+              label="حساب تفصیلی سطح شش"
               rules={[
                 {
                   required: false,
@@ -129,6 +132,80 @@ const FrmAddItemDetail = () => {
                 placeholder={"انتخاب کنید..."}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Form.Item
+              name={"article"}
+              label="شرح"
+              rules={[
+                {
+                  required: true,
+                  message: "فیلد شرح اجباری است",
+                },
+              ]}
+            >
+              <Ant.Input size="default" />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={12}>
+            <Ant.Form.Item
+              name={"debtor"}
+              label="بدهکار"
+              rules={[
+                {
+                  required: true,
+                  message: "فیلد بدهکار اجباری است",
+                },
+              ]}
+            >
+              <Ant.InputNumber
+                min={0}
+                formatter={(value) =>
+                  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                style={{ width: "100%" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={12}>
+            <Ant.Form.Item
+              name={"creditor"}
+              label="بستانکار"
+              rules={[
+                {
+                  required: true,
+                  message: "فیلد بستانکار اجباری است",
+                },
+              ]}
+            >
+              <Ant.InputNumber
+                formatter={(value) =>
+                  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                style={{ width: "100%" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Form.Item
+              name={"referenceNo"}
+              label="شماره مرجع"
+              rules={[
+                {
+                  required: false,
+                  message: "فیلد شماره مرجع اجباری است",
+                },
+                { min: 0 },
+                { max: 50 },
+              ]}
+            >
+              <Ant.InputNumber
+                formatter={(value) =>
+                  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                style={{ width: "100%" }}
               />
             </Ant.Form.Item>
           </Ant.Col>

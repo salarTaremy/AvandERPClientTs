@@ -7,6 +7,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import * as styles from "@/styles";
 import ModalHeader from "@/components/common/ModalHeader";
+import { AiOutlineDeploymentUnit } from "react-icons/ai";
 
 const FormEditRole = (props) => {
   const { onSuccess, id, name, key } = props;
@@ -55,7 +56,7 @@ const FormEditRole = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`ویرایش نقش"${name}"`} />
+      <ModalHeader title={`ویرایش نقش"${name}"`} icon={<AiOutlineDeploymentUnit />} />
       <Ant.Skeleton loading={loadingData}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>

@@ -6,6 +6,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
 import CoustomContent from "@/components/common/CoustomContent";
+import { BsMenuButtonWideFill   } from "react-icons/bs";
 
 const RoleMenuList = ({ id, name, onSuccess }) => {
   const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -94,7 +95,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`دسترسی منو نقش " ${name} "`} />
+      <ModalHeader title={`دسترسی منو نقش " ${name} "`} icon={<BsMenuButtonWideFill />}/>
       <Ant.Skeleton loading={loading}>
         <CoustomContent>
           <Ant.Tree
