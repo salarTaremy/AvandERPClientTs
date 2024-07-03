@@ -7,6 +7,7 @@ import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import Loading from "@/components/common/Loading";
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdDescription } from "react-icons/md";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -99,7 +100,7 @@ const DetailedAccountDescription = (props) => {
   //====================================================================
   return (
     <Ant.Skeleton active={true} loading={loading}>
-      <ModalHeader title={"جزئیات حساب تفصیل"} />
+      <ModalHeader title={"جزئیات حساب تفصیل"} icon={<MdDescription />}/>
       <Ant.Descriptions
         bordered
         // layout="vertical"

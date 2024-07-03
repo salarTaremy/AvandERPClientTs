@@ -7,6 +7,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
+import { TiThList } from "react-icons/ti";
 
 const RoleInfo = ({ roleId, name }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -84,7 +85,7 @@ const RoleInfo = ({ roleId, name }) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={` لیست کاربران نقش "${name}"`} />
+            <ModalHeader title={` لیست کاربران نقش "${name}"`} icon={<TiThList />}/>
             <Ant.Skeleton loading={loading}>
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}

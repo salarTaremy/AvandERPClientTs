@@ -6,6 +6,7 @@ import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import { MinusCircleTwoTone, PlusCircleTwoTone } from "@ant-design/icons";
 import ModalHeader from "@/components/common/ModalHeader";
+import { MdDescription } from "react-icons/md";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -77,7 +78,7 @@ const SaleEffectiveFactorDescription = (props) => {
   //====================================================================
   return (
     <Ant.Skeleton active={true} loading={loading}>
-      <ModalHeader title={"جزئیات عامل موثر بر برگه فروش"} />
+      <ModalHeader title={"جزئیات عامل موثر بر برگه فروش"} icon={<MdDescription />} />
       <Ant.Descriptions bordered layout="horizontal" items={descriptionItems} />
     </Ant.Skeleton>
   );

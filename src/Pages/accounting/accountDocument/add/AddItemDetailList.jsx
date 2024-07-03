@@ -6,7 +6,7 @@ import * as defaultValues from "@/defaultValues";
 
 import CoustomContent from "@/components/common/CoustomContent";
 import ButtonList from "@/components/common/ButtonList";
-
+import { MdDescription } from "react-icons/md";
 import ModalHeader from "@/components/common/ModalHeader";
 import FrmAddItemDetail from "../add/FrmAddItemDetail"
 const AddItemDetailList = () => {
@@ -142,7 +142,7 @@ const AddItemDetailList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <ModalHeader title={"اضافه کردن جزییات"} />
+      <ModalHeader title={"اضافه کردن جزییات"} icon={<MdDescription />} />
         <CoustomContent Height="70vh">
           <Grid />
         </CoustomContent>

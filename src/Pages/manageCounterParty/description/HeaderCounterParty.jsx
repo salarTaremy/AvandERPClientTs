@@ -3,6 +3,7 @@ import * as Ant from "antd";
 import * as defaultValues from "@/defaultValues";
 import ModalHeader from "@/components/common/ModalHeader";
 import ButtonList from "@/components/common/ButtonList";
+import { MdDescription } from "react-icons/md";
 
 const HeaderCounterParty = ({ data, onHeaderEdit }) => {
   const [modalState, setModalState] = useState(false);
@@ -68,7 +69,7 @@ const HeaderCounterParty = ({ data, onHeaderEdit }) => {
   return (
     <>
 
-      <ModalHeader title={"جزئیات طرف حساب"} />
+      <ModalHeader title={"جزئیات طرف حساب"} icon={<MdDescription />}/>
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
         open={modalState}
