@@ -28,7 +28,7 @@ const FrmAddItemDetail = () => {
   //====================================================================
 
   useEffect(() => {
-    accoupGroupApicall(url.ACCOUNT_GROUP);
+    accoupGroupApicall(url.ACCOUNT_TREE);
   }, []);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const FrmAddItemDetail = () => {
   return (
     <>
       <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
-        <ModalHeader title={"حساب"} />
+        <ModalHeader title={"افزودن آرتیکل سند"} />
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
@@ -78,7 +78,7 @@ const FrmAddItemDetail = () => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"detailedAccountId4"}
-              label="حساب تفصیلی"
+              label="حساب تفصیلی سطح چهار"
               rules={[
                 {
                   required: false,
@@ -98,7 +98,7 @@ const FrmAddItemDetail = () => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"detailedAccountId5"}
-              label="حساب تفصیلی"
+              label="حساب تفصیلی سطح پنج"
               rules={[
                 {
                   required: false,
@@ -118,7 +118,7 @@ const FrmAddItemDetail = () => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"detailedAccountId6"}
-              label="حساب تفصیلی"
+              label="حساب تفصیلی سطح شش"
               rules={[
                 {
                   required: false,
@@ -149,7 +149,7 @@ const FrmAddItemDetail = () => {
               <Ant.Input size="default" />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          <Ant.Col span={24} md={24} lg={12}>
             <Ant.Form.Item
               name={"debtor"}
               label="بدهکار"
@@ -169,7 +169,7 @@ const FrmAddItemDetail = () => {
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          <Ant.Col span={24} md={24} lg={12}>
             <Ant.Form.Item
               name={"creditor"}
               label="بستانکار"
@@ -178,7 +178,6 @@ const FrmAddItemDetail = () => {
                   required: true,
                   message: "فیلد بستانکار اجباری است",
                 },
-
               ]}
             >
               <Ant.InputNumber
