@@ -23,44 +23,45 @@ import { validateNationalCode } from '@/Tools'
 
 const Dashboard = () => {
 
-    const Stimulsoft = window.Stimulsoft || {};
-    var data = {}
-    var JsonRep = {}
+    // const Stimulsoft = window.Stimulsoft || {};
+    // var data = {}
+    // var JsonRep = {}
 
 
-    var Options = new Stimulsoft.Designer.StiDesignerOptions();
-    Options.appearance.fullScreenMode = true;
-    Options.toolbar.fontFamily = "IRANSansWeb"
-    Options.fontFamily = "IRANSansWeb"
-   
-
-    useEffect(() => {
-        const dsDataSource = new Stimulsoft.System.Data.DataSet("DsName");
-        var designer = new Stimulsoft.Designer.StiDesigner(Options, 'StiDesigner', false);
-        var report = new Stimulsoft.Report.StiReport();
-        //report.reportName = "MyNewReport";
-        //report.loadFile("/reports/crossTabTest2.mrt");
-        // var JsonRep= localStorage.getItem("rep")
-        report.load(JsonRep);
-        dsDataSource.readJson(data);
-        report.dictionary.clear();
-        report.regData("DataSource", 'MainData', dsDataSource);
-        report.dictionary.synchronize();
-        designer.report = report;
-        designer.renderHtml("designer");
-
-    }, []);
+    // var Options = new Stimulsoft.Designer.StiDesignerOptions();
+    // Options.appearance.fullScreenMode = true;
+    // Options.toolbar.fontFamily = "IRANSansWeb"
+    // Options.fontFamily = "IRANSansWeb"
 
 
-    return (
-        <>
-            <style>{".ltr{direction: ltr;}"}</style>
-            <div className="page-content">
-                <div className="ltr"
-                    id="designer"></div>
-            </div>
-        </>
-    )
+    // useEffect(() => {
+    //     const dsDataSource = new Stimulsoft.System.Data.DataSet("DsName");
+    //     var designer = new Stimulsoft.Designer.StiDesigner(Options, 'StiDesigner', false);
+    //     var report = new Stimulsoft.Report.StiReport();
+    //     //report.reportName = "MyNewReport";
+    //     //report.loadFile("/reports/crossTabTest2.mrt");
+    //     // var JsonRep= localStorage.getItem("rep")
+    //     report.load(JsonRep);
+    //     dsDataSource.readJson(data);
+    //     report.dictionary.clear();
+    //     report.regData("DataSource", 'MainData', dsDataSource);
+    //     report.dictionary.synchronize();
+    //     designer.report = report;
+    //     designer.renderHtml("designer");
+
+    // }, []);
+
+
+    // return (
+    //     <>
+    //         <style>{".ltr{direction: ltr;}"}</style>
+    //         <div className="page-content">
+    //             <div className="ltr"
+    //                 id="designer"></div>
+    //         </div>
+    //     </>
+    // )
+    return <></>
 }
 
 export default Dashboard
