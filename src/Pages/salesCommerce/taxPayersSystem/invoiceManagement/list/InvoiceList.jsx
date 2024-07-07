@@ -7,7 +7,7 @@ import * as api from "@/api";
 import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
 import { columns } from "./columns";
-import { RiMailSendLine } from "react-icons/ri";
+import { BsSend } from "react-icons/bs";
 import useRequestManager from "@/hooks/useRequestManager";
 import ButtonList from "@/components/common/ButtonList";
 import FilterPanel from "./FilterPanel";
@@ -47,8 +47,8 @@ const InvoiceList = () => {
   const [modalContent, setModalContent] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  useRequestManager({ error: invoiceListError });
-  useRequestManager({ error: invoiceSendError });
+  useRequestManager({ error: invoiceListError  });
+  useRequestManager({ data: invoiceSendData, error: invoiceSendError, loading: invoiceSendLoading });
   //====================================================================
   //                        Functions
   //====================================================================
@@ -114,8 +114,6 @@ const InvoiceList = () => {
     await invoiceSendApiCall(url.TPS_INVOICE_MANAGEMENT, postData);
   };
 
-  const onSuccessSent = () => {};
-
   //table row selection control
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -176,7 +174,7 @@ const InvoiceList = () => {
               size="large"
               disabled={!hasSelectedRow}
             >
-              <RiMailSendLine />
+              <BsSend />
             </Ant.Button>
           </Ant.Tooltip>
         </ButtonList>
