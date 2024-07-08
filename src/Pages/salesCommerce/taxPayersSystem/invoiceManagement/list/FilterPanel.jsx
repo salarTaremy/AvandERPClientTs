@@ -17,9 +17,14 @@ const FilterPanel = (props) => {
     saleDocumentIssueLoading,
     saleDocumentIssueError,
   ] = api.useFetch(url.TPS_SALE_DOCUMENT_ISSUE);
-  const [saleDocTypeData, saleDocTypeLoading, saleDocTypeError] = api.useFetch(
-    url.SALE_DOCUMENT_TYPE,
-  );
+
+  const saleDocTypeQueryString = qs.stringify({
+    hasMappedTaxPayersSystemSaleDocumentIssue: true,
+  });
+  const saleDocTypeFetchUrl = `${url.SALE_DOCUMENT_TYPE}?${saleDocTypeQueryString}`;
+  const [saleDocTypeData, saleDocTypeLoading, saleDocTypeError] =
+    api.useFetch(saleDocTypeFetchUrl);
+
   const { onSubmit, filterObject } = props;
   useRequestManager({ error: saleDocumentIssueError });
   useRequestManager({ error: saleDocTypeError });
@@ -79,7 +84,7 @@ const FilterPanel = (props) => {
       fromIssueDateCalendarId: values?.fromIssueDateCalendarId
         ?.toString()
         .replace(/\//g, ""),
-        toIssueDateCalendarId: values?.toIssueDateCalendarId
+      toIssueDateCalendarId: values?.toIssueDateCalendarId
         ?.toString()
         .replace(/\//g, ""),
       fromDateSentCalendarId: values?.fromDateSentCalendarId
@@ -122,7 +127,7 @@ const FilterPanel = (props) => {
           <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
         </Ant.Form.Item>
         <Ant.Form.Item name={"documentFiscalId"} label="شناسه مالیاتی">
-          <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
+          <Ant.Input allowClear style={{ width: "100%" }} />
         </Ant.Form.Item>
         <Ant.Form.Item name={"customerId"} label="مشتری">
           <DebounceSelect
@@ -134,7 +139,10 @@ const FilterPanel = (props) => {
             }}
           />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"customerLegalEntityIdentity"} label="کد/شناسه ملی">
+        <Ant.Form.Item
+          name={"customerLegalEntityIdentity"}
+          label="کد/شناسه ملی"
+        >
           <Ant.Input allowClear style={{ width: "100%" }} />
         </Ant.Form.Item>
         <Ant.Form.Item name={"customerEconomicCode"} label="کد اقتصادی">
@@ -152,7 +160,10 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"toDateSentCalendarId"} label="تا تاریخ ارسال">
           <MyDatePicker />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"saleDocumentIssueId"} label="الگوی صورتحساب">
+        <Ant.Form.Item
+          name={"taxPayersSystemSaleDocumentIssueId"}
+          label="الگوی صورتحساب"
+        >
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
