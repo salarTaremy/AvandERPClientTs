@@ -3,21 +3,33 @@ import * as Ant from "antd";
 import { useEffect, useState } from "react";
 import * as url from "@/api/url";
 import { useFetch } from "@/api";
+import PropTypes from "prop-types";
 import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
-const FrmAddItemDetail = () => {
-  const [form] = Ant.Form.useForm();
-  //   const [accounGrouptData, accountGroupLoading, accountGroupError,accoupGroupApicall] = useFetch(url.ACCOUNT);
+import { LuDollarSign, LuCircleDollarSign } from "react-icons/lu";
+const FrmAddItemDetail = (props) => {
+  const { form } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
+  const [debtorType, setDebtorType] = useState("0");
+  const [selectedAccount, setSelectedAccount] = useState({
+    id: null,
+    name: "",
+  });
+  const [selectedDetailedAccountFour, setDetailedAccountFour] = useState();
+  const [selectedDetailedAccountFive, setDetailedAccountFive] = useState();
+  const [selectedDetailedAccountSix, setDetailedAccountSix] = useState();
+
   const [
     accounGrouptData,
     accountGroupLoading,
     accountGroupError,
     accoupGroupApicall,
   ] = api.useFetchWithHandler();
+
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
+
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
@@ -34,13 +46,71 @@ const FrmAddItemDetail = () => {
   useEffect(() => {
     accounGrouptData?.isSuccess && setOptions(accounGrouptData?.data);
   }, [accounGrouptData]);
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const handleChangeAccount = (value, selectedOptions) => {
+    const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
+    setSelectedAccount({
+      id: lastSelectedOption.id,
+      name: lastSelectedOption.name,
+    });
+  };
+  const handleChangeDetailedAccountFour = (value, selectedOption) => {
+    setDetailedAccountFour({
+      id: selectedOption.id,
+      name: selectedOption.name,
+    });
+  };
+  const handleChangeDetailedAccountFive = (value, selectedOption) => {
+    setDetailedAccountFive({
+      id: selectedOption.id,
+      name: selectedOption.name,
+    });
+  };
+  const handleChangeDetailedAccountSix = (value, selectedOption) => {
+    setDetailedAccountSix({
+      id: selectedOption.id,
+      name: selectedOption.name,
+    });
+  };
+  const onFinish = async (values) => {
+    const { creditor, debtor, ...otherValues } = values;
+    const adjustedCreditor = creditor ?? 0;
+    const adjustedDebtor = debtor ?? 0;
+    const updatedValues = {
+      creditor: adjustedCreditor,
+      debtor: adjustedDebtor,
+      ...otherValues,
+    };
 
+    const accountId = selectedAccount.id;
+    const accountName = selectedAccount.name;
+    const req = {
+      ...updatedValues,
+      accountId: accountId,
+      accountName: accountName,
+      detailedAccountId4: selectedDetailedAccountFour?.id,
+      detailedAccountIdName4: selectedDetailedAccountFour?.name,
+      detailedAccountId5: selectedDetailedAccountFive?.id,
+      detailedAccountIdName5: selectedDetailedAccountFive?.name,
+      detailedAccountId6: selectedDetailedAccountSix?.id,
+      detailedAccountIdName6: selectedDetailedAccountSix?.name,
+    };
+
+    props.onDataSubmit(req);
+    props.closeModal();
+    // form.resetFields();
+  };
+  const handleDebtorTypeChange = (value) => {
+    setDebtorType(value);
+  };
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <Ant.Form form={form} layout="vertical" onFinishFailed={null}>
+      <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <ModalHeader title={"افزودن آرتیکل سند"} />
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
@@ -57,6 +127,7 @@ const FrmAddItemDetail = () => {
               <Ant.Cascader
                 loading={accountGroupLoading}
                 options={options}
+                onChange={handleChangeAccount}
                 placeholder="لطفا انتخاب کنید ..."
                 fieldNames={{
                   label: "name",
@@ -64,18 +135,9 @@ const FrmAddItemDetail = () => {
                   children: "children",
                 }}
               />
-              {/* <Ant.Select
-                {...commonOptions}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                disabled={accountLoading || false}
-                loading={accountLoading}
-                options={accountData?.data}
-                fieldNames={{ label: "name", value: "id" }}
-              /> */}
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          <Ant.Col span={24} md={24} lg={8}>
             <Ant.Form.Item
               name={"detailedAccountId4"}
               label="حساب تفصیلی سطح چهار"
@@ -90,12 +152,13 @@ const FrmAddItemDetail = () => {
                 {...commonOptions}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
+                onChange={handleChangeDetailedAccountFour}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          <Ant.Col span={24} md={24} lg={8}>
             <Ant.Form.Item
               name={"detailedAccountId5"}
               label="حساب تفصیلی سطح پنج"
@@ -110,12 +173,13 @@ const FrmAddItemDetail = () => {
                 {...commonOptions}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
+                onChange={handleChangeDetailedAccountFive}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          <Ant.Col span={24} md={24} lg={8}>
             <Ant.Form.Item
               name={"detailedAccountId6"}
               label="حساب تفصیلی سطح شش"
@@ -130,46 +194,86 @@ const FrmAddItemDetail = () => {
                 {...commonOptions}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
+                onChange={handleChangeDetailedAccountSix}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          <Ant.Col md={24} lg={8}>
             <Ant.Form.Item
-              name={"article"}
-              label="شرح"
+              label="ماهیت حساب"
+              // name={"amount"}
               rules={[
                 {
                   required: true,
-                  message: "فیلد شرح اجباری است",
+                  message: "فیلد بدهکار و بستانکار اجباری است",
                 },
               ]}
             >
-              <Ant.Input size="default" />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={12}>
-            <Ant.Form.Item
-              name={"debtor"}
-              label="بدهکار"
-              rules={[
-                {
-                  required: true,
-                  message: "فیلد بدهکار اجباری است",
-                },
-              ]}
-            >
-              <Ant.InputNumber
-                min={0}
-                formatter={(value) =>
-                  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-                style={{ width: "100%" }}
+              <Ant.Segmented
+                options={[
+                  {
+                    label: "بدهکار",
+                    value: "0",
+                    icon: <LuDollarSign />,
+                  },
+                  {
+                    label: "بستانکار",
+                    value: "1",
+                    icon: <LuDollarSign />,
+                  },
+                ]}
+                onChange={handleDebtorTypeChange}
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={12}>
+
+          <Ant.Col md={24} lg={8}>
+            {debtorType === "0" && (
+              <Ant.Form.Item
+                name={"creditor"}
+                label="مبلغ"
+                initialValue={"0"}
+                rules={[
+                  {
+                    required: true,
+                    message: "مبلغ  بدهکار اجباری است",
+                  },
+                ]}
+              >
+                <Ant.InputNumber
+                  min={0}
+                  formatter={(value) =>
+                    value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  style={{ width: "100%" }}
+                />
+              </Ant.Form.Item>
+            )}
+            {debtorType === "1" && (
+              <Ant.Form.Item
+                name={"debtor"}
+                label="مبلغ"
+                rules={[
+                  {
+                    required: true,
+                    message: "مبلغ بستانکار اجباری است",
+                  },
+                ]}
+                initialValue={"0"}
+              >
+                <Ant.InputNumber
+                  min={0}
+                  formatter={(value) =>
+                    value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  style={{ width: "100%" }}
+                />
+              </Ant.Form.Item>
+            )}
+          </Ant.Col>
+          {/* <Ant.Col span={24} md={24} lg={12}>
             <Ant.Form.Item
               name={"creditor"}
               label="بستانکار"
@@ -187,26 +291,46 @@ const FrmAddItemDetail = () => {
                 style={{ width: "100%" }}
               />
             </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          </Ant.Col> */}
+          <Ant.Col span={24} md={24} lg={8}>
             <Ant.Form.Item
               name={"referenceNo"}
               label="شماره مرجع"
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد شماره مرجع اجباری است",
-                },
-                { min: 0 },
-                { max: 50 },
-              ]}
+              // rules={[
+              //   {
+              //     required: false,
+              //     message: "فیلد شماره مرجع اجباری است",
+              //   },
+              //   { min: 0 },
+              //   { max: 50 },
+              // ]}
             >
-              <Ant.InputNumber
-                formatter={(value) =>
-                  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-                style={{ width: "100%" }}
-              />
+              <Ant.InputNumber style={{ width: "100%" }} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={12}>
+            <Ant.Form.Item
+              name={"article"}
+              label="شرح"
+              rules={[{ required: true }]}
+            >
+              <Ant.Input.TextArea allowClear showCount maxLength={300} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={12}>
+            <Ant.Form.Item
+              name={"description"}
+              label="توضیحات"
+              rules={[{ required: false }]}
+            >
+              <Ant.Input.TextArea allowClear showCount maxLength={400} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Form.Item>
+              <Ant.Button type="primary" htmlType="submit">
+                {"تایید"}
+              </Ant.Button>
             </Ant.Form.Item>
           </Ant.Col>
         </Ant.Row>
@@ -216,3 +340,7 @@ const FrmAddItemDetail = () => {
 };
 
 export default FrmAddItemDetail;
+FrmAddItemDetail.propTypes = {
+  form: PropTypes.any,
+  id: PropTypes.number,
+};
