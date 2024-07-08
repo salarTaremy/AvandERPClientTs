@@ -77,10 +77,8 @@ const InvoiceList = () => {
     pagination,
     filters,
     sorter,
-    newSelectedRowKeys,
   ) => {
     setPagination(pagination);
-    setSelectedRowKeys(newSelectedRowKeys);
   };
 
   const onRemoveFilter = () => {
@@ -120,6 +118,8 @@ const InvoiceList = () => {
   };
   const rowSelection = {
     selectedRowKeys,
+    hideSelectAll: true,
+    preserveSelectedRowKeys: true,
     onChange: onSelectChange,
     getCheckboxProps: (record) => ({
       disabled: record.isInTpsCartable === true,
