@@ -5,9 +5,11 @@ import * as url from "@/api/url";
 import { useFetch } from "@/api";
 import PropTypes from "prop-types";
 import * as api from "@/api";
+import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
-import { LuDollarSign, LuCircleDollarSign } from "react-icons/lu";
+import { LuDollarSign } from "react-icons/lu";
+import { FaFileMedical } from "react-icons/fa";
 const FrmAddItemDetail = (props) => {
   const { form } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
@@ -79,13 +81,16 @@ const FrmAddItemDetail = (props) => {
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
     const updatedValues = {
+      key: uuid.v4(),
       creditor: adjustedCreditor,
       debtor: adjustedDebtor,
+      accountingDocumentID: 0,
       ...otherValues,
     };
 
     const accountId = selectedAccount.id;
     const accountName = selectedAccount.name;
+
     const req = {
       ...updatedValues,
       accountId: accountId,
@@ -97,10 +102,8 @@ const FrmAddItemDetail = (props) => {
       detailedAccountId6: selectedDetailedAccountSix?.id,
       detailedAccountIdName6: selectedDetailedAccountSix?.name,
     };
-
     props.onDataSubmit(req);
     props.closeModal();
-    // form.resetFields();
   };
   const handleDebtorTypeChange = (value) => {
     setDebtorType(value);
@@ -111,12 +114,12 @@ const FrmAddItemDetail = (props) => {
   return (
     <>
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
-        <ModalHeader title={"افزودن آرتیکل سند"} />
+        <ModalHeader title={"افزودن آرتیکل سند"} icon={<FaFileMedical />} />
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"accountId"}
-              label="حساب "
+              label="نوع حساب "
               rules={[
                 {
                   required: false,
@@ -212,6 +215,7 @@ const FrmAddItemDetail = (props) => {
               ]}
             >
               <Ant.Segmented
+                className="w-full"
                 options={[
                   {
                     label: "بدهکار",
@@ -273,39 +277,13 @@ const FrmAddItemDetail = (props) => {
               </Ant.Form.Item>
             )}
           </Ant.Col>
-          {/* <Ant.Col span={24} md={24} lg={12}>
-            <Ant.Form.Item
-              name={"creditor"}
-              label="بستانکار"
-              rules={[
-                {
-                  required: true,
-                  message: "فیلد بستانکار اجباری است",
-                },
-              ]}
-            >
-              <Ant.InputNumber
-                formatter={(value) =>
-                  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                }
-                style={{ width: "100%" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col> */}
+
           <Ant.Col span={24} md={24} lg={8}>
             <Ant.Form.Item
               name={"referenceNo"}
               label="شماره مرجع"
-              // rules={[
-              //   {
-              //     required: false,
-              //     message: "فیلد شماره مرجع اجباری است",
-              //   },
-              //   { min: 0 },
-              //   { max: 50 },
-              // ]}
             >
-              <Ant.InputNumber style={{ width: "100%" }} />
+              <Ant.Input style={{ width: "100%" }} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={12}>
@@ -327,7 +305,7 @@ const FrmAddItemDetail = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item>
+            <Ant.Form.Item className="text-end">
               <Ant.Button type="primary" htmlType="submit">
                 {"تایید"}
               </Ant.Button>
@@ -341,6 +319,5 @@ const FrmAddItemDetail = (props) => {
 
 export default FrmAddItemDetail;
 FrmAddItemDetail.propTypes = {
-  form: PropTypes.any,
   id: PropTypes.number,
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import * as Ant from "antd";
-import * as styles from "@/styles";
 import * as defaultValues from "@/defaultValues";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
@@ -12,9 +11,11 @@ import { usePostWithHandler } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import * as uuid from "uuid";
 import useRequestManager from "@/hooks/useRequestManager";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
 const AddItemDetailList = (props) => {
-  const { onSuccess, id, key } = props;
+  const { id } = props;
   const [formData, setFormData] = useState({});
   const [dataSource, setDataSource] = useState([]);
   const [modalContent, setModalContent] = useState();
@@ -26,19 +27,20 @@ const AddItemDetailList = (props) => {
     loading: submitLoading,
     data: submitListData,
   });
+
   const columns = [
     {
       title: " نام حساب",
       dataIndex: "accountName",
-      key: "accountName",
+      key: "0",
       align: "center",
-      width: 200,
+      width: 300,
       className: "text-xs sm:text-sm",
     },
     {
       title: "شماره مرجع",
       dataIndex: "referenceNo",
-      key: "referenceNo",
+      key: "1",
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
@@ -46,7 +48,7 @@ const AddItemDetailList = (props) => {
     {
       title: "حساب تفصیلی سطح چهار",
       dataIndex: "detailedAccountIdName4",
-      key: "detailedAccountIdName4",
+      key: "2",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -54,7 +56,7 @@ const AddItemDetailList = (props) => {
     {
       title: "حساب تفصیلی سطح پنج",
       dataIndex: "detailedAccountIdName5",
-      key: "detailedAccountIdName5",
+      key: "3",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -62,7 +64,7 @@ const AddItemDetailList = (props) => {
     {
       title: "حساب تفصیلی سطح شش",
       dataIndex: "detailedAccountIdName6",
-      key: "detailedAccountIdName6",
+      key: "4",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -70,14 +72,14 @@ const AddItemDetailList = (props) => {
     {
       title: "شرح ",
       dataIndex: "article",
-      key: "article",
-      className: "text-xs sm:text-sm",
+      key: "5",
       width: 120,
+      className: "text-xs sm:text-sm",
     },
     {
       title: "بدهکار",
       dataIndex: "debtor",
-      key: "debtor",
+      key: "6",
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
@@ -85,7 +87,7 @@ const AddItemDetailList = (props) => {
     {
       title: "بستانکار",
       dataIndex: "creditor",
-      key: "creditor",
+      key: "7",
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
@@ -93,26 +95,52 @@ const AddItemDetailList = (props) => {
     {
       title: "توضیحات",
       dataIndex: "description",
-      key: "description",
+      key: "8",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
+    },
+    {
+      title: "عملیات",
+      dataIndex: "operation",
+      key: "operation",
+      width: 1,
+      align: "center",
+      width: 100,
+
+      render: (text, val) => (
+        <>
+          <Ant.Space direction="horizontal" size={20}>
+            <Ant.Button
+              className="text-blue-600"
+              onClick={() => onEdit(val)}
+              icon={<FiEdit />}
+              type="text"
+            />
+          </Ant.Space>
+          <Ant.Popconfirm
+            onConfirm={() => onDelete(val)}
+            title={`برای حذف سطر مطمئن هستید؟`}
+          >
+            <Ant.Button
+              className="text-red-600"
+              icon={<RiDeleteBin6Line />}
+              type="text"
+            />
+          </Ant.Popconfirm>
+        </>
+      ),
     },
   ];
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    generateDataSource(formData);
-  }, [formData]);
 
-  //====================================================================
-  //                        Functions
-  //====================================================================
-  const generateDataSource = (formData) => {
-    const newDataSource = [...dataSource, formData];
-    setDataSource(newDataSource);
-  };
+  useEffect(() => {
+    if (formData && Object.keys(formData).length > 0) {
+      setDataSource((prevDataSource) => [...prevDataSource, formData]);
+    }
+  }, [formData]);
 
   //====================================================================
   //                        Functions
@@ -123,19 +151,32 @@ const AddItemDetailList = (props) => {
   const handleDataSubmit = (newData) => {
     setFormData(newData);
   };
-  const btnSubmit = () => {
-    console.log(dataSource);
+  const btnSubmit = async () => {
+    dataSource.forEach((item) => {
+      item.accountingDocumentID = id;
+      delete item.accountName;
+      delete item.detailedAccountIdName4;
+      delete item.detailedAccountIdName5;
+      delete item.detailedAccountIdName6;
+    });
+
+    await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_CREATE_LIST, dataSource);
+    setDataSource([]);
   };
 
+  const onDelete = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key.key);
+    setDataSource(newData);
+  };
   const onAdd = () => {
     setModalContent(
       <FrmAddItemDetail
-        key={id}
+        key={uuid.v4()}
+
         onDataSubmit={handleDataSubmit}
         closeModal={closeModal}
       />,
     );
-
     setModalState(true);
   };
 
@@ -190,7 +231,4 @@ const AddItemDetailList = (props) => {
 };
 
 export default AddItemDetailList;
-AddItemDetailList.propTypes = {
-  onSuccess: PropTypes.func,
-  id: PropTypes.number.isRequired,
-};
+
