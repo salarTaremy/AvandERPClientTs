@@ -57,12 +57,13 @@ import SaleEffectiveFactor from './Pages/salesCommerce/basicInformation/saleEffe
 import PriceCircularHeader from './Pages/salesCommerce/priceCircular/priceCircularHeader/list/PriceCircularHeader';
 import CityDistrictList from './Pages/salesCommerce/basicInformation/cityDistrict/list/CityDistrictList'
 import VisitorManagmentList from './Pages/salesCommerce/basicInformation/visitorManagment/list/VisitorManagmentList'
-import InvoiceManagement from  './Pages/salesCommerce/taxPayersSystem/invoiceManagement/InvoiceManagement';
+import InvoiceManagement from './Pages/salesCommerce/taxPayersSystem/invoiceManagement/InvoiceManagement';
+import AuthInfoList from './Pages/salesCommerce/taxPayersSystem/authSetting/list/AuthInfoList'
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
 //import CounterPartyBlackList from './Pages/manageCounterParty/CounterPartyBlackList/list/counterPartyBlackList'
-  import CounterPartyBlackList from './Pages/manageCounterParty/counterPartyBlackList/list/CounterPartyBlackList'
+import CounterPartyBlackList from './Pages/manageCounterParty/counterPartyBlackList/list/CounterPartyBlackList'
 import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounterParty'
 
 
@@ -133,6 +134,8 @@ const routes = [
   { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: banks },
   { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument },
   { path: 'taxPayersSystem/InvoiceManagement', name: 'مدیریت صورتحساب ها', element: InvoiceManagement },
+  { path: 'taxPayersSystem/AuthInfoList', name: 'مدیریت صورتحساب ها', element: AuthInfoList },
+
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
 ]
