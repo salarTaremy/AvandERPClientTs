@@ -71,6 +71,14 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
       className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
+        <Ant.Tooltip placement="top" title={'دسترسی منو'}>
+            <Ant.Button
+              className="text-cyan-500"
+              onClick={() => onMenu(val)}
+              icon={<AiOutlineMenu />}
+              type="text"
+            />
+          </Ant.Tooltip>
           <Ant.Tooltip placement="top" title={'ویرایش عملیات'}>
             <Ant.Button
               className="text-violet-600"
@@ -81,23 +89,15 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
           </Ant.Tooltip>
           <Ant.Tooltip placement="top" title={'عملیات'}>
             <Ant.Button
-              className="text-green-600"
+              className="text-fuchsia-500"
               onClick={() => onAction(val)}
               icon={<VscGithubAction />}
               type="text"
             />
           </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={'دسترسی منو'}>
-            <Ant.Button
-              className="text-orange-600"
-              onClick={() => onMenu(val)}
-              icon={<AiOutlineMenu />}
-              type="text"
-            />
-          </Ant.Tooltip>
           <Ant.Tooltip placement="top" title={'لیست کاربران'}>
             <Ant.Button
-              className="text-purple-600"
+              className="text-rose-400"
               onClick={() => onInfo(val)}
               icon={<LuUser2 />}
               type="text"
@@ -106,7 +106,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
           <Ant.Tooltip placement="top" title={'ویرایش'}>
             <Ant.Button
               onClick={() => onEdit(val)}
-              className="text-blue-600"
+              className="text-blue-500"
               icon={<FiEdit />}
               type="text"
             />
@@ -123,7 +123,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
           >
             <Ant.Tooltip placement="top" title={'حذف'}>
               <Ant.Button
-                className="text-red-600"
+                className="text-rose-600"
                 icon={<RiDeleteBin6Line />}
                 type="text"
               />

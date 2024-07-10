@@ -64,7 +64,7 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) =
                     <>
                         <Ant.Tooltip placement="top" title={' سایر دسترسی ها '}>
                             <Ant.Button
-                                className="text-red-600"
+                                className="text-cyan-600"
                                 onClick={() => onOtherAccesses(val)}
                                 icon={<AiOutlineEllipsis />}
                                 type="text"
@@ -80,31 +80,31 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) =
                         </Ant.Tooltip>
                         <Ant.Tooltip placement="top" title={'لیست نقش ها'}>
                             <Ant.Button
-                                className="text-green-600"
+                                className="text-fuchsia-600"
                                 onClick={() => onInfo(val)}
                                 icon={<VscGithubAction />}
                                 type="text"
                             />
                         </Ant.Tooltip>
-                        <Ant.Tooltip placement="top" title={'ویرایش'}>
-                            <Ant.Button
-                                className="text-blue-600"
-                                onClick={() => onEdit(val)}
-                                icon={<FiEdit />}
-                                type="text"
-                            />
-                        </Ant.Tooltip>
                         <Ant.Tooltip placement="top" title={'تغییر رمز عبور'}>
                             <Ant.Button
-                                className="text-orange-600"
+                                className="text-rose-400"
                                 onClick={() => onReset(val)}
                                 icon={<VscKey />}
                                 type="text"
                             />
                         </Ant.Tooltip>
+                        <Ant.Tooltip placement="top" title={'ویرایش'}>
+                            <Ant.Button
+                                className="text-blue-500"
+                                onClick={() => onEdit(val)}
+                                icon={<FiEdit />}
+                                type="text"
+                            />
+                        </Ant.Tooltip>
                         <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>
                             <Ant.Tooltip placement="top" title={'حذف'}>
-                                <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
+                                <Ant.Button className="text-rose-600" icon={<RiDeleteBin6Line />} type="text" />
                             </Ant.Tooltip>
                         </Ant.Popconfirm>
                     </>

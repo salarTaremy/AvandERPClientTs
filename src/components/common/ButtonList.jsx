@@ -35,7 +35,7 @@ const ButtonBar = (props) => {
     return (
       onEdit && (
         <Tooltip title={iconOnly && (editTooltip || 'ویرایش ایتم مورد نظر')} size={size}>
-          <Button onClick={onEdit} size={size} icon={<FiEdit />} className='text-sky-600 border-sky-600'>
+          <Button onClick={onEdit} size={size} icon={<FiEdit />} className='text-blue-600 border-blue-600'>
             {iconOnly || 'ویرایش'}
           </Button>
         </Tooltip>
