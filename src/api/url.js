@@ -11,6 +11,7 @@ export const ACCOUNT_DOCUMENT = "/AccountingDocument"
 
 //AccountDocumentDetail
 export const ACCOUNT_DOCUMENT_DETAIL = "/AccountingDocumentDetail"
+export const ACCOUNT_DOCUMENT_DETAIL_CREATE_LIST = "/AccountingDocumentDetail/CreateList"
 
 //AccountingDocumentType
 export const ACCOUNTING_DOCUMENT_TYPE = '/accountingDocumentType'
@@ -230,3 +231,6 @@ export const CITY_DISTRICT = 'CityDistrict'
 //Visitor
 export const VISITOR ='Visitor'
 export const VISITOR_FREE_CODE = 'Visitor/GetFirstFreeCode'
+
+//AuthSetting
+export const TAX_PAYERS_SYSTEM_AUTH_INFORMATION = 'TaxPayersSystemAuthInformation'

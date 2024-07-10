@@ -130,8 +130,11 @@ const AccountDocumentList = () => {
     setModalState(true);
   };
   const addItem = (id) => {
+
+    // alert(id,"ggg")
+    debugger
     setModalSize({ ...defaultValues.MODAL_LARGE })
-    setModalContent(<AddItemDetailList  />);
+    setModalContent(<AddItemDetailList id={id}/>);
     setModalState(true);
   };
   //====================================================================

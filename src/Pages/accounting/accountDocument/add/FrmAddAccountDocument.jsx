@@ -5,12 +5,12 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, usePostWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
-import PropTypes from 'prop-types'
-import TBL from "./Table";
+import PropTypes from "prop-types";
+
 import { useNavigate } from "react-router-dom";
 import { HiDocumentPlus } from "react-icons/hi2";
- const FrmAddAccountDocument = (props) => {
-  const { onSuccess} = props;
+const FrmAddAccountDocument = (props) => {
+  const { onSuccess } = props;
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
   );
@@ -24,19 +24,15 @@ import { HiDocumentPlus } from "react-icons/hi2";
   useRequestManager({ error: addError, loading: addLoading, data: addData });
   useRequestManager({ error: accTypeError });
   useRequestManager({ error: branchError });
-  const [dataSource, setDataSource] = useState([]);
-  const [dataDetailObject, setDataDetailObject] = useState();
-  const [sumDebtor, setSumDebtor] = useState(0);
-  const [sumCreditor, setSumCreditor] = useState(0);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   //====================================================================
   //                       useEffects
   //====================================================================
   useEffect(() => {
-    addData?.isSuccess && onSuccess()
-  }, [addData])
+    addData?.isSuccess && onSuccess();
+  }, [addData]);
   useEffect(() => {
     form.resetFields();
   }, [form]);
@@ -44,77 +40,18 @@ import { HiDocumentPlus } from "react-icons/hi2";
   //====================================================================
   //                        Functions
   //====================================================================
-  const updateDebtor = (debtor) => {
-    setSumDebtor(debtor);
-  };
-  const updateCreditor = (creditor) => {
-    setSumCreditor(creditor);
-  };
 
   const onFinish = async (values) => {
-
     const header = {
       ...values,
       documentNumber: 0,
       calendarId: parseInt(values?.calendarId?.toString().replace(/\//g, "")),
     };
-    // let valueHeader = form.getFieldsValue();
-    // const header = {
-    //   documentNumber: 0,
-    //   branchId: valueHeader.branchId,
-    //   accountingDocumentTypeId: valueHeader.AccountingDocumentTypeId,
-    //   accountingDocumentStateId: valueHeader.accountingDocumentStateId,
-    //   calendarId: parseInt(
-    //     valueHeader?.calendarId?.toString().replace(/\//g, ""),
-    //   ),
-    //   subNumber: valueHeader.subNumber,
-    // };
-    // const detailsList = [];
-
-    // for (let key in values) {
-    //   if (typeof values[key] === "object") {
-    //     detailsList.push(values[key]);
-    //   }
-    // }
-    // const filteredAnyObj = detailsList.filter(
-    //   (obj) => Object.keys(obj).length > 0,
-    // );
-    // delete header.details;
     const dto = {
       header,
-      // details: [],
     };
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
     navigate("/accounting/accountDocument");
-  };
-
-  //====================================================================
-  //                        Child Components
-  //====================================================================
-  const FooterContent = () => {
-    return (
-      <>
-        <Ant.Row gutter={[16, 8]}>
-          <Ant.Col className="mt-1" lg={12} md={12} sm={12} xs={24}>
-            <Ant.Button
-              htmlType="submit"
-              type="primary"
-              style={{ width: 150 }}
-              onClick={() => {
-                form.submit();
-              }}
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Col>
-          <Ant.Col className="text-end" lg={12} md={12} sm={12} xs={24}>
-            جمع کل بدهکار: {sumDebtor.toLocaleString() || 0}
-            <br />
-            جمع کل بستانکار: {sumCreditor.toLocaleString() || 0}
-          </Ant.Col>
-        </Ant.Row>
-      </>
-    );
   };
 
   //====================================================================
