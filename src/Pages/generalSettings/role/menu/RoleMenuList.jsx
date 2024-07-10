@@ -25,6 +25,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
   });
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState([]);
+  const [halfCheckedKeys, setHalfCheckedKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const checked = [];
@@ -43,14 +44,15 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
 
   useEffect(() => {
     items?.forEach((item) => {
-      if (item?.roleHasAccess) {
+      if (!item?.children && item?.roleHasAccess) {
         checked.push(item.key);
-      } else
+      } else {
         item?.children?.forEach((c) => {
           if (c.roleHasAccess) {
             checked.push(c.key);
           }
         });
+      }
     });
     setCheckedKeys(checked);
   }, [items]);
@@ -63,7 +65,9 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
     setAutoExpandParent(false);
   };
 
-  const onCheck = (checkedKeysValue) => {
+  const onCheck = (checkedKeysValue, e) => {
+    const halfCheckedKeys = e.halfCheckedKeys;
+    setHalfCheckedKeys(halfCheckedKeys);
     setCheckedKeys(checkedKeysValue);
   };
 
@@ -82,9 +86,10 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
   };
 
   const onFinish = async () => {
+    const allCheckedKeys = [...halfCheckedKeys, ...checkedKeys];
     const req = {
       roleId: id,
-      entityIdList: checkedKeys,
+      entityIdList: allCheckedKeys,
     };
     await apiCallRoleNavMenuAssignment(url.UPDATE_ROLE_NAV_MENU, req);
     onSuccess();
@@ -96,25 +101,25 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
   return (
     <>
       <ModalHeader title={`دسترسی منو نقش " ${name} "`} icon={<BsMenuButtonWideFill />}/>
-      <Ant.Skeleton loading={loading}>
-        <CoustomContent>
-          <Ant.Tree
-            checkable
-            onExpand={onExpand}
-            expandedKeys={expandedKeys}
-            autoExpandParent={autoExpandParent}
-            onCheck={onCheck}
-            checkedKeys={checkedKeys}
-            onSelect={onSelect}
-            selectedKeys={selectedKeys}
-            treeData={items}
-          />
-        </CoustomContent>
-      </Ant.Skeleton>
-
-      <Ant.Button type="primary" onClick={onFinish}>
-        {"ذخیره"}
-      </Ant.Button>
+        <Ant.Skeleton loading={loading}>
+          <CoustomContent Height="60vh">
+            <Ant.Tree
+              checkable
+              onExpand={onExpand}
+              expandedKeys={expandedKeys}
+              autoExpandParent={autoExpandParent}
+              onCheck={onCheck}
+              checkedKeys={checkedKeys}
+              onSelect={onSelect}
+              selectedKeys={selectedKeys}
+              treeData={items}
+            />
+          </CoustomContent>
+        </Ant.Skeleton>
+        
+        <Ant.Button type="primary" onClick={onFinish}>
+          {"ذخیره"}
+        </Ant.Button>
     </>
   );
 };
