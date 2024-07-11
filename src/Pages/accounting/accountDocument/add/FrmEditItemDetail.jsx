@@ -10,7 +10,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
-const FrmAddItemDetail = (props) => {
+const FrmEditItemDetail = (props) => {
   const { form } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [debtorType, setDebtorType] = useState("0");
@@ -86,8 +86,11 @@ const FrmAddItemDetail = (props) => {
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
     const updatedValues = {
+      // key: uuid.v4(),
+      // id:id,
       creditor: adjustedCreditor,
       debtor: adjustedDebtor,
+      accountingDocumentID: 0,
       ...otherValues,
     };
 
@@ -96,6 +99,7 @@ const FrmAddItemDetail = (props) => {
 
     const req = {
       ...updatedValues,
+
       accountId: accountId,
       accountName: accountName,
       detailedAccountId4: selectedDetailedAccountFour?.id,
@@ -324,7 +328,7 @@ const FrmAddItemDetail = (props) => {
   );
 };
 
-export default FrmAddItemDetail;
-FrmAddItemDetail.propTypes = {
+export default FrmEditItemDetail;
+FrmEditItemDetail.propTypes = {
   id: PropTypes.number,
 };
