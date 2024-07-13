@@ -196,9 +196,11 @@ const AddItemDetailList = (props) => {
       return item;
     });
     setDataSource(updatedDataSource);
+    console.log(updatedDataSource, "updatedDataSource");
   };
 
   const btnSubmit = async () => {
+    debugger;
     const formattedData = dataSource.map((item) => {
       return {
         id: item.id,
@@ -218,11 +220,14 @@ const AddItemDetailList = (props) => {
     // }
 
     console.log(formattedData, "formattedData11");
-    await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
+    await submitApiCall(
+      url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST,
+      formattedData,
+    );
   };
 
-  const onDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key.key);
+  const onDelete = (val) => {
+    const newData = dataSource.filter((item) => item.id !== val.id);
     setDataSource(newData);
   };
 

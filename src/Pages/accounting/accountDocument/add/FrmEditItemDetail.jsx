@@ -5,7 +5,7 @@ import * as url from "@/api/url";
 import { useFetch } from "@/api";
 import PropTypes from "prop-types";
 import * as api from "@/api";
-import {  useFetchWithHandler } from "@/api";
+import { useFetchWithHandler } from "@/api";
 import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
@@ -53,9 +53,9 @@ const FrmEditItemDetail = (props) => {
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
   }, [listData]);
 
-useEffect(()=>{
-  getAccountDocumentById();
-},[]);
+  useEffect(() => {
+    getAccountDocumentById();
+  }, []);
 
   useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
@@ -68,14 +68,12 @@ useEffect(()=>{
   //                        Functions
   //====================================================================
 
-
   const getAccountDocumentById = async () => {
     await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}/${id}`);
   };
 
-
   const handleChangeAccount = (value, selectedOptions) => {
-    debugger
+    debugger;
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
     setSelectedAccount({
       id: lastSelectedOption.id,
@@ -101,13 +99,13 @@ useEffect(()=>{
     });
   };
   const onFinish = async (values) => {
-    console.log(values,"kakakakak")
+    console.log(values, "kakakakak");
     const { creditor, debtor, ...otherValues } = values;
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
     const updatedValues = {
       // key: uuid.v4(),
-      id:id,
+      id: id,
       creditor: adjustedCreditor,
       debtor: adjustedDebtor,
       accountingDocumentID: 0,
@@ -244,8 +242,7 @@ useEffect(()=>{
               ]}
             >
               <Ant.Segmented
-              block
-
+                block
                 options={[
                   {
                     label: "بدهکار",
@@ -309,10 +306,7 @@ useEffect(()=>{
           </Ant.Col>
 
           <Ant.Col span={24} md={24} lg={8}>
-            <Ant.Form.Item
-              name={"referenceNo"}
-              label="شماره مرجع"
-            >
+            <Ant.Form.Item name={"referenceNo"} label="شماره مرجع">
               <Ant.Input style={{ width: "100%" }} />
             </Ant.Form.Item>
           </Ant.Col>
@@ -350,6 +344,6 @@ useEffect(()=>{
 export default FrmEditItemDetail;
 FrmEditItemDetail.propTypes = {
   id: PropTypes.number,
-  form:PropTypes.any,
+  form: PropTypes.any,
   obj: PropTypes.any,
 };
