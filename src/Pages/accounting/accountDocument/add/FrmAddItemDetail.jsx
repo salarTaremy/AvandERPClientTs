@@ -221,8 +221,7 @@ const FrmAddItemDetail = (props) => {
               ]}
             >
               <Ant.Segmented
-              block
-
+                block
                 options={[
                   {
                     label: "بدهکار",
@@ -286,10 +285,7 @@ const FrmAddItemDetail = (props) => {
           </Ant.Col>
 
           <Ant.Col span={24} md={24} lg={8}>
-            <Ant.Form.Item
-              name={"referenceNo"}
-              label="شماره مرجع"
-            >
+            <Ant.Form.Item name={"referenceNo"} label="شماره مرجع">
               <Ant.Input style={{ width: "100%" }} />
             </Ant.Form.Item>
           </Ant.Col>

@@ -5,13 +5,14 @@ import * as url from "@/api/url";
 import { useFetch } from "@/api";
 import PropTypes from "prop-types";
 import * as api from "@/api";
+import {  useFetchWithHandler } from "@/api";
 import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
 const FrmEditItemDetail = (props) => {
-  const { form } = props;
+  const { onSuccess, id } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [debtorType, setDebtorType] = useState("0");
   const [selectedAccount, setSelectedAccount] = useState({
@@ -21,6 +22,7 @@ const FrmEditItemDetail = (props) => {
   const [selectedDetailedAccountFour, setDetailedAccountFour] = useState();
   const [selectedDetailedAccountFive, setDetailedAccountFive] = useState();
   const [selectedDetailedAccountSix, setDetailedAccountSix] = useState();
+  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
 
   const [
     accounGrouptData,
@@ -28,7 +30,7 @@ const FrmEditItemDetail = (props) => {
     accountGroupError,
     accoupGroupApicall,
   ] = api.useFetchWithHandler();
-
+  const [form] = Ant.Form.useForm();
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
 
@@ -47,6 +49,15 @@ const FrmEditItemDetail = (props) => {
   //====================================================================
 
   useEffect(() => {
+    form.resetFields();
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+  }, [listData]);
+
+useEffect(()=>{
+  getAccountDocumentById();
+},[]);
+
+  useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
   }, []);
 
@@ -56,7 +67,15 @@ const FrmEditItemDetail = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
+
+
+  const getAccountDocumentById = async () => {
+    await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}/${id}`);
+  };
+
+
   const handleChangeAccount = (value, selectedOptions) => {
+    debugger
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
     setSelectedAccount({
       id: lastSelectedOption.id,
@@ -82,12 +101,13 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
+    console.log(values,"kakakakak")
     const { creditor, debtor, ...otherValues } = values;
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
     const updatedValues = {
       // key: uuid.v4(),
-      // id:id,
+      id:id,
       creditor: adjustedCreditor,
       debtor: adjustedDebtor,
       accountingDocumentID: 0,
@@ -99,7 +119,6 @@ const FrmEditItemDetail = (props) => {
 
     const req = {
       ...updatedValues,
-
       accountId: accountId,
       accountName: accountName,
       detailedAccountId4: selectedDetailedAccountFour?.id,
@@ -121,7 +140,7 @@ const FrmEditItemDetail = (props) => {
   return (
     <>
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
-        <ModalHeader title={"افزودن آرتیکل سند"} icon={<FaFileMedical />} />
+        <ModalHeader title={"ویرایش آرتیکل سند"} icon={<FaFileMedical />} />
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
@@ -331,4 +350,6 @@ const FrmEditItemDetail = (props) => {
 export default FrmEditItemDetail;
 FrmEditItemDetail.propTypes = {
   id: PropTypes.number,
+  form:PropTypes.any,
+  obj: PropTypes.any,
 };

@@ -16,6 +16,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
+import FrmEditItemDetail from "../add/FrmEditItemDetail";
 const AddItemDetailList = (props) => {
   const { id } = props;
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -24,7 +25,7 @@ const AddItemDetailList = (props) => {
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
   const [submitListData, submitLoading, submitError, submitApiCall] =
-  usePutWithHandler();
+    usePutWithHandler();
   useRequestManager({ error: error });
   useRequestManager({
     error: submitError,
@@ -154,7 +155,6 @@ const AddItemDetailList = (props) => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
 
-
   useEffect(() => {
     if (formData && Object.keys(formData).length > 0) {
       setDataSource((prevDataSource) => {
@@ -165,6 +165,7 @@ const AddItemDetailList = (props) => {
         }
       });
     }
+    console.log(dataSource, "dataSource");
   }, [formData]);
   //====================================================================
   //                        Functions
@@ -184,17 +185,24 @@ const AddItemDetailList = (props) => {
 
   const handleDataSubmit = (newData) => {
     setFormData(newData);
-
+  };
+  const handleDataSubmitEdit = (newData) => {
+    setFormData(newData);
+    const updatedDataSource = dataSource.map((item) => {
+      debugger;
+      if (item.id === newData.id) {
+        return { ...item, ...newData };
+      }
+      return item;
+    });
+    setDataSource(updatedDataSource);
   };
 
   const btnSubmit = async () => {
-    console.log(dataSource, "dataSourcedataSource");
-    // if (listData?.isSuccess) {
-    debugger
     const formattedData = dataSource.map((item) => {
       return {
-        id:item.id,
-        accountId:item.accountId,
+        id: item.id,
+        accountId: item.accountId,
         detailedAccountId4: item.detailedAccountId4,
         detailedAccountId5: item.detailedAccountId5,
         detailedAccountId6: item.detailedAccountId6,
@@ -211,7 +219,6 @@ const AddItemDetailList = (props) => {
 
     console.log(formattedData, "formattedData11");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
-
   };
 
   const onDelete = (key) => {
@@ -220,7 +227,7 @@ const AddItemDetailList = (props) => {
   };
 
   const onAdd = (id) => {
-    console.log(id,"kkkkk")
+    console.log(id, "kkkkk");
     setModalContent(
       <FrmAddItemDetail
         key={uuid.v4()}
@@ -232,17 +239,19 @@ const AddItemDetailList = (props) => {
     setModalState(true);
   };
 
-  const onEdit = (id) => {
-    // alert(id)
-    // setModalContent(
-    //   <FrmAddItemDetail
-    //     key={uuid.v4()}
-    //     id={id}
-    //     onDataSubmit={handleDataSubmit}
-    //     closeModal={closeModal}
-    //   />
-    // );
-    // setModalState(true);
+  const onEdit = (val) => {
+    console.log(val, "lalalalal");
+    setModalContent(
+      <FrmEditItemDetail
+        // key={uuid.v4()}
+        key={val.id}
+        id={val.id}
+        obj={val}
+        onDataSubmit={handleDataSubmitEdit}
+        closeModal={closeModal}
+      />,
+    );
+    setModalState(true);
   };
 
   //====================================================================
