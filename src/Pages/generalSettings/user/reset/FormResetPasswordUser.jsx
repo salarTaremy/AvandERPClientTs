@@ -48,7 +48,7 @@ const FormResetPasswordUser = (props) => {
           <Ant.Input allowClear showCount maxLength={200} disabled />
         </Ant.Form.Item>
         <Ant.Form.Item
-          name="passwordHash"
+          name="password"
           label={"رمز عبور"}
           rules={[{ required: true }]}
         >

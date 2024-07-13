@@ -7,7 +7,7 @@ import * as uuid from "uuid";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import CoustomContent from "@/components/common/CoustomContent";
-import InquiryTimelineItem from "./InquiryTimelineItem";
+import InquiryListItem from "./InquiryListItem";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -38,10 +38,7 @@ const InquiryResult = (props) => {
       <ModalHeader title={pageTitle} />
       <CoustomContent Height="60vh">
         <Ant.Skeleton loading={inquiryLoading}>
-          <InquiryTimelineItem
-            inquiryData={inquiryResultData}
-            key={uuid.v1()}
-          />
+          <InquiryListItem inquiryData={inquiryResultData} key={uuid.v1()} />
         </Ant.Skeleton>
       </CoustomContent>
     </>

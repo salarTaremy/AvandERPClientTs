@@ -108,9 +108,11 @@ const Account = () => {
                   showIcon
                   blockNode
                   treeData={treeData}
-                  autoExpandParent={true}
                   defaultExpandedKeys={expandedKeys}
-                  showLine={true}
+                  showLine
+                  autoExpandParent
+                  // fieldNames={{ title: "name", key: "id", children: '' }}
+                  //titleRender={titleRender}
                 />
               {/* </Ant.Card> */}
               </CoustomContent>

@@ -6,24 +6,6 @@ import { BsCheckCircle } from "react-icons/bs";
 import { GoNoEntry } from "react-icons/go";
 import { green, lime } from "@ant-design/colors";
 
-const getStatusColor = (statusId) => {
-  switch (statusId) {
-    case 1:
-      return "pink";
-    case 5:
-      return "cyan";
-    case 6:
-      return "green";
-    case 7:
-      return "red";
-    case 8:
-      return "orange";
-    case 9:
-      return "blue";
-    default:
-      return "black";
-  }
-};
 const getSendingProgress = (progressStatusId) => {
   switch (progressStatusId) {
     case 1:
@@ -144,33 +126,33 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry) => {
       className: "text-xs sm:text-sm",
       width: 120,
     },
-    {
-      title: "موجود در کارپوشه",
-      dataIndex: "isInTpsCartable",
-      key: "isInTpsCartable",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 150,
-      render: (text, record, index) => {
-        return (
-          <>
-            {record.isInTpsCartable === true && (
-              <BsCheckCircle className="text-green-600" />
-            )}
-            {record.isInTpsCartable === false && (
-              <GoNoEntry className="text-rose-700" />
-            )}
-          </>
-        );
-      },
-    },
-    {
-      title: "وضعیت",
-      dataIndex: "status",
-      key: "status",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 80,
+    // {
+    //   title: "موجود در کارپوشه",
+    //   dataIndex: "isInTpsCartable",
+    //   key: "isInTpsCartable",
+    //   align: "center",
+    //   className: "text-xs sm:text-sm",
+    //   width: 150,
+    //   render: (text, record, index) => {
+    //     return (
+    //       <>
+    //         {record.isInTpsCartable === true && (
+    //           <BsCheckCircle className="text-green-600" />
+    //         )}
+    //         {record.isInTpsCartable === false && (
+    //           <GoNoEntry className="text-rose-700" />
+    //         )}
+    //       </>
+    //     );
+    //   },
+    // },
+    // {
+    //   title: "وضعیت",
+    //   dataIndex: "status",
+    //   key: "status",
+    //   align: "center",
+    //   className: "text-xs sm:text-sm",
+    //   width: 80,
       // render: (text, record, index) => {
       //     return (
       //         <Ant.Tag bordered={false} color={getStatusColor(record.statusId)}>
@@ -178,7 +160,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry) => {
       //         </Ant.Tag>
       //     )
       // }
-    },
+    // },
     {
       title: "الگوی صورتحساب",
       dataIndex: "saleDocumentIssue",
