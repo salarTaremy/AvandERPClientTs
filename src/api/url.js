@@ -134,6 +134,9 @@ export const SALE_EFFECTIVE_FACTOR = 'SaleEffectiveFactor'
 export const SALE_EFFECTIVE_FACTOR_TYPE = 'SaleEffectiveFactor/GetSaleEffectiveFactorType'
 export const PRICE_CIRCULAR_HEADER = 'PriceCircularHeader'
 export const PRICE_CIRCULAR_DETAIL = 'PriceCircularDetail'
+export const PRICE_CIRCULAR_HEADER_CREATE_COPY = 'PriceCircularHeader/CreateCopy'
+export const PRICE_CIRCULAR_HEADER_ENABLE_DISABLE = 'PriceCircularHeader/EnableDisable'
+
 
 //Sales - TaxPayersSystem (سامانه مودیان)
 export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDocumentType'
@@ -165,7 +168,7 @@ export const COUNTER_PARTY_GET_FOR_DROPDOWN = '/Counterparty/GetForDropdown'
 export const COUNTER_PARTY_BLACK_LIST_STATE_GET_BY_COUNTER_PARTY_ID = 'CounterpartyBlackList/GetByCounterpartyId'
 export const COUNTERPARTY_ADDRESS = 'CounterpartyAddress'
 export const COUNTERPARTY_BANK_ACCOUNT = 'CounterpartyBankAccount'
-export const COUNTERPARTY_PHONE_NUMBER ='CounterpartyPhoneNumber'
+export const COUNTERPARTY_PHONE_NUMBER = 'CounterpartyPhoneNumber'
 
 //Province
 export const PROVINCE = '/Province'
@@ -223,14 +226,14 @@ export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocume
 //WareHouse
 export const WAREHOUSE = 'Warehouse'
 export const WAREHOUSE_TYPE = 'WarehouseType'
-export const  LINK_PRODUCT_WARE_HOUSE= 'LinkProductWarehouse'
-export const  LINK_PRODUCT_WARE_HOUSE_ADD_LIST= '/LinkProductWarehouse/AddList'
+export const LINK_PRODUCT_WARE_HOUSE = 'LinkProductWarehouse'
+export const LINK_PRODUCT_WARE_HOUSE_ADD_LIST = '/LinkProductWarehouse/AddList'
 
 //CityDistrict
 export const CITY_DISTRICT = 'CityDistrict'
 
 //Visitor
-export const VISITOR ='Visitor'
+export const VISITOR = 'Visitor'
 export const VISITOR_FREE_CODE = 'Visitor/GetFirstFreeCode'
 
 //AuthSetting
