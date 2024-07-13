@@ -65,7 +65,7 @@ const ButtonBar = (props) => {
             onClick={onEdit}
             size={size}
             icon={<FiEdit />}
-            className="text-sky-600 border-sky-600"
+            className="text-blue-500 border-blue-500"
           >
             {iconOnly || "ویرایش"}
           </Button>

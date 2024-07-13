@@ -7,6 +7,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import AddressList from "./AddressList";
 import BankAccountList from "./BankAccountList";
 import HeaderCounterParty from "./HeaderCounterParty";
+import CoustomContent from "@/components/common/CoustomContent";
 
 const { TabPane } = Ant.Tabs;
 
@@ -20,6 +21,7 @@ const DetailedCounterPartyList = (props) => {
   //====================================================================
   return (
     <>
+    <CoustomContent Height="80vh">
       <Ant.Skeleton active={true} loading={loading}>
         <HeaderCounterParty data={data} onHeaderEdit={onHeaderEdit} />
         <Ant.Divider />
@@ -41,6 +43,7 @@ const DetailedCounterPartyList = (props) => {
           </TabPane>
         </Ant.Tabs>
       </Ant.Skeleton>
+      </CoustomContent>
     </>
   );
 };
