@@ -15,10 +15,10 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import AccountDocumentDetailView from "./AccountDocumentDetailView";
 import AccountDocumentDescription from "@/Pages/accounting/accountDocument/description/AccountDocumentDescription";
 import { useNavigate, generatePath } from "react-router-dom";
-import * as uuid from 'uuid'
-import FrmAddAccountDocument from "./../add/FrmAddAccountDocument"
-import AddItemDetailList from "./../add/AddItemDetailList"
-import FrmEditAccountDocument from "./../edit/FrmEditAccountDocument"
+import * as uuid from "uuid";
+import FrmAddAccountDocument from "./../add/FrmAddAccountDocument";
+import AddItemDetailList from "./../add/AddItemDetailList";
+import FrmEditAccountDocument from "./../edit/FrmEditAccountDocument";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -75,14 +75,13 @@ const AccountDocumentList = () => {
   //                        Functions
   //====================================================================
   const onSuccessEdit = () => {
-    setModalState(false)
-    fillGrid()
-  }
-  const onSuccessAdd = () => {
-    setModalState(false)
+    setModalState(false);
     fillGrid();
-
-  }
+  };
+  const onSuccessAdd = () => {
+    setModalState(false);
+    fillGrid();
+  };
 
   const fillGrid = async () => {
     const queryString = qs.stringify({
@@ -108,33 +107,33 @@ const AccountDocumentList = () => {
   const onAdd = () => {
     // navigate("/accounting/accountDocument/new");
     const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
-    setModalSize(updateList)
-    setModalContent(<FrmAddAccountDocument onSuccess={onSuccessAdd} key={uuid.v1()} />)
-    setModalState(true)
+    setModalSize(updateList);
+    setModalContent(
+      <FrmAddAccountDocument onSuccess={onSuccessAdd} key={uuid.v1()} />,
+    );
+    setModalState(true);
   };
   const onDelete = async (id) => {
     await delApiCall(`${url.ACCOUNT_DOCUMENT}/${id}`);
   };
   const onEdit = (id) => {
-
     // id &&
     //   navigate(generatePath("/accounting/accountDocument/edit/:id", { id }));
     const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
-    setModalSize(updateList)
-    setModalContent(<FrmEditAccountDocument onSuccess={onSuccessEdit} id={id} key={id} />)
-    setModalState(true)
+    setModalSize(updateList);
+    setModalContent(
+      <FrmEditAccountDocument onSuccess={onSuccessEdit} id={id} key={id} />,
+    );
+    setModalState(true);
   };
   const onView = (id) => {
-    setModalSize({ ...defaultValues.MODAL_LARGE })
+    setModalSize({ ...defaultValues.MODAL_LARGE });
     setModalContent(<AccountDocumentDescription id={id} key={id} />);
     setModalState(true);
   };
   const addItem = (id) => {
-
-    // alert(id,"ggg")
-    debugger
-    setModalSize({ ...defaultValues.MODAL_LARGE })
-    setModalContent(<AddItemDetailList id={id}/>);
+    setModalSize({ ...defaultValues.MODAL_LARGE });
+    setModalContent(<AddItemDetailList id={id} key={id} />);
     setModalState(true);
   };
   //====================================================================
@@ -145,7 +144,6 @@ const AccountDocumentList = () => {
     return (
       <ButtonList
         filterCount={filterCount}
-
         onAdd={onAdd}
         onRefresh={() => {
           fillGrid();
@@ -161,7 +159,7 @@ const AccountDocumentList = () => {
     return (
       <>
         <Ant.Table
-          columns={columns(onDelete, onEdit, onView,addItem)}
+          columns={columns(onDelete, onEdit, onView, addItem)}
           dataSource={dataSource}
           pagination={pagination}
           // loading={delLoading }

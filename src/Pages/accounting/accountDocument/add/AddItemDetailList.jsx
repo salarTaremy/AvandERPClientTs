@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as defaultValues from "@/defaultValues";
 import PropTypes from "prop-types";
+import qs from "qs";
 import * as url from "@/api/url";
 import CoustomContent from "@/components/common/CoustomContent";
 import ButtonList from "@/components/common/ButtonList";
 import { MdDescription } from "react-icons/md";
-import { usePostWithHandler } from "@/api";
+
+import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import * as uuid from "uuid";
 import useRequestManager from "@/hooks/useRequestManager";
@@ -16,12 +18,14 @@ import { FiEdit } from "react-icons/fi";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
 const AddItemDetailList = (props) => {
   const { id } = props;
+  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [formData, setFormData] = useState({});
   const [dataSource, setDataSource] = useState([]);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
   const [submitListData, submitLoading, submitError, submitApiCall] =
-    usePostWithHandler();
+  usePutWithHandler();
+  useRequestManager({ error: error });
   useRequestManager({
     error: submitError,
     loading: submitLoading,
@@ -29,6 +33,14 @@ const AddItemDetailList = (props) => {
   });
 
   const columns = [
+    {
+      title: "شماره ردیف",
+      dataIndex: "rowNumber",
+      key: "rowNumber",
+      align: "center",
+      className: "text-xs sm:text-sm",
+      width: 100,
+    },
     {
       title: " نام حساب",
       dataIndex: "accountName",
@@ -47,7 +59,7 @@ const AddItemDetailList = (props) => {
     },
     {
       title: "حساب تفصیلی سطح چهار",
-      dataIndex: "detailedAccountIdName4",
+      dataIndex: "detailedAccountName4",
       key: "2",
       align: "center",
       width: 300,
@@ -55,7 +67,7 @@ const AddItemDetailList = (props) => {
     },
     {
       title: "حساب تفصیلی سطح پنج",
-      dataIndex: "detailedAccountIdName5",
+      dataIndex: "detailedAccountName5",
       key: "3",
       align: "center",
       width: 300,
@@ -63,7 +75,7 @@ const AddItemDetailList = (props) => {
     },
     {
       title: "حساب تفصیلی سطح شش",
-      dataIndex: "detailedAccountIdName6",
+      dataIndex: "detailedAccountName6",
       key: "4",
       align: "center",
       width: 300,
@@ -135,49 +147,102 @@ const AddItemDetailList = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
+  useEffect(() => {
+    getAllAccountingDocumentDetail();
+  }, []);
+  useEffect(() => {
+    setDataSource((listData?.isSuccess && listData?.data) || null);
+  }, [listData]);
+
 
   useEffect(() => {
     if (formData && Object.keys(formData).length > 0) {
-      setDataSource((prevDataSource) => [...prevDataSource, formData]);
+      setDataSource((prevDataSource) => {
+        if (Array.isArray(prevDataSource)) {
+          return [...prevDataSource, formData];
+        } else {
+          return [formData];
+        }
+      });
     }
   }, [formData]);
-
   //====================================================================
   //                        Functions
   //====================================================================
+  const getAllAccountingDocumentDetail = async () => {
+    debugger;
+    const data = {
+      AccountingDocumentID: id,
+    };
+    const queryString = qs.stringify(data);
+    await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}?${queryString}`);
+  };
+
   const closeModal = () => {
     setModalState(false);
   };
+
   const handleDataSubmit = (newData) => {
     setFormData(newData);
-  };
-  const btnSubmit = async () => {
-    dataSource.forEach((item) => {
-      item.accountingDocumentID = id;
-      delete item.accountName;
-      delete item.detailedAccountIdName4;
-      delete item.detailedAccountIdName5;
-      delete item.detailedAccountIdName6;
-    });
 
-    await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_CREATE_LIST, dataSource);
-    setDataSource([]);
+  };
+
+  const btnSubmit = async () => {
+    console.log(dataSource, "dataSourcedataSource");
+    // if (listData?.isSuccess) {
+    debugger
+    const formattedData = dataSource.map((item) => {
+      return {
+        id:item.id,
+        accountId:item.accountId,
+        detailedAccountId4: item.detailedAccountId4,
+        detailedAccountId5: item.detailedAccountId5,
+        detailedAccountId6: item.detailedAccountId6,
+        creditor: item.creditor,
+        debtor: item.debtor,
+        accountId: item.accountId,
+        accountingDocumentID: id,
+        referenceNo: item.referenceNo ?? "",
+        description: item.description ?? "",
+        article: item.article,
+      };
+    });
+    // }
+
+    console.log(formattedData, "formattedData11");
+    await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
+
   };
 
   const onDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key.key);
     setDataSource(newData);
   };
-  const onAdd = () => {
+
+  const onAdd = (id) => {
+    console.log(id,"kkkkk")
     setModalContent(
       <FrmAddItemDetail
         key={uuid.v4()}
-
+        id={id}
         onDataSubmit={handleDataSubmit}
         closeModal={closeModal}
       />,
     );
     setModalState(true);
+  };
+
+  const onEdit = (id) => {
+    // alert(id)
+    // setModalContent(
+    //   <FrmAddItemDetail
+    //     key={uuid.v4()}
+    //     id={id}
+    //     onDataSubmit={handleDataSubmit}
+    //     closeModal={closeModal}
+    //   />
+    // );
+    // setModalState(true);
   };
 
   //====================================================================
@@ -223,7 +288,7 @@ const AddItemDetailList = (props) => {
       </Ant.Modal>
 
       <ModalHeader title={"اضافه کردن جزییات"} icon={<MdDescription />} />
-      <CoustomContent Height="70vh">
+      <CoustomContent Height="70vh" loading={loadingData}>
         <Grid />
       </CoustomContent>
     </>
@@ -231,4 +296,6 @@ const AddItemDetailList = (props) => {
 };
 
 export default AddItemDetailList;
-
+AddItemDetailList.propTypes = {
+  id: PropTypes.number,
+};

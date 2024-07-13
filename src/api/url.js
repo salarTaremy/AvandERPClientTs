@@ -12,6 +12,7 @@ export const ACCOUNT_DOCUMENT = "/AccountingDocument"
 //AccountDocumentDetail
 export const ACCOUNT_DOCUMENT_DETAIL = "/AccountingDocumentDetail"
 export const ACCOUNT_DOCUMENT_DETAIL_CREATE_LIST = "/AccountingDocumentDetail/CreateList"
+export const ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST = "/AccountingDocumentDetail/UpdateList"
 
 //AccountingDocumentType
 export const ACCOUNTING_DOCUMENT_TYPE = '/accountingDocumentType'

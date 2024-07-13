@@ -3,6 +3,7 @@ import * as Ant from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrView } from "react-icons/gr";
 import { FiEdit, FiCalendar, FiClock } from "react-icons/fi";
+import { LuFolderOpen } from "react-icons/lu";
 import { GrAddCircle } from "react-icons/gr";
 const getStateColor = (stateId) => {
   switch (stateId) {
@@ -39,8 +40,8 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
   return [
     {
       title: "شماره",
-      dataIndex: "documentNumber",
-      key: "documentNumber",
+      dataIndex: "id",
+      key: "id",
       align: "center",
       className: "text-xs sm:text-sm",
       width: 80,
@@ -123,7 +124,7 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
             <Ant.Button
                 onClick={() => addItem(record.id)}
                 className="text-green-600"
-                icon={<GrAddCircle />}
+                icon={<LuFolderOpen />}
                 type="text"
               />
               <Ant.Popconfirm
