@@ -137,7 +137,15 @@ const InquiryListItem = (props) => {
     //====================================================
     //    create collapse children foreach inquiry result
     //====================================================
-    const inquiryStatusTag = <Ant.Tag color={getStatusTagColor(inquiryItem.statusId)}>{inquiryItem.status}</Ant.Tag>;
+    const errorCount = inquiryItem.errorList.length;
+    const warningCount = inquiryItem.warningList.length;
+    const inquiryStatusTag = (
+      <Ant.Tag color={getStatusTagColor(inquiryItem.statusId)}>
+        {inquiryItem.status}
+      </Ant.Tag>
+    );
+    const showArrow =
+      inquiryItem.errorList.length > 0 || inquiryItem.warningList.length > 0;
     itemList.push({
       key: inquiryItem.id,
       label: (
@@ -154,6 +162,8 @@ const InquiryListItem = (props) => {
               {`ارسال به سامانه در تاریخ ${inquiryItem.date} ساعت ${inquiryItem.time}`}
             </Ant.Typography.Text>
             {inquiryStatusTag}
+            {errorCount > 0 &&<Ant.Typography.Text className="text-rose-500">{`${errorCount} خطا `}</Ant.Typography.Text>}
+            {warningCount > 0 && <Ant.Typography.Text className="text-orange-400">{`${warningCount} اخطار `}</Ant.Typography.Text>}
           </Ant.Space>
         </>
       ),
@@ -163,6 +173,8 @@ const InquiryListItem = (props) => {
           {warningList}
         </>
       ),
+      showArrow: showArrow,
+      collapsible: `${!showArrow ? "disabled" : ""}`,
     });
   });
 

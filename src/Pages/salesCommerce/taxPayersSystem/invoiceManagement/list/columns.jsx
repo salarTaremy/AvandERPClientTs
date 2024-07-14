@@ -2,11 +2,10 @@ import React from "react";
 import * as Ant from "antd";
 import { BiMessageSquareError } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
-import { BsCheckCircle } from "react-icons/bs";
-import { GoNoEntry } from "react-icons/go";
-import { green, lime } from "@ant-design/colors";
+import { BsSend } from "react-icons/bs";
+import { green, lime, red, gold, geekblue } from "@ant-design/colors";
 
-const getSendingProgress = (progressStatusId) => {
+const getSendingProgressPercent = (progressStatusId) => {
   switch (progressStatusId) {
     case 1:
       return 30;
@@ -18,6 +17,115 @@ const getSendingProgress = (progressStatusId) => {
       return 0;
   }
 };
+const getSendingProgress = (
+  progressStatusId,
+  statusId,
+  sendingProgressStatus,
+) => {
+  return (
+    <>
+      {/*  not send */}
+      {progressStatusId === 0 && statusId === undefined && (
+        <Ant.Progress
+          percent={0}
+          steps={3}
+          format={(percent) => {
+            return (
+              <Ant.Tooltip title={"ارسال نشده"}>{`${percent}%`}</Ant.Tooltip>
+            );
+          }}
+        />
+      )}
+
+      {/*  waiting to be sent */}
+      {progressStatusId !== 3 && progressStatusId !== 0 && (
+        <Ant.Progress
+          percent={getSendingProgressPercent(progressStatusId)}
+          steps={3}
+          strokeColor={[lime[2], lime[4], green[6]]}
+          format={(percent) => {
+            return (
+              <Ant.Tooltip title={sendingProgressStatus}>
+                {`${percent}%`}
+              </Ant.Tooltip>
+            );
+          }}
+        />
+      )}
+
+      {/* sent - success status */}
+      {progressStatusId === 3 && statusId === 1 && (
+        <Ant.Progress
+          percent={100}
+          steps={3}
+          strokeColor={[lime[2], lime[4], green[6]]}
+          format={(percent) => {
+            return (
+              <Ant.Tooltip title={"ارسال موفق"}>
+                {`${percent}%`}
+              </Ant.Tooltip>
+            );
+          }}
+        />
+      )}
+
+      {/* sent - error status */}
+      {progressStatusId === 3 && statusId === 2 && (
+        <Ant.Progress
+          percent={100}
+          steps={3}
+          strokeColor={[red[1], red[3], red[6]]}
+          format={(percent) => {
+            return (
+              <Ant.Tooltip title={"ارسال ناموفق"} className="text-red-600">
+                {`${percent}%`}
+              </Ant.Tooltip>
+            );
+          }}
+        />
+      )}
+
+      {/* sent - waiting status */}
+      {progressStatusId === 3 && (statusId === 3 || statusId === 4) && (
+        <Ant.Progress
+          percent={100}
+          steps={3}
+          strokeColor={[gold[2], gold[4], gold[6]]}
+          format={(percent) => {
+            return (
+              <Ant.Tooltip
+                title={"ارسال در انتظار بررسی"}
+                className="text-amber-600"
+              >
+                {`${percent}%`}
+              </Ant.Tooltip>
+            );
+          }}
+        />
+      )}
+
+      {/* sent - unknown status */}
+      {progressStatusId === 3 && (statusId === 5 || statusId === undefined) && (
+        <Ant.Progress
+          percent={100}
+          steps={3}
+          strokeColor={[geekblue[1], geekblue[3], geekblue[6]]}
+          format={(percent) => {
+            return (
+              <Ant.Tooltip
+                title={"ارسال بدون وضعیت"}
+                className="text-blue-700"
+              >
+                {`${percent}%`}
+              </Ant.Tooltip>
+            );
+          }}
+        />
+      )}
+    </>
+  );
+};
+
 const getSaleDocIssueColor = (issueId) => {
   switch (issueId) {
     case 1:
@@ -33,7 +141,7 @@ const getSaleDocIssueColor = (issueId) => {
   }
 };
 
-export const columns = (onViewSaleDocument, onViewCustomer, onInquiry) => {
+export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem) => {
   return [
     {
       title: "شماره سریال",
@@ -59,21 +167,10 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry) => {
       className: "text-xs sm:text-sm",
       width: 150,
       render: (text, record, index) => {
-        return (
-          <>
-            <Ant.Progress
-              percent={getSendingProgress(record.sendingProgressStatusId)}
-              steps={3}
-              strokeColor={[lime[2], lime[4], green[6]]}
-              format={(percent) => {
-                return (
-                  <Ant.Tooltip title={record.sendingProgressStatus}>
-                    {`${percent}%`}
-                  </Ant.Tooltip>
-                );
-              }}
-            />
-          </>
+        return getSendingProgress(
+          record.sendingProgressStatusId,
+          record.statusId,
+          record.sendingProgressStatus,
         );
       },
     },
@@ -153,13 +250,13 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry) => {
     //   align: "center",
     //   className: "text-xs sm:text-sm",
     //   width: 80,
-      // render: (text, record, index) => {
-      //     return (
-      //         <Ant.Tag bordered={false} color={getStatusColor(record.statusId)}>
-      //             {record.status}
-      //         </Ant.Tag>
-      //     )
-      // }
+    // render: (text, record, index) => {
+    //     return (
+    //         <Ant.Tag bordered={false} color={getStatusColor(record.statusId)}>
+    //             {record.status}
+    //         </Ant.Tag>
+    //     )
+    // }
     // },
     {
       title: "الگوی صورتحساب",
@@ -240,12 +337,21 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry) => {
       key: "inquiryStatus",
       align: "center",
       className: "text-xs sm:text-sm",
-      width: 100,
+      width: 120,
       fixed: "right",
       render: (text, record, index) => {
         return (
           <>
-            <Ant.Space>
+            <Ant.Space size={5}>
+              <Ant.Tooltip title="ارسال به سامانه مودیان">
+                <Ant.Button
+                  onClick={() => onSendToTaxPayersSystem(record.id)}
+                  className="text-pink-500"
+                  icon={<BsSend />}
+                  type="text"
+                  size="middle"
+                />
+              </Ant.Tooltip>
               <Ant.Tooltip title="استعلام وضعیت">
                 <Ant.Button
                   onClick={() =>
@@ -255,6 +361,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry) => {
                   icon={<BiMessageSquareError />}
                   type="text"
                   size="middle"
+                  disabled={!record.sentTimes}
                 />
               </Ant.Tooltip>
               <Ant.Tooltip title="مشاهده صورتحساب">
