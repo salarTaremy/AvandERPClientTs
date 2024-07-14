@@ -143,6 +143,7 @@ export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDo
 export const TPS_SALE_DOCUMENT_ISSUE = 'TaxPayersSystemBasicInformation/GetSaleDocumentIssue'
 export const TPS_INVOICE_MANAGEMENT = 'TaxPayersSystemInvoiceManagement'
 export const TPS_INVOICE_INQUIRY = 'TaxPayersSystemInvoiceManagement/Inquiry'
+export const TPS_CONFIG = 'TaxPayersSystemConfig'
 
 //PaymentType
 export const PAYMENT_TYPE = 'PaymentType'
