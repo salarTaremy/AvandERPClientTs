@@ -59,6 +59,7 @@ import CityDistrictList from './Pages/salesCommerce/basicInformation/cityDistric
 import VisitorManagmentList from './Pages/salesCommerce/basicInformation/visitorManagment/list/VisitorManagmentList'
 import InvoiceManagement from './Pages/salesCommerce/taxPayersSystem/invoiceManagement/InvoiceManagement';
 import AuthInfoList from './Pages/salesCommerce/taxPayersSystem/authSetting/list/AuthInfoList'
+import OtherSettingList from './Pages/salesCommerce/taxPayersSystem/otherSetting/list/OtherSettingList'
 
 //counterParty
 import CounterParty from './Pages/manageCounterParty/list/CounterPartyList'
@@ -134,7 +135,8 @@ const routes = [
   { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: banks },
   { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument },
   { path: 'taxPayersSystem/InvoiceManagement', name: 'مدیریت صورتحساب ها', element: InvoiceManagement },
-  { path: 'taxPayersSystem/AuthInfoList', name: 'مدیریت صورتحساب ها', element: AuthInfoList },
+  { path: 'taxPayersSystem/AuthInfoList', name: 'اطلاعات احراز هویت', element: AuthInfoList },
+  { path: 'taxPayersSystem/OtherSettingList', name: 'سایر تنظیمات  ', element: OtherSettingList },
 
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },

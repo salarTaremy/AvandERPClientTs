@@ -12,9 +12,10 @@ const useRequestManager = ({ data, error, loading, loadingMessage }) => {
   //                        Functions
   //====================================================================
   const getSuccessMessage = (data) => {
-    const resultId = data?.data?.id
+    const resultId = data?.data?.id;
+    const resultIdString = resultId > 0 ? `\n شناسه: ${resultId}` : "";
     return (
-      (data?.message || defaultSuccessMessage)  +'\n'+ (resultId && `شناسه : ${resultId}`)
+      (data?.message || defaultSuccessMessage) + resultIdString
     )
   }
   //====================================================================

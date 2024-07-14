@@ -72,10 +72,10 @@ const FilterPanel = (props) => {
           <Ant.Input allowClear />
         </Ant.Form.Item>
         <Ant.Form.Item rules={[{ max: 10 }]} name={"code"} label="کد">
-          <Ant.Input allowClear showCount maxLength={20} />
+          <Ant.Input allowClear maxLength={20} />
         </Ant.Form.Item>
         <Ant.Form.Item rules={[{ max: 20 }]} name={"secondCode"} label="کد دوم">
-          <Ant.Input allowClear showCount />
+          <Ant.Input allowClear />
         </Ant.Form.Item>
 
         <Ant.Form.Item name={"NationalCode"} label="کد ملی">

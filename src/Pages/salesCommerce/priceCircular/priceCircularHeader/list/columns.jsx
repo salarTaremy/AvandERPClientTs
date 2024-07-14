@@ -3,8 +3,10 @@ import * as Ant from "antd";
 import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaRegCopy } from "react-icons/fa";
+import { GrDocumentLocked } from "react-icons/gr";
 
-export const columns = (onDelete, onEdit, onView) => {
+export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
     return [
         {
             title: "عنوان",
@@ -26,6 +28,14 @@ export const columns = (onDelete, onEdit, onView) => {
             title: "تاریخ پایان",
             dataIndex: "endDate",
             key: "endDate",
+            align: "center",
+            className: "text-xs sm:text-sm",
+            width: 80
+        },
+        {
+            title: "تاریخ اجرا",
+            dataIndex: "implementationDate",
+            key: "implementationDate",
             align: "center",
             className: "text-xs sm:text-sm",
             width: 80
@@ -65,16 +75,35 @@ export const columns = (onDelete, onEdit, onView) => {
                 return (
                     <>
                         <Ant.Space>
+                            <Ant.Popconfirm onConfirm={() => onChange(record.id)} title={`برای تغییر وضعیت "${record.title}" مطمئن هستید؟`}>
+                                <Ant.Tooltip placement="top" title={"تغییر وضعیت"}>
+                                    <Ant.Button
+                                        className={
+                                            (record.isActive === true && "text-green-400") || "text-rose-600"
+                                        }
+                                        icon={<GrDocumentLocked />}
+                                        type="text"
+                                    />
+                                </Ant.Tooltip>
+                            </Ant.Popconfirm>
+                            <Ant.Tooltip placement="top" title={'کپی و ایجاد بخشنامه '}>
+                                <Ant.Button
+                                    onClick={() => onCopy(record.id)}
+                                    className="text-green-600"
+                                    icon={<FaRegCopy />}
+                                    type="text"
+                                />
+                            </Ant.Tooltip>
                             <Ant.Button
                                 onClick={() => onView(record)}
                                 className="text-sky-600"
-                                icon={<GrView/>}
+                                icon={<GrView />}
                                 type="text"
                             />
                             <Ant.Button
                                 onClick={() => onEdit(record.id)}
                                 className="text-blue-600"
-                                icon={<FiEdit/>}
+                                icon={<FiEdit />}
                                 type="text"
                             />
                             <Ant.Popconfirm

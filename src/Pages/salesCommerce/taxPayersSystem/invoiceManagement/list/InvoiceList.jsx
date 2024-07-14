@@ -107,10 +107,15 @@ const InvoiceList = () => {
     setModalOpenState(true);
   };
 
-  const onSendToTaxPayersSystem = async () => {
+  const onSendListToTaxPayersSystem = async () => {
     const postData = { saleDocumentIdList: selectedRowKeys };
-    await invoiceSendApiCall(url.TPS_INVOICE_MANAGEMENT, postData);
+    await invoiceSendApiCall(url.TPS_INVOICE_SEND_LIST, postData);
   };
+
+  const onSendToTaxPayersSystem = async (id) => {
+    const postData = { saleDocumentId: id };
+    await invoiceSendApiCall(url.TPS_INVOICE_MANAGEMENT, postData);
+  }
 
   //table row selection control
   const onSelectChange = (newSelectedRowKeys) => {
@@ -118,7 +123,7 @@ const InvoiceList = () => {
   };
   const rowSelection = {
     selectedRowKeys,
-    hideSelectAll: true,
+    //hideSelectAll: true,
     preserveSelectedRowKeys: true,
     onChange: onSelectChange,
     getCheckboxProps: (record) => ({
@@ -153,9 +158,6 @@ const InvoiceList = () => {
     getInvoiceList();
   }, [filterObject]);
 
-  useEffect(() => {
-    invoiceSendData?.isSuccess && onSuccessSent();
-  }, [invoiceSendData]);
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -169,7 +171,7 @@ const InvoiceList = () => {
         >
           <Ant.Tooltip title={"ارسال به سامانه مودیان"}>
             <Ant.Button
-              onClick={onSendToTaxPayersSystem}
+              onClick={onSendListToTaxPayersSystem}
               className="text-pink-500 border-pink-500"
               size="large"
               disabled={!hasSelectedRow}
@@ -188,7 +190,7 @@ const InvoiceList = () => {
         <Ant.Skeleton loading={invoiceListLoading}>
           <Ant.Table
             rowSelection={rowSelection}
-            columns={columns(onViewSaleDocument, onViewCustomer, onInquiry)}
+            columns={columns(onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem)}
             dataSource={dataSource}
             pagination={pagination}
             onChange={handleTableChange}
