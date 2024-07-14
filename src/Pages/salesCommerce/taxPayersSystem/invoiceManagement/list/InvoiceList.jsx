@@ -123,7 +123,7 @@ const InvoiceList = () => {
   };
   const rowSelection = {
     selectedRowKeys,
-    hideSelectAll: true,
+    //hideSelectAll: true,
     preserveSelectedRowKeys: true,
     onChange: onSelectChange,
     getCheckboxProps: (record) => ({

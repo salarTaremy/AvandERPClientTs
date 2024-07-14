@@ -139,6 +139,8 @@ const InquiryListItem = (props) => {
     //====================================================
     const errorCount = inquiryItem.errorList.length;
     const warningCount = inquiryItem.warningList.length;
+    const errorCountTag = (errorCount > 0 && <Ant.Tag color="red">{`${errorCount} خطا`}</Ant.Tag>);
+    const warningCountTag = (warningCount > 0 && <Ant.Tag color="orange">{`${warningCount} اخطار`}</Ant.Tag>);
     const inquiryStatusTag = (
       <Ant.Tag color={getStatusTagColor(inquiryItem.statusId)}>
         {inquiryItem.status}
@@ -146,6 +148,7 @@ const InquiryListItem = (props) => {
     );
     const showArrow =
       inquiryItem.errorList.length > 0 || inquiryItem.warningList.length > 0;
+      
     itemList.push({
       key: inquiryItem.id,
       label: (
@@ -161,9 +164,9 @@ const InquiryListItem = (props) => {
             >
               {`ارسال به سامانه در تاریخ ${inquiryItem.date} ساعت ${inquiryItem.time}`}
             </Ant.Typography.Text>
-            {inquiryStatusTag}
-            {errorCount > 0 &&<Ant.Typography.Text className="text-rose-500">{`${errorCount} خطا `}</Ant.Typography.Text>}
-            {warningCount > 0 && <Ant.Typography.Text className="text-orange-400">{`${warningCount} اخطار `}</Ant.Typography.Text>}
+            {errorCountTag}
+            {warningCountTag}
+            {errorCount === 0 && inquiryStatusTag}
           </Ant.Space>
         </>
       ),
