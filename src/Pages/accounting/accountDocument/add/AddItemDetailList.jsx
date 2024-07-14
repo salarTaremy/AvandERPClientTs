@@ -8,7 +8,6 @@ import * as url from "@/api/url";
 import CoustomContent from "@/components/common/CoustomContent";
 import ButtonList from "@/components/common/ButtonList";
 import { MdDescription } from "react-icons/md";
-
 import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import * as uuid from "uuid";
@@ -17,6 +16,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
 import FrmEditItemDetail from "../add/FrmEditItemDetail";
+import columns from "../add/columns";
 const AddItemDetailList = (props) => {
   const { id } = props;
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -33,112 +33,6 @@ const AddItemDetailList = (props) => {
     data: submitListData,
   });
 
-  const columns = [
-    {
-      title: "شماره ردیف",
-      dataIndex: "rowNumber",
-      key: "rowNumber",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 100,
-    },
-    {
-      title: " نام حساب",
-      dataIndex: "accountName",
-      align: "center",
-      width: 300,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "شماره مرجع",
-      dataIndex: "referenceNo",
-      align: "center",
-      width: 120,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "حساب تفصیلی سطح چهار",
-      dataIndex: "detailedAccountName4",
-      align: "center",
-      width: 300,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "حساب تفصیلی سطح پنج",
-      dataIndex: "detailedAccountName5",
-      align: "center",
-      width: 300,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "حساب تفصیلی سطح شش",
-      dataIndex: "detailedAccountName6",
-      align: "center",
-      width: 300,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "شرح ",
-      dataIndex: "article",
-      key: "5",
-      width: 120,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "بدهکار",
-      dataIndex: "debtor",
-
-      align: "center",
-      width: 120,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "بستانکار",
-      dataIndex: "creditor",
-
-      align: "center",
-      width: 120,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "توضیحات",
-      dataIndex: "description",
-      align: "center",
-      width: 300,
-      className: "text-xs sm:text-sm",
-    },
-    {
-      title: "عملیات",
-      dataIndex: "operation",
-      key: "operation",
-      width: 1,
-      align: "center",
-      width: 100,
-
-      render: (text, val) => (
-        <>
-          <Ant.Space direction="horizontal" size={20}>
-            <Ant.Button
-              className="text-blue-600"
-              onClick={() => onEdit(val)}
-              icon={<FiEdit />}
-              type="text"
-            />
-          </Ant.Space>
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val)}
-            title={`برای حذف سطر مطمئن هستید؟`}
-          >
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
-          </Ant.Popconfirm>
-        </>
-      ),
-    },
-  ];
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -159,13 +53,13 @@ const AddItemDetailList = (props) => {
         }
       });
     }
-    console.log(dataSource, "dataSource");
   }, [formData]);
   //====================================================================
   //                        Functions
   //====================================================================
   const getAllAccountingDocumentDetail = async () => {
     debugger;
+    console.log(id,"AccountingDocumentID")
     const data = {
       AccountingDocumentID: id,
     };
@@ -181,18 +75,6 @@ const AddItemDetailList = (props) => {
     setFormData(newData);
   };
   const handleDataSubmitEdit = (newData) => {
-
-    // setFormData(newData);
-    // const updatedDataSource = dataSource.map((item) => {
-    //   debugger;
-    //   if (item.id === newData.id) {
-    //     return { ...item };
-    //   }
-    //   return item;
-    // });
-    // setDataSource(updatedDataSource);
-
-    console.log(newData,"newData")
     setDataSource((pre) => {
       return pre.map((item) => {
         if (item.id === newData.id) {
@@ -207,7 +89,6 @@ const AddItemDetailList = (props) => {
     setModalState(false);
   };
   const btnSubmit = async () => {
-    debugger;
     const formattedData = dataSource.map((item) => {
       return {
         id: item.id,
@@ -224,9 +105,7 @@ const AddItemDetailList = (props) => {
         article: item.article,
       };
     });
-    // }
 
-    console.log(formattedData, "formattedData11");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
   };
 
@@ -236,7 +115,6 @@ const AddItemDetailList = (props) => {
   };
 
   const onAdd = (id) => {
-    console.log(id, "kkkkk");
     setModalContent(
       <FrmAddItemDetail
         key={uuid.v4()}
@@ -249,7 +127,6 @@ const AddItemDetailList = (props) => {
   };
 
   const onEdit = (val) => {
-    console.log(val, "lalalalal");
     setModalContent(
       <FrmEditItemDetail
         key={uuid.v4()}
@@ -275,7 +152,7 @@ const AddItemDetailList = (props) => {
         <Ant.Table
           key={id}
           {...defaultValues.TABLE_PROPS}
-          columns={columns}
+          columns={columns(onDelete, onEdit)}
           title={title}
           dataSource={dataSource}
         />
