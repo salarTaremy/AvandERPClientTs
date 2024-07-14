@@ -120,7 +120,7 @@ const InquiryListItem = (props) => {
     //====================================================
     //    create list react-node for errors and warnings
     //====================================================
-    const errorList = inquiryItem.errorList.length > 0 && (
+    const errorList = inquiryItem.errorList?.length > 0 && (
       <Ant.List
         dataSource={inquiryItem.errorList}
         renderItem={renderErrorList}
@@ -148,7 +148,7 @@ const InquiryListItem = (props) => {
     );
     const showArrow =
       inquiryItem.errorList.length > 0 || inquiryItem.warningList.length > 0;
-      
+
     itemList.push({
       key: inquiryItem.id,
       label: (
@@ -164,9 +164,9 @@ const InquiryListItem = (props) => {
             >
               {`ارسال به سامانه در تاریخ ${inquiryItem.date} ساعت ${inquiryItem.time}`}
             </Ant.Typography.Text>
+            {errorCount === 0 && inquiryStatusTag}
             {errorCountTag}
             {warningCountTag}
-            {errorCount === 0 && inquiryStatusTag}
           </Ant.Space>
         </>
       ),
