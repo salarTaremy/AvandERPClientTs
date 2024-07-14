@@ -45,7 +45,6 @@ const AddItemDetailList = (props) => {
     {
       title: " نام حساب",
       dataIndex: "accountName",
-      key: "0",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -53,7 +52,6 @@ const AddItemDetailList = (props) => {
     {
       title: "شماره مرجع",
       dataIndex: "referenceNo",
-      key: "1",
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
@@ -61,7 +59,6 @@ const AddItemDetailList = (props) => {
     {
       title: "حساب تفصیلی سطح چهار",
       dataIndex: "detailedAccountName4",
-      key: "2",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -69,7 +66,6 @@ const AddItemDetailList = (props) => {
     {
       title: "حساب تفصیلی سطح پنج",
       dataIndex: "detailedAccountName5",
-      key: "3",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -77,7 +73,6 @@ const AddItemDetailList = (props) => {
     {
       title: "حساب تفصیلی سطح شش",
       dataIndex: "detailedAccountName6",
-      key: "4",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -92,7 +87,7 @@ const AddItemDetailList = (props) => {
     {
       title: "بدهکار",
       dataIndex: "debtor",
-      key: "6",
+
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
@@ -100,7 +95,7 @@ const AddItemDetailList = (props) => {
     {
       title: "بستانکار",
       dataIndex: "creditor",
-      key: "7",
+
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
@@ -108,7 +103,6 @@ const AddItemDetailList = (props) => {
     {
       title: "توضیحات",
       dataIndex: "description",
-      key: "8",
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
@@ -187,18 +181,31 @@ const AddItemDetailList = (props) => {
     setFormData(newData);
   };
   const handleDataSubmitEdit = (newData) => {
-    setFormData(newData);
-    const updatedDataSource = dataSource.map((item) => {
-      debugger;
-      if (item.id === newData.id) {
-        return { ...item, ...newData };
-      }
-      return item;
-    });
-    setDataSource(updatedDataSource);
-    console.log(updatedDataSource, "updatedDataSource");
-  };
 
+    // setFormData(newData);
+    // const updatedDataSource = dataSource.map((item) => {
+    //   debugger;
+    //   if (item.id === newData.id) {
+    //     return { ...item };
+    //   }
+    //   return item;
+    // });
+    // setDataSource(updatedDataSource);
+
+    console.log(newData,"newData")
+    setDataSource((pre) => {
+      return pre.map((item) => {
+        if (item.id === newData.id) {
+          return newData;
+        } else {
+          return item;
+        }
+      });
+    });
+  };
+  const closeModalEdit = () => {
+    setModalState(false);
+  };
   const btnSubmit = async () => {
     debugger;
     const formattedData = dataSource.map((item) => {
@@ -220,10 +227,7 @@ const AddItemDetailList = (props) => {
     // }
 
     console.log(formattedData, "formattedData11");
-    await submitApiCall(
-      url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST,
-      formattedData,
-    );
+    await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
   };
 
   const onDelete = (val) => {
@@ -248,12 +252,11 @@ const AddItemDetailList = (props) => {
     console.log(val, "lalalalal");
     setModalContent(
       <FrmEditItemDetail
-        // key={uuid.v4()}
-        key={val.id}
+        key={uuid.v4()}
         id={val.id}
         obj={val}
         onDataSubmit={handleDataSubmitEdit}
-        closeModal={closeModal}
+        closeModal={closeModalEdit}
       />,
     );
     setModalState(true);

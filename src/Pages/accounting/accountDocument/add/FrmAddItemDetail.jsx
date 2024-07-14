@@ -82,7 +82,9 @@ const FrmAddItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
+
     const { creditor, debtor, ...otherValues } = values;
+
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
     const updatedValues = {

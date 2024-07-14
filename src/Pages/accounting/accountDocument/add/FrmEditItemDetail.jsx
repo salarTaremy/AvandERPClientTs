@@ -50,13 +50,14 @@ const FrmEditItemDetail = (props) => {
 
   useEffect(() => {
     form.resetFields();
+    debugger;
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+    console.log(listData?.data, "kkkk");
   }, [listData]);
 
   useEffect(() => {
     getAccountDocumentById();
   }, []);
-
   useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
   }, []);
@@ -69,6 +70,7 @@ const FrmEditItemDetail = (props) => {
   //====================================================================
 
   const getAccountDocumentById = async () => {
+    console.log(id, "id");
     await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}/${id}`);
   };
 
@@ -81,11 +83,25 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
-    setDetailedAccountFour({
-      id: selectedOption.id,
-      name: selectedOption.name,
-    });
+    debugger;
+    // setDetailedAccountFour({
+    //   id: selectedOption.id,
+    //   name: selectedOption.name,
+    // });
+    setDetailedAccountFour((prevDataSource) =>
+      prevDataSource.map((record) => {
+        if (record.id === selectedOption.id) {
+          return {
+            ...record,
+            id: selectedOption.value,
+            name: selectedOption.name,
+          };
+        }
+        return record;
+      }),
+    );
   };
+
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
       id: selectedOption.id,
@@ -99,15 +115,14 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
-    console.log(values, "kakakakak");
     const { creditor, debtor, ...otherValues } = values;
-    const adjustedCreditor = creditor ?? 0;
-    const adjustedDebtor = debtor ?? 0;
+
+    // const adjustedCreditor = creditor ?? 0;
+    // const adjustedDebtor = debtor ?? 0;
     const updatedValues = {
-      // key: uuid.v4(),
       id: id,
-      creditor: adjustedCreditor,
-      debtor: adjustedDebtor,
+      creditor: creditor ?? listData?.data.creditor,
+      debtor: debtor ?? listData?.data.debtor,
       accountingDocumentID: 0,
       ...otherValues,
     };
@@ -117,16 +132,21 @@ const FrmEditItemDetail = (props) => {
 
     const req = {
       ...updatedValues,
-      accountId: accountId,
-      accountName: accountName,
-      detailedAccountId4: selectedDetailedAccountFour?.id,
-      detailedAccountName4: selectedDetailedAccountFour?.name,
-      detailedAccountId5: selectedDetailedAccountFive?.id,
-      detailedAccountName5: selectedDetailedAccountFive?.name,
-      detailedAccountId6: selectedDetailedAccountSix?.id,
-      detailedAccountName6: selectedDetailedAccountSix?.name,
+      accountId: accountId ?? listData?.data.accountId,
+      accountName: accountName ,
+      detailedAccountId4: selectedDetailedAccountFour?.id ?? listData?.data.detailedAccountId4,
+      detailedAccountName4:
+        selectedDetailedAccountFour?.name ??
+        listData?.data.detailedAccountName4,
+      detailedAccountId5: selectedDetailedAccountFive?.id ?? listData?.data.detailedAccountId5,
+      detailedAccountName5:
+        selectedDetailedAccountFive?.name ??
+        listData?.data.detailedAccountName5,
+      detailedAccountId6: selectedDetailedAccountSix?.id ?? listData?.data.detailedAccountId6,
+      detailedAccountName6:
+        selectedDetailedAccountSix?.name ?? listData?.data.detailedAccountName6,
     };
-    props.onDataSubmit(req);
+    props.onDataSubmit({ ...req });
     props.closeModal();
   };
   const handleDebtorTypeChange = (value) => {
@@ -185,6 +205,7 @@ const FrmEditItemDetail = (props) => {
                 onChange={handleChangeDetailedAccountFour}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
+                loading={loadingData}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -206,6 +227,7 @@ const FrmEditItemDetail = (props) => {
                 onChange={handleChangeDetailedAccountFive}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
+                loading={loadingData}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -227,6 +249,7 @@ const FrmEditItemDetail = (props) => {
                 onChange={handleChangeDetailedAccountSix}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
+                loading={loadingData}
               />
             </Ant.Form.Item>
           </Ant.Col>
