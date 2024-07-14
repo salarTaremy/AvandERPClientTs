@@ -50,13 +50,13 @@ const FrmEditItemDetail = (props) => {
 
   useEffect(() => {
     form.resetFields();
+    debugger;
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
   }, [listData]);
 
   useEffect(() => {
     getAccountDocumentById();
   }, []);
-
   useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
   }, []);
@@ -69,11 +69,11 @@ const FrmEditItemDetail = (props) => {
   //====================================================================
 
   const getAccountDocumentById = async () => {
+    console.log(id, "idid");
     await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}/${id}`);
   };
 
   const handleChangeAccount = (value, selectedOptions) => {
-    debugger;
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
     setSelectedAccount({
       id: lastSelectedOption.id,
@@ -86,6 +86,7 @@ const FrmEditItemDetail = (props) => {
       name: selectedOption.name,
     });
   };
+
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
       id: selectedOption.id,
@@ -99,15 +100,16 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
-    console.log(values, "kakakakak");
+    debugger;
     const { creditor, debtor, ...otherValues } = values;
+
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
+
     const updatedValues = {
-      // key: uuid.v4(),
       id: id,
-      creditor: adjustedCreditor,
-      debtor: adjustedDebtor,
+      creditor: adjustedCreditor ?? listData?.data.creditor,
+      debtor: adjustedDebtor ?? listData?.data.debtor,
       accountingDocumentID: 0,
       ...otherValues,
     };
@@ -117,16 +119,26 @@ const FrmEditItemDetail = (props) => {
 
     const req = {
       ...updatedValues,
-      accountId: accountId,
-      accountName: accountName,
-      detailedAccountId4: selectedDetailedAccountFour?.id,
-      detailedAccountName4: selectedDetailedAccountFour?.name,
-      detailedAccountId5: selectedDetailedAccountFive?.id,
-      detailedAccountName5: selectedDetailedAccountFive?.name,
-      detailedAccountId6: selectedDetailedAccountSix?.id,
-      detailedAccountName6: selectedDetailedAccountSix?.name,
+      accountId: accountId ?? listData?.data.accountId,
+      accountName:
+        accountName !== "" ? accountName : listData?.data.accountName,
+      detailedAccountId4:
+        selectedDetailedAccountFour?.id ?? listData?.data.detailedAccountId4,
+      detailedAccountName4:
+        selectedDetailedAccountFour?.name ??
+        listData?.data.detailedAccountName4,
+      detailedAccountId5:
+        selectedDetailedAccountFive?.id ?? listData?.data.detailedAccountId5,
+      detailedAccountName5:
+        selectedDetailedAccountFive?.name ??
+        listData?.data.detailedAccountName5,
+      detailedAccountId6:
+        selectedDetailedAccountSix?.id ?? listData?.data.detailedAccountId6,
+      detailedAccountName6:
+        selectedDetailedAccountSix?.name ?? listData?.data.detailedAccountName6,
     };
-    props.onDataSubmit(req);
+
+    props.onDataSubmit({ ...req });
     props.closeModal();
   };
   const handleDebtorTypeChange = (value) => {
@@ -137,206 +149,215 @@ const FrmEditItemDetail = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
-        <ModalHeader title={"ویرایش آرتیکل سند"} icon={<FaFileMedical />} />
-        <Ant.Row gutter={[16, 8]}>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"accountId"}
-              label="نوع حساب "
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد حساب  اجباری است",
-                },
-              ]}
-            >
-              <Ant.Cascader
-                loading={accountGroupLoading}
-                options={options}
-                onChange={handleChangeAccount}
-                placeholder="لطفا انتخاب کنید ..."
-                fieldNames={{
-                  label: "name",
-                  value: "id",
-                  children: "children",
-                }}
-                showSearch={{
-                  filter,
-                }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={8}>
-            <Ant.Form.Item
-              name={"detailedAccountId4"}
-              label="حساب تفصیلی سطح چهار"
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد حساب تفصیلی اجباری است",
-                },
-              ]}
-            >
-              <Ant.Select
-                {...commonOptions}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                onChange={handleChangeDetailedAccountFour}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={8}>
-            <Ant.Form.Item
-              name={"detailedAccountId5"}
-              label="حساب تفصیلی سطح پنج"
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد حساب تفصیلی اجباری است",
-                },
-              ]}
-            >
-              <Ant.Select
-                {...commonOptions}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                onChange={handleChangeDetailedAccountFive}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={8}>
-            <Ant.Form.Item
-              name={"detailedAccountId6"}
-              label="حساب تفصیلی سطح شش"
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد حساب تفصیلی اجباری است",
-                },
-              ]}
-            >
-              <Ant.Select
-                {...commonOptions}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                onChange={handleChangeDetailedAccountSix}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={24} lg={8}>
-            <Ant.Form.Item
-              label="ماهیت حساب"
-              // name={"amount"}
-              rules={[
-                {
-                  required: true,
-                  message: "فیلد بدهکار و بستانکار اجباری است",
-                },
-              ]}
-            >
-              <Ant.Segmented
-                block
-                options={[
-                  {
-                    label: "بدهکار",
-                    value: "0",
-                    icon: <LuDollarSign />,
-                  },
-                  {
-                    label: "بستانکار",
-                    value: "1",
-                    icon: <LuDollarSign />,
-                  },
-                ]}
-                onChange={handleDebtorTypeChange}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
 
-          <Ant.Col md={24} lg={8}>
-            {debtorType === "0" && (
+        <Ant.Form
+          form={form}
+          layout="vertical"
+          onFinish={onFinish}
+          Failed={null}
+        >
+          <ModalHeader title={"ویرایش آرتیکل سند"} icon={<FaFileMedical />} />
+          <Ant.Row gutter={[16, 8]}>
+            <Ant.Col span={24} md={24} lg={24}>
               <Ant.Form.Item
-                name={"creditor"}
-                label="مبلغ"
-                initialValue={"0"}
+                name={"accountId"}
+                label="نوع حساب "
                 rules={[
                   {
-                    required: true,
-                    message: "مبلغ  بدهکار اجباری است",
+                    required: false,
+                    message: "فیلد حساب  اجباری است",
                   },
                 ]}
               >
-                <Ant.InputNumber
-                  min={0}
-                  formatter={(value) =>
-                    value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  style={{ width: "100%" }}
+                <Ant.Cascader
+                  loading={accountGroupLoading}
+                  options={options}
+                  onChange={handleChangeAccount}
+                  placeholder="لطفا انتخاب کنید ..."
+                  fieldNames={{
+                    label: "name",
+                    value: "id",
+                    children: "children",
+                  }}
+                  showSearch={{
+                    filter,
+                  }}
                 />
               </Ant.Form.Item>
-            )}
-            {debtorType === "1" && (
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={8}>
               <Ant.Form.Item
-                name={"debtor"}
-                label="مبلغ"
+                name={"detailedAccountId4"}
+                label="حساب تفصیلی سطح چهار"
+                rules={[
+                  {
+                    required: false,
+                    message: "فیلد حساب تفصیلی اجباری است",
+                  },
+                ]}
+              >
+                <Ant.Select
+                  {...commonOptions}
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  onChange={handleChangeDetailedAccountFour}
+                  options={dtAccData?.data}
+                  fieldNames={{ label: "name", value: "id" }}
+                  loading={loadingData}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={8}>
+              <Ant.Form.Item
+                name={"detailedAccountId5"}
+                label="حساب تفصیلی سطح پنج"
+                rules={[
+                  {
+                    required: false,
+                    message: "فیلد حساب تفصیلی اجباری است",
+                  },
+                ]}
+              >
+                <Ant.Select
+                  {...commonOptions}
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  onChange={handleChangeDetailedAccountFive}
+                  options={dtAccData?.data}
+                  fieldNames={{ label: "name", value: "id" }}
+                  loading={loadingData}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={8}>
+              <Ant.Form.Item
+                name={"detailedAccountId6"}
+                label="حساب تفصیلی سطح شش"
+                rules={[
+                  {
+                    required: false,
+                    message: "فیلد حساب تفصیلی اجباری است",
+                  },
+                ]}
+              >
+                <Ant.Select
+                  {...commonOptions}
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  onChange={handleChangeDetailedAccountSix}
+                  options={dtAccData?.data}
+                  fieldNames={{ label: "name", value: "id" }}
+                  loading={loadingData}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col md={24} lg={8}>
+              <Ant.Form.Item
+                label="ماهیت حساب"
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ بستانکار اجباری است",
+                    message: "فیلد بدهکار و بستانکار اجباری است",
                   },
                 ]}
-                initialValue={"0"}
               >
-                <Ant.InputNumber
-                  min={0}
-                  formatter={(value) =>
-                    value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  style={{ width: "100%" }}
+                <Ant.Segmented
+                  block
+                  options={[
+                    {
+                      label: "بدهکار",
+                      value: "0",
+                      icon: <LuDollarSign />,
+                    },
+                    {
+                      label: "بستانکار",
+                      value: "1",
+                      icon: <LuDollarSign />,
+                    },
+                  ]}
+                  onChange={handleDebtorTypeChange}
                 />
               </Ant.Form.Item>
-            )}
-          </Ant.Col>
+            </Ant.Col>
 
-          <Ant.Col span={24} md={24} lg={8}>
-            <Ant.Form.Item name={"referenceNo"} label="شماره مرجع">
-              <Ant.Input style={{ width: "100%" }} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"article"}
-              label="شرح"
-              rules={[{ required: true }]}
-            >
-              <Ant.Input.TextArea allowClear showCount maxLength={300} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"description"}
-              label="توضیحات"
-              rules={[{ required: false }]}
-            >
-              <Ant.Input.TextArea allowClear showCount maxLength={400} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item className="text-end">
-              <Ant.Button type="primary" htmlType="submit">
-                {"تایید"}
-              </Ant.Button>
-            </Ant.Form.Item>
-          </Ant.Col>
-        </Ant.Row>
-      </Ant.Form>
+            <Ant.Col md={24} lg={8}>
+              {debtorType === "0" && (
+                <Ant.Form.Item
+                  name={"creditor"}
+                  label="مبلغ"
+                  initialValue={"0"}
+                  rules={[
+                    {
+                      required: true,
+                      message: "مبلغ  بدهکار اجباری است",
+                    },
+                  ]}
+                >
+                  <Ant.InputNumber
+                    min={0}
+                    formatter={(value) =>
+                      value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    style={{ width: "100%" }}
+                  />
+                </Ant.Form.Item>
+              )}
+              {debtorType === "1" && (
+                <Ant.Form.Item
+                  name={"debtor"}
+                  label="مبلغ"
+                  rules={[
+                    {
+                      required: true,
+                      message: "مبلغ بستانکار اجباری است",
+                    },
+                  ]}
+                  initialValue={"0"}
+                >
+                  <Ant.InputNumber
+                    min={0}
+                    formatter={(value) =>
+                      value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    style={{ width: "100%" }}
+                  />
+                </Ant.Form.Item>
+              )}
+            </Ant.Col>
+
+            <Ant.Col span={24} md={24} lg={8}>
+              <Ant.Form.Item name={"referenceNo"} label="شماره مرجع">
+                <Ant.Input style={{ width: "100%" }} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"article"}
+                label="شرح"
+                rules={[{ required: true }]}
+              >
+                <Ant.Input.TextArea allowClear showCount maxLength={300} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"description"}
+                label="توضیحات"
+                rules={[{ required: false }]}
+              >
+                <Ant.Input.TextArea allowClear showCount maxLength={400} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item className="text-end">
+                <Ant.Button type="primary" htmlType="submit">
+                  {"تایید"}
+                </Ant.Button>
+              </Ant.Form.Item>
+            </Ant.Col>
+          </Ant.Row>
+        </Ant.Form>
+
     </>
   );
 };

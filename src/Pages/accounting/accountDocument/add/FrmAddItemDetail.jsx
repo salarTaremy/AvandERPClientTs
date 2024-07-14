@@ -5,7 +5,6 @@ import * as url from "@/api/url";
 import { useFetch } from "@/api";
 import PropTypes from "prop-types";
 import * as api from "@/api";
-import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
@@ -90,10 +89,8 @@ const FrmAddItemDetail = (props) => {
       debtor: adjustedDebtor,
       ...otherValues,
     };
-
     const accountId = selectedAccount.id;
     const accountName = selectedAccount.name;
-
     const req = {
       ...updatedValues,
       accountId: accountId,
@@ -212,7 +209,6 @@ const FrmAddItemDetail = (props) => {
           <Ant.Col md={24} lg={8}>
             <Ant.Form.Item
               label="ماهیت حساب"
-              // name={"amount"}
               rules={[
                 {
                   required: true,
