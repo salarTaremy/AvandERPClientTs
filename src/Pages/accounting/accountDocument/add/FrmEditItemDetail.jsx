@@ -52,7 +52,7 @@ const FrmEditItemDetail = (props) => {
   useEffect(() => {
     form.resetFields();
     debugger;
-    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null), accountId: listData?.data.accountName  });
   }, [listData]);
 
   useEffect(() => {
@@ -70,7 +70,6 @@ const FrmEditItemDetail = (props) => {
   //====================================================================
 
   const getAccountDocumentById = async () => {
-
     await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}/${id}`);
   };
 
@@ -101,16 +100,14 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
-
     const { creditor, debtor, ...otherValues } = values;
     const adjustedCreditor = creditor == undefined ? 0 : creditor;
     const adjustedDebtor = debtor == undefined ? 0 : debtor;
-
+    console.log(listData?.data.accountName, "kaka");
 
     const updatedValues = {
       id: id,
-      creditor:
-         adjustedCreditor ?? listData?.data.creditor,
+      creditor: adjustedCreditor ?? listData?.data.creditor,
       debtor: adjustedDebtor ?? listData?.data.debtor,
       accountingDocumentID: 0,
       ...otherValues,
@@ -198,7 +195,7 @@ const FrmEditItemDetail = (props) => {
                 onChange={handleChangeDetailedAccountFour}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
-                loading={loadingData}
+                loading={dtAccLoading}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -220,7 +217,7 @@ const FrmEditItemDetail = (props) => {
                 onChange={handleChangeDetailedAccountFive}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
-                loading={loadingData}
+                loading={dtAccLoading}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -242,7 +239,7 @@ const FrmEditItemDetail = (props) => {
                 onChange={handleChangeDetailedAccountSix}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
-                loading={loadingData}
+                loading={dtAccLoading}
               />
             </Ant.Form.Item>
           </Ant.Col>
