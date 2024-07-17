@@ -47,6 +47,7 @@ const FrmAddItemDetail = (props) => {
 
   useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
+
   }, []);
 
   useEffect(() => {

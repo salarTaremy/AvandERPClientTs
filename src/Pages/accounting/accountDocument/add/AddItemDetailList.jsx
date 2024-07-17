@@ -24,6 +24,7 @@ const AddItemDetailList = (props) => {
   const [dataSource, setDataSource] = useState([]);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
+  const [open, setOpen] = useState(false);
   const [submitListData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
   useRequestManager({ error: error });
@@ -58,8 +59,7 @@ const AddItemDetailList = (props) => {
   //                        Functions
   //====================================================================
   const getAllAccountingDocumentDetail = async () => {
-    debugger;
-    console.log(id,"AccountingDocumentID")
+
     const data = {
       AccountingDocumentID: id,
     };
@@ -107,6 +107,8 @@ const AddItemDetailList = (props) => {
     });
 
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
+    setOpen(false)
+    getAllAccountingDocumentDetail()
   };
 
   const onDelete = (val) => {
@@ -192,4 +194,8 @@ const AddItemDetailList = (props) => {
 export default AddItemDetailList;
 AddItemDetailList.propTypes = {
   id: PropTypes.number,
+
+    closeModal: PropTypes.bool,
+
+
 };
