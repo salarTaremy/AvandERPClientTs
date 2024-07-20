@@ -5,10 +5,13 @@ import * as url from "@/api/url";
 import { useFetch } from "@/api";
 import PropTypes from "prop-types";
 import * as api from "@/api";
+import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
+
 import { FaFileMedical } from "react-icons/fa";
+import { keys } from "highcharts";
 const FrmAddItemDetail = (props) => {
   const { form } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
@@ -47,6 +50,7 @@ const FrmAddItemDetail = (props) => {
 
   useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
+
   }, []);
 
   useEffect(() => {
@@ -101,6 +105,7 @@ const FrmAddItemDetail = (props) => {
       detailedAccountName5: selectedDetailedAccountFive?.name,
       detailedAccountId6: selectedDetailedAccountSix?.id,
       detailedAccountName6: selectedDetailedAccountSix?.name,
+      key:uuid.v1(),
     };
     props.onDataSubmit(req);
     props.closeModal();
@@ -240,7 +245,7 @@ const FrmAddItemDetail = (props) => {
               <Ant.Form.Item
                 name={"creditor"}
                 label="مبلغ"
-                initialValue={"0"}
+
                 rules={[
                   {
                     required: true,
@@ -267,7 +272,7 @@ const FrmAddItemDetail = (props) => {
                     message: "مبلغ بستانکار اجباری است",
                   },
                 ]}
-                initialValue={"0"}
+
               >
                 <Ant.InputNumber
                   min={0}

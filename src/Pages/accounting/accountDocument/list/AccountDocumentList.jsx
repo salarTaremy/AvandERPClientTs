@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import qs from "qs";
-import { PropTypes } from "prop-types";
+
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as styles from "@/styles";
@@ -19,10 +19,12 @@ import * as uuid from "uuid";
 import FrmAddAccountDocument from "./../add/FrmAddAccountDocument";
 import AddItemDetailList from "./../add/AddItemDetailList";
 import FrmEditAccountDocument from "./../edit/FrmEditAccountDocument";
+import PropTypes from 'prop-types'
 //====================================================================
 //                        Declaration
 //====================================================================
-const AccountDocumentList = () => {
+const AccountDocumentList = (props) => {
+
   const navigate = useNavigate();
   const pageTitle = "مدیریت اسناد حسابداری";
   const [listData, listLoading, listError, listApiCall] =
@@ -34,6 +36,7 @@ const AccountDocumentList = () => {
   const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
+  const [openSide, setOpenSide] = useState(false);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [pagination, setPagination] = useState({
     current: 1,
@@ -133,7 +136,7 @@ const AccountDocumentList = () => {
   };
   const addItem = (id) => {
     setModalSize({ ...defaultValues.MODAL_LARGE });
-    setModalContent(<AddItemDetailList id={id} key={id} />);
+    setModalContent(<AddItemDetailList  id={id} key={id} />);
     setModalState(true);
   };
   //====================================================================
