@@ -171,7 +171,7 @@ const ActionSwitchList = (props) => {
         }}
         footer={null}
         centered
-        {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_LARGE}
       >
         {modalContent}
       </Ant.Modal>
