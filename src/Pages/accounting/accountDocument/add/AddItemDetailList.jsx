@@ -59,7 +59,6 @@ const AddItemDetailList = (props) => {
   //                        Functions
   //====================================================================
   const getAllAccountingDocumentDetail = async () => {
-
     const data = {
       AccountingDocumentID: id,
     };
@@ -107,13 +106,20 @@ const AddItemDetailList = (props) => {
     });
 
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
-    setOpen(false)
-    getAllAccountingDocumentDetail()
+    setOpen(false);
+    getAllAccountingDocumentDetail();
   };
 
   const onDelete = (val) => {
-    const newData = dataSource.filter((item) => item.id !== val.id);
-    setDataSource(newData);
+    {
+      val.key !== undefined
+        ? setDataSource((prevDataSource) => {
+            return prevDataSource.filter((item) => item.key !== val.key);
+          })
+        : setDataSource((prevDataSource) => {
+            return prevDataSource.filter((item) => item.id !== val.id);
+          });
+    }
   };
 
   const onAdd = (id) => {
@@ -194,8 +200,5 @@ const AddItemDetailList = (props) => {
 export default AddItemDetailList;
 AddItemDetailList.propTypes = {
   id: PropTypes.number,
-
-    closeModal: PropTypes.bool,
-
-
+  closeModal: PropTypes.bool,
 };

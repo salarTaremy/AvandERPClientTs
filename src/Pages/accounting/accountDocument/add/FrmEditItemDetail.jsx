@@ -103,7 +103,6 @@ const FrmEditItemDetail = (props) => {
     const { creditor, debtor, ...otherValues } = values;
     const adjustedCreditor = creditor == undefined ? 0 : creditor;
     const adjustedDebtor = debtor == undefined ? 0 : debtor;
-    console.log(listData?.data.accountName, "kaka");
 
     const updatedValues = {
       id: id,
@@ -134,6 +133,7 @@ const FrmEditItemDetail = (props) => {
         selectedDetailedAccountSix?.id ?? listData?.data.detailedAccountId6,
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? listData?.data.detailedAccountName6,
+
     };
 
     props.onDataSubmit({ ...req });
@@ -277,7 +277,7 @@ const FrmEditItemDetail = (props) => {
               <Ant.Form.Item
                 name={"debtor"}
                 label="مبلغ"
-                initialValue={"0"}
+
                 rules={[
                   {
                     required: true,
@@ -304,7 +304,7 @@ const FrmEditItemDetail = (props) => {
                     message: "مبلغ بستانکار اجباری است",
                   },
                 ]}
-                initialValue={"0"}
+
               >
                 <Ant.InputNumber
                   min={0}
