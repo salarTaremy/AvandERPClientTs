@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import { useEffect, useState } from "react";
 import * as url from "@/api/url";
 import { useFetch } from "@/api";
-import PropTypes from "prop-types";
+import PropTypes, { object } from "prop-types";
 import * as api from "@/api";
 import { useFetchWithHandler } from "@/api";
 import * as uuid from "uuid";
@@ -12,7 +12,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
 const FrmEditItemDetail = (props) => {
-  const { onSuccess, id } = props;
+  const { onSuccess, id, obj } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [debtorType, setDebtorType] = useState("0");
   const [selectedAccount, setSelectedAccount] = useState({
@@ -22,7 +22,6 @@ const FrmEditItemDetail = (props) => {
   const [selectedDetailedAccountFour, setDetailedAccountFour] = useState();
   const [selectedDetailedAccountFive, setDetailedAccountFive] = useState();
   const [selectedDetailedAccountSix, setDetailedAccountSix] = useState();
-  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
 
   const [
     accounGrouptData,
@@ -33,7 +32,6 @@ const FrmEditItemDetail = (props) => {
   const [form] = Ant.Form.useForm();
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
-  useRequestManager({ error: error });
 
   const commonOptions = {
     placeholder: "انتخاب کنید...",
@@ -51,13 +49,12 @@ const FrmEditItemDetail = (props) => {
 
   useEffect(() => {
     form.resetFields();
-    debugger;
-    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null), accountId: listData?.data.accountName  });
-  }, [listData]);
+    form.setFieldsValue({
+      ...obj,
+      accountId: obj.accountName,
+    });
+  }, [obj]);
 
-  useEffect(() => {
-    getAccountDocumentById();
-  }, []);
   useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
   }, []);
@@ -69,12 +66,8 @@ const FrmEditItemDetail = (props) => {
   //                        Functions
   //====================================================================
 
-  const getAccountDocumentById = async () => {
-    await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}/${id}`);
-  };
-
   const handleChangeAccount = (value, selectedOptions) => {
-    const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
+    const lastSelectedOption = selectedOptions[selectedOptions?.length - 1];
     setSelectedAccount({
       id: lastSelectedOption.id,
       name: lastSelectedOption.name,
@@ -82,21 +75,21 @@ const FrmEditItemDetail = (props) => {
   };
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
     setDetailedAccountFour({
-      id: selectedOption.id,
-      name: selectedOption.name,
+      id: selectedOption?.id,
+      name: selectedOption?.name,
     });
   };
 
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
-      id: selectedOption.id,
-      name: selectedOption.name,
+      id: selectedOption?.id,
+      name: selectedOption?.name,
     });
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
-      id: selectedOption.id,
-      name: selectedOption.name,
+      id: selectedOption?.id,
+      name: selectedOption?.name,
     });
   };
   const onFinish = async (values) => {
@@ -106,36 +99,45 @@ const FrmEditItemDetail = (props) => {
 
     const updatedValues = {
       id: id,
-      creditor: adjustedCreditor ?? listData?.data.creditor,
-      debtor: adjustedDebtor ?? listData?.data.debtor,
+      creditor: adjustedCreditor ?? obj?.creditor,
+      debtor: adjustedDebtor ?? obj?.debtor,
       accountingDocumentID: 0,
       ...otherValues,
     };
 
     const accountId = selectedAccount.id;
     const accountName = selectedAccount.name;
+
     const req = {
       ...updatedValues,
-      accountId: accountId ?? listData?.data.accountId,
-      accountName:
-        accountName !== "" ? accountName : listData?.data.accountName,
+      accountId: accountId ?? obj?.accountId,
+      accountName: accountName !== "" ? accountName : obj?.accountName,
       detailedAccountId4:
-        selectedDetailedAccountFour?.id ?? listData?.data.detailedAccountId4,
-      detailedAccountName4:
-        selectedDetailedAccountFour?.name ??
-        listData?.data.detailedAccountName4,
+        selectedDetailedAccountFour?.id ?? obj?.detailedAccountId4,
+      detailedAccountName4: selectedDetailedAccountFour?.name,
       detailedAccountId5:
-        selectedDetailedAccountFive?.id ?? listData?.data.detailedAccountId5,
+        selectedDetailedAccountFive?.id ?? obj?.detailedAccountId5,
       detailedAccountName5:
-        selectedDetailedAccountFive?.name ??
-        listData?.data.detailedAccountName5,
+        selectedDetailedAccountFive?.name ?? obj?.detailedAccountName5,
       detailedAccountId6:
-        selectedDetailedAccountSix?.id ?? listData?.data.detailedAccountId6,
+        selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
       detailedAccountName6:
-        selectedDetailedAccountSix?.name ?? listData?.data.detailedAccountName6,
-
+        selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
     };
 
+    if (values.detailedAccountId4 == undefined) {
+      req.detailedAccountName4 = null;
+      delete req.detailedAccountId4;
+    }
+    if (values.detailedAccountId5 == undefined) {
+      req.detailedAccountName5 = null;
+      delete req.detailedAccountId5;
+    }
+    if (values.detailedAccountId6 == undefined) {
+      req.detailedAccountName6 = null;
+      delete req.detailedAccountId6;
+    }
+    console.log(req, "fafafa");
     props.onDataSubmit({ ...req });
     props.closeModal();
   };
@@ -156,7 +158,7 @@ const FrmEditItemDetail = (props) => {
               label="نوع حساب "
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: "فیلد حساب  اجباری است",
                 },
               ]}
@@ -259,12 +261,10 @@ const FrmEditItemDetail = (props) => {
                   {
                     label: "بدهکار",
                     value: "0",
-                    icon: <LuDollarSign />,
                   },
                   {
                     label: "بستانکار",
                     value: "1",
-                    icon: <LuDollarSign />,
                   },
                 ]}
                 onChange={handleDebtorTypeChange}
@@ -277,7 +277,6 @@ const FrmEditItemDetail = (props) => {
               <Ant.Form.Item
                 name={"debtor"}
                 label="مبلغ"
-
                 rules={[
                   {
                     required: true,
@@ -304,7 +303,6 @@ const FrmEditItemDetail = (props) => {
                     message: "مبلغ بستانکار اجباری است",
                   },
                 ]}
-
               >
                 <Ant.InputNumber
                   min={0}

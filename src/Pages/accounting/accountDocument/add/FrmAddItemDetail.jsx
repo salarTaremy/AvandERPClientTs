@@ -68,20 +68,20 @@ const FrmAddItemDetail = (props) => {
   };
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
     setDetailedAccountFour({
-      id: selectedOption.id,
-      name: selectedOption.name,
+      id: selectedOption?.id,
+      name: selectedOption?.name,
     });
   };
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
-      id: selectedOption.id,
-      name: selectedOption.name,
+      id: selectedOption?.id,
+      name: selectedOption?.name,
     });
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
-      id: selectedOption.id,
-      name: selectedOption.name,
+      id: selectedOption?.id,
+      name: selectedOption?.name,
     });
   };
   const onFinish = async (values) => {
@@ -127,7 +127,7 @@ const FrmAddItemDetail = (props) => {
               label="نوع حساب "
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: "فیلد حساب  اجباری است",
                 },
               ]}
@@ -227,12 +227,12 @@ const FrmAddItemDetail = (props) => {
                   {
                     label: "بدهکار",
                     value: "0",
-                    icon: <LuDollarSign />,
+
                   },
                   {
                     label: "بستانکار",
                     value: "1",
-                    icon: <LuDollarSign />,
+
                   },
                 ]}
                 onChange={handleDebtorTypeChange}

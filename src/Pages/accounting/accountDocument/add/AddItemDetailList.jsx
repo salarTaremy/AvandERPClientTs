@@ -22,8 +22,12 @@ const AddItemDetailList = (props) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [formData, setFormData] = useState({});
   const [dataSource, setDataSource] = useState([]);
+
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
+  const [totalCreditor, setTotalCreditor] = useState(0);
+  const [totalDebtor, setTotalDebtor] = useState(0);
+
   const [open, setOpen] = useState(false);
   const [submitListData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
@@ -33,7 +37,23 @@ const AddItemDetailList = (props) => {
     loading: submitLoading,
     data: submitListData,
   });
-
+  const documentInfo = [
+    {
+      key: "1",
+      label: "جمع بدهکار",
+      children: totalCreditor.toLocaleString(),
+    },
+    {
+      key: "2",
+      label: "جمع بستانکار",
+      children: totalDebtor.toLocaleString(),
+    },
+    {
+      key: "3",
+      label: "تفاضل",
+      children: (totalCreditor - totalDebtor).toLocaleString(),
+    },
+  ];
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -43,6 +63,19 @@ const AddItemDetailList = (props) => {
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
+
+  useEffect(() => {
+    if (dataSource) {
+      const creditorSum = dataSource.reduce(
+        (acc, item) => acc + item.creditor,
+        0,
+      );
+      setTotalCreditor(creditorSum);
+
+      const debtorSum = dataSource.reduce((acc, item) => acc + item.debtor, 0);
+      setTotalDebtor(debtorSum);
+    }
+  }, [dataSource]);
 
   useEffect(() => {
     if (formData && Object.keys(formData).length > 0) {
@@ -55,6 +88,7 @@ const AddItemDetailList = (props) => {
       });
     }
   }, [formData]);
+
   //====================================================================
   //                        Functions
   //====================================================================
@@ -135,6 +169,7 @@ const AddItemDetailList = (props) => {
   };
 
   const onEdit = (val) => {
+    console.log(val, "gagagag");
     setModalContent(
       <FrmEditItemDetail
         key={uuid.v4()}
@@ -192,6 +227,17 @@ const AddItemDetailList = (props) => {
       <ModalHeader title={"اضافه کردن جزییات"} icon={<MdDescription />} />
       <CoustomContent Height="70vh" loading={loadingData}>
         <Grid />
+        <Ant.Row>
+          <Ant.Col>
+            <Ant.Descriptions
+              bordered={false}
+              layout="horizontal"
+              size="small"
+
+              items={documentInfo}
+            />
+          </Ant.Col>
+        </Ant.Row>
       </CoustomContent>
     </>
   );
