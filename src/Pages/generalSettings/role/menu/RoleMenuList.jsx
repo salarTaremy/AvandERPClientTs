@@ -39,6 +39,11 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
   }, []);
 
   useEffect(() => {
+    data?.isSuccess && data.data[0]?.children.forEach(element => {
+      if ( element.componentName == 'CNavTitle'){
+       element.componentName = element.title += '  (عنوان)  '
+      }})
+
     setItems((data?.isSuccess && data?.data[0]?.children) || null);
   }, [data?.data]);
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import useRequestManager from "@/hooks/useRequestManager";
 import {
   Button,
   Col,
@@ -41,6 +42,7 @@ export const BaseStep = ({ form }) => {
   ] = useFetchWithHandler();
   const [qrCode, setQrCode] = useState(null);
   const { token } = useToken();
+  useRequestManager({ error:productNatureDetailError });   
 
   useEffect(() => {
     const natureId = form.getFieldValue("natureId");

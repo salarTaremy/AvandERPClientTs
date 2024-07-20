@@ -17,7 +17,7 @@ const GanttA = () => {
   const [options, setOptions] = useState(defaultOptions)
   const [chartData, chartLoading, chartError, chartApiCall] = useFetchWithHandler()
 
-
+  useRequestManager({ error:chartError });
   // const day = 24 * 36e5
   // const today = Math.floor(Date.now() / day) * day
   // const startDay = 1690070400000 //1402-05-01

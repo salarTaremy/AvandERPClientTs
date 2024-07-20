@@ -16,9 +16,10 @@ import ModalHeader from "@/components/common/ModalHeader";
 const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persianTitle }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    const [selectedUser, setSelectedUser] = useState(null)
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    useRequestManager({ error: editError, editLoading: editLoading, data: editData })
+    const [selectedUser, setSelectedUser] = useState(null)
+    useRequestManager({ error: error})
+    useRequestManager({ error: editError, loading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [idActionsList, setIdActionsList] = useState([]);
 
@@ -134,7 +135,7 @@ const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persia
             <ModalHeader title={`ویرایش دسترسی عملیات نقش " ${name} " بخش " ${persianTitle} "`} />
             <Grid />
             <Ant.Button block
-                className='mt-8 '
+                className='mt-4'
                 loading={editLoading}
                 type="primary"
                 onClick={onFinish}

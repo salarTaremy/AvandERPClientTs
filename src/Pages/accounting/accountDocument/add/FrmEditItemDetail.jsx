@@ -34,6 +34,7 @@ const FrmEditItemDetail = (props) => {
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: error });
+  useRequestManager({ error: accountGroupError });
 
   const commonOptions = {
     placeholder: "انتخاب کنید...",

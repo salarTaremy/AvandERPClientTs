@@ -13,6 +13,7 @@ const FormEditDocumentType = (props) => {
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   useRequestManager({ error: editError, loading: editLoading, data: editData });
+  useRequestManager({ error });
   const [form] = Ant.Form.useForm();
   //====================================================================
   //                        useEffects
