@@ -42,7 +42,7 @@ const getSendingProgress = (
         <Ant.Progress
           percent={getSendingProgressPercent(progressStatusId)}
           steps={3}
-          strokeColor={[lime[2], lime[4], green[6]]}
+          strokeColor={[geekblue[1], geekblue[3], geekblue[6]]}
           format={(percent) => {
             return (
               <Ant.Tooltip title={sendingProgressStatus}>
@@ -343,15 +343,19 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
         return (
           <>
             <Ant.Space size={5}>
-              <Ant.Tooltip title="ارسال به سامانه مودیان">
-                <Ant.Button
-                  onClick={() => onSendToTaxPayersSystem(record.id)}
-                  className="text-pink-500"
-                  icon={<BsSend />}
-                  type="text"
-                  size="middle"
-                />
-              </Ant.Tooltip>
+              <Ant.Popconfirm
+                title="آیا از ارسال این صورتحساب به سامانه مودیان مطمئن هستید؟"
+                onConfirm={() => onSendToTaxPayersSystem(record.id)}
+              >
+                <Ant.Tooltip title="ارسال به سامانه مودیان">
+                  <Ant.Button
+                    className="text-pink-500"
+                    icon={<BsSend />}
+                    type="text"
+                    size="middle"
+                  />
+                </Ant.Tooltip>
+              </Ant.Popconfirm>
               <Ant.Tooltip title="استعلام وضعیت">
                 <Ant.Button
                   onClick={() =>
