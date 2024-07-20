@@ -20,6 +20,7 @@ export const FrmEditDetailedAccount = (props) => {
     url.DETAILED_ACCOUNT_GROUP,
   )
   useRequestManager({ error: maxCodeError })
+  useRequestManager({ error: detailedAccGrpError })
   useRequestManager({ error: editError, loading: editLoading, data: editData })
   //====================================================================
   //                        useEffects

@@ -23,6 +23,7 @@ export const FrmAddAccountGroup = (props) => {
   const allLoading = useAllLoading([accNatureLoading, accTypeLoading])
   useRequestManager({ error: accNatureError })
   useRequestManager({ error: accTypeError })
+  useRequestManager({ error: maxCodeError })
   useRequestManager({ error: accAddGrpError, loading: accAddGrpLoading, data: accAddGrpData })
   //====================================================================
   //                        useEffects

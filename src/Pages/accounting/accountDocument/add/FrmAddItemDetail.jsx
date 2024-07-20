@@ -33,6 +33,7 @@ const FrmAddItemDetail = (props) => {
 
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
+  useRequestManager({ error: accountGroupError });
 
   const commonOptions = {
     placeholder: "انتخاب کنید...",

@@ -17,6 +17,7 @@ const FormEditRole = (props) => {
   const [roleScopeData, roleScopeLoading, roleScopeError] = useFetch(
     url.ROLE_SCOPE,
   );
+  useRequestManager({ error });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   useRequestManager({ error: roleScopeError });
 

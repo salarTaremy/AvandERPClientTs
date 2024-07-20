@@ -18,7 +18,9 @@ const FormEditBrand = (props) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   useRequestManager({ error: editError, loading: editLoading, data: editData })
   const [form] = Ant.Form.useForm()
+  useRequestManager({ error: error })
   useRequestManager({ error: selectError })
+  useRequestManager({ error: maxCodeError })
   //====================================================================
   //                        useEffects
   //====================================================================
