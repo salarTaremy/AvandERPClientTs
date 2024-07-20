@@ -122,7 +122,7 @@ const InquiryListItem = (props) => {
     //====================================================
     const errorList = inquiryItem.errorList?.length > 0 && (
       <Ant.List
-        dataSource={inquiryItem.errorList}
+        dataSource={inquiryItem?.errorList}
         renderItem={renderErrorList}
       />
     );
@@ -137,8 +137,9 @@ const InquiryListItem = (props) => {
     //====================================================
     //    create collapse children foreach inquiry result
     //====================================================
-    const errorCount = inquiryItem.errorList.length;
-    const warningCount = inquiryItem.warningList.length;
+    const errorCount = inquiryItem.errorList?.length;
+    console.log(errorCount);
+    const warningCount = inquiryItem.warningList?.length;
     const errorCountTag = (errorCount > 0 && <Ant.Tag color="red">{`${errorCount} خطا`}</Ant.Tag>);
     const warningCountTag = (warningCount > 0 && <Ant.Tag color="orange">{`${warningCount} اخطار`}</Ant.Tag>);
     const inquiryStatusTag = (
@@ -146,8 +147,7 @@ const InquiryListItem = (props) => {
         {inquiryItem.status}
       </Ant.Tag>
     );
-    const showArrow =
-      inquiryItem.errorList.length > 0 || inquiryItem.warningList.length > 0;
+    const showArrow = errorCount > 0 || warningCount > 0;
 
     itemList.push({
       key: inquiryItem.id,
@@ -164,7 +164,7 @@ const InquiryListItem = (props) => {
             >
               {`ارسال به سامانه در تاریخ ${inquiryItem.date} ساعت ${inquiryItem.time}`}
             </Ant.Typography.Text>
-            {errorCount === 0 && inquiryStatusTag}
+            {(errorCount === 0 || !errorCount ) && inquiryStatusTag}
             {errorCountTag}
             {warningCountTag}
           </Ant.Space>

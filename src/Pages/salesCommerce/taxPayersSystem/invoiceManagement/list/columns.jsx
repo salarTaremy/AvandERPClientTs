@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import { BiMessageSquareError } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
 import { BsSend } from "react-icons/bs";
-import { green, lime, red, gold, geekblue } from "@ant-design/colors";
+import { green, lime, red, geekblue, orange } from "@ant-design/colors";
 
 const getSendingProgressPercent = (progressStatusId) => {
   switch (progressStatusId) {
@@ -90,12 +90,12 @@ const getSendingProgress = (
         <Ant.Progress
           percent={100}
           steps={3}
-          strokeColor={[gold[2], gold[4], gold[6]]}
+          strokeColor={[orange[1], orange[3], orange[5]]}
           format={(percent) => {
             return (
               <Ant.Tooltip
                 title={"ارسال در انتظار بررسی"}
-                className="text-amber-600"
+                className="text-orange-600"
               >
                 {`${percent}%`}
               </Ant.Tooltip>
