@@ -59,8 +59,14 @@ const MenuPermissions = () => {
     if (data?.data[0]?.children) {
       data.data[0].title = 'منوی اصلی برنامه'
       data.data[0].key = 0
+      data.data[0]?.children.forEach(element => {
+        if ( element.componentName == 'CNavTitle'){
+         element.componentName = element.title += '  (عنوان)  '
+        }})
+
       setTreeData(data.data)
     }
+  
   }, [data])
 
 
