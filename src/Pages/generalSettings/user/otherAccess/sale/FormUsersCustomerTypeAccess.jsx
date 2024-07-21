@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import * as url from '@/api/url'
 import { useFetchWithHandler } from '@/api'
 import * as defaultValues from "@/defaultValues";
-
+import useRequestManager from "@/hooks/useRequestManager";
 
 const FormUsersCustomerTypeAccess = ({ userId, onSuccessCustomerTypeAccess, oldTypeId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
+    useRequestManager({ error });    
     //====================================================================
     //                        useEffects
     //====================================================================

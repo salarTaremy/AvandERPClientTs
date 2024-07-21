@@ -12,6 +12,7 @@ const FormEditUser = (props) => {
   const [loading, setLoading] = useState(false);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
+  useRequestManager({ error });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   const [form] = Ant.Form.useForm();
   //====================================================================

@@ -23,6 +23,7 @@ const FrmLinkAccountDetailAccount = (props) => {
   const [levelData, levelLoading, levelError, levelApiCall] =
     useFetchWithHandler();
   useRequestManager({ error: error });
+  useRequestManager({ error: levelError });
   //====================================================================
   //                        useEffects
   //====================================================================

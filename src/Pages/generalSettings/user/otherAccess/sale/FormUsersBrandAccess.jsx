@@ -16,6 +16,7 @@ const FormUsersBrandAccess = ({ userId, onSuccessBrand, oldBrandId }) => {
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     useRequestManager({ error: editError, editLoading: editLoading, data: editData })
+    useRequestManager({ error }); 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     //====================================================================

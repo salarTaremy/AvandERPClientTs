@@ -14,7 +14,7 @@ import { FaFileMedical } from "react-icons/fa";
 const FrmEditItemDetail = (props) => {
   const { onSuccess, id, obj } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
-  const [debtorType, setDebtorType] = useState("0");
+  const [valueType, setValueType] = useState("0");
   const [selectedAccount, setSelectedAccount] = useState({
     id: null,
     name: "",
@@ -92,11 +92,28 @@ const FrmEditItemDetail = (props) => {
       name: selectedOption?.name,
     });
   };
-  const onFinish = async (values) => {
-    const { creditor, debtor, ...otherValues } = values;
-    const adjustedCreditor = creditor == undefined ? 0 : creditor;
-    const adjustedDebtor = debtor == undefined ? 0 : debtor;
+  const handleTypeChange = (value) => {
+    setValueType(value);
+    const formFields = form.getFieldsValue();
 
+    if (formFields.creditor > 0 ) {
+      form.setFieldsValue({
+        debtor: 0,
+      });
+
+    }
+    if ( formFields.debtor > 0) {
+      setValueType(value);
+      form.setFieldsValue({
+        creditor: 0,
+      });
+    }
+  };
+  const onFinish = async (values) => {
+    debugger
+    const { creditor, debtor, ...otherValues } = values;
+    const adjustedCreditor = creditor ?? 0 ;
+    const adjustedDebtor = debtor ?? 0 ;
     const updatedValues = {
       id: id,
       creditor: adjustedCreditor ?? obj?.creditor,
@@ -137,13 +154,11 @@ const FrmEditItemDetail = (props) => {
       req.detailedAccountName6 = null;
       delete req.detailedAccountId6;
     }
-    console.log(req, "fafafa");
+
     props.onDataSubmit({ ...req });
     props.closeModal();
   };
-  const handleDebtorTypeChange = (value) => {
-    setDebtorType(value);
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -267,13 +282,13 @@ const FrmEditItemDetail = (props) => {
                     value: "1",
                   },
                 ]}
-                onChange={handleDebtorTypeChange}
+                onChange={handleTypeChange}
               />
             </Ant.Form.Item>
           </Ant.Col>
 
           <Ant.Col md={24} lg={8}>
-            {debtorType === "0" && (
+            {valueType === "0" && (
               <Ant.Form.Item
                 name={"debtor"}
                 label="مبلغ"
@@ -293,7 +308,7 @@ const FrmEditItemDetail = (props) => {
                 />
               </Ant.Form.Item>
             )}
-            {debtorType === "1" && (
+            {valueType === "1" && (
               <Ant.Form.Item
                 name={"creditor"}
                 label="مبلغ"

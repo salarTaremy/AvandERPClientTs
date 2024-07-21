@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import { BiMessageSquareError } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
 import { BsSend } from "react-icons/bs";
-import { green, lime, red, gold, geekblue } from "@ant-design/colors";
+import { green, lime, red, geekblue, orange } from "@ant-design/colors";
 
 const getSendingProgressPercent = (progressStatusId) => {
   switch (progressStatusId) {
@@ -42,7 +42,7 @@ const getSendingProgress = (
         <Ant.Progress
           percent={getSendingProgressPercent(progressStatusId)}
           steps={3}
-          strokeColor={[lime[2], lime[4], green[6]]}
+          strokeColor={[geekblue[1], geekblue[3], geekblue[6]]}
           format={(percent) => {
             return (
               <Ant.Tooltip title={sendingProgressStatus}>
@@ -90,12 +90,12 @@ const getSendingProgress = (
         <Ant.Progress
           percent={100}
           steps={3}
-          strokeColor={[gold[2], gold[4], gold[6]]}
+          strokeColor={[orange[1], orange[3], orange[5]]}
           format={(percent) => {
             return (
               <Ant.Tooltip
                 title={"ارسال در انتظار بررسی"}
-                className="text-amber-600"
+                className="text-orange-600"
               >
                 {`${percent}%`}
               </Ant.Tooltip>
@@ -343,15 +343,19 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
         return (
           <>
             <Ant.Space size={5}>
-              <Ant.Tooltip title="ارسال به سامانه مودیان">
-                <Ant.Button
-                  onClick={() => onSendToTaxPayersSystem(record.id)}
-                  className="text-pink-500"
-                  icon={<BsSend />}
-                  type="text"
-                  size="middle"
-                />
-              </Ant.Tooltip>
+              <Ant.Popconfirm
+                title="آیا از ارسال این صورتحساب به سامانه مودیان مطمئن هستید؟"
+                onConfirm={() => onSendToTaxPayersSystem(record.id)}
+              >
+                <Ant.Tooltip title="ارسال به سامانه مودیان">
+                  <Ant.Button
+                    className="text-pink-500"
+                    icon={<BsSend />}
+                    type="text"
+                    size="middle"
+                  />
+                </Ant.Tooltip>
+              </Ant.Popconfirm>
               <Ant.Tooltip title="استعلام وضعیت">
                 <Ant.Button
                   onClick={() =>

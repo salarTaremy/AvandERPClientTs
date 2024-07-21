@@ -22,6 +22,7 @@ const DocumentTypeList = () => {
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [addSaving, addLoading, addArror, addApiCall] = usePostWithHandler();
   const [editSaving, editLoading, editArror, editApiCall] = usePutWithHandler();
+  useRequestManager({ error });
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   useRequestManager({ error: addArror, loading: addLoading, data: addSaving });
   useRequestManager({

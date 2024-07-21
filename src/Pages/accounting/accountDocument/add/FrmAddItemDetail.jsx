@@ -15,7 +15,9 @@ import { keys } from "highcharts";
 const FrmAddItemDetail = (props) => {
   const { form } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
-  const [debtorType, setDebtorType] = useState("0");
+  const [valueType, setValueType] = useState("0");
+  const [creditor, setCreditor] = useState(0);
+  const [debtor, setDebtor] = useState(0);
   const [selectedAccount, setSelectedAccount] = useState({
     id: null,
     name: "",
@@ -33,6 +35,7 @@ const FrmAddItemDetail = (props) => {
 
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
+  useRequestManager({ error: accountGroupError });
 
   const commonOptions = {
     placeholder: "انتخاب کنید...",
@@ -50,7 +53,6 @@ const FrmAddItemDetail = (props) => {
 
   useEffect(() => {
     accoupGroupApicall(url.ACCOUNT_TREE);
-
   }, []);
 
   useEffect(() => {
@@ -59,6 +61,15 @@ const FrmAddItemDetail = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const getValue = (e) => {
+    if (valueType === "0") {
+      setCreditor(e);
+    }
+    if (valueType === "1") {
+      setDebtor(e);
+    }
+  };
+
   const handleChangeAccount = (value, selectedOptions) => {
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
     setSelectedAccount({
@@ -88,6 +99,7 @@ const FrmAddItemDetail = (props) => {
     const { creditor, debtor, ...otherValues } = values;
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
+
     const updatedValues = {
       creditor: adjustedCreditor,
       debtor: adjustedDebtor,
@@ -105,14 +117,13 @@ const FrmAddItemDetail = (props) => {
       detailedAccountName5: selectedDetailedAccountFive?.name,
       detailedAccountId6: selectedDetailedAccountSix?.id,
       detailedAccountName6: selectedDetailedAccountSix?.name,
-      key:uuid.v1(),
+      key: uuid.v1(),
     };
+
     props.onDataSubmit(req);
     props.closeModal();
   };
-  const handleDebtorTypeChange = (value) => {
-    setDebtorType(value);
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -227,62 +238,39 @@ const FrmAddItemDetail = (props) => {
                   {
                     label: "بدهکار",
                     value: "0",
-
                   },
                   {
                     label: "بستانکار",
                     value: "1",
-
                   },
                 ]}
-                onChange={handleDebtorTypeChange}
+                onChange={(e) => {
+                  setValueType(e);
+                }}
               />
             </Ant.Form.Item>
           </Ant.Col>
-
           <Ant.Col md={24} lg={8}>
-            {debtorType === "0" && (
-              <Ant.Form.Item
-                name={"creditor"}
-                label="مبلغ"
-
-                rules={[
-                  {
-                    required: true,
-                    message: "مبلغ  بدهکار اجباری است",
-                  },
-                ]}
-              >
-                <Ant.InputNumber
-                  min={0}
-                  formatter={(value) =>
-                    value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  style={{ width: "100%" }}
-                />
-              </Ant.Form.Item>
-            )}
-            {debtorType === "1" && (
-              <Ant.Form.Item
-                name={"debtor"}
-                label="مبلغ"
-                rules={[
-                  {
-                    required: true,
-                    message: "مبلغ بستانکار اجباری است",
-                  },
-                ]}
-
-              >
-                <Ant.InputNumber
-                  min={0}
-                  formatter={(value) =>
-                    value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }
-                  style={{ width: "100%" }}
-                />
-              </Ant.Form.Item>
-            )}
+            <Ant.Form.Item
+              name={valueType == "0" ? "creditor" : "debtor"}
+              label="مبلغ"
+              rules={[
+                {
+                  required: true,
+                  message: "مبلغ  اجباری است",
+                },
+              ]}
+            >
+              <Ant.InputNumber
+                onChange={(e) => {
+                  getValue(e);
+                }}
+                formatter={(value) =>
+                  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                style={{ width: "100%" }}
+              />
+            </Ant.Form.Item>
           </Ant.Col>
 
           <Ant.Col span={24} md={24} lg={8}>

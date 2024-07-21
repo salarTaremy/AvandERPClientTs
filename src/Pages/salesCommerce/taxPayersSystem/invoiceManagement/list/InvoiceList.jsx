@@ -47,8 +47,12 @@ const InvoiceList = () => {
   const [modalContent, setModalContent] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  useRequestManager({ error: invoiceListError  });
-  useRequestManager({ data: invoiceSendData, error: invoiceSendError, loading: invoiceSendLoading });
+  useRequestManager({ error: invoiceListError });
+  useRequestManager({
+    data: invoiceSendData,
+    error: invoiceSendError,
+    loading: invoiceSendLoading,
+  });
   //====================================================================
   //                        Functions
   //====================================================================
@@ -73,11 +77,7 @@ const InvoiceList = () => {
     setOpenFilter(false);
   };
 
-  const handleTableChange = (
-    pagination,
-    filters,
-    sorter,
-  ) => {
+  const handleTableChange = (pagination, filters, sorter) => {
     setPagination(pagination);
   };
 
@@ -115,7 +115,7 @@ const InvoiceList = () => {
   const onSendToTaxPayersSystem = async (id) => {
     const postData = { saleDocumentId: id };
     await invoiceSendApiCall(url.TPS_INVOICE_MANAGEMENT, postData);
-  }
+  };
 
   //table row selection control
   const onSelectChange = (newSelectedRowKeys) => {
@@ -169,16 +169,20 @@ const InvoiceList = () => {
           onRefresh={() => getInvoiceList()}
           onFilter={() => setOpenFilter(true)}
         >
-          <Ant.Tooltip title={"ارسال به سامانه مودیان"}>
-            <Ant.Button
-              onClick={onSendListToTaxPayersSystem}
-              className="text-pink-500 border-pink-500"
-              size="large"
-              disabled={!hasSelectedRow}
-            >
-              <BsSend />
-            </Ant.Button>
-          </Ant.Tooltip>
+          <Ant.Popconfirm
+            title="آیا از ارسال صورتحساب ها به سامانه مودیان مطمئن هستید؟"
+            onConfirm={() => onSendListToTaxPayersSystem()}
+          >
+            <Ant.Tooltip title={"ارسال به سامانه مودیان"}>
+              <Ant.Button
+                className="text-pink-500 border-pink-500"
+                size="large"
+                disabled={!hasSelectedRow}
+              >
+                <BsSend />
+              </Ant.Button>
+            </Ant.Tooltip>
+          </Ant.Popconfirm>
         </ButtonList>
       </>
     );
@@ -190,7 +194,12 @@ const InvoiceList = () => {
         <Ant.Skeleton loading={invoiceListLoading}>
           <Ant.Table
             rowSelection={rowSelection}
-            columns={columns(onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem)}
+            columns={columns(
+              onViewSaleDocument,
+              onViewCustomer,
+              onInquiry,
+              onSendToTaxPayersSystem,
+            )}
             dataSource={dataSource}
             pagination={pagination}
             onChange={handleTableChange}

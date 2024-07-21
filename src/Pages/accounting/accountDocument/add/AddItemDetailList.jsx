@@ -5,6 +5,7 @@ import * as defaultValues from "@/defaultValues";
 import PropTypes from "prop-types";
 import qs from "qs";
 import * as url from "@/api/url";
+import * as api from "@/api";
 import CoustomContent from "@/components/common/CoustomContent";
 import ButtonList from "@/components/common/ButtonList";
 import { MdDescription } from "react-icons/md";
@@ -29,8 +30,15 @@ const AddItemDetailList = (props) => {
   const [totalDebtor, setTotalDebtor] = useState(0);
 
   const [open, setOpen] = useState(false);
+  const [
+    listDataHeader,
+    listLoadingHeader,
+    listErrorHeader,
+    listApiCallHeader,
+  ] = api.useFetchWithHandler();
   const [submitListData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
+    useRequestManager({ error: listErrorHeader });
   useRequestManager({ error: error });
   useRequestManager({
     error: submitError,
@@ -59,6 +67,11 @@ const AddItemDetailList = (props) => {
   //====================================================================
   useEffect(() => {
     getAllAccountingDocumentDetail();
+
+  }, []);
+  useEffect(() => {
+
+    onHeader();
   }, []);
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -92,6 +105,10 @@ const AddItemDetailList = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
+
+  const onHeader = async () => {
+    await listApiCallHeader(`${url.ACCOUNT_DOCUMENT}/${id}`);
+  };
   const getAllAccountingDocumentDetail = async () => {
     const data = {
       AccountingDocumentID: id,
@@ -169,7 +186,6 @@ const AddItemDetailList = (props) => {
   };
 
   const onEdit = (val) => {
-    console.log(val, "gagagag");
     setModalContent(
       <FrmEditItemDetail
         key={uuid.v4()}
@@ -224,8 +240,10 @@ const AddItemDetailList = (props) => {
         {modalContent}
       </Ant.Modal>
 
-      <ModalHeader title={"اضافه کردن جزییات"} icon={<MdDescription />} />
-      <CoustomContent Height="70vh" loading={loadingData}>
+      {/* ={` ایجاد حساب معین :${accHdrData?.isSuccess && `(در حساب کل  ${accHdrData?.data?.name})`} `} */}
+
+      <ModalHeader   title={`اضافه کردن جزییات : شماره سند  (${ listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${ listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `}icon={<MdDescription />} />
+      <CoustomContent Height="75vh" loading={loadingData}>
         <Grid />
         <Ant.Row>
           <Ant.Col>

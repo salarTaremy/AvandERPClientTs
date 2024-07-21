@@ -9,8 +9,6 @@ import TBL from "../../../accounting/accountDocument/add/Table";
 import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { MdEditDocument } from "react-icons/md";
-
-import { useParams, useNavigate } from "react-router-dom";
 export const FrmEditAccountDocument = (props) => {
   const { onSuccess, id, key } = props;
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
@@ -26,13 +24,11 @@ export const FrmEditAccountDocument = (props) => {
     listErrorHeader,
     listApiCallHeader,
   ] = api.useFetchWithHandler();
-  const navigate = useNavigate();
+
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
-  const [dataEditList, setDataEdit] = useState([]);
-  const [sumDebtorEdit, setSumDebtorEdit] = useState(0);
-  const [sumCreditorEdit, setSumCreditorEdit] = useState(0);
+
   const [form] = Ant.Form.useForm();
-  const params = useParams();
+
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   useRequestManager({ error: accStateError });
   useRequestManager({ error: listErrorHeader });
@@ -50,7 +46,6 @@ export const FrmEditAccountDocument = (props) => {
     onEditHeader();
   }, []);
 
-  useEffect(() => {}, [dataEditList]);
 
   useEffect(() => {
     form.resetFields();
@@ -65,15 +60,6 @@ export const FrmEditAccountDocument = (props) => {
     await listApiCallHeader(`${url.ACCOUNT_DOCUMENT}/${id}`);
   };
 
-  const dataEdit = (data) => {
-    setDataEdit(data);
-  };
-  const updateDebtorEdit = (debtor) => {
-    setSumDebtorEdit(debtor);
-  };
-  const updateCreditorEdit = (creditor) => {
-    setSumCreditorEdit(creditor);
-  };
   const onFinish = async (values) => {
     // let valueHeader = form.getFieldsValue();
     const header = {
@@ -133,11 +119,7 @@ export const FrmEditAccountDocument = (props) => {
               {"تایید"}
             </Ant.Button>
           </Ant.Col>
-          <Ant.Col className="text-end" lg={12} md={12} sm={12} xs={24}>
-            جمع کل بدهکار: {sumDebtorEdit.toLocaleString() || 0}
-            <br />
-            جمع کل بستانکار: {sumCreditorEdit.toLocaleString() || 0}
-          </Ant.Col>
+
         </Ant.Row>
       </>
     );
@@ -146,9 +128,7 @@ export const FrmEditAccountDocument = (props) => {
   //====================================================================
   //                        Component
   //====================================================================
-  const text = (
-    <strong className="text-xs sm:text-sm">{"ویرایش سند حسابداری"}</strong>
-  );
+
   return (
     <>
       <ModalHeader title={"ویرایش سند حسابداری"} icon={<MdEditDocument />}/>
