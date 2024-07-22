@@ -8,6 +8,7 @@ import General from "./general/General";
 import Sale from "./sale/Sale";
 import ModalHeader from "@/components/common/ModalHeader";
 import { PiUserCircleCheckFill } from "react-icons/pi";
+import Warehouse from "./warehouse/Warehouse";
 
 const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
   const { TabPane } = Ant.Tabs;
@@ -178,7 +179,7 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={` سایر دسترسی های کاربر  " ${userName} "`} icon={<PiUserCircleCheckFill />}/>
+      <ModalHeader title={` سایر دسترسی های کاربر  " ${userName} "`} icon={<PiUserCircleCheckFill />} />
       <Ant.Tabs tabPosition={mode}>
         <TabPane forceRender={true} tab=" عمومی " key="1">
           {
@@ -193,8 +194,6 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
           {
             <Sale
               userId={userId}
-              onSuccessBrand={onSuccessBrand}
-              oldBrandId={oldBrandId}
               onSuccessCustomerGroupAccess={onSuccessCustomerGroupAccess}
               oldGroupId={oldGroupId}
               onSuccessCustomerTypeAccess={onSuccessCustomerTypeAccess}
@@ -207,6 +206,13 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
               oldDocumentId={oldDocumentId}
             />
           }
+        </TabPane>
+        <TabPane forceRender={true} tab=" انبار " key="3">
+          <Warehouse
+            userId={userId}
+            onSuccessBrand={onSuccessBrand}
+            oldBrandId={oldBrandId}
+          />
         </TabPane>
       </Ant.Tabs>
       <Ant.Button
