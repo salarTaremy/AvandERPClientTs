@@ -353,6 +353,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
                     icon={<BsSend />}
                     type="text"
                     size="middle"
+                    disabled={record.statusId && record.statusId === 1}
                   />
                 </Ant.Tooltip>
               </Ant.Popconfirm>
