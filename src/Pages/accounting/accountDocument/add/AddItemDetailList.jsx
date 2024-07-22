@@ -243,7 +243,7 @@ const AddItemDetailList = (props) => {
       {/* ={` ایجاد حساب معین :${accHdrData?.isSuccess && `(در حساب کل  ${accHdrData?.data?.name})`} `} */}
 
       <ModalHeader   title={`اضافه کردن جزییات : شماره سند  (${ listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${ listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `}icon={<MdDescription />} />
-      <CoustomContent Height="75vh" loading={loadingData}>
+      <CoustomContent height="75vh" loading={loadingData}>
         <Grid />
         <Ant.Row>
           <Ant.Col>

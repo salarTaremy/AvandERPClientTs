@@ -167,7 +167,8 @@ const AccountDocumentList = (props) => {
           pagination={pagination}
           // loading={delLoading }
           onChange={handleTableChange}
-          {...defaultValues.TABLE_PROPS}
+          // {...defaultValues.TABLE_PROPS}
+          rowKey= { 'id'}
           title={title}
           // expandable={{
           //   expandedRowRender,

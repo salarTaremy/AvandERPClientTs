@@ -101,10 +101,10 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       width: 80,
       render: (text, record, index) => (
         <>
-          <Ant.Tag color={getStateColor(record.stateId)} key={record.id}>
+          <Ant.Tag color={getStateColor(record.stateId)} >
             {record.stateName}
           </Ant.Tag>
-          <Ant.Tag color={getTypeColor(record.typeId)} key={record.id}>
+          <Ant.Tag color={getTypeColor(record.typeId)} >
             {record.typeName}
           </Ant.Tag>
         </>

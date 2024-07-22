@@ -71,7 +71,9 @@ const FrmAddItemDetail = (props) => {
   };
 
   const handleChangeAccount = (value, selectedOptions) => {
+    console.log(selectedOptions,"selectedOptions")
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
+    console.log(lastSelectedOption,"lastSelectedOption")
     setSelectedAccount({
       id: lastSelectedOption.id,
       name: lastSelectedOption.name,
