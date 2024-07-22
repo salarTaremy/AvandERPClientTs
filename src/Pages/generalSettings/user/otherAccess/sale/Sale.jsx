@@ -1,6 +1,5 @@
 import React from 'react'
 import * as Ant from "antd";
-import FormUsersBrandAccess from './FormUsersBrandAccess';
 import FormUsersCustomerGroupAccess from './FormUsersCustomerGroupAccess';
 import FormUsersCustomerTypeAccess from './FormUsersCustomerTypeAccess';
 import FormUsersSaleChannelAccess from './FormUsersSaleChannelAccess';
@@ -10,8 +9,6 @@ import FormUsersSaleDocumentTypeAccess from './FormUsersSaleDocumentTypeAccess';
 const Sale = (props) => {
     const {
         userId,
-        onSuccessBrand,
-        oldBrandId,
         onSuccessCustomerGroupAccess,
         oldGroupId,
         onSuccessCustomerTypeAccess,
@@ -32,35 +29,28 @@ const Sale = (props) => {
                 type="card"
                 defaultActiveKey="1"
             >
-                <TabPane forceRender={true} tab=" برند " key="1">
-                    <FormUsersBrandAccess
-                        userId={userId}
-                        onSuccessBrand={onSuccessBrand}
-                        oldBrandId={oldBrandId}
-                    />
-                </TabPane>
-                <TabPane forceRender={true} tab=" گروه مشتری " key="2">
+                <TabPane forceRender={true} tab=" گروه مشتری " key="1">
                     <FormUsersCustomerGroupAccess
                         userId={userId}
                         onSuccessCustomerGroupAccess={onSuccessCustomerGroupAccess}
                         oldGroupId={oldGroupId}
                     />
                 </TabPane>
-                <TabPane forceRender={true} tab=" نوع مشتری " key="3">
+                <TabPane forceRender={true} tab=" نوع مشتری " key="2">
                     <FormUsersCustomerTypeAccess
                         userId={userId}
                         onSuccessCustomerTypeAccess={onSuccessCustomerTypeAccess}
                         oldTypeId={oldTypeId}
                     />
                 </TabPane>
-                <TabPane forceRender={true} tab=" کانال فروش " key="4">
+                <TabPane forceRender={true} tab=" کانال فروش " key="3">
                     <FormUsersSaleChannelAccess
                         userId={userId}
                         onSuccessSaleChannelAccess={onSuccessSaleChannelAccess}
                         oldChannelId={oldChannelId}
                     />
                 </TabPane>
-                <TabPane forceRender={true} tab=" نوع برگه فروش " key="5">
+                <TabPane forceRender={true} tab=" نوع برگه فروش " key="4">
                     <FormUsersSaleDocumentTypeAccess
                         userId={userId}
                         onSuccessSaleDocumentTypeAccess={onSuccessSaleDocumentTypeAccess}
