@@ -92,7 +92,7 @@ const AccountDocumentList = (props) => {
       page: pagination.current,
       result: pagination.pageSize,
     });
-    console.log(queryString, "queryString");
+
     await listApiCall(`${url.ACCOUNT_DOCUMENT}?${queryString}`);
   };
 
