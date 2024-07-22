@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Ant from "antd";
 import { Layout } from "antd";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { CiLight } from "react-icons/ci";
 import {
   MdOutlineNightlight,
@@ -40,6 +41,7 @@ const options = [
   },
 ];
 const HeaderComponent = (props) => {
+  const navigate = useNavigate()
   const { showDrawer, handleClickSidebar, collapsed } = props;
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme);
@@ -58,7 +60,7 @@ const HeaderComponent = (props) => {
     {
       label: <a href="/"></a>,
       key: "1",
-      icon: <HomeOutlined  className="relative right-1" />,
+      icon: <HomeOutlined className="relative right-1" />,
     },
     {
       label: <a href="permissions/menuPermissions"></a>,
@@ -135,16 +137,25 @@ const HeaderComponent = (props) => {
               <Link className="hidden xxl:block lg:block" to={"dashboard"}>
                 <Ant.Button type="link" icon={<DashboardOutlined />} />
               </Link>
-              <Link className="hidden xxl:block lg:block" to={"reports/desighner"} target="_blank">
+              <Link className="hidden xxl:block lg:block" to={{
+                pathname: 'reports/desighner',
+                state: { id: 1, name: 'sabaoon', shirt: 'green' }
+              }}  >
                 <Ant.Button type="link" icon={<PrinterOutlined />} />
               </Link>
 
+              <Ant.Button
+                size="small"
+                onClick={() => navigate("/reports/desighner", { state: { id: 1 } })}
+                icon={<PrinterOutlined />}
+              ></Ant.Button>
+
               <Ant.Dropdown
-               placement="bottom"
+                placement="bottom"
                 className="lg:hidden xxl:hidden"
                 menu={{
                   items: menuList,
-                  onClick: () => {},
+                  onClick: () => { },
                 }}
               >
                 <Ant.Button
@@ -173,7 +184,7 @@ const HeaderComponent = (props) => {
             </Ant.Dropdown>
           </Ant.Col>
         </Ant.Row>
-      </Header>
+      </Header >
     </>
   );
 };
