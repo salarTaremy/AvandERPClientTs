@@ -15,6 +15,7 @@ import {
   DashboardOutlined,
   HomeOutlined,
   UserOutlined,
+  PrinterOutlined
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import pic from "../assets/images/avatars/1.png";
@@ -133,6 +134,9 @@ const HeaderComponent = (props) => {
               </Link>
               <Link className="hidden xxl:block lg:block" to={"dashboard"}>
                 <Ant.Button type="link" icon={<DashboardOutlined />} />
+              </Link>
+              <Link className="hidden xxl:block lg:block" to={"reports/desighner"} target="_blank">
+                <Ant.Button type="link" icon={<PrinterOutlined />} />
               </Link>
 
               <Ant.Dropdown

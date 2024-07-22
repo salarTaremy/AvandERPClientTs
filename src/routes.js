@@ -13,6 +13,9 @@ import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/Detail
 //Dashboard
 import Dashboard from './Pages/dashboard/Dashboard'
 
+//StiReport
+import Desighner from './Pages/stiReports/Desighner'
+
 //Permissions
 import MenuPermissions from './Pages/permissions/menuPermissions/MenuPermissions'
 
@@ -32,7 +35,7 @@ import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSample'
 import CitySelector from './Pages/Developers/Samples/CitySelector'
-CitySelector
+
 
 //GeneralSettings
 import RoleManagement from './Pages/generalSettings/role/list/RoleManagement'
@@ -110,6 +113,8 @@ const routes = [
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
   { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
+  
+  { path: '/reports/desighner', name: 'طراحی گزارش', element: Desighner },
 
   { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
   { path: 'sale/paymentType', name: 'نوع پرداخت', element: PaymentType },
