@@ -42,13 +42,11 @@ const FrmAddAccountDocument = (props) => {
   //====================================================================
 
   const onFinish = async (values) => {
-    const header = {
+
+    const dto = {
       ...values,
       documentNumber: 0,
       calendarId: parseInt(values?.calendarId?.toString().replace(/\//g, "")),
-    };
-    const dto = {
-      header,
     };
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
     navigate("/accounting/accountDocument");
