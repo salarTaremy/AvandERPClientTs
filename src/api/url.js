@@ -141,6 +141,8 @@ export const PRICE_CIRCULAR_HEADER_ENABLE_DISABLE = 'PriceCircularHeader/EnableD
 //Sales - TaxPayersSystem (سامانه مودیان)
 export const TPS_SALE_DOCUMENT_TYPE = 'TaxPayersSystemBasicInformation/GetSaleDocumentType'
 export const TPS_SALE_DOCUMENT_ISSUE = 'TaxPayersSystemBasicInformation/GetSaleDocumentIssue'
+export const TPS_INVOICE_INQUIRY_STATUS = 'TaxPayersSystemBasicInformation/GetInvoiceInquiryStatus'
+export const TPS_INVOICE_SENDING_STATUS = 'TaxPayersSystemBasicInformation/GetInvoiceSendingStatus'
 export const TPS_INVOICE_MANAGEMENT = 'TaxPayersSystemInvoiceManagement'
 export const TPS_INVOICE_SEND_LIST = 'TaxPayersSystemInvoiceManagement/SendListToTaxPayersSystem'
 export const TPS_INVOICE_INQUIRY = 'TaxPayersSystemInvoiceManagement/Inquiry'

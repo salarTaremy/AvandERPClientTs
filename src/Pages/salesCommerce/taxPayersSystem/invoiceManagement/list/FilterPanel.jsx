@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import qs from "qs";
+import { PropTypes } from "prop-types";
 import * as url from "@/api/url";
 import * as api from "@/api";
 import * as Ant from "antd";
@@ -18,6 +19,18 @@ const FilterPanel = (props) => {
     saleDocumentIssueError,
   ] = api.useFetch(url.TPS_SALE_DOCUMENT_ISSUE);
 
+  const [
+    invoiceInquiryStatusData,
+    invoiceInquiryStatusLoading,
+    invoiceInquiryStatusError,
+  ] = api.useFetch(url.TPS_INVOICE_INQUIRY_STATUS);
+
+  const [
+    invoiceSendingStatusData,
+    invoiceSendingStatusLoading,
+    invoiceSendingStatusError,
+  ] = api.useFetch(url.TPS_INVOICE_SENDING_STATUS);
+
   const saleDocTypeQueryString = qs.stringify({
     hasMappedTaxPayersSystemSaleDocumentIssue: true,
   });
@@ -28,12 +41,13 @@ const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   useRequestManager({ error: saleDocumentIssueError });
   useRequestManager({ error: saleDocTypeError });
+  useRequestManager({ error: invoiceInquiryStatusError });
+  useRequestManager({ error: invoiceSendingStatusError });
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
     const dateFilter = {};
-    console.log("filterObject", filterObject);
     if (filterObject?.fromIssueDateCalendarId) {
       const yearFrom = filterObject?.fromIssueDateCalendarId.substr(0, 4);
       const monthFrom = filterObject?.fromIssueDateCalendarId.substr(4, 2);
@@ -62,6 +76,7 @@ const FilterPanel = (props) => {
       const formattedToDateSent = `${yearTo}/${monthTo}/${dayTo}`;
       dateFilter.toDateSentCalendarId = formattedToDateSent;
     }
+
     filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
   }, []);
   //====================================================================
@@ -78,6 +93,7 @@ const FilterPanel = (props) => {
     } else {
       customerFilter.customerId = undefined;
     }
+
     onSubmit({
       ...values,
       ...customerFilter,
@@ -122,9 +138,38 @@ const FilterPanel = (props) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        {/*Status*/}
-        <Ant.Form.Item name={"documentSerialNumber"} label="شماره سریال">
-          <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
+        <Ant.Form.Item name="invoiceStatus" label="وضعیت صورتحساب">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={invoiceInquiryStatusLoading || false}
+            loading={invoiceInquiryStatusLoading}
+            options={invoiceInquiryStatusData?.data}
+            fieldNames={{ label: "persianTitle", value: "id" }}
+          />
+        </Ant.Form.Item>
+        <Ant.Form.Item name="sendingStatus" label="وضعیت ارسال">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={invoiceSendingStatusLoading || false}
+            loading={invoiceSendingStatusLoading}
+            options={invoiceSendingStatusData?.data}
+            fieldNames={{ label: "title", value: "id" }}
+          />
+        </Ant.Form.Item>
+        <Ant.Form.Item
+          name={"documentSerialNumber"}
+          label="شماره سریال"
+          rules={[
+            {
+              required: false,
+              pattern: new RegExp("^[0-9]"),
+              message: "مقدار نامعتبر",
+            },
+          ]}
+        >
+          <Ant.Input allowClear min={1} style={{ width: "100%" }} />
         </Ant.Form.Item>
         <Ant.Form.Item name={"documentFiscalId"} label="شناسه مالیاتی">
           <Ant.Input allowClear style={{ width: "100%" }} />
@@ -142,24 +187,117 @@ const FilterPanel = (props) => {
         <Ant.Form.Item
           name={"customerLegalEntityIdentity"}
           label="کد/شناسه ملی"
+          maxLength={11}
+          rules={[
+            {
+              required: false,
+              pattern: new RegExp("^[0-9]"),
+              message: "مقدار نامعتبر",
+            },
+          ]}
         >
-          <Ant.Input allowClear style={{ width: "100%" }} />
+          <Ant.Input
+            allowClear
+            showCount
+            maxLength={11}
+            style={{ width: "100%" }}
+          />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"customerEconomicCode"} label="کد اقتصادی">
-          <Ant.Input allowClear style={{ width: "100%" }} />
+        <Ant.Form.Item
+          name={"customerEconomicCode"}
+          label="کد اقتصادی"
+          maxLength={14}
+          rules={[
+            {
+              required: false,
+              pattern: new RegExp("^[0-9]"),
+              message: "مقدار نامعتبر",
+            },
+          ]}
+        >
+          <Ant.Input
+            allowClear
+            showCount
+            maxLength={14}
+            style={{ width: "100%" }}
+          />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"fromIssueDateCalendarId"} label="از تاریخ صدور">
-          <MyDatePicker />
-        </Ant.Form.Item>
-        <Ant.Form.Item name={"toIssueDateCalendarId"} label="تا تاریخ صدور">
-          <MyDatePicker />
-        </Ant.Form.Item>
-        <Ant.Form.Item name={"fromDateSentCalendarId"} label="از تاریخ ارسال">
-          <MyDatePicker />
-        </Ant.Form.Item>
-        <Ant.Form.Item name={"toDateSentCalendarId"} label="تا تاریخ ارسال">
-          <MyDatePicker />
-        </Ant.Form.Item>
+
+        <Ant.Row gutter={[10, 10]}>
+          <Ant.Col span={12}>
+            <Ant.Form.Item
+              name={"fromIssueDateCalendarId"}
+              label="از تاریخ صدور"
+            >
+              <MyDatePicker addonBefore="از" />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={12}>
+            <Ant.Form.Item name={"toIssueDateCalendarId"} label="تا تاریخ صدور">
+              <MyDatePicker addonBefore="تا" />
+            </Ant.Form.Item>
+          </Ant.Col>
+        </Ant.Row>
+
+        <Ant.Row gutter={[10, 10]}>
+          <Ant.Col span={12}>
+            <Ant.Form.Item
+              name={"fromDateSentCalendarId"}
+              label="از تاریخ ارسال"
+            >
+              <MyDatePicker />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={12}>
+            <Ant.Form.Item name={"toDateSentCalendarId"} label="تا تاریخ ارسال">
+              <MyDatePicker />
+            </Ant.Form.Item>
+          </Ant.Col>
+        </Ant.Row>
+
+        <Ant.Row gutter={[10, 10]}>
+          <Ant.Col span={24}>
+            <Ant.Typography.Text>{"مبلغ صورتحساب"}</Ant.Typography.Text>
+          </Ant.Col>
+          <Ant.Col span={12}>
+            <Ant.Form.Item name={"fromTotalPrice"}>
+              <Ant.InputNumber
+                controls={false}
+                allowClear
+                addonBefore="از"
+                parser={(value) => value?.replace(/\$\s?|(,*)/g, "")}
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+                onChange={(value) =>
+                  form.setFieldsValue({ toTotalPrice: value })
+                }
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={12}>
+            <Ant.Form.Item
+              name={"toTotalPrice"}
+              rules={[
+                {
+                  required: false,
+                  pattern: new RegExp("^[0-9]"),
+                  message: "مبلغ نامعتبر",
+                },
+              ]}
+            >
+              <Ant.Input
+                allowClear
+                addonBefore="تا"
+                parser={(value) => value?.replace(/\$\s?|(,*)/g, "")}
+                formatter={(value) =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+        </Ant.Row>
+
         <Ant.Form.Item
           name={"taxPayersSystemSaleDocumentIssueId"}
           label="الگوی صورتحساب"
@@ -194,3 +332,7 @@ const FilterPanel = (props) => {
 };
 
 export default FilterPanel;
+FilterPanel.propTypes = {
+  onSubmit: PropTypes.func,
+  filterObject: PropTypes.any,
+};
