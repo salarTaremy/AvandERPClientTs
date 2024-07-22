@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import qs from "qs";
-/// salar..........
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as styles from "@/styles";
@@ -25,7 +24,6 @@ import PropTypes from 'prop-types'
 //====================================================================
 const AccountDocumentList = (props) => {
 
-  const navigate = useNavigate();
   const pageTitle = "مدیریت اسناد حسابداری";
   const [listData, listLoading, listError, listApiCall] =
     api.useFetchWithHandler();
@@ -136,7 +134,7 @@ const AccountDocumentList = (props) => {
   };
   const addItem = (id) => {
     setModalSize({ ...defaultValues.MODAL_LARGE });
-    setModalContent(<AddItemDetailList  id={id} key={id} />);
+    setModalContent(<AddItemDetailList  id={id}  key={uuid.v1()} />);
     setModalState(true);
   };
   //====================================================================
@@ -168,7 +166,6 @@ const AccountDocumentList = (props) => {
           // loading={delLoading }
           onChange={handleTableChange}
           // {...defaultValues.TABLE_PROPS}
-          rowKey= { 'id'}
           title={title}
           // expandable={{
           //   expandedRowRender,

@@ -38,7 +38,7 @@ const AddItemDetailList = (props) => {
   ] = api.useFetchWithHandler();
   const [submitListData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
-    useRequestManager({ error: listErrorHeader });
+  useRequestManager({ error: listErrorHeader });
   useRequestManager({ error: error });
   useRequestManager({
     error: submitError,
@@ -67,10 +67,13 @@ const AddItemDetailList = (props) => {
   //====================================================================
   useEffect(() => {
     getAllAccountingDocumentDetail();
-
   }, []);
   useEffect(() => {
+    submitListData?.isSuccess &&
+    getAllAccountingDocumentDetail();
+  }, [ submitListData?.isSuccess ]);
 
+  useEffect(() => {
     onHeader();
   }, []);
   useEffect(() => {
@@ -139,6 +142,7 @@ const AddItemDetailList = (props) => {
     setModalState(false);
   };
   const btnSubmit = async () => {
+    debugger
     const formattedData = dataSource.map((item) => {
       return {
         id: item.id,
@@ -158,7 +162,7 @@ const AddItemDetailList = (props) => {
 
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
     setOpen(false);
-    getAllAccountingDocumentDetail();
+
   };
 
   const onDelete = (val) => {
@@ -240,9 +244,10 @@ const AddItemDetailList = (props) => {
         {modalContent}
       </Ant.Modal>
 
-      {/* ={` ایجاد حساب معین :${accHdrData?.isSuccess && `(در حساب کل  ${accHdrData?.data?.name})`} `} */}
-
-      <ModalHeader   title={`اضافه کردن جزییات : شماره سند  (${ listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${ listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `}icon={<MdDescription />} />
+      <ModalHeader
+        title={`اضافه کردن جزییات : شماره سند  (${listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `}
+        icon={<MdDescription />}
+      />
       <CoustomContent height="75vh" loading={loadingData}>
         <Grid />
         <Ant.Row>
@@ -251,7 +256,6 @@ const AddItemDetailList = (props) => {
               bordered={false}
               layout="horizontal"
               size="small"
-
               items={documentInfo}
             />
           </Ant.Col>
@@ -264,5 +268,4 @@ const AddItemDetailList = (props) => {
 export default AddItemDetailList;
 AddItemDetailList.propTypes = {
   id: PropTypes.number,
-  closeModal: PropTypes.bool,
 };

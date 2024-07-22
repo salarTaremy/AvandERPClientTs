@@ -16,7 +16,7 @@ const column = (onDelete, onEdit) => {
       title: " نام حساب",
       dataIndex: "accountName",
       align: "center",
-      width: 200,
+      width: 300,
       className: "text-xs sm:text-sm",
     },
     {
@@ -60,7 +60,7 @@ const column = (onDelete, onEdit) => {
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
-      render: (debtor) => debtor.toLocaleString(),
+      render: (debtor) => debtor?.toLocaleString(),
     },
     {
       title: "بستانکار",
@@ -68,7 +68,7 @@ const column = (onDelete, onEdit) => {
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
-      render: (creditor) => creditor.toLocaleString(),
+      render: (creditor) => creditor?.toLocaleString(),
     },
     {
       title: "توضیحات",

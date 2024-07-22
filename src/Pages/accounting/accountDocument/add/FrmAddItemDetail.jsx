@@ -121,7 +121,7 @@ const FrmAddItemDetail = (props) => {
       detailedAccountName6: selectedDetailedAccountSix?.name,
       key: uuid.v1(),
     };
-
+    console.log(req,"reqadd")
     props.onDataSubmit(req);
     props.closeModal();
   };
@@ -256,10 +256,26 @@ const FrmAddItemDetail = (props) => {
             <Ant.Form.Item
               name={valueType == "0" ? "creditor" : "debtor"}
               label="مبلغ"
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "مبلغ  اجباری است",
+              //   },
+              // ]}
               rules={[
                 {
                   required: true,
-                  message: "مبلغ  اجباری است",
+                  message: "مبلغ  نمی‌تواند صفر باشد",
+
+                  validator: (_, value) =>
+                    new Promise((resolve, reject) => {
+                      // alert(value)
+                      if (value === 0 || value === undefined) {
+                        reject(new Error("مبلغ  نمی‌تواند صفر باشد"));
+                      } else {
+                        resolve();
+                      }
+                    }),
                 },
               ]}
             >

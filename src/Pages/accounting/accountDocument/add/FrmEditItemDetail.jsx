@@ -23,6 +23,7 @@ const FrmEditItemDetail = (props) => {
   const [selectedDetailedAccountFive, setDetailedAccountFive] = useState();
   const [selectedDetailedAccountSix, setDetailedAccountSix] = useState();
 
+
   const [
     accounGrouptData,
     accountGroupLoading,
@@ -53,6 +54,12 @@ const FrmEditItemDetail = (props) => {
       ...obj,
       accountId: obj.accountName,
     });
+  }, [obj]);
+  useEffect(() => {
+    const dataList = form.getFieldsValue();
+    if (dataList.creditor !== 0) {
+    }
+    console.log(obj, "objobj");
   }, [obj]);
 
   useEffect(() => {
@@ -96,24 +103,24 @@ const FrmEditItemDetail = (props) => {
     setValueType(value);
     const formFields = form.getFieldsValue();
 
-    if (formFields.creditor > 0 ) {
+    if (formFields.creditor > 0) {
       form.setFieldsValue({
         debtor: 0,
       });
-
     }
-    if ( formFields.debtor > 0) {
+    if (formFields.debtor > 0) {
       setValueType(value);
       form.setFieldsValue({
         creditor: 0,
       });
     }
+
   };
   const onFinish = async (values) => {
-    debugger
+    debugger;
     const { creditor, debtor, ...otherValues } = values;
-    const adjustedCreditor = creditor ?? 0 ;
-    const adjustedDebtor = debtor ?? 0 ;
+    const adjustedCreditor = creditor ?? 0;
+    const adjustedDebtor = debtor ?? 0;
     const updatedValues = {
       id: id,
       creditor: adjustedCreditor ?? obj?.creditor,
@@ -140,7 +147,9 @@ const FrmEditItemDetail = (props) => {
         selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
+
     };
+
 
     if (values.detailedAccountId4 == undefined) {
       req.detailedAccountName4 = null;
@@ -154,7 +163,7 @@ const FrmEditItemDetail = (props) => {
       req.detailedAccountName6 = null;
       delete req.detailedAccountId6;
     }
-
+    console.log(req,"reqEdit")
     props.onDataSubmit({ ...req });
     props.closeModal();
   };
@@ -295,7 +304,16 @@ const FrmEditItemDetail = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ  بدهکار اجباری است",
+                    message: "مبلغ بدهکار اجباری است",
+
+                    validator: (_, value) =>
+                      new Promise((resolve, reject) => {
+                        if ( value === 0) {
+                          reject(new Error("مبلغ بدهکار نمی‌تواند صفر باشد"));
+                        } else {
+                          resolve();
+                        }
+                      }),
                   },
                 ]}
               >
@@ -316,6 +334,14 @@ const FrmEditItemDetail = (props) => {
                   {
                     required: true,
                     message: "مبلغ بستانکار اجباری است",
+                    validator: (_, value) =>
+                      new Promise((resolve, reject) => {
+                        if (value === 0) {
+                          reject(new Error("مبلغ بستانکار نمی‌تواند صفر باشد"));
+                        } else {
+                          resolve();
+                        }
+                      }),
                   },
                 ]}
               >
