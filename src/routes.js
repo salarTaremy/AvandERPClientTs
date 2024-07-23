@@ -14,7 +14,7 @@ import DetailedAccountGroup from './Pages/accounting/detailedAccountGroup/Detail
 import Dashboard from './Pages/dashboard/Dashboard'
 
 //StiReport
-// import Desighner from './Pages/stiReports/Desighner'
+import Desighner from './Pages/stiReports/Desighner'
 
 //Permissions
 import MenuPermissions from './Pages/permissions/menuPermissions/MenuPermissions'
@@ -114,7 +114,7 @@ const routes = [
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
   { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
   
-  // { path: '/reports/desighner', name: 'طراحی گزارش', element: Desighner },
+  { path: '/reports/desighner', name: 'طراحی گزارش', element: Desighner },
 
   { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
   { path: 'sale/paymentType', name: 'نوع پرداخت', element: PaymentType },

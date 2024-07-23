@@ -144,11 +144,11 @@ const HeaderComponent = (props) => {
                 <Ant.Button type="link" icon={<PrinterOutlined />} />
               </Link>
 
-              <Ant.Button
+              {/* <Ant.Button
                 size="small"
                 onClick={() => navigate("/reports/desighner", { state: { id: 1 } })}
                 icon={<PrinterOutlined />}
-              ></Ant.Button>
+              ></Ant.Button> */}
 
               <Ant.Dropdown
                 placement="bottom"
