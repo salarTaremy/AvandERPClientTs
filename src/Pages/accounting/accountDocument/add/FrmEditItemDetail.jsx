@@ -285,16 +285,13 @@ const FrmEditItemDetail = (props) => {
                     label: "بدهکار",
                     value: "0",
                     defaultValue: "1",
-                    // defaultValue: obj?.debtor > 0 ? "0" : undefined,
                   },
                   {
                     label: "بستانکار",
                     value: "1",
-                    // defaultValue: obj?.creditor > 0 ? "1" : undefined,
                   },
                 ]}
                 defaultValue={obj?.creditor > 0 ? "1" : "0"}
-                // defaultValue={valueType === "1" ? "1" : "0"}
                 onChange={handleTypeChange}
               />
             </Ant.Form.Item>
