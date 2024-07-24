@@ -52,7 +52,7 @@ const AddItemDetailList = (props) => {
     },
     {
       key: "2",
-      label: "جمع  بدهکار",
+      label: "جمع بدهکار",
       children: totalDebtor.toLocaleString(),
     },
     {
