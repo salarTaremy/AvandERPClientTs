@@ -21,7 +21,7 @@ const DetailedCounterPartyList = (props) => {
   //====================================================================
   return (
     <>
-    <CoustomContent Height="80vh">
+    <CoustomContent height="80vh">
       <Ant.Skeleton active={true} loading={loading}>
         <HeaderCounterParty data={data} onHeaderEdit={onHeaderEdit} />
         <Ant.Divider />
