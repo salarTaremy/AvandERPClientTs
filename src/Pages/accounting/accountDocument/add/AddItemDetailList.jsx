@@ -18,6 +18,7 @@ import { FiEdit } from "react-icons/fi";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
 import FrmEditItemDetail from "../add/FrmEditItemDetail";
 import columns from "../add/columns";
+
 const AddItemDetailList = (props) => {
   const { id } = props;
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -28,7 +29,7 @@ const AddItemDetailList = (props) => {
   const [modalState, setModalState] = useState(false);
   const [totalCreditor, setTotalCreditor] = useState(0);
   const [totalDebtor, setTotalDebtor] = useState(0);
-
+  const [data, setData] = useState(null);
   const [
     listDataHeader,
     listLoadingHeader,
@@ -61,6 +62,7 @@ const AddItemDetailList = (props) => {
       children: (totalCreditor - totalDebtor).toLocaleString(),
     },
   ];
+
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -128,9 +130,7 @@ const AddItemDetailList = (props) => {
   const handleDataSubmitEdit = (newData) => {
     setDataSource((pre) => {
       return pre.map((item) => {
-
         if (item.id === newData.id) {
-
           return newData;
         } else {
           return item;
@@ -142,11 +142,10 @@ const AddItemDetailList = (props) => {
     setModalState(false);
   };
   const btnSubmit = async () => {
-
     const formattedData = dataSource.map((item) => {
       return {
-        id: typeof item.id === 'string' ? null : item.id,
-        accountId: item.accountId ,
+        id: typeof item.id === "string" ? null : item.id,
+        accountId: item.accountId,
         detailedAccountId4: item.detailedAccountId4,
         detailedAccountId5: item.detailedAccountId5,
         detailedAccountId6: item.detailedAccountId6,
@@ -187,9 +186,6 @@ const AddItemDetailList = (props) => {
   };
 
   const onEdit = (val) => {
-    console.log(val, "val");
-    console.log(val.key, "val.key");
-    console.log(val.id, "val.id");
     setModalContent(
       <FrmEditItemDetail
         key={uuid.v4()}
@@ -202,16 +198,39 @@ const AddItemDetailList = (props) => {
     setModalState(true);
   };
 
+  const btnUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const workbook = XLSX.read(event.target.result, { type: "binary" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const sheetData = XLSX.utils.sheet_to_json(sheet);
+
+      setData(sheetData);
+    };
+
+    reader.readAsBinaryString(file);
+  };
+
   //====================================================================
   //                        Child Components
   //=====================================================================
 
   const title = () => {
-    return <ButtonList onAdd={onAdd} btnSubmit={btnSubmit} />;
+    return <ButtonList onAdd={onAdd} onSave={btnSubmit} onExcel={btnUpload} />;
   };
   const Grid = () => {
     return (
       <>
+
+      {data && (
+        <div>
+          <h2>Imported Data:</h2>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+      )}
         <Ant.Table
           key={id}
           {...defaultValues.TABLE_PROPS}

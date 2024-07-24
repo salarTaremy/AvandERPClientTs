@@ -7,19 +7,29 @@ import {
   Tooltip,
   Dropdown,
   Menu,
+  Upload,
   Popconfirm,
   Badge,
 } from "antd";
 import { FaFilter, FaFolderPlus } from "react-icons/fa6";
 import { FiEdit, FiRefreshCw, FiFilter } from "react-icons/fi";
-import { RiDeleteBin6Line, RiSave3Fill, RiSaveLine ,RiSave3Line } from "react-icons/ri";
+import {
+  RiDeleteBin6Line,
+  RiSave3Fill,
+  RiSaveLine,
+  RiSave3Line,
+} from "react-icons/ri";
+import { ImFileExcel } from "react-icons/im";
+
 import { IoIosSave } from "react-icons/io";
 //Example For Items:
 //const items = [{ icon: <MailOutlined />, className: 'text-red-600', onClick: () => {}, children: 'Click Me !' }]
 
 const ButtonBar = (props) => {
   const { items } = props;
-  const { onAdd, onEdit, onDelete, onFilter, onRefresh, btnSubmit } = props;
+  const { onAdd, onEdit, onDelete, onFilter, onRefresh, onSave, onExcel } =
+    props;
+
   const {
     addTooltip,
     editTooltip,
@@ -27,10 +37,13 @@ const ButtonBar = (props) => {
     refreshTooltip,
     filterTooltip,
     savedTooltip,
+    excelTooltip,
   } = props;
   const { onDeleteConfirmMessage, filterCount } = props;
   const iconOnly = true;
   const size = iconOnly ? "large" : "";
+
+
   //backgroundColor: color.green.primary
   //====================================================================
   //                        Child Components
@@ -132,16 +145,34 @@ const ButtonBar = (props) => {
   };
   const BtnSubmit = () => {
     return (
-      btnSubmit && (
+      onSave && (
         <Tooltip title={iconOnly && (savedTooltip || "ذخیره")} size={size}>
           <Button
-            onClick={btnSubmit}
+            onClick={onSave}
             size={size}
-            icon={<RiSave3Line   />}
+            icon={<RiSave3Line />}
             className="text-blue-600 border-blue-600"
           >
             {iconOnly || "ذخیره"}
           </Button>
+        </Tooltip>
+      )
+    );
+  };
+  const BtnExcel = () => {
+    return (
+      onExcel && (
+        <Tooltip title={iconOnly && (excelTooltip || "اپلود")} size={size}>
+          <Upload {...props}>
+          <Button
+            onClick={onExcel}
+            size={size}
+            icon={<ImFileExcel />}
+            className="text-green-700 border-green-700"
+          >
+            {iconOnly || "اپلود"}
+          </Button>
+          </Upload>
         </Tooltip>
       )
     );
@@ -170,6 +201,7 @@ const ButtonBar = (props) => {
         <BtnFilter />
         <BtnRefresh />
         <BtnSubmit />
+        <BtnExcel />
         <MoreBtn />
         {props.children}
         <DropdownBtn />
@@ -187,7 +219,8 @@ ButtonBar.propTypes = {
   onDelete: PropTypes.func,
   onFilter: PropTypes.func,
   onRefresh: PropTypes.func,
-  btnSubmit: PropTypes.func,
+  onSave: PropTypes.func,
+  onExcel: PropTypes.func,
   filterCount: PropTypes.number,
 };
 export default ButtonBar;
