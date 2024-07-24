@@ -73,6 +73,7 @@ const InvoiceList = () => {
   };
 
   const onFilterChanged = async (filterObject) => {
+    setSelectedRowKeys([]);
     setFilterObject(filterObject);
     setOpenFilter(false);
   };
@@ -127,8 +128,8 @@ const InvoiceList = () => {
     preserveSelectedRowKeys: true,
     onChange: onSelectChange,
     getCheckboxProps: (record) => ({
-      disabled: record.isInTpsCartable === true,
-      name: record.isInTpsCartable,
+      disabled: record.statusId && record.statusId === 1,
+      name: record.statusId,
     }),
   };
   const hasSelectedRow = selectedRowKeys && selectedRowKeys.length > 0;
@@ -150,6 +151,7 @@ const InvoiceList = () => {
 
   useEffect(() => {
     setPagination({ ...pagination, current: 1 });
+    filterObject && console.log(Object.keys(filterObject));
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
@@ -174,13 +176,15 @@ const InvoiceList = () => {
             onConfirm={() => onSendListToTaxPayersSystem()}
           >
             <Ant.Tooltip title={"ارسال به سامانه مودیان"}>
-              <Ant.Button
-                className="text-pink-500 border-pink-500"
-                size="large"
-                disabled={!hasSelectedRow}
-              >
-                <BsSend />
-              </Ant.Button>
+              <Ant.Badge count={selectedRowKeys?.length} color="pink">
+                <Ant.Button
+                  className="text-pink-500 border-pink-500"
+                  size="large"
+                  disabled={!hasSelectedRow}
+                >
+                  <BsSend />
+                </Ant.Button>
+              </Ant.Badge>
             </Ant.Tooltip>
           </Ant.Popconfirm>
         </ButtonList>
