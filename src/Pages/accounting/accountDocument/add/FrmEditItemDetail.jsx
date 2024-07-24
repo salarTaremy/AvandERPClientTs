@@ -114,8 +114,6 @@ const FrmEditItemDetail = (props) => {
     }
   };
   const onFinish = async (values) => {
-    debugger;
-    console.log(values, "values");
     const { creditor, debtor, ...otherValues } = values;
     const adjustedCreditor = values.creditor ?? 0;
     const adjustedDebtor = values.debtor ?? 0;

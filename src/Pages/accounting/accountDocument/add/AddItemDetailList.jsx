@@ -127,11 +127,9 @@ const AddItemDetailList = (props) => {
     setFormData(newData);
   };
   const handleDataSubmitEdit = (newData) => {
-    console.log(newData, "gaga");
-    debugger
     setDataSource((pre) => {
       return pre.map((item) => {
-        console.log(item,"item.iditem.id")
+
         if (item.id === newData.id) {
 
           return newData;
@@ -145,7 +143,7 @@ const AddItemDetailList = (props) => {
     setModalState(false);
   };
   const btnSubmit = async () => {
-    debugger;
+
     const formattedData = dataSource.map((item) => {
       return {
         id: typeof item.id === 'string' ? null : item.id,
