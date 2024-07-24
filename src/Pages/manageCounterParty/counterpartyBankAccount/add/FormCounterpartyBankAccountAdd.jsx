@@ -110,7 +110,7 @@ const FormCounterpartyBankAccountAdd = (props) => {
 
                   {
                     required: false,
-                    pattern: new RegExp("^[0-9]"),
+                    pattern: new RegExp("^[0-9]*$"),
                     message: "شماره حساب نمی تواند شامل کاراکترهای غیرعددی باشد",
                   },
                 ]}
@@ -130,7 +130,7 @@ const FormCounterpartyBankAccountAdd = (props) => {
 
                   {
                     required: false,
-                    pattern: new RegExp("^[0-9]"),
+                    pattern: new RegExp("^[0-9]*$"),
                     message: "شماره کارت نمی تواند شامل کاراکترهای غیرعددی باشد",
                   },
                 ]}
@@ -155,7 +155,7 @@ const FormCounterpartyBankAccountAdd = (props) => {
 
                   {
                     required: false,
-                    pattern: new RegExp("^[0-9]"),
+                    pattern: new RegExp("^[0-9]*$"),
                     message: "شماره شبا نمی تواند شامل کاراکترهای غیرعددی باشد",
                   },
                 ]}
