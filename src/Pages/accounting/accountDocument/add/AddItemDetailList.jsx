@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as defaultValues from "@/defaultValues";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import qs from "qs";
 import * as url from "@/api/url";
 import * as api from "@/api";
@@ -29,7 +29,6 @@ const AddItemDetailList = (props) => {
   const [totalCreditor, setTotalCreditor] = useState(0);
   const [totalDebtor, setTotalDebtor] = useState(0);
 
-  const [open, setOpen] = useState(false);
   const [
     listDataHeader,
     listLoadingHeader,
@@ -38,7 +37,7 @@ const AddItemDetailList = (props) => {
   ] = api.useFetchWithHandler();
   const [submitListData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
-    useRequestManager({ error: listErrorHeader });
+  useRequestManager({ error: listErrorHeader });
   useRequestManager({ error: error });
   useRequestManager({
     error: submitError,
@@ -48,12 +47,12 @@ const AddItemDetailList = (props) => {
   const documentInfo = [
     {
       key: "1",
-      label: "جمع بدهکار",
+      label: "جمع بستانکار",
       children: totalCreditor.toLocaleString(),
     },
     {
       key: "2",
-      label: "جمع بستانکار",
+      label: "جمع بدهکار",
       children: totalDebtor.toLocaleString(),
     },
     {
@@ -67,10 +66,12 @@ const AddItemDetailList = (props) => {
   //====================================================================
   useEffect(() => {
     getAllAccountingDocumentDetail();
-
   }, []);
   useEffect(() => {
+    submitListData?.isSuccess && getAllAccountingDocumentDetail();
+  }, [submitListData?.isSuccess]);
 
+  useEffect(() => {
     onHeader();
   }, []);
   useEffect(() => {
@@ -127,7 +128,9 @@ const AddItemDetailList = (props) => {
   const handleDataSubmitEdit = (newData) => {
     setDataSource((pre) => {
       return pre.map((item) => {
+
         if (item.id === newData.id) {
+
           return newData;
         } else {
           return item;
@@ -139,10 +142,11 @@ const AddItemDetailList = (props) => {
     setModalState(false);
   };
   const btnSubmit = async () => {
+
     const formattedData = dataSource.map((item) => {
       return {
-        id: item.id,
-        accountId: item.accountId,
+        id: typeof item.id === 'string' ? null : item.id,
+        accountId: item.accountId ,
         detailedAccountId4: item.detailedAccountId4,
         detailedAccountId5: item.detailedAccountId5,
         detailedAccountId6: item.detailedAccountId6,
@@ -155,10 +159,8 @@ const AddItemDetailList = (props) => {
         article: item.article,
       };
     });
-
+    console.log(formattedData, "formattedData");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
-    setOpen(false);
-    getAllAccountingDocumentDetail();
   };
 
   const onDelete = (val) => {
@@ -177,7 +179,6 @@ const AddItemDetailList = (props) => {
     setModalContent(
       <FrmAddItemDetail
         key={uuid.v4()}
-        id={id}
         onDataSubmit={handleDataSubmit}
         closeModal={closeModal}
       />,
@@ -186,12 +187,15 @@ const AddItemDetailList = (props) => {
   };
 
   const onEdit = (val) => {
+    console.log(val, "val");
+    console.log(val.key, "val.key");
+    console.log(val.id, "val.id");
     setModalContent(
       <FrmEditItemDetail
         key={uuid.v4()}
-        id={val.id}
+        id={val?.id ?? val?.key}
         obj={val}
-        onDataSubmit={handleDataSubmitEdit}
+        onDataSubmitEdit={handleDataSubmitEdit}
         closeModal={closeModalEdit}
       />,
     );
@@ -240,9 +244,10 @@ const AddItemDetailList = (props) => {
         {modalContent}
       </Ant.Modal>
 
-      {/* ={` ایجاد حساب معین :${accHdrData?.isSuccess && `(در حساب کل  ${accHdrData?.data?.name})`} `} */}
-
-      <ModalHeader   title={`اضافه کردن جزییات : شماره سند  (${ listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${ listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `}icon={<MdDescription />} />
+      <ModalHeader
+        title={`اضافه کردن جزییات : شماره سند  (${listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `}
+        icon={<MdDescription />}
+      />
       <CoustomContent height="75vh" loading={loadingData}>
         <Grid />
         <Ant.Row>
@@ -251,7 +256,6 @@ const AddItemDetailList = (props) => {
               bordered={false}
               layout="horizontal"
               size="small"
-
               items={documentInfo}
             />
           </Ant.Col>
@@ -264,5 +268,4 @@ const AddItemDetailList = (props) => {
 export default AddItemDetailList;
 AddItemDetailList.propTypes = {
   id: PropTypes.number,
-  closeModal: PropTypes.bool,
 };

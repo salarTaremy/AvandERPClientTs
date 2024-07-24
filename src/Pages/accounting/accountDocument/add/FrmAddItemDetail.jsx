@@ -13,7 +13,7 @@ import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
 import { keys } from "highcharts";
 const FrmAddItemDetail = (props) => {
-  const { form } = props;
+  const { form,id } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [valueType, setValueType] = useState("0");
   const [creditor, setCreditor] = useState(0);
@@ -120,8 +120,9 @@ const FrmAddItemDetail = (props) => {
       detailedAccountId6: selectedDetailedAccountSix?.id,
       detailedAccountName6: selectedDetailedAccountSix?.name,
       key: uuid.v1(),
+      id:uuid.v1(),
     };
-
+    console.log(req,"reqadd")
     props.onDataSubmit(req);
     props.closeModal();
   };
@@ -254,12 +255,28 @@ const FrmAddItemDetail = (props) => {
           </Ant.Col>
           <Ant.Col md={24} lg={8}>
             <Ant.Form.Item
-              name={valueType == "0" ? "creditor" : "debtor"}
+              name={valueType == "0" ? "debtor" : "creditor"}
               label="مبلغ"
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "مبلغ  اجباری است",
+              //   },
+              // ]}
               rules={[
                 {
                   required: true,
-                  message: "مبلغ  اجباری است",
+                  message: "مبلغ  نمی‌تواند صفر باشد",
+
+                  validator: (_, value) =>
+                    new Promise((resolve, reject) => {
+                      // alert(value)
+                      if (value === 0 || value === undefined) {
+                        reject(new Error("مبلغ  نمی‌تواند صفر باشد"));
+                      } else {
+                        resolve();
+                      }
+                    }),
                 },
               ]}
             >

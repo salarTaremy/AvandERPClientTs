@@ -12,7 +12,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
 const FrmEditItemDetail = (props) => {
-  const { onSuccess, id, obj } = props;
+  const { id, obj } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [valueType, setValueType] = useState("0");
   const [selectedAccount, setSelectedAccount] = useState({
@@ -41,7 +41,7 @@ const FrmEditItemDetail = (props) => {
   const filter = (inputValue, path) =>
     path.some(
       (option) =>
-        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||   String(option.id).indexOf(inputValue) > -1,
     );
   //====================================================================
   //                        useEffects
@@ -53,6 +53,11 @@ const FrmEditItemDetail = (props) => {
       ...obj,
       accountId: obj.accountName,
     });
+    if (obj?.creditor > 0) {
+      setValueType("1");
+    } else {
+      setValueType("0");
+    }
   }, [obj]);
 
   useEffect(() => {
@@ -96,13 +101,12 @@ const FrmEditItemDetail = (props) => {
     setValueType(value);
     const formFields = form.getFieldsValue();
 
-    if (formFields.creditor > 0 ) {
+    if (formFields.creditor > 0) {
       form.setFieldsValue({
         debtor: 0,
       });
-
     }
-    if ( formFields.debtor > 0) {
+    if (formFields.debtor > 0) {
       setValueType(value);
       form.setFieldsValue({
         creditor: 0,
@@ -110,12 +114,12 @@ const FrmEditItemDetail = (props) => {
     }
   };
   const onFinish = async (values) => {
-    debugger
     const { creditor, debtor, ...otherValues } = values;
-    const adjustedCreditor = creditor ?? 0 ;
-    const adjustedDebtor = debtor ?? 0 ;
+    const adjustedCreditor = values.creditor ?? 0;
+    const adjustedDebtor = values.debtor ?? 0;
     const updatedValues = {
       id: id,
+      key: uuid.v1(),
       creditor: adjustedCreditor ?? obj?.creditor,
       debtor: adjustedDebtor ?? obj?.debtor,
       accountingDocumentID: 0,
@@ -140,6 +144,8 @@ const FrmEditItemDetail = (props) => {
         selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
+      id: id ?? obj.id,
+
     };
 
     if (values.detailedAccountId4 == undefined) {
@@ -154,8 +160,8 @@ const FrmEditItemDetail = (props) => {
       req.detailedAccountName6 = null;
       delete req.detailedAccountId6;
     }
-
-    props.onDataSubmit({ ...req });
+    console.log(req, "reqEdit");
+    props.onDataSubmitEdit(req);
     props.closeModal();
   };
 
@@ -276,12 +282,14 @@ const FrmEditItemDetail = (props) => {
                   {
                     label: "بدهکار",
                     value: "0",
+                    defaultValue: "1",
                   },
                   {
                     label: "بستانکار",
                     value: "1",
                   },
                 ]}
+                defaultValue={obj?.creditor > 0 ? "1" : "0"}
                 onChange={handleTypeChange}
               />
             </Ant.Form.Item>
@@ -295,7 +303,16 @@ const FrmEditItemDetail = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: "مبلغ  بدهکار اجباری است",
+                    message: "مبلغ بدهکار اجباری است",
+
+                    validator: (_, value) =>
+                      new Promise((resolve, reject) => {
+                        if (value === 0) {
+                          reject(new Error("مبلغ بدهکار نمی‌تواند صفر باشد"));
+                        } else {
+                          resolve();
+                        }
+                      }),
                   },
                 ]}
               >
@@ -316,6 +333,14 @@ const FrmEditItemDetail = (props) => {
                   {
                     required: true,
                     message: "مبلغ بستانکار اجباری است",
+                    validator: (_, value) =>
+                      new Promise((resolve, reject) => {
+                        if (value === 0) {
+                          reject(new Error("مبلغ بستانکار نمی‌تواند صفر باشد"));
+                        } else {
+                          resolve();
+                        }
+                      }),
                   },
                 ]}
               >
