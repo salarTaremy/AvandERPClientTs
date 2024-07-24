@@ -29,7 +29,6 @@ const AddItemDetailList = (props) => {
   const [totalCreditor, setTotalCreditor] = useState(0);
   const [totalDebtor, setTotalDebtor] = useState(0);
 
-  const [open, setOpen] = useState(false);
   const [
     listDataHeader,
     listLoadingHeader,
@@ -48,12 +47,12 @@ const AddItemDetailList = (props) => {
   const documentInfo = [
     {
       key: "1",
-      label: "جمع بدهکار",
+      label: "جمع بستانکار",
       children: totalCreditor.toLocaleString(),
     },
     {
       key: "2",
-      label: "جمع بستانکار",
+      label: "جمع  بدهکار",
       children: totalDebtor.toLocaleString(),
     },
     {
@@ -162,7 +161,6 @@ const AddItemDetailList = (props) => {
     });
     console.log(formattedData, "formattedData");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
-    setOpen(false);
   };
 
   const onDelete = (val) => {
