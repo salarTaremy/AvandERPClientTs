@@ -107,7 +107,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
     <>
       <ModalHeader title={`دسترسی منو نقش " ${name} "`} icon={<BsMenuButtonWideFill />}/>
         <Ant.Skeleton loading={loading}>
-          <CoustomContent Height="60vh">
+          <CoustomContent height="60vh">
             <Ant.Tree
               checkable
               onExpand={onExpand}
@@ -121,7 +121,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
             />
           </CoustomContent>
         </Ant.Skeleton>
-        
+
         <Ant.Button type="primary" onClick={onFinish}>
           {"ذخیره"}
         </Ant.Button>
