@@ -12,7 +12,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
 const FrmEditItemDetail = (props) => {
-  const { onSuccess, id, obj } = props;
+  const { id, obj } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [valueType, setValueType] = useState("0");
   const [selectedAccount, setSelectedAccount] = useState({
@@ -22,7 +22,6 @@ const FrmEditItemDetail = (props) => {
   const [selectedDetailedAccountFour, setDetailedAccountFour] = useState();
   const [selectedDetailedAccountFive, setDetailedAccountFive] = useState();
   const [selectedDetailedAccountSix, setDetailedAccountSix] = useState();
-
 
   const [
     accounGrouptData,
@@ -54,12 +53,11 @@ const FrmEditItemDetail = (props) => {
       ...obj,
       accountId: obj.accountName,
     });
-  }, [obj]);
-  useEffect(() => {
-    const dataList = form.getFieldsValue();
-    if (dataList.creditor !== 0) {
+    if (obj?.creditor > 0) {
+      setValueType("1");
+    } else {
+      setValueType("0");
     }
-    console.log(obj, "objobj");
   }, [obj]);
 
   useEffect(() => {
@@ -114,15 +112,16 @@ const FrmEditItemDetail = (props) => {
         creditor: 0,
       });
     }
-
   };
   const onFinish = async (values) => {
     debugger;
+    console.log(values, "values");
     const { creditor, debtor, ...otherValues } = values;
-    const adjustedCreditor = creditor ?? 0;
-    const adjustedDebtor = debtor ?? 0;
+    const adjustedCreditor = values.creditor ?? 0;
+    const adjustedDebtor = values.debtor ?? 0;
     const updatedValues = {
       id: id,
+      key: uuid.v1(),
       creditor: adjustedCreditor ?? obj?.creditor,
       debtor: adjustedDebtor ?? obj?.debtor,
       accountingDocumentID: 0,
@@ -147,9 +146,9 @@ const FrmEditItemDetail = (props) => {
         selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
+      id: id ?? obj.id,
 
     };
-
 
     if (values.detailedAccountId4 == undefined) {
       req.detailedAccountName4 = null;
@@ -163,8 +162,8 @@ const FrmEditItemDetail = (props) => {
       req.detailedAccountName6 = null;
       delete req.detailedAccountId6;
     }
-    console.log(req,"reqEdit")
-    props.onDataSubmit({ ...req });
+    console.log(req, "reqEdit");
+    props.onDataSubmitEdit(req);
     props.closeModal();
   };
 
@@ -285,12 +284,17 @@ const FrmEditItemDetail = (props) => {
                   {
                     label: "بدهکار",
                     value: "0",
+                    defaultValue: "1",
+                    // defaultValue: obj?.debtor > 0 ? "0" : undefined,
                   },
                   {
                     label: "بستانکار",
                     value: "1",
+                    // defaultValue: obj?.creditor > 0 ? "1" : undefined,
                   },
                 ]}
+                defaultValue={obj?.creditor > 0 ? "1" : "0"}
+                // defaultValue={valueType === "1" ? "1" : "0"}
                 onChange={handleTypeChange}
               />
             </Ant.Form.Item>
@@ -308,7 +312,7 @@ const FrmEditItemDetail = (props) => {
 
                     validator: (_, value) =>
                       new Promise((resolve, reject) => {
-                        if ( value === 0) {
+                        if (value === 0) {
                           reject(new Error("مبلغ بدهکار نمی‌تواند صفر باشد"));
                         } else {
                           resolve();

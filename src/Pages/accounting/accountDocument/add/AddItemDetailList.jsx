@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as defaultValues from "@/defaultValues";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import qs from "qs";
 import * as url from "@/api/url";
 import * as api from "@/api";
@@ -69,9 +69,8 @@ const AddItemDetailList = (props) => {
     getAllAccountingDocumentDetail();
   }, []);
   useEffect(() => {
-    submitListData?.isSuccess &&
-    getAllAccountingDocumentDetail();
-  }, [ submitListData?.isSuccess ]);
+    submitListData?.isSuccess && getAllAccountingDocumentDetail();
+  }, [submitListData?.isSuccess]);
 
   useEffect(() => {
     onHeader();
@@ -128,9 +127,13 @@ const AddItemDetailList = (props) => {
     setFormData(newData);
   };
   const handleDataSubmitEdit = (newData) => {
+    console.log(newData, "gaga");
+    debugger
     setDataSource((pre) => {
       return pre.map((item) => {
+        console.log(item,"item.iditem.id")
         if (item.id === newData.id) {
+
           return newData;
         } else {
           return item;
@@ -142,11 +145,11 @@ const AddItemDetailList = (props) => {
     setModalState(false);
   };
   const btnSubmit = async () => {
-    debugger
+    debugger;
     const formattedData = dataSource.map((item) => {
       return {
-        id: item.id,
-        accountId: item.accountId,
+        id: typeof item.id === 'string' ? null : item.id,
+        accountId: item.accountId ,
         detailedAccountId4: item.detailedAccountId4,
         detailedAccountId5: item.detailedAccountId5,
         detailedAccountId6: item.detailedAccountId6,
@@ -159,10 +162,9 @@ const AddItemDetailList = (props) => {
         article: item.article,
       };
     });
-
+    console.log(formattedData, "formattedData");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
     setOpen(false);
-
   };
 
   const onDelete = (val) => {
@@ -181,7 +183,6 @@ const AddItemDetailList = (props) => {
     setModalContent(
       <FrmAddItemDetail
         key={uuid.v4()}
-        id={id}
         onDataSubmit={handleDataSubmit}
         closeModal={closeModal}
       />,
@@ -190,12 +191,15 @@ const AddItemDetailList = (props) => {
   };
 
   const onEdit = (val) => {
+    console.log(val, "val");
+    console.log(val.key, "val.key");
+    console.log(val.id, "val.id");
     setModalContent(
       <FrmEditItemDetail
         key={uuid.v4()}
-        id={val.id}
+        id={val?.id ?? val?.key}
         obj={val}
-        onDataSubmit={handleDataSubmitEdit}
+        onDataSubmitEdit={handleDataSubmitEdit}
         closeModal={closeModalEdit}
       />,
     );
