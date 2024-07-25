@@ -100,7 +100,27 @@ const handleError = (error) => {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////  Async  ///////////////////////////////////////////
+
+//********************  usage 1 : ********************
+
+// GetAsync('/your-endpoint', yourData)
+//   .then(response => {
+//     // کد مربوط به موفقیت آمیز بودن درخواست
+//     console.log(response);
+//   })
+//   .catch(error => {
+//     // کد مربوط به مدیریت خطا
+//     console.error(error);
+//   });
+
+//********************  usage 2 : ********************
+
+// const response = await GetAsync(
+//   `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
+//   null,
+// );
+
 export const GetAsync = async (url, data) => {
   try {
     let res = await axios({
@@ -116,6 +136,7 @@ export const GetAsync = async (url, data) => {
     return error
   }
 }
+
 export const PostAsync = async (url, data) => {
   try {
     let res = await axios({
@@ -132,7 +153,63 @@ export const PostAsync = async (url, data) => {
     return { error: error }
   }
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////  Promise ////////////////////////////////////////////////////////////
+export const Get = (url, data) => {
+  return new Promise( (resolve, reject) => {
+    try {
+      let res =  axios({
+        url: `${GetUrl()}${url}`,
+        method: 'get',
+        data: data,
+        headers: GetHeaders(),
+      });
+      resolve(res.data);
+    } catch (error) {
+      handleError(error);
+      reject(error);
+    }
+  });
+};
+//usage :
+// Get('/your-endpoint', yourData)
+//   .then(response => {
+//     // کد مربوط به موفقیت آمیز بودن درخواست
+//     console.log(response);
+//   })
+//   .catch(error => {
+//     // کد مربوط به مدیریت خطا
+//     console.error(error);
+//   });
+
+export const Post = (url, data) => {
+  return new Promise( (resolve, reject) => {
+    try {
+      let res =  axios({
+        url: `${GetUrl()}${url}`,
+        method: 'post',
+        data: data,
+        headers: Headers,
+      });
+      resolve({ data: res.data });
+    } catch (error) {
+      handleError(error);
+      reject({ error: error });
+    }
+  });
+};
+
+// Usage:
+// Post('/your-endpoint', yourData)
+//   .then(response => {
+//     // کد مربوط به موفقیت آمیز بودن درخواست
+//     console.log(response.data);
+//   })
+//   .catch(error => {
+//     // کد مربوط به مدیریت خطا
+//     console.error(error.error);
+//   });
+
+////////////////////////////////////////////////  Hook ////////////////////////////////////////////////////////////
 export const useFetch = (url) => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)

@@ -53,14 +53,31 @@ const fechAccHeader=async ()=>{
 }
 
 
+
+// Get('/your-endpoint', yourData)
+//   .then(response => {
+//     // کد مربوط به موفقیت آمیز بودن درخواست
+//     console.log(response);
+//   })
+//   .catch(error => {
+//     // کد مربوط به مدیریت خطا
+//     console.error(error);
+//   });
+
   const loadData = (key, children) => new Promise(   (resolve) => {
     console.log({ key, children });
     const queryString = qs.stringify({
       AccountGroupId: key.id
     })
     console.log('queryString',queryString);
-    const response =   api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null);
-     console.log('response',response);
+    api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
+      // کد مربوط به موفقیت آمیز بودن درخواست
+      console.log('response =>',response);
+    })
+    .catch(error => {
+      // کد مربوط به مدیریت خطا
+      console.error(error);
+    });
     resolve();
   }).then(() => { console.log('then') })
   const FillTree = async () => {
