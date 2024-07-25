@@ -5,7 +5,7 @@ import CoustomContent from "@/components/common/CoustomContent";
 const NotFoundPage = () => {
   return (
     <>
-      <CoustomContent Height="85vh" Shadow>
+      <CoustomContent height="85vh" Shadow>
         <Ant.Result
           status="404"
           title="404"

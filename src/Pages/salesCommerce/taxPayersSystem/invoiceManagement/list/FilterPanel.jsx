@@ -4,6 +4,17 @@ import { PropTypes } from "prop-types";
 import * as url from "@/api/url";
 import * as api from "@/api";
 import * as Ant from "antd";
+import {
+  CheckCircleTwoTone,
+  CloseCircleTwoTone,
+  ClockCircleTwoTone,
+  ExclamationCircleTwoTone,
+  QuestionCircleTwoTone,
+  PauseCircleTwoTone,
+  UpCircleTwoTone,
+  PlayCircleTwoTone,
+  StopTwoTone,
+} from "@ant-design/icons";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
@@ -82,6 +93,54 @@ const FilterPanel = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const getInvoiceStatusIcon = (id) => {
+    let icon;
+    switch (id) {
+      case 1:
+        icon = <CheckCircleTwoTone twoToneColor="#52c41a" />;
+        break;
+      case 2:
+        icon = <CloseCircleTwoTone twoToneColor="#ff4d4f" />;
+        break;
+      case 3:
+        icon = <ClockCircleTwoTone twoToneColor="orange" />;
+        break;
+      case 4:
+        icon = <ExclamationCircleTwoTone twoToneColor="#f759ab" />;
+        break;
+      case 5:
+        icon = <QuestionCircleTwoTone twoToneColor="#2f54eb" />;
+        break;
+      default:
+        icon = <></>;
+        break;
+    }
+
+    return icon;
+  };
+  const getSendStatusIcon = (id) => {
+    let icon;
+    switch (id) {
+      case 0:
+        icon = <StopTwoTone twoToneColor="#bfbfbf" />;
+        break;
+      case 1:
+        icon = <PauseCircleTwoTone twoToneColor="#597ef7" />;
+        break;
+      case 2:
+        icon = <PlayCircleTwoTone twoToneColor="#36cfc9" rotate={180} />;
+        break;
+      case 3:
+        icon = <UpCircleTwoTone twoToneColor="#52c41a" />;
+        break;
+      default:
+        icon = <></>;
+        break;
+    }
+
+    return icon;
+  };
+
   const onFinish = (values) => {
     let customerFilter = {};
     if (values?.customerId) {
@@ -145,6 +204,14 @@ const FilterPanel = (props) => {
             disable={invoiceInquiryStatusLoading || false}
             loading={invoiceInquiryStatusLoading}
             options={invoiceInquiryStatusData?.data}
+            optionRender={(option) => (
+              <>
+                <Ant.Space size="small" align="center">
+                  {getInvoiceStatusIcon(option.data.id)}
+                  <span>{option.data.persianTitle}</span>
+                </Ant.Space>
+              </>
+            )}
             fieldNames={{ label: "persianTitle", value: "id" }}
           />
         </Ant.Form.Item>
@@ -155,6 +222,14 @@ const FilterPanel = (props) => {
             disable={invoiceSendingStatusLoading || false}
             loading={invoiceSendingStatusLoading}
             options={invoiceSendingStatusData?.data}
+            optionRender={(option) => (
+              <>
+                <Ant.Space size="small" align="center">
+                  {getSendStatusIcon(option.data.id)}
+                  <span>{option.data.title}</span>
+                </Ant.Space>
+              </>
+            )}
             fieldNames={{ label: "title", value: "id" }}
           />
         </Ant.Form.Item>
@@ -164,7 +239,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message: "مقدار نامعتبر",
             },
           ]}
@@ -191,7 +266,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message: "مقدار نامعتبر",
             },
           ]}
@@ -210,7 +285,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message: "مقدار نامعتبر",
             },
           ]}
@@ -276,17 +351,9 @@ const FilterPanel = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={12}>
-            <Ant.Form.Item
-              name={"toTotalPrice"}
-              rules={[
-                {
-                  required: false,
-                  pattern: new RegExp("^[0-9]"),
-                  message: "مبلغ نامعتبر",
-                },
-              ]}
-            >
-              <Ant.Input
+            <Ant.Form.Item name={"toTotalPrice"}>
+              <Ant.InputNumber
+                controls={false}
                 allowClear
                 addonBefore="تا"
                 parser={(value) => value?.replace(/\$\s?|(,*)/g, "")}
