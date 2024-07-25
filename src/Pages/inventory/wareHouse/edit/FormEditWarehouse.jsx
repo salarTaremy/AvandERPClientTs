@@ -56,7 +56,7 @@ const FormEditWareHouse = (props) => {
       counterpartyName: inputValue,
     });
 
-    const response = await Get(
+    const response = await api.GetAsync(
       `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
       "",
     );

@@ -74,7 +74,7 @@ const FilterPanel = (props) => {
       customerName: searchText,
     });
 
-    const response = await api.Get(
+    const response = await api.GetAsync(
       `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
       "",
     );

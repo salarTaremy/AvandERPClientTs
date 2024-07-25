@@ -4,7 +4,7 @@ import * as url from "@/api/url";
 import * as api from "@/api";
 import PropTypes from "prop-types";
 import ModalHeader from "@/components/common/ModalHeader";
-import { usePostWithHandler, useFetch, Get } from "@/api";
+import { usePostWithHandler, useFetch, GetAsync } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import qs from "qs";
@@ -49,7 +49,7 @@ const FormAddNewWarehouse = (props) => {
       counterpartyName: inputValue,
     });
 
-    const response = await Get(
+    const response = await GetAsync(
       `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
       "",
     );

@@ -101,7 +101,7 @@ const handleError = (error) => {
 }
 
 /////////////////////////////////////////////////////////////////////////////
-export const Get = async (url, data) => {
+export const GetAsync = async (url, data) => {
   try {
     let res = await axios({
       url: `${GetUrl()}${url}`,
@@ -116,7 +116,7 @@ export const Get = async (url, data) => {
     return error
   }
 }
-export const Post = async (url, data) => {
+export const PostAsync = async (url, data) => {
   try {
     let res = await axios({
       url: `${GetUrl()}${url}`,
