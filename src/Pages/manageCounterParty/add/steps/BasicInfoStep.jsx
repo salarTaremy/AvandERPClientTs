@@ -149,7 +149,7 @@ export const BasicInfoStep = (props) => {
   return (
     <>
       <CoustomContent
-      Height = "70vh"
+      height= "70vh"
       >
         <Ant.Skeleton loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>
