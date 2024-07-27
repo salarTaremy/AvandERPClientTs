@@ -25,44 +25,31 @@ const Account = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const updateTreeData = (list, key, children) =>
+  const updateTreeData = (list, key, children) =>{
+    console.log('tree data input', {list, key, children})
     list.map((node) => {
-      if (node.key === key) {
+      if (node.id === key) {
+         console.log('a',{
+          ...node,
+          children,
+        })
         return {
           ...node,
           children,
         };
       }
       if (node.children) {
+        console.log('b')
         return {
           ...node,
-          children: updateTreeData(node.children, key, children),
+          children: updateTreeData(node.children, key.id, children),
         };
       }
+      console.log('c')
       return node;
-    });
+    });}
 
 
-const fechAccHeader=async ()=>{
-  const queryString = qs.stringify({
-    AccountHeader: 1
-  })
-
-  const response = await api.GetAsync(`${"/accountHeader"}?${""}`, '');
-  console.log('response',response);
-}
-
-
-
-// Get('/your-endpoint', yourData)
-//   .then(response => {
-//     // کد مربوط به موفقیت آمیز بودن درخواست
-//     console.log(response);
-//   })
-//   .catch(error => {
-//     // کد مربوط به مدیریت خطا
-//     console.error(error);
-//   });
 
   const loadData = (key, children) => new Promise(   (resolve) => {
     console.log({ key, children });
@@ -71,14 +58,14 @@ const fechAccHeader=async ()=>{
     })
     console.log('queryString',queryString);
     api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
-      // کد مربوط به موفقیت آمیز بودن درخواست
       console.log('response =>',response);
+      console.log('upd => ' ,updateTreeData(treeData,key.id,response.data))
+      resolve();
     })
     .catch(error => {
-      // کد مربوط به مدیریت خطا
       console.error(error);
     });
-    resolve();
+    
   }).then(() => { console.log('then') })
   const FillTree = async () => {
     await accApiCall(url.ACCOUNT_GROUP)
@@ -137,10 +124,6 @@ const fechAccHeader=async ()=>{
   //                        useEffects
   //====================================================================
 
-  // useEffect(() => {
-  //   api.GetAsync(api.ACCOUNT_HEADER,null)
-  // }, [])
-
   useEffect(() => {
     FillTree()
   }, [expandedKeys])
@@ -158,6 +141,7 @@ const fechAccHeader=async ()=>{
   //====================================================================
   return (
     <>
+    {/* {JSON.stringify(treeData)} */}
       <RequestManager error={accError} />
       <Ant.Card title={'درختواره حساب ها'} type="inner" >
         <Ant.Form form={form} layout="vertical" onFinish={null} onFinishFailed={null}>
