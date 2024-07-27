@@ -4,8 +4,9 @@ import * as Ant from 'antd'
 import { Button, Tree } from 'antd'
 import * as styles from '@/styles'
 import TreeNodeItem from './TreeNodeItem'
-import { useFetch, useFetchWithHandler } from '@/api'
+import * as api from '@/api'
 import * as url from '@/api/url'
+import qs from "qs";
 import { RequestManager } from '@/components/common/RequestManager'
 import { FrmEditAccount } from './edit/FrmEditAccount'
 import { FrmEditAccountGroup } from './edit/FrmEditAccountGroup'
@@ -16,7 +17,7 @@ import CoustomContent from "@/components/common/CoustomContent";
 //====================================================================
 const Account = () => {
   const [selectedNode, setSelectedNode] = useState(null)
-  const [accData, accLoading, accError, accApiCall] = useFetchWithHandler()
+  const [accData, accLoading, accError, accApiCall] = api.useFetchWithHandler()
   const [form] = Ant.Form.useForm()
   const [treeData, setTreeData] = useState([])
   const [expandedKeys, setExpandedKeys] = useState(['0'])
@@ -24,8 +25,50 @@ const Account = () => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const updateTreeData = (list, key, children) =>{
+    console.log('tree data input', {list, key, children})
+    list.map((node) => {
+      if (node.id === key) {
+         console.log('a',{
+          ...node,
+          children,
+        })
+        return {
+          ...node,
+          children,
+        };
+      }
+      if (node.children) {
+        console.log('b')
+        return {
+          ...node,
+          children: updateTreeData(node.children, key.id, children),
+        };
+      }
+      console.log('c')
+      return node;
+    });}
+
+
+
+  const loadData = (key, children) => new Promise(   (resolve) => {
+    console.log({ key, children });
+    const queryString = qs.stringify({
+      AccountGroupId: key.id
+    })
+    console.log('queryString',queryString);
+    api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
+      console.log('response =>',response);
+      console.log('upd => ' ,updateTreeData(treeData,key.id,response.data))
+      resolve();
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    
+  }).then(() => { console.log('then') })
   const FillTree = async () => {
-    await accApiCall(url.ACCOUNT_TREE)
+    await accApiCall(url.ACCOUNT_GROUP)
   }
 
   const onDeleteSuccess = (item) => {
@@ -46,7 +89,7 @@ const Account = () => {
       lookup[o.id].children = []
     })
     arr.forEach((o) => {
-      if (o.parent ) {
+      if (o.parent) {
         lookup[o.parent]?.children?.push(o)
       } else {
         tree.push(o)
@@ -80,6 +123,7 @@ const Account = () => {
   //====================================================================
   //                        useEffects
   //====================================================================
+
   useEffect(() => {
     FillTree()
   }, [expandedKeys])
@@ -88,7 +132,7 @@ const Account = () => {
     if (accData?.data) {
       const data = addIconToData(accData.data)
       const finalData = treeify(data)
-      setTreeData(finalData)
+      setTreeData(accData?.data)
     }
   }, [accData])
 
@@ -97,8 +141,9 @@ const Account = () => {
   //====================================================================
   return (
     <>
+    {/* {JSON.stringify(treeData)} */}
       <RequestManager error={accError} />
-      <Ant.Card  title={'درختواره حساب ها'} type="inner" >
+      <Ant.Card title={'درختواره حساب ها'} type="inner" >
         <Ant.Form form={form} layout="vertical" onFinish={null} onFinishFailed={null}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
@@ -111,10 +156,11 @@ const Account = () => {
                   defaultExpandedKeys={expandedKeys}
                   showLine
                   autoExpandParent
-                  // fieldNames={{ title: "name", key: "id", children: '' }}
-                  //titleRender={titleRender}
+                  fieldNames={{ title: "name", key: "code", children: 'children' }}
+                  titleRender={(nodeData) => { return (<>{nodeData.code + ' - ' + nodeData.name} </>) }}
+                  loadData={loadData}
                 />
-              {/* </Ant.Card> */}
+                {/* </Ant.Card> */}
               </CoustomContent>
             </Ant.Col>
 
@@ -132,7 +178,7 @@ const Account = () => {
                 {selectedNode?.level === 3 && (
                   <FrmEditAccount key={selectedNode?.id} accountId={selectedNode?.id} />
                 )}
-                 </CoustomContent>
+              </CoustomContent>
               {/* </Ant.Card> */}
 
             </Ant.Col>

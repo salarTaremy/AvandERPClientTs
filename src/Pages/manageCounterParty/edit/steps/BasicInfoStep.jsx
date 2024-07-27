@@ -186,7 +186,7 @@ export const BasicInfoStep = (props) => {
                     rules={[
                       {
                         required: false,
-                        pattern: new RegExp("^[0-9]"),
+                        pattern: new RegExp("^[0-9]*$"),
                         message:
                           "کد دوم نمی تواند شامل کاراکترهای غیرعددی باشد",
                       },
@@ -347,7 +347,7 @@ export const BasicInfoStep = (props) => {
                       rules={[
                         {
                           required: false,
-                          pattern: new RegExp("^[0-9]"),
+                          pattern: new RegExp("^[0-9]*$"),
                           message: "لطفا کد ثبت را به درستی وارد نمایید.",
                         },
                       ]}
@@ -393,7 +393,7 @@ export const BasicInfoStep = (props) => {
                       rules={[
                         {
                           required: false,
-                          pattern: new RegExp("^[0-9]"),
+                          pattern: new RegExp("^[0-9]*$"),
                           message:
                             "کد اقتصادی نمی تواند شامل کاراکترهای غیرعددی باشد",
                         },
@@ -430,7 +430,7 @@ export const BasicInfoStep = (props) => {
                       rules={[
                         {
                           required: !isIndividual,
-                          pattern: new RegExp("^[0-9]"),
+                          pattern: new RegExp("^[0-9]*$"),
                           message:
                             "شناسه ملی نمی تواند شامل کاراکترهای غیرعددی باشد",
                         },
@@ -542,7 +542,7 @@ export const BasicInfoStep = (props) => {
                     rules={[
                       {
                         required: false,
-                        pattern: new RegExp("^[0-9]"),
+                        pattern: new RegExp("^[0-9]*$"),
                         message:
                           "کد شعبه نمی تواند شامل کاراکترهای غیرعددی باشد",
                       },

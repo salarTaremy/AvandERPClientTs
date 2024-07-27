@@ -5,7 +5,7 @@ import useRequestManager from '@/hooks/useRequestManager'
 import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import MyDatePicker from "@/components/common/MyDatePicker";
-import { useFetch, useFetchWithHandler, Get } from "@/api";
+import { useFetch, useFetchWithHandler, GetAsync } from "@/api";
 import DebounceSelect from '@/components/common/DebounceSelect'
 import qs from "qs";
 
@@ -46,7 +46,7 @@ const FormAddNewCounterPartyBlackList = (props) => {
             CounterpartyName: inputValue
         })
 
-        const response = await Get(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`, '');
+        const response = await GetAsync(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`, '');
         if (response?.data) {
             return response?.data.map((item) => ({
                 label: `${item.counterpartyName} `,

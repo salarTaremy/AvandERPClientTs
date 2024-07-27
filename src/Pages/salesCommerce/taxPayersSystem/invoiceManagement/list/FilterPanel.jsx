@@ -175,7 +175,7 @@ const FilterPanel = (props) => {
       customerName: searchText,
     });
 
-    const response = await api.Get(
+    const response = await api.GetAsync(
       `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
       "",
     );
@@ -239,7 +239,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message: "مقدار نامعتبر",
             },
           ]}
@@ -266,7 +266,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message: "مقدار نامعتبر",
             },
           ]}
@@ -285,7 +285,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message: "مقدار نامعتبر",
             },
           ]}

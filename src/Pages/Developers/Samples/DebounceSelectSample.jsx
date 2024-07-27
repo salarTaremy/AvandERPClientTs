@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Ant from 'antd'
 import * as url from '@/api/url'
-import { Get } from "@/api";
+import { GetAsync } from "@/api";
 import DebounceSelect from '@/components/common/DebounceSelect'
 import qs from "qs";
 
@@ -17,7 +17,7 @@ const DebounceSelectSample = () => {
       CounterpartyName: inputValue
     })
 
-    const response = await Get(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`, '');
+    const response = await GetAsync(`${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`, '');
     if (response?.data) {
       return response?.data.map((item) => ({
         label: `${item.counterpartyName} `,

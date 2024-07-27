@@ -58,7 +58,7 @@ const FormEditPhoneNumber = (props) => {
                         label={"شماره تماس"}
                         rules={[{
                             required: true,
-                            pattern: new RegExp("^[0-9]"),
+                            pattern: new RegExp("^[0-9]*$"),
                             message:
                                 " شماره تماس نمی تواند شامل کاراکترهای غیرعددی باشد"
                         }]}

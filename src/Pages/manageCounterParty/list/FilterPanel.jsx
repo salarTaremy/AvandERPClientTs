@@ -105,7 +105,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message:
                 "کد ملی نمی تواند شامل کاراکترهای غیرعددی باشد",
             },
@@ -126,7 +126,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message:
                 "کد اقتصادی نمی تواند شامل کاراکترهای غیرعددی باشد",
             },
@@ -147,7 +147,7 @@ const FilterPanel = (props) => {
           rules={[
             {
               required: false,
-              pattern: new RegExp("^[0-9]"),
+              pattern: new RegExp("^[0-9]*$"),
               message:
                 "کد اقتصادی نمی تواند شامل کاراکترهای غیرعددی باشد",
             },

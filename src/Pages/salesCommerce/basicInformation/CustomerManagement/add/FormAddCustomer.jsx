@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as styles from "@/styles";
-import { useFetch, useFetchWithHandler, Get, usePostWithHandler } from "@/api";
+import { useFetch, useFetchWithHandler, GetAsync, usePostWithHandler } from "@/api";
 import qs from "qs";
 import * as url from "@/api/url";
 import * as uuid from "uuid";
@@ -99,7 +99,7 @@ const FormAddCustomer = ({ onSucces }) => {
       counterpartyName: inputValue,
     });
 
-    const response = await Get(
+    const response = await GetAsync(
       `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
       "",
     );

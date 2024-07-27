@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import * as Ant from "antd";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
-import { useFetch, Get, useFetchWithHandler } from '@/api'
+import { useFetch, GetAsync, useFetchWithHandler } from '@/api'
 import useRequestManager from "@/hooks/useRequestManager";
 import qs from "qs";
 import DebounceSelect from "@/components/common/DebounceSelect";
@@ -45,7 +45,7 @@ const FilterPanel = (props) => {
             counterpartyName: inputValue,
         });
 
-        const response = await Get(
+        const response = await GetAsync(
             `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
             "",
         );
