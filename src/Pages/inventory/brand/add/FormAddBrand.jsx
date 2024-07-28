@@ -88,7 +88,7 @@ const FormAddBrand = (props) => {
             disabled={selectLoading || false}
             loading={selectLoading}
             options={selectData?.data}
-            fieldNames={{ label: "name", value: "supplierId" }}
+            fieldNames={{ label: "name", value: "id" }}
           />
         </Ant.Form.Item>
         <Ant.Form.Item
