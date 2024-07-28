@@ -65,7 +65,7 @@ const FormAddPriceCirculardetail = (props) => {
                 >
                     <Ant.InputNumber allowClear showCount maxLength={100}
                         formatter={(value) =>
-                            `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            value.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         style={{ width: "100%" }} />
                 </Ant.Form.Item>
                 <Ant.Form.Item name="consumerPrice" label={"قیمت مصرف کننده"} rules={[{
@@ -74,7 +74,7 @@ const FormAddPriceCirculardetail = (props) => {
                 >
                     <Ant.InputNumber allowClear showCount maxLength={100}
                         formatter={(value) =>
-                            `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            value.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         style={{ width: "100%" }} />
                 </Ant.Form.Item>
                 <Ant.Form.Item>
