@@ -32,7 +32,22 @@ const FrmAddItemDetail = (props) => {
     accountGroupError,
     accoupGroupApicall,
   ] = api.useFetchWithHandler();
-
+  const DisplayCascader = () => {
+    const displayRender = (labels, selectedOptions) => (
+      <span>
+        {labels.map((label, index) => {
+          const option = selectedOptions[index];
+          const code = option ? `(کد: ${option.code})` : '';
+          return (
+            <span key={index}>
+              {label} {code}
+              {index !== labels.length - 1 && ' / '}
+            </span>
+          );
+        })}
+      </span>
+    );
+     }
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: accountGroupError });
@@ -45,8 +60,9 @@ const FrmAddItemDetail = (props) => {
   const filter = (inputValue, path) =>
     path.some(
       (option) =>
-        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||   String(option.id).indexOf(inputValue) > -1,
     );
+
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -131,6 +147,7 @@ const FrmAddItemDetail = (props) => {
   //                        Component
   //====================================================================
   return (
+
     <>
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <ModalHeader title={"افزودن آرتیکل سند"} icon={<FaFileMedical />} />
@@ -138,7 +155,7 @@ const FrmAddItemDetail = (props) => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"accountId"}
-              label="نوع حساب "
+              label=" حساب "
               rules={[
                 {
                   required: true,
@@ -155,11 +172,28 @@ const FrmAddItemDetail = (props) => {
                   label: "name",
                   value: "id",
                   children: "children",
+
                 }}
                 showSearch={{
                   filter,
                 }}
+
+                displayRender={(labels, selectedOptions) => (
+                  <>
+                    {labels.map((label, index) => {
+                      const accountCode = selectedOptions[index]?.id;
+                      return (
+                        <span key={index}>
+                          {label}
+                          {accountCode && <span > (کد: {accountCode})</span>}
+
+                        </span>
+                      );
+                    })}
+                  </>
+                )}
               />
+
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={8}>

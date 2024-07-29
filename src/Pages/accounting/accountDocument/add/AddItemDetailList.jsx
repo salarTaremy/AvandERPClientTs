@@ -15,10 +15,11 @@ import * as uuid from "uuid";
 import useRequestManager from "@/hooks/useRequestManager";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+import { ImFileExcel } from "react-icons/im";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
 import FrmEditItemDetail from "../add/FrmEditItemDetail";
 import columns from "../add/columns";
-import * as XLSX from 'xlsx';
+import * as XLSX from "xlsx";
 const AddItemDetailList = (props) => {
   const { id } = props;
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -198,92 +199,84 @@ const AddItemDetailList = (props) => {
     setModalState(true);
   };
 
-  // const btnUpload = (e) => {
-  //   debugger
-  //   // const file = e.target.files?.[0];
-  //   // if (file) {
-  //   //   const reader = new FileReader();
-  //   //   reader.onload = (event) => {
-  //   //     const data = new Uint8Array(event.target.result);
-  //   //     const workbook = XLSX.read(data, { type: 'binary' });
-  //   //     const sheetName = workbook.SheetNames[0];
-  //   //     const sheet = workbook.Sheets[sheetName];
-  //   //     const jsonData = XLSX.utils.sheet_to_json(sheet);
-  //   //     onFileLoad(jsonData);
-  //   //   };
-  //   //   reader.readAsArrayBuffer(file);
-
-  // };
-
-  const handleFileChange = (e) => {
-    debugger
-
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(sheet);
-        onFileLoad(jsonData);
-      };
-      reader.readAsArrayBuffer(file);
-    }
-
-    // const file = e.target.files?.[0];
-    // console.log(file,"file")
-    // if (file) {
-    //   const reader = new FileReader();
-    //   console.log(reader,"reader")
-    //   reader.onload = (event) => {
-    //     const data = new Uint8Array(event.target.result);
-    //     const workbook = XLSX.read(data, { type: 'array' });
-    //     const sheetName = workbook.SheetNames[0];
-    //     const sheet = workbook.Sheets[sheetName];
-    //     const jsonData = XLSX.utils.sheet_to_json(sheet);
-    //     onFileLoad(jsonData);
-    //     setDataSource((prevData) => [...prevData, ...jsonData]);
-    //   };
-    //   reader.readAsArrayBuffer(file);
-    // }
-
-
-
-
-    // const fileData = event.target.result;
-    // const workbook = XLSX.read(fileData, { type: "binary" });
-    // const sheetName = workbook.SheetNames[0];
-    // const sheet = workbook.Sheets[sheetName];
-    // const sheetData = XLSX.utils.sheet_to_json(sheet);
-
-    // اضافه کردن داده‌ها به dataSource
-
-
+  const btnUpload = (file) => {
+    console.log(file, "gagag");
   };
-const btnUpload=()=>{
-  console.log("gagag")
-}
+  const handleFileUpload = (file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const binaryString = e.target.result;
+      const workbook = XLSX.read(binaryString, { type: "binary" });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+      debugger;
+      setData(excelData);
+      // if (excelData) {
+      //   setDataSource((prevData) => [...prevData, ...excelData]);
+      //   setData(null);
+      // }
+      if (excelData) {
+        console.log(excelData, "excelData");
+        const newData = excelData.slice(1).map((item, index) => ({
+          key: index,
+          rowNumber: 0,
+          accountName: item[0],
+          referenceNo: item[1],
+          detailedAccountName4: item[2],
+          detailedAccountName5: item[3],
+          detailedAccountName6: item[4],
+          article: item[5],
+          debtor: item[6],
+          creditor: item[7],
+          description: item[8],
+        }));
+
+        console.log(newData, "newData");
+        setDataSource((prevData) => [...prevData, ...newData]);
+        setData(null);
+      }
+    };
+    // reader.readAsArrayBuffer(file);
+    reader.readAsBinaryString(file);
+  };
   //====================================================================
   //                        Child Components
   //=====================================================================
 
   const title = () => {
-    return <ButtonList onAdd={onAdd} onSave={btnSubmit} onExcel={btnUpload} />;
+    return (
+      <>
+        <ButtonList onAdd={onAdd} onSave={btnSubmit}>
+          <Ant.Tooltip title={" وارد کرد فایل اکسل"}>
+            <Ant.Upload
+              beforeUpload={(file) => {
+                handleFileUpload(file);
+                return false;
+              }}
+            >
+              <Ant.Button
+                className="text-green-700 border-green-700"
+                size="large"
+              >
+                <ImFileExcel />
+              </Ant.Button>
+            </Ant.Upload>
+          </Ant.Tooltip>
+        </ButtonList>
+      </>
+    );
   };
   const Grid = () => {
     return (
       <>
-    {/* <div>
-      <input type="file" onChange={handleFileChange} />
-    </div>
-      {data && (
-        <div>
-          <h2>Imported Data:</h2>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-      )} */}
+        {data && (
+          <div>
+            <h2>Imported Data:</h2>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+          </div>
+        )}
+
         <Ant.Table
           key={id}
           {...defaultValues.TABLE_PROPS}

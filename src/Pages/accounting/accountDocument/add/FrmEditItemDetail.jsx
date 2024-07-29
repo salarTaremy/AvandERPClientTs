@@ -41,7 +41,8 @@ const FrmEditItemDetail = (props) => {
   const filter = (inputValue, path) =>
     path.some(
       (option) =>
-        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||   String(option.id).indexOf(inputValue) > -1,
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+        String(option.id).indexOf(inputValue) > -1,
     );
   //====================================================================
   //                        useEffects
@@ -145,7 +146,6 @@ const FrmEditItemDetail = (props) => {
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
       id: id ?? obj.id,
-
     };
 
     if (values.detailedAccountId4 == undefined) {
@@ -176,7 +176,7 @@ const FrmEditItemDetail = (props) => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"accountId"}
-              label="نوع حساب "
+              label=" حساب "
               rules={[
                 {
                   required: true,
@@ -197,6 +197,21 @@ const FrmEditItemDetail = (props) => {
                 showSearch={{
                   filter,
                 }}
+
+                displayRender={(labels, selectedOptions) => (
+                  <>
+                    {labels.map((label, index) => {
+                      const accountCode = selectedOptions[index]?.id;
+                      return (
+                        <span key={index}>
+                          {label}
+                          {accountCode && <span > (کد: {accountCode})</span>}
+
+                        </span>
+                      );
+                    })}
+                  </>
+                )}
               />
             </Ant.Form.Item>
           </Ant.Col>
