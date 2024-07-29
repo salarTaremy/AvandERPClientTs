@@ -35,6 +35,7 @@ import DatePickerSample from './Pages/Developers/Samples/DatePickerSample'
 import ListSample from './Pages/Developers/Samples/listSample/ListSample'
 import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSample'
 import CitySelector from './Pages/Developers/Samples/CitySelector'
+import TableWithServerSideSort from './Pages/Developers/Samples/TableWithServerSideSort'
 
 
 //GeneralSettings
@@ -110,6 +111,7 @@ const routes = [
   { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
   { path: '/developers/samples/debounceSelectSample', name: 'نمونه سلکت باکس با امکان جستجوی سمت سرور', element: DebounceSelectSample },
   { path: '/developers/samples/citySelector', name: 'نمونه DropDown درختی', element: CitySelector },
+  { path: '/developers/samples/tableWithServerSideSort', name: 'نمونه جدول با مرتب سازی سمت سرور', element: TableWithServerSideSort },
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
   { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
