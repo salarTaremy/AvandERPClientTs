@@ -213,6 +213,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       key: "invoiceIssueDate",
       align: "center",
       className: "text-xs sm:text-sm",
+      sorter: true,
       width: 120,
     },
     {
@@ -283,6 +284,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       align: "center",
       className: "text-xs sm:text-sm",
       width: 150,
+      sorter: true,
       render: (text, record, index) => record.subTotal.toLocaleString(),
     },
     {
@@ -292,6 +294,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       align: "center",
       className: "text-xs sm:text-sm",
       width: 150,
+      sorter: true,
       render: (text, record, index) => record.discounts.toLocaleString(),
     },
     {
@@ -321,6 +324,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       align: "center",
       className: "text-xs sm:text-sm",
       width: 150,
+      sorter: true,
       render: (text, record, index) => record.totalPrice.toLocaleString(),
     },
     {
