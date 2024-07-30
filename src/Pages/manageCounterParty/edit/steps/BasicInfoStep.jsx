@@ -388,6 +388,7 @@ export const BasicInfoStep = (props) => {
                 {!isIndividual && (
                   <Ant.Col lg={6} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
+                      allowClear
                       name={"economicCode"}
                       label="کداقتصادی"
                       rules={[
@@ -400,13 +401,13 @@ export const BasicInfoStep = (props) => {
                         {
                           validator: (_, value) => {
                             if (
-                              value == null ||
-                              value?.toString().length == 14
+                              value == null || value?.toString().length == 0 ||
+                              (counterpartyType == 2 && value?.toString().length == 12)
                             ) {
                               return Promise.resolve();
                             } else {
                               return Promise.reject(
-                                "کد اقتصادی باید 14 کاراکتر باشد",
+                                "کد اقتصادی باید حداقل 12 کاراکتر باشد",
                               );
                             }
                           },
