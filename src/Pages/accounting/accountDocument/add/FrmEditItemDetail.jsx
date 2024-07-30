@@ -11,6 +11,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
+import useAllLoading from '@/hooks/useAllLoading '
 const FrmEditItemDetail = (props) => {
   const { id, obj } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
@@ -31,8 +32,13 @@ const FrmEditItemDetail = (props) => {
   ] = api.useFetchWithHandler();
   const [form] = Ant.Form.useForm();
   const [options, setOptions] = useState([]);
-  useRequestManager({ error: dtAccError });
 
+  useRequestManager({ error: dtAccError });
+  const allLoading = useAllLoading([
+    accountGroupLoading,
+    dtAccLoading,
+
+  ]);
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
@@ -395,7 +401,7 @@ const FrmEditItemDetail = (props) => {
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
-              <Ant.Button type="primary" htmlType="submit">
+              <Ant.Button loading={allLoading || false}  disabled={allLoading || false} type="primary" htmlType="submit">
                 {"تایید"}
               </Ant.Button>
             </Ant.Form.Item>

@@ -20,27 +20,34 @@ import FrmAddItemDetail from "../add/FrmAddItemDetail";
 import FrmEditItemDetail from "../add/FrmEditItemDetail";
 import columns from "../add/columns";
 import * as XLSX from "xlsx";
+import writeXlsxFile from 'write-excel-file'
 const AddItemDetailList = (props) => {
   const { id } = props;
-  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+  const [
+    listAccDocumentDetail,
+    loadingAccDocumentDetail,
+    errorAccDocumentDetail,
+    ApiCallAccDocumentDetail,
+  ] = useFetchWithHandler();
   const [formData, setFormData] = useState({});
   const [dataSource, setDataSource] = useState([]);
-
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
   const [totalCreditor, setTotalCreditor] = useState(0);
   const [totalDebtor, setTotalDebtor] = useState(0);
-  const [data, setData] = useState(null);
   const [
-    listDataHeader,
-    listLoadingHeader,
-    listErrorHeader,
-    listApiCallHeader,
+    accounGrouptData,
+    accountGroupLoading,
+    accountGroupError,
+    accoupGroupApicall,
   ] = api.useFetchWithHandler();
+  const [dtAccData, dtAccLoading, dtAccError, dtAccApi] = useFetchWithHandler();
   const [submitListData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
-  useRequestManager({ error: listErrorHeader });
-  useRequestManager({ error: error });
+  const [listDataHeader, listLoadingHeader, errorHeader, listApiCallHeader] =
+    api.useFetchWithHandler();
+  useRequestManager({ error: errorHeader });
+  useRequestManager({ error: errorAccDocumentDetail });
   useRequestManager({
     error: submitError,
     loading: submitLoading,
@@ -63,23 +70,59 @@ const AddItemDetailList = (props) => {
       children: (totalCreditor - totalDebtor).toLocaleString(),
     },
   ];
+  const items = [
+    {
+      label: (
+        <Ant.Upload
+          beforeUpload={(file) => {
+            handleFileUpload(file);
+            return false;
+          }}
+        >
+      {"وارد کردن فایل اکسل"}
+        </Ant.Upload>
+      ),
+      key: "1",
+    },
+    {
+      label:(<a rel="noopener noreferrer" onClick={() => handleDownloadExampleXLSX()}>
+       { "نمونه فایل اکسل"}
+      </a>) ,
+      key: "2",
+    },
+  ];
 
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    getAllAccountingDocumentDetail();
-  }, []);
-  useEffect(() => {
-    submitListData?.isSuccess && getAllAccountingDocumentDetail();
-  }, [submitListData?.isSuccess]);
 
   useEffect(() => {
     onHeader();
   }, []);
   useEffect(() => {
-    setDataSource((listData?.isSuccess && listData?.data) || null);
-  }, [listData]);
+    getAllAccountingDocumentDetail();
+  }, []);
+  useEffect(() => {
+    accoupGroupApicall(url.ACCOUNT);
+  }, []);
+  useEffect(() => {
+    dtAccApi(url.DETAILED_ACCOUNT);
+  }, []);
+
+  useEffect(() => {
+    accounGrouptData?.isSuccess &&
+      console.log(accounGrouptData?.data, "account");
+  }, [accounGrouptData]);
+
+  useEffect(() => {
+    dtAccData?.isSuccess && console.log(dtAccData?.data, "dtAccData");
+  }, [dtAccData]);
+
+  useEffect(() => {
+    setDataSource(
+      (listAccDocumentDetail?.isSuccess && listAccDocumentDetail?.data) || null,
+    );
+  }, [listAccDocumentDetail]);
 
   useEffect(() => {
     if (dataSource) {
@@ -88,7 +131,6 @@ const AddItemDetailList = (props) => {
         0,
       );
       setTotalCreditor(creditorSum);
-
       const debtorSum = dataSource.reduce((acc, item) => acc + item.debtor, 0);
       setTotalDebtor(debtorSum);
     }
@@ -106,6 +148,10 @@ const AddItemDetailList = (props) => {
     }
   }, [formData]);
 
+  useEffect(() => {
+    submitListData?.isSuccess && getAllAccountingDocumentDetail();
+  }, [submitListData?.isSuccess]);
+
   //====================================================================
   //                        Functions
   //====================================================================
@@ -118,13 +164,37 @@ const AddItemDetailList = (props) => {
       AccountingDocumentID: id,
     };
     const queryString = qs.stringify(data);
-    await ApiCall(`${url.ACCOUNT_DOCUMENT_DETAIL}?${queryString}`);
+    await ApiCallAccDocumentDetail(
+      `${url.ACCOUNT_DOCUMENT_DETAIL}?${queryString}`,
+    );
   };
 
   const closeModal = () => {
     setModalState(false);
   };
 
+  const handleDownloadExampleXLSX = () => {
+    const sampleExcelData = [
+      ["کد حساب", "شماره مرجع","حساب تفصیلی سطح چهار","حساب تفصیلی سطح پنج","حساب تفصیلی سطح شش","شرح ","بدهکار","بستانکار","توضیحات"],
+    ];
+    const sheet = XLSX.utils.aoa_to_sheet(sampleExcelData);
+    const newWorkbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(newWorkbook, sheet, "Sheet1");
+
+    const excelFileContent = XLSX.write(newWorkbook, { bookType: "xlsx", type: "array" });
+    const blob = new Blob([excelFileContent], { type: "application/octet-stream" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "sample.xlsx");
+    document.body.appendChild(link);
+
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+  };
   const handleDataSubmit = (newData) => {
     setFormData(newData);
   };
@@ -159,7 +229,6 @@ const AddItemDetailList = (props) => {
         article: item.article,
       };
     });
-    console.log(formattedData, "formattedData");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
   };
 
@@ -175,7 +244,7 @@ const AddItemDetailList = (props) => {
     }
   };
 
-  const onAdd = (id) => {
+  const onAdd = () => {
     setModalContent(
       <FrmAddItemDetail
         key={uuid.v4()}
@@ -199,10 +268,10 @@ const AddItemDetailList = (props) => {
     setModalState(true);
   };
 
-  const btnUpload = (file) => {
-    console.log(file, "gagag");
-  };
   const handleFileUpload = (file) => {
+    //  accoupGroupApicall(url.ACCOUNT);
+    //  dtAccApi(url.DETAILED_ACCOUNT);
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const binaryString = e.target.result;
@@ -210,34 +279,56 @@ const AddItemDetailList = (props) => {
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-      debugger;
-      setData(excelData);
-      // if (excelData) {
-      //   setDataSource((prevData) => [...prevData, ...excelData]);
-      //   setData(null);
-      // }
+
       if (excelData) {
         console.log(excelData, "excelData");
         const newData = excelData.slice(1).map((item, index) => ({
-          key: index,
+          id: uuid.v4(),
+          key: uuid.v4(),
           rowNumber: 0,
-          accountName: item[0],
-          referenceNo: item[1],
-          detailedAccountName4: item[2],
-          detailedAccountName5: item[3],
-          detailedAccountName6: item[4],
-          article: item[5],
-          debtor: item[6],
-          creditor: item[7],
+          accountId: item[0],
+          accountName: 0,
+          detailedAccountName4: 0,
+          detailedAccountName5: 0,
+          detailedAccountName6: 0,
+          referenceNo: String(item[1]),
+          detailedAccountId4: item[2],
+          detailedAccountId5: item[3],
+          detailedAccountId6: item[4],
+          article: String(item[5]),
+          debtor: item[6] ?? 0,
+          creditor: item[7] ?? 0,
           description: item[8],
         }));
 
-        console.log(newData, "newData");
-        setDataSource((prevData) => [...prevData, ...newData]);
-        setData(null);
+        accounGrouptData?.isSuccess &&
+          accounGrouptData?.data.forEach((accoun) => {
+            newData.forEach((item) => {
+              if (accoun.id === item.accountId) {
+                item.accountName = accoun.name;
+              }
+            });
+          });
+        dtAccData?.isSuccess &&
+          dtAccData?.data.forEach((i) => {
+            newData.forEach((item) => {
+              if (i.id === item.detailedAccountId4) {
+                item.detailedAccountName4 = i.name;
+              }
+              if (i.id === item.detailedAccountId5) {
+                item.detailedAccountName5 = i.name;
+              }
+              if (i.id === item.detailedAccountId6) {
+                item.detailedAccountName6 = i.name;
+              }
+            });
+          });
+
+        setDataSource((prevData) =>
+          prevData ? [...prevData, ...newData] : newData,
+        );
       }
     };
-    // reader.readAsArrayBuffer(file);
     reader.readAsBinaryString(file);
   };
   //====================================================================
@@ -249,19 +340,15 @@ const AddItemDetailList = (props) => {
       <>
         <ButtonList onAdd={onAdd} onSave={btnSubmit}>
           <Ant.Tooltip title={" وارد کرد فایل اکسل"}>
-            <Ant.Upload
-              beforeUpload={(file) => {
-                handleFileUpload(file);
-                return false;
+            <Ant.Dropdown.Button
+              menu={{
+                items,
               }}
+              className="green-700 border-green-700"
+              size="large"
             >
-              <Ant.Button
-                className="text-green-700 border-green-700"
-                size="large"
-              >
-                <ImFileExcel />
-              </Ant.Button>
-            </Ant.Upload>
+              <ImFileExcel />
+            </Ant.Dropdown.Button>
           </Ant.Tooltip>
         </ButtonList>
       </>
@@ -270,12 +357,12 @@ const AddItemDetailList = (props) => {
   const Grid = () => {
     return (
       <>
-        {data && (
+        {/* {data && (
           <div>
             <h2>Imported Data:</h2>
             <pre>{JSON.stringify(data, null, 2)}</pre>
           </div>
-        )}
+        )} */}
 
         <Ant.Table
           key={id}
@@ -310,11 +397,20 @@ const AddItemDetailList = (props) => {
       </Ant.Modal>
 
       <ModalHeader
-        title={`اضافه کردن جزییات : شماره سند  (${listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `}
+        title={
+          (listLoadingHeader && <Ant.Spin />) ||
+          `اضافه کردن جزییات : شماره سند  (${listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `
+        }
         icon={<MdDescription />}
       />
-      <CoustomContent height="75vh" loading={loadingData}>
-        <Grid />
+      <CoustomContent height="75vh" loading={loadingAccDocumentDetail}>
+        <Ant.Table
+          key={id}
+          {...defaultValues.TABLE_PROPS}
+          columns={columns(onDelete, onEdit)}
+          title={title}
+          dataSource={dataSource}
+        />
         <Ant.Row>
           <Ant.Col>
             <Ant.Descriptions

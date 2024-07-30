@@ -9,12 +9,12 @@ import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
-
+import useAllLoading from '@/hooks/useAllLoading '
 import { FaFileMedical } from "react-icons/fa";
 import { keys } from "highcharts";
 const FrmAddItemDetail = (props) => {
   const { form,id } = props;
-  const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
+
   const [valueType, setValueType] = useState("0");
   const [creditor, setCreditor] = useState(0);
   const [debtor, setDebtor] = useState(0);
@@ -22,6 +22,7 @@ const FrmAddItemDetail = (props) => {
     id: null,
     name: "",
   });
+  const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [selectedDetailedAccountFour, setDetailedAccountFour] = useState();
   const [selectedDetailedAccountFive, setDetailedAccountFive] = useState();
   const [selectedDetailedAccountSix, setDetailedAccountSix] = useState();
@@ -32,22 +33,12 @@ const FrmAddItemDetail = (props) => {
     accountGroupError,
     accoupGroupApicall,
   ] = api.useFetchWithHandler();
-  const DisplayCascader = () => {
-    const displayRender = (labels, selectedOptions) => (
-      <span>
-        {labels.map((label, index) => {
-          const option = selectedOptions[index];
-          const code = option ? `(کد: ${option.code})` : '';
-          return (
-            <span key={index}>
-              {label} {code}
-              {index !== labels.length - 1 && ' / '}
-            </span>
-          );
-        })}
-      </span>
-    );
-     }
+  const allLoading = useAllLoading([
+    accountGroupLoading,
+    dtAccLoading,
+
+  ]);
+
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: accountGroupError });
@@ -138,7 +129,6 @@ const FrmAddItemDetail = (props) => {
       key: uuid.v1(),
       id:uuid.v1(),
     };
-    console.log(req,"reqadd")
     props.onDataSubmit(req);
     props.closeModal();
   };
@@ -291,12 +281,6 @@ const FrmAddItemDetail = (props) => {
             <Ant.Form.Item
               name={valueType == "0" ? "debtor" : "creditor"}
               label="مبلغ"
-              // rules={[
-              //   {
-              //     required: true,
-              //     message: "مبلغ  اجباری است",
-              //   },
-              // ]}
               rules={[
                 {
                   required: true,
@@ -315,9 +299,6 @@ const FrmAddItemDetail = (props) => {
               ]}
             >
               <Ant.InputNumber
-                onChange={(e) => {
-                  getValue(e);
-                }}
                 formatter={(value) =>
                   value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
@@ -351,7 +332,7 @@ const FrmAddItemDetail = (props) => {
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
-              <Ant.Button type="primary" htmlType="submit">
+              <Ant.Button loading={allLoading || false} disabled={allLoading || false} type="primary" htmlType="submit">
                 {"تایید"}
               </Ant.Button>
             </Ant.Form.Item>
