@@ -140,29 +140,12 @@ const ActionSwitchList = (props) => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
-            title={title}
-            columns={cl(onPermission)}
-            onChange={handleTableChange}
-            dataSource={dataSource || null}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
-
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <ModalHeader title={` ویرایش عملیات نقش" ${name} "`} icon={<SiGithubactions />}/>
+      <ModalHeader title={` ویرایش عملیات نقش" ${name} "`} icon={<SiGithubactions />} />
       <Ant.Modal
         open={modalState}
         handleCancel={() => setModalState(false)}
@@ -185,7 +168,15 @@ const ActionSwitchList = (props) => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
+            title={title}
+            columns={cl(onPermission)}
+            onChange={handleTableChange}
+            dataSource={dataSource || null}
+            loading={loading}
+          />
         </FilterBedge>
       </CoustomContent>
     </>

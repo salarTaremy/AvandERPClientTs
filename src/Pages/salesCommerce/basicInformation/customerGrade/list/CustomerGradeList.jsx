@@ -96,21 +96,6 @@ const CustomerGradeList = () => {
         );
     };
 
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        size="small"
-                        {...defaultValues.TABLE_PROPS}
-                        title={title}
-                        columns={columns(onDelete, onEdit)}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        );
-    };
     //====================================================================
     //                        Component
     //====================================================================
@@ -127,8 +112,15 @@ const CustomerGradeList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"رتبه مشتری"} type="inner" loading={loading}>
-                <Grid />
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"رتبه مشتری"} type="inner" >
+                <Ant.Table
+                    size="small"
+                    {...defaultValues.TABLE_PROPS}
+                    title={title}
+                    columns={columns(onDelete, onEdit)}
+                    dataSource={dataSource}
+                    loading={loading}
+                />
             </Ant.Card>
         </>
     );

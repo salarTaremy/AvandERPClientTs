@@ -72,7 +72,7 @@ const SaleDocumentTypeList = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditSaleDocType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id}/>,
+      <FormEditSaleDocType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id} />,
     );
     setModalState(true);
   };
@@ -91,21 +91,6 @@ const SaleDocumentTypeList = () => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            columns={columns(onDelSuccess, onEdit)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -126,9 +111,15 @@ const SaleDocumentTypeList = () => {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"لیست نوع برگه های فروش"}
         type="inner"
-        loading={loading}
       >
-        <Grid />
+        <Ant.Table
+          size="small"
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          columns={columns(onDelSuccess, onEdit)}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Ant.Card>
     </>
   );

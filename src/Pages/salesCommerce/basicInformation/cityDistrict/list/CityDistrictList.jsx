@@ -136,23 +136,6 @@ const CityDistrictList = () => {
         );
     };
 
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        size="small"
-                        {...defaultValues.TABLE_PROPS}
-                        pagination={pagination}
-                        title={title}
-                        columns={columns(onDelete, onEdit)}
-                        onChange={handleTableChange}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        );
-    };
     //====================================================================
     //                        Component
     //====================================================================
@@ -169,7 +152,7 @@ const CityDistrictList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"مناطق شهری "} type="inner" loading={loading}>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"مناطق شهری "} type="inner" >
                 <FilterDrawer
                     open={openFilter}
                     onClose={() => setOpenFilter(false)}
@@ -178,7 +161,16 @@ const CityDistrictList = () => {
                     <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
                 </FilterDrawer>
                 <FilterBedge filterCount={filterCount}>
-                    <Grid />
+                    <Ant.Table
+                        size="small"
+                        {...defaultValues.TABLE_PROPS}
+                        pagination={pagination}
+                        title={title}
+                        columns={columns(onDelete, onEdit)}
+                        onChange={handleTableChange}
+                        dataSource={dataSource}
+                        loading={loading}
+                    />
                 </FilterBedge>
             </Ant.Card>
         </>

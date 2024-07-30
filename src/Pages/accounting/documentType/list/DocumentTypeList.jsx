@@ -106,18 +106,7 @@ const DocumentTypeList = () => {
       />
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          columns={columns(onDelSuccess, onEdit)}
-          dataSource={dataSource}
-        />
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -139,9 +128,14 @@ const DocumentTypeList = () => {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"لیست سند حسابداری"}
         type="inner"
-        loading={loading}
       >
-        <Grid />
+        <Ant.Table
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          columns={columns(onDelSuccess, onEdit)}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Ant.Card>
     </>
   );

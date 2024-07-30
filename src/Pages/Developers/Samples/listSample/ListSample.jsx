@@ -65,25 +65,13 @@ const ListSample = (props) => {
       />
     )
   }
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          columns={columns()}
-          title={Title}
-          dataSource={(listData?.isSuccess && listData?.data) || null}
-        />
-      </>
-    )
-  }
 
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={listLoading} title={pageTitle} type="inner">
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={pageTitle} type="inner">
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -92,7 +80,13 @@ const ListSample = (props) => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            columns={columns()}
+            title={Title}
+            dataSource={(listData?.isSuccess && listData?.data) || null}
+            loading={listLoading}
+          />
         </FilterBedge>
       </Ant.Card>
       <Ant.Space direction='vertical' >

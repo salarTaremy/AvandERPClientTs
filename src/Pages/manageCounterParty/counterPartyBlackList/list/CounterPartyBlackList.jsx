@@ -90,20 +90,6 @@ const CounterPartyBlackList = () => {
             />
         );
     };
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        {...defaultValues.TABLE_PROPS}
-                        title={title}
-                        columns={columns}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        );
-    };
 
     //====================================================================
     //                        Component
@@ -122,7 +108,6 @@ const CounterPartyBlackList = () => {
                 {modalContent}
             </Ant.Modal>
             <Ant.Card
-                loading={loading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
                 className="w-full"
                 title={"مدیریت طرف حساب های بلوکه"}
@@ -136,7 +121,13 @@ const CounterPartyBlackList = () => {
                     <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
                 </FilterDrawer>
                 <FilterBedge filterCount={filterCount}>
-                    <Grid />
+                    <Ant.Table
+                        {...defaultValues.TABLE_PROPS}
+                        title={title}
+                        columns={columns}
+                        dataSource={dataSource}
+                        loading={loading}
+                    />
                 </FilterBedge>
             </Ant.Card>
         </>

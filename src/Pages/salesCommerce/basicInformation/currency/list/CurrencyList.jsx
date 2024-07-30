@@ -100,21 +100,6 @@ const CurrencyList = () => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            columns={columns(onDelSuccess, onEdit)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -135,11 +120,15 @@ const CurrencyList = () => {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"لیست ارزها"}
         type="inner"
-        loading={loading}
       >
-
-
-        <Grid />
+        <Ant.Table
+          size="small"
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          columns={columns(onDelSuccess, onEdit)}
+          dataSource={dataSource}
+          loading={loading}
+        />
 
       </Ant.Card>
     </>

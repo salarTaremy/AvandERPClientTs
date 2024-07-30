@@ -128,23 +128,6 @@ const PriceCircularDetailList = (props) => {
         );
     };
 
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={listLoading}>
-                    <Ant.Table
-                        columns={columns(onDelete, onEdit, onProductView, onBatchNumberView)}
-                        dataSource={dataSource}
-                        pagination={pagination}
-                        {...defaultValues.TABLE_PROPS}
-                        title={title}
-                        onChange={handleTableChange}
-                    />
-                </Ant.Skeleton>
-            </>
-        )
-    }
-
     //====================================================================
     //                        Component
     //====================================================================
@@ -164,7 +147,15 @@ const PriceCircularDetailList = (props) => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Grid />
+            <Ant.Table
+                columns={columns(onDelete, onEdit, onProductView, onBatchNumberView)}
+                dataSource={dataSource}
+                pagination={pagination}
+                {...defaultValues.TABLE_PROPS}
+                title={title}
+                onChange={handleTableChange}
+                loading={listLoading}
+            />
         </>
     )
 }

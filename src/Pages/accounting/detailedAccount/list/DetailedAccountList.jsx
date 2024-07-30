@@ -30,7 +30,7 @@ const DetailedAccountList = () => {
   const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
-  const [modalSize, setModalSize] = useState({...defaultValues.MODAL_LARGE});
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   useRequestManager({ error: listError });
   useRequestManager({ error: delError, data: delData, loading: delLoading });
   //====================================================================
@@ -77,7 +77,7 @@ const DetailedAccountList = () => {
     fillGrid();
   };
   const onAdd = () => {
-    const updateList = { ...defaultValues.MODAL_LARGE, width:520 };
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList)
     setModalContent(
       <FrmAddDetailedAccount onSuccess={onSuccessAdd} key={uuid.v1()} />,
@@ -88,7 +88,7 @@ const DetailedAccountList = () => {
     await delApiCall(`${url.DETAILED_ACCOUNT}/${id}`);
   };
   const onEdit = (val) => {
-    const updateList = { ...defaultValues.MODAL_LARGE, width:520 };
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList)
     setModalContent(
       <FrmEditDetailedAccount
@@ -101,7 +101,7 @@ const DetailedAccountList = () => {
     setModalState(true);
   };
   const onView = (id) => {
-    setModalSize({...defaultValues.MODAL_LARGE})
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(<DetailedAccountDescription id={id} key={id} />);
     setModalState(true);
   };
@@ -122,19 +122,7 @@ const DetailedAccountList = () => {
       />
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          loading={delLoading}
-          {...defaultValues.TABLE_PROPS}
-          columns={columns(onDelete, onEdit, onView)}
-          title={title}
-          dataSource={dataSource}
-        />
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -156,7 +144,7 @@ const DetailedAccountList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={listLoading} title={pageTitle} type="inner">
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={pageTitle} type="inner">
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -165,7 +153,13 @@ const DetailedAccountList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            columns={columns(onDelete, onEdit, onView)}
+            title={title}
+            dataSource={dataSource}
+            loading={listLoading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

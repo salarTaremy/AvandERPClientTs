@@ -91,7 +91,7 @@ const PaymentTypeList = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditPaymentType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id}/>,
+      <FormEditPaymentType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id} />,
     );
     setModalState(true);
   };
@@ -113,21 +113,6 @@ const PaymentTypeList = () => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            columns={columns(onDelSuccess, onEdit)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -148,7 +133,6 @@ const PaymentTypeList = () => {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"لیست نوع پرداخت"}
         type="inner"
-        loading={loading}
       >
         <FilterDrawer
           open={openFilter}
@@ -158,7 +142,14 @@ const PaymentTypeList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            size="small"
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            columns={columns(onDelSuccess, onEdit)}
+            dataSource={dataSource}
+            loading={loading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

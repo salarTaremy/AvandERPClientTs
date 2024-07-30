@@ -149,24 +149,6 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            rowSelection={{ ...rowSelection }}
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            pagination={pagination}
-            columns={columns()}
-            onChange={handleTableChange}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
-
   //====================================================================
   //                        Component
   //====================================================================
@@ -183,7 +165,16 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            rowSelection={{ ...rowSelection }}
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            pagination={pagination}
+            columns={columns()}
+            onChange={handleTableChange}
+            dataSource={dataSource}
+            loading={loading}
+          />
         </FilterBedge>
       </CoustomContent>
 

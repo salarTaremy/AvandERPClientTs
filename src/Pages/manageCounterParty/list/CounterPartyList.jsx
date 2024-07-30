@@ -183,23 +183,6 @@ const CounterPartyList = () => {
 
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            pagination={pagination}
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            onChange={handleTableChange}
-            columns={columns(onDelSuccess, onEdit, onView, onBlock)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -222,7 +205,6 @@ const CounterPartyList = () => {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"مدیریت طرف حساب ها"}
         type="inner"
-        loading={loading}
       >
         <FilterDrawer
           open={openFilter}
@@ -232,7 +214,16 @@ const CounterPartyList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            pagination={pagination}
+            size="small"
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            onChange={handleTableChange}
+            columns={columns(onDelSuccess, onEdit, onView, onBlock)}
+            dataSource={dataSource}
+            loading={loading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

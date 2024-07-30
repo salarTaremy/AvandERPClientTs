@@ -131,23 +131,6 @@ const VisitorManagmentList = () => {
         );
     };
 
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        size="small"
-                        {...defaultValues.TABLE_PROPS}
-                        pagination={pagination}
-                        title={title}
-                        columns={columns(onDelete, onEdit)}
-                        onChange={handleTableChange}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        );
-    };
     //====================================================================
     //                        Component
     //====================================================================
@@ -166,7 +149,7 @@ const VisitorManagmentList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"مدیریت ویزیتورها"} type="inner" loading={loading}>
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"مدیریت ویزیتورها"} type="inner" >
                 <FilterDrawer
                     open={openFilter}
                     onClose={() => setOpenFilter(false)}
@@ -175,7 +158,16 @@ const VisitorManagmentList = () => {
                     <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
                 </FilterDrawer>
                 <FilterBedge filterCount={filterCount}>
-                    <Grid />
+                    <Ant.Table
+                        size="small"
+                        {...defaultValues.TABLE_PROPS}
+                        pagination={pagination}
+                        title={title}
+                        columns={columns(onDelete, onEdit)}
+                        onChange={handleTableChange}
+                        dataSource={dataSource}
+                        loading={loading}
+                    />
                 </FilterBedge>
             </Ant.Card>
         </>

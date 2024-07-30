@@ -86,27 +86,12 @@ const SaleChannelList = () => {
       <ButtonList
         onAdd={onAdd}
         onRefresh={() => {
-            getAllSaleChannel();
+          getAllSaleChannel();
         }}
       />
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            columns={columns(onDelSuccess, onEdit)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -123,8 +108,15 @@ const SaleChannelList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست کانال فروش"} type="inner" loading={loading}>
-        <Grid />
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست کانال فروش"} type="inner" >
+        <Ant.Table
+          size="small"
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          columns={columns(onDelSuccess, onEdit)}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Ant.Card>
     </>
   );

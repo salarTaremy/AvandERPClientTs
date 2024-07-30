@@ -101,23 +101,6 @@ const CustomerGroupList = () => {
         );
     };
 
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        size="small"
-                        {...defaultValues.TABLE_PROPS}
-                        pagination={pagination}
-                        title={title}
-                        columns={columns(onDelete, onEdit)}
-                        onChange={handleTableChange}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        );
-    };
     //====================================================================
     //                        Component
     //====================================================================
@@ -134,8 +117,17 @@ const CustomerGroupList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"گروه مشتری"} type="inner" loading={loading}>
-                <Grid />
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"گروه مشتری"} type="inner" >
+                <Ant.Table
+                    size="small"
+                    {...defaultValues.TABLE_PROPS}
+                    pagination={pagination}
+                    title={title}
+                    columns={columns(onDelete, onEdit)}
+                    onChange={handleTableChange}
+                    dataSource={dataSource}
+                    loading={loading}
+                />
             </Ant.Card>
         </>
     );

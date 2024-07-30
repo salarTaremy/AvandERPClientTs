@@ -18,7 +18,7 @@ const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persia
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
     const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
     const [selectedUser, setSelectedUser] = useState(null)
-    useRequestManager({ error: error})
+    useRequestManager({ error: error })
     useRequestManager({ error: editError, loading: editLoading, data: editData })
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [idActionsList, setIdActionsList] = useState([]);
@@ -111,21 +111,6 @@ const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persia
     //====================================================================
     //                        Child Components
     //====================================================================
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        rowSelection={{ ...rowSelection }}
-                        {...defaultValues.TABLE_PROPS}
-                        pagination={false}
-                        columns={columns()}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        )
-    }
 
     //====================================================================
     //                        Component
@@ -133,7 +118,14 @@ const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persia
     return (
         <>
             <ModalHeader title={`ویرایش دسترسی عملیات نقش " ${name} " بخش " ${persianTitle} "`} />
-            <Grid />
+            <Ant.Table
+                rowSelection={{ ...rowSelection }}
+                {...defaultValues.TABLE_PROPS}
+                pagination={false}
+                columns={columns()}
+                dataSource={dataSource}
+                loading={loading}
+            />
             <Ant.Button block
                 className='mt-4'
                 loading={editLoading}

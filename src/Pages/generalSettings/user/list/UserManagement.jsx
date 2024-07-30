@@ -203,23 +203,6 @@ const UserManagement = () => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
-            title={title}
-            columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch, onOtherAccesses)}
-            onChange={handleTableChange}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
-
   //====================================================================
   //                        Component
   //====================================================================
@@ -245,7 +228,6 @@ const UserManagement = () => {
         {modalContent}
       </Ant.Modal>
       <Ant.Card
-        loading={loading}
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         className="w-full"
         title={"مدیریت کاربران"}
@@ -259,7 +241,15 @@ const UserManagement = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
+            title={title}
+            columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch, onOtherAccesses)}
+            onChange={handleTableChange}
+            dataSource={dataSource}
+            loading={loading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>
