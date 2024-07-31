@@ -46,12 +46,9 @@ const OtherSettingList = () => {
         }
         await editApiCall(url.TPS_CONFIG, req)
     }
-
+    const options = [{ value: "http://" }, { value: "https://" }]
     const addonAfter = (
-        <Ant.Select defaultValue={defaultValue} onChange={(value) => setSelectedSchema(value)}>
-            <Option value="http://">://http</Option>
-            <Option value="https://">://https</Option>
-        </Ant.Select>
+        <Ant.Select defaultValue={defaultValue} onChange={(value) => setSelectedSchema(value)} options={options} />
     )
 
     //====================================================================
