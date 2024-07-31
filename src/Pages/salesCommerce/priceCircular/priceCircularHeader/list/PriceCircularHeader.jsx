@@ -142,23 +142,6 @@ const PriceCircularHeader = () => {
       </>
     );
   };
-  //====================================================================
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={listLoading}>
-          <Ant.Table
-            columns={columns(onDelete, onEdit, onView, onCopy, onChange)}
-            dataSource={dataSource}
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            pagination={pagination}
-            onChange={onTableChange}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
 
   //====================================================================
   //                        Component
@@ -179,7 +162,6 @@ const PriceCircularHeader = () => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        loading={listLoading}
         title={pageTitle}
         type="inner"
       >
@@ -191,7 +173,15 @@ const PriceCircularHeader = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            columns={columns(onDelete, onEdit, onView, onCopy, onChange)}
+            dataSource={dataSource}
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            pagination={pagination}
+            onChange={onTableChange}
+            loading={listLoading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

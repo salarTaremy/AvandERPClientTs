@@ -94,24 +94,6 @@ const CounterPartyStateList = (props) => {
         )
     }
 
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        {...defaultValues.TABLE_PROPS}
-                        title={title}
-                        className="mt-5"
-                        pagination={pagination}
-                        columns={cl()}
-                        onChange={handleTableChange}
-                        dataSource={dataSource || null}
-                    />
-                </Ant.Skeleton>
-            </>
-        )
-    }
-
     //====================================================================
     //                        Component
     //====================================================================
@@ -133,7 +115,16 @@ const CounterPartyStateList = (props) => {
             <br></br>
 
             <ModalHeader title={`وضعیت اعتبار "${counterPartyName}"`} icon={<GrValidate />} />
-            <Grid />
+            <Ant.Table
+                {...defaultValues.TABLE_PROPS}
+                title={title}
+                className="mt-5"
+                pagination={pagination}
+                columns={cl()}
+                onChange={handleTableChange}
+                dataSource={dataSource || null}
+                loading={loading}
+            />
 
         </>
     );

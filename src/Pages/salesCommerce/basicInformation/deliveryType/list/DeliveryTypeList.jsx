@@ -95,21 +95,6 @@ const DeliveryType = () => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            columns={columns(onDelSuccess, onEdit)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -130,12 +115,15 @@ const DeliveryType = () => {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"لیست انواع تحویل"}
         type="inner"
-        loading={loading}
       >
-
-
-        <Grid />
-
+        <Ant.Table
+          size="small"
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          columns={columns(onDelSuccess, onEdit)}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Ant.Card>
     </>
   );

@@ -113,23 +113,6 @@ const CounterpartyBankAccountList = (props) => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            pagination={pagination}
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            onChange={handleTableChange}
-            columns={columns(onDelete, onEdit)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -149,10 +132,18 @@ const CounterpartyBankAccountList = (props) => {
       </Ant.Modal>
       <Ant.Card
         style={{ boxShadow: "0 0 0 0", maxHeight: "60vh", minHeight: "60vh" }}
-        loading={loading}
         bordered={false}
       >
-        <Grid />
+        <Ant.Table
+          pagination={pagination}
+          size="small"
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          onChange={handleTableChange}
+          columns={columns(onDelete, onEdit)}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Ant.Card>
     </>
   );

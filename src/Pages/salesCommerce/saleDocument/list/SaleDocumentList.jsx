@@ -123,23 +123,7 @@ const SaleDocumentList = () => {
       </>
     );
   };
-  //====================================================================
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={listLoading}>
-          <Ant.Table
-            columns={columns(onDelete, onEdit, onView, onViewCustomer)}
-            dataSource={dataSource}
-            pagination={pagination}
-            onChange={handleTableChange}
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -160,7 +144,6 @@ const SaleDocumentList = () => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        loading={listLoading}
         title={pageTitle}
         type="inner"
       >
@@ -172,7 +155,15 @@ const SaleDocumentList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            columns={columns(onDelete, onEdit, onView, onViewCustomer)}
+            dataSource={dataSource}
+            pagination={pagination}
+            onChange={handleTableChange}
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            loading={listLoading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

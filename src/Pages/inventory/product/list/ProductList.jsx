@@ -102,7 +102,6 @@ const ProductList = () => {
     setModalState(true)
   }
   const onEdit = (id) => {
-    console.log(id, "sogol")
     id && navigateTo(`/inventory/product/edit/${id}`, { id })
   }
   //====================================================================
@@ -120,22 +119,6 @@ const ProductList = () => {
           setOpenFilter(true)
         }}
       />
-    )
-  }
-
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          loading={delLoading}
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          columns={columns(onDelSuccess, onView, onEdit)}
-          dataSource={dataSource}
-          pagination={pagination}
-          onChange={onTableChange}
-        />
-      </>
     )
   }
 
@@ -160,7 +143,7 @@ const ProductList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={loading} title={'مدیریت کالا و خدمات'} type="inner" >
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={'مدیریت کالا و خدمات'} type="inner" >
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -169,7 +152,15 @@ const ProductList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            columns={columns(onDelSuccess, onView, onEdit)}
+            dataSource={dataSource}
+            pagination={pagination}
+            onChange={onTableChange}
+            loading={loading}
+          />
         </FilterBedge>
 
       </Ant.Card>

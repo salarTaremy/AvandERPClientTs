@@ -12,7 +12,7 @@ const FormAddBrand = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
-  const [selectData, selectLoading, selectError] = api.useFetch(url.BRAND);
+  const [selectData, selectLoading, selectError] = api.useFetch(url.SUPPLIER);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
   useRequestManager({ error: selectError });
@@ -74,7 +74,7 @@ const FormAddBrand = (props) => {
   };
   return (
     <>
-      <ModalHeader title={"ایجاد برند"} icon={<TbBrandAirtable />}/>
+      <ModalHeader title={"ایجاد برند"} icon={<TbBrandAirtable />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item
           name={"supplierId"}
@@ -88,7 +88,7 @@ const FormAddBrand = (props) => {
             disabled={selectLoading || false}
             loading={selectLoading}
             options={selectData?.data}
-            fieldNames={{ label: "name", value: "supplierId" }}
+            fieldNames={{ label: "name", value: "id" }}
           />
         </Ant.Form.Item>
         <Ant.Form.Item

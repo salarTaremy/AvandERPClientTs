@@ -67,7 +67,7 @@ const BranchList = () => {
   const handleTableChange = (pagination) => {
     setPagination(pagination);
   };
-  
+
   //====================================================================
   //                        Events
   //====================================================================
@@ -95,23 +95,6 @@ const BranchList = () => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
-            title={title}
-            columns={columns(onDelSuccess, onEdit)}
-            onChange={handleTableChange}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -129,8 +112,17 @@ const BranchList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست شعب"} type="inner" loading={loading}>
-        <Grid />
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست شعب"} type="inner" >
+        <Ant.Table
+          size="small"
+          {...defaultValues.TABLE_PROPS}
+          pagination={pagination}
+          title={title}
+          columns={columns(onDelSuccess, onEdit)}
+          onChange={handleTableChange}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Ant.Card>
     </>
   );

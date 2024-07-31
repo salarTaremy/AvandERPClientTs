@@ -99,11 +99,11 @@ const CustomerManagementList = () => {
   //====================================================================
   //                        Events
   //====================================================================
-  const onSuccessView =()=>{
+  const onSuccessView = () => {
     setModalState(false);
     getAllCustomer();
   }
-  
+
   const onView = (id) => {
     setModalContent(<CustomerDescription id={id} onSuccess={onSuccessView} />);
     setModalState(true);
@@ -160,22 +160,7 @@ const CustomerManagementList = () => {
       />
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loadingData}>
-          <Ant.Table
-            pagination={pagination}
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            onChange={handleTableChange}
-            columns={columns(onDelete, onEdit, onView)}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -200,7 +185,6 @@ const CustomerManagementList = () => {
 
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        loading={loadingData}
         title={"مدیریت مشتریان"}
         type="inner"
       >
@@ -212,7 +196,15 @@ const CustomerManagementList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            pagination={pagination}
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            onChange={handleTableChange}
+            columns={columns(onDelete, onEdit, onView)}
+            dataSource={dataSource}
+            loading={loadingData}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

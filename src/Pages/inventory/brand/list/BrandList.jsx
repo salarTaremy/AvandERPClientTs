@@ -110,25 +110,14 @@ const BrandList = () => {
       />
     )
   }
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          columns={columns(onDelete, onEdit, onView)}
-          dataSource={dataSource}
-        />
-      </>
-    )
-  }
+
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-     <Ant.Modal
-       {...defaultValues.MODAL_PROPS}
+      <Ant.Modal
+        {...defaultValues.MODAL_PROPS}
         open={modalState}
         centered
         getContainer={null}
@@ -143,18 +132,24 @@ const BrandList = () => {
         {modalContent}
       </Ant.Modal>
 
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={loadingData} title={'برند'} type="inner">
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={'برند'} type="inner">
 
-          <FilterDrawer
-            open={openFilter}
-            onClose={() => setOpenFilter(false)}
-            onRemoveFilter={onRemoveFilter}
-          >
-            <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-          </FilterDrawer>
-          <FilterBedge filterCount={filterCount}>
-            <Grid />
-          </FilterBedge>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            columns={columns(onDelete, onEdit, onView)}
+            dataSource={dataSource}
+            loading={loadingData}
+          />
+        </FilterBedge>
 
       </Ant.Card>
 

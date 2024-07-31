@@ -102,23 +102,6 @@ const AuthInfoList = () => {
         );
     };
 
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={loading}>
-                    <Ant.Table
-                        size="small"
-                        {...defaultValues.TABLE_PROPS}
-                        pagination={pagination}
-                        title={title}
-                        columns={columns(onDelete, onEdit)}
-                        onChange={handleTableChange}
-                        dataSource={dataSource}
-                    />
-                </Ant.Skeleton>
-            </>
-        );
-    };
     //====================================================================
     //                        Component
     //====================================================================
@@ -135,8 +118,17 @@ const AuthInfoList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"اطلاعات احراز هویت"} type="inner" loading={loading}>
-                <Grid />
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"اطلاعات احراز هویت"} type="inner" >
+                <Ant.Table
+                    size="small"
+                    {...defaultValues.TABLE_PROPS}
+                    pagination={pagination}
+                    title={title}
+                    columns={columns(onDelete, onEdit)}
+                    onChange={handleTableChange}
+                    dataSource={dataSource}
+                    loading={loading}
+                />
             </Ant.Card>
         </>
     );

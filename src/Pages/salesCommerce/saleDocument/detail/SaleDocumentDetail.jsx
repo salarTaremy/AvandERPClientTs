@@ -79,48 +79,41 @@ const SaleDocumentDetail = (props) => {
   };
   const handleTableChange = (pagination, filter, sorter) => {
     setPagination(pagination);
-  };
-  //====================================================================
-  //                        Child Components
-  //====================================================================
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Modal
-          open={modalOpenState}
-          centered
-          {...defaultValues.MODAL_PROPS}
-          {...defaultValues.MODAL_LARGE}
-          getContainer={null}
-          footer={null}
-          onCancel={() => setModalOpenState(false)}
-          onOk={() => setModalOpenState(false)}
-        >
-          {modalContent}
-        </Ant.Modal>
-        <Ant.Skeleton loading={listLoading}>
-          <Ant.Table
-            columns={columns(
-              onDelete,
-              onEdit,
-              onView,
-              onProductView,
-              onPriceCircularView,
-              onEffectiveFactorDetailView,
-            )}
-            dataSource={dataSource}
-            pagination={pagination}
-            {...defaultValues.TABLE_PROPS}
-            onChange={handleTableChange}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
+  };  
   //====================================================================
   //                        Component
   //====================================================================
-  return <Grid />;
+  return (
+    <>
+      <Ant.Modal
+        open={modalOpenState}
+        centered
+        {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_LARGE}
+        getContainer={null}
+        footer={null}
+        onCancel={() => setModalOpenState(false)}
+        onOk={() => setModalOpenState(false)}
+      >
+        {modalContent}
+      </Ant.Modal>
+      <Ant.Table
+        columns={columns(
+          onDelete,
+          onEdit,
+          onView,
+          onProductView,
+          onPriceCircularView,
+          onEffectiveFactorDetailView,
+        )}
+        dataSource={dataSource}
+        pagination={pagination}
+        loading={listLoading}
+        {...defaultValues.TABLE_PROPS}
+        onChange={handleTableChange}
+      />
+    </>
+  );
 };
 
 export default SaleDocumentDetail;

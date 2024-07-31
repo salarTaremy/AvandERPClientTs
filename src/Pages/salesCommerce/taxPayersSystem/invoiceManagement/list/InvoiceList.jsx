@@ -39,9 +39,11 @@ const InvoiceList = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
   const [filterObject, setFilterObject] = useState();
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 10,
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
   });
   const [modalOpenState, setModalOpenState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -66,9 +68,12 @@ const InvoiceList = () => {
     const queryString = qs.stringify({
       ...filterObject,
       ...customerFilter,
-      pageNumber: pagination.current,
-      pageSize: pagination.pageSize,
+      pageNumber: tableParams.pagination?.current,
+      pageSize: tableParams.pagination?.pageSize,
+      order: tableParams.sortOrder,
+      orderByField: tableParams.sortField,
     });
+
     await invoiceListApiCall(`${url.TPS_INVOICE_MANAGEMENT}?${queryString}`);
   };
 
@@ -79,7 +84,11 @@ const InvoiceList = () => {
   };
 
   const handleTableChange = (pagination, filters, sorter) => {
-    setPagination(pagination);
+    setTableParams({
+      pagination: pagination,
+      sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+      sortField: Array.isArray(sorter) ? undefined : sorter.field,
+    });
   };
 
   const onRemoveFilter = () => {
@@ -139,18 +148,33 @@ const InvoiceList = () => {
   //====================================================================
   useEffect(() => {
     getInvoiceList();
-  }, [pagination.current, pagination.pageSize]);
+  }, [
+    tableParams.pagination?.current,
+    tableParams.pagination?.pageSize,
+    tableParams?.sortOrder,
+    tableParams?.sortField,
+  ]);
 
   useEffect(() => {
     setDataSource(invoiceListData?.data);
-    setPagination({
-      ...pagination,
-      total: invoiceListData?.data[0]?.totalCount,
+    setTableParams({
+      ...tableParams,
+      pagination: {
+        ...tableParams.pagination,
+        total: invoiceListData?.data[0]?.totalCount,
+      },
     });
   }, [invoiceListData]);
 
   useEffect(() => {
-    setPagination({ ...pagination, current: 1 });
+    setTableParams({
+      ...tableParams,
+      pagination: {
+        ...tableParams.pagination,
+        current: 1,
+      },
+    });
+
     filterObject && console.log(Object.keys(filterObject));
     filterObject &&
       setFilterCount(
@@ -192,29 +216,6 @@ const InvoiceList = () => {
     );
   };
   //====================================================================
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={invoiceListLoading}>
-          <Ant.Table
-            rowSelection={rowSelection}
-            columns={columns(
-              onViewSaleDocument,
-              onViewCustomer,
-              onInquiry,
-              onSendToTaxPayersSystem,
-            )}
-            dataSource={dataSource}
-            pagination={pagination}
-            onChange={handleTableChange}
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
-  //====================================================================
   //                        Component
   //====================================================================
   return (
@@ -233,7 +234,6 @@ const InvoiceList = () => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        loading={invoiceListLoading}
         title={pageTitle}
         type="inner"
       >
@@ -245,7 +245,21 @@ const InvoiceList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            rowSelection={rowSelection}
+            columns={columns(
+              onViewSaleDocument,
+              onViewCustomer,
+              onInquiry,
+              onSendToTaxPayersSystem,
+            )}
+            dataSource={dataSource}
+            pagination={tableParams?.pagination}
+            onChange={handleTableChange}
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            loading={invoiceListLoading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

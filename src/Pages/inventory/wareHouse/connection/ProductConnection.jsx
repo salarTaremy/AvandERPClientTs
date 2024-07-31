@@ -132,57 +132,49 @@ const ProductConnection = (props) => {
       />
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          rowSelection={{ ...rowSelection }}
-          {...defaultValues.TABLE_PROPS}
-          onChange={handleTableChange}
-          title={title}
-          pagination={pagination}
-          columns={cl}
-          rowKey="productId"
-          dataSource={dataSource}
-        />
-      </>
-    );
-  };
 
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <ModalHeader title={"تخصیص کالا به انبار"} icon={<FaWarehouse />}/>
+      <ModalHeader title={"تخصیص کالا به انبار"} icon={<FaWarehouse />} />
       <CoustomContent>
-        <Ant.Skeleton loading={loading}>
-          <FilterDrawer
-            open={openFilter}
-            onClose={() => setOpenFilter(false)}
-            onRemoveFilter={onRemoveFilter}
-          >
-            <FilterPanel
-              filterObject={filterObject}
-              onSubmit={onFilterChanged}
-            />
-          </FilterDrawer>
-          <FilterBedge filterCount={filterCount}>
-            <Grid />
-            <Ant.Form.Item className="text-end">
-              <Ant.Button
-                disabled={addLoading}
-                loading={addLoading}
-                className="mt-6"
-                type="primary"
-                onClick={submit}
-              >
-                {"تایید"}
-              </Ant.Button>
-            </Ant.Form.Item>
-          </FilterBedge>
-        </Ant.Skeleton>
-      </CoustomContent>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel
+            filterObject={filterObject}
+            onSubmit={onFilterChanged}
+          />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Ant.Table
+            rowSelection={{ ...rowSelection }}
+            {...defaultValues.TABLE_PROPS}
+            onChange={handleTableChange}
+            title={title}
+            pagination={pagination}
+            columns={cl}
+            rowKey="productId"
+            dataSource={dataSource}
+            loading={loading}
+          />
+          <Ant.Form.Item className="text-end">
+            <Ant.Button
+              disabled={addLoading}
+              loading={addLoading}
+              className="mt-6"
+              type="primary"
+              onClick={submit}
+            >
+              {"تایید"}
+            </Ant.Button>
+          </Ant.Form.Item>
+        </FilterBedge>
+      </CoustomContent >
     </>
   );
 };

@@ -94,23 +94,7 @@ const RoleActionList = ({ id, name }) => {
       />
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
-            title={title}
-            className="mt-5"
-            columns={cl}
-            onChange={handleTableChange}
-            dataSource={dataSource || null}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -126,7 +110,16 @@ const RoleActionList = ({ id, name }) => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
+            title={title}
+            className="mt-5"
+            columns={cl}
+            onChange={handleTableChange}
+            dataSource={dataSource || null}
+            loading={loading}
+          />
         </FilterBedge>
       </CoustomContent>
     </>

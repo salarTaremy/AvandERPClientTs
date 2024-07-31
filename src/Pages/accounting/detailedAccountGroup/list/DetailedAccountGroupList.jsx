@@ -130,19 +130,7 @@ const DetailedAccountGroupList = () => {
       />
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          loading={delLoading}
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          columns={columns(onDelSuccess, onEdit, onView)}
-          dataSource={dataSource}
-        />
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -153,9 +141,13 @@ const DetailedAccountGroupList = () => {
         title={"گروه های تفصیل"}
         type="inner"
       >
-        <Ant.Skeleton loading={listLoading}>
-          <Grid />
-        </Ant.Skeleton>
+        <Ant.Table
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          columns={columns(onDelSuccess, onEdit, onView)}
+          dataSource={dataSource}
+          loading={listLoading}
+        />
       </Ant.Card>
 
       <Ant.Modal

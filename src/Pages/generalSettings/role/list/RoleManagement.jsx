@@ -202,22 +202,6 @@ function RoleManagement() {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loadingData}>
-          <Ant.Table
-            {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
-            columns={columns(onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch)}
-            onChange={handleTableChange}
-            dataSource={dataSource}
-            title={title}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -242,7 +226,6 @@ function RoleManagement() {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        loading={loadingData}
         className="w-full"
         title={"مدیریت نقش ها"}
         type="inner"
@@ -255,7 +238,15 @@ function RoleManagement() {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            pagination={pagination}
+            columns={columns(onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch)}
+            onChange={handleTableChange}
+            dataSource={dataSource}
+            title={title}
+            loading={loadingData}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

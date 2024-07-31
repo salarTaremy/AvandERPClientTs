@@ -110,19 +110,7 @@ const SupplierList = () => {
       />
     )
   }
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          loading={delLoading}
-          {...defaultValues.TABLE_PROPS}
-          columns={columns(onDelete, onEdit, onView)}
-          title={title}
-          dataSource={dataSource}
-        />
-      </>
-    )
-  }
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -144,18 +132,24 @@ const SupplierList = () => {
         {modalContent}
       </Ant.Modal>
 
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}  loading={loadingData} title={'تأمین کنندگان'} type="inner">
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={'تأمین کنندگان'} type="inner">
 
-          <FilterDrawer
-            open={openFilter}
-            onClose={() => setOpenFilter(false)}
-            onRemoveFilter={onRemoveFilter}
-          >
-            <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-          </FilterDrawer>
-          <FilterBedge filterCount={filterCount}>
-            <Grid />
-          </FilterBedge>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            columns={columns(onDelete, onEdit, onView)}
+            title={title}
+            dataSource={dataSource}
+            loading={loadingData}
+          />
+        </FilterBedge>
 
       </Ant.Card>
 

@@ -122,23 +122,6 @@ const banksList = () => {
     );
   };
 
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Skeleton loading={loading}>
-          <Ant.Table
-            size="small"
-            {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
-            title={title}
-            columns={columns(onDelete, onEdit, onBranch)}
-            onChange={handleTableChange}
-            dataSource={dataSource}
-          />
-        </Ant.Skeleton>
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -161,9 +144,17 @@ const banksList = () => {
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"بانک ها"}
         type="inner"
-        loading={loading}
       >
-        <Grid />
+        <Ant.Table
+          size="small"
+          {...defaultValues.TABLE_PROPS}
+          pagination={pagination}
+          title={title}
+          columns={columns(onDelete, onEdit, onBranch)}
+          onChange={handleTableChange}
+          dataSource={dataSource}
+          loading={loading}
+        />
       </Ant.Card>
     </>
   );
