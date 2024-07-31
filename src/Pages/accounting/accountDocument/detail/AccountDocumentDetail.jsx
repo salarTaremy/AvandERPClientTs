@@ -38,25 +38,18 @@ const AccountDocumentDetail = (props) => {
     //====================================================================
     //                        Child Components
     //====================================================================
-    const Grid = () => {
-        return (
-            <>
-                <Ant.Skeleton loading={listLoading}>
-                    <Ant.Table
-                        columns={column()}
-                        dataSource={dataSource}
-                        {...defaultValues.TABLE_PROPS}
-                    />
-                </Ant.Skeleton>
-            </>
-        )
-    }
+
     //====================================================================
     //                        Component
     //====================================================================
     return (
         <>
-            <Grid />
+            <Ant.Table
+                columns={column()}
+                dataSource={dataSource}
+                {...defaultValues.TABLE_PROPS}
+                loading={listLoading}
+            />
         </>
     )
 }

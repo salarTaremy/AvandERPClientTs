@@ -79,15 +79,15 @@ const AddItemDetailList = (props) => {
             return false;
           }}
         >
-      {"وارد کردن فایل اکسل"}
+          {"وارد کردن فایل اکسل"}
         </Ant.Upload>
       ),
       key: "1",
     },
     {
-      label:(<a rel="noopener noreferrer" onClick={() => handleDownloadExampleXLSX()}>
-       { "نمونه فایل اکسل"}
-      </a>) ,
+      label: (<a rel="noopener noreferrer" onClick={() => handleDownloadExampleXLSX()}>
+        {"نمونه فایل اکسل"}
+      </a>),
       key: "2",
     },
   ];
@@ -175,7 +175,7 @@ const AddItemDetailList = (props) => {
 
   const handleDownloadExampleXLSX = () => {
     const sampleExcelData = [
-      ["کد حساب", "شماره مرجع","حساب تفصیلی سطح چهار","حساب تفصیلی سطح پنج","حساب تفصیلی سطح شش","شرح ","بدهکار","بستانکار","توضیحات"],
+      ["کد حساب", "شماره مرجع", "حساب تفصیلی سطح چهار", "حساب تفصیلی سطح پنج", "حساب تفصیلی سطح شش", "شرح ", "بدهکار", "بستانکار", "توضیحات"],
     ];
     const sheet = XLSX.utils.aoa_to_sheet(sampleExcelData);
     const newWorkbook = XLSX.utils.book_new();
@@ -236,11 +236,11 @@ const AddItemDetailList = (props) => {
     {
       val.key !== undefined
         ? setDataSource((prevDataSource) => {
-            return prevDataSource.filter((item) => item.key !== val.key);
-          })
+          return prevDataSource.filter((item) => item.key !== val.key);
+        })
         : setDataSource((prevDataSource) => {
-            return prevDataSource.filter((item) => item.id !== val.id);
-          });
+          return prevDataSource.filter((item) => item.id !== val.id);
+        });
     }
   };
 
@@ -354,26 +354,7 @@ const AddItemDetailList = (props) => {
       </>
     );
   };
-  const Grid = () => {
-    return (
-      <>
-        {/* {data && (
-          <div>
-            <h2>Imported Data:</h2>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-          </div>
-        )} */}
 
-        <Ant.Table
-          key={id}
-          {...defaultValues.TABLE_PROPS}
-          columns={columns(onDelete, onEdit)}
-          title={title}
-          dataSource={dataSource}
-        />
-      </>
-    );
-  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -403,13 +384,14 @@ const AddItemDetailList = (props) => {
         }
         icon={<MdDescription />}
       />
-      <CoustomContent height="75vh" loading={loadingAccDocumentDetail}>
+      <CoustomContent height="75vh" >
         <Ant.Table
           key={id}
           {...defaultValues.TABLE_PROPS}
           columns={columns(onDelete, onEdit)}
           title={title}
           dataSource={dataSource}
+          loading={loadingAccDocumentDetail}
         />
         <Ant.Row>
           <Ant.Col>
