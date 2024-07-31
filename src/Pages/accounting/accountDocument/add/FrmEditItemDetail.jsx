@@ -11,6 +11,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
+import useAllLoading from '@/hooks/useAllLoading '
 const FrmEditItemDetail = (props) => {
   const { id, obj } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
@@ -31,8 +32,13 @@ const FrmEditItemDetail = (props) => {
   ] = api.useFetchWithHandler();
   const [form] = Ant.Form.useForm();
   const [options, setOptions] = useState([]);
-  useRequestManager({ error: dtAccError });
 
+  useRequestManager({ error: dtAccError });
+  const allLoading = useAllLoading([
+    accountGroupLoading,
+    dtAccLoading,
+
+  ]);
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
@@ -41,7 +47,8 @@ const FrmEditItemDetail = (props) => {
   const filter = (inputValue, path) =>
     path.some(
       (option) =>
-        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||   String(option.id).indexOf(inputValue) > -1,
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+        String(option.id).indexOf(inputValue) > -1,
     );
   //====================================================================
   //                        useEffects
@@ -145,7 +152,6 @@ const FrmEditItemDetail = (props) => {
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
       id: id ?? obj.id,
-
     };
 
     if (values.detailedAccountId4 == undefined) {
@@ -176,7 +182,7 @@ const FrmEditItemDetail = (props) => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"accountId"}
-              label="نوع حساب "
+              label=" حساب "
               rules={[
                 {
                   required: true,
@@ -197,6 +203,21 @@ const FrmEditItemDetail = (props) => {
                 showSearch={{
                   filter,
                 }}
+
+                displayRender={(labels, selectedOptions) => (
+                  <>
+                    {labels.map((label, index) => {
+                      const accountCode = selectedOptions[index]?.id;
+                      return (
+                        <span key={index}>
+                          {label}
+                          {accountCode && <span > (کد: {accountCode})</span>}
+
+                        </span>
+                      );
+                    })}
+                  </>
+                )}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -380,7 +401,7 @@ const FrmEditItemDetail = (props) => {
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
-              <Ant.Button type="primary" htmlType="submit">
+              <Ant.Button loading={allLoading || false}  disabled={allLoading || false} type="primary" htmlType="submit">
                 {"تایید"}
               </Ant.Button>
             </Ant.Form.Item>

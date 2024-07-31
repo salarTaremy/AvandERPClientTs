@@ -153,14 +153,6 @@ const FrmAddAccountDocument = (props) => {
           </Ant.Col>
         </Ant.Row>
       </Ant.Form>
-
-      {/* <TBL
-        updateDebtor={updateDebtor}
-        updateCreditor={updateCreditor}
-        footer={FooterContent}
-        dataObject={dataDetailObject}
-        onSubmit={onFinish}
-      /> */}
     </>
   );
 };

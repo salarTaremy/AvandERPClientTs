@@ -134,7 +134,7 @@ const AccountDocumentList = (props) => {
   };
   const addItem = (id) => {
     setModalSize({ ...defaultValues.MODAL_LARGE });
-    setModalContent(<AddItemDetailList  id={id}  key={uuid.v1()} />);
+    setModalContent(<AddItemDetailList id={id} key={uuid.v1()} />);
     setModalState(true);
   };
   //====================================================================
@@ -155,25 +155,7 @@ const AccountDocumentList = (props) => {
       />
     );
   };
-  //====================================================================
-  const Grid = () => {
-    return (
-      <>
-        <Ant.Table
-          columns={columns(onDelete, onEdit, onView, addItem)}
-          dataSource={dataSource}
-          pagination={pagination}
-          // loading={delLoading }
-          onChange={handleTableChange}
-          // {...defaultValues.TABLE_PROPS}
-          title={title}
-          // expandable={{
-          //   expandedRowRender,
-          // }}
-        />
-      </>
-    );
-  };
+
   //====================================================================
   //                        Component
   //====================================================================
@@ -196,7 +178,6 @@ const AccountDocumentList = (props) => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        loading={listLoading}
         title={pageTitle}
         type="inner"
       >
@@ -208,7 +189,19 @@ const AccountDocumentList = (props) => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-          <Grid />
+          <Ant.Table
+            columns={columns(onDelete, onEdit, onView, addItem)}
+            dataSource={dataSource}
+            pagination={pagination}
+            // loading={delLoading }
+            onChange={handleTableChange}
+            // {...defaultValues.TABLE_PROPS}
+            title={title}
+            // expandable={{
+            //   expandedRowRender,
+            // }}
+            loading={listLoading}
+          />
         </FilterBedge>
       </Ant.Card>
     </>

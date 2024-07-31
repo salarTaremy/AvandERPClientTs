@@ -13,7 +13,7 @@ const column = (onDelete, onEdit) => {
       width: 100,
     },
     {
-      title: " نام حساب",
+      title: "نام حساب",
       dataIndex: "accountName",
       align: "center",
       width: 300,
