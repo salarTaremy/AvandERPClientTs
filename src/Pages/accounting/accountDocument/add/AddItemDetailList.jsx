@@ -74,6 +74,10 @@ const AddItemDetailList = (props) => {
     {
       label: (
         <Ant.Upload
+        accept={".xlsx"}
+        // itemRender = {() => {<></>}}
+        showUploadList={false}
+        maxCount = {1}
           beforeUpload={(file) => {
             handleFileUpload(file);
             return false;
