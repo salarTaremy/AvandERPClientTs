@@ -66,14 +66,12 @@ const handleError = (error) => {
     // localStorage.setItem('persist:root', store)
     // window.location = '/#/login'
     // window.location.reload()
-    toast.isActive("Auth Error") ||  toast.error('خطای احراز هویت',{toastId: "Auth Error"})
+    toast.isActive("Auth Error") ||  toast.error('توکن منقضی شده است، لطفا دوباره وارد شوید',{toastId: "Auth Error"})
     store.dispatch({ type: 'set', autUser: null })
     store.dispatch({ type: 'set', autToken: null })
   }
   if (error?.response?.status === 403) {
-    toast.isActive("Token Is Expire") ||  toast.error('توکن منقضی شده است',{toastId: "Token Is Expire"})
-    store.dispatch({ type: 'set', autUser: null })
-    store.dispatch({ type: 'set', autToken: null })
+    toast.isActive("Insufficient Permission") ||  toast.error('شما مجوز دسترسی به این بخش را ندارید',{toastId: "Insufficient Permission"})
   }
   if (error?.response && error?.response?.status) {
     const statusCode = parseInt(error.response.status)
