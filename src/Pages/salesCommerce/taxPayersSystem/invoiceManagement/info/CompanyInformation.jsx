@@ -92,7 +92,7 @@ const CompanyInformation = (props) => {
                     <Ant.Form.Item
                         name="nationalId"
                         label={"شناسه ملی"}
-                        rules={[{ required: true }]}
+                        rules={[{ required: true , max:14 , min:10 }]}
                         style={{ width: "100%" }}
                     >
                         <Ant.Input />
