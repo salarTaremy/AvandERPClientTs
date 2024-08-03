@@ -20,7 +20,7 @@ import FrmAddItemDetail from "../add/FrmAddItemDetail";
 import FrmEditItemDetail from "../add/FrmEditItemDetail";
 import columns from "../add/columns";
 import * as XLSX from "xlsx";
-import writeXlsxFile from 'write-excel-file'
+import writeXlsxFile from "write-excel-file";
 const AddItemDetailList = (props) => {
   const { id } = props;
   const [
@@ -74,10 +74,10 @@ const AddItemDetailList = (props) => {
     {
       label: (
         <Ant.Upload
-        accept={".xlsx"}
-        // itemRender = {() => {<></>}}
-        showUploadList={false}
-        maxCount = {1}
+          accept={".xlsx"}
+          // itemRender = {() => {<></>}}
+          showUploadList={false}
+          maxCount={1}
           beforeUpload={(file) => {
             handleFileUpload(file);
             return false;
@@ -89,9 +89,14 @@ const AddItemDetailList = (props) => {
       key: "1",
     },
     {
-      label: (<a rel="noopener noreferrer" onClick={() => handleDownloadExampleXLSX()}>
-        {"نمونه فایل اکسل"}
-      </a>),
+      label: (
+        <a
+          rel="noopener noreferrer"
+          onClick={() => handleDownloadExampleXLSX()}
+        >
+          {"نمونه فایل اکسل"}
+        </a>
+      ),
       key: "2",
     },
   ];
@@ -119,7 +124,7 @@ const AddItemDetailList = (props) => {
   }, [accounGrouptData]);
 
   useEffect(() => {
-    dtAccData?.isSuccess && console.log(dtAccData?.data, "dtAccData");
+    dtAccData?.isSuccess && console.log(dtAccData?.data, " ");
   }, [dtAccData]);
 
   useEffect(() => {
@@ -145,6 +150,7 @@ const AddItemDetailList = (props) => {
       setDataSource((prevDataSource) => {
         if (Array.isArray(prevDataSource)) {
           return [...prevDataSource, formData];
+
         } else {
           return [formData];
         }
@@ -179,14 +185,29 @@ const AddItemDetailList = (props) => {
 
   const handleDownloadExampleXLSX = () => {
     const sampleExcelData = [
-      ["کد حساب", "شماره مرجع", "حساب تفصیلی سطح چهار", "حساب تفصیلی سطح پنج", "حساب تفصیلی سطح شش", "شرح ", "بدهکار", "بستانکار", "توضیحات"],
+      [
+        "کد حساب",
+        "شماره مرجع",
+        "حساب تفصیلی سطح چهار",
+        "حساب تفصیلی سطح پنج",
+        "حساب تفصیلی سطح شش",
+        "شرح ",
+        "بدهکار",
+        "بستانکار",
+        "توضیحات",
+      ],
     ];
     const sheet = XLSX.utils.aoa_to_sheet(sampleExcelData);
     const newWorkbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(newWorkbook, sheet, "Sheet1");
 
-    const excelFileContent = XLSX.write(newWorkbook, { bookType: "xlsx", type: "array" });
-    const blob = new Blob([excelFileContent], { type: "application/octet-stream" });
+    const excelFileContent = XLSX.write(newWorkbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const blob = new Blob([excelFileContent], {
+      type: "application/octet-stream",
+    });
     const url = URL.createObjectURL(blob);
 
     const link = document.createElement("a");
@@ -197,12 +218,12 @@ const AddItemDetailList = (props) => {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-
   };
   const handleDataSubmit = (newData) => {
     setFormData(newData);
   };
   const handleDataSubmitEdit = (newData) => {
+    console.log(newData,"ggg")
     setDataSource((pre) => {
       return pre.map((item) => {
         if (item.id === newData.id) {
@@ -240,11 +261,11 @@ const AddItemDetailList = (props) => {
     {
       val.key !== undefined
         ? setDataSource((prevDataSource) => {
-          return prevDataSource.filter((item) => item.key !== val.key);
-        })
+            return prevDataSource.filter((item) => item.key !== val.key);
+          })
         : setDataSource((prevDataSource) => {
-          return prevDataSource.filter((item) => item.id !== val.id);
-        });
+            return prevDataSource.filter((item) => item.id !== val.id);
+          });
     }
   };
 
@@ -289,7 +310,7 @@ const AddItemDetailList = (props) => {
         const newData = excelData.slice(1).map((item, index) => ({
           id: uuid.v4(),
           key: uuid.v4(),
-          rowNumber: 0,
+          rowNumber: dataSource[dataSource.length - 1].rowNumber + index + 1,
           accountId: item[0],
           accountName: 0,
           detailedAccountName4: 0,
@@ -304,7 +325,7 @@ const AddItemDetailList = (props) => {
           creditor: item[7] ?? 0,
           description: item[8],
         }));
-
+console.log(newData,"newData")
         accounGrouptData?.isSuccess &&
           accounGrouptData?.data.forEach((accoun) => {
             newData.forEach((item) => {
@@ -358,7 +379,26 @@ const AddItemDetailList = (props) => {
       </>
     );
   };
+  const Grid = () => {
+    return (
+      <>
+        {/* {data && (
+          <div>
+            <h2>Imported Data:</h2>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+          </div>
+        )} */}
 
+        <Ant.Table
+          key={id}
+          {...defaultValues.TABLE_PROPS}
+          columns={columns(onDelete, onEdit)}
+          title={title}
+          dataSource={dataSource}
+        />
+      </>
+    );
+  };
   //====================================================================
   //                        Component
   //====================================================================
@@ -388,14 +428,13 @@ const AddItemDetailList = (props) => {
         }
         icon={<MdDescription />}
       />
-      <CoustomContent height="75vh" >
+      <CoustomContent height="75vh" loading={loadingAccDocumentDetail}>
         <Ant.Table
           key={id}
           {...defaultValues.TABLE_PROPS}
           columns={columns(onDelete, onEdit)}
           title={title}
           dataSource={dataSource}
-          loading={loadingAccDocumentDetail}
         />
         <Ant.Row>
           <Ant.Col>

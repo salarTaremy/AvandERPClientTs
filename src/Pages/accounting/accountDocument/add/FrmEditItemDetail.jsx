@@ -86,22 +86,24 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
+
+    console.log(selectedOption,"selectedOption")
     setDetailedAccountFour({
       id: selectedOption?.id,
-      name: selectedOption?.name,
+      name: selectedOption?.label,
     });
   };
 
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
       id: selectedOption?.id,
-      name: selectedOption?.name,
+      name: selectedOption?.label,
     });
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
       id: selectedOption?.id,
-      name: selectedOption?.name,
+      name: selectedOption?.label,
     });
   };
   const handleTypeChange = (value) => {
@@ -142,13 +144,13 @@ const FrmEditItemDetail = (props) => {
       accountName: accountName !== "" ? accountName : obj?.accountName,
       detailedAccountId4:
         selectedDetailedAccountFour?.id ?? obj?.detailedAccountId4,
-      detailedAccountName4: selectedDetailedAccountFour?.name,
-      detailedAccountId5:
-        selectedDetailedAccountFive?.id ?? obj?.detailedAccountId5,
-      detailedAccountName5:
-        selectedDetailedAccountFive?.name ?? obj?.detailedAccountName5,
+        detailedAccountId5: selectedDetailedAccountFive?.id ?? obj?.detailedAccountId5,
       detailedAccountId6:
-        selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
+      selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
+      detailedAccountName4:
+        selectedDetailedAccountFour?.name ?? obj?.detailedAccountName4,
+        detailedAccountName5:
+        selectedDetailedAccountFive?.name ?? obj?.detailedAccountName5,
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
       id: id ?? obj.id,
@@ -237,8 +239,10 @@ const FrmEditItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFour}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
+                options={dtAccData?.data.map(option => ({
+                  label: `${option.name} ,(${option.code}) `,
+                  value: option.id
+                }))}
                 loading={dtAccLoading}
               />
             </Ant.Form.Item>
@@ -259,8 +263,10 @@ const FrmEditItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFive}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
+                options={dtAccData?.data.map(option => ({
+                  label: `${option.name} ,(${option.code}) `,
+                  value: option.id
+                }))}
                 loading={dtAccLoading}
               />
             </Ant.Form.Item>
@@ -281,8 +287,10 @@ const FrmEditItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountSix}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
+                options={dtAccData?.data.map(option => ({
+                  label: `${option.name} ,(${option.code}) `,
+                  value: option.id
+                }))}
                 loading={dtAccLoading}
               />
             </Ant.Form.Item>

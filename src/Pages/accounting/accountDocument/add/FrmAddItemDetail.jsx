@@ -89,19 +89,19 @@ const FrmAddItemDetail = (props) => {
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
     setDetailedAccountFour({
       id: selectedOption?.id,
-      name: selectedOption?.name,
+      name: selectedOption?.label,
     });
   };
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
       id: selectedOption?.id,
-      name: selectedOption?.name,
+      name: selectedOption?.label,
     });
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
       id: selectedOption?.id,
-      name: selectedOption?.name,
+      name: selectedOption?.label,
     });
   };
   const onFinish = async (values) => {
@@ -202,8 +202,11 @@ const FrmAddItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFour}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
+                loading={dtAccLoading}
+                options={dtAccData?.data.map(option => ({
+                  label: `${option.name} ,(${option.code}) `,
+                  value: option.id
+                }))}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -223,8 +226,11 @@ const FrmAddItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFive}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
+                loading={dtAccLoading}
+                options={dtAccData?.data.map(option => ({
+                  label: `${option.name} ,(${option.code}) `,
+                  value: option.id
+                }))}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -244,8 +250,11 @@ const FrmAddItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountSix}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
+                loading={dtAccLoading}
+                options={dtAccData?.data.map(option => ({
+                  label: `${option.name} ,(${option.code}) `,
+                  value: option.id
+                }))}
               />
             </Ant.Form.Item>
           </Ant.Col>
@@ -288,7 +297,6 @@ const FrmAddItemDetail = (props) => {
 
                   validator: (_, value) =>
                     new Promise((resolve, reject) => {
-                      // alert(value)
                       if (value === 0 || value === undefined) {
                         reject(new Error("مبلغ  نمی‌تواند صفر باشد"));
                       } else {
