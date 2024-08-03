@@ -18,7 +18,7 @@ const FormEditWareHouse = (props) => {
   const [warehouseTypeData, warehouseTypeLoading, warehouseTypeError] = useFetch(
     url.WAREHOUSE_TYPE,
   );
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH);
+  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   useRequestManager({ error: warehouseTypeError });
   useRequestManager({ error: branchError });

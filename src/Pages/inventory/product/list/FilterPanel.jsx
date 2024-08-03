@@ -8,7 +8,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   const [form] = Ant.Form.useForm();
-  const [brandData, brandLoading, brandError] = useFetch(url.BRAND);
+  const [brandData, brandLoading, brandError] = useFetch(url.BRAND_GET_WITH_PERMISSION);
   useRequestManager({ error: brandError });
 
   const commonOptions = {

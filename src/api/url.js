@@ -83,6 +83,7 @@ export const BATCH_NUMBER = '/batchNumber'
 
 //Brand
 export const BRAND = '/brand'
+export const BRAND_GET_WITH_PERMISSION = '/Brand/GetWithPermission'
 export const BRAND_MAX_CODE = "/brand/maxCode"
 
 //GanttChart
@@ -90,6 +91,7 @@ export const GANTT_CHART = '/GanttChart'
 
 //Branch
 export const BRANCH = '/Branch'
+export const BRANCH_GET_WITH_PERMISSION = '/Branch/GetWithPermission'
 
 //Role
 export const ROLE = '/Role'
@@ -125,6 +127,7 @@ export const USER_RESET_PASSWORD = 'User/ResetPassword'
 
 //Sales
 export const SALE_CHANNEL = 'SaleChannel'
+export const SALE_CHANNEL_GET_WITH_PERMISSION = '/SaleChannel/GetWithPermission'
 export const SALE_DOCUMENT_HEADER = 'SaleDocumentHeader'
 export const SALE_DOCUMENT_DETAIL = 'SaleDocumentDetail'
 export const SALE_CUSTOMER_GET_FOR_DROPDOWN = '/Customer/GetForDropdown'
@@ -159,6 +162,7 @@ export const DELIVERY_TYPE = 'DeliveryType'
 
 //SaleDocumentType
 export const SALE_DOCUMENT_TYPE = 'SaleDocumentType'
+export const SALE_DOCUMENT_TYPE_GET_WITH_PERMISSION = '/SaleDocumentType/GetWithPermission'
 
 //SaleType
 export const SALETYPE = 'SaleType'
@@ -191,9 +195,11 @@ export const BANKBRANCH = '/BankBranch'
 export const BANKBRANCH_GetFORDROPDOWN = '/BankBranch/GetForDropdown'
 //CustomerGroup
 export const CUSTOMER_GROUP = 'CustomerGroup'
+export const CUSTOMER_GROUP_GET_WITH_PERMISSION = '/CustomerGroup/GetWithPermission'
 
 // CustomerType
 export const CUSTOMER_TYPE = 'CustomerType'
+export const CUSTOMER_TYPE_GET_WITH_PERMISSION = '/CustomerType/GetWithPermission'
 
 // CustomerGrade
 export const CUSTOMER_GRADE = 'CustomerGrade'

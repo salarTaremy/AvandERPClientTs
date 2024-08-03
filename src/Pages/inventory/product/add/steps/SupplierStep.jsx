@@ -33,7 +33,7 @@ export const SupplierStep = ({ form }) => {
   }, [])
 
   useEffect(() => {
-    selectedSupplier && ApiCall(`${url.BRAND}?supplierId=${selectedSupplier}`)
+    selectedSupplier && ApiCall(`${url.BRAND_GET_WITH_PERMISSION}?supplierId=${selectedSupplier}`)
   }, [selectedSupplier])
 
   useEffect(() => {

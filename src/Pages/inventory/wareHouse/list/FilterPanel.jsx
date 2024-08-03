@@ -15,7 +15,7 @@ const FilterPanel = (props) => {
     url.WAREHOUSE_TYPE,
   );
   useRequestManager({ error: warehouseTypeError });
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH);
+  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
   useRequestManager({ error: branchError });
   const [form] = Ant.Form.useForm();
   const commonOptions = {

@@ -31,9 +31,9 @@ const FormAddCustomer = ({ onSucces }) => {
   const [customerTypeList, customerTypeLoading, customerTypeError, customerTypeApiCall] = useFetchWithHandler()
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
-  const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
+  const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
-    url.SALE_CHANNEL,
+    url.SALE_CHANNEL_GET_WITH_PERMISSION,
   );
   useRequestManager({ error: addError, loading: addLoading, data: addData });
   useRequestManager({ error: customerGradeError });
@@ -82,11 +82,11 @@ const FormAddCustomer = ({ onSucces }) => {
   };
 
   const getCustomerGroup = async () => {
-    await customerGroupApiCall(url.CUSTOMER_GROUP)
+    await customerGroupApiCall(url.CUSTOMER_GROUP_GET_WITH_PERMISSION)
   }
 
   const getCustomerType = async () => {
-    await customerTypeApiCall(url.CUSTOMER_TYPE)
+    await customerTypeApiCall(url.CUSTOMER_TYPE_GET_WITH_PERMISSION)
   }
 
   const handleCounterParty = async (val) => {

@@ -26,9 +26,9 @@ const FormEditCustomer = ({ id }) => {
   const [empty, setEmpty] = useState(undefined);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
-  const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
+  const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
-    url.SALE_CHANNEL,
+    url.SALE_CHANNEL_GET_WITH_PERMISSION,
   );
   const [customerGroupList, customerGroupLoading, customerGroupError, customerGroupApiCall] = useFetchWithHandler()
   const [customerTypeList, customerTypeLoading, customerTypeError, customerTypeApiCall] = useFetchWithHandler()
@@ -90,11 +90,11 @@ const FormEditCustomer = ({ id }) => {
   };
 
   const getCustomerGroup = async () => {
-    await customerGroupApiCall(url.CUSTOMER_GROUP)
+    await customerGroupApiCall(url.CUSTOMER_GROUP_GET_WITH_PERMISSION)
   }
 
   const getCustomerType = async () => {
-    await customerTypeApiCall(url.CUSTOMER_TYPE)
+    await customerTypeApiCall(url.CUSTOMER_TYPE_GET_WITH_PERMISSION)
   }
 
   const handleCounterParty = async () => {

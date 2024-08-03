@@ -13,12 +13,12 @@ import useRequestManager from "@/hooks/useRequestManager";
 const FilterPanel = (props) => {
   const [form] = Ant.Form.useForm();
   const [saleChannelData, saleChannelLoading, saleChannelError] = api.useFetch(
-    url.SALE_CHANNEL,
+    url.SALE_CHANNEL_GET_WITH_PERMISSION,
   );
   const [saleDocTypeData, saleDocTypeLoading, saleDocTypeError] = api.useFetch(
-    url.SALE_DOCUMENT_TYPE,
+    url.SALE_DOCUMENT_TYPE_GET_WITH_PERMISSION,
   );
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH);
+  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
   const { onSubmit, filterObject } = props;
   useRequestManager({ error: saleChannelError });
   useRequestManager({ error: saleDocTypeError });
