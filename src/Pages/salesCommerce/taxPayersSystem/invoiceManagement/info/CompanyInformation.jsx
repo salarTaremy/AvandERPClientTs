@@ -25,8 +25,7 @@ const CompanyInformation = (props) => {
 
     useEffect(() => {
         // form.resetFields()
-        listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
-        listData?.isSuccess && form.setFieldsValue({ nationalId: listData?.data?.nationalId })
+        listData?.isSuccess && form.setFieldsValue({ ...(listData?.data) })
     }, [listData])
     //====================================================================
     //                        Functions
@@ -98,10 +97,11 @@ const CompanyInformation = (props) => {
                     >
                         <Ant.Input />
                     </Ant.Form.Item>
-                    <Ant.Button icon={<IoReload />}
+                    {loadingData && <Ant.Button loading />}
+                    {!loadingData && <Ant.Button icon={<IoReload />}
                         onClick={() => {
                             form.submit();
-                        }} />
+                        }} />}
                 </Ant.Space.Compact>
             </Ant.Form>
             <Ant.Row >
