@@ -8,7 +8,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { IoReload } from "react-icons/io5";
-import { CloseOutlined, CheckOutlined, QuestionOutlined } from "@ant-design/icons";
+import { CloseOutlined, CheckOutlined, LoadingOutlined } from "@ant-design/icons";
 
 const CompanyInformation = (props) => {
     const { legalEntityIdentity, key } = props;
@@ -106,8 +106,8 @@ const CompanyInformation = (props) => {
             </Ant.Form>
             <Ant.Row >
                 <Ant.Col span={6} >
-                    {loadingData && <Ant.Skeleton.Node active={true}>
-                        <QuestionOutlined
+                    {loadingData && <Ant.Skeleton.Node >
+                        <LoadingOutlined
                             style={{
                                 fontSize: 40,
                                 color: '#bfbfbf',
