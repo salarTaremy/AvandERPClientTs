@@ -141,7 +141,7 @@ const getSaleDocIssueColor = (issueId) => {
   }
 };
 
-export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem) => {
+export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem, onViewCompanyinformation) => {
   return [
     {
       title: "شماره سریال",
@@ -198,6 +198,16 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       align: "center",
       className: "text-xs sm:text-sm",
       width: 150,
+      render: (text, record, index) => {
+        return (
+          (record.customerType == 'حقوقی' && <Ant.Typography.Link
+
+            onClick={() => onViewCompanyinformation(record.customerLegalEntityIdentity)}
+          >
+            {text}
+          </Ant.Typography.Link>) || (record.customerLegalEntityIdentity)
+        );
+      },
     },
     {
       title: "کد اقتصادی",

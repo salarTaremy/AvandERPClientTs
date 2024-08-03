@@ -45,7 +45,7 @@ const FormResetPasswordUser = (props) => {
       <ModalHeader title={`تغییر رمز عبور " ${userName}"`} icon={<MdOutlineLockReset />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item name="userName" label={"نام کاربری"}>
-          <Ant.Input allowClear showCount maxLength={200} disabled />
+          <Ant.Input allowClear showCount maxLength={200} readOnly />
         </Ant.Form.Item>
         <Ant.Form.Item
           name="password"

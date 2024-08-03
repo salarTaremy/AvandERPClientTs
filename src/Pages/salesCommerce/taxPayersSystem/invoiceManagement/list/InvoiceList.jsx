@@ -16,6 +16,7 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import InquiryResult from "../inquiry/InquiryResult";
 import SaleDocumentDescription from "../../../saleDocument/description/SaleDocumentDescription";
 import CustomerDescription from "../../../basicInformation/CustomerManagement/description/CustomerDescription";
+import CompanyInformation from "../info/CompanyInformation";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -48,6 +49,7 @@ const InvoiceList = () => {
   const [modalOpenState, setModalOpenState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
 
   useRequestManager({ error: invoiceListError });
   useRequestManager({
@@ -97,6 +99,7 @@ const InvoiceList = () => {
   };
 
   const onInquiry = async (id, fiscalId) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(
       <InquiryResult
         key={uuid.v1()}
@@ -108,11 +111,13 @@ const InvoiceList = () => {
   };
 
   const onViewSaleDocument = async (id) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(<SaleDocumentDescription key={uuid.v1()} id={id} />);
     setModalOpenState(true);
   };
 
   const onViewCustomer = async (id) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE })
     setModalContent(<CustomerDescription key={uuid.v1()} id={id} />);
     setModalOpenState(true);
   };
@@ -142,6 +147,13 @@ const InvoiceList = () => {
     }),
   };
   const hasSelectedRow = selectedRowKeys && selectedRowKeys.length > 0;
+
+  const onViewCompanyinformation = (customerLegalEntityIdentity) => {
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList)
+    setModalContent(<CompanyInformation key={uuid.v1()} legalEntityIdentity={customerLegalEntityIdentity} />);
+    setModalOpenState(true);
+  };
 
   //====================================================================
   //                        useEffects
@@ -224,7 +236,7 @@ const InvoiceList = () => {
         open={modalOpenState}
         centered
         {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_LARGE}
+        {...modalSize}
         getContainer={null}
         footer={null}
         onCancel={() => setModalOpenState(false)}
@@ -252,6 +264,7 @@ const InvoiceList = () => {
               onViewCustomer,
               onInquiry,
               onSendToTaxPayersSystem,
+              onViewCompanyinformation
             )}
             dataSource={dataSource}
             pagination={tableParams?.pagination}

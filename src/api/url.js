@@ -150,6 +150,7 @@ export const TPS_INVOICE_MANAGEMENT = 'TaxPayersSystemInvoiceManagement'
 export const TPS_INVOICE_SEND_LIST = 'TaxPayersSystemInvoiceManagement/SendListToTaxPayersSystem'
 export const TPS_INVOICE_INQUIRY = 'TaxPayersSystemInvoiceManagement/Inquiry'
 export const TPS_CONFIG = 'TaxPayersSystemConfig'
+export const TPS_COMPANY_INFORMATION = 'TaxPayersSystemBasicInformation/GetCompanyInformation'
 
 //PaymentType
 export const PAYMENT_TYPE = 'PaymentType'
