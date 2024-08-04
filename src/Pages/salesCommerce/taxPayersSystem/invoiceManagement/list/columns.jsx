@@ -200,8 +200,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       width: 150,
       render: (text, record, index) => {
         return (
-          (record.customerType == 'حقوقی' && <Ant.Typography.Link
-
+          (<Ant.Typography.Link
             onClick={() => onViewCompanyinformation(record.customerLegalEntityIdentity)}
           >
             {text}
