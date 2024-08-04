@@ -9,6 +9,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { IoReload } from "react-icons/io5";
 import { CloseOutlined, CheckOutlined, LoadingOutlined } from "@ant-design/icons";
+import ResultAnimation from '@/components/common/ResultAnimation'
 
 const CompanyInformation = (props) => {
     const { legalEntityIdentity, key } = props;
@@ -106,7 +107,7 @@ const CompanyInformation = (props) => {
             </Ant.Form>
             <Ant.Row >
                 <Ant.Col span={6} >
-                    {loadingData && <Ant.Skeleton.Node >
+                    {/* {loadingData && <Ant.Skeleton.Node >
                         <LoadingOutlined
                             style={{
                                 fontSize: 40,
@@ -125,7 +126,8 @@ const CompanyInformation = (props) => {
                         }
                         shape="square"
                         size={100}
-                    />}
+                    />} */}
+                    <ResultAnimation  size = {100} state = {loadingData && "active" || listData?.data?.status === true && "success" || "exception" } />
                 </Ant.Col>
                 <Ant.Col span={18} >
                     <Ant.Skeleton title={false} loading={loadingData}>
