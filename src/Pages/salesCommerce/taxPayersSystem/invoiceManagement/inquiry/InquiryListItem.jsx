@@ -156,7 +156,7 @@ const InquiryListItem = (props) => {
           <Ant.Space size="middle">
             <ClockCircleOutlined
               className={collapseIconTextColorClassName}
-              style={{ fontSize: "16px" }}
+              // style={{ fontSize: "16px" }}
             />
             <Ant.Typography.Text
               strong
