@@ -107,26 +107,6 @@ const CompanyInformation = (props) => {
             </Ant.Form>
             <Ant.Row >
                 <Ant.Col span={6} >
-                    {/* {loadingData && <Ant.Skeleton.Node >
-                        <LoadingOutlined
-                            style={{
-                                fontSize: 40,
-                                color: '#bfbfbf',
-                            }}
-                        />
-                    </Ant.Skeleton.Node>}
-                    {!loadingData && <Ant.Avatar
-                        style={{
-                            backgroundColor: (listData?.data?.status === true && 'transparent') || "transparent",
-                        }}
-                        className={
-                            (listData?.data?.status === true && "text-green-600 border-green-600 border-4" || "text-red-700 border-red-700 border-4")
-                        }
-                        icon={(listData?.data?.status === true && <CheckOutlined />) || <CloseOutlined />
-                        }
-                        shape="square"
-                        size={100}
-                    />} */}
                     <ResultAnimation  size = {100} state = {loadingData && "active" || listData?.data?.status === true && "success" || "exception" } />
                 </Ant.Col>
                 <Ant.Col span={18} >
