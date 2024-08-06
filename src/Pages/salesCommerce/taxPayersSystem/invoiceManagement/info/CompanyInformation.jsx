@@ -7,9 +7,8 @@ import { useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import { BsInfoCircleFill } from "react-icons/bs";
-import { IoReload } from "react-icons/io5";
-import { CloseOutlined, CheckOutlined, LoadingOutlined } from "@ant-design/icons";
 import ResultAnimation from '@/components/common/ResultAnimation'
+import { FiRefreshCw } from "react-icons/fi";
 
 const CompanyInformation = (props) => {
     const { legalEntityIdentity, key } = props;
@@ -52,7 +51,7 @@ const CompanyInformation = (props) => {
             children:
                 <>
                     <Ant.Space size={10}>
-                        <Ant.Typography.Text strong>{listData?.data?.nameTrade}</Ant.Typography.Text>
+                        <Ant.Typography.Text strong>{listData?.data?.isExist && listData?.data?.nameTrade || 'برای این شناسه اطلاعاتی ثبت نشده است.'}</Ant.Typography.Text>
                         <Ant.Typography.Text>{listData?.data?.type && `(${listData?.data?.type})`}</Ant.Typography.Text>
                     </Ant.Space>
                 </>,
@@ -66,17 +65,38 @@ const CompanyInformation = (props) => {
         // },
         {
             key: '3',
+            label: 'وضعیت',
+            children: listData?.data?.status,
+            span: 3
+        },
+        {
+            key: '4',
             label: 'آدرس',
             children: listData?.data?.address,
             span: 3
         },
         {
-            key: '4',
+            key: '5',
             label: 'کدپستی',
             children: listData?.data?.postalCode,
             span: 3
         },
     ]
+
+    const AddonAfter = () => {
+        return (
+            <Ant.Button
+                size="small"
+                type="text"
+                onClick={() => {
+                    form.submit();
+                }}
+                loading={loadingData}
+            >
+                <FiRefreshCw />
+            </Ant.Button>
+        )
+    }
 
     //====================================================================
     //                        Child Components
@@ -89,32 +109,21 @@ const CompanyInformation = (props) => {
         <>
             <ModalHeader title={`اطلاعات شرکت`} icon={<BsInfoCircleFill />} />
             <Ant.Form form={form} key={key} onFinish={reload} layout="horizontal">
-                <Ant.Space.Compact block>
-                    <Ant.Form.Item
-                        name="nationalId"
-                        label={"شناسه ملی"}
-                        rules={[{ required: true , max:14 , min:10 }]}
-                        style={{ width: "100%" }}
-                    >
-                        <Ant.Input />
-                    </Ant.Form.Item>
-                    {loadingData && <Ant.Button loading />}
-                    {!loadingData && <Ant.Button icon={<IoReload />}
-                        onClick={() => {
-                            form.submit();
-                        }} />}
-                </Ant.Space.Compact>
+                <Ant.Form.Item
+                    name="nationalId"
+                    label={"شناسه ملی"}
+                    rules={[{ required: true, max: 14, min: 10 }]}
+                    style={{ width: "100%" }}
+                >
+                    <Ant.Input addonAfter={<AddonAfter />} />
+                </Ant.Form.Item>
             </Ant.Form>
-            <Ant.Row >
-                <Ant.Col span={6} >
-                    <ResultAnimation  size = {100} state = {loadingData && "active" || listData?.data?.status === true && "success" || "exception" } />
-                </Ant.Col>
-                <Ant.Col span={18} >
-                    <Ant.Skeleton title={false} loading={loadingData}>
-                        <Ant.Descriptions items={items} />
-                    </Ant.Skeleton>
-                </Ant.Col>
-            </Ant.Row>
+            <Ant.Space >
+                <ResultAnimation size={75} state={loadingData && "active" || listData?.data?.isExist === true && "success" || "exception"} />
+                <Ant.Skeleton title={false} loading={loadingData}>
+                    <Ant.Descriptions items={items} />
+                </Ant.Skeleton>
+            </Ant.Space>
         </>
     );
 }
