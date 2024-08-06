@@ -51,7 +51,7 @@ const CompanyInformation = (props) => {
             children:
                 <>
                     <Ant.Space size={10}>
-                        <Ant.Typography.Text strong>{listData?.data?.nameTrade}</Ant.Typography.Text>
+                        <Ant.Typography.Text strong>{listData?.data?.isExist && listData?.data?.nameTrade || 'برای این شناسه اطلاعاتی ثبت نشده است.'}</Ant.Typography.Text>
                         <Ant.Typography.Text>{listData?.data?.type && `(${listData?.data?.type})`}</Ant.Typography.Text>
                     </Ant.Space>
                 </>,
@@ -65,12 +65,18 @@ const CompanyInformation = (props) => {
         // },
         {
             key: '3',
+            label: 'وضعیت',
+            children: listData?.data?.status,
+            span: 3
+        },
+        {
+            key: '4',
             label: 'آدرس',
             children: listData?.data?.address,
             span: 3
         },
         {
-            key: '4',
+            key: '5',
             label: 'کدپستی',
             children: listData?.data?.postalCode,
             span: 3
@@ -113,7 +119,7 @@ const CompanyInformation = (props) => {
                 </Ant.Form.Item>
             </Ant.Form>
             <Ant.Space >
-                <ResultAnimation size={75} state={loadingData && "active" || listData?.data?.status === true && "success" || "exception"} />
+                <ResultAnimation size={75} state={loadingData && "active" || listData?.data?.isExist === true && "success" || "exception"} />
                 <Ant.Skeleton title={false} loading={loadingData}>
                     <Ant.Descriptions items={items} />
                 </Ant.Skeleton>
