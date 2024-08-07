@@ -193,13 +193,9 @@ const AccountDocumentList = (props) => {
             columns={columns(onDelete, onEdit, onView, addItem)}
             dataSource={dataSource}
             pagination={pagination}
-            // loading={delLoading }
             onChange={handleTableChange}
-            // {...defaultValues.TABLE_PROPS}
+            {...defaultValues.TABLE_PROPS}
             title={title}
-            // expandable={{
-            //   expandedRowRender,
-            // }}
             loading={listLoading}
           />
         </FilterBedge>

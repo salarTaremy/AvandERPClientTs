@@ -4,7 +4,9 @@ import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Typography } from 'antd';
+import { LuFolderOpen } from "react-icons/lu";
 const { Text, Link } = Typography;
+import { CgMoreVertical } from "react-icons/cg";
 
 const getDocumentTypeColor = (saleDocumentTypeId) => {
     switch (saleDocumentTypeId) {
@@ -26,7 +28,26 @@ const getDocumentTypeColor = (saleDocumentTypeId) => {
 };
 
 
+
 export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
+    const getMenuItems = (record) => [
+        {
+            key: '1',
+            label: (
+                <Ant.Tooltip placement="right" title={`ویرایش ${record.saleDocumentType} (${record.documentNumber})` }>
+                    <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
+                </Ant.Tooltip>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <Ant.Tooltip placement="right" title={`گشایش ${record.saleDocumentType} (${record.documentNumber})` }>
+                    <a onClick={() => {}}><LuFolderOpen className="text-purple-600" /></a>
+                </Ant.Tooltip>
+            ),
+        }
+    ]
     return [
         {
             title: "شماره برگه",
@@ -165,6 +186,20 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
                 return (
                     <>
                         <Ant.Space>
+                            <Ant.Dropdown
+                                menu={{
+                                    items: getMenuItems(record),
+                                }}
+                                placement="bottom"
+                                arrow
+                            >
+                                <Ant.Button
+                                    onClick={() => { }}
+                                    className="text-blue-600"
+                                    icon={<CgMoreVertical />}
+                                    type="text"
+                                />
+                            </Ant.Dropdown>
                             <Ant.Button
                                 onClick={() => onEdit(record.id)}
                                 className="text-blue-600"

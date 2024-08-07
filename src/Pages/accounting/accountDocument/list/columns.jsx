@@ -43,7 +43,7 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
     {
       key: '1',
       label: (
-        <Ant.Tooltip placement="right" title={'ویرایش'}>
+        <Ant.Tooltip placement="right" title={`ویرایش سند  (${record.inflectionNumber})` }>
           <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
         </Ant.Tooltip>
       ),
@@ -51,7 +51,7 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
     {
       key: '2',
       label: (
-        <Ant.Tooltip placement="right" title={'گشایش سند'}>
+        <Ant.Tooltip placement="right" title={`گشایش سند  (${record.inflectionNumber})` }>
           <a onClick={() => addItem(record.id)}><LuFolderOpen className="text-purple-600" /></a>
         </Ant.Tooltip>
       ),
@@ -102,7 +102,6 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
       width: 100,
       render: (text, record, index) => (
         <>
-          {/* {`${record.persianDateTilte}`} <FiCalendar  /> {`${record.createTime.substring(0, 5)}`} <FiClock  />{' '} */}
           {`${record.persianDateTilte}`}
         </>
       ),
