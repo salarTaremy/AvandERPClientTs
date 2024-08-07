@@ -526,7 +526,7 @@ export const Table = (props) => {
       title: "عملیات",
       dataIndex: "operation",
       key: "operation",
-      width: 120,
+      width: 50,
       align: "center",
       fixed: "right",
       className: "text-xs sm:text-sm",

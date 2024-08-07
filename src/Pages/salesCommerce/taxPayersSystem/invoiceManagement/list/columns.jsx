@@ -350,7 +350,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       dataIndex: "id",
       key: "inquiryStatus",
       className: "text-xs sm:text-sm",
-      width: 120,
+      width: 150,
       align: "center",
       fixed: "right",
       render: (text, record, index) => {

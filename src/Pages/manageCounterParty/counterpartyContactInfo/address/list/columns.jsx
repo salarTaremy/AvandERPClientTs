@@ -36,7 +36,7 @@ export const columns = (onDelete, onEdit, onPhoneNumberAdd) => {
       dataIndex: "operations",
       key: "operations",
       className: "text-xs sm:text-sm",
-      width: 120,
+      width: 150,
       align: "center",
       fixed: "right",
       render: (text, value, index) => (

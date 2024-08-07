@@ -101,7 +101,7 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
             title: "عملیات",
             key: "id",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 150,
             align: "center",
             fixed: "right",
             render: (text, record, index) => {

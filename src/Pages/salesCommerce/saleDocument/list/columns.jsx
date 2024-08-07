@@ -118,7 +118,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "customerId",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100,
+            width: 300,
             render: (text, record, index) => (
                 <Link onClick={() => onViewCustomer(record.customerId)}>{record.customerName}</Link>
             )
@@ -129,7 +129,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "issueDateTimeString",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 150
         },
         {
             title: "جمع خالص",
@@ -137,7 +137,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "subTotal",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.subTotal.toLocaleString()
             )
@@ -148,7 +148,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "discounts",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.discounts.toLocaleString()
             )
@@ -159,7 +159,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "taxTotal",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.taxTotal.toLocaleString()
             )
@@ -170,7 +170,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "totalPrice",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.totalPrice.toLocaleString()
             )
@@ -179,7 +179,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             title: "عملیات",
             key: "id",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 150,
             align: "center",
             fixed: "right",
             render: (text, record, index) => {
