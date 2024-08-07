@@ -17,7 +17,7 @@ const columns = (onDelete, onEdit,onView) => {
       title: "نام و نام خانوادگی",
       dataIndex: "customerName",
       key: "customerName",
-      width: 80,
+      width: 400,
       className: "text-xs sm:text-sm",
     },
 
@@ -26,13 +26,15 @@ const columns = (onDelete, onEdit,onView) => {
       dataIndex: "counterpartyTypeTitle",
       key: "counterpartyTypeTitle",
       width: 100,
+      align:'center',
       className: "text-xs sm:text-sm",
     },
     {
       title: "کدملی",
       dataIndex: "nationalCode",
       key: "nationalCode",
-      width: 100,
+      width: 80,
+      align:'center',
       className: "text-xs sm:text-sm",
     },
     {
