@@ -45,7 +45,7 @@ const FormCopyPriceCircularHeader = (props) => {
             ...values,
             id: id,
             implementationDateCalendarId: values?.implementationDate?.toString().replace(/\//g, ''),
-            implementationTime: implementationTime
+            implementationTime: values?.timeData
         }
         await addApiCall(url.PRICE_CIRCULAR_HEADER_CREATE_COPY, req)
         setLoading(false)

@@ -5,6 +5,8 @@ import { GrView } from "react-icons/gr";
 import { FiEdit, FiCalendar, FiClock } from "react-icons/fi";
 import { LuFolderOpen } from "react-icons/lu";
 import { GrAddCircle } from "react-icons/gr";
+import { CgMoreVertical } from "react-icons/cg";
+
 const getStateColor = (stateId) => {
   switch (stateId) {
     case 1:
@@ -36,7 +38,27 @@ const getTypeColor = (typeId) => {
   }
 };
 
-export const columns = (onDelete, onEdit, onView,addItem) => {
+export const columns = (onDelete, onEdit, onView, addItem) => {
+  const getMenuItems = (record) => [
+    {
+      key: '1',
+      label: (
+        <Ant.Tooltip placement="right" title={'ویرایش'}>
+          <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
+        </Ant.Tooltip>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Ant.Tooltip placement="right" title={'افزودن جزئیات'}>
+          <a onClick={() => addItem(record.id)}><LuFolderOpen className="text-green-600" /></a>
+        </Ant.Tooltip>
+      ),
+    }
+  ]
+
+
   return [
     {
       title: "شماره",
@@ -121,10 +143,24 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
         return (
           <>
             <Ant.Space>
-            <Ant.Button
-                onClick={() => addItem(record.id)}
-                className="text-green-600"
-                icon={<LuFolderOpen />}
+              <Ant.Dropdown
+                menu={{
+                  items: getMenuItems(record),
+                }}
+                placement="bottom"
+                arrow
+              >
+                <Ant.Button
+                  onClick={() => { }}
+                  className="text-blue-600"
+                  icon={<CgMoreVertical />}
+                  type="text"
+                />
+              </Ant.Dropdown>
+              <Ant.Button
+                onClick={() => onView(record.id)}
+                className="text-sky-600"
+                icon={<GrView />}
                 type="text"
               />
               <Ant.Popconfirm
@@ -138,18 +174,6 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
                   type="text"
                 />
               </Ant.Popconfirm>
-              <Ant.Button
-                onClick={() => onView(record.id)}
-                className="text-sky-600"
-                icon={<GrView />}
-                type="text"
-              />
-              <Ant.Button
-                onClick={() => onEdit(record.id)}
-                className="text-blue-600"
-                icon={<FiEdit />}
-                type="text"
-              />
             </Ant.Space>
           </>
         );
