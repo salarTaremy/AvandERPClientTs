@@ -81,9 +81,8 @@ const column = (onDelete, onEdit) => {
       title: "عملیات",
       dataIndex: "operation",
       key: "operation",
-      width: 1,
+      width: 120,
       align: "center",
-      width: 100,
       fixed: "right",
       render: (text, val) => (
         <>

@@ -178,9 +178,9 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
         {
             title: "عملیات",
             key: "id",
-            align: "center",
             className: "text-xs sm:text-sm",
-            width: 100,
+            width: 120,
+            align: "center",
             fixed: "right",
             render: (text, record, index) => {
                 return (
@@ -200,12 +200,6 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
                                     type="text"
                                 />
                             </Ant.Dropdown>
-                            <Ant.Button
-                                onClick={() => onEdit(record.id)}
-                                className="text-blue-600"
-                                icon={<FiEdit />}
-                                type="text"
-                            />
                             <Ant.Button
                                 onClick={() => onView(record.id)}
                                 className="text-sky-600"

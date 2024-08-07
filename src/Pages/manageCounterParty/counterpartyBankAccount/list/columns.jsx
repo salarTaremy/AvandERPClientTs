@@ -52,9 +52,10 @@ export const columns = (onDelete, onEdit) => {
             title: "عملیات",
             dataIndex: "operations",
             key: "operations",
-            align: "center",
             className: "text-xs sm:text-sm",
-            width: 100,
+            width: 120,
+            align: "center",
+            fixed: "right",
             render: (text, value, index) => (
                 <>
                     <Ant.Tooltip placement="top" title={"ویرایش"}>

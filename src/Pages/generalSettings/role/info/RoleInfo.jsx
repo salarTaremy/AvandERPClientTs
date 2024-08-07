@@ -58,7 +58,7 @@ const RoleInfo = ({ roleId, name }) => {
                 title: "عملیات",
                 dataIndex: "operation",
                 key: "operation",
-                width: 100,
+                width: 120,
                 align: "center",
                 fixed: "right",
                 className: "text-xs sm:text-sm",

@@ -349,9 +349,9 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       title: "عملیات",
       dataIndex: "id",
       key: "inquiryStatus",
-      align: "center",
       className: "text-xs sm:text-sm",
-      width: 100,
+      width: 120,
+      align: "center",
       fixed: "right",
       render: (text, record, index) => {
         return (

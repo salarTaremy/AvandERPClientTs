@@ -134,9 +134,9 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
     {
       title: "عملیات",
       key: "id",
-      align: "center",
       className: "text-xs sm:text-sm",
-      width: 100,
+      width: 120,
+      align: "center",
       fixed: "right",
       render: (text, record, index) => {
         return (
