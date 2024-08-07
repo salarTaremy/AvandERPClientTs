@@ -180,7 +180,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "id",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 100,
             fixed: "right",
             render: (text, record, index) => {
                 return (
