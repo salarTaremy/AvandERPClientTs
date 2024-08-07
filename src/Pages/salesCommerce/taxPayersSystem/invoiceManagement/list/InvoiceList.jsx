@@ -21,7 +21,7 @@ import CompanyInformation from "../info/CompanyInformation";
 //                        Declaration
 //====================================================================
 const InvoiceList = () => {
-  const pageTitle = "مدیریت صورتحساب ها";
+  const pageTitle = "مدیریت صورتحساب ها (سامانه مودیان)";
   const [
     invoiceListData,
     invoiceListLoading,
