@@ -23,7 +23,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
     {
       key: '2',
       label: (
-        <Ant.Tooltip placement="right" title={'ویرایش عملیات'}>
+        <Ant.Tooltip placement="right" title={'ویرایش عملیات(Actions)'}>
           <a onClick={() => onSwitch(val)}><VscGithubAction className="text-violet-600" /></a>
         </Ant.Tooltip>
       ),
@@ -31,7 +31,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
     {
       key: '3',
       label: (
-        <Ant.Tooltip placement="right" title={'عملیات'}>
+        <Ant.Tooltip placement="right" title={'مشاهده عملیات(Actions)'}>
           <a onClick={() => onAction(val)}><VscGithubAction className="text-fuchsia-600" /></a>
         </Ant.Tooltip>
       ),
@@ -39,7 +39,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
     {
       key: '4',
       label: (
-        <Ant.Tooltip placement="right" title={'لیست کاربران'}>
+        <Ant.Tooltip placement="right" title={'کاربران مشمول این نقش'}>
           <a onClick={() => onInfo(val)}><LuUser2 className="text-cyan-600" /></a>
         </Ant.Tooltip>
       ),
@@ -122,31 +122,21 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
               type="text"
             />
           </Ant.Dropdown>
-          <Ant.Tooltip placement="top" title={'ویرایش'}>
             <Ant.Button
               onClick={() => onEdit(val)}
               className="text-blue-600"
               icon={<FiEdit />}
               type="text"
             />
-          </Ant.Tooltip>
-          {/* <Ant.Button
-            onClick={() => onView(val.id)}
-            className="text-sky-600"
-            icon={<GrView />}
-            type="text"
-          /> */}
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
             title={` برای حذف نقش  "${val.persianTitle}" مطمئن هستید؟`}
           >
-            <Ant.Tooltip placement="top" title={'حذف'}>
               <Ant.Button
                 className="text-rose-600"
                 icon={<RiDeleteBin6Line />}
                 type="text"
               />
-            </Ant.Tooltip>
           </Ant.Popconfirm>
         </>
       ),

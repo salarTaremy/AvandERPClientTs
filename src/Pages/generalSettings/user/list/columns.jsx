@@ -125,19 +125,14 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) =
                                 type="text"
                             />
                         </Ant.Dropdown>
-                        <Ant.Tooltip placement="top" title={'جزئیات کاربر'}>
                             <Ant.Button
                                 onClick={() => { }}
                                 className="text-sky-600"
                                 icon={<GrView />}
                                 type="text"
                             />
-                        </Ant.Tooltip>
-
                         <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>
-                            <Ant.Tooltip placement="top" title={'حذف'}>
                                 <Ant.Button className="text-rose-600" icon={<RiDeleteBin6Line />} type="text" />
-                            </Ant.Tooltip>
                         </Ant.Popconfirm>
                     </>
                 )
