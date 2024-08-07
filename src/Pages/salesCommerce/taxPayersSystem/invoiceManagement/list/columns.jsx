@@ -376,7 +376,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
                   onClick={() =>
                     onInquiry(record.id, record.saleDocumentUniqueFiscalId)
                   }
-                  className="text-cyan-400"
+                  className="text-cyan-600"
                   icon={<BiMessageSquareError />}
                   type="text"
                   size="middle"
