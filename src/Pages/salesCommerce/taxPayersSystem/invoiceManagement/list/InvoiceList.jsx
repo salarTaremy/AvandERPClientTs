@@ -214,7 +214,7 @@ const InvoiceList = () => {
             <Ant.Tooltip title={"ارسال به سامانه مودیان"}>
               <Ant.Badge count={selectedRowKeys?.length} color="pink">
                 <Ant.Button
-                  className="text-pink-500 border-pink-500"
+                  className="text-pink-600 border-pink-600"
                   size="large"
                   disabled={!hasSelectedRow}
                 >

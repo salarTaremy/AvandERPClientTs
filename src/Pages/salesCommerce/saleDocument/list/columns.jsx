@@ -9,24 +9,24 @@ const { Text, Link } = Typography;
 const getDocumentTypeColor = (saleDocumentTypeId) => {
     switch (saleDocumentTypeId) {
         case 1:
-          return "pink";
+            return "pink";
         case 5:
-          return "cyan";
+            return "cyan";
         case 6:
-          return "green";
+            return "green";
         case 7:
-          return "red";
+            return "red";
         case 8:
-          return "orange";
+            return "orange";
         case 9:
             return "blue";
         default:
-          return "black";
+            return "black";
     }
 };
 
 
-export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
+export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
     return [
         {
             title: "شماره برگه",
@@ -166,15 +166,15 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
                     <>
                         <Ant.Space>
                             <Ant.Button
-                                onClick={() => onView(record.id)}
-                                className="text-sky-600"
-                                icon={<GrView/>}
+                                onClick={() => onEdit(record.id)}
+                                className="text-blue-600"
+                                icon={<FiEdit />}
                                 type="text"
                             />
                             <Ant.Button
-                                onClick={() => onEdit(record.id)}
-                                className="text-blue-600"
-                                icon={<FiEdit/>}
+                                onClick={() => onView(record.id)}
+                                className="text-sky-600"
+                                icon={<GrView />}
                                 type="text"
                             />
                             <Ant.Popconfirm

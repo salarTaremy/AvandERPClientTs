@@ -22,7 +22,7 @@ const InquiryListItem = (props) => {
       : "bg-orange-50 border-orange-100";
 
   const collapseIconTextColorClassName =
-    themeName == "dark" ? "text-slate-300" : "text-slate-500";
+    themeName == "dark" ? "text-slate-300" : "text-slate-600";
   //====================================================================
   //                        Functions
   //====================================================================
@@ -63,13 +63,13 @@ const InquiryListItem = (props) => {
             <Ant.List.Item.Meta
               avatar={
                 <Ant.Avatar
-                  className="text-rose-500"
+                  className="text-rose-600"
                   style={{ backgroundColor: "transparent" }}
                   icon={<TbMoodSadSquint size="middle" />}
                 />
               }
               title={
-                <Ant.Typography.Text className="text-rose-500">
+                <Ant.Typography.Text className="text-rose-600">
                   {errorItem.code}
                 </Ant.Typography.Text>
               }

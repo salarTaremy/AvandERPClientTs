@@ -363,7 +363,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
               >
                 <Ant.Tooltip title="ارسال به سامانه مودیان">
                   <Ant.Button
-                    className="text-pink-500"
+                    className="text-pink-600"
                     icon={<BsSend />}
                     type="text"
                     size="middle"

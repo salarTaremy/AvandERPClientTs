@@ -73,7 +73,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
         <>
         <Ant.Tooltip placement="top" title={'دسترسی منو'}>
             <Ant.Button
-              className="text-cyan-500"
+              className="text-cyan-600"
               onClick={() => onMenu(val)}
               icon={<AiOutlineMenu />}
               type="text"
@@ -89,7 +89,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
           </Ant.Tooltip>
           <Ant.Tooltip placement="top" title={'عملیات'}>
             <Ant.Button
-              className="text-fuchsia-500"
+              className="text-fuchsia-600"
               onClick={() => onAction(val)}
               icon={<VscGithubAction />}
               type="text"
@@ -106,7 +106,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
           <Ant.Tooltip placement="top" title={'ویرایش'}>
             <Ant.Button
               onClick={() => onEdit(val)}
-              className="text-blue-500"
+              className="text-blue-600"
               icon={<FiEdit />}
               type="text"
             />
