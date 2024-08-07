@@ -51,7 +51,7 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
     {
       key: '2',
       label: (
-        <Ant.Tooltip placement="right" title={'افزودن جزئیات'}>
+        <Ant.Tooltip placement="right" title={'گشایش سند'}>
           <a onClick={() => addItem(record.id)}><LuFolderOpen className="text-green-600" /></a>
         </Ant.Tooltip>
       ),
