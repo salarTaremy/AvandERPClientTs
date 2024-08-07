@@ -23,7 +23,7 @@ const getDocumentTypeColor = (saleDocumentTypeId) => {
         case 9:
             return "blue";
         default:
-            return "black";
+            return "purple";
     }
 };
 
