@@ -34,7 +34,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
         {
             key: '1',
             label: (
-                <Ant.Tooltip placement="right" title={`ویرایش ${record.saleDocumentType} (${record.documentNumber})` }>
+                <Ant.Tooltip placement="right" title={`ویرایش ${record.saleDocumentType} (${record.documentNumber})`}>
                     <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
                 </Ant.Tooltip>
             ),
@@ -42,8 +42,8 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
         {
             key: '2',
             label: (
-                <Ant.Tooltip placement="right" title={`گشایش ${record.saleDocumentType} (${record.documentNumber})` }>
-                    <a onClick={() => {}}><LuFolderOpen className="text-purple-600" /></a>
+                <Ant.Tooltip placement="right" title={`گشایش ${record.saleDocumentType} (${record.documentNumber})`}>
+                    <a onClick={() => { }}><LuFolderOpen className="text-purple-600" /></a>
                 </Ant.Tooltip>
             ),
         }
@@ -55,7 +55,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "documentNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 100
         },
         {
             title: "شماره سریال",
@@ -63,7 +63,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "serialNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100
+            width: 120
         },
         {
             title: "نوع برگه",
@@ -71,7 +71,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "saleDocumentType",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100,
+            width: 150,
             render: (text, record, index) => {
                 return (
                     <Ant.Tag bordered={false} color={getDocumentTypeColor(record.saleDocumentTypeId)}>
@@ -86,12 +86,12 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "referenceId",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 200,
             render: (text, record, index) => {
                 return (
                     <>
-                        {record.referenceId === 0 && <Text>-</Text>}
-                        {record.referenceId !== 0 && <Link onClick={() => onView(record.referenceId)}>{`${record.referenceDocumentType} شماره ${record.referenceDocumentNumber}`}</Link>}
+                        {record.referenceId === 0 && <Text>-</Text> ||
+                            <Link onClick={() => onView(record.referenceId)}>{`${record.referenceDocumentType} (${record.referenceDocumentNumber})`}</Link>}
                     </>
                 )
             }
@@ -118,7 +118,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "customerId",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 300,
+            width: 400,
             render: (text, record, index) => (
                 <Link onClick={() => onViewCustomer(record.customerId)}>{record.customerName}</Link>
             )
@@ -129,7 +129,10 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "issueDateTimeString",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 150
+            width: 200,
+            render: (text, record, index) => (
+                <>{record.issueDateTimeString.substring(0, 18)}</>
+            )
         },
         {
             title: "جمع خالص",
