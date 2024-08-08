@@ -10,8 +10,8 @@ import DebounceSelect from "@/components/common/DebounceSelect";
 const FilterPanel = (props) => {
     const { onSubmit, filterObject } = props;
     const [form] = Ant.Form.useForm();
-    const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(url.SALE_CHANNEL);
-    const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
+    const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(url.SALE_CHANNEL_GET_WITH_PERMISSION);
+    const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
     const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: saleChannelError });
     useRequestManager({ error: branchError });

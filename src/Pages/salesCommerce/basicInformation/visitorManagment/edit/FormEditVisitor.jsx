@@ -24,8 +24,8 @@ const FormEditVisitor = (props) => {
     const [freeCodeData, freeCodeLoading, freeCodeError, freeCodeApiCall] = useFetchWithHandler()
     useRequestManager({ error: freeCodeError })
     useRequestManager({ error: editError })
-    const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(url.SALE_CHANNEL);
-    const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
+    const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(url.SALE_CHANNEL_GET_WITH_PERMISSION);
+    const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
     useRequestManager({ error: saleChannelError });
     useRequestManager({ error: branchError });
     const commonOptions = {

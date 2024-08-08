@@ -80,8 +80,8 @@ const FilterPanel = (props) => {
                 <Ant.Form.Item name={'toEndDate'} label="تا تاریخ پایان">
                     <MyDatePicker />
                 </Ant.Form.Item>
-                <Ant.Form.Item name={'isActive'} label="وضعیت">
-                    <Ant.Switch />
+                <Ant.Form.Item name={'isActive'} label="وضعیت" >
+                    <Ant.Switch  checkedChildren="فعال" unCheckedChildren="غیرفعال" defaultChecked />
                 </Ant.Form.Item>
                 <Ant.Form.Item>
                     <Ant.Button

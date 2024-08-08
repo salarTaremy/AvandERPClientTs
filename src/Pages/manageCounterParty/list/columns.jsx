@@ -4,8 +4,29 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { GrView } from "react-icons/gr";
 import { TbLockOpen, TbLock } from "react-icons/tb";
+import { CgMoreVertical } from "react-icons/cg";
 
 const columns = (onDelete, onEdit, onView, onBlock) => {
+  const getMenuItems = (val) => [
+    {
+      key: '1',
+      label: (
+        <Ant.Tooltip placement="right" title={'ویرایش'}>
+          <a onClick={() => onEdit(val)}><FiEdit className="text-blue-600" /></a>
+        </Ant.Tooltip>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Ant.Tooltip placement="right" title={"وضعیت اعتبار طرف حساب"}>
+          <a onClick={() => onBlock(val)}>{(val.isBlocked === true && <TbLock className="text-red-600" />) || <TbLockOpen className="text-green-600" />} </a>
+        </Ant.Tooltip>
+      ),
+    }
+  ]
+
+
   return [
     {
       title: "کد",
@@ -24,7 +45,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       className: "text-xs sm:text-sm",
       sorter: (a, b) =>
         a.counterpartyTypeTitle.localeCompare(b.counterpartyTypeTitle),
-      },
+    },
     {
       title: "عنوان طرف حساب",
       dataIndex: "counterpartyTitle",
@@ -61,31 +82,26 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       title: "عملیات",
       dataIndex: "operation",
       key: "operation",
-      width: 100,
+      width: 150,
       align: "center",
       fixed: "right",
       className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
-          <Ant.Tooltip placement="top" title={"وضعیت اعتبار طرف حساب"}>
+          <Ant.Dropdown
+            menu={{
+              items: getMenuItems(val),
+            }}
+            placement="bottom"
+            arrow
+          >
             <Ant.Button
-              className={
-                (val.isBlocked === true && "text-red-600") || "text-green-600"
-              }
-              onClick={() => onBlock(val)}
-              icon={(val.isBlocked === true && <TbLock />) || <TbLockOpen />}
-              type="text"
-            />
-          </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={"ویرایش"}>
-            <Ant.Button
+              onClick={() => { }}
               className="text-blue-600"
-              onClick={() => onEdit(val)}
-              icon={<FiEdit />}
+              icon={<CgMoreVertical />}
               type="text"
             />
-          </Ant.Tooltip>
-
+          </Ant.Dropdown>
           <Ant.Button
             onClick={() => onView(val.id)}
             className="text-sky-600"

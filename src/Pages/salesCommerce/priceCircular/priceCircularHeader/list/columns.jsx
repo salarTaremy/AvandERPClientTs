@@ -5,8 +5,41 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegCopy } from "react-icons/fa";
 import { GrDocumentLocked } from "react-icons/gr";
+import { CgMoreVertical } from "react-icons/cg";
 
 export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
+    const getMenuItems = (record) => [
+        {
+            key: '1',
+            label: (
+                <Ant.Tooltip placement="right" title={'ویرایش'}>
+                    <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
+                </Ant.Tooltip>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <Ant.Popconfirm onConfirm={() => onChange(record.id)} title={`برای تغییر وضعیت "${record.title}" مطمئن هستید؟`}>
+                    <Ant.Tooltip placement="right" title={"تغییر وضعیت"}>
+                        <GrDocumentLocked className={
+                            (record.isActive === true && "text-green-400") || "text-rose-600"
+                        } />
+                    </Ant.Tooltip>
+                </Ant.Popconfirm>
+            ),
+        },
+        {
+            key: '3',
+            label: (
+                <Ant.Tooltip placement="right" title={'کپی و ایجاد بخشنامه '}>
+                    <a onClick={() => onCopy(record.id)}><FaRegCopy className="text-green-600" /></a>
+                </Ant.Tooltip>
+            ),
+        },
+    ]
+
+
     return [
         {
             title: "عنوان",
@@ -67,43 +100,32 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
         {
             title: "عملیات",
             key: "id",
-            align: "center",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 150,
+            align: "center",
             fixed: "right",
             render: (text, record, index) => {
                 return (
                     <>
                         <Ant.Space>
-                            <Ant.Popconfirm onConfirm={() => onChange(record.id)} title={`برای تغییر وضعیت "${record.title}" مطمئن هستید؟`}>
-                                <Ant.Tooltip placement="top" title={"تغییر وضعیت"}>
-                                    <Ant.Button
-                                        className={
-                                            (record.isActive === true && "text-green-400") || "text-rose-600"
-                                        }
-                                        icon={<GrDocumentLocked />}
-                                        type="text"
-                                    />
-                                </Ant.Tooltip>
-                            </Ant.Popconfirm>
-                            <Ant.Tooltip placement="top" title={'کپی و ایجاد بخشنامه '}>
+                            <Ant.Dropdown
+                                menu={{
+                                    items: getMenuItems(record),
+                                }}
+                                placement="bottom"
+                                arrow
+                            >
                                 <Ant.Button
-                                    onClick={() => onCopy(record.id)}
-                                    className="text-green-600"
-                                    icon={<FaRegCopy />}
+                                    onClick={() => { }}
+                                    className="text-blue-600"
+                                    icon={<CgMoreVertical />}
                                     type="text"
                                 />
-                            </Ant.Tooltip>
+                            </Ant.Dropdown>
                             <Ant.Button
                                 onClick={() => onView(record)}
                                 className="text-sky-600"
                                 icon={<GrView />}
-                                type="text"
-                            />
-                            <Ant.Button
-                                onClick={() => onEdit(record.id)}
-                                className="text-blue-600"
-                                icon={<FiEdit />}
                                 type="text"
                             />
                             <Ant.Popconfirm

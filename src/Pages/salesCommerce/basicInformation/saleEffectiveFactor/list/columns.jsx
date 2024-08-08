@@ -27,8 +27,8 @@ export const columns = (onDelete, onEdit, onView) => {
                     <>
                         <Ant.Space>
                             {(record.saleEffectiveOperativeTypeNature == 1) && <PlusCircleTwoTone twoToneColor="#52c41a" />}
-                            {(record.saleEffectiveOperativeTypeNature == -1) && <MinusCircleTwoTone twoToneColor="#eb2f96"/>}
-                            <span>{record.saleEffectiveOperativeType}</span> 
+                            {(record.saleEffectiveOperativeTypeNature == -1) && <MinusCircleTwoTone twoToneColor="#eb2f96" />}
+                            <span>{record.saleEffectiveOperativeType}</span>
                         </Ant.Space>
                     </>
                 )
@@ -90,14 +90,6 @@ export const columns = (onDelete, onEdit, onView) => {
             width: 80,
             render: (text, value) => (
                 <>
-                    <Ant.Tooltip placement="top" title={'مشاهده جزییات'}>
-                        <Ant.Button
-                            onClick={() => onView(value.id)}
-                            className="text-sky-600"
-                            icon={<GrView/>}
-                            type="text"
-                        />
-                    </Ant.Tooltip>
                     <Ant.Tooltip placement="top" title={'ویرایش'}>
                         <Ant.Button
                             className="text-blue-600"
@@ -106,11 +98,19 @@ export const columns = (onDelete, onEdit, onView) => {
                             type="text"
                         />
                     </Ant.Tooltip>
+                    <Ant.Tooltip placement="top" title={'مشاهده جزییات'}>
+                        <Ant.Button
+                            onClick={() => onView(value.id)}
+                            className="text-sky-600"
+                            icon={<GrView />}
+                            type="text"
+                        />
+                    </Ant.Tooltip>
                     <Ant.Tooltip placement="top" title={' حذف'}>
-                            <Ant.Popconfirm
-                                onConfirm={() => onDelete(value.id)}
-                                title={`آیا از حذف "${value.name}" مطمئن هستید؟`}
-                            >
+                        <Ant.Popconfirm
+                            onConfirm={() => onDelete(value.id)}
+                            title={`آیا از حذف "${value.name}" مطمئن هستید؟`}
+                        >
                             <Ant.Button
                                 className="text-red-600"
                                 icon={<RiDeleteBin6Line />}

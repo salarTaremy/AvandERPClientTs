@@ -4,29 +4,50 @@ import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Typography } from 'antd';
+import { LuFolderOpen } from "react-icons/lu";
 const { Text, Link } = Typography;
+import { CgMoreVertical } from "react-icons/cg";
 
 const getDocumentTypeColor = (saleDocumentTypeId) => {
     switch (saleDocumentTypeId) {
         case 1:
-          return "pink";
+            return "pink";
         case 5:
-          return "cyan";
+            return "cyan";
         case 6:
-          return "green";
+            return "green";
         case 7:
-          return "red";
+            return "red";
         case 8:
-          return "orange";
+            return "orange";
         case 9:
             return "blue";
         default:
-          return "black";
+            return "purple";
     }
 };
 
 
-export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
+
+export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
+    const getMenuItems = (record) => [
+        {
+            key: '1',
+            label: (
+                <Ant.Tooltip placement="right" title={`ویرایش ${record.saleDocumentType} (${record.documentNumber})`}>
+                    <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
+                </Ant.Tooltip>
+            ),
+        },
+        {
+            key: '2',
+            label: (
+                <Ant.Tooltip placement="right" title={`گشایش ${record.saleDocumentType} (${record.documentNumber})`}>
+                    <a onClick={() => { }}><LuFolderOpen className="text-purple-600" /></a>
+                </Ant.Tooltip>
+            ),
+        }
+    ]
     return [
         {
             title: "شماره برگه",
@@ -34,7 +55,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "documentNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 100
         },
         {
             title: "شماره سریال",
@@ -42,7 +63,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "serialNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100
+            width: 120
         },
         {
             title: "نوع برگه",
@@ -50,7 +71,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "saleDocumentType",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100,
+            width: 150,
             render: (text, record, index) => {
                 return (
                     <Ant.Tag bordered={false} color={getDocumentTypeColor(record.saleDocumentTypeId)}>
@@ -65,12 +86,12 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "referenceId",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 200,
             render: (text, record, index) => {
                 return (
                     <>
-                        {record.referenceId === 0 && <Text>-</Text>}
-                        {record.referenceId !== 0 && <Link onClick={() => onView(record.referenceId)}>{`${record.referenceDocumentType} شماره ${record.referenceDocumentNumber}`}</Link>}
+                        {record.referenceId === 0 && <Text>-</Text> ||
+                            <Link onClick={() => onView(record.referenceId)}>{`${record.referenceDocumentType} (${record.referenceDocumentNumber})`}</Link>}
                     </>
                 )
             }
@@ -97,7 +118,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "customerId",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100,
+            width: 400,
             render: (text, record, index) => (
                 <Link onClick={() => onViewCustomer(record.customerId)}>{record.customerName}</Link>
             )
@@ -108,7 +129,10 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "issueDateTimeString",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 200,
+            render: (text, record, index) => (
+                <>{record.issueDateTimeString.substring(0, 18)}</>
+            )
         },
         {
             title: "جمع خالص",
@@ -116,7 +140,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "subTotal",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.subTotal.toLocaleString()
             )
@@ -127,7 +151,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "discounts",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.discounts.toLocaleString()
             )
@@ -138,7 +162,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "taxTotal",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.taxTotal.toLocaleString()
             )
@@ -149,7 +173,7 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
             key: "totalPrice",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80,
+            width: 120,
             render: (text, record, index) => (
                 record.totalPrice.toLocaleString()
             )
@@ -157,24 +181,32 @@ export const columns = (onDelete, onEdit, onView,onViewCustomer) => {
         {
             title: "عملیات",
             key: "id",
-            align: "center",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 150,
+            align: "center",
             fixed: "right",
             render: (text, record, index) => {
                 return (
                     <>
                         <Ant.Space>
+                            <Ant.Dropdown
+                                menu={{
+                                    items: getMenuItems(record),
+                                }}
+                                placement="bottom"
+                                arrow
+                            >
+                                <Ant.Button
+                                    onClick={() => { }}
+                                    className="text-blue-600"
+                                    icon={<CgMoreVertical />}
+                                    type="text"
+                                />
+                            </Ant.Dropdown>
                             <Ant.Button
                                 onClick={() => onView(record.id)}
                                 className="text-sky-600"
-                                icon={<GrView/>}
-                                type="text"
-                            />
-                            <Ant.Button
-                                onClick={() => onEdit(record.id)}
-                                className="text-blue-600"
-                                icon={<FiEdit/>}
+                                icon={<GrView />}
                                 type="text"
                             />
                             <Ant.Popconfirm

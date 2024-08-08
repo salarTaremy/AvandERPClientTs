@@ -5,6 +5,8 @@ import { GrView } from "react-icons/gr";
 import { FiEdit, FiCalendar, FiClock } from "react-icons/fi";
 import { LuFolderOpen } from "react-icons/lu";
 import { GrAddCircle } from "react-icons/gr";
+import { CgMoreVertical } from "react-icons/cg";
+
 const getStateColor = (stateId) => {
   switch (stateId) {
     case 1:
@@ -36,7 +38,27 @@ const getTypeColor = (typeId) => {
   }
 };
 
-export const columns = (onDelete, onEdit, onView,addItem) => {
+export const columns = (onDelete, onEdit, onView, addItem) => {
+  const getMenuItems = (record) => [
+    {
+      key: '1',
+      label: (
+        <Ant.Tooltip placement="right" title={`ویرایش سند  (${record.inflectionNumber})` }>
+          <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
+        </Ant.Tooltip>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Ant.Tooltip placement="right" title={`گشایش سند  (${record.inflectionNumber})` }>
+          <a onClick={() => addItem(record.id)}><LuFolderOpen className="text-purple-600" /></a>
+        </Ant.Tooltip>
+      ),
+    }
+  ]
+
+
   return [
     {
       title: "شماره",
@@ -44,7 +66,7 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       key: "id",
       align: "center",
       className: "text-xs sm:text-sm",
-      width: 80,
+      width: 120,
     },
     {
       title: "شماره عطف",
@@ -52,7 +74,7 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       key: "inflectionNumber",
       align: "center",
       className: "text-xs sm:text-sm",
-      width: 80,
+      width: 120,
     },
     {
       title: "شماره فرعی",
@@ -60,7 +82,7 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       key: "subNumber",
       align: "center",
       className: "text-xs sm:text-sm",
-      width: 80,
+      width: 120,
     },
     {
       title: "شماره روزانه",
@@ -68,7 +90,7 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       key: "dailyNumber",
       align: "center",
       className: "text-xs sm:text-sm",
-      width: 50,
+      width: 120,
     },
     {
       title: "تاریخ",
@@ -80,7 +102,6 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       width: 100,
       render: (text, record, index) => (
         <>
-          {/* {`${record.persianDateTilte}`} <FiCalendar  /> {`${record.createTime.substring(0, 5)}`} <FiClock  />{' '} */}
           {`${record.persianDateTilte}`}
         </>
       ),
@@ -90,7 +111,7 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       dataIndex: "branchName",
       key: "branchName",
       className: "text-xs sm:text-sm",
-      width: 80,
+      width: 150,
     },
     {
       title: "وضعیت/نوع",
@@ -98,7 +119,7 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
       key: "stateName",
       align: "center",
       className: "text-xs sm:text-sm",
-      width: 80,
+      width: 120,
       render: (text, record, index) => (
         <>
           <Ant.Tag color={getStateColor(record.stateId)} >
@@ -113,18 +134,32 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
     {
       title: "عملیات",
       key: "id",
-      align: "center",
       className: "text-xs sm:text-sm",
-      width: 120,
+      width: 150,
+      align: "center",
       fixed: "right",
       render: (text, record, index) => {
         return (
           <>
             <Ant.Space>
-            <Ant.Button
-                onClick={() => addItem(record.id)}
-                className="text-green-600"
-                icon={<LuFolderOpen />}
+              <Ant.Dropdown
+                menu={{
+                  items: getMenuItems(record),
+                }}
+                placement="bottom"
+                arrow
+              >
+                <Ant.Button
+                  onClick={() => { }}
+                  className="text-blue-600"
+                  icon={<CgMoreVertical />}
+                  type="text"
+                />
+              </Ant.Dropdown>
+              <Ant.Button
+                onClick={() => onView(record.id)}
+                className="text-sky-600"
+                icon={<GrView />}
                 type="text"
               />
               <Ant.Popconfirm
@@ -138,18 +173,6 @@ export const columns = (onDelete, onEdit, onView,addItem) => {
                   type="text"
                 />
               </Ant.Popconfirm>
-              <Ant.Button
-                onClick={() => onView(record.id)}
-                className="text-sky-600"
-                icon={<GrView />}
-                type="text"
-              />
-              <Ant.Button
-                onClick={() => onEdit(record.id)}
-                className="text-blue-600"
-                icon={<FiEdit />}
-                type="text"
-              />
             </Ant.Space>
           </>
         );

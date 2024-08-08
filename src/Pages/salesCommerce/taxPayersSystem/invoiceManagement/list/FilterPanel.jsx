@@ -45,7 +45,7 @@ const FilterPanel = (props) => {
   const saleDocTypeQueryString = qs.stringify({
     hasMappedTaxPayersSystemSaleDocumentIssue: true,
   });
-  const saleDocTypeFetchUrl = `${url.SALE_DOCUMENT_TYPE}?${saleDocTypeQueryString}`;
+  const saleDocTypeFetchUrl = `${url.SALE_DOCUMENT_TYPE_GET_WITH_PERMISSION}?${saleDocTypeQueryString}`;
   const [saleDocTypeData, saleDocTypeLoading, saleDocTypeError] =
     api.useFetch(saleDocTypeFetchUrl);
 

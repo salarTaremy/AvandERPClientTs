@@ -141,7 +141,7 @@ const getSaleDocIssueColor = (issueId) => {
   }
 };
 
-export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem) => {
+export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem, onViewCompanyinformation) => {
   return [
     {
       title: "شماره سریال",
@@ -198,6 +198,16 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       align: "center",
       className: "text-xs sm:text-sm",
       width: 150,
+      render: (text, record, index) => {
+        return (
+
+          (record.customerTypeId == '2' && <Ant.Typography.Link
+            onClick={() => onViewCompanyinformation(record.customerLegalEntityIdentity)}
+          >
+            {text}
+          </Ant.Typography.Link>) || (record.customerLegalEntityIdentity)
+        );
+      },
     },
     {
       title: "کد اقتصادی",
@@ -339,9 +349,9 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       title: "عملیات",
       dataIndex: "id",
       key: "inquiryStatus",
-      align: "center",
       className: "text-xs sm:text-sm",
-      width: 120,
+      width: 150,
+      align: "center",
       fixed: "right",
       render: (text, record, index) => {
         return (
@@ -353,7 +363,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
               >
                 <Ant.Tooltip title="ارسال به سامانه مودیان">
                   <Ant.Button
-                    className="text-pink-500"
+                    className="text-pink-600"
                     icon={<BsSend />}
                     type="text"
                     size="middle"

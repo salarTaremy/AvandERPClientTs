@@ -18,7 +18,7 @@ const FormAddNewWarehouse = (props) => {
     url.WAREHOUSE_TYPE,
   );
   useRequestManager({ error: warehouseTypeError });
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH);
+  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
   useRequestManager({ error: branchError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
   const [form] = Ant.Form.useForm();

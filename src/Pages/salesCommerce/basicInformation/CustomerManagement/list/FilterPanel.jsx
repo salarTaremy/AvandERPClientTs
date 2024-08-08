@@ -9,15 +9,15 @@ const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   const [form] = Ant.Form.useForm();
   const [customerGroupList, customerGroupLoading, customerGroupError] =
-    useFetch(url.CUSTOMER_GROUP);
+    useFetch(url.CUSTOMER_GROUP_GET_WITH_PERMISSION);
   const [customerTypeList, customerTypeLoading, customerTypeError] = useFetch(
-    url.CUSTOMER_TYPE,
+    url.CUSTOMER_TYPE_GET_WITH_PERMISSION,
   );
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
-  const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
+  const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
-    url.SALE_CHANNEL,
+    url.SALE_CHANNEL_GET_WITH_PERMISSION,
   );
   useRequestManager({ error: branchError });
   useRequestManager({ error: saleChannelError });

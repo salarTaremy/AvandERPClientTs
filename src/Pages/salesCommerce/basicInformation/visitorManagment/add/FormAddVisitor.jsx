@@ -25,9 +25,9 @@ const FormAddVisitor = ({ onSuccess }) => {
     const [empty, setEmpty] = useState(undefined);
     const [freeCodeData, freeCodeLoading, freeCodeError, freeCodeApiCall] =
         useFetchWithHandler();
-    const [branchList, branchLoading, branchError] = useFetch(url.BRANCH);
+    const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
     const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
-        url.SALE_CHANNEL,
+        url.SALE_CHANNEL_GET_WITH_PERMISSION,
     );
     useRequestManager({ error: addError, loading: addLoading, data: addData });
     useRequestManager({ error: freeCodeError });

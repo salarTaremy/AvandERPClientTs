@@ -112,7 +112,7 @@ const EditProductList = () => {
     }, [selectedproductNature])
 
     useEffect(() => {
-        selectedSupplier && brandApiCall(`${url.BRAND}?supplierId=${selectedSupplier}`)
+        selectedSupplier && brandApiCall(`${url.BRAND_GET_WITH_PERMISSION}?supplierId=${selectedSupplier}`)
     }, [selectedSupplier])
 
     useEffect(() => {

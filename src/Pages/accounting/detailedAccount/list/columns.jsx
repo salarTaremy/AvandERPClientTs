@@ -10,7 +10,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: 'fullCode',
       key: 'fullCode',
       align: 'center',
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       width: 80,
       sorter: (a, b) => a.fullCode.localeCompare(b.fullCode),
     },
@@ -19,7 +19,7 @@ export const columns = (onDelete, onEdit, onView) => {
       dataIndex: 'name',
       key: 'name',
       width: 80,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (text, record, index) => (
         <Ant.Tooltip placement="top" title={record.secondName}>
@@ -33,7 +33,7 @@ export const columns = (onDelete, onEdit, onView) => {
       key: 'isActive',
       align: 'center',
       width: 80,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
 
       // width: 5,
       //render: (text, record, index) => <Ant.Checkbox checked={record.isActive} />,
@@ -50,13 +50,26 @@ export const columns = (onDelete, onEdit, onView) => {
       align: 'center',
       fixed: 'right',
       width: 120,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       render: (text, record, index) => {
 
 
         return (
           <>
             <Ant.Space>
+              <Ant.Button
+                disabled={record.isSystematic == true}
+                onClick={() => onEdit(record)}
+                className="text-blue-600"
+                icon={<FiEdit />}
+                type="text"
+              />
+              <Ant.Button
+                onClick={() => onView(record.id)}
+                className="text-sky-600"
+                icon={<GrView />}
+                type="text"
+              />
               <Ant.Popconfirm
                 onConfirm={() => onDelete(record.id)}
                 title="حدف ایتم"
@@ -64,19 +77,6 @@ export const columns = (onDelete, onEdit, onView) => {
               >
                 <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
               </Ant.Popconfirm>
-              <Ant.Button
-                onClick={() => onView(record.id)}
-                className="text-sky-600"
-                icon={<GrView />}
-                type="text"
-              />
-              <Ant.Button
-              disabled={record.isSystematic == true}
-                onClick={() => onEdit(record)}
-                className="text-blue-600"
-                icon={<FiEdit />}
-                type="text"
-              />
             </Ant.Space>
           </>
         )

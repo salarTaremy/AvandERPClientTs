@@ -6,10 +6,47 @@ import { GrView } from "react-icons/gr";
 import { VscGithubAction } from "react-icons/vsc";
 import { LuUser2 } from "react-icons/lu";
 import { AiOutlineMenu } from "react-icons/ai";
+import { CgMoreVertical } from "react-icons/cg";
 
 
 
 const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) => {
+  const getMenuItems = (val) => [
+    {
+      key: '1',
+      label: (
+        <Ant.Tooltip placement="right" title={'دسترسی منو'}>
+          <a onClick={() => onMenu(val)}><AiOutlineMenu className="text-rose-600" /></a>
+        </Ant.Tooltip>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Ant.Tooltip placement="right" title={'ویرایش عملیات(Actions)'}>
+          <a onClick={() => onSwitch(val)}><VscGithubAction className="text-violet-600" /></a>
+        </Ant.Tooltip>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <Ant.Tooltip placement="right" title={'مشاهده عملیات(Actions)'}>
+          <a onClick={() => onAction(val)}><VscGithubAction className="text-fuchsia-600" /></a>
+        </Ant.Tooltip>
+      ),
+    },
+    {
+      key: '4',
+      label: (
+        <Ant.Tooltip placement="right" title={'کاربران مشمول این نقش'}>
+          <a onClick={() => onInfo(val)}><LuUser2 className="text-cyan-600" /></a>
+        </Ant.Tooltip>
+      ),
+    },
+  ];
+
+
   return [
     // {
     //   title: "شناسه",
@@ -65,69 +102,41 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
       title: "عملیات",
       dataIndex: "operation",
       key: "operation",
-      width: 100,
+      width: 150,
       align: "center",
       fixed: "right",
       className: "text-xs sm:text-sm",
       render: (text, val) => (
         <>
-        <Ant.Tooltip placement="top" title={'دسترسی منو'}>
+          <Ant.Dropdown
+            menu={{
+              items: getMenuItems(val),
+            }}
+            placement="bottom"
+            arrow
+          >
             <Ant.Button
-              className="text-cyan-500"
-              onClick={() => onMenu(val)}
-              icon={<AiOutlineMenu />}
+              onClick={() => { }}
+              className="text-blue-600"
+              icon={<CgMoreVertical />}
               type="text"
             />
-          </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={'ویرایش عملیات'}>
-            <Ant.Button
-              className="text-violet-600"
-              onClick={() => onSwitch(val)}
-              icon={<VscGithubAction />}
-              type="text"
-            />
-          </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={'عملیات'}>
-            <Ant.Button
-              className="text-fuchsia-500"
-              onClick={() => onAction(val)}
-              icon={<VscGithubAction />}
-              type="text"
-            />
-          </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={'لیست کاربران'}>
-            <Ant.Button
-              className="text-rose-400"
-              onClick={() => onInfo(val)}
-              icon={<LuUser2 />}
-              type="text"
-            />
-          </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={'ویرایش'}>
+          </Ant.Dropdown>
             <Ant.Button
               onClick={() => onEdit(val)}
-              className="text-blue-500"
+              className="text-blue-600"
               icon={<FiEdit />}
               type="text"
             />
-          </Ant.Tooltip>
-          {/* <Ant.Button
-            onClick={() => onView(val.id)}
-            className="text-sky-600"
-            icon={<GrView />}
-            type="text"
-          /> */}
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
             title={` برای حذف نقش  "${val.persianTitle}" مطمئن هستید؟`}
           >
-            <Ant.Tooltip placement="top" title={'حذف'}>
               <Ant.Button
                 className="text-rose-600"
                 icon={<RiDeleteBin6Line />}
                 type="text"
               />
-            </Ant.Tooltip>
           </Ant.Popconfirm>
         </>
       ),
