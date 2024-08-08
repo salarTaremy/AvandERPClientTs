@@ -7,6 +7,7 @@ import { VscGithubAction } from "react-icons/vsc";
 import { LuUser2 } from "react-icons/lu";
 import { AiOutlineMenu } from "react-icons/ai";
 import { CgMoreVertical } from "react-icons/cg";
+import { BsMenuButtonWideFill } from "react-icons/bs";
 
 
 
@@ -16,7 +17,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
       key: '1',
       label: (
         <Ant.Tooltip placement="right" title={'دسترسی منو'}>
-          <a onClick={() => onMenu(val)}><AiOutlineMenu className="text-rose-600" /></a>
+          <a onClick={() => onMenu(val)}><BsMenuButtonWideFill className="text-indigo-600" /></a>
         </Ant.Tooltip>
       ),
     },
