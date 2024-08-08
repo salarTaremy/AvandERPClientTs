@@ -55,13 +55,7 @@ const RoleInfo = ({ roleId, name }) => {
                 width: 150,
             },
             {
-                title: "عملیات",
-                dataIndex: "operation",
-                key: "operation",
-                width: 150,
-                align: "center",
-                fixed: "right",
-                className: "text-xs sm:text-sm",
+                ...defaultValues.TABLES_OPERATION_COLUMN,
                 render: (text, val) => (
                     <>
                         <Ant.Popconfirm

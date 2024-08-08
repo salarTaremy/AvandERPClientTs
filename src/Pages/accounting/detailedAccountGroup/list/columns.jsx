@@ -3,6 +3,7 @@ import * as Ant from 'antd'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { FiEdit } from 'react-icons/fi'
 import { GrView } from 'react-icons/gr'
+import * as defaultValues from "@/defaultValues";
 const columns = (onDelete, onEdit, onView) => {
   return (
     [
@@ -18,15 +19,15 @@ const columns = (onDelete, onEdit, onView) => {
         dataIndex: 'code',
         key: 'code',
         width: 80,
-        align:'center',
-        className:"text-xs sm:text-sm",
+        align: 'center',
+        className: "text-xs sm:text-sm",
       },
       {
         title: 'نام ',
         dataIndex: 'name',
         key: 'name',
         width: 100,
-        className:"text-xs sm:text-sm",
+        className: "text-xs sm:text-sm",
         sorter: (a, b) => a.name.localeCompare(b.name),
       },
       {
@@ -34,18 +35,11 @@ const columns = (onDelete, onEdit, onView) => {
         dataIndex: 'description',
         key: 'description',
         width: 300,
-        className:"text-xs sm:text-sm",
+        className: "text-xs sm:text-sm",
 
       },
       {
-        title: 'عملیات',
-        dataIndex: 'operation',
-        key: 'operation',
-        width: 120,
-        align: 'center',
-        fixed: 'right',
-        className:"text-xs sm:text-sm",
-
+        ...defaultValues.TABLES_OPERATION_COLUMN,
         render: (text, val) =>
           <>
             <Ant.Space direction="horizontal" size={20}>

@@ -8,6 +8,14 @@ export const TABLE_PROPS = {
   bordered: true,
   scroll: { x: '100%', y: '50vh' },
 }
+export const TABLES_OPERATION_COLUMN = {
+  title: "عملیات",
+  key: "id",
+  className: "text-xs sm:text-sm",
+  width: 150,
+  align: "center",
+  fixed: "right",
+}
 
 export const MODAL_PROPS = {
   size: 'middel'

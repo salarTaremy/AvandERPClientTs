@@ -2,6 +2,7 @@ import React from "react";
 import * as Ant from "antd";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import * as defaultValues from "@/defaultValues";
 
 export const columns = (onDelete, onEdit) => {
     return [
@@ -49,13 +50,7 @@ export const columns = (onDelete, onEdit) => {
             width: 120,
         },
         {
-            title: "عملیات",
-            dataIndex: "operations",
-            key: "operations",
-            className: "text-xs sm:text-sm",
-            width: 150,
-            align: "center",
-            fixed: "right",
+            ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, value, index) => (
                 <>
                     <Ant.Tooltip placement="top" title={"ویرایش"}>

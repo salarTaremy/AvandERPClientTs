@@ -13,7 +13,6 @@ import FormAddPhoneNumber from "./add/FormAddPhoneNumber";
 import * as uuid from "uuid";
 import FormEditPhoneNumber from "./edit/FormEditPhoneNumber";
 
-
 const PhoneNumberList = ({ addressId }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
     useRequestManager({ error: error });
@@ -112,13 +111,7 @@ const PhoneNumberList = ({ addressId }) => {
                 width: 150,
             },
             {
-                title: "عملیات",
-                dataIndex: "operation",
-                key: "operation",
-                width: 150,
-                align: "center",
-                fixed: "right",
-                className: "text-xs sm:text-sm",
+                ...defaultValues.TABLES_OPERATION_COLUMN,
                 render: (text, val) => (
                     <>
                         <Ant.Button

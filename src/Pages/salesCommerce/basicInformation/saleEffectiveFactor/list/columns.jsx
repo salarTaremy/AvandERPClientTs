@@ -4,6 +4,7 @@ import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MinusCircleTwoTone, PlusCircleTwoTone } from "@ant-design/icons";
+import * as defaultValues from "@/defaultValues";
 
 export const columns = (onDelete, onEdit, onView) => {
     return [
@@ -82,12 +83,7 @@ export const columns = (onDelete, onEdit, onView) => {
             hidden: 'true'
         },
         {
-            title: 'عملیات',
-            dataIndex: 'operation',
-            key: 'operation',
-            align: 'center',
-            className: 'text-xs sm:text-sm',
-            width: 80,
+            ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, value) => (
                 <>
                     <Ant.Tooltip placement="top" title={'ویرایش'}>

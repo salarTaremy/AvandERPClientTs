@@ -4,6 +4,7 @@ import { BiMessageSquareError } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
 import { BsSend } from "react-icons/bs";
 import { green, lime, red, geekblue, orange } from "@ant-design/colors";
+import * as defaultValues from "@/defaultValues";
 
 const getSendingProgressPercent = (progressStatusId) => {
   switch (progressStatusId) {
@@ -346,13 +347,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       width: 100,
     },
     {
-      title: "عملیات",
-      dataIndex: "id",
-      key: "inquiryStatus",
-      className: "text-xs sm:text-sm",
-      width: 150,
-      align: "center",
-      fixed: "right",
+      ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, record, index) => {
         return (
           <>

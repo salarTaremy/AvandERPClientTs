@@ -5,8 +5,9 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Typography } from 'antd';
 import { LuFolderOpen } from "react-icons/lu";
-const { Text, Link } = Typography;
 import { CgMoreVertical } from "react-icons/cg";
+import * as defaultValues from "@/defaultValues";
+const { Text, Link } = Typography;
 
 const getDocumentTypeColor = (saleDocumentTypeId) => {
     switch (saleDocumentTypeId) {
@@ -179,12 +180,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             )
         },
         {
-            title: "عملیات",
-            key: "id",
-            className: "text-xs sm:text-sm",
-            width: 150,
-            align: "center",
-            fixed: "right",
+            ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, record, index) => {
                 return (
                     <>

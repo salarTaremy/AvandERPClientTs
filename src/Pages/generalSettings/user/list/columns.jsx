@@ -8,7 +8,7 @@ import { VscGithubAction } from "react-icons/vsc";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { CgMoreVertical , CgMore} from "react-icons/cg";
 import { BsMotherboard } from "react-icons/bs";
-
+import * as defaultValues from "@/defaultValues";
 
 const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) => {
     const getMenuItems = (val) => [
@@ -101,13 +101,7 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) =
                 ),
             },
             {
-                title: 'عملیات',
-                dataIndex: 'operation',
-                key: 'operation',
-                width: 120,
-                align: 'center',
-                fixed: 'right',
-                className: "text-xs sm:text-sm",
+                ...defaultValues.TABLES_OPERATION_COLUMN,
                 render: (text, val) => (
                     <>
 

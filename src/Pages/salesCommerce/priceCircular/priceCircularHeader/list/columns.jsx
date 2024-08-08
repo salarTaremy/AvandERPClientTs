@@ -7,6 +7,7 @@ import { FaRegCopy } from "react-icons/fa";
 import { GrDocumentLocked } from "react-icons/gr";
 import { CgMoreVertical } from "react-icons/cg";
 
+
 export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
     const getMenuItems = (record) => [
         {
@@ -98,12 +99,7 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
             width: 200
         },
         {
-            title: "عملیات",
-            key: "id",
-            className: "text-xs sm:text-sm",
-            width: 150,
-            align: "center",
-            fixed: "right",
+            ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, record, index) => {
                 return (
                     <>
