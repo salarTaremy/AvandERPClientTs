@@ -6,6 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegCopy } from "react-icons/fa";
 import { GrDocumentLocked } from "react-icons/gr";
 import { CgMoreVertical } from "react-icons/cg";
+import * as defaultValues from "@/defaultValues";
 
 
 export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
