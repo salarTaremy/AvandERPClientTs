@@ -40,7 +40,7 @@ const FrmAddItemDetail = (props) => {
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+    filterOption: (input, option) =>   option.label.toLowerCase().includes(input.toLowerCase()),
   };
   const filter = (inputValue, path) =>
     path.some(
@@ -190,7 +190,11 @@ const FrmAddItemDetail = (props) => {
                 options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
                   value: option.id,
+
                 }))}
+                filterOption={(input, option) =>
+                  option.label.toLowerCase().includes(input.toLowerCase())
+                }
               />
             </Ant.Form.Item>
           </Ant.Col>

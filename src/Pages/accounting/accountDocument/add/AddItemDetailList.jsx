@@ -13,8 +13,6 @@ import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import * as uuid from "uuid";
 import useRequestManager from "@/hooks/useRequestManager";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FiEdit } from "react-icons/fi";
 import { ImFileExcel } from "react-icons/im";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
 import FrmEditItemDetail from "../add/FrmEditItemDetail";
@@ -22,7 +20,8 @@ import ErrorDetailListTable from "../add/ErrorDetailListTable";
 import useAllLoading from "@/hooks/useAllLoading ";
 import columns from "../add/columns";
 import * as XLSX from "xlsx";
-import writeXlsxFile from "write-excel-file";
+import { color } from "highcharts";
+
 const AddItemDetailList = (props) => {
   const { id } = props;
   const [
@@ -58,7 +57,12 @@ const AddItemDetailList = (props) => {
     loading: submitLoading,
     data: submitListData,
   });
-  const allLoading = useAllLoading([accountGroupLoading, dtAccLoading,loadingAccDocumentDetail,listLoadingHeader]);
+  const allLoading = useAllLoading([
+    accountGroupLoading,
+    dtAccLoading,
+    loadingAccDocumentDetail,
+    listLoadingHeader,
+  ]);
   const documentInfo = [
     {
       key: "1",
@@ -76,6 +80,7 @@ const AddItemDetailList = (props) => {
       children: (totalCreditor - totalDebtor).toLocaleString(),
     },
   ];
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
   const items = [
     {
       label: (
@@ -89,6 +94,7 @@ const AddItemDetailList = (props) => {
             handleFileUpload(file);
             return false;
           }}
+          disabled={isFileUploaded}
         >
           {"وارد کردن فایل اکسل"}
         </Ant.Upload>
@@ -126,7 +132,6 @@ const AddItemDetailList = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(listAccDocumentDetail?.data, "vvvvv");
     setDataSource(
       (listAccDocumentDetail?.isSuccess && listAccDocumentDetail?.data) || null,
     );
@@ -398,6 +403,7 @@ const AddItemDetailList = (props) => {
         );
       }
     };
+    setIsFileUploaded(true);
     reader.readAsArrayBuffer(file);
   };
   //====================================================================
@@ -408,15 +414,14 @@ const AddItemDetailList = (props) => {
     return (
       <>
         <ButtonList onAdd={onAdd} onSave={btnSubmit}>
-          <Ant.Tooltip title={" وارد کرد فایل اکسل"}>
+          <Ant.Tooltip title={"وارد کرد فایل اکسل"}>
             <Ant.Dropdown.Button
               menu={{
                 items,
               }}
-              className="green-700 border-green-700"
               size="large"
             >
-              <ImFileExcel />
+              <ImFileExcel style={{ color: "green" }} />
             </Ant.Dropdown.Button>
           </Ant.Tooltip>
         </ButtonList>
@@ -472,7 +477,7 @@ const AddItemDetailList = (props) => {
         }
         icon={<MdDescription />}
       />
-      <CoustomContent height="75vh"     loading={allLoading}>
+      <CoustomContent height="75vh" loading={allLoading}>
         <Grid />
         <Ant.Row>
           <Ant.Col>
