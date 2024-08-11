@@ -18,6 +18,8 @@ import { FiEdit } from "react-icons/fi";
 import { ImFileExcel } from "react-icons/im";
 import FrmAddItemDetail from "../add/FrmAddItemDetail";
 import FrmEditItemDetail from "../add/FrmEditItemDetail";
+import ErrorDetailListTable from "../add/ErrorDetailListTable";
+import useAllLoading from "@/hooks/useAllLoading ";
 import columns from "../add/columns";
 import * as XLSX from "xlsx";
 import writeXlsxFile from "write-excel-file";
@@ -29,10 +31,13 @@ const AddItemDetailList = (props) => {
     errorAccDocumentDetail,
     ApiCallAccDocumentDetail,
   ] = useFetchWithHandler();
+
   const [formData, setFormData] = useState({});
   const [dataSource, setDataSource] = useState([]);
   const [modalContent, setModalContent] = useState();
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [modalState, setModalState] = useState(false);
+  const [errorList, setErrorList] = useState({});
   const [totalCreditor, setTotalCreditor] = useState(0);
   const [totalDebtor, setTotalDebtor] = useState(0);
   const [
@@ -53,6 +58,7 @@ const AddItemDetailList = (props) => {
     loading: submitLoading,
     data: submitListData,
   });
+  const allLoading = useAllLoading([accountGroupLoading, dtAccLoading,loadingAccDocumentDetail,listLoadingHeader]);
   const documentInfo = [
     {
       key: "1",
@@ -75,6 +81,7 @@ const AddItemDetailList = (props) => {
       label: (
         <Ant.Upload
           accept={".xlsx"}
+          //  accept={".xlsx, .xls"}
           // itemRender = {() => {<></>}}
           showUploadList={false}
           maxCount={1}
@@ -119,15 +126,7 @@ const AddItemDetailList = (props) => {
   }, []);
 
   useEffect(() => {
-    accounGrouptData?.isSuccess &&
-      console.log(accounGrouptData?.data, "account");
-  }, [accounGrouptData]);
-
-  useEffect(() => {
-    dtAccData?.isSuccess && console.log(dtAccData?.data, " ");
-  }, [dtAccData]);
-
-  useEffect(() => {
+    console.log(listAccDocumentDetail?.data, "vvvvv");
     setDataSource(
       (listAccDocumentDetail?.isSuccess && listAccDocumentDetail?.data) || null,
     );
@@ -150,7 +149,6 @@ const AddItemDetailList = (props) => {
       setDataSource((prevDataSource) => {
         if (Array.isArray(prevDataSource)) {
           return [...prevDataSource, formData];
-
         } else {
           return [formData];
         }
@@ -223,7 +221,6 @@ const AddItemDetailList = (props) => {
     setFormData(newData);
   };
   const handleDataSubmitEdit = (newData) => {
-    console.log(newData,"ggg")
     setDataSource((pre) => {
       return pre.map((item) => {
         if (item.id === newData.id) {
@@ -254,6 +251,7 @@ const AddItemDetailList = (props) => {
         article: item.article,
       };
     });
+    console.log(formattedData, "formattedData");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
   };
 
@@ -270,6 +268,7 @@ const AddItemDetailList = (props) => {
   };
 
   const onAdd = () => {
+    setModalSize({ ...defaultValues.MODAL_LARGE });
     setModalContent(
       <FrmAddItemDetail
         key={uuid.v4()}
@@ -281,6 +280,7 @@ const AddItemDetailList = (props) => {
   };
 
   const onEdit = (val) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE });
     setModalContent(
       <FrmEditItemDetail
         key={uuid.v4()}
@@ -289,6 +289,15 @@ const AddItemDetailList = (props) => {
         onDataSubmitEdit={handleDataSubmitEdit}
         closeModal={closeModalEdit}
       />,
+    );
+    setModalState(true);
+  };
+  const onError = (val) => {
+    const key = val?.key;
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList);
+    setModalContent(
+      <ErrorDetailListTable errorsList={errorList} myKey={key} obj={val} />,
     );
     setModalState(true);
   };
@@ -304,13 +313,17 @@ const AddItemDetailList = (props) => {
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
+      console.log(dataSource, "dataSource");
       if (excelData) {
         console.log(excelData, "excelData");
+
         const newData = excelData.slice(1).map((item, index) => ({
           id: uuid.v4(),
           key: uuid.v4(),
-          rowNumber: dataSource[dataSource.length - 1].rowNumber + index + 1,
+          rowNumber:
+            dataSource !== null
+              ? dataSource[dataSource.length - 1]?.rowNumber + index + 1
+              : index + 1,
           accountId: item[0],
           accountName: 0,
           detailedAccountName4: 0,
@@ -320,12 +333,12 @@ const AddItemDetailList = (props) => {
           detailedAccountId4: item[2],
           detailedAccountId5: item[3],
           detailedAccountId6: item[4],
-          article: String(item[5]),
+          article: item[5] == undefined ? "" : String(item[5]),
           debtor: item[6] ?? 0,
           creditor: item[7] ?? 0,
           description: item[8],
         }));
-console.log(newData,"newData")
+        console.log(newData, "newData");
         accounGrouptData?.isSuccess &&
           accounGrouptData?.data.forEach((accoun) => {
             newData.forEach((item) => {
@@ -337,24 +350,55 @@ console.log(newData,"newData")
         dtAccData?.isSuccess &&
           dtAccData?.data.forEach((i) => {
             newData.forEach((item) => {
-              if (i.id === item.detailedAccountId4) {
+              if (i.id == item.detailedAccountId4) {
                 item.detailedAccountName4 = i.name;
               }
-              if (i.id === item.detailedAccountId5) {
+              if (i.id == item.detailedAccountId5) {
                 item.detailedAccountName5 = i.name;
               }
-              if (i.id === item.detailedAccountId6) {
+              if (i.id == item.detailedAccountId6) {
                 item.detailedAccountName6 = i.name;
               }
             });
           });
+
+        const errors = {};
+
+        newData.forEach((item) => {
+          errors[item?.key] = [];
+
+          if (item.detailedAccountName4 === item.detailedAccountName5) {
+            errors[item.key].push("حساب تفصیلی 4,5 نباید باهم یکی باشند ");
+          }
+
+          if (item.detailedAccountName5 === item.detailedAccountName6) {
+            errors[item.key].push("حساب تفصیلی 5,6 نباید باهم یکی باشند ");
+          }
+
+          if (item.detailedAccountName4 === item.detailedAccountName6) {
+            errors[item.key].push("حساب تفصیلی 4,6 نباید باهم یکی باشند ");
+          }
+
+          if (item.debtor === 0 && item.creditor === 0) {
+            errors[item.key].push(
+              "بدهکار و بستانکار همزمان نمیتوتنند مقدار صفر داشنته باشند",
+            );
+          } else if (item.debtor > 0 && item.creditor > 0) {
+            errors[item.key].push("یکی از مقادیر باید صفر باشد ");
+          }
+        });
+
+        console.log(errors, "errors");
+        // console.log(errList,"List");
+
+        setErrorList(errors);
 
         setDataSource((prevData) =>
           prevData ? [...prevData, ...newData] : newData,
         );
       }
     };
-    reader.readAsBinaryString(file);
+    reader.readAsArrayBuffer(file);
   };
   //====================================================================
   //                        Child Components
@@ -382,19 +426,19 @@ console.log(newData,"newData")
   const Grid = () => {
     return (
       <>
-        {/* {data && (
-          <div>
-            <h2>Imported Data:</h2>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-          </div>
-        )} */}
-
         <Ant.Table
+          loading={allLoading}
           key={id}
           {...defaultValues.TABLE_PROPS}
-          columns={columns(onDelete, onEdit)}
+          columns={columns(onDelete, onEdit, onError)}
           title={title}
           dataSource={dataSource}
+          rowClassName={(record, index) => {
+            if (errorList[record?.key] && errorList[record.key].length > 0) {
+              return "red-row";
+            }
+            return "";
+          }}
         />
       </>
     );
@@ -408,7 +452,7 @@ console.log(newData,"newData")
       <Ant.Modal
         open={modalState}
         {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_LARGE}
+        {...modalSize}
         getContainer={null}
         footer={null}
         onCancel={() => {
@@ -423,19 +467,13 @@ console.log(newData,"newData")
 
       <ModalHeader
         title={
-          (listLoadingHeader && <Ant.Spin />) ||
+          (allLoading && <Ant.Spin />) ||
           `اضافه کردن جزییات : شماره سند  (${listDataHeader?.isSuccess && listDataHeader?.data.id}) ,تاریخ (${listDataHeader?.isSuccess && listDataHeader?.data.persianDateTilte}) `
         }
         icon={<MdDescription />}
       />
-      <CoustomContent height="75vh" loading={loadingAccDocumentDetail}>
-        <Ant.Table
-          key={id}
-          {...defaultValues.TABLE_PROPS}
-          columns={columns(onDelete, onEdit)}
-          title={title}
-          dataSource={dataSource}
-        />
+      <CoustomContent height="75vh"     loading={allLoading}>
+        <Grid />
         <Ant.Row>
           <Ant.Col>
             <Ant.Descriptions
