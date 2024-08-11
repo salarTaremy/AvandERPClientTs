@@ -382,7 +382,7 @@ const FormAddCustomer = ({ onSucces }) => {
             </CoustomContent>
           </Ant.Col>
           <Ant.Col span={24} sm={14}>
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active loading={loadingData}>
 
               <CoustomContent bordered >
                 {empty == undefined ? (

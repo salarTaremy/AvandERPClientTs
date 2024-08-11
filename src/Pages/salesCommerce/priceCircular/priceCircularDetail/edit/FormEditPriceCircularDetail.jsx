@@ -52,7 +52,7 @@ const FormEditPriceCircularDetail = (props) => {
     return (
         <>
             <ModalHeader title={"ویرایش جزئیات بخشنامه قیمت"} icon={<MdDescription />} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item
                         name="productId"

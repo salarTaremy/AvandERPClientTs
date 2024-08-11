@@ -93,7 +93,7 @@ const HeaderCounterParty = ({ data, onHeaderEdit }) => {
       </ButtonList>
 
       {data?.data == null ? (
-        <Ant.Skeleton loading={true} className="w-11/12 h-full " />
+        <Ant.Skeleton active  loading={true} className="w-11/12 h-full " />
       ) : (
         <Ant.Descriptions
           bordered

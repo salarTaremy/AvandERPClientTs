@@ -96,7 +96,7 @@ const SaleDocumentHeaderInfo = (props) => {
         {modalContent}
       </Ant.Modal>
 
-      <Ant.Skeleton loading={loading}>
+      <Ant.Skeleton active  loading={loading}>
         <ModalHeader title={title} />
         <Ant.Descriptions
           bordered={false}

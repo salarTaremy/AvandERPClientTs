@@ -3,6 +3,7 @@ import * as Ant from "antd";
 import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import * as defaultValues from "@/defaultValues";
 
 export const columns = (onDelete, onEdit,onProductView, onBatchNumberView) => {
     return [
@@ -59,13 +60,7 @@ export const columns = (onDelete, onEdit,onProductView, onBatchNumberView) => {
             )
         },
         {
-            title: "عملیات",
-            dataIndex: "operation",
-            key: "operation",
-            width: 150,
-            align: "center",
-            fixed: "right",
-            className: "text-xs sm:text-sm",
+            ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, val) => (
                 <>
                     <Ant.Space direction="horizontal" size={20}>

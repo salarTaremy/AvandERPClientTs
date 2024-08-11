@@ -55,7 +55,7 @@ const DetailedAccountGroupDescription = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
+    <Ant.Skeleton active loading={loading}>
       <ModalHeader title={"جزئیات گروه تفصیل"} icon={<MdDescription />}/>
       <Ant.Descriptions
         bordered

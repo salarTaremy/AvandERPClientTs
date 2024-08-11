@@ -58,7 +58,7 @@ const FormEditRole = (props) => {
   return (
     <>
       <ModalHeader title={`ویرایش نقش"${name}"`} icon={<AiOutlineDeploymentUnit />} />
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={12} md={12} lg={12}>

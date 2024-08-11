@@ -99,7 +99,7 @@ const DetailedAccountDescription = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
+    <Ant.Skeleton active loading={loading}>
       <ModalHeader title={"جزئیات حساب تفصیل"} icon={<MdDescription />}/>
       <Ant.Descriptions
         bordered

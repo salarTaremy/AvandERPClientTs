@@ -42,7 +42,7 @@ const BatchNumberDescription = (props) => {
     //====================================================================
     return (
         <>
-        <Ant.Skeleton active={true} loading={batchNumberLoading}>
+        <Ant.Skeleton active  loading={batchNumberLoading}>
         <ModalHeader title={pageTitle}/>
             <Ant.Descriptions
                 column={{

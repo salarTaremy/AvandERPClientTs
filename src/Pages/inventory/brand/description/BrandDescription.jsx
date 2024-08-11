@@ -57,7 +57,7 @@ const BrandDescription = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
+    <Ant.Skeleton active  loading={loading}>
       <ModalHeader title={"جزئیات برند"} icon={<MdDescription />} />
       <Ant.Descriptions bordered items={borderedItems} />
     </Ant.Skeleton>

@@ -41,7 +41,7 @@ export const FrmEditAccountGroup = ({ accountGroupId }) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton loading={accGrpLoading}>
+      <Ant.Skeleton active loading={accGrpLoading}>
         <Ant.Form
           form={form}
           //disabled={accEditGrpLoading}

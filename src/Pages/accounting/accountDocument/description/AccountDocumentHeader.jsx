@@ -64,7 +64,7 @@ const AccountDocumentHeader = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton active={true} loading={loading}>
+      <Ant.Skeleton active loading={loading}>
         <ModalHeader title={"مشاهده سند حسابداری"} icon={<HiDocumentSearch />} />
         <Ant.Descriptions bordered={false} size="small" items={borderedItems} />
       </Ant.Skeleton>

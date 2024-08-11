@@ -61,7 +61,7 @@ const SaleDocumentFooterInfo = (props) => {
     //====================================================================
     return (
         <>
-            <Ant.Skeleton loading={loading}>
+            <Ant.Skeleton active loading={loading}>
                  <Ant.Row gutter={16} className={className}>
                     <Ant.Col span={24}>
                         <Ant.Descriptions 

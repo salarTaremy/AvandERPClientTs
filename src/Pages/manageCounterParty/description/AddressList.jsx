@@ -60,7 +60,7 @@ const AddressList = ({ id }) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active  loading={loadingData}>
         <Ant.Collapse accordion items={items} />
       </Ant.Skeleton>
     </>

@@ -46,7 +46,7 @@ const FormEditUser = (props) => {
   return (
     <>
       <ModalHeader title={`ویرایش کاربر "${userName}"`} icon={<FaUserPen />} />
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item
             name="userName"

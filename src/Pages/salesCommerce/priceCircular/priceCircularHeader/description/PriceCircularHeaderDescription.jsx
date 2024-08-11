@@ -71,7 +71,7 @@ const PriceCircularHeaderDescription = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton active={true} loading={priceCircularHeaderLoading}>
+      <Ant.Skeleton active  loading={priceCircularHeaderLoading}>
         <Ant.Modal
           open={modalOpenState}
           centered

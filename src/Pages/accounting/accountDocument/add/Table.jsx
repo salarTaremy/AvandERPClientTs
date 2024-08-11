@@ -11,6 +11,7 @@ import { PropTypes } from "prop-types";
 import { useParams } from "react-router-dom";
 import * as uuid from "uuid";
 import useAllLoading from "@/hooks/useAllLoading ";
+import * as defaultValues from "@/defaultValues";
 export const Table = (props) => {
   const {
     onSubmit,
@@ -523,14 +524,7 @@ export const Table = (props) => {
       ),
     },
     {
-      title: "عملیات",
-      dataIndex: "operation",
-      key: "operation",
-      width: 50,
-      align: "center",
-      fixed: "right",
-      className: "text-xs sm:text-sm",
-
+      ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
           <Ant.Popconfirm
@@ -570,7 +564,7 @@ export const Table = (props) => {
 
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Skeleton loading={allLoading}>
+              <Ant.Skeleton active loading={allLoading}>
                 <Ant.Table
                   bordered={false}
                   pagination={false}

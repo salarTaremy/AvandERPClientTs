@@ -6,6 +6,7 @@ import { FiEdit, FiCalendar, FiClock } from "react-icons/fi";
 import { LuFolderOpen } from "react-icons/lu";
 import { GrAddCircle } from "react-icons/gr";
 import { CgMoreVertical } from "react-icons/cg";
+import * as defaultValues from "@/defaultValues";
 
 const getStateColor = (stateId) => {
   switch (stateId) {
@@ -132,12 +133,7 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
       ),
     },
     {
-      title: "عملیات",
-      key: "id",
-      className: "text-xs sm:text-sm",
-      width: 150,
-      align: "center",
-      fixed: "right",
+      ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, record, index) => {
         return (
           <>

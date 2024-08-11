@@ -55,13 +55,7 @@ const RoleInfo = ({ roleId, name }) => {
                 width: 150,
             },
             {
-                title: "عملیات",
-                dataIndex: "operation",
-                key: "operation",
-                width: 150,
-                align: "center",
-                fixed: "right",
-                className: "text-xs sm:text-sm",
+                ...defaultValues.TABLES_OPERATION_COLUMN,
                 render: (text, val) => (
                     <>
                         <Ant.Popconfirm
@@ -86,7 +80,7 @@ const RoleInfo = ({ roleId, name }) => {
     return (
         <>
             <ModalHeader title={` لیست کاربران نقش "${name}"`} icon={<TiThList />}/>
-            <Ant.Skeleton loading={loading}>
+            <Ant.Skeleton active loading={loading}>
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}
                     className="mt-5"

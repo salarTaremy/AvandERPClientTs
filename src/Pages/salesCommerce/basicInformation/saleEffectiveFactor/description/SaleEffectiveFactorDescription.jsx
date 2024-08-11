@@ -77,7 +77,7 @@ const SaleEffectiveFactorDescription = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
+    <Ant.Skeleton active  loading={loading}>
       <ModalHeader title={"جزئیات عامل موثر بر برگه فروش"} icon={<MdDescription />} />
       <Ant.Descriptions bordered layout="horizontal" items={descriptionItems} />
     </Ant.Skeleton>

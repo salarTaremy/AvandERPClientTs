@@ -46,7 +46,7 @@ const FormEditDeliveryType = (props) => {
   return (
     <>
       <ModalHeader title={"ویرایش نوع تحویل"} icon={<TbTruckDelivery />} />
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="title" label={"نام"} rules={[{ required: true }]}>
             <Ant.Input allowClear showCount maxLength={100} />

@@ -7,7 +7,8 @@ import { VscGithubAction } from "react-icons/vsc";
 import { LuUser2 } from "react-icons/lu";
 import { AiOutlineMenu } from "react-icons/ai";
 import { CgMoreVertical } from "react-icons/cg";
-
+import { BsMenuButtonWideFill } from "react-icons/bs";
+import * as defaultValues from "@/defaultValues";
 
 
 const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) => {
@@ -16,7 +17,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
       key: '1',
       label: (
         <Ant.Tooltip placement="right" title={'دسترسی منو'}>
-          <a onClick={() => onMenu(val)}><AiOutlineMenu className="text-rose-600" /></a>
+          <a onClick={() => onMenu(val)}><BsMenuButtonWideFill className="text-indigo-600" /></a>
         </Ant.Tooltip>
       ),
     },
@@ -99,13 +100,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
       ),
     },
     {
-      title: "عملیات",
-      dataIndex: "operation",
-      key: "operation",
-      width: 150,
-      align: "center",
-      fixed: "right",
-      className: "text-xs sm:text-sm",
+      ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
           <Ant.Dropdown

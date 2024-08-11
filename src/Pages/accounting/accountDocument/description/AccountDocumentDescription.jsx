@@ -22,7 +22,7 @@ const AccountDocumentDescription = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton active={true} loading={accountDocumentLoading}>
+      <Ant.Skeleton active loading={accountDocumentLoading}>
         {/* <AccountDocumentHeaderInfo
           id={id}
           accountDocumentData={accountDocumentData}

@@ -74,7 +74,7 @@ const FormEditWareHouse = (props) => {
   return (
     <>
       <ModalHeader title={`ویرایش '${name}'`} icon={<FaWarehouse />}/>
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col md={12} lg={12} sm={24} xs={24}>

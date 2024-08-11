@@ -62,7 +62,7 @@ const FormCopyPriceCircularHeader = (props) => {
     return (
         <>
             <ModalHeader title={"کپی و ایجاد بخشنامه قیمت جدید"} icon={<MdPriceChange />} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Row gutter={8}>
                         <Ant.Col span={12}>

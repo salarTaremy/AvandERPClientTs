@@ -47,7 +47,7 @@ const FormEditBranch = (props) => {
     return (
         <>
             <ModalHeader title={"ویرایش شعبه "} icon={<FaCodeBranch />} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name="name" label={'نام شعبه'} rules={[{ required: true }]}>
                         <Ant.Input allowClear showCount maxLength={200} />

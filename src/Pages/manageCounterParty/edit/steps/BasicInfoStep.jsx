@@ -145,7 +145,7 @@ export const BasicInfoStep = (props) => {
     <>
    <CoustomContent height= "70vh"
       >
-        <Ant.Skeleton loading={counterpartyFetchLoading}>
+        <Ant.Skeleton active  loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
               <Ant.Form.Item
