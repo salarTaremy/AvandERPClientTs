@@ -18,7 +18,12 @@ export const TABLES_OPERATION_COLUMN = {
 }
 
 export const MODAL_PROPS = {
-  size: 'middel'
+  size: 'middel',
+  styles: {
+    mask: {
+      backdropFilter: 'blur(5px)',
+    }
+  }
 }
 
 export const MODAL_LARGE = {
