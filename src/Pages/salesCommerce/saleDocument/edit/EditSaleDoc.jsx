@@ -1,5 +1,5 @@
 
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { PropTypes } from 'prop-types'
 import * as Ant from 'antd'
 import * as url from '@/api/url'
@@ -7,11 +7,12 @@ import * as styles from '@/styles'
 import * as api from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import useAllLoading from '@/hooks/useAllLoading '
+import CoustomContent from '@/components/common/CoustomContent'
 //====================================================================
 //                        Declaration
 //====================================================================
-const FrmEditSaleDoc = (props) => {
-  const {id} = props
+const EditSaleDoc = (props) => {
+  const { id } = props
   const pageTitle = 'شرح صفحه'
   // const [Data, Loading, Error, ApiCall] = api.useFetchWithHandler()
   // useRequestManager({ error: Error })
@@ -35,10 +36,70 @@ const FrmEditSaleDoc = (props) => {
   const BlankPage = () => {
     return (
       <>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
-        <p>{'......'}</p>
+       <Ant.Space direction='vertical'>
+        
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+       {id}
+
+       </Ant.Space>
       </>
     )
   }
@@ -46,16 +107,13 @@ const FrmEditSaleDoc = (props) => {
   //                        Component
   //====================================================================
   return (
-    
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false} title={pageTitle} type='inner' >
-        <BlankPage/>
-        {/* Write Code Here */}
-      </Ant.Card>
+
+    <CoustomContent  height={400} bordered  >
+      <BlankPage />
+      
+    </CoustomContent>
 
   )
 }
 
-export default FrmEditSaleDoc
-BlankPage.propTypes = {
-  id: PropTypes.any,
-}
+export default EditSaleDoc
