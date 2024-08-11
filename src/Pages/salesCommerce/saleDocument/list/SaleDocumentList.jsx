@@ -12,7 +12,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import SaleDocumentDescription from "../description/SaleDocumentDescription";
 import CustomerDescription from "../../basicInformation/CustomerManagement/description/CustomerDescription";
-
+import EditSaleDoc from "../edit/EditSaleDoc";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -107,6 +107,10 @@ const SaleDocumentList = () => {
     setDocumentDetailModalContent(<CustomerDescription id={id} />);
     setDocumentDetailModalState(true);
   };
+  const onOpenDoc = (id) => {
+    setDocumentDetailModalContent(<EditSaleDoc id={id} />);
+    setDocumentDetailModalState(true);
+  }
 
   //====================================================================
   //                        Child Components
@@ -127,13 +131,17 @@ const SaleDocumentList = () => {
   //====================================================================
   //                        Component
   //====================================================================
+
+
+
   return (
     <>
       <Ant.Modal
-        open={documentDetailModalState}
+
         centered
         {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_EXTRA_LARGE}
+        open={documentDetailModalState}
 
         getContainer={null}
         footer={null}
@@ -156,7 +164,7 @@ const SaleDocumentList = () => {
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
-            columns={columns(onDelete, onEdit, onView, onViewCustomer)}
+            columns={columns(onDelete, onEdit, onView, onViewCustomer, onOpenDoc)}
             dataSource={dataSource}
             pagination={pagination}
             onChange={handleTableChange}

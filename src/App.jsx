@@ -51,6 +51,9 @@ const App = () => {
         //titleColor
         //titleFontSize
         //titleLineHeight
+        mask: {
+          backdropFilter: 'blur(4px)',
+        },
       },
       Drawer: {
         motionDurationSlow: "0.5s",

@@ -30,7 +30,7 @@ const getDocumentTypeColor = (saleDocumentTypeId) => {
 
 
 
-export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
+export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
     const getMenuItems = (record) => [
         {
             key: '1',
@@ -44,7 +44,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: '2',
             label: (
                 <Ant.Tooltip placement="right" title={`گشایش ${record.saleDocumentType} (${record.documentNumber})`}>
-                    <a onClick={() => { alert (JSON.stringify(record)) }}><LuFolderOpen className="text-purple-600" /></a>
+                    <a onClick={() => onOpenDoc(record.id)}><LuFolderOpen className="text-purple-600" /></a>
                 </Ant.Tooltip>
             ),
         }
@@ -103,7 +103,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "saleChannel",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 100
         },
         {
             title: "نام شعبه",
@@ -111,7 +111,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: "branchName",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 80
+            width: 100
         },
         {
             title: "مشتری",
@@ -139,9 +139,9 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             title: "جمع خالص",
             dataIndex: "subTotal",
             key: "subTotal",
-            align: "center",
+            align: "right",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 200,
             render: (text, record, index) => (
                 record.subTotal.toLocaleString()
             )
@@ -150,9 +150,9 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             title: "تخفیفات",
             dataIndex: "discounts",
             key: "discounts",
-            align: "center",
+            align: "right",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 200,
             render: (text, record, index) => (
                 record.discounts.toLocaleString()
             )
@@ -161,9 +161,9 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             title: "مالیات و عوارض",
             dataIndex: "taxTotal",
             key: "taxTotal",
-            align: "center",
+            align: "right",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 200,
             render: (text, record, index) => (
                 record.taxTotal.toLocaleString()
             )
@@ -172,9 +172,9 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             title: "مبلغ قابل پرداخت",
             dataIndex: "totalPrice",
             key: "totalPrice",
-            align: "center",
+            align: "right",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 200,
             render: (text, record, index) => (
                 record.totalPrice.toLocaleString()
             )
