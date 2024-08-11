@@ -15,7 +15,7 @@ const CoustomContent = (props) => {
   };
 
   return (
-    <Ant.Card {...props} style={cardStyle} type="inner">
+    <Ant.Card style={cardStyle}  {...props} type="inner">
       {props.children}
     </Ant.Card>
   );
