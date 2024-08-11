@@ -54,34 +54,44 @@ const EditSaleDoc = (props) => {
   const c = [{
     title: "productCode",
     dataIndex: "productCode",
+    width:100
   }, {
     title: "productName",
     dataIndex: "productName",
+    width:100
   }
     , {
     title: "productUnitId",
     dataIndex: "productUnitId",
+    width:100
   }, {
     title: "productUnitName",
     dataIndex: "productUnitName",
+    width:100
   }, {
     title: "batchNumber",
     dataIndex: "batchNumber",
+    width:100
   }, {
     title: "quantity",
     dataIndex: "quantity",
+    width:100
   }, {
     title: "unitPrice",
     dataIndex: "unitPrice",
+    width:100
   }, {
     title: "discount",
     dataIndex: "discount",
+    width:100
   }, {
     title: "taxTotal",
     dataIndex: "taxTotal",
+    width:100
   }, {
     title: "consumerPrice",
     dataIndex: "consumerPrice",
+    width:100
   }
 
   ]
@@ -89,33 +99,25 @@ const EditSaleDoc = (props) => {
   return (
     <>
       <CoustomContent height={700}   >
-        <Ant.Space direction='vertical' >
           <CoustomContent bordered  >
             {'نام مشتری'}
-            <br/>
+            <br />
             {'نام مشتری'}
-
             {/* <pre>
     {dataSource && JSON.stringify(dataSource[0], null, "\t")}
   </pre> */}
-
           </CoustomContent>
-          
-            <Ant.Table
-              {...defaultValues.TABLE_PROPS}
-              columns={c}
-              loading={itemsLoading}
-              dataSource={dataSource} />
-              
-        
-        <CoustomContent bordered   >
+
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            columns={c}
+            loading={itemsLoading}
+            dataSource={dataSource} />
+          <CoustomContent bordered   >
+            <p  >
             {'جمع'}
-
-
+            </p>
           </CoustomContent>
-
-
-        </Ant.Space>
       </CoustomContent>
     </>
 
