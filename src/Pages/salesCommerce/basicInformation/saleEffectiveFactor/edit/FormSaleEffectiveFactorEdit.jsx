@@ -48,7 +48,7 @@ const FormSaleEffectiveFactorEdit = (props) => {
   return (
     <>
       <ModalHeader title={"ویرایش عامل موثر بر برگه فروش"} icon={<FaFileInvoiceDollar />}/>
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="name" label={"نام"} rules={[{ required: true }]} >
             <Ant.Input allowClear showCount maxLength={100} />

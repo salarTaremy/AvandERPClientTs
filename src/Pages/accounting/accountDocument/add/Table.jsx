@@ -564,7 +564,7 @@ export const Table = (props) => {
 
           <Ant.Row gutter={[16, 16]}>
             <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Skeleton loading={allLoading}>
+              <Ant.Skeleton active loading={allLoading}>
                 <Ant.Table
                   bordered={false}
                   pagination={false}

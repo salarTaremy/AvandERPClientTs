@@ -47,7 +47,7 @@ const FormEditAuthInfo = (props) => {
     return (
         <>
             <ModalHeader title={"ویرایش اطلاعات احراز هویت"} icon={<TbSettingsCog />} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active  loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item
                         name="uniqueFiscalId"

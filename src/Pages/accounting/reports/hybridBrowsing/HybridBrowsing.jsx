@@ -351,7 +351,7 @@ const HybridBrowsing = (props) => {
   return (
     <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={pageTitle} type="inner">
         <Ant.Flex vertical gap="middle">
-          <Ant.Skeleton loading={false} active>
+          <Ant.Skeleton active loading={false} active>
             <ButtonList
               filterCount={filterCount}
               onRefresh={() => {

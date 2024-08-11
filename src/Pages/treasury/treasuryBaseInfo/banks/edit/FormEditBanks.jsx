@@ -47,7 +47,7 @@ const FormEditBanks = (props) => {
     <>
       <ModalHeader title={`ویرایش بانک "${bankTitle}"`} icon={<BsBank2 />} />
 
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active  loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item
             name="title"

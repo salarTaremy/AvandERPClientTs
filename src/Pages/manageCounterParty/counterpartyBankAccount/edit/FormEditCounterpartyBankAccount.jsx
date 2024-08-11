@@ -72,7 +72,7 @@ const FormEditCounterpartyBankAccount = (props) => {
     return (
         <>
             <ModalHeader title={"ویرایش اطلاعات حساب بانکی "} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active loading={loadingData}>
                 <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
                     <Ant.Space style={{ display: "unset" }}>
                         <Ant.Row gutter={[16, 8]}>

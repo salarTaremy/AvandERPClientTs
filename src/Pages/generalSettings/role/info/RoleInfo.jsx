@@ -80,7 +80,7 @@ const RoleInfo = ({ roleId, name }) => {
     return (
         <>
             <ModalHeader title={` لیست کاربران نقش "${name}"`} icon={<TiThList />}/>
-            <Ant.Skeleton loading={loading}>
+            <Ant.Skeleton active loading={loading}>
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}
                     className="mt-5"

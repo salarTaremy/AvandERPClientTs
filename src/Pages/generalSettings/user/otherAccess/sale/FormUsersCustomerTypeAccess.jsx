@@ -68,7 +68,7 @@ const FormUsersCustomerTypeAccess = ({ userId, onSuccessCustomerTypeAccess, oldT
     //====================================================================
     return (
         <>
-            <Ant.Skeleton loading={loading}>
+            <Ant.Skeleton active loading={loading}>
                 <Ant.Table
                     rowSelection={{ ...rowSelection }}
                     {...defaultValues.TABLE_PROPS}

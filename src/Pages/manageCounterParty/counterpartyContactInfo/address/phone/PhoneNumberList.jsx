@@ -154,7 +154,7 @@ const PhoneNumberList = ({ addressId }) => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Skeleton loading={loading}>
+            <Ant.Skeleton active  loading={loading}>
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}
                     className="mt-5"

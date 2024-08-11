@@ -43,7 +43,7 @@ const FormEditDocumentType = (props) => {
   return (
     <>
       <ModalHeader title={" ویرایش سند حسابداری"} icon={<MdEditDocument />}/>
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item
             name="name"

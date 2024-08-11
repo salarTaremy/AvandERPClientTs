@@ -37,7 +37,7 @@ const InquiryResult = (props) => {
     <>
       <ModalHeader title={pageTitle} />
       <CoustomContent height="60vh">
-        <Ant.Skeleton loading={inquiryLoading}>
+        <Ant.Skeleton lactive oading={inquiryLoading}>
           <InquiryListItem inquiryData={inquiryResultData} key={uuid.v1()} />
         </Ant.Skeleton>
       </CoustomContent>

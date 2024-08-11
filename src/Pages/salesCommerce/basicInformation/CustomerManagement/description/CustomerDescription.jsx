@@ -132,7 +132,7 @@ const CustomerDescription = (props) => {
         {modalContent}
       </Ant.Modal>
       <ModalHeader title={"جزئیات مشتری"} icon={<MdDescription />}/>
-      <Ant.Skeleton active={true} loading={loading}>
+      <Ant.Skeleton active  loading={loading}>
         <Ant.Descriptions
           bordered
           layout="vertical"

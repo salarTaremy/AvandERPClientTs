@@ -73,7 +73,7 @@ const FormEditBrand = (props) => {
   return (
     <>
       <ModalHeader title={'ویرایش برند'} icon={<TbBrandAirtable />}/>
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active  loading={loadingData}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name={'supplierId'} label="تأمین کننده" rules={[{ required: true }]}>
             <Ant.Select

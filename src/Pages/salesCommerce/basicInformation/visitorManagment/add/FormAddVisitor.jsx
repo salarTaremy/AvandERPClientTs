@@ -254,7 +254,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                         {/* </Ant.Card> */}
                     </Ant.Col>
                     <Ant.Col span={24} sm={14}>
-                        <Ant.Skeleton loading={loadingData}>
+                        <Ant.Skeleton active loading={loadingData}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                             <CoustomContent bordered>
                                 {empty == undefined ? (

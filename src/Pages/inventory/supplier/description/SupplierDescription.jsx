@@ -42,7 +42,7 @@ const SupplierDescription = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
+    <Ant.Skeleton active  loading={loading}>
       <ModalHeader title= {'جزئیات تأمین کننده'} icon={<MdDescription />}/>
       <Ant.Descriptions
         bordered

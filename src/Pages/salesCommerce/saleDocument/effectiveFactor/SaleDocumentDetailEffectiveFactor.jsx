@@ -42,7 +42,7 @@ const SaleDocumentDetailEffectiveFactor = (props) => {
     //====================================================================
     return (
         <>
-            <Ant.Skeleton active={true} loading={listLoading} >
+            <Ant.Skeleton active  loading={listLoading} >
                 <Ant.List 
                     bordered={false}
                     itemLayout="horizontal"

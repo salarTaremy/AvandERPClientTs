@@ -45,7 +45,7 @@ export const FrmEditAccountHeader = ({ accountHeaderId }) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton loading={accHdrLoading}>
+      <Ant.Skeleton  active loading={accHdrLoading}>
         <Ant.Form
           form={form}
           onFinish={onFinish}

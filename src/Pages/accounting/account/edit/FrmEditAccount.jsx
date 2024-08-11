@@ -53,7 +53,7 @@ export const FrmEditAccount = ({ accountId }) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton loading={accLoading}>
+      <Ant.Skeleton  active loading={accLoading}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical" onFinishFailed={null}>
           <Ant.Row>
             <Ant.Col span={24}>

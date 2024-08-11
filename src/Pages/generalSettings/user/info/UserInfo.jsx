@@ -61,7 +61,7 @@ const UserInfo = ({ userId, userName }) => {
     return (
         <>
             <ModalHeader title={`لیست نقش های کاربر "${userName}"`} icon={<TiThList />} />
-            <Ant.Skeleton loading={loading}>
+            <Ant.Skeleton active loading={loading}>
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}
                     className="mt-5"

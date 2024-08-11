@@ -120,7 +120,7 @@ const CompanyInformation = (props) => {
             </Ant.Form>
             <Ant.Space >
                 <ResultAnimation size={75} state={loadingData && "active" || listData?.data?.isExist === true && "success" || "exception"} />
-                <Ant.Skeleton title={false} loading={loadingData}>
+                <Ant.Skeleton active  title={false} loading={loadingData}>
                     <Ant.Descriptions items={items} />
                 </Ant.Skeleton>
             </Ant.Space>

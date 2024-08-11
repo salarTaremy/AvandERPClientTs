@@ -77,7 +77,7 @@ const FormEditCityDistrict = (props) => {
     return (
         <>
             <ModalHeader title={"ویرایش منطقه شهری "} icon={<BsFillPinMapFill />} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item
                         name={"cityId"}

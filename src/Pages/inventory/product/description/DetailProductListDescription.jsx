@@ -66,7 +66,7 @@ const DetailProductListDescription = (props) => {
   //                        Component
   //====================================================================
   return (
-    <Ant.Skeleton active={true} loading={loading}>
+    <Ant.Skeleton active  loading={loading}>
       <ModalHeader title={"جزئیات کالا/خدمات"} icon={<MdDescription />}/>
       <Ant.Descriptions bordered items={borderedItems} />
     </Ant.Skeleton>

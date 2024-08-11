@@ -44,7 +44,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer) => {
             key: '2',
             label: (
                 <Ant.Tooltip placement="right" title={`گشایش ${record.saleDocumentType} (${record.documentNumber})`}>
-                    <a onClick={() => { }}><LuFolderOpen className="text-purple-600" /></a>
+                    <a onClick={() => { alert (JSON.stringify(record)) }}><LuFolderOpen className="text-purple-600" /></a>
                 </Ant.Tooltip>
             ),
         }

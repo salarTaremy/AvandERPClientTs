@@ -46,7 +46,7 @@ const FormEditCustomerType = (props) => {
     return (
         <>
             <ModalHeader title={'ویرایش نوع مشتری '} icon={<MdCategory />} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active  loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name="title" label={'عنوان'} rules={[{ required: true }]}>
                         <Ant.Input allowClear showCount maxLength={200} />

@@ -91,7 +91,7 @@ const FormCounterpartyAddressEdit = (props) => {
   return (
     <>
       <ModalHeader title={"ویرایش آدرس"} />
-      <Ant.Skeleton loading={fetchAddressLoading}>
+      <Ant.Skeleton active loading={fetchAddressLoading}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Space style={{ display: "unset" }}>
             <Ant.Row gutter={[16, 8]}>

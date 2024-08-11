@@ -56,7 +56,7 @@ const FormEditSaleType = (props) => {
     return (
         <>
             <ModalHeader title={'ویرایش نوع فروش '} icon={<SiAnytype />} />
-            <Ant.Skeleton loading={loadingData}>
+            <Ant.Skeleton active loading={loadingData}>
                 <Ant.Form form={form} onFinish={onFinish} layout="vertical">
                     <Ant.Form.Item name="title" label={'عنوان فروش'} rules={[{ required: true }]}>
                         <Ant.Input allowClear showCount maxLength={200} />

@@ -22,7 +22,7 @@ const DetailedCounterPartyList = (props) => {
   return (
     <>
     <CoustomContent height="80vh">
-      <Ant.Skeleton active={true} loading={loading}>
+      <Ant.Skeleton active  loading={loading}>
         <HeaderCounterParty data={data} onHeaderEdit={onHeaderEdit} />
         <Ant.Divider />
         <Ant.Tabs type="card" defaultActiveKey="1">

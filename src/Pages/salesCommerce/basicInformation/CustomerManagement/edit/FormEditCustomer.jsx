@@ -192,7 +192,7 @@ const FormEditCustomer = ({ id }) => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton active  loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
