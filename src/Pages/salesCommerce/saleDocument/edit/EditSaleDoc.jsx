@@ -39,65 +39,8 @@ const EditSaleDoc = (props) => {
        <Ant.Space direction='vertical'>
         
        {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
-       {id}
+       
+       
 
        </Ant.Space>
       </>
@@ -108,7 +51,7 @@ const EditSaleDoc = (props) => {
   //====================================================================
   return (
 
-    <CoustomContent  height={400} bordered  >
+    <CoustomContent  height={700} bordered  >
       <BlankPage />
       
     </CoustomContent>
