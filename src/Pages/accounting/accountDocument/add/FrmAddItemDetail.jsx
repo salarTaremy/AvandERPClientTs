@@ -9,15 +9,13 @@ import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
-import useAllLoading from '@/hooks/useAllLoading '
+import useAllLoading from "@/hooks/useAllLoading ";
 import { FaFileMedical } from "react-icons/fa";
-import { keys } from "highcharts";
+
 const FrmAddItemDetail = (props) => {
-  const { form,id } = props;
+  const { form, id } = props;
 
   const [valueType, setValueType] = useState("0");
-  const [creditor, setCreditor] = useState(0);
-  const [debtor, setDebtor] = useState(0);
   const [selectedAccount, setSelectedAccount] = useState({
     id: null,
     name: "",
@@ -33,11 +31,7 @@ const FrmAddItemDetail = (props) => {
     accountGroupError,
     accoupGroupApicall,
   ] = api.useFetchWithHandler();
-  const allLoading = useAllLoading([
-    accountGroupLoading,
-    dtAccLoading,
-
-  ]);
+  const allLoading = useAllLoading([accountGroupLoading, dtAccLoading]);
 
   const [options, setOptions] = useState([]);
   useRequestManager({ error: dtAccError });
@@ -51,7 +45,8 @@ const FrmAddItemDetail = (props) => {
   const filter = (inputValue, path) =>
     path.some(
       (option) =>
-        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||   String(option.id).indexOf(inputValue) > -1,
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+        String(option.id).indexOf(inputValue) > -1,
     );
 
   //====================================================================
@@ -68,19 +63,10 @@ const FrmAddItemDetail = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const getValue = (e) => {
-    if (valueType === "0") {
-      setCreditor(e);
-    }
-    if (valueType === "1") {
-      setDebtor(e);
-    }
-  };
 
   const handleChangeAccount = (value, selectedOptions) => {
-    console.log(selectedOptions,"selectedOptions")
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
-    console.log(lastSelectedOption,"lastSelectedOption")
+
     setSelectedAccount({
       id: lastSelectedOption.id,
       name: lastSelectedOption.name,
@@ -88,19 +74,19 @@ const FrmAddItemDetail = (props) => {
   };
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
     setDetailedAccountFour({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
@@ -127,8 +113,9 @@ const FrmAddItemDetail = (props) => {
       detailedAccountId6: selectedDetailedAccountSix?.id,
       detailedAccountName6: selectedDetailedAccountSix?.name,
       key: uuid.v1(),
-      id:uuid.v1(),
+      id: uuid.v1(),
     };
+
     props.onDataSubmit(req);
     props.closeModal();
   };
@@ -137,7 +124,6 @@ const FrmAddItemDetail = (props) => {
   //                        Component
   //====================================================================
   return (
-
     <>
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <ModalHeader title={"افزودن آرتیکل سند"} icon={<FaFileMedical />} />
@@ -162,12 +148,10 @@ const FrmAddItemDetail = (props) => {
                   label: "name",
                   value: "id",
                   children: "children",
-
                 }}
                 showSearch={{
                   filter,
                 }}
-
                 displayRender={(labels, selectedOptions) => (
                   <>
                     {labels.map((label, index) => {
@@ -175,15 +159,13 @@ const FrmAddItemDetail = (props) => {
                       return (
                         <span key={index}>
                           {label}
-                          {accountCode && <span > (کد: {accountCode})</span>}
-
+                          {accountCode && <span> (کد: {accountCode})</span>}
                         </span>
                       );
                     })}
                   </>
                 )}
               />
-
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={8}>
@@ -203,9 +185,11 @@ const FrmAddItemDetail = (props) => {
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFour}
                 loading={dtAccLoading}
-                options={dtAccData?.data.map(option => ({
+                // options={dtAccData?.data}
+                // fieldNames={{ label: 'name', value: 'id' }}
+                options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
-                  value: option.id
+                  value: option.id,
                 }))}
               />
             </Ant.Form.Item>
@@ -227,9 +211,9 @@ const FrmAddItemDetail = (props) => {
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFive}
                 loading={dtAccLoading}
-                options={dtAccData?.data.map(option => ({
+                options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
-                  value: option.id
+                  value: option.id,
                 }))}
               />
             </Ant.Form.Item>
@@ -251,9 +235,9 @@ const FrmAddItemDetail = (props) => {
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountSix}
                 loading={dtAccLoading}
-                options={dtAccData?.data.map(option => ({
+                options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
-                  value: option.id
+                  value: option.id,
                 }))}
               />
             </Ant.Form.Item>
@@ -340,7 +324,12 @@ const FrmAddItemDetail = (props) => {
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
-              <Ant.Button loading={allLoading || false} disabled={allLoading || false} type="primary" htmlType="submit">
+              <Ant.Button
+                loading={allLoading || false}
+                disabled={allLoading || false}
+                type="primary"
+                htmlType="submit"
+              >
                 {"تایید"}
               </Ant.Button>
             </Ant.Form.Item>
