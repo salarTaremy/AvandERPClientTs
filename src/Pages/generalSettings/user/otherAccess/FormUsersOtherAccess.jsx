@@ -42,32 +42,32 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
   ] = usePutWithHandler();
   useRequestManager({
     error: editError,
-    editLoading: editLoading,
+    loading: editLoading,
     data: editData,
   });
   useRequestManager({
     error: editBrandError,
-    editLoading: editBrandLoading,
+    loading: editBrandLoading,
     data: editBrandData,
   });
   useRequestManager({
     error: editCustomerGroupError,
-    editLoading: editCustomerGroupLoading,
+    loading: editCustomerGroupLoading,
     data: editCustomerGroupData,
   });
   useRequestManager({
     error: editCustomerTypeError,
-    editLoading: editCustomerTypeLoading,
+    loading: editCustomerTypeLoading,
     data: editCustomerTypeData,
   });
   useRequestManager({
     error: editSaleChannelError,
-    editLoading: editSaleChannelLoading,
+    loading: editSaleChannelLoading,
     data: editSaleChannelData,
   });
   useRequestManager({
     error: editSaleDocumentTypeError,
-    editLoading: editSaleDocumentTypeLoading,
+    loading: editSaleDocumentTypeLoading,
     data: editSaleDocumentTypeData,
   });
   const [branchData, setBranchData] = useState({});
