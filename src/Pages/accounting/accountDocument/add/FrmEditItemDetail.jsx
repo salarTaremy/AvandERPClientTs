@@ -85,20 +85,20 @@ const FrmEditItemDetail = (props) => {
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
     console.log(selectedOption, "selectedOption");
     setDetailedAccountFour({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
 
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
