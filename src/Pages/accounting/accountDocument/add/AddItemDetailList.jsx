@@ -64,19 +64,23 @@ const AddItemDetailList = (props) => {
     listLoadingHeader,
   ]);
   const documentInfo = [
+
     {
       key: "1",
       label: "جمع بستانکار",
+
       children: totalCreditor.toLocaleString(),
     },
     {
       key: "2",
       label: "جمع بدهکار",
+
       children: totalDebtor.toLocaleString(),
     },
     {
       key: "3",
       label: "تفاضل",
+
       children: (totalCreditor - totalDebtor).toLocaleString(),
     },
   ];
@@ -480,13 +484,15 @@ const AddItemDetailList = (props) => {
       <CoustomContent height="75vh" loading={allLoading}>
         <Grid />
         <Ant.Row>
-          <Ant.Col>
-            <Ant.Descriptions
-              bordered={false}
-              layout="horizontal"
-              size="small"
-              items={documentInfo}
-            />
+          <Ant.Col className="absolute bottom-0 right-0 ">
+            <CoustomContent bordered bgColor>
+              <Ant.Descriptions
+                bordered={false}
+                layout="horizontal"
+                size="small"
+                items={documentInfo}
+              />
+            </CoustomContent>
           </Ant.Col>
         </Ant.Row>
       </CoustomContent>
