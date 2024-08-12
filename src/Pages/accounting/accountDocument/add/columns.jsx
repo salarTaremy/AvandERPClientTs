@@ -6,11 +6,11 @@ import { CiWarning } from "react-icons/ci";
 import { TiWarningOutline } from "react-icons/ti";
 
 function shouldShowWarning(val) {
-  const hasDebtorOrCreditor = val.debtor !== 0 && val.creditor !== 0;
+  const hasDebtorOrCreditor = val.debtor !== 0 && val?.creditor !== 0;
 
-  const detailedAccountsDefined = val.detailedAccountName5.length !== 0;
-  val.detailedAccountName4.length !== 0;
-  val.detailedAccountName6.length !== 0;
+  const detailedAccountsDefined = val.detailedAccountName5?.length !== 0;
+  val.detailedAccountName4?.length !== 0;
+  val.detailedAccountName6?.length !== 0;
 
   const detailedAccountCheck =
     detailedAccountsDefined &&
