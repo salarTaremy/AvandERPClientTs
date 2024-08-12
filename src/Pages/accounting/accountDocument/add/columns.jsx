@@ -7,10 +7,10 @@ import { TiWarningOutline } from "react-icons/ti";
 
 function shouldShowWarning(val) {
   const hasDebtorOrCreditor = val.debtor !== 0 && val?.creditor !== 0;
-
-  const detailedAccountsDefined = val.detailedAccountName5?.length !== 0;
-  val.detailedAccountName4?.length !== 0;
-  val.detailedAccountName6?.length !== 0;
+console.log(val,"kakkakak")
+  const detailedAccountsDefined = val.detailedAccountName5?.length !== 0 && val.detailedAccountName5 !== undefined;
+  val.detailedAccountName4?.length !== 0 && val.detailedAccountName4 !== undefined;
+  val.detailedAccountName6?.length !== 0 && val.detailedAccountName5 !== undefined;
 
   const detailedAccountCheck =
     detailedAccountsDefined &&
@@ -112,18 +112,6 @@ const column = (onDelete, onEdit, onError) => {
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
-      // render: (debtor) => debtor?.toLocaleString(),
-      // render: (debtor, record) => {
-      //   if (debtor === 0 && record.creditor === 0) {
-      //     return {
-      //       children: debtor.toLocaleString(),
-      //       props: {
-      //         style: { color: "red" }
-      //       }
-      //     };
-      //   }
-      //   return debtor.toLocaleString();
-      // }
       render: (debtor, record) => {
         const isRed =
           (debtor !== 0 && record.creditor !== 0) ||
@@ -142,19 +130,6 @@ const column = (onDelete, onEdit, onError) => {
       align: "center",
       width: 120,
       className: "text-xs sm:text-sm",
-      // render: (creditor) => creditor?.toLocaleString(),
-
-      // render: (creditor, record) => {
-      //   if (creditor === 0 && record.debtor === 0) {
-      //     return {
-      //       children: creditor.toLocaleString(),
-      //       props: {
-      //         style: { color: "red" }
-      //       }
-      //     };
-      //   }
-      //   return creditor.toLocaleString();
-      // }
       render: (creditor, record) => {
         const isRed =
           (creditor !== 0 && record.debtor !== 0) ||

@@ -115,7 +115,7 @@ const FrmAddItemDetail = (props) => {
       key: uuid.v1(),
       id: uuid.v1(),
     };
-
+console.log(req,"reqreqAD")
     props.onDataSubmit(req);
     props.closeModal();
   };
