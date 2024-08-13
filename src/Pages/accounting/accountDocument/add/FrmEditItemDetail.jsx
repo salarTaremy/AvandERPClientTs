@@ -23,7 +23,7 @@ const FrmEditItemDetail = (props) => {
   const [selectedDetailedAccountFour, setDetailedAccountFour] = useState();
   const [selectedDetailedAccountFive, setDetailedAccountFive] = useState();
   const [selectedDetailedAccountSix, setDetailedAccountSix] = useState();
-
+  const [detailedError, setDetailedError] = useState('');
   const [
     accounGrouptData,
     accountGroupLoading,
@@ -74,7 +74,25 @@ const FrmEditItemDetail = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const validateDetailedAccounts = () => {
+    const detailedAccountId4 = form.getFieldValue('detailedAccountId4');
+    const detailedAccountId5 = form.getFieldValue('detailedAccountId5');
+    const detailedAccountId6 = form.getFieldValue('detailedAccountId6');
+    if (detailedAccountId4 && (detailedAccountId4 === detailedAccountId5 )) {
+      setDetailedError('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح پنج  یکسان باشد');
+      return false;
+    } else if (detailedAccountId5 && (detailedAccountId5 === detailedAccountId6)) {
+      setDetailedError('حساب تفصیلی سطح پنج نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
+      return false;
+    }
 
+    else if ( detailedAccountId4 === detailedAccountId6) {
+      setDetailedError('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
+      return false;
+    }
+    setDetailedError('');
+    return true;
+  };
   const handleChangeAccount = (value, selectedOptions) => {
     const lastSelectedOption = selectedOptions[selectedOptions?.length - 1];
     setSelectedAccount({
@@ -83,11 +101,11 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
-    console.log(selectedOption, "selectedOption");
     setDetailedAccountFour({
       id: selectedOption?.value,
       name: selectedOption?.label,
     });
+    validateDetailedAccounts()
   };
 
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
@@ -95,12 +113,14 @@ const FrmEditItemDetail = (props) => {
       id: selectedOption?.value,
       name: selectedOption?.label,
     });
+    validateDetailedAccounts()
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
       id: selectedOption?.value,
       name: selectedOption?.label,
     });
+    validateDetailedAccounts()
   };
   const handleTypeChange = (value) => {
     setValueType(value);
@@ -117,9 +137,14 @@ const FrmEditItemDetail = (props) => {
         creditor: 0,
       });
     }
+
   };
+
+
   const onFinish = async (values) => {
     console.log(values,"valuesvalues")
+    const isValid = validateDetailedAccounts();
+    if (isValid) {
     const { creditor, debtor, ...otherValues } = values;
     const adjustedCreditor = values.creditor ?? 0;
     const adjustedDebtor = values.debtor ?? 0;
@@ -169,6 +194,7 @@ const FrmEditItemDetail = (props) => {
     console.log(req, "reqEdit");
     props.onDataSubmitEdit(req);
     props.closeModal();
+  }
   };
 
   //====================================================================
@@ -223,12 +249,9 @@ const FrmEditItemDetail = (props) => {
             <Ant.Form.Item
               name={"detailedAccountId4"}
               label="حساب تفصیلی سطح چهار"
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد حساب تفصیلی اجباری است",
-                },
-              ]}
+
+
+              help={detailedError && <small className="text-red-600">{detailedError}</small>}
             >
               <Ant.Select
                 {...commonOptions}
@@ -247,12 +270,8 @@ const FrmEditItemDetail = (props) => {
             <Ant.Form.Item
               name={"detailedAccountId5"}
               label="حساب تفصیلی سطح پنج"
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد حساب تفصیلی اجباری است",
-                },
-              ]}
+
+              help={detailedError && <small className="text-red-600">{detailedError}</small>}
             >
               <Ant.Select
                 {...commonOptions}
@@ -271,12 +290,8 @@ const FrmEditItemDetail = (props) => {
             <Ant.Form.Item
               name={"detailedAccountId6"}
               label="حساب تفصیلی سطح شش"
-              rules={[
-                {
-                  required: false,
-                  message: "فیلد حساب تفصیلی اجباری است",
-                },
-              ]}
+
+              help={detailedError && <small className="text-red-600">{detailedError}</small>}
             >
               <Ant.Select
                 {...commonOptions}
