@@ -11,7 +11,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
-import useAllLoading from '@/hooks/useAllLoading '
+import useAllLoading from "@/hooks/useAllLoading ";
 const FrmEditItemDetail = (props) => {
   const { id, obj } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
@@ -34,15 +34,12 @@ const FrmEditItemDetail = (props) => {
   const [options, setOptions] = useState([]);
 
   useRequestManager({ error: dtAccError });
-  const allLoading = useAllLoading([
-    accountGroupLoading,
-    dtAccLoading,
-
-  ]);
+  const allLoading = useAllLoading([accountGroupLoading, dtAccLoading]);
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+    filterOption: (input, option) =>
+      option.label.toLowerCase().includes(input.toLowerCase()),
   };
   const filter = (inputValue, path) =>
     path.some(
@@ -86,23 +83,22 @@ const FrmEditItemDetail = (props) => {
     });
   };
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
-
-    console.log(selectedOption,"selectedOption")
+    console.log(selectedOption, "selectedOption");
     setDetailedAccountFour({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
 
   const handleChangeDetailedAccountFive = (value, selectedOption) => {
     setDetailedAccountFive({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
   const handleChangeDetailedAccountSix = (value, selectedOption) => {
     setDetailedAccountSix({
-      id: selectedOption?.id,
+      id: selectedOption?.value,
       name: selectedOption?.label,
     });
   };
@@ -144,12 +140,13 @@ const FrmEditItemDetail = (props) => {
       accountName: accountName !== "" ? accountName : obj?.accountName,
       detailedAccountId4:
         selectedDetailedAccountFour?.id ?? obj?.detailedAccountId4,
-        detailedAccountId5: selectedDetailedAccountFive?.id ?? obj?.detailedAccountId5,
+      detailedAccountId5:
+        selectedDetailedAccountFive?.id ?? obj?.detailedAccountId5,
       detailedAccountId6:
-      selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
+        selectedDetailedAccountSix?.id ?? obj?.detailedAccountId6,
       detailedAccountName4:
         selectedDetailedAccountFour?.name ?? obj?.detailedAccountName4,
-        detailedAccountName5:
+      detailedAccountName5:
         selectedDetailedAccountFive?.name ?? obj?.detailedAccountName5,
       detailedAccountName6:
         selectedDetailedAccountSix?.name ?? obj?.detailedAccountName6,
@@ -205,7 +202,6 @@ const FrmEditItemDetail = (props) => {
                 showSearch={{
                   filter,
                 }}
-
                 displayRender={(labels, selectedOptions) => (
                   <>
                     {labels.map((label, index) => {
@@ -213,8 +209,7 @@ const FrmEditItemDetail = (props) => {
                       return (
                         <span key={index}>
                           {label}
-                          {accountCode && <span > (کد: {accountCode})</span>}
-
+                          {accountCode && <span> (کد: {accountCode})</span>}
                         </span>
                       );
                     })}
@@ -239,9 +234,9 @@ const FrmEditItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFour}
-                options={dtAccData?.data.map(option => ({
+                options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
-                  value: option.id
+                  value: option.id,
                 }))}
                 loading={dtAccLoading}
               />
@@ -263,9 +258,9 @@ const FrmEditItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountFive}
-                options={dtAccData?.data.map(option => ({
+                options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
-                  value: option.id
+                  value: option.id,
                 }))}
                 loading={dtAccLoading}
               />
@@ -287,9 +282,9 @@ const FrmEditItemDetail = (props) => {
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 onChange={handleChangeDetailedAccountSix}
-                options={dtAccData?.data.map(option => ({
+                options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
-                  value: option.id
+                  value: option.id,
                 }))}
                 loading={dtAccLoading}
               />
@@ -409,7 +404,12 @@ const FrmEditItemDetail = (props) => {
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
-              <Ant.Button loading={allLoading || false}  disabled={allLoading || false} type="primary" htmlType="submit">
+              <Ant.Button
+                loading={allLoading || false}
+                disabled={allLoading || false}
+                type="primary"
+                htmlType="submit"
+              >
                 {"تایید"}
               </Ant.Button>
             </Ant.Form.Item>

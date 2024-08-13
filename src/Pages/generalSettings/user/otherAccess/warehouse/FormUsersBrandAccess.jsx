@@ -3,8 +3,7 @@ import * as Ant from 'antd'
 import { useEffect, useState } from "react";
 import * as url from '@/api/url'
 import {
-    useFetchWithHandler,
-    usePutWithHandler,
+    useFetchWithHandler
 }
     from '@/api'
 import * as defaultValues from "@/defaultValues";
@@ -14,9 +13,7 @@ import useRequestManager from '@/hooks/useRequestManager'
 const FormUsersBrandAccess = ({ userId, onSuccessBrand, oldBrandId }) => {
     const [dataSource, setDataSource] = useState(null);
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
-    const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
-    useRequestManager({ error: editError, editLoading: editLoading, data: editData })
-    useRequestManager({ error }); 
+    useRequestManager({ error: error });
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     //====================================================================
@@ -41,10 +38,6 @@ const FormUsersBrandAccess = ({ userId, onSuccessBrand, oldBrandId }) => {
 
         setDataSource((listData?.isSuccess && listData?.data) || null);
     }, [listData]);
-
-    useEffect(() => {
-        editData?.isSuccess && onSuccess()
-    }, [editData])
 
     //====================================================================
     //                        Functions

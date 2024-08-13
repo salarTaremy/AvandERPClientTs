@@ -6,21 +6,25 @@ import * as Ant from 'antd'
 import * as url from '@/api/url'
 import * as defaultValues from "@/defaultValues";
 import qs from "qs";
-import * as styles from '@/styles'
-import * as api from '@/api'
-import useRequestManager from '@/hooks/useRequestManager'
-import useAllLoading from '@/hooks/useAllLoading '
-import CoustomContent from '@/components/common/CoustomContent'
-import SaleDocumentHeaderInfo from '../header/SaleDocumentHeaderInfo';
+import * as styles from "@/styles";
+import * as api from "@/api";
+import useRequestManager from "@/hooks/useRequestManager";
+import useAllLoading from "@/hooks/useAllLoading ";
+import CoustomContent from "@/components/common/CoustomContent";
+import SaleDocumentHeaderInfo from "../header/SaleDocumentHeaderInfo";
 //====================================================================
 //                        Declaration
 //====================================================================
 const EditSaleDoc = (props) => {
-  const { id } = props
-  const pageTitle = 'شرح صفحه'
-  const [dataSource, setDataSource] = useState([{ id: 1, name: 'salar' }, { id: 2, name: 'salar2' }])
-  const [itemsData, itemsLoading, itemsError, itemsApiCall] = api.useFetchWithHandler()
-  useRequestManager({ error: itemsError })
+  const { id } = props;
+  const pageTitle = "شرح صفحه";
+  const [dataSource, setDataSource] = useState([
+    { id: 1, name: "salar" },
+    { id: 2, name: "salar2" },
+  ]);
+  const [itemsData, itemsLoading, itemsError, itemsApiCall] =
+    api.useFetchWithHandler();
+  useRequestManager({ error: itemsError });
   //...
   //====================================================================
   //                        useEffects
@@ -134,8 +138,7 @@ const EditSaleDoc = (props) => {
         </Row>
       </CoustomContent>
     </>
+  );
+};
 
-  )
-}
-
-export default EditSaleDoc
+export default EditSaleDoc;

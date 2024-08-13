@@ -61,7 +61,7 @@ const FormEditRole = (props) => {
       <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
-            <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Col md={24} lg={24} sm={24} xs={24}>
               <Ant.Form.Item
                 name="name"
                 label={"نام نقش"}
@@ -70,7 +70,7 @@ const FormEditRole = (props) => {
                 <Ant.Input allowClear showCount maxLength={200} />
               </Ant.Form.Item>
             </Ant.Col>
-            <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Col md={24} lg={24} sm={24} xs={24}>
               <Ant.Form.Item
                 name="persianTitle"
                 label={"عنوان نقش"}
@@ -79,7 +79,7 @@ const FormEditRole = (props) => {
                 <Ant.Input allowClear showCount maxLength={200} />
               </Ant.Form.Item>
             </Ant.Col>
-            <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Col md={24} lg={24} sm={24} xs={24}>
               <Ant.Form.Item
                 name="roleScopeId"
                 label={"محدوده نقش"}
@@ -94,7 +94,7 @@ const FormEditRole = (props) => {
                 />
               </Ant.Form.Item>
             </Ant.Col>
-            <Ant.Col span={12} md={12} lg={12}>
+            <Ant.Col md={24} lg={24} sm={24} xs={24}>
               <Ant.Form.Item
                 name="isDenied"
                 label={"عدم دسترسی"}
