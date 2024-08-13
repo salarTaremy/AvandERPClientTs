@@ -123,15 +123,15 @@ const EditSaleDoc = (props) => {
         </Row>
         <Row align="middle"
         gutter={[16, 16]}
-      className='absolute inset-x-0 bottom-0'
+
         >
           <Col sm={24} lg={12} xl={12}>
-            <CoustomContent bordered   >
+            <CoustomContent bordered>
               {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
             </CoustomContent>
           </Col>
           <Col span={24} md={12} >
-            <CoustomContent bordered   >
+            <CoustomContent bordered>
               {'جمع'}
             </CoustomContent>
           </Col>
