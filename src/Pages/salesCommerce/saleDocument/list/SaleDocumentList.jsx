@@ -13,6 +13,8 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import SaleDocumentDescription from "../description/SaleDocumentDescription";
 import CustomerDescription from "../../basicInformation/CustomerManagement/description/CustomerDescription";
 import EditSaleDoc from "../edit/EditSaleDoc";
+import EditSaleDocHeader from "../edit/EditSaleDocHeader";
+import useRequestManager from "@/hooks/useRequestManager";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -20,6 +22,7 @@ const SaleDocumentList = () => {
   const pageTitle = "مدیریت برگه های فروش";
   const [listData, listLoading, listError, listApiCall] =
     api.useFetchWithHandler();
+    useRequestManager({error:listError})    
   const [dataSource, setDataSource] = useState(null);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
@@ -95,8 +98,8 @@ const SaleDocumentList = () => {
   };
 
   const onEdit = async (id) => {
-    //TODO: not implemented
-    console.log("onEdit - " + id);
+    setDocumentDetailModalContent(<EditSaleDocHeader id={id} />);
+    setDocumentDetailModalState(true);
   };
 
   const onView = async (id) => {
@@ -118,6 +121,9 @@ const SaleDocumentList = () => {
   const title = () => {
     return (
       <>
+      {/* {JSON.stringify({listError})}
+      <br></br>
+      {JSON.stringify({listData})} */}
         <ButtonList
           filterCount={filterCount}
           onAdd={() => console.log("grid-onAdd")}

@@ -42,6 +42,7 @@ const useRequestManager = ({ data, error, loading, loadingMessage }) => {
   }, [data])
 
   useEffect(() => {
+    
     if (toastId) {
       toast.update(toastId, {
         render: error?.message || defaultErrorMessage ,
@@ -54,7 +55,8 @@ const useRequestManager = ({ data, error, loading, loadingMessage }) => {
     } else {
       if(error?.errors?.length >0){
         error?.errors?.map((err) => {
-          err?.message && err?.message !== error?.message && toast.warning(err?.message)
+          // err?.message && err?.message !== error?.message && toast.warning(err?.message)
+          err?.message  && toast.error(err?.message)
         })
       }else{
         error &&  error?.message != "Network Error" &&   toast.error(error?.message || defaultErrorMessage )
