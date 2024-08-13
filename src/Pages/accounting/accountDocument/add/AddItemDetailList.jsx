@@ -311,8 +311,6 @@ const AddItemDetailList = (props) => {
   };
 
   const handleFileUpload = (file) => {
-    //  accoupGroupApicall(url.ACCOUNT);
-    //  dtAccApi(url.DETAILED_ACCOUNT);
     setIsFileUploaded(false);
     const reader = new FileReader();
     reader.onload = (e) => {
