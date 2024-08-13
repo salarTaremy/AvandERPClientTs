@@ -5,6 +5,9 @@ import * as styles from "@/styles";
 import * as url from "@/api/url";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, usePutWithHandler } from "@/api";
+import { CodeSandboxCircleFilled } from '@ant-design/icons';
+import CoustomContent from '@/components/common/CoustomContent';
+
 
 
 const OtherSettingList = () => {
@@ -56,57 +59,59 @@ const OtherSettingList = () => {
     //====================================================================
     return (
         <>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"سایر تنظیمات"} type="inner" loading={loading}>
-                <Ant.Form form={form} onFinish={onFinish} >
-                    <Ant.Form.Item
-                        label={"زمان تکرار چرخه ارسال خودکار صورتحساب ها"}
-                        name="sendRecurTimeInMinute"
-                        rules={[{
-                            required: true,
-                            pattern: new RegExp("^[0-9]*$"),
-                            message: 'لطفا مقدار عددی وارد نمایید.'
-                        }]}
-                        style={{ width: 430 }}
-                    >
-                        <Ant.Input suffix="دقیقه" />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item
-                        name="inquiryRecurTimeInMinute"
-                        label={"زمان تکرار چرخه استعلام خودکار صورتحساب ها"}
-                        rules={[{
-                            required: true,
-                            pattern: new RegExp("^[0-9]*$"),
-                            message: 'لطفا مقدار عددی وارد نمایید.'
-                        }]}
-                        style={{ width: 430 }}
-                    >
-                        <Ant.Input suffix="دقیقه" />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item
-                        name="apiURL"
-                        label={"آدرس URL "}
-                        rules={[{
-                            required: true,
-                            pattern: new RegExp("(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"),
-                            message: 'لطفا آدرس URL صحیح وارد نمایید. '
-                        }]}
-                        style={{ width: 430 }}
-                    >
-                        <Ant.Input addonAfter={addonAfter} style={{ textAlign: "left" }} />
-                    </Ant.Form.Item>
-                    <Ant.Form.Item>
-                        <Ant.Button
-                            type="primary"
-                            loading={loading}
-                            onClick={() => {
-                                form.submit();
-                            }}
-                        >
-                            {"ذخیره"}
-                        </Ant.Button>
-                    </Ant.Form.Item>
-                </Ant.Form>
-            </Ant.Card>
+            <Ant.Form form={form} onFinish={onFinish} >
+                <CoustomContent title={"سایر تنظیمات"} bordered size="small" loading={loading}>
+                    <Ant.Row gutter={[16, 8]}>
+                        <Ant.Col span={24} sm={10}>
+                            <Ant.Form.Item
+                                label={"زمان تکرار چرخه ارسال خودکار صورتحساب ها"}
+                                name="sendRecurTimeInMinute"
+                                rules={[{
+                                    required: true,
+                                    pattern: new RegExp("^[0-9]*$"),
+                                    message: 'لطفا مقدار عددی وارد نمایید.'
+                                }]}
+                            >
+                                <Ant.Input suffix="دقیقه" />
+                            </Ant.Form.Item>
+                            <Ant.Form.Item
+                                name="inquiryRecurTimeInMinute"
+                                label={"زمان تکرار چرخه استعلام خودکار صورتحساب ها"}
+                                rules={[{
+                                    required: true,
+                                    pattern: new RegExp("^[0-9]*$"),
+                                    message: 'لطفا مقدار عددی وارد نمایید.'
+                                }]}
+                            >
+                                <Ant.Input suffix="دقیقه" />
+                            </Ant.Form.Item>
+                            <Ant.Form.Item
+                                name="apiURL"
+                                label={"آدرس URL "}
+                                rules={[{
+                                    required: true,
+                                    pattern: new RegExp("(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"),
+                                    message: 'لطفا آدرس URL صحیح وارد نمایید. '
+                                }]}
+                            >
+                                <Ant.Input addonAfter={addonAfter} style={{ textAlign: "left" }} />
+                            </Ant.Form.Item>
+                            <Ant.Form.Item>
+                                <Ant.Button
+                                    type="primary"
+                                    block
+                                    loading={loading}
+                                    onClick={() => {
+                                        form.submit();
+                                    }}
+                                >
+                                    {"ذخیره"}
+                                </Ant.Button>
+                            </Ant.Form.Item>
+                        </Ant.Col>
+                    </Ant.Row>
+                </CoustomContent>
+            </Ant.Form >
         </>
     );
 }
