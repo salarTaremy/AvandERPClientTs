@@ -441,28 +441,7 @@ const AddItemDetailList = (props) => {
           columns={columns(onDelete, onEdit, onError)}
           title={title}
           dataSource={dataSource}
-          rowClassName={(record, index) => {
-            console.log(record, "recordrecord");
 
-            const isDetailedAccount =
-              (record.detailedAccountName4 === null &&
-                record.detailedAccountName5 === null &&
-                record.detailedAccountName6 === null) ||
-              (record.detailedAccountName4 === null &&
-                record.detailedAccountName6 === null) ||
-              (record.detailedAccountName5 === null &&
-                record.detailedAccountName6 === null);
-
-            if (
-              !isDetailedAccount &&
-              errorList[record?.key] &&
-              errorList[record.key].length > 0
-            ) {
-              return "red-row";
-            }
-
-            return "";
-          }}
         />
       </>
     );
@@ -500,7 +479,7 @@ const AddItemDetailList = (props) => {
         <Grid />
         <Ant.Row>
           <Ant.Col className="absolute bottom-0 right-0 ">
-            <CoustomContent bordered bgColor>
+            <CoustomContent bordered >
               <Ant.Descriptions
                 bordered={false}
                 layout="horizontal"
