@@ -21,7 +21,7 @@ export const MODAL_PROPS = {
   size: 'middel',
   styles: {
     mask: {
-      backdropFilter: 'blur(5px)',
+      // backdropFilter: 'blur(5px)',
     }
   }
 }
