@@ -131,7 +131,7 @@ const CounterpartyBankAccountList = (props) => {
         {modalContent}
       </Ant.Modal>
       <Ant.Card
-        // style={{ boxShadow: "0 0 0 0", maxHeight: "60vh", minHeight: "60vh" }}
+        style={{ boxShadow: "0 0 0 0", maxHeight: "60vh", minHeight: "60vh" }}
         bordered={false}
       >
         <Ant.Table
