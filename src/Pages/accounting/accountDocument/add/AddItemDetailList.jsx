@@ -64,7 +64,6 @@ const AddItemDetailList = (props) => {
     listLoadingHeader,
   ]);
   const documentInfo = [
-
     {
       key: "1",
       label: "جمع بستانکار",
@@ -314,7 +313,7 @@ const AddItemDetailList = (props) => {
   const handleFileUpload = (file) => {
     //  accoupGroupApicall(url.ACCOUNT);
     //  dtAccApi(url.DETAILED_ACCOUNT);
-
+    setIsFileUploaded(false);
     const reader = new FileReader();
     reader.onload = (e) => {
       const binaryString = e.target.result;
@@ -335,9 +334,9 @@ const AddItemDetailList = (props) => {
               : index + 1,
           accountId: item[0],
           accountName: 0,
-          detailedAccountName4: 0,
-          detailedAccountName5: 0,
-          detailedAccountName6: 0,
+          detailedAccountName4: null,
+          detailedAccountName5: null,
+          detailedAccountName6: null,
           referenceNo: String(item[1]),
           detailedAccountId4: item[2],
           detailedAccountId5: item[3],
@@ -443,9 +442,25 @@ const AddItemDetailList = (props) => {
           title={title}
           dataSource={dataSource}
           rowClassName={(record, index) => {
-            if (errorList[record?.key] && errorList[record.key].length > 0) {
+            console.log(record, "recordrecord");
+
+            const isDetailedAccount =
+              (record.detailedAccountName4 === null &&
+                record.detailedAccountName5 === null &&
+                record.detailedAccountName6 === null) ||
+              (record.detailedAccountName4 === null &&
+                record.detailedAccountName6 === null) ||
+              (record.detailedAccountName5 === null &&
+                record.detailedAccountName6 === null);
+
+            if (
+              !isDetailedAccount &&
+              errorList[record?.key] &&
+              errorList[record.key].length > 0
+            ) {
               return "red-row";
             }
+
             return "";
           }}
         />
