@@ -123,7 +123,7 @@ const EditSaleDoc = (props) => {
 
         <Col sm={24} lg={12} xl={12}>
           <CoustomContent bordered height={100}>
-            {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
+            {'مبلغ:18,000,000'}<br></br>{'تخفیف:1,000,000'}<br></br>{'مالیات:17,000,000'}<br></br>{'درصد تخفیف:'}<br></br>{'مبلغ نهایی:'}
 
           </CoustomContent>
         </Col>
