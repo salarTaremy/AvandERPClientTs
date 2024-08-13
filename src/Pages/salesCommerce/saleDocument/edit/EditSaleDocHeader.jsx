@@ -19,6 +19,7 @@ const EditSaleDocHeader = (props) => {
     const { id } = props;
   return (
     <div>EditSaleDocHeader{id}</div>
+    
   )
 }
 export default EditSaleDocHeader
