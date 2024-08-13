@@ -1,5 +1,6 @@
-import React from "react";
+
 import * as Ant from "antd";
+import PropTypes from "prop-types";
 
 const ModalHeader = (props) => {
   return (
@@ -15,3 +16,9 @@ const ModalHeader = (props) => {
   );
 };
 export default ModalHeader;
+ModalHeader.propTypes = {
+  title: PropTypes.string,
+  icon: PropTypes.element,
+  children: PropTypes.element,
+};
+
