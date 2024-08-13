@@ -151,54 +151,52 @@ export const FormCounterpartyAdd = (props) => {
         data={counterpartyAddedData}
         loading={counterpartyAddLoading}
       />
-      <Ant.Space direction="vertical" >
-        <Steps current={currentStep} size="small" >
-          {steps().map((step, index) => (
-            <Step key={index} title={step.title} />
-          ))}
-        </Steps>
-        <>{steps()[currentStep].content}</>
+      <Steps current={currentStep} size="small" >
+        {steps().map((step, index) => (
+          <Step key={index} title={step.title} />
+        ))}
+      </Steps>
+      <>{steps()[currentStep].content}</>
 
-        <Ant.Row gutter={[16, 8]} justify="end">
-          {currentStep > 0 && (
-            <Ant.Col span={24} sm={12} md={4}>
-              <Ant.Button
-                disabled={counterpartyAddLoading}
-                onClick={prevStep}
-                block
-              >
-                {"قبلی"}
-              </Ant.Button>
-            </Ant.Col>
-          )}
-          {currentStep === 0 && (
-            <Ant.Col span={24} sm={12} md={4}>
-              <Ant.Button
-                loading={counterpartyAddLoading}
-                type="primary"
-                block
-                onClick={onSave}
-              >
-                {"ذخیره و ادامه"}
-              </Ant.Button>
-            </Ant.Col>
-          )}
-          {currentStep !== 0 && currentStep < steps().length - 1 && (
-            <Ant.Col span={24} sm={12} md={4}>
-              <Ant.Button type="primary" onClick={nextStep} block>
-                {"بعدی"}
-              </Ant.Button>
-            </Ant.Col>
-          )}
-          {currentStep === steps().length - 1 && (
-            <Ant.Col span={24} sm={12} md={4}>
-              <Ant.Button type="primary" block onClick={onSuccess}>
-                {"اتمام"}
-              </Ant.Button>
-            </Ant.Col>
-          )}
-        </Ant.Row>
-      </Ant.Space>
+      <Ant.Row gutter={[16, 8]} justify="end">
+        {currentStep > 0 && (
+          <Ant.Col span={24} sm={12} md={4}>
+            <Ant.Button
+              disabled={counterpartyAddLoading}
+              onClick={prevStep}
+              block
+            >
+              {"قبلی"}
+            </Ant.Button>
+          </Ant.Col>
+        )}
+        {currentStep === 0 && (
+          <Ant.Col span={24} sm={12} md={4}>
+            <Ant.Button
+              loading={counterpartyAddLoading}
+              type="primary"
+              block
+              onClick={onSave}
+            >
+              {"ذخیره و ادامه"}
+            </Ant.Button>
+          </Ant.Col>
+        )}
+        {currentStep !== 0 && currentStep < steps().length - 1 && (
+          <Ant.Col span={24} sm={12} md={4}>
+            <Ant.Button type="primary" onClick={nextStep} block>
+              {"بعدی"}
+            </Ant.Button>
+          </Ant.Col>
+        )}
+        {currentStep === steps().length - 1 && (
+          <Ant.Col span={24} sm={12} md={4}>
+            <Ant.Button type="primary" block onClick={onSuccess}>
+              {"اتمام"}
+            </Ant.Button>
+          </Ant.Col>
+        )}
+      </Ant.Row>
     </>
     // )
   );
