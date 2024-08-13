@@ -10,7 +10,7 @@ const CoustomContent = (props) => {
     //   minHeight: "20vh",
     maxHeight: height,
     minHeight: height,
-    border: bordered ? "1px solid rgb(217 217 217 / 13%)" : "none",
+    border: bordered ? "1px solid rgb(217 217 217 / 45%)" : "none",
     boxShadow: shadow ? "0 2px 8px rgba(0, 0, 0, 0.09)" : "none",
     backgroundColor: bgColor ? "rgb(32 32 55 / 11%)" : "none",
   };
