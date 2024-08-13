@@ -18,7 +18,6 @@ import ModalHeader from '@/components/common/ModalHeader';
 //====================================================================
 const EditSaleDoc = (props) => {
   const { id } = props;
-  const pageTitle = "شرح صفحه";
   const [dataSource, setDataSource] = useState([
     { id: 1, name: "salar" },
     { id: 2, name: "salar2" },
