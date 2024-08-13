@@ -132,17 +132,13 @@ const SaleDocumentList = () => {
   //                        Component
   //====================================================================
 
-
-
   return (
     <>
       <Ant.Modal
-
         centered
         {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_EXTRA_LARGE}
         open={documentDetailModalState}
-
         getContainer={null}
         footer={null}
         onCancel={() => setDocumentDetailModalState(false)}

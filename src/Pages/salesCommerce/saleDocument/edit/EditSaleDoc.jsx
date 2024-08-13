@@ -103,7 +103,7 @@ const EditSaleDoc = (props) => {
 
   return (
     <>
-      <CoustomContent height={700}   >
+      <CoustomContent  height={700} >
         <Row gutter={[16, 16]} >
           <Col span={24}>
             <CoustomContent bordered  >
@@ -127,6 +127,9 @@ const EditSaleDoc = (props) => {
         >
           <Col sm={24} lg={12} xl={12}>
             <CoustomContent bordered>
+              {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
+              {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
+              {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
               {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
             </CoustomContent>
           </Col>
