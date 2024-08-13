@@ -6,7 +6,7 @@ export const TABLE_PROPS = {
   size: 'small', // hint => large,small,middle
   rowKey: 'id',
   bordered: true,
-  scroll: { x: '100%', y: '50vh' },
+  scroll: { x: '100%', y: '60vh' },
 }
 export const TABLES_OPERATION_COLUMN = {
   title: "عملیات",
