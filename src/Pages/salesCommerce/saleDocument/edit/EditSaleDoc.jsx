@@ -12,6 +12,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import useAllLoading from "@/hooks/useAllLoading ";
 import CoustomContent from "@/components/common/CoustomContent";
 import SaleDocumentHeaderInfo from "../header/SaleDocumentHeaderInfo";
+import ModalHeader from '@/components/common/ModalHeader';
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -103,43 +104,37 @@ const EditSaleDoc = (props) => {
 
   return (
     <>
-      <CoustomContent  height={700} >
-        <Row gutter={[16, 16]} >
-          <Col span={24}>
-            <CoustomContent bordered  >
-              {'نام مشتری'} {'نام مشتری'}
-              <br />
-              {'نام مشتری'}
-              {/* <pre> {dataSource && JSON.stringify(dataSource[0], null, "\t")} </pre> */}
-            </CoustomContent>
-          </Col>
-          <Col span={24}>
-            <Ant.Table
-              {...defaultValues.TABLE_PROPS}
-              columns={c}
-              loading={itemsLoading}
-              dataSource={dataSource} />
-          </Col>
-        </Row>
-        <Row align="middle"
-        gutter={[16, 16]}
+      <ModalHeader>
+        {`برگه فروش ${id}`}
+      </ModalHeader>
+      <Row align="middle"
+        gutter={[16, 16]}>
+        <Col sm={24}>
+          <CoustomContent bordered  >
+            {'نام مشتری'} <br />{'نام مشتری'}<br />{'نام مشتری'}
+          </CoustomContent>
+        </Col>
+        <Col sm={24}>
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            columns={c}
+            loading={itemsLoading}
+            dataSource={dataSource} />
+        </Col>
 
-        >
-          <Col sm={24} lg={12} xl={12}>
-            <CoustomContent bordered>
-              {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
-              {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
-              {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
-              {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
-            </CoustomContent>
-          </Col>
-          <Col span={24} md={12} >
-            <CoustomContent bordered>
-              {'جمع'}
-            </CoustomContent>
-          </Col>
-        </Row>
-      </CoustomContent>
+        <Col sm={24} lg={12} xl={12}>
+          <CoustomContent bordered height={100}>
+            {'مبلغ:'}<br></br>{'تخفیف:'}<br></br>{'مالیات'}<br></br>{'درصد تخفیف'}<br></br>{'مبلغ نهایی'}
+
+          </CoustomContent>
+        </Col>
+        <Col span={24} md={12} >
+          <CoustomContent bordered>
+            {'جمع'}
+          </CoustomContent>
+        </Col>
+      </Row>
+
     </>
   );
 };
