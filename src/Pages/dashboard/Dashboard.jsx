@@ -29,7 +29,7 @@ const Dashboard = () => {
     const [currentYear, setCurrentYear] = useState(1402)
     return <>
     <Ant.Button onClick={()=> setCurrentYear(currentYear== 1402  && 1403 || 1402)}>
-        {`تغییر به ${currentYear== 1402  && 1403 || 1402}`}
+        {`برو به سال  ${currentYear== 1402  && 1403 || 1402}`}
     </Ant.Button>
         <Ant.Row gutter={[16, 16]}>
             <Ant.Col span={24}>
