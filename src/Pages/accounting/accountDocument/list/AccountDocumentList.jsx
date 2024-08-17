@@ -133,7 +133,7 @@ const AccountDocumentList = (props) => {
     setModalState(true);
   };
   const addItem = (id) => {
-    setModalSize({ ...defaultValues.MODAL_LARGE });
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE });
     setModalContent(<AddItemDetailList id={id} key={uuid.v1()} />);
     setModalState(true);
   };

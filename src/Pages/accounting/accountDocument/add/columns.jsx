@@ -4,12 +4,12 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { TiWarningOutline } from "react-icons/ti";
 
-
 const hasDetailedAccounts = (record) => {
+  console.log(record, "recordrecord");
   const { detailedAccountName4, detailedAccountName5, detailedAccountName6 } =
     record;
-  return (
 
+  return (
     detailedAccountName5 === detailedAccountName6 ||
     detailedAccountName4 === detailedAccountName5 ||
     detailedAccountName4 === detailedAccountName6
@@ -17,17 +17,16 @@ const hasDetailedAccounts = (record) => {
 };
 
 const shouldShowWarning = (val) => {
-debugger
-  console.log(val,"kakak")
-  const hasDebtorOrCreditor = val.debtor !== 0 && val.creditor !== 0 || val.debtor == 0 && val.creditor == 0;
+  const hasDebtorOrCreditor =
+    (val.debtor !== 0 && val.creditor !== 0) ||
+    (val.debtor == 0 && val.creditor == 0);
   const detailedAccountsDefined =
     val.detailedAccountName5 &&
     val.detailedAccountName4 &&
     val.detailedAccountName6;
 
   return (
-    hasDebtorOrCreditor ||
-    (detailedAccountsDefined && hasDetailedAccounts(val))
+    hasDebtorOrCreditor || (detailedAccountsDefined && hasDetailedAccounts(val))
   );
 };
 
@@ -47,6 +46,16 @@ const column = (onDelete, onEdit, onError) => {
       align: "center",
       width: 300,
       className: "text-xs sm:text-sm",
+      render: (accountName, record) => {
+        const isRed =
+          typeof accountName === "number";
+        return {
+          children: accountName,
+          props: {
+            style: { color: isRed ? "red" : "black" },
+          },
+        };
+      },
     },
     {
       title: "شماره مرجع",
@@ -64,7 +73,8 @@ const column = (onDelete, onEdit, onError) => {
       render: (detailedAccountName4, record) => {
         const isRed =
           detailedAccountName4 === record.detailedAccountName5 ||
-          detailedAccountName4 === record.detailedAccountName6;
+          detailedAccountName4 === record.detailedAccountName6 ||
+          typeof detailedAccountName4 === "number";
         return {
           children: detailedAccountName4,
           props: {
@@ -82,7 +92,8 @@ const column = (onDelete, onEdit, onError) => {
       render: (detailedAccountName5, record) => {
         const isRed =
           detailedAccountName5 === record.detailedAccountName4 ||
-          detailedAccountName5 === record.detailedAccountName6;
+          detailedAccountName5 === record.detailedAccountName6 ||
+          typeof record.detailedAccountName5 === "number";
         return {
           children: detailedAccountName5,
           props: {
@@ -100,7 +111,8 @@ const column = (onDelete, onEdit, onError) => {
       render: (detailedAccountName6, record) => {
         const isRed =
           detailedAccountName6 === record.detailedAccountName4 ||
-          detailedAccountName6 === record.detailedAccountName5;
+          detailedAccountName6 === record.detailedAccountName5 ||
+          typeof record.detailedAccountName6 === "number";
         return {
           children: detailedAccountName6,
           props: {

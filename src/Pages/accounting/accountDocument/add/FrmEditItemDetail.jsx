@@ -421,7 +421,7 @@ const FrmEditItemDetail = (props) => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
               <Ant.Button
-                loading={allLoading || false}
+
                 disabled={allLoading || false}
                 type="primary"
                 htmlType="submit"
