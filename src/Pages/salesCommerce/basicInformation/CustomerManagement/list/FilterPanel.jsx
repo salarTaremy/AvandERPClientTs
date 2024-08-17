@@ -114,12 +114,13 @@ const FilterPanel = (props) => {
             loading={customerTypeLoading}
             options={customerTypeList?.data}
             fieldNames={{ label: "title", value: "id" }}
+            mode="multiple"
           />
         </Ant.Form.Item>
 
         <Ant.Form.Item
           rules={[{ required: false }]}
-          name={"branchId"}
+          name={"branchIds"}
           label="شعبه"
         >
           <Ant.Select
@@ -130,10 +131,11 @@ const FilterPanel = (props) => {
             loading={branchLoading}
             options={branchList?.data}
             fieldNames={{ label: "name", value: "id" }}
+            mode="multiple"
           />
         </Ant.Form.Item>
 
-        <Ant.Form.Item name={"saleChannelIdList"} label="کانال فروش">
+        <Ant.Form.Item name={"saleChannelIds"} label="کانال فروش">
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
@@ -141,6 +143,7 @@ const FilterPanel = (props) => {
             loading={saleChannelLoading}
             options={saleChannelData?.data}
             fieldNames={{ label: "title", value: "id" }}
+            mode="multiple"
           />
         </Ant.Form.Item>
 
