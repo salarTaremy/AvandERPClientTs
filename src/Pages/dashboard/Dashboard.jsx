@@ -12,6 +12,7 @@ import GanttA from './GanttA'
 import GanttB from './GanttB'
 import { validateNationalCode } from '@/Tools'
 import { useParams, useLocation } from 'react-router-dom';
+import CoustomContent from '@/components/common/CoustomContent'
 
 // import * as _viewer from 'stimulsoft-reports-js/Scripts/stimulsoft.viewer';
 // import * as _designer from 'stimulsoft-reports-js/Scripts/stimulsoft.designer';
@@ -23,8 +24,24 @@ import { useParams, useLocation } from 'react-router-dom';
 // import 'stimulsoft-reports-js/Css/stimulsoft.viewer.office2013.whiteblue.css';
 
 
+
 const Dashboard = () => {
- return <>Dashboard</>
+    const [currentYear, setCurrentYear] = useState(1402)
+    return <>
+    <Ant.Button onClick={()=> setCurrentYear(currentYear== 1402  && 1403 || 1402)}>
+        {`تغییر به ${currentYear== 1402  && 1403 || 1402}`}
+    </Ant.Button>
+        <Ant.Row gutter={[16, 16]}>
+            <Ant.Col span={24}>
+            {currentYear== 1402 && <GanttA />}
+            </Ant.Col>
+            <Ant.Col span={24}>
+            {currentYear== 1403 && <GanttB />}
+            </Ant.Col>
+        </Ant.Row>
+
+
+    </>
 
 }
 

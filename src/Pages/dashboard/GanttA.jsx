@@ -9,6 +9,7 @@ import * as api from '@/api'
 import moment from 'moment'
 import { useFetch, useFetchWithHandler, usePostWithHandler } from '@/api'
 import { defaultOptions } from './dependencies'
+import useRequestManager from '@/hooks/useRequestManager'
 
 
 const GanttA = () => {
@@ -40,7 +41,10 @@ const GanttA = () => {
       ])
   }, [chartData])
   useEffect(() => {
-    setOptions({...defaultOptions,series:series})
+    setOptions({...defaultOptions,series:series ,title: {
+      text: 'Avand ERP Project Management - Gantt Chart ('+currentYear+')',
+    },
+})
   }, [series])
 
   //====================================================================
