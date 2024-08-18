@@ -14,6 +14,7 @@ import SaleDocumentDescription from "../description/SaleDocumentDescription";
 import CustomerDescription from "../../basicInformation/CustomerManagement/description/CustomerDescription";
 import EditSaleDoc from "../edit/EditSaleDoc";
 import EditSaleDocHeader from "../edit/EditSaleDocHeader";
+import AddSaleDocHeader from "../add/AddSaleDocHeader";
 import useRequestManager from "@/hooks/useRequestManager";
 //====================================================================
 //                        Declaration
@@ -22,7 +23,7 @@ const SaleDocumentList = () => {
   const pageTitle = "مدیریت برگه های فروش";
   const [listData, listLoading, listError, listApiCall] =
     api.useFetchWithHandler();
-    useRequestManager({error:listError})    
+    useRequestManager({error:listError})
   const [dataSource, setDataSource] = useState(null);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
@@ -101,6 +102,11 @@ const SaleDocumentList = () => {
     setDocumentDetailModalContent(<EditSaleDocHeader id={id} />);
     setDocumentDetailModalState(true);
   };
+  const onAdd = async (id) => {
+    console.log(id,"iiii")
+    setDocumentDetailModalContent(<AddSaleDocHeader />);
+    setDocumentDetailModalState(true);
+  };
 
   const onView = async (id) => {
     setDocumentDetailModalContent(<SaleDocumentDescription id={id} />);
@@ -126,7 +132,8 @@ const SaleDocumentList = () => {
       {JSON.stringify({listData})} */}
         <ButtonList
           filterCount={filterCount}
-          onAdd={() => console.log("grid-onAdd")}
+
+          onAdd={onAdd}
           onRefresh={() => fillGrid()}
           onFilter={() => setOpenFilter(true)}
         />
