@@ -6,6 +6,7 @@ import * as styles from "@/styles";
 import * as api from "@/api";
 import * as defaultValues from "@/defaultValues";
 import { columns } from "./columns";
+import * as uuid from "uuid";
 import ButtonList from "@/components/common/ButtonList";
 import FilterPanel from "./FilterPanel";
 import FilterBedge from "@/components/common/FilterBedge";
@@ -79,6 +80,11 @@ const SaleDocumentList = () => {
     await listApiCall(`${url.SALE_DOCUMENT_HEADER}?${queryString}`);
   };
 
+
+  const onSuccessAdd = () => {
+    setDocumentDetailModalState(false);
+    fillGrid();
+  };
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
     setOpenFilter(false);
@@ -106,7 +112,7 @@ const SaleDocumentList = () => {
     console.log(id,"iiii")
     const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
     setModalSize(updateList)
-    setDocumentDetailModalContent(<AddSaleDocHeader />);
+    setDocumentDetailModalContent(<AddSaleDocHeader onSuccess={onSuccessAdd} key={uuid.v1()} />);
     setDocumentDetailModalState(true);
   };
 

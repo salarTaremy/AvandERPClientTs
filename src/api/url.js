@@ -164,6 +164,7 @@ export const DELIVERY_TYPE = 'DeliveryType'
 //SaleDocumentType
 export const SALE_DOCUMENT_TYPE = 'SaleDocumentType'
 export const SALE_DOCUMENT_TYPE_GET_WITH_PERMISSION = '/SaleDocumentType/GetWithPermission'
+export const SALE_DOCUMENT_Header = '/SaleDocumentHeader'
 
 //SaleType
 export const SALETYPE = 'SaleType'
