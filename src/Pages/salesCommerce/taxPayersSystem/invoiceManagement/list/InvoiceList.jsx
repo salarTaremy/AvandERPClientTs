@@ -165,6 +165,7 @@ const InvoiceList = () => {
     tableParams.pagination?.pageSize,
     tableParams?.sortOrder,
     tableParams?.sortField,
+    filterCount
   ]);
 
   useEffect(() => {
@@ -193,7 +194,6 @@ const InvoiceList = () => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getInvoiceList();
   }, [filterObject]);
 
   //====================================================================

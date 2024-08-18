@@ -47,12 +47,11 @@ const CounterPartyList = () => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getAllCounterParty();
   }, [filterObject]);
 
   useEffect(() => {
     getAllCounterParty();
-  }, [pagination.current, pagination.pageSize]);
+  }, [pagination.current, pagination.pageSize, filterCount]);
 
   useEffect(() => {
     setDataSource(listData?.data);

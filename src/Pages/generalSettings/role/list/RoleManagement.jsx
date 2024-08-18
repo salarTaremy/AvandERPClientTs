@@ -52,10 +52,6 @@ function RoleManagement() {
   }, [listData]);
 
   useEffect(() => {
-    getRole();
-  }, []);
-
-  useEffect(() => {
     delSaving?.isSuccess &&
       setDataSource([
         ...dataSource?.filter((c) => c.id !== delSaving?.data?.id),
