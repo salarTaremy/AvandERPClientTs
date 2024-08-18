@@ -22,6 +22,7 @@ const FormEditPriceCircularHeader = (props) => {
     const [implementationTime, setImplementationTime] = useState(null)
     const [form] = Ant.Form.useForm()
     useRequestManager({ error: selectError })
+    useRequestManager({ error: error })
 
     const commonOptions = {
         placeholder: "انتخاب کنید...",
@@ -39,6 +40,7 @@ const FormEditPriceCircularHeader = (props) => {
         form.resetFields()
         const timeData = { implementationTime: dayjs(listData?.data?.implementationTime, 'HH:mm:ss') };
         listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null), ...(listData?.data ? timeData : null) })
+        setImplementationTime(listData?.data?.implementationTime)
     }, [listData])
 
     //====================================================================
