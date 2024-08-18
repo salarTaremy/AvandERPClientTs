@@ -45,7 +45,9 @@ export const defaultOptions = {
         ],
       },
     },
-
+    exporting: {
+      enabled: true,
+    },
     //series: series,
     title: {
       text: 'Avand ERP Project Management(Gantt Chart)',
