@@ -57,10 +57,6 @@ const PriceCircularHeader = () => {
       setDataSource([...dataSource?.filter((c) => c.id !== deleteSaving?.data?.id)])
   }, [deleteSaving])
 
-  useEffect(() => {
-    getPriceCircularList()
-  }, [editData])
-
   //====================================================================
   //                        Functions
   //====================================================================
