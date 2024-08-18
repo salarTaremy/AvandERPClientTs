@@ -38,9 +38,6 @@ const PaymentTypeList = () => {
     getAllPaymentType()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterObject])
-  useEffect(() => {
-    getAllPaymentType();
-  }, []);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);

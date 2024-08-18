@@ -37,7 +37,7 @@ const PriceCircularHeader = () => {
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
   useRequestManager({ error: listError });
   useRequestManager({ error: deleteError, data: deleteSaving, loading: deleteLoading });
-
+  useRequestManager({ error: editError,loading: editLoading });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -46,7 +46,7 @@ const PriceCircularHeader = () => {
       setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
     !filterObject && setFilterCount(0)
     getPriceCircularList();
-  }, [filterObject]);
+  }, [filterObject, editData]);
 
   useEffect(() => {
     setDataSource(listData?.data);
@@ -56,10 +56,6 @@ const PriceCircularHeader = () => {
     deleteSaving?.isSuccess &&
       setDataSource([...dataSource?.filter((c) => c.id !== deleteSaving?.data?.id)])
   }, [deleteSaving])
-
-  useEffect(() => {
-    getPriceCircularList()
-  }, [editData])
 
   //====================================================================
   //                        Functions

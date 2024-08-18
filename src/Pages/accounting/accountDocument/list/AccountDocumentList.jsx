@@ -52,12 +52,11 @@ const AccountDocumentList = (props) => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    fillGrid();
   }, [filterObject]);
 
   useEffect(() => {
     fillGrid();
-  }, [pagination.current, pagination.pageSize]);
+  }, [pagination.current, pagination.pageSize, filterCount]);
 
   useEffect(() => {
     setDataSource(listData?.data);

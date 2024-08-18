@@ -51,7 +51,6 @@ const CustomerManagementList = () => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getAllCustomer();
   }, [filterObject]);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ const CustomerManagementList = () => {
   }, [DeleteData]);
   useEffect(() => {
     getAllCustomer();
-  }, [pagination.current, pagination.pageSize]);
+  }, [pagination.current, pagination.pageSize, filterCount]);
 
   useEffect(() => {
     setDataSource(listData?.data);
