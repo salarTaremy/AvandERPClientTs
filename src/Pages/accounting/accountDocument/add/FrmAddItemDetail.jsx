@@ -8,7 +8,6 @@ import * as api from "@/api";
 import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
-import { LuDollarSign } from "react-icons/lu";
 import useAllLoading from "@/hooks/useAllLoading ";
 import { FaFileMedical } from "react-icons/fa";
 
@@ -91,14 +90,16 @@ const FrmAddItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
-    const {detailedAccountId4, detailedAccountId5, detailedAccountId6, creditor, debtor, ...otherValues } = values;
-    if (detailedAccountId4 && (detailedAccountId4 === detailedAccountId5)) {
+
+
+    const {detailedAccountId4, detailedAccountId5, detailedAccountId6, creditor, debtor} = values;
+    if (detailedAccountId4 && detailedAccountId4 !== undefined && (detailedAccountId4 === detailedAccountId5)) {
       setErrors('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح پنج یکسان باشد');
       return false;
-    } else if (detailedAccountId5 && (detailedAccountId5 === detailedAccountId6)) {
+    } else if (detailedAccountId5 && detailedAccountId5 !==undefined && (detailedAccountId5 === detailedAccountId6)) {
       setErrors('حساب تفصیلی سطح پنج نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
       return false;
-    } else if (detailedAccountId4 === detailedAccountId6) {
+    } else if (detailedAccountId6 && detailedAccountId6 !==undefined && (detailedAccountId4 === detailedAccountId6))  {
       setErrors('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
       return false;
     }
@@ -112,7 +113,6 @@ const FrmAddItemDetail = (props) => {
     const updatedValues = {
       creditor: adjustedCreditor,
       debtor: adjustedDebtor,
-      ...otherValues,
     };
     const accountId = selectedAccount.id;
     const accountName = selectedAccount.name;
@@ -345,7 +345,7 @@ const FrmAddItemDetail = (props) => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
               <Ant.Button
-                loading={allLoading || false}
+
                 disabled={allLoading || false}
                 type="primary"
                 htmlType="submit"

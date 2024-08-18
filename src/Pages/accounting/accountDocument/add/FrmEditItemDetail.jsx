@@ -3,13 +3,11 @@ import * as Ant from "antd";
 import { useEffect, useState } from "react";
 import * as url from "@/api/url";
 import { useFetch } from "@/api";
-import PropTypes, { object } from "prop-types";
+import PropTypes from "prop-types";
 import * as api from "@/api";
-import { useFetchWithHandler } from "@/api";
 import * as uuid from "uuid";
 import ModalHeader from "@/components/common/ModalHeader";
 import useRequestManager from "@/hooks/useRequestManager";
-import { LuDollarSign } from "react-icons/lu";
 import { FaFileMedical } from "react-icons/fa";
 import useAllLoading from "@/hooks/useAllLoading ";
 const FrmEditItemDetail = (props) => {
@@ -78,15 +76,15 @@ const FrmEditItemDetail = (props) => {
     const detailedAccountId4 = form.getFieldValue('detailedAccountId4');
     const detailedAccountId5 = form.getFieldValue('detailedAccountId5');
     const detailedAccountId6 = form.getFieldValue('detailedAccountId6');
-    if (detailedAccountId4 && (detailedAccountId4 === detailedAccountId5 )) {
+    if ( detailedAccountId4 && detailedAccountId4 !== undefined && (detailedAccountId4 === detailedAccountId5 )) {
       setDetailedError('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح پنج  یکسان باشد');
       return false;
-    } else if (detailedAccountId5 && (detailedAccountId5 === detailedAccountId6)) {
+    } else if (detailedAccountId5 && detailedAccountId5 !== undefined && (detailedAccountId5 === detailedAccountId6)) {
       setDetailedError('حساب تفصیلی سطح پنج نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
       return false;
     }
 
-    else if ( detailedAccountId4 === detailedAccountId6) {
+    else if (detailedAccountId6 && detailedAccountId6 !== undefined && (detailedAccountId4 === detailedAccountId6))  {
       setDetailedError('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
       return false;
     }
@@ -142,7 +140,6 @@ const FrmEditItemDetail = (props) => {
 
 
   const onFinish = async (values) => {
-    console.log(values,"valuesvalues")
     const isValid = validateDetailedAccounts();
     if (isValid) {
     const { creditor, debtor, ...otherValues } = values;
@@ -191,7 +188,7 @@ const FrmEditItemDetail = (props) => {
       req.detailedAccountName6 = null;
       delete req.detailedAccountId6;
     }
-    console.log(req, "reqEdit");
+
     props.onDataSubmitEdit(req);
     props.closeModal();
   }

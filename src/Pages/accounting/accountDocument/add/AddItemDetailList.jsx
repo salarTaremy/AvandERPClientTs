@@ -20,7 +20,6 @@ import ErrorDetailListTable from "../add/ErrorDetailListTable";
 import useAllLoading from "@/hooks/useAllLoading ";
 import columns from "../add/columns";
 import * as XLSX from "xlsx";
-import { color } from "highcharts";
 
 const AddItemDetailList = (props) => {
   const { id } = props;
@@ -260,7 +259,7 @@ const AddItemDetailList = (props) => {
         article: item.article,
       };
     });
-    console.log(formattedData, "formattedData");
+
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
     setIsFileUploaded(false);
   };
@@ -324,12 +323,9 @@ const AddItemDetailList = (props) => {
       const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
       if (!excelData) return;
-
-      console.log(excelData, "excelData");
-
-      const newData = createDataObjects(excelData);
-
+      const newData = createDataObjectsExcel(excelData);
       const errors = validateNewData(newData);
+
       setErrorList(errors);
 
       setDataSource((prevData) =>
@@ -341,7 +337,7 @@ const AddItemDetailList = (props) => {
     setIsFileUploaded(true);
   };
 
-  const createDataObjects = (excelData) => {
+  const createDataObjectsExcel = (excelData) => {
     return excelData.slice(1).map((item, index) => ({
       id: uuid.v4(),
       key: uuid.v4(),
@@ -382,6 +378,7 @@ const AddItemDetailList = (props) => {
   };
 
   const updateDetailedAccountNames = (item) => {
+
     if (dtAccData?.isSuccess) {
       dtAccData.data.forEach((i) => {
         if (i.id === item.detailedAccountId4) {

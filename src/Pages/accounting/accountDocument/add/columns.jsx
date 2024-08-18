@@ -5,7 +5,6 @@ import { FiEdit } from "react-icons/fi";
 import { TiWarningOutline } from "react-icons/ti";
 
 const hasDetailedAccounts = (record) => {
-  console.log(record, "recordrecord");
   const { detailedAccountName4, detailedAccountName5, detailedAccountName6 } =
     record;
 
