@@ -32,6 +32,7 @@ const SaleDocumentList = () => {
     current: 1,
     pageSize: 10,
   });
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
   const [documentDetailModalState, setDocumentDetailModalState] =
     useState(false);
   const [documentDetailModalContent, setDocumentDetailModalContent] =
@@ -104,19 +105,24 @@ const SaleDocumentList = () => {
   };
   const onAdd = async (id) => {
     console.log(id,"iiii")
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
+    setModalSize(updateList)
     setDocumentDetailModalContent(<AddSaleDocHeader />);
     setDocumentDetailModalState(true);
   };
 
   const onView = async (id) => {
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setDocumentDetailModalContent(<SaleDocumentDescription id={id} />);
     setDocumentDetailModalState(true);
   };
   const onViewCustomer = async (id) => {
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setDocumentDetailModalContent(<CustomerDescription id={id} />);
     setDocumentDetailModalState(true);
   };
   const onOpenDoc = (id) => {
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
     setDocumentDetailModalContent(<EditSaleDoc id={id} />);
     setDocumentDetailModalState(true);
   }
@@ -132,7 +138,6 @@ const SaleDocumentList = () => {
       {JSON.stringify({listData})} */}
         <ButtonList
           filterCount={filterCount}
-
           onAdd={onAdd}
           onRefresh={() => fillGrid()}
           onFilter={() => setOpenFilter(true)}
@@ -150,7 +155,8 @@ const SaleDocumentList = () => {
       <Ant.Modal
         centered
         {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_EXTRA_LARGE}
+
+        {...modalSize}
         open={documentDetailModalState}
         getContainer={null}
         footer={null}
