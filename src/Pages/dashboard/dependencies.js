@@ -5,6 +5,15 @@ import * as url from '@/api/url'
 import * as api from '@/api'
 import moment from 'moment'
 
+
+const setClipboard = (text)  =>{
+  const type = "text/plain";
+  const blob = new Blob([text], { type });
+  const data = [new ClipboardItem({ [type]: blob })];
+   navigator.clipboard.write(data);
+}
+
+
 export const defaultOptions = {
     chart: {
       style: {
@@ -20,6 +29,19 @@ export const defaultOptions = {
       series: {
         borderRadius: '50%',
         groupPadding: 0,
+        cursor: 'pointer',
+        point: {
+          events: {
+            click: (e) => { 
+                            console.log('e.point',e.point); 
+                            console.log(e.point.category); 
+                            console.log({id:e.point.id ,parent:e.point.parent ,name:e.point.name });  
+                              setClipboard(e.point.id)
+                             }
+          
+          
+          }
+        },
         dataLabels: [
           {
             enabled: true,
