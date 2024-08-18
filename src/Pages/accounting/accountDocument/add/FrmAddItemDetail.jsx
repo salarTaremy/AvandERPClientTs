@@ -14,7 +14,7 @@ import { FaFileMedical } from "react-icons/fa";
 
 const FrmAddItemDetail = (props) => {
   const { form, id } = props;
-
+  const [errors, setErrors] = useState();
   const [valueType, setValueType] = useState("0");
   const [selectedAccount, setSelectedAccount] = useState({
     id: null,
@@ -91,7 +91,21 @@ const FrmAddItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
-    const { creditor, debtor, ...otherValues } = values;
+    const {detailedAccountId4, detailedAccountId5, detailedAccountId6, creditor, debtor, ...otherValues } = values;
+    if (detailedAccountId4 && (detailedAccountId4 === detailedAccountId5)) {
+      setErrors('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح پنج یکسان باشد');
+      return false;
+    } else if (detailedAccountId5 && (detailedAccountId5 === detailedAccountId6)) {
+      setErrors('حساب تفصیلی سطح پنج نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
+      return false;
+    } else if (detailedAccountId4 === detailedAccountId6) {
+      setErrors('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
+      return false;
+    }
+
+    setErrors('');
+
+
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
 
@@ -115,7 +129,6 @@ const FrmAddItemDetail = (props) => {
       key: uuid.v1(),
       id: uuid.v1(),
     };
-console.log(req,"reqreqAD")
     props.onDataSubmit(req);
     props.closeModal();
   };
@@ -178,6 +191,7 @@ console.log(req,"reqreqAD")
                   message: "فیلد حساب تفصیلی اجباری است",
                 },
               ]}
+              help={errors && <span className="text-red-600">{errors}</span>}
             >
               <Ant.Select
                 {...commonOptions}
@@ -208,6 +222,7 @@ console.log(req,"reqreqAD")
                   message: "فیلد حساب تفصیلی اجباری است",
                 },
               ]}
+              help={errors && <span className="text-red-600">{errors}</span>}
             >
               <Ant.Select
                 {...commonOptions}
@@ -232,6 +247,7 @@ console.log(req,"reqreqAD")
                   message: "فیلد حساب تفصیلی اجباری است",
                 },
               ]}
+              help={errors && <span className="text-red-600">{errors}</span>}
             >
               <Ant.Select
                 {...commonOptions}

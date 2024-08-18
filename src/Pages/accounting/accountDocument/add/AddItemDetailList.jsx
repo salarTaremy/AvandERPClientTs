@@ -124,6 +124,7 @@ const AddItemDetailList = (props) => {
   useEffect(() => {
     onHeader();
   }, []);
+
   useEffect(() => {
     getAllAccountingDocumentDetail();
   }, []);
@@ -261,6 +262,7 @@ const AddItemDetailList = (props) => {
     });
     console.log(formattedData, "formattedData");
     await submitApiCall(url.ACCOUNT_DOCUMENT_DETAIL_UPDATE_LIST, formattedData);
+    setIsFileUploaded(false);
   };
 
   const onDelete = (val) => {
@@ -313,100 +315,146 @@ const AddItemDetailList = (props) => {
   const handleFileUpload = (file) => {
     setIsFileUploaded(false);
     const reader = new FileReader();
+
     reader.onload = (e) => {
       const binaryString = e.target.result;
       const workbook = XLSX.read(binaryString, { type: "binary" });
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-      console.log(dataSource, "dataSource");
-      if (excelData) {
-        console.log(excelData, "excelData");
 
-        const newData = excelData.slice(1).map((item, index) => ({
-          id: uuid.v4(),
-          key: uuid.v4(),
-          rowNumber:
-            dataSource !== null
-              ? dataSource[dataSource.length - 1]?.rowNumber + index + 1
-              : index + 1,
-          accountId: item[0],
-          accountName: 0,
-          detailedAccountName4: null,
-          detailedAccountName5: null,
-          detailedAccountName6: null,
-          referenceNo: String(item[1]),
-          detailedAccountId4: item[2],
-          detailedAccountId5: item[3],
-          detailedAccountId6: item[4],
-          article: item[5] == undefined ? "" : String(item[5]),
-          debtor: item[6] ?? 0,
-          creditor: item[7] ?? 0,
-          description: item[8],
-        }));
-        console.log(newData, "newData");
-        accounGrouptData?.isSuccess &&
-          accounGrouptData?.data.forEach((accoun) => {
-            newData.forEach((item) => {
-              if (accoun.id === item.accountId) {
-                item.accountName = accoun.name;
-              }
-            });
-          });
-        dtAccData?.isSuccess &&
-          dtAccData?.data.forEach((i) => {
-            newData.forEach((item) => {
-              if (i.id == item.detailedAccountId4) {
-                item.detailedAccountName4 = i.name;
-              }
-              if (i.id == item.detailedAccountId5) {
-                item.detailedAccountName5 = i.name;
-              }
-              if (i.id == item.detailedAccountId6) {
-                item.detailedAccountName6 = i.name;
-              }
-            });
-          });
+      if (!excelData) return;
 
-        const errors = {};
+      console.log(excelData, "excelData");
 
-        newData.forEach((item) => {
-          errors[item?.key] = [];
+      const newData = createDataObjects(excelData);
 
-          if (item.detailedAccountName4 === item.detailedAccountName5) {
-            errors[item.key].push("حساب تفصیلی 4,5 نباید باهم یکی باشند ");
-          }
+      const errors = validateNewData(newData);
+      setErrorList(errors);
 
-          if (item.detailedAccountName5 === item.detailedAccountName6) {
-            errors[item.key].push("حساب تفصیلی 5,6 نباید باهم یکی باشند ");
-          }
-
-          if (item.detailedAccountName4 === item.detailedAccountName6) {
-            errors[item.key].push("حساب تفصیلی 4,6 نباید باهم یکی باشند ");
-          }
-
-          if (item.debtor === 0 && item.creditor === 0) {
-            errors[item.key].push(
-              "بدهکار و بستانکار همزمان نمیتوتنند مقدار صفر داشنته باشند",
-            );
-          } else if (item.debtor > 0 && item.creditor > 0) {
-            errors[item.key].push("یکی از مقادیر باید صفر باشد ");
-          }
-        });
-
-        console.log(errors, "errors");
-        // console.log(errList,"List");
-
-        setErrorList(errors);
-
-        setDataSource((prevData) =>
-          prevData ? [...prevData, ...newData] : newData,
-        );
-      }
+      setDataSource((prevData) =>
+        prevData ? [...prevData, ...newData] : newData,
+      );
     };
-    setIsFileUploaded(true);
+
     reader.readAsArrayBuffer(file);
+    setIsFileUploaded(true);
   };
+
+  const createDataObjects = (excelData) => {
+    return excelData.slice(1).map((item, index) => ({
+      id: uuid.v4(),
+      key: uuid.v4(),
+      rowNumber: calculateRowNumber(dataSource, index),
+      accountId: item[0],
+      accountName: item[0],
+      detailedAccountName4: item[2] ?? null,
+      detailedAccountName5: item[3] ?? null,
+      detailedAccountName6: item[4] ?? null,
+      referenceNo: String(item[1]),
+      detailedAccountId4: item[2],
+      detailedAccountId5: item[3],
+      detailedAccountId6: item[4],
+      article: String(item[5] ?? ""),
+      debtor: item[6] ?? 0,
+      creditor: item[7] ?? 0,
+      description: item[8],
+    }));
+  };
+
+  const calculateRowNumber = (dataSource, index) => {
+    return dataSource && dataSource.length > 0
+      ? dataSource[dataSource.length - 1]?.rowNumber + index + 1
+      : index + 1;
+  };
+
+  const validateNewData = (newData) => {
+    const errors = {};
+
+    newData.forEach((item) => {
+      errors[item.key] = [];
+
+      updateDetailedAccountNames(item);
+      validateAccountDetai(item, errors);
+    });
+
+    return errors;
+  };
+
+  const updateDetailedAccountNames = (item) => {
+    if (dtAccData?.isSuccess) {
+      dtAccData.data.forEach((i) => {
+        if (i.id === item.detailedAccountId4) {
+          item.detailedAccountName4 = i.name;
+        }
+        if (i.id === item.detailedAccountId5) {
+          item.detailedAccountName5 = i.name;
+        }
+        if (i.id === item.detailedAccountId6) {
+          item.detailedAccountName6 = i.name;
+        }
+      });
+    }
+
+    if (accounGrouptData?.isSuccess) {
+      accounGrouptData.data.forEach((accoun) => {
+        if (accoun.id === item.accountId) {
+          item.accountName = accoun.name;
+        }
+      });
+    }
+  };
+
+  const validateAccountDetai = (item, errors) => {
+    if (item.detailedAccountName4 === item.detailedAccountName5) {
+      errors[item.key].push("حساب تفصیلی 4,5 نباید باهم یکی باشند");
+    }
+    if (item.detailedAccountName5 === item.detailedAccountName6) {
+      errors[item.key].push("حساب تفصیلی 5,6 نباید باهم یکی باشند");
+    }
+    if (item.detailedAccountName4 === item.detailedAccountName6) {
+      errors[item.key].push("حساب تفصیلی 4,6 نباید باهم یکی باشند");
+    }
+
+    if (item.debtor === 0 && item.creditor === 0) {
+      errors[item.key].push(
+        "بدهکار و بستانکار همزمان نمیتوتنند مقدار صفر داشنته باشند",
+      );
+    } else if (item.debtor > 0 && item.creditor > 0) {
+      errors[item.key].push("یکی از مقادیربدهکار یا بستانکار باید صفر باشد");
+    }
+
+    validateAccountIds(item, errors);
+  };
+
+  const validateAccountIds = (item, errors) => {
+    if (accounGrouptData?.isSuccess) {
+      const isValidAccount = accounGrouptData.data.some(
+        (accoun) => accoun.id === item.accountId,
+      );
+      if (!isValidAccount) {
+        errors[item.key].push("حساب نامعتبر است");
+      }
+    }
+
+    if (dtAccData?.isSuccess) {
+      [
+        "detailedAccountId4",
+        "detailedAccountId5",
+        "detailedAccountId6",
+      ].forEach((detaile) => {
+        const isValid = dtAccData.data.some(
+          (accoun) => accoun.id === item[detaile],
+        );
+        if (!isValid) {
+          errors[item.key].push(
+            `حساب سطح ${detaile[detaile.length - 1]} نامعتبر است`,
+          );
+        }
+      });
+    }
+  };
+
   //====================================================================
   //                        Child Components
   //=====================================================================
@@ -439,7 +487,6 @@ const AddItemDetailList = (props) => {
           columns={columns(onDelete, onEdit, onError)}
           title={title}
           dataSource={dataSource}
-
         />
       </>
     );
@@ -452,7 +499,7 @@ const AddItemDetailList = (props) => {
     <>
       <Ant.Modal
         open={modalState}
-        {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_EXTRA_LARGE}
         {...modalSize}
         getContainer={null}
         footer={null}
@@ -476,8 +523,8 @@ const AddItemDetailList = (props) => {
       <CoustomContent height="75vh" loading={allLoading}>
         <Grid />
         <Ant.Row>
-          <Ant.Col className="absolute bottom-0 right-0 ">
-            <CoustomContent bordered >
+          <Ant.Col>
+            <CoustomContent bordered>
               <Ant.Descriptions
                 bordered={false}
                 layout="horizontal"

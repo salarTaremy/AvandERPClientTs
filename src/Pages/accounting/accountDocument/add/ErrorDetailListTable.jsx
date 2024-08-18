@@ -27,7 +27,6 @@ const ErrorDetailListTable = (props) => {
       <ModalHeader title={`شماره ردیف سند : ${obj.rowNumber}`} />
       {error &&
         error.map((err, index) => {
-          console.log(err, "err");
           if (err.key === myKey) {
             return (
               <>
