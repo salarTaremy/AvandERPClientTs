@@ -4,7 +4,11 @@ import * as url from "@/api/url";
 import * as api from "@/api";
 import qs from "qs";
 import * as defaultValues from "@/defaultValues";
-import { usePostWithHandler,useFetchWithHandler,usePutWithHandler } from "@/api";
+import {
+  usePostWithHandler,
+  useFetchWithHandler,
+  usePutWithHandler,
+} from "@/api";
 import PropTypes from "prop-types";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -47,14 +51,13 @@ const EditSaleDocHeader = (props) => {
     getSaleDocument();
   }, []);
 
-
   useEffect(() => {
     editData?.isSuccess && onSuccess();
   }, [editData]);
   useEffect(() => {
     form.resetFields();
-    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
-  }, [listData])
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+  }, [listData]);
   useEffect(() => {
     idCustomer;
   }, [idCustomer]);
@@ -85,10 +88,9 @@ const EditSaleDocHeader = (props) => {
     setIdCustomer(val?.key);
   };
   const onFinish = async (values) => {
-    console.log(values,"values")
     const dto = {
       ...values,
-      id:id,
+      id: id,
       customerId: values?.customerId?.key,
       issueDateCalendarId: parseInt(
         values?.issueDateCalendarId?.toString().replace(/\//g, ""),
@@ -101,130 +103,135 @@ const EditSaleDocHeader = (props) => {
   //====================================================================
   return (
     <>
-{id}
-      <Ant.Modal
-        centered
-        {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_EXTRA_LARGE}
-        open={isModalOpen}
-        footer={null}
-        onCancel={() => setIsModalOpen(false)}
-        onOk={() => setIsModalOpen(false)}
-      >
-        <CustomerDescription id={idCustomer} />
-      </Ant.Modal>
-      <CoustomContent height="70vh">
-        <ModalHeader title={"ویرایش برگه فروش"} icon={<FaFileMedical />} />
-        <Ant.Form
-          form={form}
-          onFinish={onFinish}
-          layout="vertical"
-          onFinishFailed={null}
+      <Ant.Skeleton loading={loadingData}>
+        <Ant.Modal
+          centered
+          {...defaultValues.MODAL_PROPS}
+          {...defaultValues.MODAL_EXTRA_LARGE}
+          open={isModalOpen}
+          footer={null}
+          onCancel={() => setIsModalOpen(false)}
+          onOk={() => setIsModalOpen(false)}
         >
-          <Ant.Row gutter={[8, 8]}>
-            <Ant.Col span={24} md={24} lg={12}>
-              <Ant.Form.Item
-                name={"issueDateCalendarId"}
-                rules={[{ required: true }]}
-                label=" تاریخ"
-              >
-                <MyDatePicker />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={12}>
-              <Ant.Form.Item
-                name={"saleChannelId"}
-                rules={[{ required: true }]}
-                label="کانال فروش"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={saleChannelLoading || false}
-                  loading={saleChannelLoading}
-                  options={saleChannelData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={22} md={22} lg={22}>
-              <Ant.Form.Item
-                name={"customerId"}
-                rules={[{ required: true }]}
-                label="مشتری"
-              >
-                <DebounceSelect
-                  maxCount={1}
-                  placeholder="بخشی از نام مشتری را تایپ کنید..."
-                  fetchOptions={getCustomerForDropDown}
-                  onChange={(newValue) => {
-                    getValueCustomer(newValue);
-                  }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={2} md={2} lg={2}>
-              <Ant.Form.Item>
-                <Ant.Button
-                  onClick={() => setIsModalOpen(true)}
-                  className="text-sky-600 mt-8"
-                  icon={<GrView />}
-                  type="text"
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
+          <CustomerDescription id={idCustomer} />
+        </Ant.Modal>
+        <CoustomContent height="70vh">
+          <ModalHeader title={"ویرایش برگه فروش"} icon={<FaFileMedical />} />
+          <Ant.Form
+            form={form}
+            onFinish={onFinish}
+            layout="vertical"
+            onFinishFailed={null}
+          >
+            <Ant.Row gutter={[8, 8]}>
+              <Ant.Col span={24} md={24} lg={12}>
+                <Ant.Form.Item
+                  name={"issueDateCalendarTitle"}
+                  rules={[{ required: true }]}
+                  label=" تاریخ"
+                >
+                  <MyDatePicker />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={12}>
+                <Ant.Form.Item
+                  name={"saleChannelId"}
+                  rules={[{ required: true }]}
+                  label="کانال فروش"
+                >
+                  <Ant.Select
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={saleChannelLoading || false}
+                    loading={saleChannelLoading}
+                    options={saleChannelData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={22} md={22} lg={22}>
+                <Ant.Form.Item
+                  name={"customerId"}
+                  rules={[{ required: true }]}
+                  label="مشتری"
+                >
+                  <DebounceSelect
+                    maxCount={1}
+                    placeholder="بخشی از نام مشتری را تایپ کنید..."
+                    fetchOptions={getCustomerForDropDown}
+                    onChange={(newValue) => {
+                      getValueCustomer(newValue);
+                    }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={2} md={2} lg={2}>
+                <Ant.Form.Item>
+                  <Ant.Button
+                    onClick={() => setIsModalOpen(true)}
+                    className="text-sky-600 mt-8"
+                    icon={<GrView />}
+                    type="text"
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
 
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"saleDocumentTypeId"}
-                rules={[{ required: true }]}
-                label="نوع برگه فروش"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
-                  loading={saleDocTypeLoading}
-                  options={saleDocTypeData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"branchId"}
-                rules={[{ required: true }]}
-                label="نام شعبه"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={branchLoading || false}
-                  loading={branchLoading}
-                  options={branchData?.data}
-                  fieldNames={{ label: "name", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name="description"
-                label="توضیحات"
-                rules={[{ required: false }]}
-              >
-                <Ant.Input.TextArea allowClear showCount maxLength={400} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item className="text-end">
-                <Ant.Button loading={editLoading || false} type="primary" onClick={() => form.submit()}>
-                  {"تایید"}
-                </Ant.Button>
-              </Ant.Form.Item>
-            </Ant.Col>
-          </Ant.Row>
-        </Ant.Form>
-      </CoustomContent>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"saleDocumentTypeId"}
+                  rules={[{ required: true }]}
+                  label="نوع برگه فروش"
+                >
+                  <Ant.Select
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={saleDocTypeLoading || false}
+                    loading={saleDocTypeLoading}
+                    options={saleDocTypeData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"branchId"}
+                  rules={[{ required: true }]}
+                  label="نام شعبه"
+                >
+                  <Ant.Select
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={branchLoading || false}
+                    loading={branchLoading}
+                    options={branchData?.data}
+                    fieldNames={{ label: "name", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name="description"
+                  label="توضیحات"
+                  rules={[{ required: false }]}
+                >
+                  <Ant.Input.TextArea allowClear showCount maxLength={400} />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item className="text-end">
+                  <Ant.Button
+                    loading={editLoading || false}
+                    type="primary"
+                    onClick={() => form.submit()}
+                  >
+                    {"تایید"}
+                  </Ant.Button>
+                </Ant.Form.Item>
+              </Ant.Col>
+            </Ant.Row>
+          </Ant.Form>
+        </CoustomContent>
+      </Ant.Skeleton>
     </>
   );
 };
