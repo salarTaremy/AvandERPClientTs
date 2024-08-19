@@ -85,6 +85,10 @@ const SaleDocumentList = () => {
     setDocumentDetailModalState(false);
     fillGrid();
   };
+  const onSuccessEdit= () => {
+    setDocumentDetailModalState(false);
+    fillGrid();
+  };
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
     setOpenFilter(false);
@@ -105,7 +109,9 @@ const SaleDocumentList = () => {
   };
 
   const onEdit = async (id) => {
-    setDocumentDetailModalContent(<EditSaleDocHeader id={id} />);
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
+    setModalSize(updateList)
+    setDocumentDetailModalContent(<EditSaleDocHeader id={id}  key={id} onSuccess={onSuccessEdit} />);
     setDocumentDetailModalState(true);
   };
   const onAdd = async (id) => {

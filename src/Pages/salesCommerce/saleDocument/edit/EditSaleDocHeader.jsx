@@ -1,25 +1,234 @@
-import React, { useEffect, useState } from 'react'
-import { PropTypes } from 'prop-types'
-import { Col, Row } from 'antd';
-import * as Ant from 'antd'
-import * as url from '@/api/url'
-import * as defaultValues from "@/defaultValues";
-import qs from "qs";
-import * as styles from "@/styles";
+import React, { useEffect, useState } from "react";
+import * as Ant from "antd";
+import * as url from "@/api/url";
 import * as api from "@/api";
+import qs from "qs";
+import * as defaultValues from "@/defaultValues";
+import { usePostWithHandler,useFetchWithHandler,usePutWithHandler } from "@/api";
+import PropTypes from "prop-types";
+import DebounceSelect from "@/components/common/DebounceSelect";
+import ModalHeader from "@/components/common/ModalHeader";
+import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
-import useAllLoading from "@/hooks/useAllLoading ";
 import CoustomContent from "@/components/common/CoustomContent";
-import SaleDocumentHeaderInfo from "../header/SaleDocumentHeaderInfo";
-import ModalHeader from '@/components/common/ModalHeader';
+import { FaFileMedical } from "react-icons/fa";
+import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
+import { GrView } from "react-icons/gr";
 //====================================================================
 //                        Declaration
 //====================================================================
 const EditSaleDocHeader = (props) => {
-    const { id } = props;
+  const { onSuccess, id } = props;
+  const [form] = Ant.Form.useForm();
+  const [saleChannelData, saleChannelLoading, saleChannelError] = api.useFetch(
+    url.SALE_CHANNEL_GET_WITH_PERMISSION,
+  );
+  const [saleDocTypeData, saleDocTypeLoading, saleDocTypeError] = api.useFetch(
+    url.SALE_DOCUMENT_TYPE_GET_WITH_PERMISSION,
+  );
+  const [branchData, branchLoading, branchError] = api.useFetch(
+    url.BRANCH_GET_WITH_PERMISSION,
+  );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [idCustomer, setIdCustomer] = useState(null);
+  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+  const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
+  useRequestManager({ error: saleChannelError });
+  useRequestManager({ error: saleDocTypeError });
+  useRequestManager({ error: branchError });
+
+  useRequestManager({ error: editError, loading: editLoading, data: editData });
+
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+  useEffect(() => {
+    getSaleDocument();
+  }, []);
+
+
+  useEffect(() => {
+    editData?.isSuccess && onSuccess();
+  }, [editData]);
+  useEffect(() => {
+    form.resetFields();
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
+  }, [listData])
+  useEffect(() => {
+    idCustomer;
+  }, [idCustomer]);
+  //====================================================================
+  //                        Functions
+  //====================================================================
+
+  const getCustomerForDropDown = async (searchText) => {
+    const queryString = qs.stringify({
+      customerName: searchText,
+    });
+
+    const response = await api.GetAsync(
+      `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
+      "",
+    );
+    if (response?.data) {
+      return response?.data.map((item) => ({
+        label: `${item.customerName}`,
+        value: item.id,
+      }));
+    }
+  };
+  const getSaleDocument = async () => {
+    await ApiCall(`${url.SALE_DOCUMENT_HEADER}/${id}`);
+  };
+  const getValueCustomer = (val) => {
+    setIdCustomer(val?.key);
+  };
+  const onFinish = async (values) => {
+    console.log(values,"values")
+    const dto = {
+      ...values,
+      id:id,
+      customerId: values?.customerId?.key,
+      issueDateCalendarId: parseInt(
+        values?.issueDateCalendarId?.toString().replace(/\//g, ""),
+      ),
+    };
+    await editApiCall(url.SALE_DOCUMENT_Header, dto);
+  };
+  //====================================================================
+  //                        Component
+  //====================================================================
   return (
-    <div>EditSaleDocHeader{id}</div>
-    
-  )
-}
-export default EditSaleDocHeader
+    <>
+{id}
+      <Ant.Modal
+        centered
+        {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_EXTRA_LARGE}
+        open={isModalOpen}
+        footer={null}
+        onCancel={() => setIsModalOpen(false)}
+        onOk={() => setIsModalOpen(false)}
+      >
+        <CustomerDescription id={idCustomer} />
+      </Ant.Modal>
+      <CoustomContent height="70vh">
+        <ModalHeader title={"ویرایش برگه فروش"} icon={<FaFileMedical />} />
+        <Ant.Form
+          form={form}
+          onFinish={onFinish}
+          layout="vertical"
+          onFinishFailed={null}
+        >
+          <Ant.Row gutter={[8, 8]}>
+            <Ant.Col span={24} md={24} lg={12}>
+              <Ant.Form.Item
+                name={"issueDateCalendarId"}
+                rules={[{ required: true }]}
+                label=" تاریخ"
+              >
+                <MyDatePicker />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={12}>
+              <Ant.Form.Item
+                name={"saleChannelId"}
+                rules={[{ required: true }]}
+                label="کانال فروش"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={saleChannelLoading || false}
+                  loading={saleChannelLoading}
+                  options={saleChannelData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={22} md={22} lg={22}>
+              <Ant.Form.Item
+                name={"customerId"}
+                rules={[{ required: true }]}
+                label="مشتری"
+              >
+                <DebounceSelect
+                  maxCount={1}
+                  placeholder="بخشی از نام مشتری را تایپ کنید..."
+                  fetchOptions={getCustomerForDropDown}
+                  onChange={(newValue) => {
+                    getValueCustomer(newValue);
+                  }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={2} md={2} lg={2}>
+              <Ant.Form.Item>
+                <Ant.Button
+                  onClick={() => setIsModalOpen(true)}
+                  className="text-sky-600 mt-8"
+                  icon={<GrView />}
+                  type="text"
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"saleDocumentTypeId"}
+                rules={[{ required: true }]}
+                label="نوع برگه فروش"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={saleDocTypeLoading || false}
+                  loading={saleDocTypeLoading}
+                  options={saleDocTypeData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"branchId"}
+                rules={[{ required: true }]}
+                label="نام شعبه"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={branchLoading || false}
+                  loading={branchLoading}
+                  options={branchData?.data}
+                  fieldNames={{ label: "name", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name="description"
+                label="توضیحات"
+                rules={[{ required: false }]}
+              >
+                <Ant.Input.TextArea allowClear showCount maxLength={400} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item className="text-end">
+                <Ant.Button loading={editLoading || false} type="primary" onClick={() => form.submit()}>
+                  {"تایید"}
+                </Ant.Button>
+              </Ant.Form.Item>
+            </Ant.Col>
+          </Ant.Row>
+        </Ant.Form>
+      </CoustomContent>
+    </>
+  );
+};
+export default EditSaleDocHeader;
+EditSaleDocHeader.propTypes = {
+  onSuccess: PropTypes.func,
+};
