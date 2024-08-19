@@ -3,6 +3,7 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as api from "@/api";
 import qs from "qs";
+import * as defaultValues from "@/defaultValues";
 import { usePostWithHandler } from "@/api";
 import PropTypes from "prop-types";
 import DebounceSelect from "@/components/common/DebounceSelect";
@@ -11,6 +12,8 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
 import CoustomContent from "@/components/common/CoustomContent";
 import { FaFileMedical } from "react-icons/fa";
+import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
+import { GrView } from "react-icons/gr";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -28,6 +31,8 @@ const AddSaleDocHeader = (props) => {
   );
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [idCustomer, setIdCustomer] = useState(null);
   useRequestManager({ error: saleChannelError });
   useRequestManager({ error: saleDocTypeError });
   useRequestManager({ error: branchError });
@@ -41,6 +46,9 @@ const AddSaleDocHeader = (props) => {
   useEffect(() => {
     form.resetFields();
   }, [form]);
+  useEffect(() => {
+    idCustomer;
+  }, [idCustomer]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -61,9 +69,14 @@ const AddSaleDocHeader = (props) => {
       }));
     }
   };
+  const onView = async () => {
+    setOpen(true);
+  };
+  const getValueCustomer = (val) => {
+    console.log(val?.key, "kskksks");
+    setIdCustomer(val?.key);
+  };
   const onFinish = async (values) => {
-    console.log(values, "kakakak");
-
     const dto = {
       ...values,
       customerId: values?.customerId?.key,
@@ -71,7 +84,6 @@ const AddSaleDocHeader = (props) => {
         values?.issueDateCalendarId?.toString().replace(/\//g, ""),
       ),
     };
-    console.log(dto, "dto");
     await addApiCall(url.SALE_DOCUMENT_Header, dto);
   };
   //====================================================================
@@ -79,6 +91,17 @@ const AddSaleDocHeader = (props) => {
   //====================================================================
   return (
     <>
+      <Ant.Modal
+        centered
+        {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_EXTRA_LARGE}
+        open={isModalOpen}
+        footer={null}
+        onCancel={() => setIsModalOpen(false)}
+        onOk={() => setIsModalOpen(false)}
+      >
+        <CustomerDescription id={idCustomer} />
+      </Ant.Modal>
       <CoustomContent height="70vh">
         <ModalHeader title={"افزودن  برگه فروش"} icon={<FaFileMedical />} />
         <Ant.Form
@@ -113,7 +136,7 @@ const AddSaleDocHeader = (props) => {
                 />
               </Ant.Form.Item>
             </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Col span={22} md={22} lg={22}>
               <Ant.Form.Item
                 name={"customerId"}
                 rules={[{ required: true }]}
@@ -124,8 +147,18 @@ const AddSaleDocHeader = (props) => {
                   placeholder="بخشی از نام مشتری را تایپ کنید..."
                   fetchOptions={getCustomerForDropDown}
                   onChange={(newValue) => {
-                    console.log("onChange debounce:" + newValue);
+                    getValueCustomer(newValue);
                   }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={2} md={2} lg={2}>
+              <Ant.Form.Item>
+                <Ant.Button
+                  onClick={() => setIsModalOpen(true)}
+                  className="text-sky-600 mt-8"
+                  icon={<GrView />}
+                  type="text"
                 />
               </Ant.Form.Item>
             </Ant.Col>
