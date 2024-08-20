@@ -41,12 +41,12 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getRoleScopeWithRoles();
+    // getRoleScopeWithRoles();
   }, [filterObject]);
 
   useEffect(() => {
     getRoleScopeWithRoles();
-  }, [selectedUser]);
+  }, [selectedUser,filterCount]);
 
   useEffect(() => {
     const TmpSelected = [];
