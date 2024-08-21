@@ -29,6 +29,9 @@ const AddSaleDocHeader = (props) => {
   const [branchData, branchLoading, branchError] = api.useFetch(
     url.BRANCH_GET_WITH_PERMISSION,
   );
+  const [visitorData, visitorLoading, visitorError] = api.useFetch(
+    url.VISITOR,
+  );
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,11 +72,8 @@ const AddSaleDocHeader = (props) => {
       }));
     }
   };
-  const onView = async () => {
-    setOpen(true);
-  };
+
   const getValueCustomer = (val) => {
-    console.log(val?.key, "kskksks");
     setIdCustomer(val?.key);
   };
   const onFinish = async (values) => {
@@ -175,6 +175,86 @@ const AddSaleDocHeader = (props) => {
                   disable={saleDocTypeLoading || false}
                   loading={saleDocTypeLoading}
                   options={saleDocTypeData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"visitorId"}
+                rules={[{ required: true }]}
+                label="ویزیتور"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={saleDocTypeLoading || false}
+                  loading={saleDocTypeLoading}
+                  options={visitorData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"paymentTypeId"}
+                rules={[{ required: true }]}
+                label="نوع پرداخت"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={saleDocTypeLoading || false}
+                  loading={saleDocTypeLoading}
+                  options={visitorData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"saleTypeId"}
+                rules={[{ required: true }]}
+                label="نوع فروش"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={saleDocTypeLoading || false}
+                  loading={saleDocTypeLoading}
+                  options={visitorData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"deliveryTypeId"}
+                rules={[{ required: true }]}
+                label="نوع تحویل"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={saleDocTypeLoading || false}
+                  loading={saleDocTypeLoading}
+                  options={visitorData?.data}
+                  fieldNames={{ label: "title", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"saleClassificationId"}
+                rules={[{ required: true }]}
+                label="طبقه بندی فروش"
+              >
+                <Ant.Select
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disable={saleDocTypeLoading || false}
+                  loading={saleDocTypeLoading}
+                  options={visitorData?.data}
                   fieldNames={{ label: "title", value: "id" }}
                 />
               </Ant.Form.Item>

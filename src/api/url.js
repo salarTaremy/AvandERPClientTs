@@ -188,8 +188,10 @@ export const CITY = '/City'
 export const CITY_TREE = '/City/GetTree'
 
 
-//Bank
+//treasury
 export const BANK = '/Bank'
+export const FUND = '/Fund'
+export const FUND_MAX_CODE = '/Fund/MaxCode'
 
 //BankBranch
 export const BANKBRANCH = '/BankBranch'
@@ -247,6 +249,10 @@ export const CITY_DISTRICT = 'CityDistrict'
 //Visitor
 export const VISITOR = 'Visitor'
 export const VISITOR_FREE_CODE = 'Visitor/GetFirstFreeCode'
+
+
+//Employee
+export const EMPLOYEE = 'Employee'
 
 //AuthSetting
 export const TAX_PAYERS_SYSTEM_AUTH_INFORMATION = 'TaxPayersSystemAuthInformation'

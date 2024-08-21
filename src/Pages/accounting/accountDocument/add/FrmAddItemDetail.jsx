@@ -269,6 +269,7 @@ const FrmAddItemDetail = (props) => {
                 {
                   required: true,
                   message: "فیلد بدهکار و بستانکار اجباری است",
+
                 },
               ]}
             >
@@ -297,12 +298,13 @@ const FrmAddItemDetail = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "مبلغ  نمی‌تواند صفر باشد",
+                  message: "مبلغ  نمی‌تواند صفر یا منفی  باشد",
+                  min: 0,
 
                   validator: (_, value) =>
                     new Promise((resolve, reject) => {
                       if (value === 0 || value === undefined) {
-                        reject(new Error("مبلغ  نمی‌تواند صفر باشد"));
+                        reject(new Error("مبلغ  نمی‌تواند صفر یا منفی  باشد"));
                       } else {
                         resolve();
                       }
@@ -311,6 +313,7 @@ const FrmAddItemDetail = (props) => {
               ]}
             >
               <Ant.InputNumber
+                     min={0}
                 formatter={(value) =>
                   value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }

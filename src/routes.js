@@ -76,7 +76,8 @@ import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounte
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
 
 //Treasury
-import banks from './Pages/treasury/treasuryBaseInfo/banks/Banks'
+import Banks from './Pages/treasury/treasuryBaseInfo/banks/Banks'
+import FundList from './Pages/treasury/treasuryBaseInfo/fund/list/FundList'
 
 //Other Pagees
 import NotFoundPage from './Pages/NotFoundPage'
@@ -115,7 +116,7 @@ const routes = [
   { path: '/generalSettings/roleManagement', name: 'نمونه لیست', element: RoleManagement },
   { path: '/generalSettings/branch/list', name: 'شعب ', element: BranchList },
   { path: '/generalSettings/user/list', name: 'مدیریت کاربران ', element: UserManagement },
-  
+
   { path: '/reports/desighner', name: 'طراحی گزارش', element: Desighner },
 
   { path: '/sale/saleChannel', name: 'کانال فروش', element: SaleChannel },
@@ -139,7 +140,9 @@ const routes = [
   { path: 'manage/counterparty/edit/:id', name: 'ویرایش طرف حساب ها', element: FormEditCounterParty },
   { path: 'manage/counterparty/list', name: 'لیست سیاه طرف حساب ها', element: CounterPartyBlackList },
 
-  { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: banks },
+  { path: 'treasuryBaseInfo/banks', name: 'بانک ها', element: Banks },
+  { path: 'treasuryBaseInfo/fund', name: 'بانک ها', element: FundList },
+
   { path: 'sale/saleDocument', name: ' مدیریت صورتحساب ها', element: SaleDocument },
   { path: 'taxPayersSystem/InvoiceManagement', name: 'مدیریت صورتحساب ها', element: InvoiceManagement },
   { path: 'taxPayersSystem/AuthInfoList', name: 'اطلاعات احراز هویت', element: AuthInfoList },

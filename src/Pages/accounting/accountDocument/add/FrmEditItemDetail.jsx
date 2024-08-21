@@ -341,11 +341,12 @@ const FrmEditItemDetail = (props) => {
                   {
                     required: true,
                     message: "مبلغ بدهکار اجباری است",
+                    min: 0,
 
                     validator: (_, value) =>
                       new Promise((resolve, reject) => {
                         if (value === 0) {
-                          reject(new Error("مبلغ بدهکار نمی‌تواند صفر باشد"));
+                          reject(new Error("مبلغ بدهکار نمی‌تواند صفر  یا منفی باشد"));
                         } else {
                           resolve();
                         }
@@ -368,12 +369,13 @@ const FrmEditItemDetail = (props) => {
                 label="مبلغ"
                 rules={[
                   {
+                    min: 0,
                     required: true,
                     message: "مبلغ بستانکار اجباری است",
                     validator: (_, value) =>
                       new Promise((resolve, reject) => {
                         if (value === 0) {
-                          reject(new Error("مبلغ بستانکار نمی‌تواند صفر باشد"));
+                          reject(new Error("مبلغ بستانکار نمی‌تواند صفر یا منفی باشد"));
                         } else {
                           resolve();
                         }
