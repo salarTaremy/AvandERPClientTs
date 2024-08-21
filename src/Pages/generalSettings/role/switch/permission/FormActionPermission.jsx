@@ -29,10 +29,6 @@ const FormActionPermission = ({ roleId, appControllerId, onSuccess, name, persia
     //====================================================================
     useEffect(() => {
         getRoleScopeWithRoles()
-    }, [])
-
-    useEffect(() => {
-        getRoleScopeWithRoles()
     }, [selectedUser]);
 
     useEffect(() => {
