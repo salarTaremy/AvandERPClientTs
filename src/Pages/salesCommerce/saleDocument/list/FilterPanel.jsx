@@ -18,7 +18,28 @@ const FilterPanel = (props) => {
   const [saleDocTypeData, saleDocTypeLoading, saleDocTypeError] = api.useFetch(
     url.SALE_DOCUMENT_TYPE_GET_WITH_PERMISSION,
   );
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
+  const [visitorData, visitorLoading, visitorError] = api.useFetch(url.VISITOR);
+  const [deliveryTypeData, deliveryTypeLoading, deliveryTypeError] =
+    api.useFetch(url.DELIVERY_TYPE);
+  const [saleTypeData, saleTypeLoading, saleTypeError] = api.useFetch(
+    url.SALETYPE,
+  );
+  const [paymentTypeData, paymentTypeLoading, paymentTypeError] = api.useFetch(
+    url.PAYMENT_TYPE,
+  );
+  const [
+    saleClassificationData,
+    saleClassificationLoading,
+    saleClassificationError,
+  ] = api.useFetch(url.SALE_CLASSIFICATION);
+  useRequestManager({ error: saleClassificationError });
+  useRequestManager({ error: paymentTypeError });
+  useRequestManager({ error: saleTypeError });
+  useRequestManager({ error: deliveryTypeError });
+  useRequestManager({ error: visitorError });
+  const [branchData, branchLoading, branchError] = api.useFetch(
+    url.BRANCH_GET_WITH_PERMISSION,
+  );
   const { onSubmit, filterObject } = props;
   useRequestManager({ error: saleChannelError });
   useRequestManager({ error: saleDocTypeError });
@@ -141,6 +162,62 @@ const FilterPanel = (props) => {
             fieldNames={{ label: "title", value: "id" }}
           />
         </Ant.Form.Item>
+
+        <Ant.Form.Item name={"visitorId"} label="ویزیتور">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={visitorLoading || false}
+            loading={visitorLoading}
+            options={visitorData?.data}
+            fieldNames={{ label: "fullName", value: "id" }}
+          />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item name={"paymentTypeId"} label="نوع پرداخت">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={paymentTypeLoading || false}
+            loading={paymentTypeLoading}
+            options={paymentTypeData?.data}
+            fieldNames={{ label: "title", value: "id" }}
+          />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item name={"saleTypeId"} label="نوع فروش">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={saleTypeLoading || false}
+            loading={saleTypeLoading}
+            options={saleTypeData?.data}
+            fieldNames={{ label: "title", value: "id" }}
+          />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item name={"deliveryTypeId"} label="نوع تحویل">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={deliveryTypeLoading || false}
+            loading={deliveryTypeLoading}
+            options={deliveryTypeData?.data}
+            fieldNames={{ label: "title", value: "id" }}
+          />
+        </Ant.Form.Item>
+
+        <Ant.Form.Item name={"saleClassificationId"} label="طبقه بندی فروش">
+          <Ant.Select
+            allowClear={true}
+            placeholder={"انتخاب کنید..."}
+            disable={saleClassificationLoading || false}
+            loading={saleClassificationLoading}
+            options={saleClassificationData?.data}
+            fieldNames={{ label: "title", value: "id" }}
+          />
+        </Ant.Form.Item>
+
         <Ant.Form.Item name={"branchIds"} label="نام شعبه">
           <Ant.Select
             allowClear={true}

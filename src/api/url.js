@@ -169,6 +169,9 @@ export const SALE_DOCUMENT_Header = '/SaleDocumentHeader'
 //SaleType
 export const SALETYPE = 'SaleType'
 
+//SaleClassification
+export const SALE_CLASSIFICATION = 'SaleClassification'
+
 //Counterparty
 export const COUNTER_PARTY = 'Counterparty'
 export const COUNTER_PARTY_TYPE = 'Counterparty/GetCounterpartyType'

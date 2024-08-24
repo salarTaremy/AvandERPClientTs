@@ -12,6 +12,7 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
 import CoustomContent from "@/components/common/CoustomContent";
 import { FaFileMedical } from "react-icons/fa";
+import useAllLoading from '@/hooks/useAllLoading '
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
 import { GrView } from "react-icons/gr";
 //====================================================================
@@ -32,12 +33,30 @@ const AddSaleDocHeader = (props) => {
   const [visitorData, visitorLoading, visitorError] = api.useFetch(
     url.VISITOR,
   );
+  const [deliveryTypeData, deliveryTypeLoading, deliveryTypeError] = api.useFetch(
+    url.DELIVERY_TYPE,
+  );
+  const [saleTypeData, saleTypeLoading, saleTypeError] = api.useFetch(
+    url.SALETYPE,
+  );
+  const [paymentTypeData, paymentTypeLoading, paymentTypeError] = api.useFetch(
+    url.PAYMENT_TYPE,
+  );
+  const [saleClassificationData, saleClassificationLoading, saleClassificationError] = api.useFetch(
+    url.SALE_CLASSIFICATION,
+  );
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idCustomer, setIdCustomer] = useState(null);
+  const [isDisable, setIsDisable] = useState(true);
   useRequestManager({ error: saleChannelError });
   useRequestManager({ error: saleDocTypeError });
+  useRequestManager({ error: saleClassificationError });
+  useRequestManager({ error: paymentTypeError });
+  useRequestManager({ error: saleTypeError });
+  useRequestManager({ error: deliveryTypeError });
+  useRequestManager({ error: visitorError });
   useRequestManager({ error: branchError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
   //====================================================================
@@ -74,9 +93,12 @@ const AddSaleDocHeader = (props) => {
   };
 
   const getValueCustomer = (val) => {
+    setIsDisable(false)
     setIdCustomer(val?.key);
+
   };
   const onFinish = async (values) => {
+    console.log(values,"values")
     const dto = {
       ...values,
       customerId: values?.customerId?.key,
@@ -84,6 +106,7 @@ const AddSaleDocHeader = (props) => {
         values?.issueDateCalendarId?.toString().replace(/\//g, ""),
       ),
     };
+    console.log(dto,"dto")
     await addApiCall(url.SALE_DOCUMENT_Header, dto);
   };
   //====================================================================
@@ -155,6 +178,7 @@ const AddSaleDocHeader = (props) => {
             <Ant.Col span={2} md={2} lg={2}>
               <Ant.Form.Item>
                 <Ant.Button
+                disabled={isDisable || false}
                   onClick={() => setIsModalOpen(true)}
                   className="text-sky-600 mt-8"
                   icon={<GrView />}
@@ -188,10 +212,10 @@ const AddSaleDocHeader = (props) => {
                 <Ant.Select
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
-                  loading={saleDocTypeLoading}
+                  disable={visitorLoading || false}
+                  loading={visitorLoading}
                   options={visitorData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
+                  fieldNames={{ label: "fullName", value: "id" }}
                 />
               </Ant.Form.Item>
             </Ant.Col>
@@ -204,9 +228,9 @@ const AddSaleDocHeader = (props) => {
                 <Ant.Select
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
-                  loading={saleDocTypeLoading}
-                  options={visitorData?.data}
+                  disable={paymentTypeLoading || false}
+                  loading={paymentTypeLoading}
+                  options={paymentTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
                 />
               </Ant.Form.Item>
@@ -220,9 +244,9 @@ const AddSaleDocHeader = (props) => {
                 <Ant.Select
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
-                  loading={saleDocTypeLoading}
-                  options={visitorData?.data}
+                  disable={saleTypeLoading || false}
+                  loading={saleTypeLoading}
+                  options={saleTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
                 />
               </Ant.Form.Item>
@@ -236,9 +260,9 @@ const AddSaleDocHeader = (props) => {
                 <Ant.Select
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
-                  loading={saleDocTypeLoading}
-                  options={visitorData?.data}
+                  disable={deliveryTypeLoading || false}
+                  loading={deliveryTypeLoading}
+                  options={deliveryTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
                 />
               </Ant.Form.Item>
@@ -252,9 +276,9 @@ const AddSaleDocHeader = (props) => {
                 <Ant.Select
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
-                  loading={saleDocTypeLoading}
-                  options={visitorData?.data}
+                  disable={saleClassificationLoading || false}
+                  loading={saleClassificationLoading}
+                  options={saleClassificationData?.data}
                   fieldNames={{ label: "title", value: "id" }}
                 />
               </Ant.Form.Item>
