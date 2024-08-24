@@ -25,7 +25,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   useRequestManager({
     error: editError,
-    editLoading: editLoading,
+    loading: editLoading,
     data: editData,
   });
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -46,7 +46,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
 
   useEffect(() => {
     getRoleScopeWithRoles();
-  }, [selectedUser,filterCount]);
+  }, [selectedUser, filterCount]);
 
   useEffect(() => {
     const TmpSelected = [];
