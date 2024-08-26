@@ -77,6 +77,7 @@ const EditSaleDocHeader = (props) => {
   useEffect(() => {
     form.resetFields();
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+    listData?.isSuccess && form.setFieldsValue({customerId: {label: listData?.data.customerName, value: listData?.data.customerId}});
   }, [listData]);
   useEffect(() => {
     idCustomer;
@@ -112,7 +113,7 @@ const EditSaleDocHeader = (props) => {
     const dto = {
       ...values,
       id: id,
-      customerId: values?.customerId?.key,
+      customerId: values?.customerId?.value,
       issueDateCalendarId: parseInt(
         values?.issueDateCalendarId?.toString().replace(/\//g, ""),
       ),

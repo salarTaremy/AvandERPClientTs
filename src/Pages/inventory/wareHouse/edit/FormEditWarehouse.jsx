@@ -34,6 +34,7 @@ const FormEditWareHouse = (props) => {
   useEffect(() => {
     form.resetFields()
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
+    listData?.isSuccess && form.setFieldsValue({warehouseKeeperId: {label: listData?.data.warehouseKeeperName, value: listData?.data.warehouseKeeperId}});
   }, [listData])
 
   //======================================================================
@@ -45,7 +46,7 @@ const FormEditWareHouse = (props) => {
 
   const onFinish = async (values) => {
     setLoading(true);
-    const req = { ...values, id: id };
+    const req = { ...values, id: id, warehouseKeeperId: values?.warehouseKeeperId?.value };
     await editApiCall(url.WAREHOUSE, req);
     setLoading(false);
     onSuccess();
