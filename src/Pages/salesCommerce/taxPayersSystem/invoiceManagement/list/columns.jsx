@@ -153,6 +153,24 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       width: 120,
     },
     {
+      title: "الگوی صورتحساب",
+      dataIndex: "saleDocumentIssue",
+      key: "saleDocumentIssue",
+      align: "center",
+      className: "text-xs sm:text-sm",
+      width: 150,
+      render: (text, record, index) => {
+        return (
+          <Ant.Tag
+            bordered={false}
+            color={getSaleDocIssueColor(record.saleDocumentIssueId)}
+          >
+            {record.saleDocumentIssue}
+          </Ant.Tag>
+        );
+      },
+    },
+    {
       title: "شناسه مالیاتی",
       dataIndex: "saleDocumentUniqueFiscalId",
       key: "saleDocumentUniqueFiscalId",
@@ -270,24 +288,6 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
     //     )
     // }
     // },
-    {
-      title: "الگوی صورتحساب",
-      dataIndex: "saleDocumentIssue",
-      key: "saleDocumentIssue",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 150,
-      render: (text, record, index) => {
-        return (
-          <Ant.Tag
-            bordered={false}
-            color={getSaleDocIssueColor(record.saleDocumentIssueId)}
-          >
-            {record.saleDocumentIssue}
-          </Ant.Tag>
-        );
-      },
-    },
     {
       title: "مبلغ",
       dataIndex: "subTotal",
