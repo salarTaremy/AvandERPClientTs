@@ -12,7 +12,6 @@ import InquiryListItem from "./InquiryListItem";
 //                        Declaration
 //====================================================================
 const InquiryResult = (props) => {
-  debugger;
   const { saleDocumentHeaderId, saleDocumentFiscalId } = props;
   const pageTitle = `استعلام وضعیت فاکتور شماره "${saleDocumentFiscalId}"`;
   const [inquiryResultData, setInquiryResultData] = useState([]);
@@ -28,7 +27,6 @@ const InquiryResult = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    debugger;
     setInquiryResultData(inquiryData?.data);
   }, [inquiryData]);
 
