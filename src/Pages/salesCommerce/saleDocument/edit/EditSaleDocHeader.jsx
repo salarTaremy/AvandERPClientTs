@@ -15,7 +15,6 @@ import ModalHeader from "@/components/common/ModalHeader";
 import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
 import CoustomContent from "@/components/common/CoustomContent";
-import useAllLoading from '@/hooks/useAllLoading '
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
 import { GrView } from "react-icons/gr";
 import { BiEdit } from "react-icons/bi";
