@@ -12,6 +12,7 @@ import InquiryListItem from "./InquiryListItem";
 //                        Declaration
 //====================================================================
 const InquiryResult = (props) => {
+  debugger;
   const { saleDocumentHeaderId, saleDocumentFiscalId } = props;
   const pageTitle = `استعلام وضعیت فاکتور شماره "${saleDocumentFiscalId}"`;
   const [inquiryResultData, setInquiryResultData] = useState([]);
@@ -27,6 +28,7 @@ const InquiryResult = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
+    debugger;
     setInquiryResultData(inquiryData?.data);
   }, [inquiryData]);
 
@@ -37,7 +39,7 @@ const InquiryResult = (props) => {
     <>
       <ModalHeader title={pageTitle} />
       <CoustomContent height="60vh">
-        <Ant.Skeleton lactive oading={inquiryLoading}>
+        <Ant.Skeleton active loading={inquiryLoading}>
           <InquiryListItem inquiryData={inquiryResultData} key={uuid.v1()} />
         </Ant.Skeleton>
       </CoustomContent>
