@@ -162,8 +162,8 @@ export const BasicInfoStep = (props) => {
           </Ant.Row>
 
           {/*** کدگذاری ***/}
-
-            <CoustomContent title={"کدگذاری"} bordered size="small">
+          <Ant.Row gutter={[16, 8]}>
+            <CoustomContent itle={"کدگذاری"} bordered size="small"  >
               {/* <Ant.Card title={"کدگذاری"} type="inner" size="small"> */}
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -207,7 +207,7 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent>
+            </CoustomContent >
 
             {/*** اطلاعات هویتی ***/}
 
@@ -562,6 +562,8 @@ export const BasicInfoStep = (props) => {
               </Ant.Row>
             </CoustomContent>
 
+
+            </Ant.Row >
         </Ant.Skeleton>
       </CoustomContent>
     </>
