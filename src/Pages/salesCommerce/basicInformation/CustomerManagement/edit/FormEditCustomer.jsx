@@ -289,7 +289,7 @@ const FormEditCustomer = ({ id }) => {
                   >
                     <Ant.Select
                       {...commonOptionsBranch}
-                      mode="multiple"
+                      // mode="multiple"
                       allowClear={true}
                       placeholder={"انتخاب کنید..."}
                       disabled={branchLoading || false}
