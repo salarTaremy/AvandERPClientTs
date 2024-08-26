@@ -138,6 +138,7 @@ const EditSaleDocHeader = (props) => {
       </Ant.Modal>
       <CoustomContent height="70vh">
         <ModalHeader title={"ویرایش برگه فروش"} icon={<FaFileMedical />} />
+        <Ant.Skeleton  active loading={loadingData}>
         <Ant.Form
           form={form}
           onFinish={onFinish}
@@ -321,13 +322,14 @@ const EditSaleDocHeader = (props) => {
             </Ant.Col>
             <Ant.Col span={24} md={24} lg={24}>
               <Ant.Form.Item className="text-end">
-                <Ant.Button type="primary" onClick={() => form.submit()}>
+                <Ant.Button loading={editLoading || false} type="primary" onClick={() => form.submit()}>
                   {"تایید"}
                 </Ant.Button>
               </Ant.Form.Item>
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
+        </Ant.Skeleton>
       </CoustomContent>
     </>
   );
