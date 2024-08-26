@@ -15,10 +15,10 @@ import ModalHeader from "@/components/common/ModalHeader";
 import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
 import CoustomContent from "@/components/common/CoustomContent";
-import { FaFileMedical } from "react-icons/fa";
 import useAllLoading from '@/hooks/useAllLoading '
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
 import { GrView } from "react-icons/gr";
+import { BiEdit } from "react-icons/bi";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -137,7 +137,7 @@ const EditSaleDocHeader = (props) => {
         <CustomerDescription id={idCustomer} />
       </Ant.Modal>
       <CoustomContent height="70vh">
-        <ModalHeader title={"ویرایش برگه فروش"} icon={<FaFileMedical />} />
+        <ModalHeader title={"ویرایش برگه فروش"} icon={<BiEdit />} />
         <Ant.Skeleton  active loading={loadingData}>
         <Ant.Form
           form={form}
