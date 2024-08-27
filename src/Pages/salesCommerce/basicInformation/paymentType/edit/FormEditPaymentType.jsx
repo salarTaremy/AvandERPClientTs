@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
-import { usePutWithHandler, useFetchWithHandler } from "@/api";
+import { usePutWithHandler, useFetchWithHandler,useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import { MdOutlinePayment } from "react-icons/md";
@@ -12,25 +12,34 @@ const FormEditPaymentType = (props) => {
   const [loading, setLoading] = useState(false);
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+  const [accountList, accountLoading, accountError] = useFetch(url.ACCOUNT);
+  const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
+  useRequestManager({ error: accountError });
+  useRequestManager({ error: dtAccError });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   const [form] = Ant.Form.useForm();
-
+  const commonOptionsAcc = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) =>
+      option.name.toLowerCase().includes(input.toLowerCase()),
+  };
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    getPaymentTypeById()
+    getPaymentTypeById();
   }, []);
 
   useEffect(() => {
-    form.resetFields()
-    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
-  }, [listData])
+    form.resetFields();
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+  }, [listData]);
   //=====================================================================
   //                        Functions
   //=====================================================================
   const getPaymentTypeById = async () => {
-    await ApiCall(`${url.PAYMENT_TYPE}/${id}`)
+    await ApiCall(`${url.PAYMENT_TYPE}/${id}`);
   };
 
   const onFinish = async (values) => {
@@ -38,7 +47,7 @@ const FormEditPaymentType = (props) => {
     const req = { ...values, id: id };
     await editApiCall(url.PAYMENT_TYPE, req);
     setLoading(false);
-    onSuccess()
+    onSuccess();
   };
   //====================================================================
   //                        Component
@@ -48,32 +57,66 @@ const FormEditPaymentType = (props) => {
       <ModalHeader title={"ویرایش نوع پرداخت"} icon={<MdOutlinePayment />} />
       <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-          <Ant.Form.Item
-            name="title"
-            label={"عنوان"}
-            rules={[{ required: true }]}
-          >
-            <Ant.Input allowClear showCount maxLength={100} />
-          </Ant.Form.Item>
-          <Ant.Form.Item
-            name={"description"}
-            label="توضیحات"
-            rules={[{ required: false }]}
-          >
-            <Ant.Input.TextArea allowClear showCount maxLength={500} />
-          </Ant.Form.Item>
-          <Ant.Form.Item>
-            <Ant.Button
-              block
-              type="primary"
-              loading={loading}
-              onClick={() => {
-                form.submit();
-              }}
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
+          <Ant.Row gutter={[8, 8]}>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name="title"
+                label={"عنوان"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Input allowClear showCount maxLength={100} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Form.Item name={"accountId"} label="حساب ">
+              <Ant.Select
+                {...commonOptionsAcc}
+                allowClear={true}
+                placeholder={"انتخاب کنید..."}
+                disabled={accountLoading || false}
+                loading={accountLoading}
+                options={accountList?.data}
+                fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Form.Item name={"detailedAccountId"} label="حساب تفصیلی">
+              <Ant.Select
+                {...commonOptionsAcc}
+                allowClear={true}
+                placeholder={"انتخاب کنید..."}
+                disabled={dtAccLoading || false}
+                loading={dtAccLoading}
+                options={dtAccData?.data}
+                fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"description"}
+                label="توضیحات"
+                rules={[{ required: false }]}
+              >
+                <Ant.Input.TextArea allowClear showCount maxLength={500} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item>
+                <Ant.Button
+                  block
+                  type="primary"
+                  loading={loading}
+                  onClick={() => {
+                    form.submit();
+                  }}
+                >
+                  {"تایید"}
+                </Ant.Button>
+              </Ant.Form.Item>
+            </Ant.Col>
+          </Ant.Row>
         </Ant.Form>
       </Ant.Skeleton>
     </>

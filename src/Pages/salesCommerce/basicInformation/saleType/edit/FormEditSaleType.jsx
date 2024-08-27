@@ -27,7 +27,8 @@ const FormEditSaleType = (props) => {
   const commonOptionsAcc = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) =>  option.name.toLowerCase().includes(input.toLowerCase()),
+    filterOption: (input, option) =>
+      option.name.toLowerCase().includes(input.toLowerCase()),
   };
 
   //====================================================================
@@ -64,32 +65,31 @@ const FormEditSaleType = (props) => {
       <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[8, 8]}>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name="title"
-              label={"عنوان فروش"}
-              rules={[{ required: true }]}
-            >
-              <Ant.Input allowClear showCount maxLength={200} />
-            </Ant.Form.Item>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name="title"
+                label={"عنوان فروش"}
+                rules={[{ required: true }]}
+              >
+                <Ant.Input allowClear showCount maxLength={200} />
+              </Ant.Form.Item>
             </Ant.Col>
             <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"defaultCurrencyId"}
-              label="نام ارز"
-
-              rules={[{ required: true }]}
-            >
-              <Ant.Select
-                {...commonOptions}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                disabled={currencyLoading || false}
-                loading={currencyLoading}
-                options={currencyData?.data}
-                fieldNames={{ label: "persianTitle", value: "id" }}
-              />
-            </Ant.Form.Item>
+              <Ant.Form.Item
+                name={"defaultCurrencyId"}
+                label="نام ارز"
+                rules={[{ required: true }]}
+              >
+                <Ant.Select
+                  {...commonOptions}
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disabled={currencyLoading || false}
+                  loading={currencyLoading}
+                  options={currencyData?.data}
+                  fieldNames={{ label: "persianTitle", value: "id" }}
+                />
+              </Ant.Form.Item>
             </Ant.Col>
             <Ant.Col span={24} md={24} lg={24}>
               <Ant.Form.Item name={"accountId"} label="حساب ">
