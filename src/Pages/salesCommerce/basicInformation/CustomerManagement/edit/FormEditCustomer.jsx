@@ -23,7 +23,7 @@ const FormEditCustomer = ({ id }) => {
   const [modalContent, setModalContent] = useState();
   const [listSubmitData, submitLoading, submitError, submitApiCall] =
     usePutWithHandler();
-  const [empty, setEmpty] = useState(undefined);
+  // const [empty, setEmpty] = useState(undefined);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
   const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
@@ -34,7 +34,7 @@ const FormEditCustomer = ({ id }) => {
   const [customerTypeList, customerTypeLoading, customerTypeError, customerTypeApiCall] = useFetchWithHandler()
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
-
+  useRequestManager({ error });
   useRequestManager({ error: editError });
   useRequestManager({ error: customerGradeError });
   useRequestManager({ error: customerTypeError });
@@ -42,11 +42,7 @@ const FormEditCustomer = ({ id }) => {
   useRequestManager({ error: maxCodeError });
   useRequestManager({ error: branchError });
   useRequestManager({ error: saleChannelError });
-  useRequestManager({
-    error: submitError,
-    loading: submitLoading,
-    data: listSubmitData,
-  });
+  useRequestManager({ error: submitError,loading: submitLoading,data: listSubmitData});
 
   const [form] = Ant.Form.useForm();
   const commonOptions = {
@@ -99,7 +95,7 @@ const FormEditCustomer = ({ id }) => {
 
   const handleCounterParty = async () => {
     const counterpartyId = editData?.data?.counterpartyId;
-    setEmpty(counterpartyId);
+    // setEmpty(counterpartyId);
     await ApiCall(`${url.COUNTER_PARTY}/${counterpartyId}`);
   };
 
@@ -192,7 +188,7 @@ const FormEditCustomer = ({ id }) => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Skeleton active  loading={loadingData}>
+      {/* <Ant.Skeleton active  loading={loadingData}> */}
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} sm={10}>
@@ -293,7 +289,7 @@ const FormEditCustomer = ({ id }) => {
                   >
                     <Ant.Select
                       {...commonOptionsBranch}
-                      mode="multiple"
+                      // mode="multiple"
                       allowClear={true}
                       placeholder={"انتخاب کنید..."}
                       disabled={branchLoading || false}
@@ -364,7 +360,7 @@ const FormEditCustomer = ({ id }) => {
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
-      </Ant.Skeleton>
+      {/* </Ant.Skeleton> */}
     </>
   );
 };
