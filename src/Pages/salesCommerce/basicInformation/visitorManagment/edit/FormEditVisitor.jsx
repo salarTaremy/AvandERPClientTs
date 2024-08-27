@@ -23,11 +23,13 @@ const FormEditVisitor = (props) => {
     const [counterpartyListData, counterpartyLoadingData, counterpartyError, counterpartyApiCall] = useFetchWithHandler();
     const [freeCodeData, freeCodeLoading, freeCodeError, freeCodeApiCall] = useFetchWithHandler()
     useRequestManager({ error: freeCodeError })
-    useRequestManager({ error: editError })
+    useRequestManager({ error: editError, loading: editLoading, data: editData })
+    useRequestManager({ error: counterpartyError, loading: counterpartyLoadingData, data: counterpartyListData })
     const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(url.SALE_CHANNEL_GET_WITH_PERMISSION);
     const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
     useRequestManager({ error: saleChannelError });
     useRequestManager({ error: branchError });
+    useRequestManager({ error: error });
     const commonOptions = {
         showSearch: true,
         filterOption: (input, option) => option.title.indexOf(input) >= 0,
@@ -71,7 +73,7 @@ const FormEditVisitor = (props) => {
     const onFinish = async (values) => {
         const req = {
             ...values,
-            counterpartyId: values?.counterpartyId,
+            counterpartyId: listData?.data?.counterpartyId,
             id: id,
         }
         await editApiCall(url.VISITOR, req)
@@ -205,7 +207,7 @@ const FormEditVisitor = (props) => {
                         <Ant.Col span={24} sm={14}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                             <CoustomContent bordered>
-                                <HeaderCounterParty data={counterpartyListData} onHeaderEdit={onHeaderEdit} />
+                                <HeaderCounterParty id={listData?.data?.counterpartyId} onHeaderEdit={onHeaderEdit} />
                                 {/* </Ant.Card> */}
                             </CoustomContent>
                         </Ant.Col>

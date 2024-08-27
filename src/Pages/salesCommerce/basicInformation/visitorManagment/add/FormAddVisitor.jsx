@@ -33,6 +33,7 @@ const FormAddVisitor = ({ onSuccess }) => {
     useRequestManager({ error: freeCodeError });
     useRequestManager({ error: branchError });
     useRequestManager({ error: saleChannelError });
+    useRequestManager({ error: error });
     const [form] = Ant.Form.useForm();
 
     const commonOptionsBranch = {
@@ -260,7 +261,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                                 {empty == undefined ? (
                                     <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                                 ) : (
-                                    <HeaderCounterParty data={listData} onHeaderEdit={onHeaderEdit} />
+                                    <HeaderCounterParty id={listData?.data?.id} onHeaderEdit={onHeaderEdit} />
                                 )}
                             </CoustomContent>
                             {/* </Ant.Card> */}
