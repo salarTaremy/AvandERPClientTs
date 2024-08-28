@@ -74,6 +74,7 @@ import FormEditCounterParty from './Pages/manageCounterParty/edit/FormEditCounte
 
 //Sale
 import SaleType from './Pages/salesCommerce/basicInformation/saleType/list/SaleTypeList'
+import SalesClassificationList from './Pages/salesCommerce/basicInformation/salesClassification/list/SalesClassificationList'
 
 //Treasury
 import Banks from './Pages/treasury/treasuryBaseInfo/banks/Banks'
@@ -147,6 +148,7 @@ const routes = [
   { path: 'taxPayersSystem/InvoiceManagement', name: 'مدیریت صورتحساب ها', element: InvoiceManagement },
   { path: 'taxPayersSystem/AuthInfoList', name: 'اطلاعات احراز هویت', element: AuthInfoList },
   { path: 'taxPayersSystem/OtherSettingList', name: 'سایر تنظیمات  ', element: OtherSettingList },
+  { path: 'sale/salesClassification', name: 'طبقه بندی فروش', element: SalesClassificationList },
 
 
   { path: '*', name: 'خطای 404', element: NotFoundPage },
