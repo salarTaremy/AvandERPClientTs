@@ -1,75 +1,96 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as defaultValues from "@/defaultValues";
 import ModalHeader from "@/components/common/ModalHeader";
 import ButtonList from "@/components/common/ButtonList";
 import { MdDescription } from "react-icons/md";
+import { useFetchWithHandler } from '@/api'
+import * as url from '@/api/url'
+import useRequestManager from "@/hooks/useRequestManager";
 
-const HeaderCounterParty = ({ data, onHeaderEdit }) => {
+const HeaderCounterParty = ({ id, onHeaderEdit }) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
+  const [counterpartyListData, counterpartyLoadingData, counterpartyError, counterpartyApiCall] = useFetchWithHandler();
+  useRequestManager({ error: counterpartyError });
+
+  //====================================================================
+  //                        useEffects
+  //====================================================================
+  useEffect(() => {
+    handleCounterParty()
+  }, [])
+
+
+  //====================================================================
+  //                        Functions
+  //======================================================================
+  const handleCounterParty = async () => {
+    await counterpartyApiCall(`${url.COUNTER_PARTY}/${id}`);
+  };
+  
   const borderedItems = [
     {
       key: "1",
       label: "کد",
-      children: data?.data?.code,
+      children: counterpartyListData?.data?.code,
     },
     {
       key: "2",
       label: "نام",
-      children: data?.data?.firstName,
+      children: counterpartyListData?.data?.firstName,
     },
     {
       key: "3",
       label: "نام خانوادگی",
-      children: data?.data?.lastName,
+      children: counterpartyListData?.data?.lastName,
     },
     {
       key: "4",
       label: "نام پدر",
-      children: data?.data?.fatherName,
+      children: counterpartyListData?.data?.fatherName,
     },
     {
       key: "5",
       label: "نام حساب تفصیل",
-      children: data?.data?.detailedAccountName,
+      children: counterpartyListData?.data?.detailedAccountName,
     },
     {
       key: "6",
       label: "کد ملی",
-      children: data?.data?.nationalCode,
+      children: counterpartyListData?.data?.nationalCode,
     },
     {
       key: "6",
       label: "شماره شناسنامه",
-      children: data?.data?.birthCertificateNumber,
+      children: counterpartyListData?.data?.birthCertificateNumber,
     },
     {
       key: "7",
       label: "تاریخ تولد",
-      children: data?.data?.birthDate,
+      children: counterpartyListData?.data?.birthDate,
     },
     {
       key: "8",
       label: "کد اقتصادی",
-      children: data?.data?.economicCode,
+      children: counterpartyListData?.data?.economicCode,
     },
     {
       key: "8",
       label: "شناسه ملی",
-      children: data?.data?.legalEntityIdentity,
+      children: counterpartyListData?.data?.legalEntityIdentity,
     },
     {
       key: "9",
       label: " ایمیل",
-      children: data?.data?.email,
+      children: counterpartyListData?.data?.email,
     },
   ];
 
   return (
     <>
 
-      <ModalHeader title={"جزئیات طرف حساب"} icon={<MdDescription />}/>
+      <ModalHeader title={"جزئیات طرف حساب"} icon={<MdDescription />} />
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
         open={modalState}
@@ -86,14 +107,14 @@ const HeaderCounterParty = ({ data, onHeaderEdit }) => {
         className='mt-2'
         editTooltip='ویرایش طرف حساب'
         onEdit={() => {
-          onHeaderEdit(data?.data)
+          onHeaderEdit(counterpartyListData?.data)
         }}
       >
 
       </ButtonList>
 
-      {data?.data == null ? (
-        <Ant.Skeleton active  loading={true} className="w-11/12 h-full " />
+      {counterpartyListData?.data == null ? (
+        <Ant.Skeleton loading={counterpartyLoadingData} className="w-11/12 h-full " />
       ) : (
         <Ant.Descriptions
           bordered

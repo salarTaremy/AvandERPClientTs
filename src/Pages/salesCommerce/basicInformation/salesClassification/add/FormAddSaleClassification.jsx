@@ -1,92 +1,62 @@
 import React, { useEffect, useState } from "react";
-import * as Ant from "antd";
-import { usePostWithHandler, useFetch } from "@/api";
-import useRequestManager from "@/hooks/useRequestManager";
-import PropTypes from "prop-types";
-import * as url from "@/api/url";
 import ModalHeader from "@/components/common/ModalHeader";
-import { SiAnytype } from "react-icons/si";
-const FormAddSaleType = (props) => {
-  const { onSuccess } = props;
-  const [loading, setLoading] = useState(false);
-  const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
-  const [currencyData, currencyLoading, currencyError] = useFetch(url.CURRENCY);
-  const [form] = Ant.Form.useForm();
+import * as Ant from "antd";
+import { MdGrading } from "react-icons/md";
+import useRequestManager from "@/hooks/useRequestManager";
+
+import PropTypes from "prop-types";
+
+import { usePostWithHandler, useFetch } from "@/api";
+import * as url from "@/api/url";
+
+export const FormAddSaleClassification = (props) => {
+  const { key, onSuccess } = props;
   const [accountList, accountLoading, accountError] = useFetch(url.ACCOUNT);
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
-  useRequestManager({ error: currencyError });
-  useRequestManager({ error: dtAccError });
+  const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
   useRequestManager({ error: accountError });
-  useRequestManager({ error: addError, loading: addLoading, data: addData });
-  const commonOptions = {
-    showSearch: true,
-    filterOption: (input, option) => option.persianTitle.indexOf(input) >= 0,
-  };
+  useRequestManager({ error: dtAccError });
+  const [form] = Ant.Form.useForm();
+
   const commonOptionsAcc = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) =>  option.name.toLowerCase().includes(input.toLowerCase()),
+    filterOption: (input, option) =>
+      option.name.toLowerCase().includes(input.toLowerCase()),
   };
+
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    form.setFieldValue("isActive", true);
-  }, [form]);
 
   useEffect(() => {
     addData?.isSuccess && onSuccess();
   }, [addData]);
-  //====================================================================
-  //                        Functions
-  //====================================================================
+
   const onFinish = async (values) => {
-    setLoading(true);
+    console.log(values, "gagagga");
     const req = { ...values };
-    await addApiCall(url.SALETYPE, req);
-    setLoading(false);
+    await addApiCall(url.SALE_CLASSIFICATION, req);
   };
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ایجاد نوع فروش  "} icon={<SiAnytype />} />
-
+      <ModalHeader title={"ایجاد طبقه بندی فروش"} icon={<MdGrading />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[8, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name="title"
-              label={"عنوان فروش"}
+              label={"نام"}
               rules={[{ required: true }]}
             >
-              <Ant.Input allowClear showCount maxLength={200} />
+              <Ant.Input allowClear showCount maxLength={150} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"defaultCurrencyId"}
-              label="نام ارز"
-
-            >
-              <Ant.Select
-                {...commonOptions}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                disabled={currencyLoading || false}
-                loading={currencyLoading}
-                options={currencyData?.data}
-                fieldNames={{ label: "persianTitle", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"accountId"}
-              label="حساب "
-
-            >
+            <Ant.Form.Item name={"accountId"} label="حساب ">
               <Ant.Select
                 {...commonOptionsAcc}
                 allowClear={true}
@@ -99,13 +69,9 @@ const FormAddSaleType = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"detailedAccountId"}
-              label="حساب تفصیلی"
-
-            >
+            <Ant.Form.Item name={"detailedAccountId"} label="حساب تفصیلی">
               <Ant.Select
-                  {...commonOptionsAcc}
+                {...commonOptionsAcc}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 disabled={dtAccLoading || false}
@@ -118,12 +84,12 @@ const FormAddSaleType = (props) => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item>
               <Ant.Button
-                block
+              loading={addLoading ||false}
                 type="primary"
-                loading={loading}
                 onClick={() => {
                   form.submit();
                 }}
+                block
               >
                 {"تایید"}
               </Ant.Button>
@@ -135,7 +101,7 @@ const FormAddSaleType = (props) => {
   );
 };
 
-export default FormAddSaleType;
-FormAddSaleType.propTypes = {
+export default FormAddSaleClassification;
+FormAddSaleClassification.propTypes = {
   onSuccess: PropTypes.func,
 };

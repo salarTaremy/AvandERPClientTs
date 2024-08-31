@@ -27,6 +27,7 @@ export const ACCOUNT_HEADER_MAX_CODE = "/accountHeader/maxCode"
 //AccountGroup
 export const ACCOUNT_GROUP = "/accountGroup"
 export const ACCOUNT_GROUP_MAX_CODE = "/accountGroup/maxCode"
+
 //AccountType
 export const ACCOUNT_TYPE = "/accountType"
 
@@ -46,7 +47,6 @@ export const DETAILED_ACCOUNT_MAX_CODE = "/detailedAccount/MaxCode"
 
 //DetailedAccountLevel
 export const DETAILED_ACCOUNT_LEVEL = "/detailedAccountLevel"
-
 
 
 
@@ -138,7 +138,8 @@ export const SALE_EFFECTIVE_FACTOR_TYPE = 'SaleEffectiveFactor/GetSaleEffectiveF
 export const PRICE_CIRCULAR_HEADER = 'PriceCircularHeader'
 export const PRICE_CIRCULAR_DETAIL = 'PriceCircularDetail'
 export const PRICE_CIRCULAR_HEADER_CREATE_COPY = 'PriceCircularHeader/CreateCopy'
-export const PRICE_CIRCULAR_HEADER_ENABLE_DISABLE = 'PriceCircularHeader/EnableDisable'
+
+
 
 
 //Sales - TaxPayersSystem (سامانه مودیان)

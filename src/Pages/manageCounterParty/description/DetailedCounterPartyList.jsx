@@ -23,7 +23,7 @@ const DetailedCounterPartyList = (props) => {
     <>
     <CoustomContent height="80vh">
       <Ant.Skeleton active  loading={loading}>
-        <HeaderCounterParty data={data} onHeaderEdit={onHeaderEdit} />
+        <HeaderCounterParty id={id} onHeaderEdit={onHeaderEdit} />
         <Ant.Divider />
         <Ant.Tabs type="card" defaultActiveKey="1">
           <TabPane tab="اطلاعات تماس" key="1">

@@ -17,7 +17,7 @@ import { MdDescription } from "react-icons/md";
 //                        Declaration
 //====================================================================
 const CustomerDescription = (props) => {
-  const { id,onSuccess } = props;
+  const { id, onSuccess } = props;
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
@@ -109,7 +109,7 @@ const CustomerDescription = (props) => {
   }
 
   const onViewCounterparty = () => {
-    setModalContent(<HeaderCounterParty data={data} onHeaderEdit={onHeaderEdit} />);
+    setModalContent(<HeaderCounterParty id={data?.data?.counterpartyId} onHeaderEdit={onHeaderEdit} />);
     setModalState(true);
   };
 
@@ -131,8 +131,8 @@ const CustomerDescription = (props) => {
       >
         {modalContent}
       </Ant.Modal>
-      <ModalHeader title={"جزئیات مشتری"} icon={<MdDescription />}/>
-      <Ant.Skeleton active  loading={loading}>
+      <ModalHeader title={"جزئیات مشتری"} icon={<MdDescription />} />
+      <Ant.Skeleton active loading={loading}>
         <Ant.Descriptions
           bordered
           layout="vertical"
