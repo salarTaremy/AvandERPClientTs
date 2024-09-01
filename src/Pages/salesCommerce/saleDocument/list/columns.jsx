@@ -56,6 +56,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
             key: "documentNumber",
             align: "center",
             className: "text-xs sm:text-sm",
+            sorter: true,
             width: 100
         },
         {
@@ -130,6 +131,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
             key: "issueDateTimeString",
             align: "center",
             className: "text-xs sm:text-sm",
+            sorter: true,
             width: 200,
             render: (text, record, index) => (
                 <>{record.issueDateTimeString.substring(0, 18)}</>
@@ -141,6 +143,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
             key: "subTotal",
             align: "right",
             className: "text-xs sm:text-sm",
+            sorter: true,
             width: 200,
             render: (text, record, index) => (
                 record.subTotal.toLocaleString()
@@ -152,6 +155,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
             key: "discounts",
             align: "right",
             className: "text-xs sm:text-sm",
+            sorter: true,
             width: 200,
             render: (text, record, index) => (
                 record.discounts.toLocaleString()
@@ -174,6 +178,7 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
             key: "totalPrice",
             align: "right",
             className: "text-xs sm:text-sm",
+            sorter: true,
             width: 200,
             render: (text, record, index) => (
                 record.totalPrice.toLocaleString()

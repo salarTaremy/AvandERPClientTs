@@ -29,9 +29,11 @@ const SaleDocumentList = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
   const [filterObject, setFilterObject] = useState();
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 10,
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
   });
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
   const [documentDetailModalState, setDocumentDetailModalState] =
@@ -43,18 +45,33 @@ const SaleDocumentList = () => {
   //====================================================================
   useEffect(() => {
     fillGrid();
-  }, [pagination.current, pagination.pageSize, filterCount]);
+  }, [
+    tableParams.pagination?.current,
+    tableParams.pagination?.pageSize,
+    tableParams?.sortOrder,
+    tableParams?.sortField,
+    filterCount
+  ]);
 
   useEffect(() => {
     setDataSource(listData?.data);
-    setPagination({
-      ...pagination,
-      total: listData?.data[0]?.totalCount,
+    setTableParams({
+      ...tableParams,
+      pagination: {
+        ...tableParams.pagination,
+        total: listData?.data[0]?.totalCount,
+      },
     });
   }, [listData]);
 
   useEffect(() => {
-    setPagination({ ...pagination, current: 1 });
+    setTableParams({
+      ...tableParams,
+      pagination: {
+        ...tableParams.pagination,
+        current: 1,
+      },
+    });
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
@@ -74,8 +91,10 @@ const SaleDocumentList = () => {
     const queryString = qs.stringify({
       ...filterObject,
       ...customerFilter,
-      pageNumber: pagination.current,
-      pageSize: pagination.pageSize,
+      pageNumber: tableParams.pagination?.current,
+      pageSize: tableParams.pagination?.pageSize,
+      order: tableParams.sortOrder,
+      orderByField: tableParams.sortField,
     });
     await listApiCall(`${url.SALE_DOCUMENT_HEADER}?${queryString}`);
   };
@@ -95,7 +114,11 @@ const SaleDocumentList = () => {
   };
 
   const handleTableChange = (pagination, filters, sorter) => {
-    setPagination(pagination);
+    setTableParams({
+      pagination: pagination,
+      sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+      sortField: Array.isArray(sorter) ? undefined : sorter.field,
+    });
   };
 
   const onRemoveFilter = () => {
@@ -192,7 +215,7 @@ const SaleDocumentList = () => {
           <Ant.Table
             columns={columns(onDelete, onEdit, onView, onViewCustomer, onOpenDoc)}
             dataSource={dataSource}
-            pagination={pagination}
+            pagination={tableParams?.pagination}
             onChange={handleTableChange}
             {...defaultValues.TABLE_PROPS}
             title={title}
