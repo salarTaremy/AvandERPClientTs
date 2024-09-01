@@ -74,7 +74,7 @@ const AppSidebar = (props) => {
         key: node.id.toString(),
         // roleHasAccess: false,
         //title:node.name,
-        // title: <strong className="text-red-600">{node.name}</strong> ,
+        //title: <strong className="text-red-600">{node.name}</strong> ,
          title :searchKeyword && boldText(node.name, searchKeyword) || node.name,
         // menuOrder: node.nodeLevel + 1,
         icon: node.iconName || "WindowsOutlined",
