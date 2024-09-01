@@ -13,63 +13,112 @@ import { Link } from "react-router-dom";
 import * as AntIcons from "@ant-design/icons";
 import { AppstoreOutlined } from "@ant-design/icons";
 
-
-
-
 const { Sider } = Layout;
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
   height: "84vh",
 
   backgroundColor: "transparent",
-
 };
 
 const AppSidebar = (props) => {
   const [data, loading, error, apiCall] = useFetchWithHandler();
   const [items, setItems] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState();
   const { showImageSider, collapsedSider } = props;
   useRequestManager({ error });
   //====================================================================
   //                        Consts
   //====================================================================
-  const Salar = ({ Ic }) => {
-    return (
-      <AntIcons.WindowsOutlined />
-      // <>{Ic}</>
-    )
-  }
 
+  const transformDataToTree = (data) => {
+    const map = new Map();
+    // Create a map of nodes
+    data.forEach((item) => {
+      map.set(item.id, { ...item, children: [] });
+    });
+
+    const tree = [];
+    // Populate children and build the tree
+    data.forEach((item) => {
+      if (item.parentId === 0) {
+        tree.push(map.get(item.id));
+      } else {
+        const parent = map.get(item.parentId);
+        if (parent) {
+          parent.children.push(map.get(item.id));
+        }
+      }
+    });
+    return tree;
+  };
+
+  const boldText = (text, search) => {
+    const regex = new RegExp(`(${search})`, 'gi');
+    return text.split(regex).map((part, index) => 
+      regex.test(part) ? <Ant.Typography.Text   mark key={index}>{part}</Ant.Typography.Text> : part
+    );
+  };
+
+  const formatTree = (tree) => {
+    return tree.map((node) => {
+      let formattedNode = {
+        // ...node,
+
+        componentName: node.componentName,
+        id: node.id,
+        danger : false,
+        disabled:false,
+        name: node.name,
+        // label:node.name,
+        key: node.id.toString(),
+        // roleHasAccess: false,
+        //title:node.name,
+        // title: <strong className="text-red-600">{node.name}</strong> ,
+         title :searchKeyword && boldText(node.name, searchKeyword) || node.name,
+        // menuOrder: node.nodeLevel + 1,
+        icon: node.iconName || "WindowsOutlined",
+      };
+
+      if (node.componentName === "CNavGroup" && node.children.length) {
+        formattedNode.children = formatTree(node.children);
+      } else if (node.componentName === "CNavItem") {
+        formattedNode.to = node.to || "";
+      }
+      // delete formattedNode.componentName
+      return formattedNode;
+    });
+  };
 
   const filterTreeByTitle = (tree, keyword) => {
-    return tree
+    if (!keyword) {
+      return tree;
+    }
     if (!tree || !Array.isArray(tree)) return [];
-  
+
     return tree.reduce((filtered, node) => {
       // جستجو در عنوان
-      const isMatch = node.title && !node.children && node.title.toLowerCase().includes(keyword.toLowerCase());
-  
+      const isMatch =
+        node.name &&
+        !node.children &&
+        node.name.toLowerCase().includes(keyword.toLowerCase());
+
       // جستجو در فرزندان
-      const children = node.children ? filterTreeByTitle(node.children, keyword) : [];
-  
+      const children = node.children
+        ? filterTreeByTitle(node.children, keyword)
+        : [];
+
       // اضافه کردن نود به خروجی اگر عنوان مطابق باشد یا فرزندانی مطابق باشند
       if (isMatch || children.length > 0) {
         filtered.push({
           ...node,
-          children, // فقط فرزندان فیلتر شده اضافه می‌شوند
+          children: children.length > 0 && children, // فقط فرزندان فیلتر شده اضافه می‌شوند
         });
       }
-  
+
       return filtered;
     }, []);
   };
-  const onChangeSearch = (val) => {
-  console.log(val.target.value)
-  setSearchKeyword(val.target.value)
-  }
-
-
 
   const processNavMenu = (menu) => {
     if (!menu) {
@@ -79,13 +128,12 @@ const AppSidebar = (props) => {
       if (item.componentName === "CNavTitle") {
         item.type = "group";
         if (collapsedSider) {
-          return null
+          return null;
         } else {
-          delete item.iconName;
+          delete item.icon;
         }
-
       } else {
-        item.icon = <Salar Ic={'AppstoreOutlined'} />;
+        item.icon = <AntIcons.WindowsOutlined />;
       }
       if (item.children) {
         delete item.type;
@@ -97,37 +145,25 @@ const AppSidebar = (props) => {
       return { ...item };
     });
   };
-  const processSubMenu = (menu) => {
-    if (!menu) {
-      return null;
-    }
-    return menu.map((child) => {
-      child.icon = <AntIcons.FileOutlined />;
-      child.label =
-        (child.to && <Link to={child.to}>{child.title}</Link>) || child.title;
-      if (child.children) {
-        delete child.type;
-        delete child.to;
-        child.children = processSubMenu(child.children);
-      }
-      return { ...child };
-    });
-  };
+
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    // const NavMnu = data?.data[0]?.children;
-    const NavMnu = filterTreeByTitle(data?.data[0]?.children,searchKeyword);
-    console.log(JSON.stringify(data?.data[0]?.children))
+    //const NavMnu = data?.data[0]?.children;
+
+    const result = data?.data && formatTree(transformDataToTree(data?.data));
+    const NavMnu = filterTreeByTitle(result, searchKeyword);
+
     if (NavMnu) {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
     }
-  }, [data?.data, collapsedSider,searchKeyword]);
+  }, [data?.data, collapsedSider, searchKeyword]);
 
   useEffect(() => {
-    apiCall(url.NAV_MENU_TREE_FOR_USER);
+    apiCall(url.NAV_MENU);
+    //apiCall(url.NAV_MENU_TREE_FOR_USER);
   }, []);
   //====================================================================
   //                        Child Components
@@ -138,7 +174,10 @@ const AppSidebar = (props) => {
         <div className="w-11/12">
           <Ant.Flex align="center" justify="center">
             <Ant.Space align="center">
-              <Ant.Input.Search  onChange={onChangeSearch}/>
+              <Ant.Input.Search
+                allowClear
+                onChange={(val) => setSearchKeyword(val.target.value)}
+              />
               <Ant.Button type="text">
                 <AntIcons.SettingOutlined />
               </Ant.Button>
@@ -154,14 +193,12 @@ const AppSidebar = (props) => {
   //====================================================================
   return (
     <>
-    {JSON.stringify(searchKeyword)}
       <Sider
         width={280}
         className="sidebar hidden lg:block"
         collapsed={collapsedSider}
         items={items}
       >
-
         {!showImageSider && (
           <Image
             className="mr-11 my-2.5"
@@ -182,6 +219,7 @@ const AppSidebar = (props) => {
         <div style={sliderStyle} className="flex justify-center  ">
           {loading || (
             <Menu
+            // defaultOpenKeys={['22','21','0']}
               mode="inline"
               items={items}
               style={{ backgroundColor: "transparent" }}
@@ -191,8 +229,6 @@ const AppSidebar = (props) => {
             <Ant.Skeleton loading={true} active className="w-11/12 h-full " />
           )}
         </div>
-
-
       </Sider>
     </>
   );
