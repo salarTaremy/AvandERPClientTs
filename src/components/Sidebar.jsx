@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 import * as AntIcons from "@ant-design/icons";
 import { AppstoreOutlined } from "@ant-design/icons";
 
+
+
+
 const { Sider } = Layout;
 const sliderStyle = {
   overflow: "auto", //For Auto Hide Scroll Set To => hidden
@@ -25,6 +28,7 @@ const sliderStyle = {
 const AppSidebar = (props) => {
   const [data, loading, error, apiCall] = useFetchWithHandler();
   const [items, setItems] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const { showImageSider, collapsedSider } = props;
   useRequestManager({ error });
   //====================================================================
@@ -36,6 +40,36 @@ const AppSidebar = (props) => {
       // <>{Ic}</>
     )
   }
+
+
+  const filterTreeByTitle = (tree, keyword) => {
+    return tree
+    if (!tree || !Array.isArray(tree)) return [];
+  
+    return tree.reduce((filtered, node) => {
+      // جستجو در عنوان
+      const isMatch = node.title && !node.children && node.title.toLowerCase().includes(keyword.toLowerCase());
+  
+      // جستجو در فرزندان
+      const children = node.children ? filterTreeByTitle(node.children, keyword) : [];
+  
+      // اضافه کردن نود به خروجی اگر عنوان مطابق باشد یا فرزندانی مطابق باشند
+      if (isMatch || children.length > 0) {
+        filtered.push({
+          ...node,
+          children, // فقط فرزندان فیلتر شده اضافه می‌شوند
+        });
+      }
+  
+      return filtered;
+    }, []);
+  };
+  const onChangeSearch = (val) => {
+  console.log(val.target.value)
+  setSearchKeyword(val.target.value)
+  }
+
+
 
   const processNavMenu = (menu) => {
     if (!menu) {
@@ -83,12 +117,14 @@ const AppSidebar = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    const NavMnu = data?.data[0]?.children;
+    // const NavMnu = data?.data[0]?.children;
+    const NavMnu = filterTreeByTitle(data?.data[0]?.children,searchKeyword);
+    console.log(JSON.stringify(data?.data[0]?.children))
     if (NavMnu) {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
     }
-  }, [data?.data, collapsedSider]);
+  }, [data?.data, collapsedSider,searchKeyword]);
 
   useEffect(() => {
     apiCall(url.NAV_MENU_TREE_FOR_USER);
@@ -102,7 +138,7 @@ const AppSidebar = (props) => {
         <div className="w-11/12">
           <Ant.Flex align="center" justify="center">
             <Ant.Space align="center">
-              <Ant.Input.Search />
+              <Ant.Input.Search  onChange={onChangeSearch}/>
               <Ant.Button type="text">
                 <AntIcons.SettingOutlined />
               </Ant.Button>
@@ -118,6 +154,7 @@ const AppSidebar = (props) => {
   //====================================================================
   return (
     <>
+    {JSON.stringify(searchKeyword)}
       <Sider
         width={280}
         className="sidebar hidden lg:block"
