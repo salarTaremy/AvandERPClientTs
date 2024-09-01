@@ -11,7 +11,7 @@ import * as url from "../api/url";
 import useRequestManager from "../hooks/useRequestManager";
 import { Link } from "react-router-dom";
 import * as AntIcons from "@ant-design/icons";
-import { AppstoreOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 
 const { Sider } = Layout;
 const sliderStyle = {
@@ -54,9 +54,15 @@ const AppSidebar = (props) => {
   };
 
   const boldText = (text, search) => {
-    const regex = new RegExp(`(${search})`, 'gi');
-    return text.split(regex).map((part, index) => 
-      regex.test(part) ? <Ant.Typography.Text   mark key={index}>{part}</Ant.Typography.Text> : part
+    const regex = new RegExp(`(${search})`, "gi");
+    return text.split(regex).map((part, index) =>
+      regex.test(part) ? (
+        <Ant.Typography.Text mark key={index}>
+          {part}
+        </Ant.Typography.Text>
+      ) : (
+        part
+      ),
     );
   };
 
@@ -67,15 +73,16 @@ const AppSidebar = (props) => {
 
         componentName: node.componentName,
         id: node.id,
-        danger : false,
-        disabled:false,
+        danger: false,
+        disabled: false,
         name: node.name,
         // label:node.name,
         key: node.id.toString(),
         // roleHasAccess: false,
         //title:node.name,
         //title: <strong className="text-red-600">{node.name}</strong> ,
-         title :searchKeyword && boldText(node.name, searchKeyword) || node.name,
+        title:
+          (searchKeyword && boldText(node.name, searchKeyword)) || node.name,
         // menuOrder: node.nodeLevel + 1,
         icon: node.iconName || "WindowsOutlined",
       };
@@ -174,10 +181,14 @@ const AppSidebar = (props) => {
         <div className="w-11/12">
           <Ant.Flex align="center" justify="center">
             <Ant.Space align="center">
-              <Ant.Input.Search
-                allowClear
-                onChange={(val) => setSearchKeyword(val.target.value)}
-              />
+              <Ant.Badge color="" dot={searchKeyword}>
+                <Ant.Input
+                  placeholder="جستجو ..."
+                  prefix={<SearchOutlined />}
+                  allowClear
+                  onChange={(val) => setSearchKeyword(val.target.value)}
+                />
+              </Ant.Badge>
               <Ant.Button type="text">
                 <AntIcons.SettingOutlined />
               </Ant.Button>
@@ -219,7 +230,7 @@ const AppSidebar = (props) => {
         <div style={sliderStyle} className="flex justify-center  ">
           {loading || (
             <Menu
-            // defaultOpenKeys={['22','21','0']}
+              // defaultOpenKeys={['22','21','0']}
               mode="inline"
               items={items}
               style={{ backgroundColor: "transparent" }}
