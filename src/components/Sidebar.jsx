@@ -99,21 +99,18 @@ const AppSidebar = (props) => {
     });
   };
 
+
   const filterTreeByTitle = (tree, keyword) => {
     if (!keyword) {
-      setOpenKeys([])
+      setOpenKeys([]); // Reset openKeys when there is no keyword
       return tree;
     }
-    if (!tree || !Array.isArray(tree)) {
-      setOpenKeys([])
-      return [];
-    }
-    
+  
+    if (!tree || !Array.isArray(tree)) return [];
   
     const filteredTree = tree.reduce((filtered, node) => {
       // جستجو در عنوان
       const isMatch =
-        !node.children &&
         node.name &&
         node.name.toLowerCase().includes(keyword.toLowerCase());
   
@@ -122,14 +119,16 @@ const AppSidebar = (props) => {
         ? filterTreeByTitle(node.children, keyword)
         : [];
   
-      // اضافه کردن نود به خروجی اگر عنوان مطابق باشد یا فرزندانی مطابق باشند
       if (isMatch || children.length > 0) {
+        // اگر نود با جستجو منطبق باشد یا فرزندان مطابق باشند، نود را اضافه کن
         filtered.push({
           ...node,
-          children: children.length > 0 && children, // فقط فرزندان فیلتر شده اضافه می‌شوند
+          children: isMatch ? node.children : children, // فقط فرزندان فیلتر شده اضافه می‌شوند
         });
+      }
   
-        // اضافه کردن کلید نود به openKeys اگر فرزندان وجود داشته باشند
+      if (children.length > 0) {
+        // اگر فرزندان مطابق هستند، کلید parent را به openKeys اضافه کن
         setOpenKeys((prevKeys) => [...prevKeys, node.key]);
       }
   
@@ -170,16 +169,16 @@ const AppSidebar = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    //const NavMnu = data?.data[0]?.children;
-
     const result = data?.data && formatTree(transformDataToTree(data?.data));
     const NavMnu = filterTreeByTitle(result, searchKeyword);
-
+    
     if (NavMnu) {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
     }
   }, [data?.data, collapsedSider, searchKeyword]);
+  
+  
 
   useEffect(() => {
     apiCall(url.NAV_MENU);
@@ -239,12 +238,6 @@ const AppSidebar = (props) => {
             src={logoFlat}
           />
         )}
-
-        <>{data?.data.length  }</>
-        <br/>
-        <>{JSON.stringify(openKeys) }</>
-        <Ant.Button onClick={()=> setOpenKeys(["21","20","0"])}>open</Ant.Button>
-        <Ant.Button onClick={()=> setOpenKeys([])}>close</Ant.Button>
 
         {!showImageSider && Searchbox}
         <div style={sliderStyle} className="flex justify-center  ">
