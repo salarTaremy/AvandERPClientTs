@@ -24,6 +24,7 @@ const sliderStyle = {
 const AppSidebar = (props) => {
   const [data, loading, error, apiCall] = useFetchWithHandler();
   const [items, setItems] = useState([]);
+  const [openKeys, setOpenKeys] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState();
   const { showImageSider, collapsedSider } = props;
   useRequestManager({ error });
@@ -54,6 +55,7 @@ const AppSidebar = (props) => {
   };
 
   const boldText = (text, search) => {
+    // return text
     const regex = new RegExp(`(${search})`, "gi");
     return text.split(regex).map((part, index) =>
       regex.test(part) ? (
@@ -99,33 +101,44 @@ const AppSidebar = (props) => {
 
   const filterTreeByTitle = (tree, keyword) => {
     if (!keyword) {
+      setOpenKeys([])
       return tree;
     }
-    if (!tree || !Array.isArray(tree)) return [];
-
-    return tree.reduce((filtered, node) => {
+    if (!tree || !Array.isArray(tree)) {
+      setOpenKeys([])
+      return [];
+    }
+    
+  
+    const filteredTree = tree.reduce((filtered, node) => {
       // جستجو در عنوان
       const isMatch =
-        node.name &&
         !node.children &&
+        node.name &&
         node.name.toLowerCase().includes(keyword.toLowerCase());
-
+  
       // جستجو در فرزندان
       const children = node.children
         ? filterTreeByTitle(node.children, keyword)
         : [];
-
+  
       // اضافه کردن نود به خروجی اگر عنوان مطابق باشد یا فرزندانی مطابق باشند
       if (isMatch || children.length > 0) {
         filtered.push({
           ...node,
           children: children.length > 0 && children, // فقط فرزندان فیلتر شده اضافه می‌شوند
         });
+  
+        // اضافه کردن کلید نود به openKeys اگر فرزندان وجود داشته باشند
+        setOpenKeys((prevKeys) => [...prevKeys, node.key]);
       }
-
+  
       return filtered;
     }, []);
+  
+    return filteredTree;
   };
+  
 
   const processNavMenu = (menu) => {
     if (!menu) {
@@ -226,11 +239,20 @@ const AppSidebar = (props) => {
             src={logoFlat}
           />
         )}
+
+        <>{data?.data.length  }</>
+        <br/>
+        <>{JSON.stringify(openKeys) }</>
+        <Ant.Button onClick={()=> setOpenKeys(["21","20","0"])}>open</Ant.Button>
+        <Ant.Button onClick={()=> setOpenKeys([])}>close</Ant.Button>
+
         {!showImageSider && Searchbox}
         <div style={sliderStyle} className="flex justify-center  ">
           {loading || (
             <Menu
-              // defaultOpenKeys={['22','21','0']}
+              // defaultOpenKeys={defaultOpenKeys}
+              openKeys={openKeys}
+              onOpenChange={(openKeys) =>setOpenKeys(openKeys) }
               mode="inline"
               items={items}
               style={{ backgroundColor: "transparent" }}
