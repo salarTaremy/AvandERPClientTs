@@ -196,6 +196,18 @@ const InvoiceList = () => {
     !filterObject && setFilterCount(0);
   }, [filterObject]);
 
+  useEffect(() => {
+    invoiceSendData?.isSuccess &&
+      setDataSource([...dataSource?.map((record) => {
+          if ((invoiceSendData?.data?.idList && invoiceSendData?.data?.idList.some(id => id == record.id)) || (invoiceSendData?.data?.id === record.id))
+          {
+            const sentTime = record.sentTimes + 1;
+            record = {...record, sentTimes: sentTime, statusId: invoiceSendData?.data?.statusId, sendingProgressStatusId: invoiceSendData?.data?.sendingProgressStatusId};
+          }
+          return record;
+        }
+      )]);
+  }, [invoiceSendData])
   //====================================================================
   //                        Child Components
   //====================================================================
