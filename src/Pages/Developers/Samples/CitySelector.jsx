@@ -30,6 +30,14 @@ const CitySelector = (props) => {
     CityData?.isSuccess && setOptions(CityData?.data);
     CityData?.isSuccess && form.setFieldValue("city", [1, 1001]);
   }, [CityData]);
+
+  // useEffect(() => {
+  //   CityApiCall(url.ACCOUNT_TREE);
+  // }, []);
+  // useEffect(() => {
+  //   CityData?.isSuccess && setOptions(CityData?.data);
+  //   CityData?.isSuccess && form.setFieldValue("city", [1, 111,111112 ]);
+  // }, [CityData]);
   //====================================================================
   //                        Functions
   //====================================================================

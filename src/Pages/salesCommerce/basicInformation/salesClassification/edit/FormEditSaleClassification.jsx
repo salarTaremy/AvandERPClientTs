@@ -10,10 +10,11 @@ import { useFetchWithHandler, useFetch, usePutWithHandler } from "@/api";
 import * as url from "@/api/url";
 import * as api from "@/api";
 export const FormEditSaleClassification = (props) => {
-  const { key, onSuccess, id } = props;
+  const { onSuccess, id } = props;
 
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+  const [accData, accLoading, accError, accApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [
     accounGroupTreeData,
@@ -58,7 +59,6 @@ export const FormEditSaleClassification = (props) => {
 
   useEffect(() => {
     form.resetFields();
-
     listData?.isSuccess &&
       form.setFieldsValue({
         ...listData?.data,
@@ -72,7 +72,15 @@ export const FormEditSaleClassification = (props) => {
 
   useEffect(() => {
     accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
+     accounGroupTreeData?.isSuccess &&  accApiCall(`${url.ACCOUNT}/${listData.data.accountId}`);
   }, [accounGroupTreeData]);
+
+  useEffect(() => {
+    if (accData?.isSuccess && accData?.data) {
+      const treeArray = [parseInt(accData.data.accountGroupCode), parseInt(accData.data.parentKey), parseInt(accData.data.key)]
+      form.setFieldValue("accountId", treeArray)
+    }
+  }, [accData]);
 
   //====================================================================
   //                        Functions
@@ -92,7 +100,7 @@ export const FormEditSaleClassification = (props) => {
 
   const onFinish = async (values) => {
     console.log(values, "values");
-    const req = { ...values, id: id,accountId: selectedAccount.id };
+    const req = { ...values, id: id, accountId: selectedAccount.id };
     await editApiCall(url.SALE_CLASSIFICATION, req);
   };
   //====================================================================
@@ -130,11 +138,7 @@ export const FormEditSaleClassification = (props) => {
                   options={options}
                   onChange={handleChangeAccount}
                   placeholder="لطفا انتخاب کنید ..."
-                  fieldNames={{
-                    label: "name",
-                    value: "id",
-                    children: "children",
-                  }}
+                  fieldNames={{ label: "name", value: "id", children: "children" }}
                   showSearch={{
                     filter,
                   }}
