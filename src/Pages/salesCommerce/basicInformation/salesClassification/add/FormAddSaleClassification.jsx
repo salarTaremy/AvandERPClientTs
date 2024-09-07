@@ -118,7 +118,7 @@ export const FormAddSaleClassification = (props) => {
                 displayRender={(labels, selectedOptions) => {
                   const lastLabel = labels[labels.length - 1];
                   const accountCode =
-                    selectedOptions[selectedOptions.length - 1]?.id;
+                    selectedOptions[selectedOptions.length - 1]?.code;
 
                   return (
                     <span>

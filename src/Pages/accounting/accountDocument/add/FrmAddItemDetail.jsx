@@ -191,7 +191,7 @@ const FrmAddItemDetail = (props) => {
                 displayRender={(labels, selectedOptions) => (
                   <>
                     {labels.map((label, index) => {
-                      const accountCode = selectedOptions[index]?.id;
+                      const accountCode = selectedOptions[index]?.code;
                       return (
                         <span key={index}>
                           {label}

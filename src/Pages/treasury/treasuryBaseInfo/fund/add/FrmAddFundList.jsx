@@ -29,12 +29,14 @@ const FormAddSupplier = (props) => {
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) =>  option.name.toLowerCase().includes(input.toLowerCase()),
+    filterOption: (input, option) =>
+      option.name.toLowerCase().includes(input.toLowerCase()),
   };
   const commonOptionsEmployee = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) =>  option.fullName.toLowerCase().includes(input.toLowerCase()),
+    filterOption: (input, option) =>
+      option.fullName.toLowerCase().includes(input.toLowerCase()),
   };
   //====================================================================
   //                        useEffects
@@ -77,7 +79,9 @@ const FormAddSupplier = (props) => {
     setLoading(true);
     const req = {
       ...values,
-      openingDateCalendarId: parseInt(values?.openingDateCalendarId?.toString().replace(/\//g, "")),
+      openingDateCalendarId: parseInt(
+        values?.openingDateCalendarId?.toString().replace(/\//g, ""),
+      ),
     };
     console.log(req, "req");
     await addApiCall(url.FUND, req);
@@ -122,18 +126,13 @@ const FormAddSupplier = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name="latinName"
-              label={"نام انگلیسی"}
-
-            >
+            <Ant.Form.Item name="latinName" label={"نام انگلیسی"}>
               <Ant.Input allowClear showCount maxLength={200} />
             </Ant.Form.Item>
           </Ant.Col>
 
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
-
               name={"accountId"}
               label="حساب "
               rules={[
@@ -143,7 +142,7 @@ const FormAddSupplier = (props) => {
               ]}
             >
               <Ant.Select
-                     {...commonOptions}
+                {...commonOptions}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 disabled={accountLoading || false}
@@ -155,7 +154,6 @@ const FormAddSupplier = (props) => {
           </Ant.Col>
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
-
               name={"detailedAccountId"}
               label="حساب تفصیلی"
               rules={[
@@ -165,7 +163,7 @@ const FormAddSupplier = (props) => {
               ]}
             >
               <Ant.Select
-                          {...commonOptions}
+                {...commonOptions}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
                 disabled={dtAccLoading || false}
@@ -176,19 +174,18 @@ const FormAddSupplier = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
 
-
           <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item name={"cashierEmploeeId"} label="مسئول صندوق">
-                <Ant.Select
-                  {...commonOptionsEmployee}
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disabled={employeeLoading || false}
-                  loading={employeeLoading}
-                  options={employeeList?.data}
-                  fieldNames={{ label: "fullName", value: "id" }}
-                />
-              </Ant.Form.Item>
+            <Ant.Form.Item name={"cashierEmploeeId"} label="مسئول صندوق">
+              <Ant.Select
+                {...commonOptionsEmployee}
+                allowClear={true}
+                placeholder={"انتخاب کنید..."}
+                disabled={employeeLoading || false}
+                loading={employeeLoading}
+                options={employeeList?.data}
+                fieldNames={{ label: "fullName", value: "id" }}
+              />
+            </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24}>
             <Ant.Form.Item>
