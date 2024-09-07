@@ -56,7 +56,7 @@ const SalesClassificationList = () => {
   const onEdit = (val) => {
     setModalContent(
       <FormEditSaleClassification
-        key={val.id}
+        key={uuid.v1()}
         id={val.id}
         onSuccess={onSuccessEdit}
       />,

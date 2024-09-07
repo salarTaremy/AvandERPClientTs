@@ -82,7 +82,7 @@ export const FormEditSaleClassification = (props) => {
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
 
     setSelectedAccount({
-      id: lastSelectedOption.id,
+      id: lastSelectedOption.accountId,
       name: lastSelectedOption.name,
     });
   };
