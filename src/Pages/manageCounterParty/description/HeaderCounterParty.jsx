@@ -8,7 +8,7 @@ import { useFetchWithHandler } from '@/api'
 import qs from "qs";
 import * as url from '@/api/url'
 import useRequestManager from "@/hooks/useRequestManager";
-const HeaderCounterParty = ({ id, onHeaderEdit ,sendDataToParent }) => {
+const HeaderCounterParty = ({ id, onHeaderEdit }) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
 
@@ -24,11 +24,7 @@ const HeaderCounterParty = ({ id, onHeaderEdit ,sendDataToParent }) => {
   }, [id])
 
 
-  useEffect(() => {
 
-    counterpartyListData?.isSuccess &&
-    sendDataToParent (counterpartyListData?.data)
-  }, [counterpartyListData]);
 
   //====================================================================
   //                        Functions

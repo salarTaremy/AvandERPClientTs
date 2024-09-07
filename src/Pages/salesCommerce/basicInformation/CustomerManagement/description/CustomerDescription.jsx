@@ -23,7 +23,6 @@ const CustomerDescription = (props) => {
   const [modalContent, setModalContent] = useState(null);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [data, loading, error] = api.useFetch(`${url.CUSTOMER}/${id}`);
-  const [dataFromChild, setDataFromChild] = useState("");
   useRequestManager({ error: error });
 
   const borderedItems = [
@@ -112,15 +111,13 @@ const CustomerDescription = (props) => {
     );
     setModalState(true);
   };
-  const handleDataFromChild = (data) => {
-    setDataFromChild(data);
-  };
+
   const onViewCounterparty = () => {
     setModalContent(
       <HeaderCounterParty
         id={data?.data?.counterpartyId}
         onHeaderEdit={onHeaderEdit}
-        sendDataToParent={handleDataFromChild}
+
       />,
     );
     setModalState(true);
