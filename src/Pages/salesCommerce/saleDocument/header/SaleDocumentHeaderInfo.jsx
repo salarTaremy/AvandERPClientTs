@@ -34,21 +34,31 @@ const SaleDocumentHeaderInfo = (props) => {
     },
     {
       key: "2",
-      label: "برگه مرجع",
-      children: referenceDocumentNumber,
+      label: "شناسه مالیاتی",
+      children: saleDocumentData?.saleDocumentFiscalId ?? '-',
     },
     {
       key: "3",
+      label: "زمان صدور",
+      children: saleDocumentData?.issueDateTimeString,
+    },
+    {
+      key: "4",
       label: "کانال فروش",
       children: saleDocumentData?.saleChannel,
     },
     {
-      key: "4",
+      key: "5",
       label: "نام شعبه",
       children: saleDocumentData?.branchName,
     },
     {
       key: "6",
+      label: "برگه مرجع",
+      children: referenceDocumentNumber,
+    },
+    {
+      key: "7",
       label: "مشتری",
       children: (
         <Typography.Link
@@ -57,11 +67,6 @@ const SaleDocumentHeaderInfo = (props) => {
           {saleDocumentData?.customerName}
         </Typography.Link>
       ),
-    },
-    {
-      key: "5",
-      label: "زمان صدور",
-      children: saleDocumentData?.issueDateTimeString,
     },
   ];
 

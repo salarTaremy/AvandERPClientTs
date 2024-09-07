@@ -252,7 +252,6 @@ const AddItemDetailList = (props) => {
         detailedAccountId6: item.detailedAccountId6,
         creditor: item.creditor,
         debtor: item.debtor,
-        accountId: item.accountId,
         accountingDocumentID: id,
         referenceNo: item.referenceNo ?? "",
         description: item.description ?? "",

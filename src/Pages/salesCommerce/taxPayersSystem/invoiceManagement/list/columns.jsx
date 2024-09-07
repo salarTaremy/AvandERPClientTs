@@ -179,6 +179,14 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       width: 200,
     },
     {
+      title: "شناسه مالیاتی مرجع",
+      dataIndex: "referenceSaleDocumentFiscalId",
+      key: "referenceSaleDocumentFiscalId",
+      align: "center",
+      className: "text-xs sm:text-sm",
+      width: 200,
+    },
+    {
       title: "پروسه ارسال",
       dataIndex: "status",
       key: "status",

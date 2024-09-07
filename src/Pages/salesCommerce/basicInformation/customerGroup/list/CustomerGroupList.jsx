@@ -117,7 +117,7 @@ const CustomerGroupList = () => {
             >
                 {modalContent}
             </Ant.Modal>
-            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"گروه مشتری"} type="inner" >
+            <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"گروه های مشتری"} type="inner" >
                 <Ant.Table
                     size="small"
                     {...defaultValues.TABLE_PROPS}
