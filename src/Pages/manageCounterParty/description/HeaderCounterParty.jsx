@@ -5,22 +5,30 @@ import ModalHeader from "@/components/common/ModalHeader";
 import ButtonList from "@/components/common/ButtonList";
 import { MdDescription } from "react-icons/md";
 import { useFetchWithHandler } from '@/api'
+import qs from "qs";
 import * as url from '@/api/url'
 import useRequestManager from "@/hooks/useRequestManager";
-
-const HeaderCounterParty = ({ id, onHeaderEdit }) => {
+const HeaderCounterParty = ({ id, onHeaderEdit ,sendDataToParent }) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
+
   const [counterpartyListData, counterpartyLoadingData, counterpartyError, counterpartyApiCall] = useFetchWithHandler();
   useRequestManager({ error: counterpartyError });
 
   //====================================================================
   //                        useEffects
   //====================================================================
+
   useEffect(() => {
     handleCounterParty()
-  }, [])
+  }, [id])
 
+
+  useEffect(() => {
+
+    counterpartyListData?.isSuccess &&
+    sendDataToParent (counterpartyListData?.data)
+  }, [counterpartyListData]);
 
   //====================================================================
   //                        Functions
@@ -28,7 +36,7 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
   const handleCounterParty = async () => {
     await counterpartyApiCall(`${url.COUNTER_PARTY}/${id}`);
   };
-  
+
   const borderedItems = [
     {
       key: "1",
@@ -128,3 +136,4 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
   );
 };
 export default HeaderCounterParty;
+

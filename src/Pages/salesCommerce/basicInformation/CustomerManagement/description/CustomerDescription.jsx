@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 import * as Ant from "antd";
 import * as url from "@/api/url";
@@ -16,13 +16,16 @@ import { MdDescription } from "react-icons/md";
 //====================================================================
 //                        Declaration
 //====================================================================
+
 const CustomerDescription = (props) => {
   const { id, onSuccess } = props;
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [data, loading, error] = api.useFetch(`${url.CUSTOMER}/${id}`);
+  const [dataFromChild, setDataFromChild] = useState("");
   useRequestManager({ error: error });
+
   const borderedItems = [
     {
       key: "1",
@@ -54,7 +57,9 @@ const CustomerDescription = (props) => {
       label: "طرف حساب های مرتبط",
       children: (
         <Typography.Link
-          onClick={() => onViewCounterparty(data?.data?.relatedCounterpartyName)}
+          onClick={() =>
+            onViewCounterparty(data?.data?.relatedCounterpartyName)
+          }
         >
           {data?.data?.relatedCounterpartyName}
         </Typography.Link>
@@ -94,7 +99,7 @@ const CustomerDescription = (props) => {
 
   const onSuccessEdit = () => {
     setModalState(false);
-    onSuccess()
+    onSuccess();
   };
 
   const onHeaderEdit = (data) => {
@@ -102,14 +107,22 @@ const CustomerDescription = (props) => {
       <FormEditCounterParty
         onSuccess={onSuccessEdit}
         key={uuid.v1()}
-        id={(data.counterpartyId)}
-      />
+        id={data?.id}
+      />,
     );
     setModalState(true);
-  }
-
+  };
+  const handleDataFromChild = (data) => {
+    setDataFromChild(data);
+  };
   const onViewCounterparty = () => {
-    setModalContent(<HeaderCounterParty id={data?.data?.counterpartyId} onHeaderEdit={onHeaderEdit} />);
+    setModalContent(
+      <HeaderCounterParty
+        id={data?.data?.counterpartyId}
+        onHeaderEdit={onHeaderEdit}
+        sendDataToParent={handleDataFromChild}
+      />,
+    );
     setModalState(true);
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 import * as Ant from "antd";
 import * as url from "@/api/url";
@@ -13,36 +13,47 @@ const { TabPane } = Ant.Tabs;
 
 const DetailedCounterPartyList = (props) => {
   const { id, onHeaderEdit } = props;
-  const [data, loading, error] = api.useFetch(`${url.COUNTER_PARTY}/${id}`);
-  useRequestManager({ error: error });
+  const [dataFromChild, setDataFromChild] = useState("");
+
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const handleDataFromChild = (data) => {
+    setDataFromChild(data);
+  };
 
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-    <CoustomContent height="80vh">
-      <Ant.Skeleton active  loading={loading}>
-        <HeaderCounterParty id={id} onHeaderEdit={onHeaderEdit} />
+      <CoustomContent height="80vh">
+        {/* <Ant.Skeleton  > */}
+        <HeaderCounterParty
+          id={id}
+          onHeaderEdit={onHeaderEdit}
+          sendDataToParent={handleDataFromChild}
+        />
         <Ant.Divider />
         <Ant.Tabs type="card" defaultActiveKey="1">
           <TabPane tab="اطلاعات تماس" key="1">
-            {data?.data?.addressList && data?.data?.addressList.length == 0 ? (
+            {dataFromChild?.addressList &&
+            dataFromChild?.addressList.length == 0 ? (
               <Ant.Empty />
             ) : (
               <AddressList id={id} />
             )}
           </TabPane>
           <TabPane tab="اطلاعات بانکی" key="2">
-            {data?.data?.bankAccountList &&
-              data?.data?.bankAccountList.length == 0 ? (
+            {dataFromChild?.bankAccountList &&
+            dataFromChild?.bankAccountList.length == 0 ? (
               <Ant.Empty />
             ) : (
-              <BankAccountList data={data?.data?.bankAccountList} />
+              <BankAccountList data={dataFromChild?.data?.bankAccountList} />
             )}
           </TabPane>
         </Ant.Tabs>
-      </Ant.Skeleton>
+        {/* </Ant.Skeleton> */}
       </CoustomContent>
     </>
   );

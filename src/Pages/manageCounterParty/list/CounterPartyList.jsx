@@ -117,6 +117,7 @@ const CounterPartyList = () => {
   };
 
   const onHeaderEdit = (data) => {
+
     setModalContent(
       <FormEditCounterParty
         onSuccess={onSuccessEditHeader}
