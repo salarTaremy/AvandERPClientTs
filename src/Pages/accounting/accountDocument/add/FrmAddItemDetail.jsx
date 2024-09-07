@@ -39,7 +39,8 @@ const FrmAddItemDetail = (props) => {
   const commonOptions = {
     placeholder: "انتخاب کنید...",
     showSearch: true,
-    filterOption: (input, option) =>   option.label.toLowerCase().includes(input.toLowerCase()),
+    filterOption: (input, option) =>
+      option.label.toLowerCase().includes(input.toLowerCase()),
   };
   const filter = (inputValue, path) =>
     path.some(
@@ -71,6 +72,7 @@ const FrmAddItemDetail = (props) => {
       name: lastSelectedOption.name,
     });
   };
+
   const handleChangeDetailedAccountFour = (value, selectedOption) => {
     setDetailedAccountFour({
       id: selectedOption?.value,
@@ -90,22 +92,43 @@ const FrmAddItemDetail = (props) => {
     });
   };
   const onFinish = async (values) => {
-
-
-    const {detailedAccountId4, detailedAccountId5, detailedAccountId6, creditor, debtor} = values;
-    if (detailedAccountId4 && detailedAccountId4 !== undefined && (detailedAccountId4 === detailedAccountId5)) {
-      setErrors('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح پنج یکسان باشد');
+    const {
+      detailedAccountId4,
+      detailedAccountId5,
+      detailedAccountId6,
+      creditor,
+      debtor,
+    } = values;
+    if (
+      detailedAccountId4 &&
+      detailedAccountId4 !== undefined &&
+      detailedAccountId4 === detailedAccountId5
+    ) {
+      setErrors(
+        "حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح پنج یکسان باشد",
+      );
       return false;
-    } else if (detailedAccountId5 && detailedAccountId5 !==undefined && (detailedAccountId5 === detailedAccountId6)) {
-      setErrors('حساب تفصیلی سطح پنج نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
+    } else if (
+      detailedAccountId5 &&
+      detailedAccountId5 !== undefined &&
+      detailedAccountId5 === detailedAccountId6
+    ) {
+      setErrors(
+        "حساب تفصیلی سطح پنج نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد",
+      );
       return false;
-    } else if (detailedAccountId6 && detailedAccountId6 !==undefined && (detailedAccountId4 === detailedAccountId6))  {
-      setErrors('حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد');
+    } else if (
+      detailedAccountId6 &&
+      detailedAccountId6 !== undefined &&
+      detailedAccountId4 === detailedAccountId6
+    ) {
+      setErrors(
+        "حساب تفصیلی سطح چهار نمی‌تواند با حساب تفصیلی سطح شش یکسان باشد",
+      );
       return false;
     }
 
-    setErrors('');
-
+    setErrors("");
 
     const adjustedCreditor = creditor ?? 0;
     const adjustedDebtor = debtor ?? 0;
@@ -204,7 +227,6 @@ const FrmAddItemDetail = (props) => {
                 options={dtAccData?.data.map((option) => ({
                   label: `${option.name} ,(${option.code}) `,
                   value: option.id,
-
                 }))}
                 filterOption={(input, option) =>
                   option.label.toLowerCase().includes(input.toLowerCase())
@@ -269,7 +291,6 @@ const FrmAddItemDetail = (props) => {
                 {
                   required: true,
                   message: "فیلد بدهکار و بستانکار اجباری است",
-
                 },
               ]}
             >
@@ -313,7 +334,7 @@ const FrmAddItemDetail = (props) => {
               ]}
             >
               <Ant.InputNumber
-                     min={0}
+                min={0}
                 formatter={(value) =>
                   value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 }
@@ -348,7 +369,6 @@ const FrmAddItemDetail = (props) => {
           <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item className="text-end">
               <Ant.Button
-
                 disabled={allLoading || false}
                 type="primary"
                 htmlType="submit"
