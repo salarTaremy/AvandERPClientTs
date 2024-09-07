@@ -58,7 +58,7 @@ export const FormEditSaleClassification = (props) => {
 
   useEffect(() => {
     form.resetFields();
-    console.log(listData?.data," ...listData?.data,")
+
     listData?.isSuccess &&
       form.setFieldsValue({
         ...listData?.data,
