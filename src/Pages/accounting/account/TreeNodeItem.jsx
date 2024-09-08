@@ -107,16 +107,20 @@ const TreeNodeItem = (props) => {
       {isDeleted && <BsFillLockFill style={{ color: 'red' }} />}
       {delLoading && <Ant.Spin />}
       {!delLoading && !isDeleted && (
-        <Ant.Row onMouseOver={() => setShowBtn(true)} onMouseOut={() => setShowBtn(false)}>
+        <Ant.Row align={'middle'} justify="space-between" onMouseOver={() => setShowBtn(true)} onMouseOut={() => setShowBtn(false)}>
           <Ant.Col
             span={20}
             onClick={() => {
               onEditClick && onEditClick(item)
             }}
           >
-            {item.level === 1 && <BsFillJournalBookmarkFill className='mt-1 text-blue-500'  />}
-            {item.level === 2 && <BsJournalCheck  className='mt-1 text-orange-400'  />}
-            {item.level === 3 && <BsBook  className='mt-1 text-green-600' />} {item.title}
+            <Ant.Space align="center" className='mt-1'>
+              {item.level === 1 && <BsFillJournalBookmarkFill className='text-blue-500' />}
+              {item.level === 2 && <BsJournalCheck className='text-orange-400' />}
+              {item.level === 3 && <BsBook className='text-green-600' />}
+            {item.title}
+            </Ant.Space>
+
           </Ant.Col>
           <Ant.Col span={2}>
             {showBtn && item.level >= 0 && item.level <= 2 && (
@@ -125,7 +129,8 @@ const TreeNodeItem = (props) => {
                   setModalState(true)
                 }}
                 size={buttonSize}
-                type="primary"
+                // type="primary"
+                // className='text-green-600'
                 icon={<Icons.FileAddOutlined />}
               ></Ant.Button>
             )}
@@ -136,6 +141,7 @@ const TreeNodeItem = (props) => {
                 }}
                 size={buttonSize}
                 // type="primary"
+                // className='text-blue-600'
                 icon={<Icons.EditOutlined />}
               ></Ant.Button>
             )}
