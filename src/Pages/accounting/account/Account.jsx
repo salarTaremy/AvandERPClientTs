@@ -72,6 +72,9 @@ const Account = () => {
     await accApiCall(url.ACCOUNT_TREE)
   }
 
+  const onEditClick = (val) => {
+    val && setSelectedNode(val)
+  }
   const onDeleteSuccess = (item) => {
     setExpandedKeys([item.key])
     setSelectedNode(null)
@@ -80,6 +83,15 @@ const Account = () => {
   const onAddSuccess = (item) => {
     setExpandedKeys([item.key])
     setSelectedNode(item.key)
+  }
+  const titleRender = (nodeData) => {
+    return (<TreeNodeItem
+      key={nodeData.key}
+      item={{ ...nodeData }}
+      onEditClick={onEditClick}
+      onDeleteSuccess={onDeleteSuccess}
+      onAddSuccess={onAddSuccess}
+    />)
   }
 
   // const treeify = (arr) => {
@@ -151,27 +163,17 @@ const Account = () => {
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
                 <Tree
-                
+
                   showIcon
                   blockNode
                   treeData={treeData}
-                  // defaultExpandedKeys={expandedKeys}
                   showLine
                   autoExpandParent
+                  titleRender={titleRender}
+                  // defaultExpandedKeys={expandedKeys}
                   // fieldNames={{ title: "name", key: "code", children: 'children' }}
                   // titleRender={(nodeData) => { return (<>{nodeData.code + ' - ' + nodeData.name} </>) }}
                   // loadData={loadData}
-                  titleRender={(nodeData) => {
-                    return (<TreeNodeItem
-                      key={nodeData.key}
-                      item={{ ...nodeData }}
-                      onEditClick={(val) => {
-                        val && setSelectedNode(val)
-                      }}
-                      onDeleteSuccess={onDeleteSuccess}
-                      onAddSuccess={onAddSuccess}
-                    />)
-                  }}
                 />
                 {/* </Ant.Card> */}
               </CoustomContent>
