@@ -32,6 +32,7 @@ const CounterpartyBankAccountList = (props) => {
     loading: deleteLoading,
     data: deleteData,
   });
+  useRequestManager({error: error});
   //====================================================================
   //                        useEffects
   //====================================================================
