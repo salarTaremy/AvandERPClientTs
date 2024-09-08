@@ -174,7 +174,7 @@ const InvoiceList = () => {
       ...tableParams,
       pagination: {
         ...tableParams.pagination,
-        total: invoiceListData?.data[0]?.totalCount,
+        total: invoiceListData?.data && invoiceListData?.data[0]?.totalCount,
       },
     });
   }, [invoiceListData]);

@@ -62,7 +62,7 @@ const AccountDocumentList = (props) => {
     setDataSource(listData?.data);
     setPagination({
       ...pagination,
-      total: listData?.data[0]?.totalCount,
+      total: listData?.data && listData?.data[0]?.totalCount 
     });
   }, [listData]);
 
