@@ -40,13 +40,13 @@ const TreeNodeItem = (props) => {
       if (result.isConfirmed) {
         let finalUrl = ''
         if (item.level === 1) {
-          finalUrl = `${url.ACCOUNT_GROUP}/${item.id}`
+          finalUrl = `${url.ACCOUNT_GROUP}/${item.accountGroupId}`
         }
         if (item.level === 2) {
-          finalUrl = `${url.ACCOUNT_HEADER}/${item.id}`
+          finalUrl = `${url.ACCOUNT_HEADER}/${item.accountHeaderId}`
         }
         if (item.level === 3) {
-          finalUrl = `${url.ACCOUNT}/${item.id}`
+          finalUrl = `${url.ACCOUNT}/${item.accountId}`
         }
         await delApiCall(finalUrl)
       }
@@ -70,7 +70,8 @@ const TreeNodeItem = (props) => {
     <>
       <Ant.Modal
         open={modalState}
-        key={item.id}
+        // key={item.id}
+        // key={uuid.v1()}
         centered
         footer={null}
         onCancel={() => {
@@ -83,12 +84,13 @@ const TreeNodeItem = (props) => {
 
       >
         {item.level === 0 && <FrmAddAccountGroup onSuccess={onSuccess} />}
-        {item.level === 1 && <FrmAddAccountHeader onSuccess={onSuccess} accountGroupId={item.id} />}
-        {item.level === 2 && <FrmAddAccount onSuccess={onSuccess} accountHeaderId={item.id} />}
+        {item.level === 1 && <FrmAddAccountHeader onSuccess={onSuccess} accountGroupId={item.accountGroupId} />}
+        {item.level === 2 && <FrmAddAccount onSuccess={onSuccess} accountHeaderId={item.accountHeaderId} />}
       </Ant.Modal>
       <Ant.Modal
         open={modalStateLink}
-        key={item.id}
+        // key={item.id}
+        // key={uuid.v1()}
         centered
         {...defaultValues.MODAL_PROPS}
         footer={null}
