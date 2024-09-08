@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import * as api from "@/api";
 import { usePostWithHandler, useFetch } from "@/api";
 import * as url from "@/api/url";
+import useAllLoading from "@/hooks/useAllLoading ";
 export const FormAddSaleClassification = (props) => {
   const { onSuccess } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
@@ -37,9 +38,9 @@ export const FormAddSaleClassification = (props) => {
     path.some(
       (option) =>
         option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
-        String(option.id).indexOf(inputValue) > -1,
+        String(option.fullCode).indexOf(inputValue) > -1,
     );
-
+    const allLoading = useAllLoading([, accounGroupTreeLoading,dtAccLoading])
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -78,6 +79,7 @@ export const FormAddSaleClassification = (props) => {
   return (
     <>
       <ModalHeader title={"ایجاد طبقه بندی فروش"} icon={<MdGrading />} />
+      <Ant.Skeleton loading={allLoading}>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[8, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
@@ -103,6 +105,7 @@ export const FormAddSaleClassification = (props) => {
               <Ant.Cascader
                 loading={accounGroupTreeLoading}
                 options={options}
+                // optionRender={(option) => <span>{option.fullCode +'-'+ option.name}</span> }
                 onChange={handleChangeAccount}
                 placeholder="لطفا انتخاب کنید ..."
                 fieldNames={{
@@ -157,6 +160,7 @@ export const FormAddSaleClassification = (props) => {
           </Ant.Col>
         </Ant.Row>
       </Ant.Form>
+      </Ant.Skeleton>
     </>
   );
 };

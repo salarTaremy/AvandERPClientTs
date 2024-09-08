@@ -47,7 +47,7 @@ export const FormEditSaleClassification = (props) => {
     path.some(
       (option) =>
         option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
-        String(option.id).indexOf(inputValue) > -1,
+        String(option.fullCode).indexOf(inputValue) > -1,
     );
 
 
@@ -142,6 +142,7 @@ export const FormEditSaleClassification = (props) => {
                   loading={accounGroupTreeLoading || accLoading}
                   disabled={accounGroupTreeLoading || accLoading }
                   options={options}
+                  optionRender={(option) => <span>{option.fullCode +'-'+ option.name}</span> }
                   onChange={handleChangeAccount}
                   placeholder="لطفا انتخاب کنید ..."
                   fieldNames={{ label: "name", value: "id", children: "children" }}

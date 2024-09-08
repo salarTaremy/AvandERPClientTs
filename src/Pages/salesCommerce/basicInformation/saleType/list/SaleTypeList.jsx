@@ -69,7 +69,7 @@ const SaleTypeList = () => {
     setModalContent(
       <FormEditSaleType
         onSuccess={onSuccessEdit}
-        key={val.id}
+        key={uuid.v1()}
         obj={val}
         id={val.id}
       />,
