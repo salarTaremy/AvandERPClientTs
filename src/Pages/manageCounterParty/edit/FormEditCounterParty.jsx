@@ -88,6 +88,11 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
           .toString()
           .replace(/\//g, "");
       }
+      if (formFields.passportValidityDate) {
+        dateFields.passportValidityDate = formFields.passportValidityDate
+        .toString()
+        .replace(/\//g, "");
+      }
       setFormValues({
         ...formValues,
         ...formFields,
