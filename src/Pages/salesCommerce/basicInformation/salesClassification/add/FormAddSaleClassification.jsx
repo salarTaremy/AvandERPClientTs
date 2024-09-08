@@ -3,15 +3,12 @@ import ModalHeader from "@/components/common/ModalHeader";
 import * as Ant from "antd";
 import { MdGrading } from "react-icons/md";
 import useRequestManager from "@/hooks/useRequestManager";
-
 import PropTypes from "prop-types";
 import * as api from "@/api";
 import { usePostWithHandler, useFetch } from "@/api";
 import * as url from "@/api/url";
-
 export const FormAddSaleClassification = (props) => {
-  const { key, onSuccess } = props;
-  const [accountList, accountLoading, accountError] = useFetch(url.ACCOUNT);
+  const { onSuccess } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
   const [
@@ -27,6 +24,7 @@ export const FormAddSaleClassification = (props) => {
   });
   useRequestManager({ error: accounGroupTreeError });
   useRequestManager({ error: dtAccError });
+  useRequestManager({ error: addError });
   const [form] = Ant.Form.useForm();
 
   const commonOptionsAcc = {
@@ -65,7 +63,7 @@ export const FormAddSaleClassification = (props) => {
     const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
 
     setSelectedAccount({
-      id: lastSelectedOption.id,
+      id: lastSelectedOption.accountId,
       name: lastSelectedOption.name,
     });
   };

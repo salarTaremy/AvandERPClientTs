@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import ModalHeader from "@/components/common/ModalHeader";
 import { SiAnytype } from "react-icons/si";
+import * as api from "@/api";
 const FormAddSaleType = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -14,10 +15,22 @@ const FormAddSaleType = (props) => {
   const [form] = Ant.Form.useForm();
   const [accountList, accountLoading, accountError] = useFetch(url.ACCOUNT);
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
+  const [options, setOptions] = useState([]);
+  const [
+    accounGroupTreeData,
+    accounGroupTreeLoading,
+    accounGroupTreeError,
+    accounGroupTreeApicall,
+  ] = api.useFetchWithHandler();
+  useRequestManager({ error: accounGroupTreeError });
   useRequestManager({ error: currencyError });
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: accountError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
+  const [selectedAccount, setSelectedAccount] = useState({
+    id: null,
+    name: "",
+  });
   const commonOptions = {
     showSearch: true,
     filterOption: (input, option) => option.persianTitle.indexOf(input) >= 0,
@@ -27,6 +40,12 @@ const FormAddSaleType = (props) => {
     showSearch: true,
     filterOption: (input, option) =>  option.name.toLowerCase().includes(input.toLowerCase()),
   };
+  const filter = (inputValue, path) =>
+    path.some(
+      (option) =>
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+        String(option.id).indexOf(inputValue) > -1,
+    );
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -37,12 +56,28 @@ const FormAddSaleType = (props) => {
   useEffect(() => {
     addData?.isSuccess && onSuccess();
   }, [addData]);
+
+  useEffect(() => {
+    accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
+  }, [accounGroupTreeData]);
+
+  useEffect(() => {
+    accounGroupTreeApicall(url.ACCOUNT_TREE);
+  }, []);
   //====================================================================
   //                        Functions
   //====================================================================
+  const handleChangeAccount = (value, selectedOptions) => {
+    const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
+
+    setSelectedAccount({
+      id: lastSelectedOption.accountId,
+      name: lastSelectedOption.name,
+    });
+  };
   const onFinish = async (values) => {
     setLoading(true);
-    const req = { ...values };
+    const req = { ...values, accountId: selectedAccount.id };
     await addApiCall(url.SALETYPE, req);
     setLoading(false);
   };
@@ -51,7 +86,7 @@ const FormAddSaleType = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ایجاد نوع فروش  "} icon={<SiAnytype />} />
+      <ModalHeader title={"ایجاد نوع فروش "} icon={<SiAnytype />} />
 
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[8, 8]}>
@@ -81,7 +116,7 @@ const FormAddSaleType = (props) => {
               />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
+          {/* <Ant.Col span={24} md={24} lg={24}>
             <Ant.Form.Item
               name={"accountId"}
               label="حساب "
@@ -95,6 +130,45 @@ const FormAddSaleType = (props) => {
                 loading={accountLoading}
                 options={accountList?.data}
                 fieldNames={{ label: "name", value: "id" }}
+              />
+            </Ant.Form.Item>
+          </Ant.Col> */}
+                <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Form.Item
+              name={"accountId"}
+              label=" حساب "
+              rules={[
+                {
+                  required: true,
+                  message: "فیلد حساب  اجباری است",
+                },
+              ]}
+            >
+              <Ant.Cascader
+                loading={accounGroupTreeLoading}
+                options={options}
+                onChange={handleChangeAccount}
+                placeholder="لطفا انتخاب کنید ..."
+                fieldNames={{
+                  label: "name",
+                  value: "id",
+                  children: "children",
+                }}
+                showSearch={{
+                  filter,
+                }}
+                displayRender={(labels, selectedOptions) => {
+                  const lastLabel = labels[labels.length - 1];
+                  const accountCode =
+                    selectedOptions[selectedOptions.length - 1]?.code;
+
+                  return (
+                    <span>
+                      {lastLabel}
+                      {accountCode && <span> (کد: {accountCode})</span>}
+                    </span>
+                  );
+                }}
               />
             </Ant.Form.Item>
           </Ant.Col>

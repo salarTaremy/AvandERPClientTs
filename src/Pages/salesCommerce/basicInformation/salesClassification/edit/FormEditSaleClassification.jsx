@@ -7,12 +7,13 @@ import PropTypes from "prop-types";
 import { useFetchWithHandler, useFetch, usePutWithHandler } from "@/api";
 import * as url from "@/api/url";
 import * as api from "@/api";
+import useAllLoading from "@/hooks/useAllLoading ";
 
 
 export const FormEditSaleClassification = (props) => {
   const { onSuccess, id } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
-  const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
+  const [saleClassificationData, loadingsaleClassificationData, saleClassificationError, ApiCall] = useFetchWithHandler();
   const [accData, accLoading, accError, accApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [
@@ -27,7 +28,12 @@ export const FormEditSaleClassification = (props) => {
     name: "",
   });
   useRequestManager({ error: accounGroupTreeError });
+  useRequestManager({ error: accError });
+  useRequestManager({ error: dtAccError });
+  useRequestManager({ error: saleClassificationError });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
+
+  const allLoading = useAllLoading([loadingsaleClassificationData, accounGroupTreeLoading, accLoading,dtAccLoading])
   const [form] = Ant.Form.useForm();
 
   const commonOptionsAcc = {
@@ -58,12 +64,11 @@ export const FormEditSaleClassification = (props) => {
 
   useEffect(() => {
     form.resetFields();
-    listData?.isSuccess &&
+    saleClassificationData?.isSuccess &&
       form.setFieldsValue({
-        ...listData?.data,
-        // accountId: listData?.data?.accountName,
+        ...saleClassificationData?.data,
       });
-  }, [listData]);
+  }, [saleClassificationData]);
 
   useEffect(() => {
     editData?.isSuccess && onSuccess();
@@ -71,7 +76,7 @@ export const FormEditSaleClassification = (props) => {
 
   useEffect(() => {
     accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
-    accounGroupTreeData?.isSuccess && accApiCall(`${url.ACCOUNT}/${listData.data.accountId}`);
+    accounGroupTreeData?.isSuccess && accApiCall(`${url.ACCOUNT}/${saleClassificationData.data.accountId}`);
   }, [accounGroupTreeData]);
 
   useEffect(() => {
@@ -98,7 +103,6 @@ export const FormEditSaleClassification = (props) => {
   };
 
   const onFinish = async (values) => {
-    console.log(values, "values");
     const req = { ...values, id: id, accountId: selectedAccount.id };
     await editApiCall(url.SALE_CLASSIFICATION, req);
   };
@@ -110,7 +114,7 @@ export const FormEditSaleClassification = (props) => {
   return (
     <>
       <ModalHeader title={"ویرایش طبقه بندی فروش"} icon={<MdGrading />} />
-      <Ant.Skeleton loading={loadingData}>
+      <Ant.Skeleton loading={allLoading}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[8, 8]}>
             <Ant.Col span={24} md={24} lg={24}>

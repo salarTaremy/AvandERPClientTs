@@ -4,6 +4,7 @@ import { usePostWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
+import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { MdOutlinePayment } from "react-icons/md";
 
@@ -11,11 +12,23 @@ const FormAddPaymentType = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
-  const [accountList, accountLoading, accountError] = useFetch(url.ACCOUNT);
+
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
-  useRequestManager({ error: accountError });
+  const [
+    accounGroupTreeData,
+    accounGroupTreeLoading,
+    accounGroupTreeError,
+    accounGroupTreeApicall,
+  ] = api.useFetchWithHandler();
+
   useRequestManager({ error: dtAccError });
+  useRequestManager({ error: accounGroupTreeError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
+  const [options, setOptions] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState({
+    id: null,
+    name: "",
+  });
   const [form] = Ant.Form.useForm();
   const commonOptionsAcc = {
     placeholder: "انتخاب کنید...",
@@ -23,18 +36,43 @@ const FormAddPaymentType = (props) => {
     filterOption: (input, option) =>
       option.name.toLowerCase().includes(input.toLowerCase()),
   };
+  const filter = (inputValue, path) =>
+    path.some(
+      (option) =>
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+        String(option.id).indexOf(inputValue) > -1,
+    );
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
     addData?.isSuccess && onSuccess();
   }, [addData]);
+
+  useEffect(() => {
+    accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
+  }, [accounGroupTreeData]);
+
+  useEffect(() => {
+    accounGroupTreeApicall(url.ACCOUNT_TREE);
+  }, []);
   //====================================================================
   //                        Functions
   //====================================================================
+
+  const handleChangeAccount = (value, selectedOptions) => {
+    const lastSelectedOption = selectedOptions[selectedOptions.length - 1];
+
+    setSelectedAccount({
+      id: lastSelectedOption.accountId,
+      name: lastSelectedOption.name,
+    });
+  };
+
+
   const onFinish = async (values) => {
     setLoading(true);
-    const req = { ...values };
+    const req = { ...values,accountId: selectedAccount.id };
     await addApiCall(url.PAYMENT_TYPE, req);
     setLoading(false);
   };
@@ -56,16 +94,43 @@ const FormAddPaymentType = (props) => {
               <Ant.Input allowClear showCount maxLength={100} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item name={"accountId"} label="حساب ">
-              <Ant.Select
-                {...commonOptionsAcc}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                disabled={accountLoading || false}
-                loading={accountLoading}
-                options={accountList?.data}
-                fieldNames={{ label: "name", value: "id" }}
+
+                 <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Form.Item
+              name={"accountId"}
+              label=" حساب "
+              rules={[
+                {
+                  required: true,
+                  message: "فیلد حساب  اجباری است",
+                },
+              ]}
+            >
+              <Ant.Cascader
+                loading={accounGroupTreeLoading}
+                options={options}
+                onChange={handleChangeAccount}
+                placeholder="لطفا انتخاب کنید ..."
+                fieldNames={{
+                  label: "name",
+                  value: "id",
+                  children: "children",
+                }}
+                showSearch={{
+                  filter,
+                }}
+                displayRender={(labels, selectedOptions) => {
+                  const lastLabel = labels[labels.length - 1];
+                  const accountCode =
+                    selectedOptions[selectedOptions.length - 1]?.code;
+
+                  return (
+                    <span>
+                      {lastLabel}
+                      {accountCode && <span> (کد: {accountCode})</span>}
+                    </span>
+                  );
+                }}
               />
             </Ant.Form.Item>
           </Ant.Col>
