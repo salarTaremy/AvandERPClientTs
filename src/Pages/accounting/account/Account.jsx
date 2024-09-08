@@ -151,6 +151,7 @@ const Account = () => {
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
                 <Tree
+                
                   showIcon
                   blockNode
                   treeData={treeData}

@@ -102,7 +102,7 @@ const TreeNodeItem = (props) => {
         }}
       >
         {/* <FrmLinkAccountDetailAccount key={uuid.v1()} account={item}/> */}
-        <FrmLinkAccountDetailAccount key={item.id} account={item}/>
+        <FrmLinkAccountDetailAccount key={item.id} account={item} />
       </Ant.Modal>
       {isDeleted && <BsFillLockFill style={{ color: 'red' }} />}
       {delLoading && <Ant.Spin />}
