@@ -7,7 +7,7 @@ import * as url from "@/api/url";
 import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { MdOutlinePayment } from "react-icons/md";
-
+import useAllLoading from "@/hooks/useAllLoading ";
 const FormAddPaymentType = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
@@ -42,6 +42,12 @@ const FormAddPaymentType = (props) => {
         option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
         String(option.fullCode).indexOf(inputValue) > -1,
     );
+    const allLoading = useAllLoading([
+
+      accounGroupTreeLoading,
+
+      dtAccLoading,
+    ]);
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -83,6 +89,7 @@ const FormAddPaymentType = (props) => {
   return (
     <>
       <ModalHeader title={"ایجاد نوع پرداخت"} icon={<MdOutlinePayment />} />
+      <Ant.Skeleton active loading={allLoading}>
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[8, 8]}>
           <Ant.Col span={24} md={24} lg={24}>
@@ -172,6 +179,7 @@ const FormAddPaymentType = (props) => {
           </Ant.Col>
         </Ant.Row>
       </Ant.Form>
+      </Ant.Skeleton>
     </>
   );
 };
