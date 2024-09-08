@@ -6,6 +6,7 @@ import { GrView } from "react-icons/gr";
 import { TbLockOpen, TbLock } from "react-icons/tb";
 import { CgMoreVertical } from "react-icons/cg";
 import * as defaultValues from "@/defaultValues";
+import { COUNTERPARTY_TYPE } from "@/staticValues";
 
 const columns = (onDelete, onEdit, onView, onBlock) => {
   const getMenuItems = (val) => [
@@ -56,7 +57,7 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       sorter: (a, b) => a.counterpartyTitle.localeCompare(b.counterpartyTitle),
     },
     {
-      title: "شناسه/کد ملی",
+      title: "شناسه ملی/کد ملی/کد فراگیر",
       dataIndex: "legalEntityIdentity",
       key: "legalEntityIdentity",
       align: "center",
@@ -65,8 +66,9 @@ const columns = (onDelete, onEdit, onView, onBlock) => {
       render: (text, record, index) => {
         return (
           <>
-            {(record.counterpartyTypeId == 1 && record.nationalCode) && `${record.nationalCode}`}
-            {record.counterpartyTypeId == 2 && `${record.legalEntityIdentity}`}
+            {(record.counterpartyTypeId == COUNTERPARTY_TYPE.Individual && record.nationalCode) && `${record.nationalCode}`}
+            {(record.counterpartyTypeId == COUNTERPARTY_TYPE.ForeignIndividual && record.fidaCode) && `${record.fidaCode}`}
+            {(record.counterpartyTypeId == COUNTERPARTY_TYPE.Institution || record.counterpartyTypeId == COUNTERPARTY_TYPE.CivicParticipation) && `${record.legalEntityIdentity}`}
           </>
         )
       }

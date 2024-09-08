@@ -119,6 +119,21 @@ const FilterPanel = (props) => {
           />
         </Ant.Form.Item>
 
+        <Ant.Form.Item 
+          name={"fidaCode"}
+          label="کد فراگیر"
+          rules={[
+            {
+              required: false,
+              pattern: new RegExp("^[0-9]*$"),
+              message:
+                "کد فراگیر نمی تواند شامل کاراکترهای غیرعددی باشد",
+            },
+          ]}
+        >
+          <Ant.Input allowClear showCount maxLength={12} />
+        </Ant.Form.Item>
+                    
         <Ant.Form.Item
           name={"legalEntityIdentity"}
           label="شناسه ملی"

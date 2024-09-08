@@ -5,9 +5,11 @@ import { Steps, Form } from "antd";
 import { usePutWithHandler } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { BasicInfoStep } from "../edit/steps/BasicInfoStep";
+import { FormatDateToPost } from "@/components/common/MyDatePicker";
 import CounterpartyAddressList from "@/Pages/manageCounterParty/counterpartyContactInfo/address/list/CounterpartyAddressList";
 import CounterpartyBankAccountList from "@/Pages/manageCounterParty/counterpartyBankAccount/list/CounterpartyBankAccountList";
 import { FaUserPen } from "react-icons/fa6";
+import useRequestManager from "@/hooks/useRequestManager";
 
 const FormEditCounterParty = ({ onSuccess, id, key }) => {
   const [form] = Ant.Form.useForm();
@@ -46,6 +48,8 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
       content: <CounterpartyBankAccountList counterpartyId={id} />,
     },
   ];
+
+  useRequestManager({data: counterpartyEditedData, loading: counterpartyEditLoading, error: counterpartyEditError});
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -73,7 +77,9 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
       await form.validateFields();
       const formFields = await form.getFieldsValue();
       const cityFields = {};
-      cityFields.cityId = formFields.cityId[1];
+      if (formFields.cityId) {
+        cityFields.cityId = formFields.cityId[1];
+      }
       if (formFields.birthCertificatePlaceOfIssueCityId) {
         cityFields.birthCertificatePlaceOfIssueCityId =
           formFields.birthCertificatePlaceOfIssueCityId[1];
@@ -84,9 +90,10 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
       }
       const dateFields = {};
       if (formFields.birthDateCalendarId) {
-        dateFields.birthDateCalendarId = formFields.birthDateCalendarId
-          .toString()
-          .replace(/\//g, "");
+        dateFields.birthDateCalendarId = FormatDateToPost(formFields.birthDateCalendarId);
+      }
+      if (formFields.passportValidityDate) {
+        dateFields.passportValidityDate = FormatDateToPost(formFields.passportValidityDate);
       }
       setFormValues({
         ...formValues,
