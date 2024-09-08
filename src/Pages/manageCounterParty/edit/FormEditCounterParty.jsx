@@ -143,7 +143,7 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
         )}
         {currentStep === 0 && (
           <Ant.Col span={24} sm={12} md={4}>
-            <Ant.Button type="primary" block onClick={onSave}>
+            <Ant.Button type="primary" block onClick={onSave} loading={counterpartyEditLoading}>
               {"ذخیره و ادامه"}
             </Ant.Button>
           </Ant.Col>
