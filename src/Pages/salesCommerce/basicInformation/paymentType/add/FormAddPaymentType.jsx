@@ -42,12 +42,8 @@ const FormAddPaymentType = (props) => {
         option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
         String(option.fullCode).indexOf(inputValue) > -1,
     );
-    const allLoading = useAllLoading([
 
-      accounGroupTreeLoading,
-
-      dtAccLoading,
-    ]);
+  const allLoading = useAllLoading([accounGroupTreeLoading, dtAccLoading]);
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -75,10 +71,9 @@ const FormAddPaymentType = (props) => {
     });
   };
 
-
   const onFinish = async (values) => {
     setLoading(true);
-    const req = { ...values,accountId: selectedAccount.id };
+    const req = { ...values, accountId: selectedAccount.id };
     await addApiCall(url.PAYMENT_TYPE, req);
     setLoading(false);
   };
@@ -90,95 +85,95 @@ const FormAddPaymentType = (props) => {
     <>
       <ModalHeader title={"ایجاد نوع پرداخت"} icon={<MdOutlinePayment />} />
       <Ant.Skeleton active loading={allLoading}>
-      <Ant.Form form={form} onFinish={onFinish} layout="vertical">
-        <Ant.Row gutter={[8, 8]}>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name="title"
-              label={"عنوان"}
-              rules={[{ required: true }]}
-            >
-              <Ant.Input allowClear showCount maxLength={100} />
-            </Ant.Form.Item>
-          </Ant.Col>
-
-                 <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"accountId"}
-              label=" حساب "
-              rules={[
-                {
-                  required: true,
-                  message: "فیلد حساب  اجباری است",
-                },
-              ]}
-            >
-              <Ant.Cascader
-                loading={accounGroupTreeLoading}
-                options={options}
-                onChange={handleChangeAccount}
-                placeholder="لطفا انتخاب کنید ..."
-                fieldNames={{
-                  label: "name",
-                  value: "id",
-                  children: "children",
-                }}
-                showSearch={{
-                  filter,
-                }}
-                displayRender={(labels, selectedOptions) => {
-                  const lastLabel = labels[labels.length - 1];
-                  const accountCode =
-                    selectedOptions[selectedOptions.length - 1]?.code;
-
-                  return (
-                    <span>
-                      {lastLabel}
-                      {accountCode && <span> (کد: {accountCode})</span>}
-                    </span>
-                  );
-                }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item name={"detailedAccountId"} label="حساب تفصیلی">
-              <Ant.Select
-                {...commonOptionsAcc}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                disabled={dtAccLoading || false}
-                loading={dtAccLoading}
-                options={dtAccData?.data}
-                fieldNames={{ label: "name", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"description"}
-              label="توضیحات"
-              rules={[{ required: false }]}
-            >
-              <Ant.Input.TextArea allowClear showCount maxLength={500} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item>
-              <Ant.Button
-                block
-                type="primary"
-                loading={loading}
-                onClick={() => {
-                  form.submit();
-                }}
+        <Ant.Form form={form} onFinish={onFinish} layout="vertical">
+          <Ant.Row gutter={[8, 8]}>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name="title"
+                label={"عنوان"}
+                rules={[{ required: true }]}
               >
-                {"تایید"}
-              </Ant.Button>
-            </Ant.Form.Item>
-          </Ant.Col>
-        </Ant.Row>
-      </Ant.Form>
+                <Ant.Input allowClear showCount maxLength={100} />
+              </Ant.Form.Item>
+            </Ant.Col>
+
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"accountId"}
+                label=" حساب "
+                rules={[
+                  {
+                    required: true,
+                    message: "فیلد حساب  اجباری است",
+                  },
+                ]}
+              >
+                <Ant.Cascader
+                  loading={accounGroupTreeLoading}
+                  options={options}
+                  onChange={handleChangeAccount}
+                  placeholder="لطفا انتخاب کنید ..."
+                  fieldNames={{
+                    label: "name",
+                    value: "id",
+                    children: "children",
+                  }}
+                  showSearch={{
+                    filter,
+                  }}
+                  displayRender={(labels, selectedOptions) => {
+                    const lastLabel = labels[labels.length - 1];
+                    const accountCode =
+                      selectedOptions[selectedOptions.length - 1]?.fullCode;
+
+                    return (
+                      <span>
+                        {lastLabel}
+                        {accountCode && <span> (کد: {accountCode})</span>}
+                      </span>
+                    );
+                  }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item name={"detailedAccountId"} label="حساب تفصیلی">
+                <Ant.Select
+                  {...commonOptionsAcc}
+                  allowClear={true}
+                  placeholder={"انتخاب کنید..."}
+                  disabled={dtAccLoading || false}
+                  loading={dtAccLoading}
+                  options={dtAccData?.data}
+                  fieldNames={{ label: "name", value: "id" }}
+                />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item
+                name={"description"}
+                label="توضیحات"
+                rules={[{ required: false }]}
+              >
+                <Ant.Input.TextArea allowClear showCount maxLength={500} />
+              </Ant.Form.Item>
+            </Ant.Col>
+            <Ant.Col span={24} md={24} lg={24}>
+              <Ant.Form.Item>
+                <Ant.Button
+                  block
+                  type="primary"
+                  loading={loading}
+                  onClick={() => {
+                    form.submit();
+                  }}
+                >
+                  {"تایید"}
+                </Ant.Button>
+              </Ant.Form.Item>
+            </Ant.Col>
+          </Ant.Row>
+        </Ant.Form>
       </Ant.Skeleton>
     </>
   );

@@ -114,9 +114,9 @@ const TreeNodeItem = (props) => {
               onEditClick && onEditClick(item)
             }}
           >
-            {item.level === 1 && <BsFillJournalBookmarkFill style={{ color: '#3498db' }} />}
-            {item.level === 2 && <BsJournalCheck style={{ color: 'orange' }} />}
-            {item.level === 3 && <BsBook style={{ color: 'green' }} />} {item.title}
+            {item.level === 1 && <BsFillJournalBookmarkFill className='mt-1 text-blue-500'  />}
+            {item.level === 2 && <BsJournalCheck  className='mt-1 text-orange-400'  />}
+            {item.level === 3 && <BsBook  className='mt-1 text-green-600' />} {item.title}
           </Ant.Col>
           <Ant.Col span={2}>
             {showBtn && item.level >= 0 && item.level <= 2 && (
