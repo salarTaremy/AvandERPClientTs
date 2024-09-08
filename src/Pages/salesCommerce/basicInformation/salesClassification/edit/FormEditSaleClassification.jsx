@@ -9,8 +9,6 @@ import * as url from "@/api/url";
 import * as api from "@/api";
 
 
-
-
 export const FormEditSaleClassification = (props) => {
   const { onSuccess, id } = props;
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
