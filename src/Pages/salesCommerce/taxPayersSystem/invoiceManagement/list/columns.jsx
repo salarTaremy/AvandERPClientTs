@@ -5,6 +5,7 @@ import { GrView } from "react-icons/gr";
 import { BsSend } from "react-icons/bs";
 import { green, lime, red, geekblue, orange } from "@ant-design/colors";
 import * as defaultValues from "@/defaultValues";
+import { COUNTERPARTY_TYPE } from "@/staticValues";
 
 const getSendingProgressPercent = (progressStatusId) => {
   switch (progressStatusId) {
@@ -142,6 +143,21 @@ const getSaleDocIssueColor = (issueId) => {
   }
 };
 
+const getCounterpartyTypeColor = (counterpartyTypeId) => {
+  switch (counterpartyTypeId) {
+    case COUNTERPARTY_TYPE.Individual:
+      return "gold";
+    case COUNTERPARTY_TYPE.Institution:
+      return "cyan";
+    case COUNTERPARTY_TYPE.CivicParticipation:
+      return "purple";
+    case COUNTERPARTY_TYPE.ForeignIndividual:
+      return "magenta";
+    default:
+      return 0;
+  }
+};
+
 export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem, onViewCompanyinformation) => {
   return [
     {
@@ -219,22 +235,41 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       },
     },
     {
-      title: "کد/شناسه ملی",
+      title: "نوع خریدار",
+      dataIndex: "customerType",
+      key: "customerType",
+      align: "center",
+      className: "text-xs sm:text-sm",
+      width: 120,
+      render: (text, record, index) => {
+        return (
+          <Ant.Tag
+            bordered={false}
+            color={getCounterpartyTypeColor(record.customerTypeId)}
+          >
+            {record.customerType}
+          </Ant.Tag>
+        );
+      },
+    },
+    {
+      title: "کد ملی/شناسه ملی/کد فراگیر",
       dataIndex: "customerLegalEntityIdentity",
       key: "customerLegalEntityIdentity",
       align: "center",
       className: "text-xs sm:text-sm",
       width: 150,
       render: (text, record, index) => {
+        const customerTypeId = record.customerTypeId;
         return (
-
-          (record.customerTypeId == '2' && <Ant.Typography.Link
-            onClick={() => onViewCompanyinformation(record.customerLegalEntityIdentity)}
-          >
-            {text}
-          </Ant.Typography.Link>) || (record.customerLegalEntityIdentity)
-        );
-      },
+            (customerTypeId == COUNTERPARTY_TYPE.Institution || customerTypeId == COUNTERPARTY_TYPE.CivicParticipation) && 
+            <Ant.Typography.Link
+              onClick={() => onViewCompanyinformation(record.customerLegalEntityIdentity)}
+            >
+              {text}
+            </Ant.Typography.Link> || (record.customerLegalEntityIdentity)
+          )
+        }
     },
     {
       title: "کد اقتصادی",
@@ -251,14 +286,6 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       align: "center",
       className: "text-xs sm:text-sm",
       sorter: true,
-      width: 120,
-    },
-    {
-      title: "نوع مشتری",
-      dataIndex: "customerType",
-      key: "customerType",
-      align: "center",
-      className: "text-xs sm:text-sm",
       width: 120,
     },
     // {
