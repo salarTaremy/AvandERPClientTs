@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
-import MyDatePicker from "@/components/common/MyDatePicker";
+import MyDatePicker, { FormatDateToDisplay } from "@/components/common/MyDatePicker";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { useFetchWithHandler, useFetch } from "@/api";
@@ -63,20 +63,18 @@ export const BasicInfoStep = (props) => {
 
   useEffect(() => {
     if (counterpartyFetchedData) {
-      const provinceId = counterpartyFetchedData.data.provinceId;
-      const cityId = counterpartyFetchedData.data.cityId;
       const otherValues = {};
-      otherValues.cityId = [provinceId, cityId];
+      //set cityId field
+      if (counterpartyFetchedData.data.provinceId && counterpartyFetchedData.data.cityId) {
+        const provinceId = counterpartyFetchedData.data.provinceId;
+        const cityId = counterpartyFetchedData.data.cityId;
+        otherValues.cityId = [provinceId, cityId];
+      }
 
       //set birthDateCalendarId field
       if (counterpartyFetchedData.data.birthDateCalendarId) {
-        const birthDateCalendarId =
-          counterpartyFetchedData.data.birthDateCalendarId.toString();
-        const yearFrom = birthDateCalendarId.substr(0, 4);
-        const monthFrom = birthDateCalendarId.substr(4, 2);
-        const dayFrom = birthDateCalendarId.substr(6, 2);
-        const formattedFromDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
-        otherValues.birthDateCalendarId = formattedFromDate;
+        const formattedBirthDate = FormatDateToDisplay(counterpartyFetchedData.data.birthDateCalendarId);
+        otherValues.birthDateCalendarId = formattedBirthDate;
       }
 
       //set birthCertificatePlaceOfIssueCityId field
@@ -97,12 +95,7 @@ export const BasicInfoStep = (props) => {
 
       //set passportValidityDate field
       if (counterpartyFetchedData.data.passportValidityDate) {
-        const passportValidityDate =
-          counterpartyFetchedData.data.passportValidityDate.toString();
-        const yearFrom = passportValidityDate.substr(0, 4);
-        const monthFrom = passportValidityDate.substr(4, 2);
-        const dayFrom = passportValidityDate.substr(6, 2);
-        const formattedPassportValidityDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
+        const formattedPassportValidityDate = FormatDateToDisplay(counterpartyFetchedData.data.passportValidityDate);
         otherValues.passportValidityDate = formattedPassportValidityDate;
       }
 

@@ -6,6 +6,7 @@ import { usePostWithHandler, usePutWithHandler } from "@/api";
 import { RequestManager } from "@/components/common/RequestManager";
 import * as uuid from "uuid";
 import { BasicInfoStep } from "./steps/BasicInfoStep";
+import { FormatDateToPost } from "@/components/common/MyDatePicker";
 import CounterpartyAddressList from "../counterpartyContactInfo/address/list/CounterpartyAddressList";
 import CounterpartyBankAccountList from "../counterpartyBankAccount/list/CounterpartyBankAccountList";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -104,7 +105,9 @@ export const FormCounterpartyAdd = (props) => {
       await form.validateFields();
       const formFields = await form.getFieldsValue();
       const cityFields = {};
-      cityFields.cityId = formFields.cityId[1];
+      if (formFields.cityId) {
+        cityFields.cityId = formFields.cityId[1];
+      }
       if (formFields.birthCertificatePlaceOfIssueCityId) {
         cityFields.birthCertificatePlaceOfIssueCityId =
           formFields.birthCertificatePlaceOfIssueCityId[1];
@@ -115,14 +118,10 @@ export const FormCounterpartyAdd = (props) => {
       }
       const dateFields = {};
       if (formFields.birthDateCalendarId) {
-        dateFields.birthDateCalendarId = formFields.birthDateCalendarId
-          .toString()
-          .replace(/\//g, "");
+        dateFields.birthDateCalendarId = FormatDateToPost(formFields.birthDateCalendarId);
       }
       if (formFields.passportValidityDate) {
-        dateFields.passportValidityDate = formFields.passportValidityDate
-        .toString()
-        .replace(/\//g, "");
+        dateFields.passportValidityDate = FormatDateToPost(formFields.passportValidityDate);
       }
       setFormValues({
         ...formValues,

@@ -51,3 +51,16 @@ const MyDatePicker = (props) => {
 };
 
 export default MyDatePicker;
+
+export const FormatDateToPost = (date) => {
+  return date.toString().replace(/\//g, "");
+};
+
+export const FormatDateToDisplay = (date) => {
+  const dateString = date.toString();
+  const yearFrom = dateString.substr(0, 4);
+  const monthFrom = dateString.substr(4, 2);
+  const dayFrom = dateString.substr(6, 2);
+  const formattedDate = `${yearFrom}/${monthFrom}/${dayFrom}`;
+  return formattedDate;
+};
