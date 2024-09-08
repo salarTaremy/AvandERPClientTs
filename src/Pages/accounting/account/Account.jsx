@@ -52,25 +52,25 @@ const Account = () => {
 
 
 
-  const loadData = (key, children) => new Promise((resolve) => {
-    console.log({ key, children });
-    const queryString = qs.stringify({
-      AccountGroupId: key.id
-    })
-    console.log('queryString', queryString);
-    api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
-      console.log('response =>', response);
-      console.log('upd => ', updateTreeData(treeData, key.id, response.data))
-      resolve();
-    })
-      .catch(error => {
-        console.error(error);
-      });
+  // const loadData = (key, children) => new Promise((resolve) => {
+  //   console.log({ key, children });
+  //   const queryString = qs.stringify({
+  //     AccountGroupId: key.id
+  //   })
+  //   console.log('queryString', queryString);
+  //   api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
+  //     console.log('response =>', response);
+  //     console.log('upd => ', updateTreeData(treeData, key.id, response.data))
+  //     resolve();
+  //   })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
 
-  }).then(() => { console.log('then') })
-  const FillTree = async () => {
-    await accApiCall(url.ACCOUNT_TREE)
-  }
+  // }).then(() => { console.log('then') })
+  // const FillTree = async () => {
+  //   await accApiCall(url.ACCOUNT_TREE)
+  // }
 
   const onDeleteSuccess = (item) => {
     setExpandedKeys([item.key])
@@ -82,44 +82,44 @@ const Account = () => {
     setSelectedNode(item.key)
   }
 
-  const treeify = (arr) => {
-    const tree = []
-    const lookup = {}
-    arr.forEach((o) => {
-      lookup[o.id] = o
-      lookup[o.id].children = []
-    })
-    arr.forEach((o) => {
-      if (o.parent) {
-        lookup[o.parent]?.children?.push(o)
-      } else {
-        tree.push(o)
-      }
-    })
-    return tree
-  }
+  // const treeify = (arr) => {
+  //   const tree = []
+  //   const lookup = {}
+  //   arr.forEach((o) => {
+  //     lookup[o.id] = o
+  //     lookup[o.id].children = []
+  //   })
+  //   arr.forEach((o) => {
+  //     if (o.parent) {
+  //       lookup[o.parent]?.children?.push(o)
+  //     } else {
+  //       tree.push(o)
+  //     }
+  //   })
+  //   return tree
+  // }
 
-  const addIconToData = (data) => {
-    const newData =
-      data &&
-      data.map((item) => ({
-        ...item,
-        //icon: icon,
-        //parentKey: parentKey || item.parentKey,
-        title: (
-          <TreeNodeItem
-            key={item.key}
-            item={{ ...item }}
-            onEditClick={(val) => {
-              val && setSelectedNode(val)
-            }}
-            onDeleteSuccess={onDeleteSuccess}
-            onAddSuccess={onAddSuccess}
-          />
-        ),
-      }))
-    return newData
-  }
+  // const addIconToData = (data) => {
+  //   const newData =
+  //     data &&
+  //     data.map((item) => ({
+  //       ...item,
+  //       //icon: icon,
+  //       //parentKey: parentKey || item.parentKey,
+  //       title: (
+  //         <TreeNodeItem
+  //           key={item.key}
+  //           item={{ ...item }}
+  //           onEditClick={(val) => {
+  //             val && setSelectedNode(val)
+  //           }}
+  //           onDeleteSuccess={onDeleteSuccess}
+  //           onAddSuccess={onAddSuccess}
+  //         />
+  //       ),
+  //     }))
+  //   return newData
+  // }
 
   //====================================================================
   //                        useEffects
@@ -131,8 +131,8 @@ const Account = () => {
 
   useEffect(() => {
     if (accData?.data) {
-      const data = addIconToData(accData.data)
-      const finalData = treeify(data)
+      // const data = addIconToData(accData.data)
+      // const finalData = treeify(data)
       setTreeData(accData?.data)
     }
   }, [accData])
