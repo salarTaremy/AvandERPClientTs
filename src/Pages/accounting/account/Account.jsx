@@ -178,7 +178,6 @@ const Account = () => {
             </Ant.Col>
 
             <Ant.Col span={24} md={14}>
-              {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
                 {(!selectedNode || selectedNode?.level === 0) && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 1 && (
