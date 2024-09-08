@@ -68,9 +68,9 @@ const Account = () => {
   //     });
 
   // }).then(() => { console.log('then') })
-  // const FillTree = async () => {
-  //   await accApiCall(url.ACCOUNT_TREE)
-  // }
+  const FillTree = async () => {
+    await accApiCall(url.ACCOUNT_TREE)
+  }
 
   const onDeleteSuccess = (item) => {
     setExpandedKeys([item.key])
