@@ -177,7 +177,7 @@ export const FormCounterpartyAdd = (props) => {
         {currentStep === 0 && (
           <Ant.Col span={24} sm={12} md={4}>
             <Ant.Button
-              loading={counterpartyAddLoading}
+              loading={counterpartyAddLoading || counterpartyEditLoading}
               type="primary"
               block
               onClick={onSave}

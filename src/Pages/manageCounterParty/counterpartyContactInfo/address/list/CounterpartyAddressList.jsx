@@ -27,7 +27,7 @@ const CounterpartyAddressList = (props) => {
     current: 1,
     pageSize: 10,
   });
-  useRequestManager({ error: error });
+ 
   useRequestManager({
     error: deleteError,
     loading: deleteLoading,

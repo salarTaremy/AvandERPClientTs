@@ -15,7 +15,6 @@ import FormEditPhoneNumber from "./edit/FormEditPhoneNumber";
 
 const PhoneNumberList = ({ addressId }) => {
     const [data, loading, error, ApiCall] = useFetchWithHandler();
-    useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
     const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
     useRequestManager({ error: delError, data: delSaving, loading: delLoading });
