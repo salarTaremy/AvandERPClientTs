@@ -147,10 +147,11 @@ const Account = () => {
       <Ant.Card title={'درختواره حساب ها'} type="inner" >
         <Ant.Form form={form} layout="vertical" onFinish={null} onFinishFailed={null}>
           <Ant.Row gutter={[16, 8]}>
-            <Ant.Col span={24} sm={10}>
+            <Ant.Col span={24} md={10}>
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
                 <Tree
+                
                   showIcon
                   blockNode
                   treeData={treeData}
@@ -176,7 +177,7 @@ const Account = () => {
               </CoustomContent>
             </Ant.Col>
 
-            <Ant.Col span={24} sm={14}>
+            <Ant.Col span={24} md={14}>
               {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
                 {(!selectedNode || selectedNode?.level === 0) && <Ant.Empty description={emptyDescription} />}
