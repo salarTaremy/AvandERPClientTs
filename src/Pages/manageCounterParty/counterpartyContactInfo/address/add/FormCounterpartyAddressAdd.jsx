@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { Form } from "antd";
 import * as url from "@/api/url";
+import PropTypes from "prop-types";
 import { useFetchWithHandler, usePostWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -33,7 +34,6 @@ const FormCounterpartyAddressAdd = (props) => {
 
   useEffect(() => {
     cityList?.isSuccess && setCityOptions(cityList?.data);
-    cityList?.isSuccess && form.setFieldValue("cityId", [1, 1001]);
   }, [cityList]);
 
   useEffect(() => {
@@ -145,3 +145,8 @@ const FormCounterpartyAddressAdd = (props) => {
 };
 
 export default FormCounterpartyAddressAdd;
+FormCounterpartyAddressAdd.propTypes = {
+  onSuccess: PropTypes.func,
+  counterpartyId: PropTypes.number.isRequired,
+  key: PropTypes.string.isRequired,
+};

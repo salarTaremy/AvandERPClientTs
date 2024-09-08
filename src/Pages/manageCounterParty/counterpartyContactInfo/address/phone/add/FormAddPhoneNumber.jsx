@@ -75,4 +75,5 @@ const FormAddPhoneNumber = (props) => {
 export default FormAddPhoneNumber;
 FormAddPhoneNumber.propTypes = {
   onSuccess: PropTypes.func,
+  addressId: PropTypes.number.isRequired,
 };

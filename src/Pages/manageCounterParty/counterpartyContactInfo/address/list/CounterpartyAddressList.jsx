@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
+import PropTypes from "prop-types";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import * as defaultValues from "@/defaultValues";
 import ButtonList from "@/components/common/ButtonList";
@@ -155,3 +156,6 @@ const CounterpartyAddressList = (props) => {
 };
 
 export default CounterpartyAddressList;
+CounterpartyAddressList.propTypes = {
+  counterpartyId: PropTypes.number.isRequired,
+};

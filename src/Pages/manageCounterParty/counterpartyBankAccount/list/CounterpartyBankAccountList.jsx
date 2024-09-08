@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { columns } from "./columns";
 import * as defaultValues from "@/defaultValues";
 import * as url from "@/api/url";
+import PropTypes from "prop-types";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
@@ -149,3 +150,6 @@ const CounterpartyBankAccountList = (props) => {
 };
 
 export default CounterpartyBankAccountList;
+CounterpartyBankAccountList.propTypes = {
+  counterpartyId: PropTypes.number.isRequired,
+};

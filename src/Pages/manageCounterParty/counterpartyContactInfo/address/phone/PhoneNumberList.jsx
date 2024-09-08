@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
+import PropTypes from "prop-types";
 import * as defaultValues from "@/defaultValues";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
@@ -166,4 +167,7 @@ const PhoneNumberList = ({ addressId }) => {
     )
 }
 
-export default PhoneNumberList
+export default PhoneNumberList;
+PhoneNumberList.propTypes = {
+    addressId: PropTypes.number.isRequired,
+}

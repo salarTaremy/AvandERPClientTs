@@ -85,9 +85,6 @@ const FormEditPhoneNumber = (props) => {
 
 export default FormEditPhoneNumber;
 FormEditPhoneNumber.propTypes = {
-    onFinish: PropTypes.func,
     onSuccess: PropTypes.func,
-    obj: PropTypes.any,
-    id: PropTypes.number,
-    loading: PropTypes.bool,
+    id: PropTypes.number.isRequired,
 };

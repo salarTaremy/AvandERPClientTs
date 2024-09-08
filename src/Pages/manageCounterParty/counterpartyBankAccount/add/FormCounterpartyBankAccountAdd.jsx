@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
+import PropTypes from "prop-types";
 import useRequestManager from "@/hooks/useRequestManager";
 import * as url from "@/api/url";
 import { useFetch, useFetchWithHandler, usePostWithHandler } from "@/api";
@@ -188,3 +189,8 @@ const FormCounterpartyBankAccountAdd = (props) => {
 };
 
 export default FormCounterpartyBankAccountAdd;
+FormCounterpartyBankAccountAdd.propTypes = {
+  onSuccess: PropTypes.func,
+  counterpartyId: PropTypes.number.isRequired,
+  key: PropTypes.string.isRequired,
+};

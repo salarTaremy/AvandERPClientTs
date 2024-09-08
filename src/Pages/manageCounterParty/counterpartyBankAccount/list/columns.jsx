@@ -12,7 +12,7 @@ export const columns = (onDelete, onEdit) => {
             key: "bankName",
             align: "right",
             className: "text-xs sm:text-sm",
-            width: 150,
+            width: 80,
             render: (text, record, index) => (
                 `${record.bankName} - ${record.bankBranchName}`
             )
@@ -23,7 +23,7 @@ export const columns = (onDelete, onEdit) => {
             key: "accountHolder",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 100,
+            width: 80,
         },
         {
             title: "شماره حساب",
@@ -39,7 +39,7 @@ export const columns = (onDelete, onEdit) => {
             key: "cardNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 100,
         },
         {
             title: "شماره شبا",
@@ -47,10 +47,14 @@ export const columns = (onDelete, onEdit) => {
             key: "shebaNumber",
             align: "center",
             className: "text-xs sm:text-sm",
-            width: 120,
+            width: 150,
+            render: (text, record, index) => (
+                record.shebaNumber && `IR${record.shebaNumber}`
+            )
         },
         {
             ...defaultValues.TABLES_OPERATION_COLUMN,
+            width: 70,
             render: (text, value, index) => (
                 <>
                     <Ant.Tooltip placement="top" title={"ویرایش"}>
