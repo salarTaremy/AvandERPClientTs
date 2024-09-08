@@ -114,7 +114,7 @@ export const FormEditSaleClassification = (props) => {
   return (
     <>
       <ModalHeader title={"ویرایش طبقه بندی فروش"} icon={<MdGrading />} />
-      <Ant.Skeleton loading={allLoading}>
+      <Ant.Skeleton active loading={allLoading}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[8, 8]}>
             <Ant.Col span={24} md={24} lg={24}>
