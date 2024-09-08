@@ -3,15 +3,16 @@ import ModalHeader from "@/components/common/ModalHeader";
 import * as Ant from "antd";
 import { MdGrading } from "react-icons/md";
 import useRequestManager from "@/hooks/useRequestManager";
-
 import PropTypes from "prop-types";
-
 import { useFetchWithHandler, useFetch, usePutWithHandler } from "@/api";
 import * as url from "@/api/url";
 import * as api from "@/api";
+
+
+
+
 export const FormEditSaleClassification = (props) => {
   const { onSuccess, id } = props;
-
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [accData, accLoading, accError, accApiCall] = useFetchWithHandler();
@@ -72,7 +73,7 @@ export const FormEditSaleClassification = (props) => {
 
   useEffect(() => {
     accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
-     accounGroupTreeData?.isSuccess &&  accApiCall(`${url.ACCOUNT}/${listData.data.accountId}`);
+    accounGroupTreeData?.isSuccess && accApiCall(`${url.ACCOUNT}/${listData.data.accountId}`);
   }, [accounGroupTreeData]);
 
   useEffect(() => {
@@ -106,6 +107,8 @@ export const FormEditSaleClassification = (props) => {
   //====================================================================
   //                        Component
   //====================================================================
+
+
   return (
     <>
       <ModalHeader title={"ویرایش طبقه بندی فروش"} icon={<MdGrading />} />
@@ -134,7 +137,8 @@ export const FormEditSaleClassification = (props) => {
                 ]}
               >
                 <Ant.Cascader
-                  loading={accounGroupTreeLoading}
+                  loading={accounGroupTreeLoading || accLoading}
+                  disabled={accounGroupTreeLoading || accLoading }
                   options={options}
                   onChange={handleChangeAccount}
                   placeholder="لطفا انتخاب کنید ..."
@@ -165,7 +169,7 @@ export const FormEditSaleClassification = (props) => {
                   {...commonOptionsAcc}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disabled={dtAccLoading || false}
+                  disabled={dtAccLoading }
                   loading={dtAccLoading}
                   options={dtAccData?.data}
                   fieldNames={{ label: "name", value: "id" }}
@@ -175,7 +179,7 @@ export const FormEditSaleClassification = (props) => {
             <Ant.Col span={24} md={24} lg={24}>
               <Ant.Form.Item>
                 <Ant.Button
-                  loading={editLoading || false}
+                  loading={editLoading }
                   type="primary"
                   onClick={() => {
                     form.submit();
