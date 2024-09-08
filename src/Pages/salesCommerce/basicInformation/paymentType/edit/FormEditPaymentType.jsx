@@ -49,7 +49,7 @@ const FormEditPaymentType = (props) => {
     path.some(
       (option) =>
         option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
-        String(option.id).indexOf(inputValue) > -1,
+        String(option.fullCode).indexOf(inputValue) > -1,
     );
 
   //====================================================================
