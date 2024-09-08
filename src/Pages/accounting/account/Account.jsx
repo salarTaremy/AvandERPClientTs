@@ -52,26 +52,29 @@ const Account = () => {
 
 
 
-  const loadData = (key, children) => new Promise((resolve) => {
-    console.log({ key, children });
-    const queryString = qs.stringify({
-      AccountGroupId: key.id
-    })
-    console.log('queryString', queryString);
-    api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
-      console.log('response =>', response);
-      console.log('upd => ', updateTreeData(treeData, key.id, response.data))
-      resolve();
-    })
-      .catch(error => {
-        console.error(error);
-      });
+  // const loadData = (key, children) => new Promise((resolve) => {
+  //   console.log({ key, children });
+  //   const queryString = qs.stringify({
+  //     AccountGroupId: key.id
+  //   })
+  //   console.log('queryString', queryString);
+  //   api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
+  //     console.log('response =>', response);
+  //     console.log('upd => ', updateTreeData(treeData, key.id, response.data))
+  //     resolve();
+  //   })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
 
-  }).then(() => { console.log('then') })
+  // }).then(() => { console.log('then') })
   const FillTree = async () => {
     await accApiCall(url.ACCOUNT_TREE)
   }
 
+  const onEditClick = (val) => {
+    val && setSelectedNode(val)
+  }
   const onDeleteSuccess = (item) => {
     setExpandedKeys([item.key])
     setSelectedNode(null)
@@ -81,45 +84,54 @@ const Account = () => {
     setExpandedKeys([item.key])
     setSelectedNode(item.key)
   }
-
-  const treeify = (arr) => {
-    const tree = []
-    const lookup = {}
-    arr.forEach((o) => {
-      lookup[o.id] = o
-      lookup[o.id].children = []
-    })
-    arr.forEach((o) => {
-      if (o.parent) {
-        lookup[o.parent]?.children?.push(o)
-      } else {
-        tree.push(o)
-      }
-    })
-    return tree
+  const titleRender = (nodeData) => {
+    return (<TreeNodeItem
+      key={nodeData.key}
+      item={{ ...nodeData }}
+      onEditClick={onEditClick}
+      onDeleteSuccess={onDeleteSuccess}
+      onAddSuccess={onAddSuccess}
+    />)
   }
 
-  const addIconToData = (data) => {
-    const newData =
-      data &&
-      data.map((item) => ({
-        ...item,
-        //icon: icon,
-        //parentKey: parentKey || item.parentKey,
-        title: (
-          <TreeNodeItem
-            key={item.key}
-            item={{ ...item }}
-            onEditClick={(val) => {
-              val && setSelectedNode(val)
-            }}
-            onDeleteSuccess={onDeleteSuccess}
-            onAddSuccess={onAddSuccess}
-          />
-        ),
-      }))
-    return newData
-  }
+  // const treeify = (arr) => {
+  //   const tree = []
+  //   const lookup = {}
+  //   arr.forEach((o) => {
+  //     lookup[o.id] = o
+  //     lookup[o.id].children = []
+  //   })
+  //   arr.forEach((o) => {
+  //     if (o.parent) {
+  //       lookup[o.parent]?.children?.push(o)
+  //     } else {
+  //       tree.push(o)
+  //     }
+  //   })
+  //   return tree
+  // }
+
+  // const addIconToData = (data) => {
+  //   const newData =
+  //     data &&
+  //     data.map((item) => ({
+  //       ...item,
+  //       //icon: icon,
+  //       //parentKey: parentKey || item.parentKey,
+  //       title: (
+  //         <TreeNodeItem
+  //           key={item.key}
+  //           item={{ ...item }}
+  //           onEditClick={(val) => {
+  //             val && setSelectedNode(val)
+  //           }}
+  //           onDeleteSuccess={onDeleteSuccess}
+  //           onAddSuccess={onAddSuccess}
+  //         />
+  //       ),
+  //     }))
+  //   return newData
+  // }
 
   //====================================================================
   //                        useEffects
@@ -131,8 +143,8 @@ const Account = () => {
 
   useEffect(() => {
     if (accData?.data) {
-      const data = addIconToData(accData.data)
-      const finalData = treeify(data)
+      // const data = addIconToData(accData.data)
+      // const finalData = treeify(data)
       setTreeData(accData?.data)
     }
   }, [accData])
@@ -151,34 +163,23 @@ const Account = () => {
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
                 <Tree
-                
+
                   showIcon
                   blockNode
                   treeData={treeData}
-                  // defaultExpandedKeys={expandedKeys}
                   showLine
                   autoExpandParent
+                  titleRender={titleRender}
+                  // defaultExpandedKeys={expandedKeys}
                   // fieldNames={{ title: "name", key: "code", children: 'children' }}
                   // titleRender={(nodeData) => { return (<>{nodeData.code + ' - ' + nodeData.name} </>) }}
                   // loadData={loadData}
-                  titleRender={(nodeData) => {
-                    return (<TreeNodeItem
-                      key={nodeData.key}
-                      item={{ ...nodeData }}
-                      onEditClick={(val) => {
-                        val && setSelectedNode(val)
-                      }}
-                      onDeleteSuccess={onDeleteSuccess}
-                      onAddSuccess={onAddSuccess}
-                    />)
-                  }}
                 />
                 {/* </Ant.Card> */}
               </CoustomContent>
             </Ant.Col>
 
             <Ant.Col span={24} md={14}>
-              {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
                 {(!selectedNode || selectedNode?.level === 0) && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 1 && (
