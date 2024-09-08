@@ -25,11 +25,11 @@ const Account = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const updateTreeData = (list, key, children) =>{
-    console.log('tree data input', {list, key, children})
+  const updateTreeData = (list, key, children) => {
+    console.log('tree data input', { list, key, children })
     list.map((node) => {
       if (node.id === key) {
-         console.log('a',{
+        console.log('a', {
           ...node,
           children,
         })
@@ -47,28 +47,29 @@ const Account = () => {
       }
       console.log('c')
       return node;
-    });}
+    });
+  }
 
 
 
-  const loadData = (key, children) => new Promise(   (resolve) => {
+  const loadData = (key, children) => new Promise((resolve) => {
     console.log({ key, children });
     const queryString = qs.stringify({
       AccountGroupId: key.id
     })
-    console.log('queryString',queryString);
+    console.log('queryString', queryString);
     api.GetAsync(`${url.ACCOUNT_HEADER}?${queryString}`, null).then(response => {
-      console.log('response =>',response);
-      console.log('upd => ' ,updateTreeData(treeData,key.id,response.data))
+      console.log('response =>', response);
+      console.log('upd => ', updateTreeData(treeData, key.id, response.data))
       resolve();
     })
-    .catch(error => {
-      console.error(error);
-    });
-    
+      .catch(error => {
+        console.error(error);
+      });
+
   }).then(() => { console.log('then') })
   const FillTree = async () => {
-    await accApiCall(url.ACCOUNT_GROUP)
+    await accApiCall(url.ACCOUNT_TREE)
   }
 
   const onDeleteSuccess = (item) => {
@@ -141,7 +142,7 @@ const Account = () => {
   //====================================================================
   return (
     <>
-    {/* {JSON.stringify(treeData)} */}
+      {/* {JSON.stringify(treeData)} */}
       <RequestManager error={accError} />
       <Ant.Card title={'درختواره حساب ها'} type="inner" >
         <Ant.Form form={form} layout="vertical" onFinish={null} onFinishFailed={null}>
@@ -153,12 +154,23 @@ const Account = () => {
                   showIcon
                   blockNode
                   treeData={treeData}
-                  defaultExpandedKeys={expandedKeys}
+                  // defaultExpandedKeys={expandedKeys}
                   showLine
                   autoExpandParent
-                  fieldNames={{ title: "name", key: "code", children: 'children' }}
-                  titleRender={(nodeData) => { return (<>{nodeData.code + ' - ' + nodeData.name} </>) }}
-                  loadData={loadData}
+                  // fieldNames={{ title: "name", key: "code", children: 'children' }}
+                  // titleRender={(nodeData) => { return (<>{nodeData.code + ' - ' + nodeData.name} </>) }}
+                  // loadData={loadData}
+                  titleRender={(nodeData) => {
+                    return (<TreeNodeItem
+                      key={nodeData.key}
+                      item={{ ...nodeData }}
+                      onEditClick={(val) => {
+                        val && setSelectedNode(val)
+                      }}
+                      onDeleteSuccess={onDeleteSuccess}
+                      onAddSuccess={onAddSuccess}
+                    />)
+                  }}
                 />
                 {/* </Ant.Card> */}
               </CoustomContent>
@@ -167,16 +179,15 @@ const Account = () => {
             <Ant.Col span={24} sm={14}>
               {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
               <CoustomContent bordered height="77vh" loading={accLoading}>
-                {!selectedNode && <Ant.Empty description={emptyDescription} />}
-                {selectedNode?.level === 0 && <Ant.Empty description={emptyDescription} />}
+                {(!selectedNode || selectedNode?.level === 0) && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 1 && (
-                  <FrmEditAccountGroup key={selectedNode?.id} accountGroupId={selectedNode?.id} />
+                  <FrmEditAccountGroup key={selectedNode?.key} accountGroupId={selectedNode?.accountGroupId} />
                 )}
                 {selectedNode?.level === 2 && (
-                  <FrmEditAccountHeader key={selectedNode?.id} accountHeaderId={selectedNode?.id} />
+                  <FrmEditAccountHeader key={selectedNode?.key} accountHeaderId={selectedNode?.accountHeaderId} />
                 )}
                 {selectedNode?.level === 3 && (
-                  <FrmEditAccount key={selectedNode?.id} accountId={selectedNode?.id} />
+                  <FrmEditAccount key={selectedNode?.key} accountId={selectedNode?.accountId} />
                 )}
               </CoustomContent>
               {/* </Ant.Card> */}

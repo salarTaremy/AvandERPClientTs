@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { Form } from "antd";
 import * as url from "@/api/url";
+import PropTypes from "prop-types";
 import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -169,3 +170,8 @@ const FormCounterpartyAddressEdit = (props) => {
 };
 
 export default FormCounterpartyAddressEdit;
+FormCounterpartyAddressEdit.propTypes = {
+  onSuccess: PropTypes.func,
+  id: PropTypes.number.isRequired,
+  key: PropTypes.string.isRequired,
+};
