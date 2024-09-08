@@ -673,4 +673,5 @@ export const BasicInfoStep = (props) => {
 
 BasicInfoStep.propTypes = {
   form: PropTypes.any,
+  counterpartyId: PropTypes.number.isRequired,
 };

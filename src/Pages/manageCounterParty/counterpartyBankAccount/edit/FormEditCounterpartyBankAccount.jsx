@@ -205,9 +205,7 @@ const FormEditCounterpartyBankAccount = (props) => {
 
 export default FormEditCounterpartyBankAccount;
 FormEditCounterpartyBankAccount.propTypes = {
-    onFinish: PropTypes.func,
     onSuccess: PropTypes.func,
-    obj: PropTypes.any,
-    id: PropTypes.number,
-    loading: PropTypes.bool,
+    id: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
 };

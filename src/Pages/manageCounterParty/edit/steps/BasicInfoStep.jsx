@@ -657,4 +657,5 @@ export const BasicInfoStep = (props) => {
 
 BasicInfoStep.propTypes = {
   form: PropTypes.any,
+  id: PropTypes.number.isRequired,
 };

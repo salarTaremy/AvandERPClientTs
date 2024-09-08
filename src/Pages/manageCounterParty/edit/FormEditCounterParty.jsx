@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import * as url from "@/api/url";
+import PropTypes from "prop-types";
 import { Steps, Form } from "antd";
 import { usePutWithHandler } from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -168,3 +169,9 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
   );
 };
 export default FormEditCounterParty;
+
+FormEditCounterParty.propTypes = {
+  onSuccess: PropTypes.func,
+  id: PropTypes.number.isRequired,
+  key: PropTypes.string.isRequired,
+};

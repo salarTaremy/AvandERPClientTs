@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { Steps, Form } from "antd";
 import * as url from "@/api/url";
+import PropTypes from "prop-types";
 import { usePostWithHandler, usePutWithHandler } from "@/api";
 import { RequestManager } from "@/components/common/RequestManager";
 import * as uuid from "uuid";
@@ -204,4 +205,8 @@ export const FormCounterpartyAdd = (props) => {
     </>
     // )
   );
+};
+
+FormCounterpartyAdd.propTypes = {
+  onSuccess: PropTypes.func,
 };
