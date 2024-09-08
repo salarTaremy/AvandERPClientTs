@@ -40,6 +40,7 @@ const FilterPanel = (props) => {
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
+   if (inputValue) {
     const queryString = qs.stringify({
       counterpartyName: inputValue,
     });
@@ -54,6 +55,7 @@ const FilterPanel = (props) => {
         value: item.id,
       }));
     }
+   }
   };
 
   //====================================================================

@@ -87,19 +87,21 @@ const EditSaleDocHeader = (props) => {
   //====================================================================
 
   const getCustomerForDropDown = async (searchText) => {
-    const queryString = qs.stringify({
-      customerName: searchText,
-    });
-
-    const response = await api.GetAsync(
-      `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
-      "",
-    );
-    if (response?.data) {
-      return response?.data.map((item) => ({
-        label: `${item.customerName}`,
-        value: item.id,
-      }));
+    if (searchText) {
+      const queryString = qs.stringify({
+        customerName: searchText,
+      });
+  
+      const response = await api.GetAsync(
+        `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
+        "",
+      );
+      if (response?.data) {
+        return response?.data.map((item) => ({
+          label: `${item.customerName}`,
+          value: item.id,
+        }));
+      }
     }
   };
   const getSaleDocument = async () => {

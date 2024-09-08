@@ -95,19 +95,21 @@ const FormAddCustomer = ({ onSucces }) => {
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
-    const queryString = qs.stringify({
-      counterpartyName: inputValue,
-    });
-
-    const response = await GetAsync(
-      `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
-      "",
-    );
-    if (response?.data) {
-      return response?.data.map((item) => ({
-        label: `${item.counterpartyName} `,
-        value: item.id,
-      }));
+    if (inputValue) {
+      const queryString = qs.stringify({
+        counterpartyName: inputValue,
+      });
+  
+      const response = await GetAsync(
+        `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
+        "",
+      );
+      if (response?.data) {
+        return response?.data.map((item) => ({
+          label: `${item.counterpartyName} `,
+          value: item.id,
+        }));
+      }
     }
   };
 

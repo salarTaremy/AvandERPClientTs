@@ -76,6 +76,7 @@ const AddSaleDocHeader = (props) => {
   //====================================================================
 
   const getCustomerForDropDown = async (searchText) => {
+   if (searchText) {
     const queryString = qs.stringify({
       customerName: searchText,
     });
@@ -90,6 +91,7 @@ const AddSaleDocHeader = (props) => {
         value: item.id,
       }));
     }
+   }
   };
 
   const getValueCustomer = (val) => {
