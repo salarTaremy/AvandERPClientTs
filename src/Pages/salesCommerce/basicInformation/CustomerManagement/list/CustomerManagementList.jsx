@@ -45,23 +45,20 @@ const CustomerManagementList = () => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    setPagination({ ...pagination, current: 1 });
-    filterObject &&
-      setFilterCount(
-        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
-      );
-    !filterObject && setFilterCount(0);
-  }, [filterObject]);
-
-  useEffect(() => {
     DeleteData?.isSuccess &&
       setDataSource([
         ...dataSource?.filter((c) => c.id !== DeleteData?.data?.id),
       ]);
   }, [DeleteData]);
+
   useEffect(() => {
+    filterObject &&
+    setFilterCount(
+      Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+    );
+  !filterObject && setFilterCount(0);
     getAllCustomer();
-  }, [pagination.current, pagination.pageSize, filterCount]);
+  }, [pagination.current, pagination.pageSize, filterObject]);
 
   useEffect(() => {
     setDataSource(listData?.data);
