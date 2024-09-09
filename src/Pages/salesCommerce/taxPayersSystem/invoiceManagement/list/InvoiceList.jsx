@@ -148,7 +148,7 @@ const InvoiceList = () => {
   };
   const hasSelectedRow = selectedRowKeys && selectedRowKeys.length > 0;
 
-  const onViewCompanyinformation = (customerLegalEntityIdentity) => {
+  const onViewCompanyInformation = (customerLegalEntityIdentity) => {
     const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList)
     setModalContent(<CompanyInformation key={uuid.v1()} legalEntityIdentity={customerLegalEntityIdentity} />);
@@ -276,7 +276,7 @@ const InvoiceList = () => {
               onViewCustomer,
               onInquiry,
               onSendToTaxPayersSystem,
-              onViewCompanyinformation
+              onViewCompanyInformation
             )}
             dataSource={dataSource}
             pagination={tableParams?.pagination}

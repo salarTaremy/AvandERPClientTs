@@ -20,13 +20,9 @@ const CompanyInformation = (props) => {
     //                        useEffects
     //====================================================================
     useEffect(() => {
+        form.setFieldsValue({legalIdentity: legalEntityIdentity});
         getCompanyInformation()
     }, []);
-
-    useEffect(() => {
-        // form.resetFields()
-        listData?.isSuccess && form.setFieldsValue({ ...(listData?.data) })
-    }, [listData])
     //====================================================================
     //                        Functions
     //======================================================================
@@ -39,7 +35,7 @@ const CompanyInformation = (props) => {
 
     const reload = async (value) => {
         const queryString = qs.stringify({
-            legalIdentity: value.nationalId
+            legalIdentity: value.legalIdentity
         });
         await ApiCall(`${url.TPS_COMPANY_INFORMATION}?${queryString}`);
     }
@@ -97,11 +93,6 @@ const CompanyInformation = (props) => {
             </Ant.Button>
         )
     }
-
-    //====================================================================
-    //                        Child Components
-    //====================================================================
-
     //====================================================================
     //                        Component
     //====================================================================
@@ -110,7 +101,7 @@ const CompanyInformation = (props) => {
             <ModalHeader title={`اطلاعات شرکت`} icon={<BsInfoCircleFill />} />
             <Ant.Form form={form} key={key} onFinish={reload} layout="horizontal">
                 <Ant.Form.Item
-                    name="nationalId"
+                    name="legalIdentity"
                     label={"شناسه ملی"}
                     rules={[{ required: true, max: 14, min: 10 }]}
                     style={{ width: "100%" }}
@@ -130,9 +121,7 @@ const CompanyInformation = (props) => {
 
 export default CompanyInformation
 CompanyInformation.propTypes = {
-    onSuccess: PropTypes.func,
-    obj: PropTypes.any,
-    legalEntityIdentity: PropTypes.number,
-    myKey: PropTypes.number,
+    legalEntityIdentity: PropTypes.number.isRequired,
+    key: PropTypes.number,
 };
 
