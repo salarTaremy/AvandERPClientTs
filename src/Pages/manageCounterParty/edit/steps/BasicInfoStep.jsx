@@ -487,7 +487,7 @@ export const BasicInfoStep = (props) => {
                         validator: (_, value) => {
                           if (
                             value == null || value?.toString().length == 0 ||
-                            (value?.toString().length == 11 || value?.toString().length == 14)
+                            (value?.toString().length >= 11 || value?.toString().length <= 14)
                           ) {
                             return Promise.resolve();
                           } else {
