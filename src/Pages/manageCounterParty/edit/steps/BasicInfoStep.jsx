@@ -487,12 +487,12 @@ export const BasicInfoStep = (props) => {
                         validator: (_, value) => {
                           if (
                             value == null || value?.toString().length == 0 ||
-                            (counterpartyType == COUNTERPARTY_TYPE.Institution && value?.toString().length == 12)
+                            (value?.toString().length == 11 || value?.toString().length == 14)
                           ) {
                             return Promise.resolve();
                           } else {
                             return Promise.reject(
-                              "کد اقتصادی باید حداقل 12 کاراکتر باشد",
+                              "کد اقتصادی باید حداقل 11 کاراکتر باشد",
                             );
                           }
                         },
