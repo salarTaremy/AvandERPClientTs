@@ -5,6 +5,12 @@ import { MdGrading } from "react-icons/md";
 import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import { useFetchWithHandler, useFetch, usePutWithHandler } from "@/api";
+import {
+  BsFillJournalBookmarkFill,
+  BsBook,
+  BsJournalCheck,
+
+} from "react-icons/bs";
 import * as url from "@/api/url";
 import * as api from "@/api";
 import useAllLoading from "@/hooks/useAllLoading ";
@@ -143,7 +149,16 @@ export const FormEditSaleClassification = (props) => {
                   loading={accounGroupTreeLoading || accLoading}
                   disabled={accounGroupTreeLoading || accLoading }
                   options={options}
-                  optionRender={(option) => <span>{option.fullCode +'-'+ option.name}</span> }
+                  optionRender={(option) => (
+                    <>
+                     <Ant.Space >
+                      {option.level === 1 && <BsFillJournalBookmarkFill className="text-blue-500" />}
+                      {option.level === 2 && <BsJournalCheck className="text-orange-400" />}
+                      {option.level === 3 && <BsBook className="text-green-600" />}
+                      {option.fullCode}-{option.name}
+                      </Ant.Space>
+                    </>
+                  )}
                   onChange={handleChangeAccount}
                   placeholder="لطفا انتخاب کنید ..."
                   fieldNames={{ label: "name", value: "id", children: "children" }}

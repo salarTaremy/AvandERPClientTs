@@ -5,6 +5,12 @@ import * as url from "@/api/url";
 import { usePutWithHandler, useFetch, useFetchWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
+import {
+  BsFillJournalBookmarkFill,
+  BsBook,
+  BsJournalCheck,
+
+} from "react-icons/bs";
 import { SiAnytype } from "react-icons/si";
 import * as api from "@/api";
 import useAllLoading from "@/hooks/useAllLoading ";
@@ -152,7 +158,16 @@ const FormEditSaleType = (props) => {
                   loading={accounGroupTreeLoading || accLoading}
                   disabled={accounGroupTreeLoading || accLoading}
                   options={options}
-                  // optionRender={(option) => <span>{option.fullCode +'-'+ option.name}</span> }
+                  optionRender={(option) => (
+                    <>
+                     <Ant.Space >
+                      {option.level === 1 && <BsFillJournalBookmarkFill className="text-blue-500" />}
+                      {option.level === 2 && <BsJournalCheck className="text-orange-400" />}
+                      {option.level === 3 && <BsBook className="text-green-600" />}
+                      {option.fullCode}-{option.name}
+                      </Ant.Space>
+                    </>
+                  )}
                   onChange={handleChangeAccount}
                   placeholder="لطفا انتخاب کنید ..."
                   fieldNames={{

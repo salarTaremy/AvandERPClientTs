@@ -1,30 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import * as Ant from 'antd'
-import * as Icons from '@ant-design/icons'
-import * as uuid from 'uuid'
-import PropTypes from 'prop-types'
-import FrmAddAccountGroup from './add/FrmAddAccountGroup'
-import { FrmAddAccount } from './add/FrmAddAccount'
-import { FrmAddAccountHeader } from './add/FrmAddAccountHeader'
-import { useDelWithHandler } from '@/api'
-import * as url from '@/api/url'
-import useRequestManager from '@/hooks/useRequestManager'
-import { BsFillJournalBookmarkFill, BsBook, BsJournalCheck, BsFillLockFill } from 'react-icons/bs'
-import Swal from 'sweetalert2'
-import FrmLinkAccountDetailAccount from './edit/FrmLinkAccountDetailAccount'
+import React, { useEffect, useState } from "react";
+import * as Ant from "antd";
+import * as Icons from "@ant-design/icons";
+import * as uuid from "uuid";
+import PropTypes from "prop-types";
+import FrmAddAccountGroup from "./add/FrmAddAccountGroup";
+import { FrmAddAccount } from "./add/FrmAddAccount";
+import { FrmAddAccountHeader } from "./add/FrmAddAccountHeader";
+import { useDelWithHandler } from "@/api";
+import * as url from "@/api/url";
+import useRequestManager from "@/hooks/useRequestManager";
+import {
+  BsFillJournalBookmarkFill,
+  BsBook,
+  BsJournalCheck,
+  BsFillLockFill,
+} from "react-icons/bs";
+import Swal from "sweetalert2";
+import FrmLinkAccountDetailAccount from "./edit/FrmLinkAccountDetailAccount";
 import * as defaultValues from "@/defaultValues";
 //====================================================================
 //                        Declaration
 //====================================================================
 const TreeNodeItem = (props) => {
-  const buttonSize = 'small'
-  const { item, onEditClick, onDeleteSuccess, onAddSuccess } = props
-  const [isDeleted, setIsDeleted] = useState(false)
-  const [showBtn, setShowBtn] = useState(false)
-  const [modalState, setModalState] = useState(false)
-  const [modalStateLink, setModalStateLink] = useState(false)
-  const [delData, delLoading, delError, delApiCall] = useDelWithHandler()
-  useRequestManager({ error: delError, loading: delLoading, data: delData })
+  const buttonSize = "small";
+  const { item, onEditClick, onDeleteSuccess, onAddSuccess } = props;
+  const [isDeleted, setIsDeleted] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
+  const [modalState, setModalState] = useState(false);
+  const [modalStateLink, setModalStateLink] = useState(false);
+  const [delData, delLoading, delError, delApiCall] = useDelWithHandler();
+  useRequestManager({ error: delError, loading: delLoading, data: delData });
   //====================================================================
   //                        Functions
   //====================================================================
@@ -32,40 +37,40 @@ const TreeNodeItem = (props) => {
     Swal.fire({
       title: ` حذف حساب `,
       text: `بابت حذف حساب ${item.title} اطمینان دارید ؟`,
-      icon: 'question',
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'تایید',
-      cancelButtonText: 'انصراف',
+      confirmButtonText: "تایید",
+      cancelButtonText: "انصراف",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        let finalUrl = ''
+        let finalUrl = "";
         if (item.level === 1) {
-          finalUrl = `${url.ACCOUNT_GROUP}/${item.accountGroupId}`
+          finalUrl = `${url.ACCOUNT_GROUP}/${item.accountGroupId}`;
         }
         if (item.level === 2) {
-          finalUrl = `${url.ACCOUNT_HEADER}/${item.accountHeaderId}`
+          finalUrl = `${url.ACCOUNT_HEADER}/${item.accountHeaderId}`;
         }
         if (item.level === 3) {
-          finalUrl = `${url.ACCOUNT}/${item.accountId}`
+          finalUrl = `${url.ACCOUNT}/${item.accountId}`;
         }
-        await delApiCall(finalUrl)
+        await delApiCall(finalUrl);
       }
-    })
-  }
+    });
+  };
   const onSuccess = () => {
-    setModalState(false)
-    onAddSuccess(item)
-  }
+    setModalState(false);
+    onAddSuccess(item);
+  };
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    delData?.isSuccess && onDeleteSuccess && onDeleteSuccess(item)
-    delData?.isSuccess && setIsDeleted(true)
-  }, [delData])
+    delData?.isSuccess && onDeleteSuccess && onDeleteSuccess(item);
+    delData?.isSuccess && setIsDeleted(true);
+  }, [delData]);
   useEffect(() => {
-    delLoading && setShowBtn(false)
-  }, [delLoading])
+    delLoading && setShowBtn(false);
+  }, [delLoading]);
   return (
     <>
       <Ant.Modal
@@ -75,17 +80,26 @@ const TreeNodeItem = (props) => {
         centered
         footer={null}
         onCancel={() => {
-          setModalState(false)
+          setModalState(false);
         }}
         onOk={() => {
-          setModalState(false)
+          setModalState(false);
         }}
         {...defaultValues.MODAL_PROPS}
-
       >
         {item.level === 0 && <FrmAddAccountGroup onSuccess={onSuccess} />}
-        {item.level === 1 && <FrmAddAccountHeader onSuccess={onSuccess} accountGroupId={item.accountGroupId} />}
-        {item.level === 2 && <FrmAddAccount onSuccess={onSuccess} accountHeaderId={item.accountHeaderId} />}
+        {item.level === 1 && (
+          <FrmAddAccountHeader
+            onSuccess={onSuccess}
+            accountGroupId={item.accountGroupId}
+          />
+        )}
+        {item.level === 2 && (
+          <FrmAddAccount
+            onSuccess={onSuccess}
+            accountHeaderId={item.accountHeaderId}
+          />
+        )}
       </Ant.Modal>
       <Ant.Modal
         open={modalStateLink}
@@ -95,38 +109,46 @@ const TreeNodeItem = (props) => {
         {...defaultValues.MODAL_PROPS}
         footer={null}
         onCancel={() => {
-          setModalStateLink(false)
+          setModalStateLink(false);
         }}
         onOk={() => {
-          setModalStateLink(false)
+          setModalStateLink(false);
         }}
       >
         {/* <FrmLinkAccountDetailAccount key={uuid.v1()} account={item}/> */}
         <FrmLinkAccountDetailAccount key={item.id} account={item} />
       </Ant.Modal>
-      {isDeleted && <BsFillLockFill style={{ color: 'red' }} />}
+      {isDeleted && <BsFillLockFill style={{ color: "red" }} />}
       {delLoading && <Ant.Spin />}
       {!delLoading && !isDeleted && (
-        <Ant.Row align={'middle'} justify="space-between" onMouseOver={() => setShowBtn(true)} onMouseOut={() => setShowBtn(false)}>
+        <Ant.Row
+          align={"middle"}
+          justify="space-between"
+          onMouseOver={() => setShowBtn(true)}
+          onMouseOut={() => setShowBtn(false)}
+        >
           <Ant.Col
             span={20}
             onClick={() => {
-              onEditClick && onEditClick(item)
+              onEditClick && onEditClick(item);
             }}
           >
-            <Ant.Space align="center" className='mt-1'>
-              {item.level === 1 && <BsFillJournalBookmarkFill className='text-blue-500' />}
-              {item.level === 2 && <BsJournalCheck className='text-orange-400' />}
-              {item.level === 3 && <BsBook className='text-green-600' />}
-            {item.title}
+            <Ant.Space align="center" className="mt-1">
+              {item.level === 1 && (
+                <BsFillJournalBookmarkFill className=" text-blue-500" />
+              )}
+              {item.level === 2 && (
+                <BsJournalCheck className="text-orange-400" />
+              )}
+              {item.level === 3 && <BsBook className="text-green-600" />}
+              {item.title}
             </Ant.Space>
-
           </Ant.Col>
           <Ant.Col span={2}>
             {showBtn && item.level >= 0 && item.level <= 2 && (
               <Ant.Button
                 onClick={() => {
-                  setModalState(true)
+                  setModalState(true);
                 }}
                 size={buttonSize}
                 // type="primary"
@@ -137,7 +159,7 @@ const TreeNodeItem = (props) => {
             {showBtn && item.level >= 3 && item.level <= 3 && (
               <Ant.Button
                 onClick={() => {
-                  setModalStateLink(true)
+                  setModalStateLink(true);
                 }}
                 size={buttonSize}
                 // type="primary"
@@ -159,13 +181,13 @@ const TreeNodeItem = (props) => {
         </Ant.Row>
       )}
     </>
-  )
-}
+  );
+};
 TreeNodeItem.propTypes = {
   item: PropTypes.object,
   onEditClick: PropTypes.func,
   onDeleteSuccess: PropTypes.func.isRequired,
   onAddSuccess: PropTypes.func.isRequired,
-}
+};
 
-export default TreeNodeItem
+export default TreeNodeItem;

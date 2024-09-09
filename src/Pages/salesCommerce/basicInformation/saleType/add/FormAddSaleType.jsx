@@ -5,6 +5,13 @@ import useRequestManager from "@/hooks/useRequestManager";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import ModalHeader from "@/components/common/ModalHeader";
+
+import {
+  BsFillJournalBookmarkFill,
+  BsBook,
+  BsJournalCheck,
+
+} from "react-icons/bs";
 import { SiAnytype } from "react-icons/si";
 import useAllLoading from "@/hooks/useAllLoading ";
 import * as api from "@/api";
@@ -117,23 +124,7 @@ const FormAddSaleType = (props) => {
                 />
               </Ant.Form.Item>
             </Ant.Col>
-            {/* <Ant.Col span={24} md={24} lg={24}>
-            <Ant.Form.Item
-              name={"accountId"}
-              label="حساب "
 
-            >
-              <Ant.Select
-                {...commonOptionsAcc}
-                allowClear={true}
-                placeholder={"انتخاب کنید..."}
-                disabled={accountLoading || false}
-                loading={accountLoading}
-                options={accountList?.data}
-                fieldNames={{ label: "name", value: "id" }}
-              />
-            </Ant.Form.Item>
-          </Ant.Col> */}
             <Ant.Col span={24} md={24} lg={24}>
               <Ant.Form.Item
                 name={"accountId"}
@@ -148,7 +139,16 @@ const FormAddSaleType = (props) => {
                 <Ant.Cascader
                   loading={accounGroupTreeLoading}
                   options={options}
-                  // optionRender={(option) => <span>{option.fullCode +'-'+ option.name}</span> }
+                  optionRender={(option) => (
+                    <>
+                     <Ant.Space >
+                      {option.level === 1 && <BsFillJournalBookmarkFill className="text-blue-500" />}
+                      {option.level === 2 && <BsJournalCheck className="text-orange-400" />}
+                      {option.level === 3 && <BsBook className="text-green-600" />}
+                      {option.fullCode}-{option.name}
+                      </Ant.Space>
+                    </>
+                  )}
                   onChange={handleChangeAccount}
                   placeholder="لطفا انتخاب کنید ..."
                   fieldNames={{

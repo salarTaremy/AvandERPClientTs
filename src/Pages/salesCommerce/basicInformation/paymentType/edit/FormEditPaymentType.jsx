@@ -4,6 +4,13 @@ import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { usePutWithHandler, useFetchWithHandler, useFetch } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
+
+import {
+  BsFillJournalBookmarkFill,
+  BsBook,
+  BsJournalCheck,
+
+} from "react-icons/bs";
 import ModalHeader from "@/components/common/ModalHeader";
 import { MdOutlinePayment } from "react-icons/md";
 import * as api from "@/api";
@@ -149,6 +156,16 @@ const FormEditPaymentType = (props) => {
                   showSearch={{
                     filter,
                   }}
+                  optionRender={(option) => (
+                    <>
+                     <Ant.Space >
+                      {option.level === 1 && <BsFillJournalBookmarkFill className="text-blue-500" />}
+                      {option.level === 2 && <BsJournalCheck className="text-orange-400" />}
+                      {option.level === 3 && <BsBook className="text-green-600" />}
+                      {option.fullCode}-{option.name}
+                      </Ant.Space>
+                    </>
+                  )}
                   displayRender={(labels, selectedOptions) => {
                     const lastLabel = labels[labels.length - 1];
                     const accountCode =
