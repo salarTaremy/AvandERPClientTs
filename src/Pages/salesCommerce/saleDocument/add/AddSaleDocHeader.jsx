@@ -59,6 +59,21 @@ const AddSaleDocHeader = (props) => {
   useRequestManager({ error: visitorError });
   useRequestManager({ error: branchError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
+  const commonOptions = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.title.indexOf(input) >= 0,
+  };
+  const commonOptionsBranch = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+  };
+  const commonOptionsVisitor = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.fullName.indexOf(input) >= 0,
+  };
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -152,6 +167,7 @@ const AddSaleDocHeader = (props) => {
                 label="کانال فروش"
               >
                 <Ant.Select
+{...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={saleChannelLoading || false}
@@ -196,6 +212,7 @@ const AddSaleDocHeader = (props) => {
                 label="نوع برگه فروش"
               >
                 <Ant.Select
+                {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={saleDocTypeLoading || false}
@@ -212,6 +229,7 @@ const AddSaleDocHeader = (props) => {
                 label="ویزیتور"
               >
                 <Ant.Select
+                {...commonOptionsVisitor}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={visitorLoading || false}
@@ -228,6 +246,7 @@ const AddSaleDocHeader = (props) => {
                 label="نوع پرداخت"
               >
                 <Ant.Select
+                               {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={paymentTypeLoading || false}
@@ -244,6 +263,7 @@ const AddSaleDocHeader = (props) => {
                 label="نوع فروش"
               >
                 <Ant.Select
+                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={saleTypeLoading || false}
@@ -260,6 +280,7 @@ const AddSaleDocHeader = (props) => {
                 label="نوع تحویل"
               >
                 <Ant.Select
+                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={deliveryTypeLoading || false}
@@ -276,6 +297,7 @@ const AddSaleDocHeader = (props) => {
                 label="طبقه بندی فروش"
               >
                 <Ant.Select
+                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={saleClassificationLoading || false}
@@ -292,6 +314,7 @@ const AddSaleDocHeader = (props) => {
                 label="نام شعبه"
               >
                 <Ant.Select
+                   {...commonOptionsBranch}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
                   disable={branchLoading || false}

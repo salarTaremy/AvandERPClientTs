@@ -38,21 +38,20 @@ const EditSaleDocHeader = (props) => {
   const [isDisable, setIsDisable] = useState(true);
   const [idCustomer, setIdCustomer] = useState(null);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
-  const [visitorData, visitorLoading, visitorError] = api.useFetch(
-    url.VISITOR,
-  );
-  const [deliveryTypeData, deliveryTypeLoading, deliveryTypeError] = api.useFetch(
-    url.DELIVERY_TYPE,
-  );
+  const [visitorData, visitorLoading, visitorError] = api.useFetch(url.VISITOR);
+  const [deliveryTypeData, deliveryTypeLoading, deliveryTypeError] =
+    api.useFetch(url.DELIVERY_TYPE);
   const [saleTypeData, saleTypeLoading, saleTypeError] = api.useFetch(
     url.SALETYPE,
   );
   const [paymentTypeData, paymentTypeLoading, paymentTypeError] = api.useFetch(
     url.PAYMENT_TYPE,
   );
-  const [saleClassificationData, saleClassificationLoading, saleClassificationError] = api.useFetch(
-    url.SALE_CLASSIFICATION,
-  );
+  const [
+    saleClassificationData,
+    saleClassificationLoading,
+    saleClassificationError,
+  ] = api.useFetch(url.SALE_CLASSIFICATION);
 
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   useRequestManager({ error: saleChannelError });
@@ -64,6 +63,21 @@ const EditSaleDocHeader = (props) => {
   useRequestManager({ error: saleTypeError });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
 
+  const commonOptions = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.title.indexOf(input) >= 0,
+  };
+  const commonOptionsBranch = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+  };
+  const commonOptionsVisitor = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.fullName.indexOf(input) >= 0,
+  };
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -77,7 +91,13 @@ const EditSaleDocHeader = (props) => {
   useEffect(() => {
     form.resetFields();
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
-    listData?.isSuccess && form.setFieldsValue({customerId: {label: listData?.data.customerName, value: listData?.data.customerId}});
+    listData?.isSuccess &&
+      form.setFieldsValue({
+        customerId: {
+          label: listData?.data.customerName,
+          value: listData?.data.customerId,
+        },
+      });
   }, [listData]);
   useEffect(() => {
     idCustomer;
@@ -91,7 +111,7 @@ const EditSaleDocHeader = (props) => {
       const queryString = qs.stringify({
         customerName: searchText,
       });
-  
+
       const response = await api.GetAsync(
         `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
         "",
@@ -108,7 +128,7 @@ const EditSaleDocHeader = (props) => {
     await ApiCall(`${url.SALE_DOCUMENT_HEADER}/${id}`);
   };
   const getValueCustomer = (val) => {
-    setIsDisable(false)
+    setIsDisable(false);
     setIdCustomer(val?.key);
   };
   const onFinish = async (values) => {
@@ -140,197 +160,208 @@ const EditSaleDocHeader = (props) => {
       </Ant.Modal>
       <CoustomContent height="70vh">
         <ModalHeader title={"ویرایش برگه فروش"} icon={<BiEdit />} />
-        <Ant.Skeleton  active loading={loadingData}>
-        <Ant.Form
-          form={form}
-          onFinish={onFinish}
-          layout="vertical"
-          onFinishFailed={null}
-        >
-          <Ant.Row gutter={[8, 8]}>
-            <Ant.Col span={24} md={24} lg={12}>
-              <Ant.Form.Item
-                name={"issueDateCalendarId"}
-                rules={[{ required: true }]}
-                label=" تاریخ"
-              >
-                <MyDatePicker />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={12}>
-              <Ant.Form.Item
-                name={"saleChannelId"}
-                rules={[{ required: true }]}
-                label="کانال فروش"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={saleChannelLoading || false}
-                  loading={saleChannelLoading}
-                  options={saleChannelData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={22} md={22} lg={22}>
-              <Ant.Form.Item
-                name={"customerId"}
-                rules={[{ required: true }]}
-                label="مشتری"
-              >
-                <DebounceSelect
-                  maxCount={1}
-                  placeholder="بخشی از نام مشتری را تایپ کنید..."
-                  fetchOptions={getCustomerForDropDown}
-                  onChange={(newValue) => {
-                    getValueCustomer(newValue);
-                  }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={2} md={2} lg={2}>
-              <Ant.Form.Item>
-                <Ant.Button
-                disabled={isDisable || false}
-                  onClick={() => setIsModalOpen(true)}
-                  className="text-sky-600 mt-8"
-                  icon={<GrView />}
-                  type="text"
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
+        <Ant.Skeleton active loading={loadingData}>
+          <Ant.Form
+            form={form}
+            onFinish={onFinish}
+            layout="vertical"
+            onFinishFailed={null}
+          >
+            <Ant.Row gutter={[8, 8]}>
+              <Ant.Col span={24} md={24} lg={12}>
+                <Ant.Form.Item
+                  name={"issueDateCalendarId"}
+                  rules={[{ required: true }]}
+                  label=" تاریخ"
+                >
+                  <MyDatePicker />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={12}>
+                <Ant.Form.Item
+                  name={"saleChannelId"}
+                  rules={[{ required: true }]}
+                  label="کانال فروش"
+                >
+                  <Ant.Select
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={saleChannelLoading || false}
+                    loading={saleChannelLoading}
+                    options={saleChannelData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={22} md={22} lg={22}>
+                <Ant.Form.Item
+                  name={"customerId"}
+                  rules={[{ required: true }]}
+                  label="مشتری"
+                >
+                  <DebounceSelect
+                    maxCount={1}
+                    placeholder="بخشی از نام مشتری را تایپ کنید..."
+                    fetchOptions={getCustomerForDropDown}
+                    onChange={(newValue) => {
+                      getValueCustomer(newValue);
+                    }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={2} md={2} lg={2}>
+                <Ant.Form.Item>
+                  <Ant.Button
+                    disabled={isDisable || false}
+                    onClick={() => setIsModalOpen(true)}
+                    className="text-sky-600 mt-8"
+                    icon={<GrView />}
+                    type="text"
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
 
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"saleDocumentTypeId"}
-                rules={[{ required: true }]}
-                label="نوع برگه فروش"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
-                  loading={saleDocTypeLoading}
-                  options={saleDocTypeData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"visitorId"}
-                rules={[{ required: true }]}
-                label="ویزیتور"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={visitorLoading || false}
-                  loading={visitorLoading}
-                  options={visitorData?.data}
-                  fieldNames={{ label: "fullName", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"paymentTypeId"}
-                rules={[{ required: true }]}
-                label="نوع پرداخت"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={paymentTypeLoading || false}
-                  loading={paymentTypeLoading}
-                  options={paymentTypeData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"saleTypeId"}
-                rules={[{ required: true }]}
-                label="نوع فروش"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={saleTypeLoading || false}
-                  loading={saleTypeLoading}
-                  options={saleTypeData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"deliveryTypeId"}
-                rules={[{ required: true }]}
-                label="نوع تحویل"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={deliveryTypeLoading || false}
-                  loading={deliveryTypeLoading}
-                  options={deliveryTypeData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"saleClassificationId"}
-                rules={[{ required: true }]}
-                label="طبقه بندی فروش"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={saleClassificationLoading || false}
-                  loading={saleClassificationLoading}
-                  options={saleClassificationData?.data}
-                  fieldNames={{ label: "title", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name={"branchId"}
-                rules={[{ required: true }]}
-                label="نام شعبه"
-              >
-                <Ant.Select
-                  allowClear={true}
-                  placeholder={"انتخاب کنید..."}
-                  disable={branchLoading || false}
-                  loading={branchLoading}
-                  options={branchData?.data}
-                  fieldNames={{ label: "name", value: "id" }}
-                />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item
-                name="description"
-                label="توضیحات"
-                rules={[{ required: false }]}
-              >
-                <Ant.Input.TextArea allowClear showCount maxLength={400} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Form.Item className="text-end">
-                <Ant.Button loading={editLoading || false} type="primary" onClick={() => form.submit()}>
-                  {"تایید"}
-                </Ant.Button>
-              </Ant.Form.Item>
-            </Ant.Col>
-          </Ant.Row>
-        </Ant.Form>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"saleDocumentTypeId"}
+                  rules={[{ required: true }]}
+                  label="نوع برگه فروش"
+                >
+                  <Ant.Select
+                    {...commonOptions}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={saleDocTypeLoading || false}
+                    loading={saleDocTypeLoading}
+                    options={saleDocTypeData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"visitorId"}
+                  rules={[{ required: true }]}
+                  label="ویزیتور"
+                >
+                  <Ant.Select
+                    {...commonOptionsVisitor}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={visitorLoading || false}
+                    loading={visitorLoading}
+                    options={visitorData?.data}
+                    fieldNames={{ label: "fullName", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"paymentTypeId"}
+                  rules={[{ required: true }]}
+                  label="نوع پرداخت"
+                >
+                  <Ant.Select
+                    {...commonOptions}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={paymentTypeLoading || false}
+                    loading={paymentTypeLoading}
+                    options={paymentTypeData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"saleTypeId"}
+                  rules={[{ required: true }]}
+                  label="نوع فروش"
+                >
+                  <Ant.Select
+                    {...commonOptions}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={saleTypeLoading || false}
+                    loading={saleTypeLoading}
+                    options={saleTypeData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"deliveryTypeId"}
+                  rules={[{ required: true }]}
+                  label="نوع تحویل"
+                >
+                  <Ant.Select
+                    {...commonOptions}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={deliveryTypeLoading || false}
+                    loading={deliveryTypeLoading}
+                    options={deliveryTypeData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"saleClassificationId"}
+                  rules={[{ required: true }]}
+                  label="طبقه بندی فروش"
+                >
+                  <Ant.Select
+                    {...commonOptions}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={saleClassificationLoading || false}
+                    loading={saleClassificationLoading}
+                    options={saleClassificationData?.data}
+                    fieldNames={{ label: "title", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name={"branchId"}
+                  rules={[{ required: true }]}
+                  label="نام شعبه"
+                >
+                  <Ant.Select
+                    {...commonOptionsBranch}
+                    allowClear={true}
+                    placeholder={"انتخاب کنید..."}
+                    disable={branchLoading || false}
+                    loading={branchLoading}
+                    options={branchData?.data}
+                    fieldNames={{ label: "name", value: "id" }}
+                  />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item
+                  name="description"
+                  label="توضیحات"
+                  rules={[{ required: false }]}
+                >
+                  <Ant.Input.TextArea allowClear showCount maxLength={400} />
+                </Ant.Form.Item>
+              </Ant.Col>
+              <Ant.Col span={24} md={24} lg={24}>
+                <Ant.Form.Item className="text-end">
+                  <Ant.Button
+                    loading={editLoading || false}
+                    type="primary"
+                    onClick={() => form.submit()}
+                  >
+                    {"تایید"}
+                  </Ant.Button>
+                </Ant.Form.Item>
+              </Ant.Col>
+            </Ant.Row>
+          </Ant.Form>
         </Ant.Skeleton>
       </CoustomContent>
     </>

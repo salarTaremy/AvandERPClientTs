@@ -44,6 +44,21 @@ const FilterPanel = (props) => {
   useRequestManager({ error: saleChannelError });
   useRequestManager({ error: saleDocTypeError });
   useRequestManager({ error: branchError });
+  const commonOptions = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.title.indexOf(input) >= 0,
+  };
+  const commonOptionsBranch = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.name.indexOf(input) >= 0,
+  };
+  const commonOptionsVisitor = {
+    placeholder: "انتخاب کنید...",
+    showSearch: true,
+    filterOption: (input, option) => option.fullName.indexOf(input) >= 0,
+  };
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -95,7 +110,7 @@ const FilterPanel = (props) => {
       const queryString = qs.stringify({
         customerName: searchText,
       });
-  
+
       const response = await api.GetAsync(
         `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
         "",
@@ -146,6 +161,7 @@ const FilterPanel = (props) => {
         </Ant.Form.Item>
         <Ant.Form.Item name={"saleChannelId"} label="کانال فروش">
           <Ant.Select
+            {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
             disable={saleChannelLoading || false}
@@ -156,6 +172,7 @@ const FilterPanel = (props) => {
         </Ant.Form.Item>
         <Ant.Form.Item name={"saleDocumentTypeId"} label="نوع برگه فروش">
           <Ant.Select
+            {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
             disable={saleDocTypeLoading || false}
@@ -167,6 +184,7 @@ const FilterPanel = (props) => {
 
         <Ant.Form.Item name={"visitorId"} label="ویزیتور">
           <Ant.Select
+            {...commonOptionsVisitor}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
             disable={visitorLoading || false}
@@ -178,6 +196,7 @@ const FilterPanel = (props) => {
 
         <Ant.Form.Item name={"paymentTypeId"} label="نوع پرداخت">
           <Ant.Select
+            {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
             disable={paymentTypeLoading || false}
@@ -189,6 +208,7 @@ const FilterPanel = (props) => {
 
         <Ant.Form.Item name={"saleTypeId"} label="نوع فروش">
           <Ant.Select
+            {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
             disable={saleTypeLoading || false}
@@ -200,6 +220,7 @@ const FilterPanel = (props) => {
 
         <Ant.Form.Item name={"deliveryTypeId"} label="نوع تحویل">
           <Ant.Select
+            {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
             disable={deliveryTypeLoading || false}
@@ -211,6 +232,7 @@ const FilterPanel = (props) => {
 
         <Ant.Form.Item name={"saleClassificationId"} label="طبقه بندی فروش">
           <Ant.Select
+            {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
             disable={saleClassificationLoading || false}
@@ -222,6 +244,7 @@ const FilterPanel = (props) => {
 
         <Ant.Form.Item name={"branchIds"} label="نام شعبه">
           <Ant.Select
+            {...commonOptionsBranch}
             allowClear={true}
             mode="multiple"
             placeholder={"انتخاب کنید..."}
