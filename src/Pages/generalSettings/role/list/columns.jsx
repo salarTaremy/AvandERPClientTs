@@ -93,6 +93,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
         <Ant.Tag
           color={(record.isDenied == false && "green") || "red"}
           key={record.id}
+          bordered={false}
         >
           {" "}
           {(record.isDenied == false && "دسترسی مجاز") || " عدم دسترسی"}{" "}

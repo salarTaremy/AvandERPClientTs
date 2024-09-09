@@ -94,7 +94,7 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) =
                 align: 'center',
                 className: "text-xs sm:text-sm",
                 render: (text, record, index) => (
-                    <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id}>
+                    <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id} bordered={false}>
                         {' '}
                         {(record.isActive && 'فعال') || 'غیر فعال'}{' '}
                     </Ant.Tag>

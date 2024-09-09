@@ -17,9 +17,9 @@ const SaleEffectiveFactorDescription = (props) => {
   );
   useRequestManager({ error: error });
   const allowEditText = data?.data?.allowEdit ? (
-    <Ant.Tag color={"green"}>{"بله"}</Ant.Tag>
+    <Ant.Tag color={"green"} bordered={false}>{"بله"}</Ant.Tag>
   ) : (
-    <Ant.Tag color={"red"}>{"خیر"}</Ant.Tag>
+    <Ant.Tag color={"red"} bordered={false}>{"خیر"}</Ant.Tag>
   );
 
   const descriptionItems = [
