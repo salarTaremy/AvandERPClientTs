@@ -106,7 +106,7 @@ const FormAddDeliveryType = (props) => {
               label=" حساب "
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: "فیلد حساب  اجباری است",
                 },
               ]}

@@ -140,7 +140,7 @@ const FormEditDeliveryType = (props) => {
                 label=" حساب "
                 rules={[
                   {
-                    required: true,
+                    required: false,
                     message: "فیلد حساب  اجباری است",
                   },
                 ]}
