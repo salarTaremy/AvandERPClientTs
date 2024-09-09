@@ -46,23 +46,19 @@ const AccountDocumentList = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    setPagination({ ...pagination, current: 1 });
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-  }, [filterObject]);
-
-  useEffect(() => {
     fillGrid();
-  }, [pagination.current, pagination.pageSize, filterCount]);
+  }, [pagination.current, pagination.pageSize, filterObject]);
 
   useEffect(() => {
     setDataSource(listData?.data);
     setPagination({
       ...pagination,
-      total: listData?.data && listData?.data[0]?.totalCount 
+      total: listData?.data && listData?.data[0]?.totalCount
     });
   }, [listData]);
 

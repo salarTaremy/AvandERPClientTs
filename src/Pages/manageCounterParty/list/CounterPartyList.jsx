@@ -39,19 +39,14 @@ const CounterPartyList = () => {
   //====================================================================
   //                        useEffects
   //====================================================================
-
   useEffect(() => {
-    setPagination({ ...pagination, current: 1 });
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-  }, [filterObject]);
-
-  useEffect(() => {
     getAllCounterParty();
-  }, [pagination.current, pagination.pageSize, filterCount]);
+  }, [pagination.current, pagination.pageSize, filterObject]);
 
   useEffect(() => {
     setDataSource(listData?.data);
