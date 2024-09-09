@@ -158,7 +158,7 @@ const getCounterpartyTypeColor = (counterpartyTypeId) => {
   }
 };
 
-export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem, onViewCompanyinformation) => {
+export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToTaxPayersSystem, onViewCompanyInformation) => {
   return [
     {
       title: "شماره سریال",
@@ -264,7 +264,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
         return (
             (customerTypeId == COUNTERPARTY_TYPE.Institution || customerTypeId == COUNTERPARTY_TYPE.CivicParticipation) && 
             <Ant.Typography.Link
-              onClick={() => onViewCompanyinformation(record.customerLegalEntityIdentity)}
+              onClick={() => onViewCompanyInformation(record.customerLegalEntityIdentity)}
             >
               {text}
             </Ant.Typography.Link> || (record.customerLegalEntityIdentity)
@@ -278,6 +278,17 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       align: "center",
       className: "text-xs sm:text-sm",
       width: 120,
+      render: (text, record, index) => {
+        const customerTypeId = record.customerTypeId;
+        return (
+            (customerTypeId == COUNTERPARTY_TYPE.Individual || customerTypeId == COUNTERPARTY_TYPE.ForeignIndividual) && 
+            <Ant.Typography.Link
+              onClick={() => onViewCompanyInformation(record.customerEconomicCode)}
+            >
+              {record.customerEconomicCode}
+            </Ant.Typography.Link> || (record.customerEconomicCode)
+          )
+        }
     },
     {
       title: "تاریخ صدور",

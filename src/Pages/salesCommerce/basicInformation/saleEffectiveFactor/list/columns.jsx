@@ -67,8 +67,8 @@ export const columns = (onDelete, onEdit, onView) => {
             render: (text, record, index) => {
                 return (
                     <>
-                        {record.allowEdit && <Ant.Tag color={"green"}>{"بله"}</Ant.Tag>}
-                        {!record.allowEdit && <Ant.Tag color={"red"}>{"خیر"}</Ant.Tag>}
+                        {record.allowEdit && <Ant.Tag color={"green"} bordered={false}>{"بله"}</Ant.Tag>}
+                        {!record.allowEdit && <Ant.Tag color={"red"} bordered={false}>{"خیر"}</Ant.Tag>}
                     </>
                 )
             }

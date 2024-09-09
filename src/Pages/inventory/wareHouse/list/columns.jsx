@@ -62,6 +62,7 @@ const columns = (onDelete, onEdit,onConnection) => {
         <Ant.Tag
           color={(record.isActive == true && "green") || "red"}
           key={record.id}
+          bordered={false}
         >
           {(record.isActive == true && "فعال ") || "  غیر فعال"}
         </Ant.Tag>

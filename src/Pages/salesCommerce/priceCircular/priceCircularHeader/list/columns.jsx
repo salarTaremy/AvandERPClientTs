@@ -85,8 +85,8 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
             render: (text, record, index) => {
                 return (
                     <>
-                        {record.isActive && <Ant.Tag color="green">فعال</Ant.Tag>}
-                        {!record.isActive && <Ant.Tag color="red">غیرفعال</Ant.Tag>}
+                        {record.isActive && <Ant.Tag color="green" bordered={false}>فعال</Ant.Tag>}
+                        {!record.isActive && <Ant.Tag color="red" bordered={false}>غیرفعال</Ant.Tag>}
                     </>
                 )
             }

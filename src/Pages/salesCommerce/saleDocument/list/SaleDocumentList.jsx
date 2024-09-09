@@ -24,7 +24,7 @@ const SaleDocumentList = () => {
   const pageTitle = "مدیریت برگه های فروش";
   const [listData, listLoading, listError, listApiCall] =
     api.useFetchWithHandler();
-    useRequestManager({error:listError})
+  useRequestManager({ error: listError })
   const [dataSource, setDataSource] = useState(null);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
@@ -44,13 +44,18 @@ const SaleDocumentList = () => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
+    filterObject &&
+      setFilterCount(
+        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+      );
+    !filterObject && setFilterCount(0);
     fillGrid();
   }, [
     tableParams.pagination?.current,
     tableParams.pagination?.pageSize,
     tableParams?.sortOrder,
     tableParams?.sortField,
-    filterCount
+    filterObject
   ]);
 
   useEffect(() => {
@@ -64,20 +69,6 @@ const SaleDocumentList = () => {
     });
   }, [listData]);
 
-  useEffect(() => {
-    setTableParams({
-      ...tableParams,
-      pagination: {
-        ...tableParams.pagination,
-        current: 1,
-      },
-    });
-    filterObject &&
-      setFilterCount(
-        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
-      );
-    !filterObject && setFilterCount(0);
-  }, [filterObject]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -104,7 +95,7 @@ const SaleDocumentList = () => {
     setDocumentDetailModalState(false);
     fillGrid();
   };
-  const onSuccessEdit= () => {
+  const onSuccessEdit = () => {
     setDocumentDetailModalState(false);
     fillGrid();
   };
@@ -134,11 +125,11 @@ const SaleDocumentList = () => {
   const onEdit = async (id) => {
     const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
     setModalSize(updateList)
-    setDocumentDetailModalContent(<EditSaleDocHeader id={id}  key={id} onSuccess={onSuccessEdit} />);
+    setDocumentDetailModalContent(<EditSaleDocHeader id={id} key={id} onSuccess={onSuccessEdit} />);
     setDocumentDetailModalState(true);
   };
   const onAdd = async (id) => {
-    console.log(id,"iiii")
+    console.log(id, "iiii")
     const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
     setModalSize(updateList)
     setDocumentDetailModalContent(<AddSaleDocHeader onSuccess={onSuccessAdd} key={uuid.v1()} />);

@@ -23,7 +23,7 @@ const columns = (onDelete, onEdit) => {
                 align: 'center',
                 className: "text-xs sm:text-sm",
                 render: (text, record, index) => (
-                    <Ant.Tag color={(record.isDefault && 'green') || 'red'} key={record.id}>
+                    <Ant.Tag color={(record.isDefault && 'green') || 'red'} key={record.id} bordered={false}>
                         {' '}
                         {(record.isDefault && 'بله') || 'خیر'}{' '}
                     </Ant.Tag>
@@ -37,7 +37,7 @@ const columns = (onDelete, onEdit) => {
                 align: 'center',
                 className: "text-xs sm:text-sm",
                 render: (text, record, index) => (
-                    <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id}>
+                    <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id} bordered={false}>
                         {' '}
                         {(record.isActive && 'فعال') || 'غیر فعال'}{' '}
                     </Ant.Tag>

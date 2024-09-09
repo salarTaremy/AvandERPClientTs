@@ -148,7 +148,7 @@ const InvoiceList = () => {
   };
   const hasSelectedRow = selectedRowKeys && selectedRowKeys.length > 0;
 
-  const onViewCompanyinformation = (customerLegalEntityIdentity) => {
+  const onViewCompanyInformation = (customerLegalEntityIdentity) => {
     const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList)
     setModalContent(<CompanyInformation key={uuid.v1()} legalEntityIdentity={customerLegalEntityIdentity} />);
@@ -159,13 +159,18 @@ const InvoiceList = () => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
+    filterObject &&
+      setFilterCount(
+        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+      );
+    !filterObject && setFilterCount(0);
     getInvoiceList();
   }, [
     tableParams.pagination?.current,
     tableParams.pagination?.pageSize,
     tableParams?.sortOrder,
     tableParams?.sortField,
-    filterCount
+    filterObject
   ]);
 
   useEffect(() => {
@@ -180,32 +185,14 @@ const InvoiceList = () => {
   }, [invoiceListData]);
 
   useEffect(() => {
-    setTableParams({
-      ...tableParams,
-      pagination: {
-        ...tableParams.pagination,
-        current: 1,
-      },
-    });
-
-    filterObject && console.log(Object.keys(filterObject));
-    filterObject &&
-      setFilterCount(
-        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
-      );
-    !filterObject && setFilterCount(0);
-  }, [filterObject]);
-
-  useEffect(() => {
     invoiceSendData?.isSuccess &&
       setDataSource([...dataSource?.map((record) => {
-          if ((invoiceSendData?.data?.idList && invoiceSendData?.data?.idList.some(id => id == record.id)) || (invoiceSendData?.data?.id === record.id))
-          {
-            const sentTime = record.sentTimes + 1;
-            record = {...record, sentTimes: sentTime, statusId: invoiceSendData?.data?.statusId, sendingProgressStatusId: invoiceSendData?.data?.sendingProgressStatusId};
-          }
-          return record;
+        if ((invoiceSendData?.data?.idList && invoiceSendData?.data?.idList.some(id => id == record.id)) || (invoiceSendData?.data?.id === record.id)) {
+          const sentTime = record.sentTimes + 1;
+          record = { ...record, sentTimes: sentTime, statusId: invoiceSendData?.data?.statusId, sendingProgressStatusId: invoiceSendData?.data?.sendingProgressStatusId };
         }
+        return record;
+      }
       )]);
   }, [invoiceSendData])
   //====================================================================
@@ -276,7 +263,7 @@ const InvoiceList = () => {
               onViewCustomer,
               onInquiry,
               onSendToTaxPayersSystem,
-              onViewCompanyinformation
+              onViewCompanyInformation
             )}
             dataSource={dataSource}
             pagination={tableParams?.pagination}

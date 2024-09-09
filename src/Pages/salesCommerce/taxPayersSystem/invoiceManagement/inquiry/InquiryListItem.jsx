@@ -140,8 +140,8 @@ const InquiryListItem = (props) => {
     const errorCount = inquiryItem.errorList?.length;
     console.log(errorCount);
     const warningCount = inquiryItem.warningList?.length;
-    const errorCountTag = (errorCount > 0 && <Ant.Tag color="red">{`${errorCount} خطا`}</Ant.Tag>);
-    const warningCountTag = (warningCount > 0 && <Ant.Tag color="orange">{`${warningCount} اخطار`}</Ant.Tag>);
+    const errorCountTag = (errorCount > 0 && <Ant.Tag color="red" bordered={false}>{`${errorCount} خطا`}</Ant.Tag>);
+    const warningCountTag = (warningCount > 0 && <Ant.Tag color="orange" bordered={false}>{`${warningCount} اخطار`}</Ant.Tag>);
     const inquiryStatusTag = (
       <Ant.Tag color={getStatusTagColor(inquiryItem.statusId)}>
         {inquiryItem.status}

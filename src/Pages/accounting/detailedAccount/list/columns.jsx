@@ -39,7 +39,7 @@ export const columns = (onDelete, onEdit, onView) => {
       // width: 5,
       //render: (text, record, index) => <Ant.Checkbox checked={record.isActive} />,
       render: (text, record, index) => (
-        <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id}>
+        <Ant.Tag color={(record.isActive && 'green') || 'red'} key={record.id} bordered={false}>
           {' '}
           {(record.isActive && 'فعال') || 'غیر فعال'}{' '}
         </Ant.Tag>

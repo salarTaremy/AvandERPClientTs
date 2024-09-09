@@ -40,9 +40,9 @@ const columns = (onDelete, onEdit) => {
           <>
 
             {val.isSystematic ? (
-            <Ant.Tag color="green">سیستمی</Ant.Tag>
+            <Ant.Tag color="green" bordered={false}>سیستمی</Ant.Tag>
             ) : (
-              <Ant.Tag color="pink">غیر سیستمی</Ant.Tag>
+              <Ant.Tag color="pink" bordered={false}>غیر سیستمی</Ant.Tag>
             )}
           </>
         );
