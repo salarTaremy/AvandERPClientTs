@@ -20,17 +20,17 @@ export const FormAddSaleClassification = (props) => {
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
   const [
-    accounGroupTreeData,
-    accounGroupTreeLoading,
-    accounGroupTreeError,
-    accounGroupTreeApicall,
+    accounTreeData,
+    accounTreeLoading,
+    accounTreeError,
+    accounTreeApicall,
   ] = api.useFetchWithHandler();
   const [options, setOptions] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState({
     id: null,
     name: "",
   });
-  useRequestManager({ error: accounGroupTreeError });
+  useRequestManager({ error: accounTreeError });
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: addError });
   const [form] = Ant.Form.useForm();
@@ -55,7 +55,7 @@ export const FormAddSaleClassification = (props) => {
   //       option.name.toLowerCase().includes(inputValue.toLowerCase()) ||
   //       (option.fullCode && option.fullCode.includes(inputValue))
   //   );
-  const allLoading = useAllLoading([, accounGroupTreeLoading, dtAccLoading]);
+  const allLoading = useAllLoading([ accounTreeLoading, dtAccLoading]);
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -65,11 +65,11 @@ export const FormAddSaleClassification = (props) => {
   }, [addData]);
 
   useEffect(() => {
-    accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
-  }, [accounGroupTreeData]);
+    accounTreeData?.isSuccess && setOptions(accounTreeData?.data);
+  }, [accounTreeData]);
 
   useEffect(() => {
-    accounGroupTreeApicall(url.ACCOUNT_TREE);
+    accounTreeApicall(url.ACCOUNT_TREE);
   }, []);
   //====================================================================
   //                        Functions
@@ -118,7 +118,7 @@ export const FormAddSaleClassification = (props) => {
                 ]}
               >
                 <Ant.Cascader
-                  loading={accounGroupTreeLoading}
+                  loading={accounTreeLoading}
                   options={options}
                   // optionRender={(option) => <span>{option.fullCode +'-'+ option.name}</span> }
                   // optionRender={(option) => (
