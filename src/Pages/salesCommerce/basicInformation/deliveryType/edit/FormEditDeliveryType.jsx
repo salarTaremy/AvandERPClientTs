@@ -12,7 +12,6 @@ import {
   BsFillJournalBookmarkFill,
   BsBook,
   BsJournalCheck,
-
 } from "react-icons/bs";
 import useAllLoading from "@/hooks/useAllLoading ";
 
@@ -24,10 +23,10 @@ const FormEditDeliveryType = (props) => {
   const [accData, accLoading, accError, accApiCall] = useFetchWithHandler();
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   const [
-    accounGroupTreeData,
-    accounGroupTreeLoading,
-    accounGroupTreeError,
-    accounGroupTreeApicall,
+    accounTreeData,
+    accounTreeLoading,
+    accounTreeError,
+    accounTreeApicall,
   ] = api.useFetchWithHandler();
 
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
@@ -41,9 +40,7 @@ const FormEditDeliveryType = (props) => {
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: accError });
   useRequestManager({ error: error });
-  useRequestManager({ error: accounGroupTreeError });
-
-
+  useRequestManager({ error: accounTreeError });
 
   const commonOptionsAcc = {
     placeholder: "انتخاب کنید...",
@@ -59,7 +56,7 @@ const FormEditDeliveryType = (props) => {
     );
   const allLoading = useAllLoading([
     loadingData,
-    accounGroupTreeLoading,
+    accounTreeLoading,
     dtAccLoading,
   ]);
   //====================================================================
@@ -68,19 +65,23 @@ const FormEditDeliveryType = (props) => {
   useEffect(() => {
     getDeliveryTypeById();
   }, []);
+
   useEffect(() => {
-    accounGroupTreeApicall(url.ACCOUNT_TREE);
+    accounTreeApicall(url.ACCOUNT_TREE);
   }, []);
 
   useEffect(() => {
     form.resetFields();
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
   }, [listData]);
+
   useEffect(() => {
-    accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
-    accounGroupTreeData?.isSuccess &&
+    accounTreeData?.isSuccess && setOptions(accounTreeData?.data);
+    accounTreeData?.isSuccess &&
+      listData?.data?.accountId &&
       accApiCall(`${url.ACCOUNT}/${listData?.data?.accountId}`);
-  }, [accounGroupTreeData]);
+  }, [accounTreeData]);
+
 
   useEffect(() => {
     if (accData?.isSuccess && accData?.data) {
@@ -146,16 +147,22 @@ const FormEditDeliveryType = (props) => {
                 ]}
               >
                 <Ant.Cascader
-                  loading={accounGroupTreeLoading || accLoading}
-                  disabled={accounGroupTreeLoading || accLoading}
+                  loading={accounTreeLoading || accLoading}
+                  disabled={accounTreeLoading || accLoading}
                   options={options}
                   optionRender={(option) => (
                     <>
-                     <Ant.Space >
-                      {option.level === 1 && <BsFillJournalBookmarkFill className="text-blue-500" />}
-                      {option.level === 2 && <BsJournalCheck className="text-orange-400" />}
-                      {option.level === 3 && <BsBook className="text-green-600" />}
-                      {option.fullCode}-{option.name}
+                      <Ant.Space>
+                        {option.level === 1 && (
+                          <BsFillJournalBookmarkFill className="text-blue-500" />
+                        )}
+                        {option.level === 2 && (
+                          <BsJournalCheck className="text-orange-400" />
+                        )}
+                        {option.level === 3 && (
+                          <BsBook className="text-green-600" />
+                        )}
+                        {option.fullCode}-{option.name}
                       </Ant.Space>
                     </>
                   )}

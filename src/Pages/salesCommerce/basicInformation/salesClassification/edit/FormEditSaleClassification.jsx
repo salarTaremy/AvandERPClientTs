@@ -23,23 +23,23 @@ export const FormEditSaleClassification = (props) => {
   const [accData, accLoading, accError, accApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [
-    accounGroupTreeData,
-    accounGroupTreeLoading,
-    accounGroupTreeError,
-    accounGroupTreeApicall,
+    accounTreeData,
+    accounTreeLoading,
+    accounTreeError,
+    accounTreeApicall,
   ] = api.useFetchWithHandler();
   const [options, setOptions] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState({
     id: null,
     name: "",
   });
-  useRequestManager({ error: accounGroupTreeError });
+  useRequestManager({ error: accounTreeError });
   useRequestManager({ error: accError });
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: saleClassificationError });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
 
-  const allLoading = useAllLoading([loadingsaleClassificationData, accounGroupTreeLoading, accLoading,dtAccLoading])
+  const allLoading = useAllLoading([loadingsaleClassificationData, accounTreeLoading, accLoading,dtAccLoading])
   const [form] = Ant.Form.useForm();
 
   const commonOptionsAcc = {
@@ -66,7 +66,7 @@ export const FormEditSaleClassification = (props) => {
   }, []);
 
   useEffect(() => {
-    accounGroupTreeApicall(url.ACCOUNT_TREE);
+    accounTreeApicall(url.ACCOUNT_TREE);
   }, []);
 
   useEffect(() => {
@@ -82,9 +82,9 @@ export const FormEditSaleClassification = (props) => {
   }, [editData]);
 
   useEffect(() => {
-    accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
-    accounGroupTreeData?.isSuccess && accApiCall(`${url.ACCOUNT}/${saleClassificationData.data.accountId}`);
-  }, [accounGroupTreeData]);
+    accounTreeData?.isSuccess && setOptions(accounTreeData?.data);
+    accounTreeData?.isSuccess && saleClassificationData.data.accountId && accApiCall(`${url.ACCOUNT}/${saleClassificationData.data.accountId}`);
+  }, [accounTreeData]);
 
   useEffect(() => {
     if (accData?.isSuccess && accData?.data) {
@@ -146,8 +146,8 @@ export const FormEditSaleClassification = (props) => {
                 ]}
               >
                 <Ant.Cascader
-                  loading={accounGroupTreeLoading || accLoading}
-                  disabled={accounGroupTreeLoading || accLoading }
+                  loading={accounTreeLoading || accLoading}
+                  disabled={accounTreeLoading || accLoading }
                   options={options}
                   optionRender={(option) => (
                     <>

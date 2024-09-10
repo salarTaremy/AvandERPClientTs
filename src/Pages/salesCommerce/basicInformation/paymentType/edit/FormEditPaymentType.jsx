@@ -23,10 +23,10 @@ const FormEditPaymentType = (props) => {
 
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [
-    accounGroupTreeData,
-    accounGroupTreeLoading,
-    accounGroupTreeError,
-    accounGroupTreeApicall,
+    accounTreeData,
+    accounTreeLoading,
+    accounTreeError,
+    accounTreeApicall,
   ] = api.useFetchWithHandler();
   const [selectedAccount, setSelectedAccount] = useState({
     id: null,
@@ -36,11 +36,11 @@ const FormEditPaymentType = (props) => {
   const [accData, accLoading, accError, accApiCall] = useFetchWithHandler();
   const allLoading = useAllLoading([
     loadingData,
-    accounGroupTreeLoading,
+    accounTreeLoading,
     accLoading,
     dtAccLoading,
   ]);
-  useRequestManager({ error: accounGroupTreeError });
+  useRequestManager({ error: accounTreeError });
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: accError });
   useRequestManager({ error: error });
@@ -67,7 +67,7 @@ const FormEditPaymentType = (props) => {
   }, []);
 
   useEffect(() => {
-    accounGroupTreeApicall(url.ACCOUNT_TREE);
+    accounTreeApicall(url.ACCOUNT_TREE);
   }, []);
 
   useEffect(() => {
@@ -76,10 +76,10 @@ const FormEditPaymentType = (props) => {
   }, [listData]);
 
   useEffect(() => {
-    accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
-    accounGroupTreeData?.isSuccess &&
+    accounTreeData?.isSuccess && setOptions(accounTreeData?.data);
+    accounTreeData?.isSuccess && listData?.data.accountId &&
       accApiCall(`${url.ACCOUNT}/${listData?.data.accountId}`);
-  }, [accounGroupTreeData]);
+  }, [accounTreeData]);
 
   useEffect(() => {
     if (accData?.isSuccess && accData?.data) {
@@ -143,8 +143,8 @@ const FormEditPaymentType = (props) => {
                 ]}
               >
                 <Ant.Cascader
-                  loading={accounGroupTreeLoading || accLoading}
-                  disabled={accounGroupTreeLoading || accLoading}
+                  loading={accounTreeLoading || accLoading}
+                  disabled={accounTreeLoading || accLoading}
                   options={options}
                   onChange={handleChangeAccount}
                   placeholder="لطفا انتخاب کنید ..."

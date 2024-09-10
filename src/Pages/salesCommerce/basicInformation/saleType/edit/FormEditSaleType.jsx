@@ -23,10 +23,10 @@ const FormEditSaleType = (props) => {
   const [accData, accLoading, accError, accApiCall] = useFetchWithHandler();
   const [dtAccData, dtAccLoading, dtAccError] = useFetch(url.DETAILED_ACCOUNT);
   const [
-    accounGroupTreeData,
-    accounGroupTreeLoading,
-    accounGroupTreeError,
-    accounGroupTreeApicall,
+    accounTreeData,
+    accounTreeLoading,
+    accounTreeError,
+    accounTreeApicall,
   ] = api.useFetchWithHandler();
   const [options, setOptions] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState({
@@ -36,9 +36,9 @@ const FormEditSaleType = (props) => {
   useRequestManager({ error: error });
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: currencyError });
-  useRequestManager({ error: accounGroupTreeError });
+  useRequestManager({ error: accounTreeError });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
-  const allLoading = useAllLoading([accounGroupTreeLoading, dtAccLoading]);
+  const allLoading = useAllLoading([accounTreeLoading, dtAccLoading]);
   const [form] = Ant.Form.useForm();
   const commonOptions = {
     showSearch: true,
@@ -64,13 +64,13 @@ const FormEditSaleType = (props) => {
     getSaleTypeById();
   }, []);
   useEffect(() => {
-    accounGroupTreeApicall(url.ACCOUNT_TREE);
+    accounTreeApicall(url.ACCOUNT_TREE);
   }, []);
   useEffect(() => {
-    accounGroupTreeData?.isSuccess && setOptions(accounGroupTreeData?.data);
-    accounGroupTreeData?.isSuccess &&
+    accounTreeData?.isSuccess && setOptions(accounTreeData?.data);
+    accounTreeData?.isSuccess && listData?.data?.accountId &&
       accApiCall(`${url.ACCOUNT}/${listData?.data?.accountId}`);
-  }, [accounGroupTreeData]);
+  }, [accounTreeData]);
   useEffect(() => {
     form.resetFields();
     listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
@@ -155,8 +155,8 @@ const FormEditSaleType = (props) => {
                 ]}
               >
                 <Ant.Cascader
-                  loading={accounGroupTreeLoading || accLoading}
-                  disabled={accounGroupTreeLoading || accLoading}
+                  loading={accounTreeLoading || accLoading}
+                  disabled={accounTreeLoading || accLoading}
                   options={options}
                   optionRender={(option) => (
                     <>
