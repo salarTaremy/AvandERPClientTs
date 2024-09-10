@@ -9,6 +9,22 @@ import useAllLoading from "@/hooks/useAllLoading ";
 //====================================================================
 //                        Declaration
 //====================================================================
+
+
+const optionLists = [
+    {
+      value: 'zhejiang',
+      label: 'Zhejiang',
+      isLeaf: false,
+    },
+    {
+      value: 'jiangsu',
+      label: 'Jiangsu',
+      isLeaf: false,
+    },
+  ];
+
+
 const TreeDropDownLaziyLoad = (props) => {
   const { id } = props;
   const [form] = Ant.Form.useForm();
@@ -35,31 +51,32 @@ const TreeDropDownLaziyLoad = (props) => {
 
   useEffect(() => {
     detailedAccGroupData?.isSuccess && setOptions(detailedAccGroupData?.data);
-    // detailedAccGroupData?.isSuccess && form.setFieldValue("city", [1, 1001]);
+    // detailedAccGroupData?.isSuccess && setOptions(optionLists);
+    
   }, [detailedAccGroupData]);
 
   const loadData = async (selectedOptions) => {
-    debugger;
-    const targetOption = selectedOptions[selectedOptions.length - 1];
-    console.log(targetOption.value, "targetOption.value");
-    if (!targetOption.children) {
-      targetOption.children = [];
+    alert('sdfds')
+    // const targetOption = selectedOptions[selectedOptions.length - 1];
+    // console.log(targetOption.value, "targetOption.value");
+    // if (!targetOption.children) {
+    //   targetOption.children = [];
 
-      await detailedAccApiCall(url.DETAILED_ACCOUNT);
+    //   await detailedAccApiCall(url.DETAILED_ACCOUNT);
 
 
-      if (detailedAccData?.data) {
-        detailedAccData.data.forEach((item) => {
-          targetOption.children.push({
-            label: item.name,
-            value: item.detailedAccountGroupId,
-            key: item.id,
-          });
-        });
-        setOptions([...options]);
-      }
+    //   if (detailedAccData?.data) {
+    //     detailedAccData.data.forEach((item) => {
+    //       targetOption.children.push({
+    //         label: item.name,
+    //         value: item.detailedAccountGroupId,
+    //         key: item.id,
+    //       });
+    //     });
+    //     setOptions([...options]);
+    //   }
 
-    }
+    // }
   };
 
   //====================================================================
@@ -74,9 +91,9 @@ const TreeDropDownLaziyLoad = (props) => {
     await detailedAccApiCall(url.DETAILED_ACCOUNT);
   };
 
-  function onChange(value, selectedOptions) {
-    setSelectedItem(value);
-  }
+  const onChange = (value, selectedOptions) => {
+    console.log(value, selectedOptions);
+  };
   const filter = (inputValue, path) =>
     path.some(
       (option) =>
@@ -91,10 +108,14 @@ const TreeDropDownLaziyLoad = (props) => {
   const TreeDropDownLaziyLoad = () => {
     return (
       <>
-        <Ant.Form form={form} onFinish={onFinish}>
-          <Ant.Form.Item name={"detailedAccount"} rules={[{ required: true }]}>
-          {/* <Ant.Cascader options={options} loadData={loadData} onChange={onChange} changeOnSelect /> */}
-            <Ant.Cascader
+      <p>{JSON.stringify(options[0],null,1,1)}</p>
+   
+      
+          <Ant.Cascader 
+          fieldNames={{ label: "name", value: "id", children: "children" }}
+          options={options} loadData={(selectedOptions) => {alert('df')}} 
+          onChange={onChange} changeOnSelect />
+            {/* <Ant.Cascader
               changeOnSelect
               loading={detailedAccGroupLoading}
               options={options}
@@ -105,16 +126,10 @@ const TreeDropDownLaziyLoad = (props) => {
               showSearch={{
                 filter,
               }}
-            />
-          </Ant.Form.Item>
-          <Ant.Button
-            onClick={() => {
-              form.submit();
-            }}
-          >
-            {"پست"}
-          </Ant.Button>
-        </Ant.Form>
+            /> */}
+      
+ 
+    
 
         <Ant.Divider></Ant.Divider>
         {JSON.stringify(selectedItem, null, 1, 1)}
