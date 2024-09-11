@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
-import MyDatePicker, { FormatDateToDisplay } from "@/components/common/MyDatePicker";
+import MyDatePicker, {
+  FormatDateToDisplay,
+} from "@/components/common/MyDatePicker";
 import PropTypes from "prop-types";
 import * as url from "@/api/url";
 import { useFetchWithHandler, useFetch } from "@/api";
@@ -31,7 +33,7 @@ export const BasicInfoStep = (props) => {
   const [
     counterpartyTypeList,
     counterpartyTypeListLoading,
-    counterpartyTypeListError
+    counterpartyTypeListError,
   ] = useFetch(url.COUNTER_PARTY_TYPE);
 
   useRequestManager({ error: cityError });
@@ -71,9 +73,12 @@ export const BasicInfoStep = (props) => {
     if (counterpartyFetchedData) {
       const otherValues = {};
       //set cityId field
-      if (counterpartyFetchedData.data.provinceId && counterpartyFetchedData.data.cityId) {
+      if (
+        counterpartyFetchedData.data.provinceId &&
+        counterpartyFetchedData.data.cityId
+      ) {
         const provinceId = counterpartyFetchedData.data.provinceId;
-        const cityId = counterpartyFetchedData.data.cityId;       
+        const cityId = counterpartyFetchedData.data.cityId;
         otherValues.cityId = [provinceId, cityId];
       }
 
@@ -101,7 +106,9 @@ export const BasicInfoStep = (props) => {
 
       //set passportValidityDate field
       if (counterpartyFetchedData.data.passportValidityDate) {
-        const formattedPassportValidityDate = FormatDateToDisplay(counterpartyFetchedData.data.passportValidityDate);
+        const formattedPassportValidityDate = FormatDateToDisplay(
+          counterpartyFetchedData.data.passportValidityDate,
+        );
         otherValues.passportValidityDate = formattedPassportValidityDate;
       }
 
@@ -110,7 +117,10 @@ export const BasicInfoStep = (props) => {
         ...otherValues,
       });
 
-      setIsIndividual(counterpartyFetchedData.data.counterpartyTypeId !== COUNTERPARTY_TYPE.Institution);
+      setIsIndividual(
+        counterpartyFetchedData.data.counterpartyTypeId !==
+          COUNTERPARTY_TYPE.Institution,
+      );
       setCounterpartyType(counterpartyFetchedData.data.counterpartyTypeId);
     }
   }, [counterpartyFetchedData]);
@@ -129,7 +139,9 @@ export const BasicInfoStep = (props) => {
     );
 
   const onCounterpartyTypeChange = (selectedValue) => {
-    setIsIndividual(selectedValue !== COUNTERPARTY_TYPE.Institution ? true : false);
+    setIsIndividual(
+      selectedValue !== COUNTERPARTY_TYPE.Institution ? true : false,
+    );
     setCounterpartyType(selectedValue);
     counterpartyId === 0 && form.resetFields();
     form.setFieldsValue({ counterpartyTypeId: selectedValue });
@@ -160,9 +172,7 @@ export const BasicInfoStep = (props) => {
   //====================================================================
   return (
     <>
-      <CoustomContent
-      height= "70vh"
-      >
+      <CoustomContent height="70vh">
         <Ant.Skeleton active loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -174,7 +184,7 @@ export const BasicInfoStep = (props) => {
                 <Ant.Select
                   options={counterpartyTypeList?.data}
                   loading={counterpartyTypeListLoading}
-                  fieldNames={{label: "name", value: "id"}}
+                  fieldNames={{ label: "name", value: "id" }}
                   disable={counterpartyTypeListLoading || false}
                   onChange={onCounterpartyTypeChange}
                 />
@@ -183,7 +193,7 @@ export const BasicInfoStep = (props) => {
           </Ant.Row>
 
           <Ant.Row gutter={[16, 8]}>
-          {/*** کدگذاری ***/}
+            {/*** کدگذاری ***/}
             <CoustomContent title={"کدگذاری"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -229,15 +239,14 @@ export const BasicInfoStep = (props) => {
               </Ant.Row>
             </CoustomContent>
 
-
             {/*** اطلاعات هویتی ***/}
             <CoustomContent
               className=""
               title={"اطلاعات هویتی"}
               bordered
               size="small"
+              scroll={false}
             >
-
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -270,143 +279,170 @@ export const BasicInfoStep = (props) => {
                     </Ant.Form.Item>
                   </Ant.Col>
                 )}
-                {isIndividual && counterpartyType === COUNTERPARTY_TYPE.Individual && (
-                  <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      name={"nationalCode"}
-                      rules={[
-                        {
-                          required: true,
-                        },
-                        {
-                          validator: (_, value) => {
-                            if (validateNationalCode(value?.toString())) {
-                              return Promise.resolve();
-                            } else {
-                              return Promise.reject(
-                                " کد ملی وارد شده نامعتبر است",
-                              );
-                            }
+                {isIndividual &&
+                  counterpartyType === COUNTERPARTY_TYPE.Individual && (
+                    <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                      <Ant.Form.Item
+                        name={"nationalCode"}
+                        rules={[
+                          {
+                            required: true,
                           },
-                        },
-                      ]}
-                      label="کدملی"
-                    >
-                      <Ant.Input allowClear showCount min={0} maxLength={10} />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                )}
-                {isIndividual && counterpartyType === COUNTERPARTY_TYPE.ForeignIndividual && (
-                  <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      name={"fidaCode"}
-                      rules={[
-                        {
-                          required: true,
-                          pattern: new RegExp("^[0-9]*$"),
-                          message: "کد فراگیر نمی تواند شامل کاراکترهای غیرعددی باشد",
-                        },
-                        {
-                          validator: (_, value) => {
-                            if (value?.toString().length == 9 || value?.toString().length == 12) {
-                              return Promise.resolve();
-                            } else {
-                              return Promise.reject(
-                                "کد فراگیر باید حداقل 9 و حداکثر 12 کاراکتر باشد",
-                              );
-                            }
+                          {
+                            validator: (_, value) => {
+                              if (validateNationalCode(value?.toString())) {
+                                return Promise.resolve();
+                              } else {
+                                return Promise.reject(
+                                  " کد ملی وارد شده نامعتبر است",
+                                );
+                              }
+                            },
                           },
-                        },
-                      ]}
-                      label="کد فراگیر"
-                    >
-                      <Ant.Input allowClear showCount min={0} maxLength={12} />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                )}
-                {isIndividual && (counterpartyType === COUNTERPARTY_TYPE.isIndividual || counterpartyType === COUNTERPARTY_TYPE.CivicParticipation) && (
-                  <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      name={"birthCertificateNumber"}
-                      label="شماره شناسنامه"
-                      rules={[{ required: false }, { max: 10 }]}
-                    >
-                      <Ant.Input
-                        allowClear
-                        showCount
-                        min={0}
-                        maxLength={10}
-                        style={{ width: "100%" }}
-                      />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                )}
-                {isIndividual && counterpartyType === COUNTERPARTY_TYPE.ForeignIndividual && (
-                  <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      name={"passportNumber"}
-                      label="شماره گذرنامه"
-                      rules={[
-                        { 
-                          required: false 
-                        },  
-                        {
-                          validator: (_, value) => {
-                            if (value === null || (value !== null && value.toString().length == 9)) {
-                              return Promise.resolve();
-                            } else {
-                              return Promise.reject(
-                                "شماره گذرنامه باید 9 کاراکتر باشد",
-                              );
-                            }
+                        ]}
+                        label="کدملی"
+                      >
+                        <Ant.Input
+                          allowClear
+                          showCount
+                          min={0}
+                          maxLength={10}
+                        />
+                      </Ant.Form.Item>
+                    </Ant.Col>
+                  )}
+                {isIndividual &&
+                  counterpartyType === COUNTERPARTY_TYPE.ForeignIndividual && (
+                    <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                      <Ant.Form.Item
+                        name={"fidaCode"}
+                        rules={[
+                          {
+                            required: true,
+                            pattern: new RegExp("^[0-9]*$"),
+                            message:
+                              "کد فراگیر نمی تواند شامل کاراکترهای غیرعددی باشد",
                           },
-                      },
-                    ]}
-                    >
-                      <Ant.Input
-                        allowClear
-                        showCount
-                        min={0}
-                        maxLength={9}
-                        style={{ width: "100%" }}
-                      />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                )}
-                {isIndividual && counterpartyType === COUNTERPARTY_TYPE.ForeignIndividual && (
-                  <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      name={"passportValidityDate"}
-                      label={"تاریخ اعتبار گذرنامه"}
-                    >
-                      <MyDatePicker />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                )}
-                {isIndividual && (counterpartyType === COUNTERPARTY_TYPE.Individual || counterpartyType === COUNTERPARTY_TYPE.CivicParticipation) && (
-                  <Ant.Col lg={8} md={12} sm={12} xs={24}>
-                    <Ant.Form.Item
-                      name={"birthCertificatePlaceOfIssueCityId"}
-                      label="محل صدور شناسنامه"
-                      rules={[{ required: false }]}
-                    >
-                      <Ant.Cascader
-                        loading={cityLoading}
-                        options={cityOptions}
-                        placeholder="لطفا انتخاب کنید..."
-                        fieldNames={{
-                          label: "name",
-                          value: "id",
-                          children: "children",
-                        }}
-                        showSearch={{
-                          filterCity,
-                        }}
-                        style={{ width: "100%" }}
-                      />
-                    </Ant.Form.Item>
-                  </Ant.Col>
-                )}
+                          {
+                            validator: (_, value) => {
+                              if (
+                                value?.toString().length == 9 ||
+                                value?.toString().length == 12
+                              ) {
+                                return Promise.resolve();
+                              } else {
+                                return Promise.reject(
+                                  "کد فراگیر باید حداقل 9 و حداکثر 12 کاراکتر باشد",
+                                );
+                              }
+                            },
+                          },
+                        ]}
+                        label="کد فراگیر"
+                      >
+                        <Ant.Input
+                          allowClear
+                          showCount
+                          min={0}
+                          maxLength={12}
+                        />
+                      </Ant.Form.Item>
+                    </Ant.Col>
+                  )}
+                {isIndividual &&
+                  (counterpartyType === COUNTERPARTY_TYPE.isIndividual ||
+                    counterpartyType ===
+                      COUNTERPARTY_TYPE.CivicParticipation) && (
+                    <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                      <Ant.Form.Item
+                        name={"birthCertificateNumber"}
+                        label="شماره شناسنامه"
+                        rules={[{ required: false }, { max: 10 }]}
+                      >
+                        <Ant.Input
+                          allowClear
+                          showCount
+                          min={0}
+                          maxLength={10}
+                          style={{ width: "100%" }}
+                        />
+                      </Ant.Form.Item>
+                    </Ant.Col>
+                  )}
+                {isIndividual &&
+                  counterpartyType === COUNTERPARTY_TYPE.ForeignIndividual && (
+                    <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                      <Ant.Form.Item
+                        name={"passportNumber"}
+                        label="شماره گذرنامه"
+                        rules={[
+                          {
+                            required: false,
+                          },
+                          {
+                            validator: (_, value) => {
+                              if (
+                                value === null ||
+                                (value !== null && value.toString().length == 9)
+                              ) {
+                                return Promise.resolve();
+                              } else {
+                                return Promise.reject(
+                                  "شماره گذرنامه باید 9 کاراکتر باشد",
+                                );
+                              }
+                            },
+                          },
+                        ]}
+                      >
+                        <Ant.Input
+                          allowClear
+                          showCount
+                          min={0}
+                          maxLength={9}
+                          style={{ width: "100%" }}
+                        />
+                      </Ant.Form.Item>
+                    </Ant.Col>
+                  )}
+                {isIndividual &&
+                  counterpartyType === COUNTERPARTY_TYPE.ForeignIndividual && (
+                    <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                      <Ant.Form.Item
+                        name={"passportValidityDate"}
+                        label={"تاریخ اعتبار گذرنامه"}
+                      >
+                        <MyDatePicker />
+                      </Ant.Form.Item>
+                    </Ant.Col>
+                  )}
+                {isIndividual &&
+                  (counterpartyType === COUNTERPARTY_TYPE.Individual ||
+                    counterpartyType ===
+                      COUNTERPARTY_TYPE.CivicParticipation) && (
+                    <Ant.Col lg={8} md={12} sm={12} xs={24}>
+                      <Ant.Form.Item
+                        name={"birthCertificatePlaceOfIssueCityId"}
+                        label="محل صدور شناسنامه"
+                        rules={[{ required: false }]}
+                      >
+                        <Ant.Cascader
+                          loading={cityLoading}
+                          options={cityOptions}
+                          placeholder="لطفا انتخاب کنید..."
+                          fieldNames={{
+                            label: "name",
+                            value: "id",
+                            children: "children",
+                          }}
+                          showSearch={{
+                            filterCity,
+                          }}
+                          style={{ width: "100%" }}
+                        />
+                      </Ant.Form.Item>
+                    </Ant.Col>
+                  )}
                 {isIndividual && (
                   <Ant.Col lg={8} md={12} sm={12} xs={24}>
                     <Ant.Form.Item
@@ -417,7 +453,7 @@ export const BasicInfoStep = (props) => {
                     </Ant.Form.Item>
                   </Ant.Col>
                 )}
-                
+
                 {/*  legal counterparty */}
                 {!isIndividual && (
                   <Ant.Col lg={16} md={12} sm={12} xs={24}>
@@ -481,7 +517,7 @@ export const BasicInfoStep = (props) => {
                     </Ant.Form.Item>
                   </Ant.Col>
                 )}
-                <Ant.Col lg={!isIndividual && 6 || 8} md={12} sm={12} xs={24}>
+                <Ant.Col lg={(!isIndividual && 6) || 8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
                     allowClear
                     name={"economicCode"}
@@ -496,8 +532,10 @@ export const BasicInfoStep = (props) => {
                       {
                         validator: (_, value) => {
                           if (
-                            value == null || value?.toString().length == 0 ||
-                            (value?.toString().length >= 11 || value?.toString().length <= 14)
+                            value == null ||
+                            value?.toString().length == 0 ||
+                            value?.toString().length >= 11 ||
+                            value?.toString().length <= 14
                           ) {
                             return Promise.resolve();
                           } else {
@@ -517,14 +555,28 @@ export const BasicInfoStep = (props) => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
-                {(!isIndividual || counterpartyType === COUNTERPARTY_TYPE.CivicParticipation) && (
-                  <Ant.Col lg={counterpartyType === COUNTERPARTY_TYPE.Institution && 6 || 8} md={12} sm={12} xs={24}>
+                {(!isIndividual ||
+                  counterpartyType ===
+                    COUNTERPARTY_TYPE.CivicParticipation) && (
+                  <Ant.Col
+                    lg={
+                      (counterpartyType === COUNTERPARTY_TYPE.Institution &&
+                        6) ||
+                      8
+                    }
+                    md={12}
+                    sm={12}
+                    xs={24}
+                  >
                     <Ant.Form.Item
                       name={"legalEntityIdentity"}
                       label="شناسه ملی"
                       rules={[
                         {
-                          required: (!isIndividual || counterpartyType === COUNTERPARTY_TYPE.CivicParticipation),
+                          required:
+                            !isIndividual ||
+                            counterpartyType ===
+                              COUNTERPARTY_TYPE.CivicParticipation,
                           pattern: new RegExp("^[0-9]*$"),
                           message:
                             "شناسه ملی نمی تواند شامل کاراکترهای غیرعددی باشد",
@@ -552,7 +604,6 @@ export const BasicInfoStep = (props) => {
                   </Ant.Col>
                 )}
               </Ant.Row>
-
             </CoustomContent>
             {/*** اطلاعات جغرافیایی ***/}
 
@@ -567,7 +618,13 @@ export const BasicInfoStep = (props) => {
                   <Ant.Form.Item
                     name={"cityId"}
                     label="شهر"
-                    rules={[{ required: counterpartyType !== COUNTERPARTY_TYPE.ForeignIndividual }]}
+                    rules={[
+                      {
+                        required:
+                          counterpartyType !==
+                          COUNTERPARTY_TYPE.ForeignIndividual,
+                      },
+                    ]}
                   >
                     <Ant.Cascader
                       loading={cityLoading}
@@ -664,7 +721,7 @@ export const BasicInfoStep = (props) => {
                 </Ant.Col>
               </Ant.Row>
             </CoustomContent>
-            </Ant.Row>
+          </Ant.Row>
         </Ant.Skeleton>
       </CoustomContent>
     </>
