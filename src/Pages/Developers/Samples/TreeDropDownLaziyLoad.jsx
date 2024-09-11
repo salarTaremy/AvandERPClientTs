@@ -1,46 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
+import { Cascader } from 'antd';
 import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as styles from "@/styles";
 import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import useAllLoading from "@/hooks/useAllLoading ";
-//====================================================================
-//                        Declaration
-//====================================================================
-
-const optionLists = [
-  {
-    value: "zhejiang",
-    label: "Zhejiang",
-    isLeaf: false,
-  },
-  {
-    value: "jiangsu",
-    label: "Jiangsu",
-    isLeaf: false,
-  },
-];
 
 const TreeDropDownLaziyLoad = (props) => {
-  const { id } = props;
-  const [form] = Ant.Form.useForm();
-  const pageTitle = "Tree DropDown Laziy Lode";
+  const [options, setOptions] = useState([])
+
   const [
     detailedAccGroupData,
     detailedAccGroupLoading,
     detailedAccGroupError,
     detailedAccGroupApiCall,
   ] = api.useFetchWithHandler();
+
   const [
     detailedAccData,
     detailedAccLoading,
     detailedAccError,
     detailedAccApiCall,
   ] = api.useFetchWithHandler();
-  const [options, setOptions] = useState([]);
-  const [selectedItem, setSelectedItem] = useState({ value: null });
+
   useRequestManager({ error: detailedAccGroupError });
 
   useEffect(() => {
@@ -48,119 +31,29 @@ const TreeDropDownLaziyLoad = (props) => {
   }, []);
 
   useEffect(() => {
-    detailedAccGroupData?.isSuccess && setOptions(detailedAccGroupData?.data);
-    // detailedAccGroupData?.isSuccess && setOptions(optionLists);
+    setOptions(detailedAccGroupData?.data && detailedAccGroupData?.data)
   }, [detailedAccGroupData]);
 
-  const loadData = async (selectedOptions) => {
-    debugger;
-    const targetOption = selectedOptions[selectedOptions.length - 1];
-    console.log(targetOption, "targetOption.value");
+  useEffect(() => {
+    if (detailedAccData?.isSuccess && detailedAccData?.data && detailedAccData?.data.length > 0) {
+      const newOptions = [...options]
+      const dtAccGrpId = detailedAccData.data[0].detailedAccountGroupId
+      const index = options.findIndex(item => item.id === dtAccGrpId);
+      newOptions[index].children = detailedAccData.data
+      setOptions(newOptions)
 
-    // if (!targetOption.children) {
-    targetOption.children = [];
+    }
+  }, [detailedAccData]);
 
-    await detailedAccApiCall(url.DETAILED_ACCOUNT);
-    targetOption.children = [
-      {
-        label: `${targetOption.label} Dynamic 1`,
-        value: 'dynamic1',
-      },
-      // {
-      //   label: `${targetOption.label} Dynamic 2`,
-      //   value: 'dynamic2',
-      // },
-    ];
-    setOptions([...options]);
-    // if (detailedAccData?.data) {
-    //   detailedAccData?.data.forEach((item) => {
-
-    //     console.log(item.detailedAccountGroupId,"lalal")
-    //     console.log(targetOption.id,"iiii")
-    //     // if (item.detailedAccountGroupId === targetOption.id) {
-    //       targetOption.children.push({
-    //         label: targetOption.name,
-    //         value: item.id,
-    //         key: item.id,
-    //       });
-    //     // }
-    //   });
-    //   console.log(targetOption, "kkkk");
-    //   setOptions([...options]);
-    // }
-    // }
+  const loadData = (selectedOptions) => {
+    detailedAccApiCall(url.DETAILED_ACCOUNT + '?DetailedAccountGroupId=' + selectedOptions[0].id);
   };
-
-  //====================================================================
-  //                        useEffects
-  //====================================================================
-
-  //====================================================================
-  //                        Functions
-  //====================================================================
-
-  const getAllAccountDetaiAccount = async () => {
-    await detailedAccApiCall(url.DETAILED_ACCOUNT);
-  };
-
-  const onChange = (value, selectedOptions) => {
-    // console.log(value, selectedOptions);
-  };
-  const filter = (inputValue, path) =>
-    path.some(
-      (option) =>
-        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
-    );
-  //====================================================================
-  //                        Child Components
-  //====================================================================
-  const onFinish = async (values) => {
-    alert(JSON.stringify(values, null, 1, 1));
-  };
-  const TreeDropDownLaziyLoad = () => {
-    return (
-      <>
-        <p>{JSON.stringify(options[0], null, 1, 1)}</p>
-
-        <Ant.Cascader
-          fieldNames={{ label: "name", value: "id", children: "children" }}
-          options={options}
-          loadData={loadData}
-          onChange={onChange}
-          changeOnSelect
-        />
-        {/* <Ant.Cascader
-              changeOnSelect
-              loading={detailedAccGroupLoading}
-              options={options}
-              onChange={onChange}
-              loadData={loadData}
-              placeholder="لطفا انتخاب کنید ..."
-              fieldNames={{ label: "name", value: "id", children: "children" }}
-              showSearch={{
-                filter,
-              }}
-            /> */}
-
-        <Ant.Divider></Ant.Divider>
-        {JSON.stringify(selectedItem, null, 1, 1)}
-      </>
-    );
-  };
-  //====================================================================
-  //                        Component
-  //====================================================================
-  return (
-    <Ant.Card
-      Card
-      title={pageTitle}
-      type="inner"
-      style={{ ...styles.CARD_DEFAULT_STYLES }}
-      loading={false}
-    >
-      <TreeDropDownLaziyLoad />
-    </Ant.Card>
-  );
+  return <Cascader
+    fieldNames={{ label: "name", value: "id", children: "children" }}
+    loading={detailedAccGroupLoading}
+    options={options}
+    loadData={loadData}
+    changeOnSelect />;
 };
 
 export default TreeDropDownLaziyLoad;
