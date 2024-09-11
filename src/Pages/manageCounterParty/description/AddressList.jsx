@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useFetchWithHandler } from '@/api'
+import { useFetchWithHandler } from "@/api";
 import * as Ant from "antd";
 import * as url from "@/api/url";
-import { FaPhoneSquare } from "react-icons/fa";
 import qs from "qs";
-import { FaAddressCard } from "react-icons/fa6";
-
+import { PhoneOutlined, RightOutlined } from "@ant-design/icons";
+import { PiAddressBook } from "react-icons/pi";
 
 const AddressList = ({ id }) => {
-  const [dataSource, setDataSource] = useState(null);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [items, setItems] = useState(null);
-
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    setDataSource((listData?.isSuccess && listData?.data) || null);
-    createAddressItems(listData?.data);
+    listData?.isSuccess && createAddressItems(listData?.data);
   }, [listData]);
 
   useEffect(() => {
-    getDescriptiontById()
+    getDescriptiontById();
   }, []);
 
   //=====================================================================
@@ -35,36 +31,88 @@ const AddressList = ({ id }) => {
   };
 
   const createAddressItems = (listData) => {
-    setItems(listData?.map((item, index) => {
-      const address =
-        <div>
-          <div> <FaAddressCard /> {item.title} </div>
-          <div>نشانی: {item.provinceName} - {item.cityName} - {item.address} </div>
-          <div> کد پستی: {item.postalCode}</div>
-        </div>;
+    let itemList = [];
+    listData?.map((addressItem) => {
+      //====================================================
+      //    create list items for phone-numbers
+      //====================================================
+      const renderPhoneList = (phoneItem) => {
+        return (
+          <Ant.List.Item key={phoneItem.id} style={{ borderBlockEnd: "none" }}>
+            <Ant.Avatar
+              style={{ backgroundColor: "transparent" }}
+              icon={<PhoneOutlined />}
+            />
+            <Ant.Typography.Text>{`${phoneItem.title}: `}</Ant.Typography.Text>
+            <Ant.Typography.Text>{phoneItem.phoneNumber}</Ant.Typography.Text>
+          </Ant.List.Item>
+        );
+      };
 
-      const phoneNumbers = item.phoneNumberList?.map((phoneItem) => {
-        return (<div><FaPhoneSquare /> {phoneItem.title} : {phoneItem.phoneNumber}</div>)
+      //====================================================
+      //    create list react-node for phone-numbers
+      //====================================================
+      const phoneCount = addressItem.phoneNumberList?.length;
+      const phoneList = phoneCount > 0 && (
+        <Ant.List
+          grid={{
+            gutter: 16,
+            xs: 1,
+            sm: 2,
+            md: 2,
+            lg: 3,
+            xl: 3,
+            xxl: 3,
+          }}
+          dataSource={addressItem?.phoneNumberList}
+          renderItem={renderPhoneList}
+        />
+      );
+
+      const showArrow = phoneCount > 0;
+
+      itemList.push({
+        key: addressItem.id,
+        label: (
+          <>
+            <Ant.Space wrap>
+              <PiAddressBook size={20} className="text-indigo-600" />
+              <Ant.Typography.Text strong>
+                {`نشانی ${addressItem.title}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                {`${addressItem.provinceName} - ${addressItem.cityName} - ${addressItem.address}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                {`کد پستی: ${addressItem.postalCode}`}
+              </Ant.Typography.Text>
+            </Ant.Space>
+          </>
+        ),
+        children: <>{phoneList}</>,
+        showArrow: showArrow,
+        collapsible: `${!showArrow ? "disabled" : ""}`,
       });
+    });
 
-      return {
-        key: index,
-        label: address,
-        children: phoneNumbers
-      }
-    }))
-  }
+    setItems(itemList);
+  };
 
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <Ant.Skeleton active  loading={loadingData}>
-        <Ant.Collapse accordion items={items} />
+      <Ant.Skeleton active loading={loadingData}>
+        <Ant.Collapse
+          items={items}
+          expandIconPosition="end"
+          expandIcon={({ isActive }) => {
+            return <RightOutlined rotate={isActive ? -90 : 0} />;
+          }}
+        />
       </Ant.Skeleton>
     </>
-  )
-
+  );
 };
 export default AddressList;
