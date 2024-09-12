@@ -5,7 +5,7 @@ import { GrView } from "react-icons/gr";
 import { BsSend } from "react-icons/bs";
 import { green, lime, red, geekblue, orange } from "@ant-design/colors";
 import * as defaultValues from "@/defaultValues";
-import { COUNTERPARTY_TYPE } from "@/staticValues";
+import { COUNTERPARTY_TYPE, COUNTERPARTY_TAG_COLOR } from "@/staticValues";
 
 const getSendingProgressPercent = (progressStatusId) => {
   switch (progressStatusId) {
@@ -146,13 +146,13 @@ const getSaleDocIssueColor = (issueId) => {
 const getCounterpartyTypeColor = (counterpartyTypeId) => {
   switch (counterpartyTypeId) {
     case COUNTERPARTY_TYPE.Individual:
-      return "gold";
+      return COUNTERPARTY_TAG_COLOR.Individual;
     case COUNTERPARTY_TYPE.Institution:
-      return "cyan";
+      return COUNTERPARTY_TAG_COLOR.Institution;
     case COUNTERPARTY_TYPE.CivicParticipation:
-      return "purple";
+      return COUNTERPARTY_TAG_COLOR.CivicParticipation;
     case COUNTERPARTY_TYPE.ForeignIndividual:
-      return "magenta";
+      return COUNTERPARTY_TAG_COLOR.ForeignIndividual;
     default:
       return 0;
   }

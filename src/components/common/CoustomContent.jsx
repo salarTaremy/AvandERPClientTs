@@ -3,10 +3,10 @@ import * as Ant from "antd";
 import { MdWidthFull } from "react-icons/md";
 
 const CoustomContent = (props) => {
-  const { shadow, bordered, height, bgColor } = props;
+  const { shadow, bordered, height, bgColor, scroll = true } = props;
   const cardStyle = {
-    overflow: "auto",
-    width:'100%',
+    overflow: (scroll && "auto") || "none",
+    width: "100%",
     //  maxHeight: "20vh",
     //   minHeight: "20vh",
     maxHeight: height,

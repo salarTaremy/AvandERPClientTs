@@ -226,7 +226,7 @@ export const BasicInfoStep = (props) => {
 
             {/*** اطلاعات هویتی ***/}
 
-            <CoustomContent title={"اطلاعات هویتی"} bordered size="small">
+            <CoustomContent  scroll={false} title={"اطلاعات هویتی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -336,9 +336,9 @@ export const BasicInfoStep = (props) => {
                       name={"passportNumber"}
                       label="شماره گذرنامه"
                       rules={[
-                        { 
-                          required: false 
-                        },  
+                        {
+                          required: false
+                        },
                         {
                           validator: (_, value) => {
                             if (value === null || (value !== null && value.toString().length == 9)) {
@@ -470,7 +470,7 @@ export const BasicInfoStep = (props) => {
                     </Ant.Form.Item>
                   </Ant.Col>
                 )}
-                
+
                 <Ant.Col lg={!isIndividual && 6 || 8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
                     allowClear
@@ -507,7 +507,7 @@ export const BasicInfoStep = (props) => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
-                
+
                 {(!isIndividual || counterpartyType === COUNTERPARTY_TYPE.CivicParticipation) && (
                   <Ant.Col lg={counterpartyType === COUNTERPARTY_TYPE.Institution && 6 || 8} md={12} sm={12} xs={24}>
                     <Ant.Form.Item

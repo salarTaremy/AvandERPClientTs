@@ -38,7 +38,7 @@ const DetailedCounterPartyList = (props) => {
               data?.data?.bankAccountList.length == 0 ? (
               <Ant.Empty />
             ) : (
-              <BankAccountList data={data?.data?.bankAccountList} />
+              <BankAccountList counterpartyId={id} />
             )}
           </TabPane>
         </Ant.Tabs>
