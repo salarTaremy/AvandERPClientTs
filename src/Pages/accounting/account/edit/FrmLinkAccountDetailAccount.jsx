@@ -7,13 +7,8 @@ import useAllLoading from "@/hooks/useAllLoading ";
 import * as url from "@/api/url";
 import * as IconBs from "react-icons/bs";
 import * as Ant from "antd";
+import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
-
-// const levelData = [
-//   { id: 4, name: 'سطح چهار' },
-//   { id: 5, name: 'سطح پنج' },
-//   { id: 6, name: 'سطح شش' },
-// ]
 
 const FrmLinkAccountDetailAccount = (props) => {
   const { account } = props;
@@ -28,9 +23,10 @@ const FrmLinkAccountDetailAccount = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    apiCall(
-      url.LINK_ACCOUNT_DETAILED_ACCOUNTGROUP + "?AccountId=" + account.id,
-    );
+    const queryString = qs.stringify({
+      accountId:account.accountId
+    });
+    apiCall(`${url.LINK_ACCOUNT_DETAILED_ACCOUNTGROUP}?${queryString}`);
     levelApiCall(url.DETAILED_ACCOUNT_LEVEL);
   }, [account.id, apiCall, levelApiCall]);
 
@@ -43,17 +39,6 @@ const FrmLinkAccountDetailAccount = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
-
-  const test = () => {
-    const NewDataSource = [...dataSource];
-    NewDataSource.push({
-      id: 30,
-      name: "test",
-      detailedAccountLevelId: 10,
-      isRequired: true,
-    });
-    setDataSource([...NewDataSource]);
-  };
 
   const changeIsRequired = (id, val) => {
     const i = dataSource.findIndex((c) => c.id === id);
@@ -124,17 +109,11 @@ const FrmLinkAccountDetailAccount = (props) => {
   return (
     <>
       <ModalHeader title={`تفصیل های مرتبط(${account.title})`} />
-      <Ant.Row>
+      <Ant.Row >
         <Ant.Col span={24}>
           <Ant.Table
             loading={loading}
             // showHeader={false}
-            pagination={{
-              pageSize: 50,
-            }}
-            scroll={{
-              y: 440,
-            }}
             size="small"
             bordered={false}
             dataSource={dataSource}
@@ -144,12 +123,9 @@ const FrmLinkAccountDetailAccount = (props) => {
         <Ant.Col span={24}>
           <Ant.Button
             type="primary"
-            onClick={test}
-            // disabled={allLoading}
-            // onClick={() => {
-            //   form.submit()
-            // }}
-            // loading={accEditLoading}
+            onClick={(val) => {
+              alert(JSON.stringify(dataSource, null, 2));
+            }}
             block
           >
             {"تایید"}
@@ -157,9 +133,7 @@ const FrmLinkAccountDetailAccount = (props) => {
         </Ant.Col>
       </Ant.Row>
 
-      {/* <Ant.Typography style={{ maxHeight: 200 }}>
-        <pre>{JSON.stringify(dataSource, null, 2)}</pre>
-      </Ant.Typography> */}
+      <pre>{JSON.stringify({dataSource,account}, null, 2)}</pre>
     </>
   );
 };
