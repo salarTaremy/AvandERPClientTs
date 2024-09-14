@@ -10,23 +10,23 @@ import * as Ant from "antd";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
 
-
 const FrmLinkAccountDetailAccount = (props) => {
-  const { account,onSuccess } = props;
+  const { account, onSuccess } = props;
   const [dataSource, setDataSource] = useState();
   const [detailedAccLevel, setDetailedAccLevel] = useState(null);
   const [data, loading, error, apiCall] = useFetchWithHandler();
-  const [levelData, levelLoading, levelError, levelApiCall] = useFetchWithHandler();
+  const [levelData, levelLoading, levelError, levelApiCall] =
+    useFetchWithHandler();
   const [saveData, saveLoading, saveError, saveApiCall] = usePutWithHandler();
   useRequestManager({ error: error });
   useRequestManager({ error: levelError });
-  useRequestManager({ error: saveError, data: saveData, loading: saveLoading })
+  useRequestManager({ error: saveError, data: saveData, loading: saveLoading });
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
     const queryString = qs.stringify({
-      accountId: account.accountId
+      accountId: account.accountId,
     });
     apiCall(`${url.LINK_ACCOUNT_DETAILED_ACCOUNTGROUP}?${queryString}`);
     levelApiCall(url.DETAILED_ACCOUNT_LEVEL);
@@ -41,7 +41,7 @@ const FrmLinkAccountDetailAccount = (props) => {
   }, [levelData]);
 
   useEffect(() => {
-     saveData?.isSuccess && onSuccess && onSuccess()
+    saveData?.isSuccess && onSuccess && onSuccess();
   }, [saveData]);
   //====================================================================
   //                        Functions
@@ -67,6 +67,15 @@ const FrmLinkAccountDetailAccount = (props) => {
       title: "گروه تفصیل",
       dataIndex: "name",
       key: "name",
+      render: (text, record, index) => (
+        <>
+       
+        <Ant.Typography.Text  strong type="success"> {`${record.detailedAccountGroupCode}- `}</Ant.Typography.Text>
+        <Ant.Typography.Text > {`${record.name} `}</Ant.Typography.Text>
+        <Ant.Typography.Text type="secondary">{`(${record.detailedAccountCount})`}</Ant.Typography.Text>
+        
+        </>
+      ),
     },
     {
       title: "سطح تفصیل",
@@ -87,7 +96,9 @@ const FrmLinkAccountDetailAccount = (props) => {
           optionFilterProp="children"
           allowClear
           filterOption={(input, option) =>
-            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
+            0
+          }
         ></Ant.Select>
       ),
     },
@@ -114,7 +125,7 @@ const FrmLinkAccountDetailAccount = (props) => {
   return (
     <>
       <ModalHeader title={`تفصیل های مرتبط(${account.title})`} />
-      <Ant.Row >
+      <Ant.Row>
         <Ant.Col span={24}>
           <Ant.Table
             loading={loading}
@@ -127,9 +138,14 @@ const FrmLinkAccountDetailAccount = (props) => {
         </Ant.Col>
         <Ant.Col span={24}>
           <Ant.Button
+            loading={saveLoading}
+            disabled={loading}
             type="primary"
             onClick={(val) => {
-              saveApiCall(url.LINK_ACCOUNT_DETAILED_ACCOUNTGROUP_UPDATE_LIST , dataSource)
+              saveApiCall(
+                url.LINK_ACCOUNT_DETAILED_ACCOUNTGROUP_UPDATE_LIST,
+                dataSource,
+              );
             }}
             block
           >

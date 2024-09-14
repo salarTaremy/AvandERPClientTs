@@ -62,6 +62,10 @@ const TreeNodeItem = (props) => {
     setModalState(false);
     onAddSuccess(item);
   };
+  const onSuccessLink = () => {
+    setModalStateLink(false);
+    setModalLinkKey(uuid.v4());
+  };
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -120,7 +124,7 @@ const TreeNodeItem = (props) => {
       >
         {/* <FrmLinkAccountDetailAccount key={uuid.v1()} account={item}/> */}
         {/* <FrmLinkAccountDetailAccount key={item.key} account={item} /> */}
-        <FrmLinkAccountDetailAccount key={modalLinkKey} account={item}  onSuccess={() => setModalStateLink(false) }/>
+        <FrmLinkAccountDetailAccount key={modalLinkKey} account={item}  onSuccess={onSuccessLink }/>
       </Ant.Modal>
       {isDeleted && <BsFillLockFill style={{ color: "red" }} />}
       {delLoading && <Ant.Spin />}
