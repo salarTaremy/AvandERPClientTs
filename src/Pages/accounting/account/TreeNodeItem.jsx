@@ -75,7 +75,7 @@ const TreeNodeItem = (props) => {
     <>
       <Ant.Modal
         open={modalState}
-        // key={item.id}
+        key={item.key}
         // key={uuid.v1()}
         centered
         footer={null}
@@ -103,7 +103,7 @@ const TreeNodeItem = (props) => {
       </Ant.Modal>
       <Ant.Modal
         open={modalStateLink}
-        // key={item.id}
+        key={item.key}
         // key={uuid.v1()}
         centered
         {...defaultValues.MODAL_PROPS}
@@ -116,7 +116,7 @@ const TreeNodeItem = (props) => {
         }}
       >
         {/* <FrmLinkAccountDetailAccount key={uuid.v1()} account={item}/> */}
-        <FrmLinkAccountDetailAccount key={item.id} account={item} />
+        <FrmLinkAccountDetailAccount key={item.key} account={item} />
       </Ant.Modal>
       {isDeleted && <BsFillLockFill style={{ color: "red" }} />}
       {delLoading && <Ant.Spin />}
@@ -168,6 +168,7 @@ const TreeNodeItem = (props) => {
               ></Ant.Button>
             )}
           </Ant.Col>
+          {/* {item.key} */}
           <Ant.Col span={2}>
             {showBtn && item.level >= 0 && item.level <= 3 && (
               <Ant.Button
