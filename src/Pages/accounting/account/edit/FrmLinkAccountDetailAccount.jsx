@@ -70,7 +70,7 @@ const FrmLinkAccountDetailAccount = (props) => {
       render: (text, record, index) => (
         <>
        
-        <Ant.Typography.Text  strong type="success"> {`${record.detailedAccountGroupCode}- `}</Ant.Typography.Text>
+        <Ant.Typography.Text  strong> {`${record.detailedAccountGroupCode}- `}</Ant.Typography.Text>
         <Ant.Typography.Text > {`${record.name} `}</Ant.Typography.Text>
         <Ant.Typography.Text type="secondary">{`(${record.detailedAccountCount})`}</Ant.Typography.Text>
         
