@@ -10,21 +10,23 @@ import * as Ant from "antd";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
 
+
 const FrmLinkAccountDetailAccount = (props) => {
-  const { account } = props;
+  const { account,onSuccess } = props;
   const [dataSource, setDataSource] = useState();
   const [detailedAccLevel, setDetailedAccLevel] = useState(null);
   const [data, loading, error, apiCall] = useFetchWithHandler();
-  const [levelData, levelLoading, levelError, levelApiCall] =
-    useFetchWithHandler();
+  const [levelData, levelLoading, levelError, levelApiCall] = useFetchWithHandler();
+  const [saveData, saveLoading, saveError, saveApiCall] = usePutWithHandler();
   useRequestManager({ error: error });
   useRequestManager({ error: levelError });
+  useRequestManager({ error: saveError, data: saveData, loading: saveLoading })
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
     const queryString = qs.stringify({
-      accountId:account.accountId
+      accountId: account.accountId
     });
     apiCall(`${url.LINK_ACCOUNT_DETAILED_ACCOUNTGROUP}?${queryString}`);
     levelApiCall(url.DETAILED_ACCOUNT_LEVEL);
@@ -33,9 +35,14 @@ const FrmLinkAccountDetailAccount = (props) => {
   useEffect(() => {
     data && data.data && setDataSource(data.data);
   }, [data]);
+
   useEffect(() => {
     levelData && levelData.data && setDetailedAccLevel(levelData.data);
   }, [levelData]);
+
+  useEffect(() => {
+     saveData?.isSuccess && onSuccess && onSuccess()
+  }, [saveData]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -80,9 +87,7 @@ const FrmLinkAccountDetailAccount = (props) => {
           optionFilterProp="children"
           allowClear
           filterOption={(input, option) =>
-            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
-            0
-          }
+            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
         ></Ant.Select>
       ),
     },
@@ -124,7 +129,7 @@ const FrmLinkAccountDetailAccount = (props) => {
           <Ant.Button
             type="primary"
             onClick={(val) => {
-              alert(JSON.stringify(dataSource, null, 2));
+              saveApiCall(url.LINK_ACCOUNT_DETAILED_ACCOUNTGROUP_UPDATE_LIST , dataSource)
             }}
             block
           >
@@ -132,8 +137,7 @@ const FrmLinkAccountDetailAccount = (props) => {
           </Ant.Button>
         </Ant.Col>
       </Ant.Row>
-
-      <pre>{JSON.stringify({dataSource,account}, null, 2)}</pre>
+      {/* <pre>{JSON.stringify({ dataSource, account }, null, 2)}</pre> */}
     </>
   );
 };
