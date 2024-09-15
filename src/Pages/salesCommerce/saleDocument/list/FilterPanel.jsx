@@ -164,7 +164,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={saleChannelLoading || false}
+            disable={saleChannelLoading }
             loading={saleChannelLoading}
             options={saleChannelData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -175,7 +175,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={saleDocTypeLoading || false}
+            disable={saleDocTypeLoading }
             loading={saleDocTypeLoading}
             options={saleDocTypeData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -187,7 +187,7 @@ const FilterPanel = (props) => {
             {...commonOptionsVisitor}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={visitorLoading || false}
+            disable={visitorLoading }
             loading={visitorLoading}
             options={visitorData?.data}
             fieldNames={{ label: "fullName", value: "id" }}
@@ -199,7 +199,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={paymentTypeLoading || false}
+            disable={paymentTypeLoading }
             loading={paymentTypeLoading}
             options={paymentTypeData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -211,7 +211,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={saleTypeLoading || false}
+            disable={saleTypeLoading }
             loading={saleTypeLoading}
             options={saleTypeData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -223,7 +223,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={deliveryTypeLoading || false}
+            disable={deliveryTypeLoading }
             loading={deliveryTypeLoading}
             options={deliveryTypeData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -235,7 +235,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={saleClassificationLoading || false}
+            disable={saleClassificationLoading }
             loading={saleClassificationLoading}
             options={saleClassificationData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -248,7 +248,7 @@ const FilterPanel = (props) => {
             allowClear={true}
             mode="multiple"
             placeholder={"انتخاب کنید..."}
-            disable={branchLoading || false}
+            disable={branchLoading }
             loading={branchLoading}
             options={branchData?.data}
             fieldNames={{ label: "name", value: "id" }}

@@ -72,10 +72,10 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
         text={counterpartyData?.data?.counterpartyType}
         color={getCounterpartyTypeColor()}
       >
-        <CoustomContent type="inner" bordered={false} shadow={true}>
+        <CoustomContent type="inner" bordered>
           <Ant.Row>
             <Ant.Col span={24}>
-              <CoustomContent bordered={false} shadow={false}>
+              <CoustomContent  >
                 <Ant.Row>
                   <Ant.Col xs={24} sm={4} md={4} lg={4}>
                     <Ant.Space

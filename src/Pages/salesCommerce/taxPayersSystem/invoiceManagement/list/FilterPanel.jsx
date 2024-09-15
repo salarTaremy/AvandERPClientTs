@@ -201,7 +201,7 @@ const FilterPanel = (props) => {
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={invoiceInquiryStatusLoading || false}
+            disable={invoiceInquiryStatusLoading}
             loading={invoiceInquiryStatusLoading}
             options={invoiceInquiryStatusData?.data}
             optionRender={(option) => (
@@ -219,7 +219,7 @@ const FilterPanel = (props) => {
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={invoiceSendingStatusLoading || false}
+            disable={invoiceSendingStatusLoading }
             loading={invoiceSendingStatusLoading}
             options={invoiceSendingStatusData?.data}
             optionRender={(option) => (
@@ -372,7 +372,7 @@ const FilterPanel = (props) => {
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={saleDocumentIssueLoading || false}
+            disable={saleDocumentIssueLoading}
             loading={saleDocumentIssueLoading}
             options={saleDocumentIssueData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -382,7 +382,7 @@ const FilterPanel = (props) => {
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={saleDocTypeLoading || false}
+            disable={saleDocTypeLoading }
             loading={saleDocTypeLoading}
             options={saleDocTypeData?.data}
             fieldNames={{ label: "title", value: "id" }}

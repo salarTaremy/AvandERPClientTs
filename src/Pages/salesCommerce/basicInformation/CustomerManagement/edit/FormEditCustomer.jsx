@@ -309,7 +309,8 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                     mode="multiple"
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disable={saleChannelLoading || false}
+                    disable={saleChannelLoading}
+
                     loading={saleChannelLoading}
                     options={saleChannelData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -326,7 +327,7 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                   <Ant.Select
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disable={customerGradeLoading || false}
+                    disable={customerGradeLoading}
                     loading={customerGradeLoading}
                     options={customerGradeList?.data}
                     fieldNames={{ label: "title", value: "id" }}

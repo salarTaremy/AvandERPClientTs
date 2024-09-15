@@ -99,7 +99,7 @@ const FormAddCustomer = ({ onSucces }) => {
       const queryString = qs.stringify({
         counterpartyName: inputValue,
       });
-  
+
       const response = await GetAsync(
         `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
         "",
@@ -272,7 +272,7 @@ const FormAddCustomer = ({ onSucces }) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={customerGroupLoading || false}
+                    disabled={customerGroupLoading }
                     loading={customerGroupLoading}
                     options={customerGroupList?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -302,7 +302,7 @@ const FormAddCustomer = ({ onSucces }) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={customerTypeLoading || false}
+                    disabled={customerTypeLoading }
                     loading={customerTypeLoading}
                     options={customerTypeList?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -333,7 +333,7 @@ const FormAddCustomer = ({ onSucces }) => {
                     // mode="multiple"
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={branchLoading || false}
+                    disabled={branchLoading }
                     loading={branchLoading}
                     options={branchList?.data}
                     fieldNames={{ label: "name", value: "id" }}
@@ -350,7 +350,7 @@ const FormAddCustomer = ({ onSucces }) => {
                     mode="multiple"
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disable={saleChannelLoading || false}
+                    disable={saleChannelLoading }
                     loading={saleChannelLoading}
                     options={saleChannelData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -362,7 +362,7 @@ const FormAddCustomer = ({ onSucces }) => {
                   <Ant.Select
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disable={customerGradeLoading || false}
+                    disable={customerGradeLoading }
                     loading={customerGradeLoading}
                     options={customerGradeList?.data}
                     fieldNames={{ label: "title", value: "id" }}

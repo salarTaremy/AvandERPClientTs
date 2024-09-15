@@ -185,7 +185,7 @@ export const BasicInfoStep = (props) => {
                   options={counterpartyTypeList?.data}
                   loading={counterpartyTypeListLoading}
                   fieldNames={{ label: "name", value: "id" }}
-                  disable={counterpartyTypeListLoading || false}
+                  disable={counterpartyTypeListLoading}
                   onChange={onCounterpartyTypeChange}
                 />
               </Ant.Form.Item>

@@ -25,7 +25,7 @@ const FilterPanel = (props) => {
     //                        Functions
     //====================================================================
     const onFinish = (values) => {
-        onSubmit({ ...values });        
+        onSubmit({ ...values });
     }
 
     //====================================================================
@@ -41,7 +41,7 @@ const FilterPanel = (props) => {
                     <Ant.Select
                         allowClear={true}
                         placeholder={'انتخاب کنید...'}
-                        disable={effectiveFactorTypeLoading || false}
+                        disable={effectiveFactorTypeLoading }
                         loading={effectiveFactorTypeLoading}
                         options={effectiveFactorTypeData?.data}
                         optionRender={(option) => (
@@ -57,7 +57,7 @@ const FilterPanel = (props) => {
                     />
                 </Ant.Form.Item>
                 <Ant.Form.Item>
-                    <Ant.Button 
+                    <Ant.Button
                         block
                         type="primary"
                         onClick={() => form.submit()}

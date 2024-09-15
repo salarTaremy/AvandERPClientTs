@@ -12,7 +12,7 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
 import CoustomContent from "@/components/common/CoustomContent";
 import { FaFileMedical } from "react-icons/fa";
-import useAllLoading from '@/hooks/useAllLoading '
+import useAllLoading from "@/hooks/useAllLoading ";
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
 import { GrView } from "react-icons/gr";
 //====================================================================
@@ -30,21 +30,20 @@ const AddSaleDocHeader = (props) => {
   const [branchData, branchLoading, branchError] = api.useFetch(
     url.BRANCH_GET_WITH_PERMISSION,
   );
-  const [visitorData, visitorLoading, visitorError] = api.useFetch(
-    url.VISITOR,
-  );
-  const [deliveryTypeData, deliveryTypeLoading, deliveryTypeError] = api.useFetch(
-    url.DELIVERY_TYPE,
-  );
+  const [visitorData, visitorLoading, visitorError] = api.useFetch(url.VISITOR);
+  const [deliveryTypeData, deliveryTypeLoading, deliveryTypeError] =
+    api.useFetch(url.DELIVERY_TYPE);
   const [saleTypeData, saleTypeLoading, saleTypeError] = api.useFetch(
     url.SALETYPE,
   );
   const [paymentTypeData, paymentTypeLoading, paymentTypeError] = api.useFetch(
     url.PAYMENT_TYPE,
   );
-  const [saleClassificationData, saleClassificationLoading, saleClassificationError] = api.useFetch(
-    url.SALE_CLASSIFICATION,
-  );
+  const [
+    saleClassificationData,
+    saleClassificationLoading,
+    saleClassificationError,
+  ] = api.useFetch(url.SALE_CLASSIFICATION);
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,31 +90,30 @@ const AddSaleDocHeader = (props) => {
   //====================================================================
 
   const getCustomerForDropDown = async (searchText) => {
-   if (searchText) {
-    const queryString = qs.stringify({
-      customerName: searchText,
-    });
+    if (searchText) {
+      const queryString = qs.stringify({
+        customerName: searchText,
+      });
 
-    const response = await api.GetAsync(
-      `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
-      "",
-    );
-    if (response?.data) {
-      return response?.data.map((item) => ({
-        label: `${item.customerName}`,
-        value: item.id,
-      }));
+      const response = await api.GetAsync(
+        `${url.SALE_CUSTOMER_GET_FOR_DROPDOWN}?${queryString}`,
+        "",
+      );
+      if (response?.data) {
+        return response?.data.map((item) => ({
+          label: `${item.customerName}`,
+          value: item.id,
+        }));
+      }
     }
-   }
   };
 
   const getValueCustomer = (val) => {
-    setIsDisable(false)
+    setIsDisable(false);
     setIdCustomer(val?.key);
-
   };
   const onFinish = async (values) => {
-    console.log(values,"values")
+    console.log(values, "values");
     const dto = {
       ...values,
       customerId: values?.customerId?.key,
@@ -123,7 +121,7 @@ const AddSaleDocHeader = (props) => {
         values?.issueDateCalendarId?.toString().replace(/\//g, ""),
       ),
     };
-    console.log(dto,"dto")
+    console.log(dto, "dto");
     await addApiCall(url.SALE_DOCUMENT_Header, dto);
   };
   //====================================================================
@@ -167,10 +165,10 @@ const AddSaleDocHeader = (props) => {
                 label="کانال فروش"
               >
                 <Ant.Select
-{...commonOptions}
+                  {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleChannelLoading || false}
+                  disable={saleChannelLoading}
                   loading={saleChannelLoading}
                   options={saleChannelData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -196,7 +194,7 @@ const AddSaleDocHeader = (props) => {
             <Ant.Col span={2} md={2} lg={2}>
               <Ant.Form.Item>
                 <Ant.Button
-                disabled={isDisable || false}
+                  disabled={isDisable || false}
                   onClick={() => setIsModalOpen(true)}
                   className="text-sky-600 mt-8"
                   icon={<GrView />}
@@ -212,10 +210,10 @@ const AddSaleDocHeader = (props) => {
                 label="نوع برگه فروش"
               >
                 <Ant.Select
-                {...commonOptions}
+                  {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading || false}
+                  disable={saleDocTypeLoading }
                   loading={saleDocTypeLoading}
                   options={saleDocTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -229,10 +227,10 @@ const AddSaleDocHeader = (props) => {
                 label="ویزیتور"
               >
                 <Ant.Select
-                {...commonOptionsVisitor}
+                  {...commonOptionsVisitor}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={visitorLoading || false}
+                  disable={visitorLoading}
                   loading={visitorLoading}
                   options={visitorData?.data}
                   fieldNames={{ label: "fullName", value: "id" }}
@@ -246,10 +244,10 @@ const AddSaleDocHeader = (props) => {
                 label="نوع پرداخت"
               >
                 <Ant.Select
-                               {...commonOptions}
+                  {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={paymentTypeLoading || false}
+                  disable={paymentTypeLoading }
                   loading={paymentTypeLoading}
                   options={paymentTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -263,10 +261,10 @@ const AddSaleDocHeader = (props) => {
                 label="نوع فروش"
               >
                 <Ant.Select
-                   {...commonOptions}
+                  {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleTypeLoading || false}
+                  disable={saleTypeLoading }
                   loading={saleTypeLoading}
                   options={saleTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -280,10 +278,10 @@ const AddSaleDocHeader = (props) => {
                 label="نوع تحویل"
               >
                 <Ant.Select
-                   {...commonOptions}
+                  {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={deliveryTypeLoading || false}
+                  disable={deliveryTypeLoading }
                   loading={deliveryTypeLoading}
                   options={deliveryTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -297,10 +295,10 @@ const AddSaleDocHeader = (props) => {
                 label="طبقه بندی فروش"
               >
                 <Ant.Select
-                   {...commonOptions}
+                  {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleClassificationLoading || false}
+                  disable={saleClassificationLoading }
                   loading={saleClassificationLoading}
                   options={saleClassificationData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -314,10 +312,10 @@ const AddSaleDocHeader = (props) => {
                 label="نام شعبه"
               >
                 <Ant.Select
-                   {...commonOptionsBranch}
+                  {...commonOptionsBranch}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={branchLoading || false}
+                  disable={branchLoading }
                   loading={branchLoading}
                   options={branchData?.data}
                   fieldNames={{ label: "name", value: "id" }}
