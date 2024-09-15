@@ -113,6 +113,7 @@ export const ACTIONS = '/ApplicationController/GetActions'
 
 //LinkAccountDetailedAccountGroup
 export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP = '/linkAccountDetailedAccountGroup'
+export const LINK_ACCOUNT_DETAILED_ACCOUNTGROUP_UPDATE_LIST = '/linkAccountDetailedAccountGroup/UpdateList'
 
 
 //UpdateRoleActionAssignment
