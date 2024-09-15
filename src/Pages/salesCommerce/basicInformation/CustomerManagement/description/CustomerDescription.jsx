@@ -117,7 +117,6 @@ const CustomerDescription = (props) => {
       <HeaderCounterParty
         id={data?.data?.counterpartyId}
         onHeaderEdit={onHeaderEdit}
-
       />,
     );
     setModalState(true);
@@ -143,12 +142,110 @@ const CustomerDescription = (props) => {
       </Ant.Modal>
       <ModalHeader title={"جزئیات مشتری"} icon={<MdDescription />} />
       <Ant.Skeleton active loading={loading}>
-        <Ant.Descriptions
+        {/* <Ant.Descriptions
           bordered
           layout="vertical"
           size={"middle"}
           items={borderedItems}
-        />
+        /> */}
+        <Ant.Space
+          direction="vertical"
+          size={12}
+          style={{
+            width: "100%",
+          }}
+        >
+          <Ant.Card bordered={true} className="bg-indigo-50 border-indigo-100">
+            <Ant.Flex justify="space-between" align="center">
+              <Ant.Typography.Text>
+                <strong>شناسه </strong>
+                {` : ${data?.data?.id}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                <strong>کد </strong>
+                {` : ${data?.data?.code}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                <strong>کد دوم </strong>
+                {` : ${data?.data?.secondCode}`}
+              </Ant.Typography.Text>
+            </Ant.Flex>
+          </Ant.Card>
+          <Ant.Card bordered={true} className="bg-indigo-50 border-indigo-100">
+            <Ant.Flex justify="space-between" align="center">
+              <Ant.Typography.Text>
+                <strong>نام </strong>
+                {` : ${data?.data?.firstName}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                <strong>نام خانوادگی </strong>
+                {` :  ${data?.data?.lastName}`}
+              </Ant.Typography.Text>
+
+              <Ant.Typography.Text>
+                <strong> نام گروه  </strong>
+                {` : ${data?.data?.groupName}`}
+              </Ant.Typography.Text>
+              {/* <strong>نام :{data?.data?.firstName}</strong>
+              <strong>نام خانوادگی :{data?.data?.lastName}</strong>
+              <strong>
+                طرف حساب های مرتبط :
+                <Typography.Link
+                  onClick={() =>
+                    onViewCounterparty(data?.data?.relatedCounterpartyName)
+                  }
+                >
+                  {data?.data?.relatedCounterpartyName}
+                </Typography.Link>
+              </strong> */}
+            </Ant.Flex>
+          </Ant.Card>
+          <Ant.Card bordered={true} className="bg-indigo-50 border-indigo-100">
+            <Ant.Flex justify="space-between" align="center">
+              {/* <strong>نوع طرف حساب :{data?.data?.counterpartyTypeTitle}</strong>
+              <strong> عنوان شرکت :{data?.data?.companyTitle}</strong>
+              <strong> نام شعبه :{data?.data?.branchName}</strong> */}
+
+              <Ant.Typography.Text>
+                <strong >نوع طرف حساب </strong>
+                {` : ${data?.data?.counterpartyTypeTitle}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                <strong>عنوان شرکت </strong>
+                {` : ${data?.data?.companyTitle}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                <strong>نام شعبه </strong>
+                {` : ${data?.data?.branchName}`}
+              </Ant.Typography.Text>
+            </Ant.Flex>
+          </Ant.Card>
+          <Ant.Card bordered={true} className="bg-indigo-50 border-indigo-100">
+            <Ant.Flex justify="space-between" align="center">
+              {/* <strong>نوع فروش :{data?.data?.typeName}</strong>
+              <strong>رتبه مشتری :{data?.data?.gradeName}</strong>
+              <strong> نام گروه :{data?.data?.groupName}</strong> */}
+              <Ant.Typography.Text>
+                <strong>نوع فروش </strong>
+                {` : ${data?.data?.typeName}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                <strong>رتبه مشتری </strong>
+                {` : ${data?.data?.gradeName}`}
+              </Ant.Typography.Text>
+              <Ant.Typography.Text>
+                <strong> طرف حساب های مرتبط </strong>
+                <Typography.Link
+                  onClick={() =>
+                    onViewCounterparty(data?.data?.relatedCounterpartyName)
+                  }
+                >
+                  : {data?.data?.relatedCounterpartyName}
+                </Typography.Link>
+              </Ant.Typography.Text>
+            </Ant.Flex>
+          </Ant.Card>
+        </Ant.Space>
       </Ant.Skeleton>
     </>
   );
