@@ -96,7 +96,7 @@ const HeaderComponent = (props) => {
     },
     {
       key: "exit",
-      danger: true,
+      danger: "true",
       label: "خروج از سیستم",
       // label: <Ant.Button type="text" danger block >{"خروج از سیستم"}</Ant.Button>,
       disabled: false,

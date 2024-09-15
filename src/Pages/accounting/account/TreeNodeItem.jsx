@@ -23,7 +23,7 @@ import * as defaultValues from "@/defaultValues";
 //====================================================================
 const TreeNodeItem = (props) => {
   const buttonSize = "small";
-  const [modalLinkKey, setModalLinkKey] = useState(uuid.v4()); 
+  const [modalLinkKey, setModalLinkKey] = useState(uuid.v4());
   const { item, onEditClick, onDeleteSuccess, onAddSuccess } = props;
   const [isDeleted, setIsDeleted] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
@@ -182,7 +182,7 @@ const TreeNodeItem = (props) => {
               <Ant.Button
                 onClick={deleteItem}
                 size={buttonSize}
-                danger
+                danger="true"
                 icon={<Icons.DeleteOutlined />}
               />
             )}

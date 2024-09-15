@@ -75,7 +75,7 @@ const AppSidebar = (props) => {
 
         componentName: node.componentName,
         id: node.id,
-        danger: false,
+        // danger: false,
         disabled: false,
         name: node.name,
         // label:node.name,
@@ -105,20 +105,20 @@ const AppSidebar = (props) => {
       setOpenKeys([]); // Reset openKeys when there is no keyword
       return tree;
     }
-  
+
     if (!tree || !Array.isArray(tree)) return [];
-  
+
     const filteredTree = tree.reduce((filtered, node) => {
       // جستجو در عنوان
       const isMatch =
         node.name &&
         node.name.toLowerCase().includes(keyword.toLowerCase());
-  
+
       // جستجو در فرزندان
       const children = node.children
         ? filterTreeByTitle(node.children, keyword)
         : [];
-  
+
       if (isMatch || children.length > 0) {
         // اگر نود با جستجو منطبق باشد یا فرزندان مطابق باشند، نود را اضافه کن
         filtered.push({
@@ -126,18 +126,18 @@ const AppSidebar = (props) => {
           children: isMatch ? node.children : children, // فقط فرزندان فیلتر شده اضافه می‌شوند
         });
       }
-  
+
       if (children.length > 0) {
         // اگر فرزندان مطابق هستند، کلید parent را به openKeys اضافه کن
         setOpenKeys((prevKeys) => [...prevKeys, node.key]);
       }
-  
+
       return filtered;
     }, []);
-  
+
     return filteredTree;
   };
-  
+
 
   const processNavMenu = (menu) => {
     if (!menu) {
@@ -171,14 +171,14 @@ const AppSidebar = (props) => {
   useEffect(() => {
     const result = data?.data && formatTree(transformDataToTree(data?.data));
     const NavMnu = filterTreeByTitle(result, searchKeyword);
-    
+
     if (NavMnu) {
       const newVal = processNavMenu(NavMnu);
       setItems(newVal);
     }
   }, [data?.data, collapsedSider, searchKeyword]);
-  
-  
+
+
 
   useEffect(() => {
     apiCall(url.NAV_MENU);
