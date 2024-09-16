@@ -70,13 +70,13 @@ const RoleActionList = ({ id, name }) => {
     {
       title: "نام بخش (controller) ",
       dataIndex: "controllerPersianTitle",
-      key: "controllerPersianTitle",
+      // key: "controllerPersianTitle",
       width: 100,
     },
     {
       title: "نام عملیات (action) ",
       dataIndex: "actionPersianTitle",
-      key: "actionPersianTitle",
+      // key: "actionPersianTitle",
       width: 100,
     },
   ];

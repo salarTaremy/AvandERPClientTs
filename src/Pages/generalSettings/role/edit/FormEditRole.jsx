@@ -129,5 +129,5 @@ FormEditRole.propTypes = {
   onSuccess: PropTypes.func,
   obj: PropTypes.any,
   id: PropTypes.number,
-  myKey: PropTypes.number,
+  key: PropTypes.number,
 };
