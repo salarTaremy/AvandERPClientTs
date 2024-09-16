@@ -117,7 +117,7 @@ const CounterPartyList = () => {
       <FormEditCounterParty
         onSuccess={onSuccessEditHeader}
         key={uuid.v1()}
-        id={(id)}
+        id={id}
       />
     );
     setModalState(true);

@@ -25,6 +25,7 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formValues, setFormValues] = useState({}); // ایجاد متغیر موقت برای ذخیره تمام مقادیر ورودی فرم
 
+  useRequestManager({data: counterpartyEditedData, loading: counterpartyEditLoading, error: counterpartyEditError});
   const steps = () => [
     {
       title: "اطلاعات پایه",
@@ -50,7 +51,7 @@ const FormEditCounterParty = ({ onSuccess, id, key }) => {
     },
   ];
 
-  useRequestManager({data: counterpartyEditedData, loading: counterpartyEditLoading, error: counterpartyEditError});
+
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -172,6 +173,6 @@ export default FormEditCounterParty;
 
 FormEditCounterParty.propTypes = {
   onSuccess: PropTypes.func,
-  id: PropTypes.number.isRequired,
-  key: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  key: PropTypes.string,
 };
