@@ -5,7 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { IoIosLink } from "react-icons/io";
 import * as defaultValues from "@/defaultValues";
 
-const columns = (onDelete, onEdit,onConnection) => {
+const columns = (onDelete, onEdit, onConnection) => {
   return [
     {
       title: "نام انبار",
@@ -79,12 +79,14 @@ const columns = (onDelete, onEdit,onConnection) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Button
-            onClick={() => onConnection(val)}
-            className="text-violet-600"
-            icon={<IoIosLink />}
-            type="text"
-          />
+          <Ant.Tooltip title="تخصیص کالا به انبار">
+            <Ant.Button
+              onClick={() => onConnection(val)}
+              className="text-violet-600"
+              icon={<IoIosLink />}
+              type="text"
+            />
+          </Ant.Tooltip>
           <Ant.Button
             onClick={() => onEdit(val)}
             className="text-blue-600"

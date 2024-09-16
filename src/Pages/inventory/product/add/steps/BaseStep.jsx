@@ -42,10 +42,11 @@ export const BaseStep = ({ form }) => {
   ] = useFetchWithHandler();
   const [qrCode, setQrCode] = useState(null);
   const { token } = useToken();
-  useRequestManager({ error:productNatureDetailError });   
+  useRequestManager({ error:productNatureDetailError });
 
   useEffect(() => {
     const natureId = form.getFieldValue("natureId");
+
     natureId && setSelectedProductNature(natureId);
   }, []);
 
@@ -55,6 +56,7 @@ export const BaseStep = ({ form }) => {
 
   const handleOnChange = (val, option) => {
     form.setFieldsValue({ natureDetailId: undefined });
+    console.log(option?.id,"kkkk")
     setSelectedProductNature(option.id);
   };
 

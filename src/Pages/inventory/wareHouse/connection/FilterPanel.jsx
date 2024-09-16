@@ -42,6 +42,9 @@ const FilterPanel = (props) => {
     const ProductNature = form.getFieldValue("ProductNature");
     ProductNature && setSelectedProductNature(ProductNature);
   }, []);
+  useEffect(() => {
+    ApiCall(url.PRODUCT_NATURE_DETAIL);
+  }, [selectedproductNature]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -51,16 +54,17 @@ const FilterPanel = (props) => {
     });
   };
 
+
   const handleOnChange = async (val, option) => {
     form.setFieldsValue({ natureDetailId: undefined });
     console.log(option, "optionoption");
     console.log(val, "val");
     setSelectedProductNature(option?.id);
-    const req = {
-      Id: option.id,
-    };
-    const queryString = qs.stringify(req);
-    await ApiCall(`${url.PRODUCT_NATURE_DETAIL}?${queryString}`);
+    // const req = {
+    //   Id: option.id,
+    // };
+    // const queryString = qs.stringify(req);
+    // await ApiCall(`${url.PRODUCT_NATURE_DETAIL}?${queryString}`);
   };
 
   //====================================================================
@@ -101,6 +105,7 @@ const FilterPanel = (props) => {
               rules={[{ required: false }]}
             >
               <Ant.Select
+                       placeholder={"انتخاب کنید..."}
                 allowClear={true}
                 {...commonOptions}
                 onChange={handleOnChange}
@@ -119,9 +124,13 @@ const FilterPanel = (props) => {
             >
               <Ant.Select
                 allowClear={true}
+                placeholder={"انتخاب کنید..."}
                 {...{ ...commonOptions }}
                 loading={productNatureDetailLoading}
-                options={productNatureDetailData?.data}
+                // options={productNatureDetailData?.data}
+                options={productNatureDetailData?.data?.filter(
+                  (c) => c.productNatureTypeId === selectedproductNature,
+                )}
                 fieldNames={{ label: "name", value: "id" }}
               />
             </Ant.Form.Item>
