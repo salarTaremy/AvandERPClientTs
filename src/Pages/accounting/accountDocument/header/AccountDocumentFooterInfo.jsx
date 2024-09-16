@@ -12,12 +12,12 @@ const AccountDocumentFooterInfo = (props) => {
     {
       key: "1",
       label: "بدهکار",
-      children: accountDocumentData?.data?.debtor.toLocaleString(),
+      children: accountDocumentData?.data?.debtor?.toLocaleString(),
     },
     {
       key: "6",
       label: "بستانکار",
-      children: accountDocumentData?.data?.creditor.toLocaleString(),
+      children: accountDocumentData?.data?.creditor?.toLocaleString(),
     },
   ];
 

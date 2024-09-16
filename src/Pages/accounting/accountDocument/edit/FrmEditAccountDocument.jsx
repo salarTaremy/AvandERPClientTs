@@ -10,7 +10,7 @@ import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { MdEditDocument } from "react-icons/md";
 export const FrmEditAccountDocument = (props) => {
-  const { onSuccess, id, key } = props;
+  const { onSuccess, id, myKey } = props;
   const [accTypeData, accTypeLoading, accTypeError] = useFetch(
     url.ACCOUNTING_DOCUMENT_TYPE,
   );

@@ -59,6 +59,7 @@ const AccountDocumentHeaderInfo = (props) => {
   //====================================================================
   return (
     <>
+
       <ModalHeader title={"مشاهده سند حسابداری"} />
       <Ant.Descriptions bordered={false} size="small" items={borderedItems} />
     </>
