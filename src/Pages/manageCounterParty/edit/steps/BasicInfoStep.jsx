@@ -226,7 +226,7 @@ export const BasicInfoStep = (props) => {
 
             {/*** اطلاعات هویتی ***/}
 
-            <CoustomContent  scroll={false} title={"اطلاعات هویتی"} bordered size="small">
+            <CoustomContent  {...{scroll:false}} title={"اطلاعات هویتی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
