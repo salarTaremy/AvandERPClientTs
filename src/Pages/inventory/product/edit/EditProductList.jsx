@@ -171,7 +171,7 @@ const EditProductList = () => {
                                         <Ant.Select
                                             {...commonOptions}
                                             onChange={handleOnChange}
-                                            disabled={productNatureLoading || false}
+                                            disabled={productNatureLoading}
                                             loading={productNatureLoading}
                                             options={productNatureData?.data}
                                             fieldNames={{ label: 'name', value: 'id' }}
@@ -234,7 +234,7 @@ const EditProductList = () => {
                                         <Ant.Select
                                             {...commonOptions}
                                             onChange={handleOnChangeunit}
-                                            disabled={unitTypeLoading || false}
+                                            disabled={unitTypeLoading}
                                             loading={unitTypeLoading}
                                             options={unitTypeData?.data}
                                             fieldNames={{ label: 'name', value: 'id' }}
@@ -243,7 +243,7 @@ const EditProductList = () => {
                                     <Ant.Form.Item name={'productUnitId'} label="واحد(اصلی)" rules={[{ required: true }]}>
                                         <Ant.Select
                                             {...commonOptions}
-                                            disabled={unitLoading || false}
+                                            disabled={unitLoading}
                                             loading={unitLoading}
                                             options={unitData?.data}
                                             fieldNames={{ label: 'name', value: 'id' }}
@@ -260,7 +260,7 @@ const EditProductList = () => {
                                         <Ant.Select
                                             {...commonOptions}
                                             onChange={handleOnChangebrand}
-                                            disabled={supplierLoading || false}
+                                            disabled={supplierLoading}
                                             loading={supplierLoading}
                                             options={supplierData?.data}
                                             fieldNames={{ label: 'name', value: 'id' }}
@@ -269,7 +269,7 @@ const EditProductList = () => {
                                     <Ant.Form.Item name={'brandId'} label="برند" rules={[{ required: true }]}>
                                         <Ant.Select
                                             {...commonOptions}
-                                            disabled={brandLoading || false}
+                                            disabled={brandLoading}
                                             loading={brandLoading}
                                             options={brandData?.data}
                                             fieldNames={{ label: 'name', value: 'id' }}
@@ -316,8 +316,7 @@ const EditProductList = () => {
                                         <Ant.Select
                                             {...commonOptions}
                                             showSearch
-
-                                            disabled={seasonalReportsloading || false}
+                                            disabled={seasonalReportsloading}
                                             loading={seasonalReportsloading}
                                             options={seasonalReportsdata?.data}
                                             fieldNames={{ label: 'name', value: 'id' }}

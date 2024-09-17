@@ -47,7 +47,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
 
-            disabled={supplierLoading || false}
+            disabled={supplierLoading}
             loading={supplierLoading}
             options={supplierData?.data}
             fieldNames={{ label: 'name', value: 'id' }}

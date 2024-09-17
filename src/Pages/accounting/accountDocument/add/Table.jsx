@@ -320,7 +320,7 @@ export const Table = (props) => {
             onChange={(value) => onChangeAccount(value, record)}
             defaultValue={record.accountId}
             placeholder={"انتخاب کنید..."}
-            disabled={accountLoading || false}
+            disabled={accountLoading}
             loading={accountLoading}
             options={accountData?.data}
             fieldNames={{ label: "name", value: "id" }}
@@ -354,7 +354,7 @@ export const Table = (props) => {
             defaultValue={record.detailedAccountId4}
             placeholder={"انتخاب کنید..."}
             size="default"
-            disabled={dtAccLoading || false}
+            disabled={dtAccLoading }
             loading={dtAccLoading}
             options={dtAccData?.data}
             rules={[{ required: true }]}
@@ -387,7 +387,7 @@ export const Table = (props) => {
             onChange={(value) => handleChangeDetailedAccount(value, record.key)}
             defaultValue={record.detailedAccountId5}
             placeholder={"انتخاب کنید..."}
-            disabled={dtAccLoading || false}
+            disabled={dtAccLoading}
             loading={dtAccLoading}
             size="default"
             options={dtAccData?.data}
@@ -421,7 +421,7 @@ export const Table = (props) => {
             onChange={(value) => handleChangeDetailedAccount(value, record.key)}
             defaultValue={record.detailedAccountId6}
             placeholder={"انتخاب کنید..."}
-            disabled={dtAccLoading || false}
+            disabled={dtAccLoading}
             loading={dtAccLoading}
             size="default"
             options={dtAccData?.data}

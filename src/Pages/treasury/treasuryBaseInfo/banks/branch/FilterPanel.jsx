@@ -60,7 +60,7 @@ const FilterPanel = (props) => {
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
                         onChange={handleOnChange}
-                        disabled={provinceLoading || false}
+                        disabled={provinceLoading }
                         loading={provinceLoading}
                         options={provinceData?.data}
                         fieldNames={{ label: 'name', value: 'id' }}
@@ -71,7 +71,7 @@ const FilterPanel = (props) => {
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        disabled={cityLoading || false}
+                        disabled={cityLoading }
                         loading={cityLoading}
                         options={cityData?.data}
                         fieldNames={{ label: 'name', value: 'id' }}

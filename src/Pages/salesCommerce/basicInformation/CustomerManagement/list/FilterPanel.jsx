@@ -94,7 +94,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disabled={customerGroupLoading || false}
+            disabled={customerGroupLoading }
             loading={customerGroupLoading}
             options={customerGroupList?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -110,7 +110,7 @@ const FilterPanel = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disabled={customerTypeLoading || false}
+            disabled={customerTypeLoading }
             loading={customerTypeLoading}
             options={customerTypeList?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -127,7 +127,7 @@ const FilterPanel = (props) => {
             {...commonOptionsBranch}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disabled={branchLoading || false}
+            disabled={branchLoading}
             loading={branchLoading}
             options={branchList?.data}
             fieldNames={{ label: "name", value: "id" }}

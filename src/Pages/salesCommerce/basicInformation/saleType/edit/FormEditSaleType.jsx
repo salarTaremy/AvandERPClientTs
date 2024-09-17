@@ -135,7 +135,7 @@ const FormEditSaleType = (props) => {
                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disabled={currencyLoading || false}
+                  disabled={currencyLoading }
                   loading={currencyLoading}
                   options={currencyData?.data}
                   fieldNames={{ label: "persianTitle", value: "id" }}
@@ -199,7 +199,7 @@ const FormEditSaleType = (props) => {
                   {...commonOptionsAcc}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disabled={dtAccLoading || false}
+                  disabled={dtAccLoading}
                   loading={dtAccLoading}
                   options={dtAccData?.data}
                   fieldNames={{ label: "name", value: "id" }}

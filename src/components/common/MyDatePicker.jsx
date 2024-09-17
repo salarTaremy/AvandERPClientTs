@@ -42,7 +42,6 @@ const MyDatePicker = (props) => {
   return (
     <>
       <DatePicker
-
         {...defaultDatePickerProps}
         {...props}
       />

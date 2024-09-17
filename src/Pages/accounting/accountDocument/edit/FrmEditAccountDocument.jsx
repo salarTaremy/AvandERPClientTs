@@ -46,7 +46,6 @@ export const FrmEditAccountDocument = (props) => {
     onEditHeader();
   }, []);
 
-
   useEffect(() => {
     form.resetFields();
     listDataHeader?.isSuccess &&
@@ -71,59 +70,17 @@ export const FrmEditAccountDocument = (props) => {
       ),
     };
 
-    // const header = {
-    //   id: id,
-    //   documentNumber: 0,
-    //   branchId: valueHeader.branchId,
-    //   calendarId: parseInt(
-    //     valueHeader?.persianDateTilte?.toString().replace(/\//g, ""),
-    //   ),
-    //   subNumber: valueHeader.subNumber,
-    //   description: valueHeader.description,
-    // };
-
-    // const detailsList = [];
-
-    // for (let key in values) {
-    //   if (typeof values[key] === "object") {
-    //     detailsList.push(values[key]);
-    //   }
-    // }
-
-    // delete header.details;
     const dto = {
       header,
-      // details: [],
     };
 
     await editApiCall(url.ACCOUNT_DOCUMENT, dto);
-    navigate("/accounting/accountDocument");
+    // navigate("/accounting/accountDocument");
   };
 
   //====================================================================
   //                        Child Components
   //====================================================================
-  const FooterContent = () => {
-    return (
-      <>
-        <Ant.Row gutter={[16, 8]}>
-          <Ant.Col className="mt-1" lg={12} md={12} sm={12} xs={24}>
-            <Ant.Button
-              htmlType="submit"
-              type="primary"
-              style={{ width: 150 }}
-              onClick={() => {
-                form.submit();
-              }}
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Col>
-
-        </Ant.Row>
-      </>
-    );
-  };
 
   //====================================================================
   //                        Component
@@ -131,33 +88,34 @@ export const FrmEditAccountDocument = (props) => {
 
   return (
     <>
-      <ModalHeader title={"ویرایش سند حسابداری"} icon={<MdEditDocument />}/>
+      <ModalHeader title={"ویرایش سند حسابداری"} icon={<MdEditDocument />} />
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <Ant.Row gutter={[8, 8]}>
+
           <Ant.Col lg={16}>
-            <Ant.Form.Item name={"persianDateTilte"} label="تاریخ">
+            <Ant.Form.Item name={"persianDateTilte"} label={"تاریخ"}>
               <MyDatePicker />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col lg={8}>
             <Ant.Form.Item
-              rules={[{ required: true }]}
               name={"subNumber"}
-              label="شماره فرعی"
+              label={"شماره فرعی"}
+              rules={[{ required: true }]}
             >
               <Ant.InputNumber min={0} style={{ width: "100%" }} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24}>
             <Ant.Form.Item
-              rules={[{ required: true }]}
               name={"branchId"}
-              label="شعبه سند"
+              label={"شعبه سند"}
+              rules={[{ required: true }]}
             >
               <Ant.Select
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={branchLoading || false}
+                disabled={branchLoading}
                 loading={branchLoading}
                 options={branchData?.data}
                 fieldNames={{ label: "name", value: "id" }}
@@ -168,7 +126,7 @@ export const FrmEditAccountDocument = (props) => {
             <Ant.Form.Item
               rules={[{ required: true }]}
               name={"accountingDocumentTypeId"}
-              label="نوع سند "
+              label={"نوع سند "}
             >
               <Ant.Select
                 allowClear={true}
@@ -182,9 +140,9 @@ export const FrmEditAccountDocument = (props) => {
           </Ant.Col>
           <Ant.Col span={24}>
             <Ant.Form.Item
-              rules={[{ required: true }]}
               name={"accountingDocumentStateId"}
-              label="وضعیت "
+              label={"وضعیت "}
+              rules={[{ required: true }]}
             >
               <Ant.Select
                 allowClear={true}
@@ -200,35 +158,29 @@ export const FrmEditAccountDocument = (props) => {
           <Ant.Col span={24}>
             <Ant.Form.Item
               name={"description"}
-              label="توضیحات"
+              label={"توضیحات"}
               rules={[{ required: false }]}
             >
               <Ant.Input.TextArea allowClear showCount maxLength={400} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col span={24}>
-          <Ant.Form.Item>
-            <Ant.Button
-              type="primary"
-              onClick={() => {
-                form.submit();
-              }}
-              block
-            >
-              {"تایید"}
-            </Ant.Button>
-          </Ant.Form.Item>
+            <Ant.Form.Item>
+              <Ant.Button
+                type="primary"
+                loading={editLoading}
+
+                onClick={() => {
+                  form.submit();
+                }}
+                block
+              >
+                {"تایید"}
+              </Ant.Button>
+            </Ant.Form.Item>
           </Ant.Col>
         </Ant.Row>
       </Ant.Form>
-
-      {/* <TBL
-        updateDebtorEdit={updateDebtorEdit}
-        updateCreditorEdit={updateCreditorEdit}
-        footer={FooterContent}
-        dataEdit={dataEdit}
-        onSubmit={onFinish}
-      /> */}
     </>
   );
 };

@@ -438,7 +438,7 @@ const FrmEditItemDetail = (props) => {
             <Ant.Form.Item className="text-end">
               <Ant.Button
 
-                disabled={allLoading || false}
+                disabled={allLoading }
                 type="primary"
                 htmlType="submit"
               >

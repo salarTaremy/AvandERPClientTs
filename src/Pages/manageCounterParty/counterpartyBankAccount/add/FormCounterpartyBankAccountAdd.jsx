@@ -69,7 +69,7 @@ const FormCounterpartyBankAccountAdd = (props) => {
                   onChange={onBankChange}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disabled={bankLoading || false}
+                  disabled={bankLoading}
                   loading={bankLoading}
                   options={bankList?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -85,7 +85,7 @@ const FormCounterpartyBankAccountAdd = (props) => {
                 <Ant.Select
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disabled={bankBranchLoading || false}
+                  disabled={bankBranchLoading}
                   loading={bankBranchLoading}
                   options={bankBranchList?.data}
                   fieldNames={{ label: "title", value: "id" }}

@@ -73,7 +73,7 @@ export const FrmEditAccountGroup = ({ accountGroupId }) => {
               <Ant.Form.Item name={'accountTypeId'} label="نوع" rules={[{ required: true }]}>
                 <Ant.Select
                   placeholder={'انتخاب کنید...'}
-                  disabled={accTypeLoading || false}
+                  disabled={accTypeLoading }
                   loading={accTypeLoading}
                   options={accTypeData?.data}
                   fieldNames={{ label: 'name', value: 'id' }}
@@ -84,7 +84,7 @@ export const FrmEditAccountGroup = ({ accountGroupId }) => {
               <Ant.Form.Item name={'accountNatureId'} label="ماهیت" rules={[{ required: true }]}>
                 <Ant.Select
                   placeholder={'انتخاب کنید...'}
-                  disabled={accNatureLoading || false}
+                  disabled={accNatureLoading}
                   loading={accNatureLoading}
                   options={accNatureData?.data}
                   fieldNames={{ label: 'name', value: 'id' }}

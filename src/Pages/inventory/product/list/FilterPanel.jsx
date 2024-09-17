@@ -68,7 +68,7 @@ const FilterPanel = (props) => {
             mode="multiple"
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disabled={brandLoading || false}
+            disabled={brandLoading}
             loading={brandLoading}
             options={brandData?.data}
             fieldNames={{ label: "name", value: "id" }}

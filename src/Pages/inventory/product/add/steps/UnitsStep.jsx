@@ -54,7 +54,7 @@ export const UnitsStep = ({ form }) => {
             <Select
               {...commonOptions}
               onChange={handleOnChange}
-              disabled={unitTypeLoading || false}
+              disabled={unitTypeLoading}
               loading={unitTypeLoading}
               options={unitTypeData?.data}
               fieldNames={{ label: 'name', value: 'id' }}
@@ -67,7 +67,7 @@ export const UnitsStep = ({ form }) => {
               filterOption={(input, option) =>
                 option.name.indexOf(input) >= 0
               }
-              disabled={unitLoading || false}
+              disabled={unitLoading }
               loading={unitLoading}
               options={unitData?.data}
               fieldNames={{ label: 'name', value: 'id' }}

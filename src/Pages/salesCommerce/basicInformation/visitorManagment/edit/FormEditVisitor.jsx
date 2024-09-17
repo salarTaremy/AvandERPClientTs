@@ -165,7 +165,7 @@ const FormEditVisitor = (props) => {
                                             {...commonOptionsBranch}
                                             allowClear={true}
                                             placeholder={"انتخاب کنید..."}
-                                            disabled={branchLoading || false}
+                                            disabled={branchLoading}
                                             loading={branchLoading}
                                             options={branchList?.data}
                                             fieldNames={{ label: "name", value: "id" }}
@@ -183,7 +183,7 @@ const FormEditVisitor = (props) => {
                                             allowClear={true}
                                             mode="multiple"
                                             placeholder={"انتخاب کنید..."}
-                                            disabled={saleChannelLoading || false}
+                                            disabled={saleChannelLoading}
                                             loading={saleChannelLoading}
                                             options={saleChannelData?.data}
                                             fieldNames={{ label: "title", value: "id" }}

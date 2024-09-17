@@ -46,7 +46,7 @@ const FormAddPriceCirculardetail = (props) => {
                     <Ant.Select
                         {...commonOptions}
                         placeholder={"انتخاب کنید..."}
-                        disabled={productLoading || false}
+                        disabled={productLoading}
                         loading={productLoading}
                         options={productData?.data}
                         fieldNames={{ label: "name", value: "id" }}

@@ -66,7 +66,7 @@ export const SupplierStep = ({ form }) => {
             <Select
               {...commonOptions}
               onChange={handleOnChange}
-              disabled={supplierLoading || false}
+              disabled={supplierLoading}
               loading={supplierLoading}
               options={supplierData?.data}
               fieldNames={{ label: 'name', value: 'id' }}
@@ -75,7 +75,7 @@ export const SupplierStep = ({ form }) => {
           <Form.Item name={'brandId'} label="برند" rules={[{ required: true }]}>
             <Select
               {...commonOptions}
-              disabled={brandLoading || false}
+              disabled={brandLoading}
               loading={brandLoading}
               options={brandData?.data}
               fieldNames={{ label: 'name', value: 'id' }}

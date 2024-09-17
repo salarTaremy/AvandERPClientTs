@@ -156,7 +156,7 @@ export const FrmEditAccountDocument = (props) => {
                         <Ant.Select
                           allowClear={true}
                           placeholder={"انتخاب کنید..."}
-                          disabled={branchLoading || false}
+                          disabled={branchLoading}
                           loading={branchLoading}
                           options={branchData?.data}
                           fieldNames={{ label: "name", value: "id" }}

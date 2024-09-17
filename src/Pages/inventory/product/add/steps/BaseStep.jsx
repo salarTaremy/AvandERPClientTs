@@ -76,7 +76,7 @@ export const BaseStep = ({ form }) => {
             <Select
               {...commonOptions}
               onChange={handleOnChange}
-              disabled={productNatureLoading || false}
+              disabled={productNatureLoading }
               loading={productNatureLoading}
               options={productNatureData?.data}
               fieldNames={{ label: "name", value: "id" }}
@@ -108,7 +108,7 @@ export const BaseStep = ({ form }) => {
               mode="multiple"
               allowClear={true}
               placeholder={"انتخاب کنید..."}
-              disabled={wareHouseLoading || false}
+              disabled={wareHouseLoading}
               loading={wareHouseLoading}
               options={wareHouseData?.data}
               fieldNames={{ label: "title", value: "id" }}

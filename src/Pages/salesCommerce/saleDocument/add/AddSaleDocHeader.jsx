@@ -194,7 +194,7 @@ const AddSaleDocHeader = (props) => {
             <Ant.Col span={2} md={2} lg={2}>
               <Ant.Form.Item>
                 <Ant.Button
-                  disabled={isDisable || false}
+                  disabled={isDisable }
                   onClick={() => setIsModalOpen(true)}
                   className="text-sky-600 mt-8"
                   icon={<GrView />}

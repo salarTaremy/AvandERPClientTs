@@ -90,7 +90,7 @@ const FilterPanel = (props) => {
                 mode="multiple"
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={brandLoading || false}
+                disabled={brandLoading}
                 loading={brandLoading}
                 options={brandData?.data}
                 fieldNames={{ label: "name", value: "id" }}
@@ -109,7 +109,7 @@ const FilterPanel = (props) => {
                 allowClear={true}
                 {...commonOptions}
                 onChange={handleOnChange}
-                disabled={productNatureLoading || false}
+                disabled={productNatureLoading}
                 loading={productNatureLoading}
                 options={productNatureData?.data}
                 fieldNames={{ label: "name", value: "id" }}

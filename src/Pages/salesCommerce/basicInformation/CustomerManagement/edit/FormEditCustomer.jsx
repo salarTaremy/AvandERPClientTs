@@ -231,7 +231,7 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={customerGroupLoading || false}
+                    disabled={customerGroupLoading}
                     loading={customerGroupLoading}
                     options={customerGroupList?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -261,7 +261,7 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={customerTypeLoading || false}
+                    disabled={customerTypeLoading}
                     loading={customerTypeLoading}
                     options={customerTypeList?.data}
                     fieldNames={{ label: "title", value: "id" }}

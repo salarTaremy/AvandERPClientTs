@@ -49,7 +49,7 @@ const FormAddNewWarehouse = (props) => {
       const queryString = qs.stringify({
         counterpartyName: inputValue,
       });
-  
+
       const response = await GetAsync(
         `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
         "",
@@ -101,7 +101,7 @@ const FormAddNewWarehouse = (props) => {
             >
               <Ant.Select
                 placeholder={"انتخاب کنید..."}
-                disabled={warehouseTypeLoading || false}
+                disabled={warehouseTypeLoading}
                 loading={warehouseTypeLoading}
                 options={warehouseTypeData?.data}
                 fieldNames={{ label: "title", value: "id" }}
@@ -117,7 +117,7 @@ const FormAddNewWarehouse = (props) => {
               <Ant.Select
                 placeholder={"انتخاب کنید..."}
                 mode="multiple"
-                disabled={branchLoading || false}
+                disabled={branchLoading}
                 loading={branchLoading}
                 options={branchData?.data}
                 fieldNames={{ label: "name", value: "id" }}

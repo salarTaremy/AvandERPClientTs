@@ -173,7 +173,7 @@ export const FormAddSaleClassification = (props) => {
                   {...commonOptionsAcc}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disabled={dtAccLoading || false}
+                  disabled={dtAccLoading }
                   loading={dtAccLoading}
                   options={dtAccData?.data}
                   fieldNames={{ label: "name", value: "id" }}

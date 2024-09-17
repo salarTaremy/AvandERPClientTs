@@ -85,7 +85,7 @@ const FormAddBrand = (props) => {
             {...commonOptions}
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disabled={selectLoading || false}
+            disabled={selectLoading }
             loading={selectLoading}
             options={selectData?.data}
             fieldNames={{ label: "name", value: "id" }}

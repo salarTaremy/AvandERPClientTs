@@ -61,7 +61,7 @@ const FormAddNewState = (props) => {
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        disabled={stateLoading || false}
+                        disabled={stateLoading}
                         loading={stateLoading}
                         options={stateData?.data}
                         fieldNames={{ label: "title", value: "id" }}

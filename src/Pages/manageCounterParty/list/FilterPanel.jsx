@@ -69,7 +69,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"counterpartyTypeId"} label="نوع طرف حساب">
           <Ant.Select
             allowClear={true}
-            disabled={counterpartyTypeLoading || false}
+            disabled={counterpartyTypeLoading}
             loading={counterpartyTypeLoading}
             options={counterpartyTypeList?.data}
             fieldNames={{ label: "name", value: "id" }}
@@ -90,7 +90,7 @@ const FilterPanel = (props) => {
           />
         </Ant.Form.Item>
         <Ant.Form.Item name={"code"} label="کد">
-          <Ant.Input 
+          <Ant.Input
               allowClear
               showCount
               maxLength={10}
@@ -111,7 +111,7 @@ const FilterPanel = (props) => {
             },
           ]}
         >
-          <Ant.Input 
+          <Ant.Input
             allowClear
             showCount
             maxLength={10}
@@ -119,7 +119,7 @@ const FilterPanel = (props) => {
           />
         </Ant.Form.Item>
 
-        <Ant.Form.Item 
+        <Ant.Form.Item
           name={"fidaCode"}
           label="کد فراگیر"
           rules={[
@@ -133,7 +133,7 @@ const FilterPanel = (props) => {
         >
           <Ant.Input allowClear showCount maxLength={12} />
         </Ant.Form.Item>
-                    
+
         <Ant.Form.Item
           name={"legalEntityIdentity"}
           label="شناسه ملی"
@@ -147,7 +147,7 @@ const FilterPanel = (props) => {
             },
           ]}
         >
-          <Ant.Input 
+          <Ant.Input
             allowClear
             showCount
             maxLength={11}
@@ -168,7 +168,7 @@ const FilterPanel = (props) => {
             },
           ]}
         >
-          <Ant.Input 
+          <Ant.Input
             allowClear
             showCount
             maxLength={14}
@@ -223,7 +223,7 @@ const FilterPanel = (props) => {
         >
           <Ant.Input allowClear showCount maxLength={100} />
         </Ant.Form.Item> */}
-       
+
         <Ant.Form.Item name={"isActive"} label="فعال">
           <Ant.Switch defaultChecked={true} />
         </Ant.Form.Item>

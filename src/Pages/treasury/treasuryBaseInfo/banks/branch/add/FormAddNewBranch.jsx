@@ -76,7 +76,7 @@ const FormAddNewBranch = (props) => {
                         onChange={handleOnChange}
                         placeholder={"انتخاب کنید..."}
                         allowClear={true}
-                        disabled={provinceLoading || false}
+                        disabled={provinceLoading }
                         loading={provinceLoading}
                         options={provinceData?.data}
                         fieldNames={{ label: 'name', value: 'id' }}
@@ -87,7 +87,7 @@ const FormAddNewBranch = (props) => {
                         {...commonOptions}
                         placeholder={"انتخاب کنید..."}
                         allowClear={true}
-                        disabled={cityLoading || false}
+                        disabled={cityLoading}
                         loading={cityLoading}
                         options={cityData?.data}
                         fieldNames={{ label: 'name', value: 'id' }}

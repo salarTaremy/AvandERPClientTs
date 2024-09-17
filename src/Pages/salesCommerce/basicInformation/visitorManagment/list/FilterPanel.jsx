@@ -45,7 +45,7 @@ const FilterPanel = (props) => {
             const queryString = qs.stringify({
                 counterpartyName: inputValue,
             });
-    
+
             const response = await GetAsync(
                 `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
                 "",
@@ -95,7 +95,7 @@ const FilterPanel = (props) => {
                         {...commonOptionsBranch}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        disabled={branchLoading || false}
+                        disabled={branchLoading}
                         loading={branchLoading}
                         options={branchList?.data}
                         fieldNames={{ label: "name", value: "id" }}
@@ -110,7 +110,7 @@ const FilterPanel = (props) => {
                         allowClear={true}
                         mode="multiple"
                         placeholder={"انتخاب کنید..."}
-                        disabled={saleChannelLoading || false}
+                        disabled={saleChannelLoading}
                         loading={saleChannelLoading}
                         options={saleChannelData?.data}
                         fieldNames={{ label: "title", value: "id" }}

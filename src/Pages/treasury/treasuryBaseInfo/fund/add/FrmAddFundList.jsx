@@ -145,7 +145,7 @@ const FormAddSupplier = (props) => {
                 {...commonOptions}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={accountLoading || false}
+                disabled={accountLoading }
                 loading={accountLoading}
                 options={accountList?.data}
                 fieldNames={{ label: "name", value: "id" }}
@@ -166,7 +166,7 @@ const FormAddSupplier = (props) => {
                 {...commonOptions}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={dtAccLoading || false}
+                disabled={dtAccLoading }
                 loading={dtAccLoading}
                 options={dtAccData?.data}
                 fieldNames={{ label: "name", value: "id" }}
@@ -180,7 +180,7 @@ const FormAddSupplier = (props) => {
                 {...commonOptionsEmployee}
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={employeeLoading || false}
+                disabled={employeeLoading }
                 loading={employeeLoading}
                 options={employeeList?.data}
                 fieldNames={{ label: "fullName", value: "id" }}

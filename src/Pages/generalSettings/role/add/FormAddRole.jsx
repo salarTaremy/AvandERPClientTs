@@ -77,7 +77,7 @@ const FormAddBrand = (props) => {
             >
               <Ant.Select
                 placeholder={"انتخاب کنید..."}
-                disabled={roleScopeLoading || false}
+                disabled={roleScopeLoading}
                 loading={roleScopeLoading}
                 options={roleScopeData?.data}
                 fieldNames={{ label: "name", value: "id" }}

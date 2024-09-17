@@ -48,7 +48,7 @@ const FilterPanel = (props) => {
                         {...commonOptions}
                         allowClear={true}
                         placeholder={"انتخاب کنید..."}
-                        disabled={roleLoading || false}
+                        disabled={roleLoading}
                         loading={roleLoading}
                         options={roleData?.data}
                         fieldNames={{ label: "persianTitle", value: "persianTitle" }}

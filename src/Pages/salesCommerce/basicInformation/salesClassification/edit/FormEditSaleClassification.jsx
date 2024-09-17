@@ -147,7 +147,7 @@ export const FormEditSaleClassification = (props) => {
               >
                 <Ant.Cascader
                   loading={accounTreeLoading || accLoading}
-                  disabled={accounTreeLoading || accLoading }
+                  disabled={accounTreeLoading }
                   options={options}
                   optionRender={(option) => (
                     <>

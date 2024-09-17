@@ -127,7 +127,7 @@ const FormEditPriceCircularHeader = (props) => {
                             {...commonOptions}
                             allowClear={true}
                             placeholder={"انتخاب کنید..."}
-                            disabled={selectLoading || false}
+                            disabled={selectLoading }
                             loading={selectLoading}
                             options={selectData?.data}
                             fieldNames={{ label: "persianTitle", value: "id" }}

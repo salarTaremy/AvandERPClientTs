@@ -85,7 +85,7 @@ const FrmAddAccountDocument = (props) => {
               <Ant.Select
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={branchLoading || false}
+                disabled={branchLoading}
                 loading={branchLoading}
                 options={branchData?.data}
                 fieldNames={{ label: "name", value: "id" }}
@@ -101,7 +101,7 @@ const FrmAddAccountDocument = (props) => {
               <Ant.Select
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={accTypeLoading || false}
+                disabled={accTypeLoading}
                 loading={accTypeLoading}
                 options={accTypeData?.data}
                 fieldNames={{ label: "name", value: "id" }}
@@ -117,7 +117,7 @@ const FrmAddAccountDocument = (props) => {
               <Ant.Select
                 allowClear={true}
                 placeholder={"انتخاب کنید..."}
-                disabled={accStateLoading || false}
+                disabled={accStateLoading}
                 loading={accStateLoading}
                 options={
                   accStateData?.data && [

@@ -54,7 +54,7 @@ export const SeasonalReportsStep = ({ form }) => {
               {...commonOptions}
               showSearch
               filterOption={(input, option) => option.name.indexOf(input) >= 0}
-              disabled={loading || false}
+              disabled={loading}
               loading={loading}
               options={data?.data}
               fieldNames={{ label: 'name', value: 'id' }}
