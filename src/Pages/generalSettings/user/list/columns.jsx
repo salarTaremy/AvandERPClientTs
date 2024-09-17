@@ -6,11 +6,11 @@ import { GrView } from "react-icons/gr";
 import { VscKey } from "react-icons/vsc";
 import { VscGithubAction } from "react-icons/vsc";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import { CgMoreVertical , CgMore} from "react-icons/cg";
+import { CgMoreVertical, CgMore } from "react-icons/cg";
 import { BsMotherboard } from "react-icons/bs";
 import * as defaultValues from "@/defaultValues";
 
-const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) => {
+const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses, onDescription) => {
     const getMenuItems = (val) => [
         {
             key: '1',
@@ -119,14 +119,14 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses) =
                                 type="text"
                             />
                         </Ant.Dropdown>
-                            <Ant.Button
-                                onClick={() => { }}
-                                className="text-sky-600"
-                                icon={<GrView />}
-                                type="text"
-                            />
+                        <Ant.Button
+                            onClick={() => onDescription(val)}
+                            className="text-sky-600"
+                            icon={<GrView />}
+                            type="text"
+                        />
                         <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>
-                                <Ant.Button className="text-rose-600" icon={<RiDeleteBin6Line />} type="text" />
+                            <Ant.Button className="text-rose-600" icon={<RiDeleteBin6Line />} type="text" />
                         </Ant.Popconfirm>
                     </>
                 )

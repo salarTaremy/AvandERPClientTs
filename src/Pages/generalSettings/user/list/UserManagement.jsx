@@ -19,6 +19,7 @@ import FilterPanel from "./FilterPanel";
 import UserInfo from "../info/UserInfo";
 import FormSwitchUserRollList from "../rollSwitch/FormSwitchUserRollList";
 import FormUsersOtherAccess from "../otherAccess/FormUsersOtherAccess";
+import FormUserDescription from "../description/FormUserDescription";
 
 const UserManagement = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -183,6 +184,17 @@ const UserManagement = () => {
     setModalState(false);
   }
 
+  const onDescription = (val) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE })
+    setModalContent(
+      <FormUserDescription
+        key={uuid.v1()}
+        id={val.id}
+      />
+    )
+    setModalState(true);
+  }
+
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -245,7 +257,7 @@ const UserManagement = () => {
             {...defaultValues.TABLE_PROPS}
             pagination={pagination}
             title={title}
-            columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch, onOtherAccesses)}
+            columns={columns(onDelSuccess, onEdit, onReset, onInfo, onSwitch, onOtherAccesses, onDescription)}
             onChange={handleTableChange}
             dataSource={dataSource}
             loading={loading}
