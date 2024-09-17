@@ -11,19 +11,16 @@ import ButtonList from "@/components/common/ButtonList";
 import FilterPanel from "./FilterPanel";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
-import AccountDocumentDetailView from "./AccountDocumentDetailView";
 import AccountDocumentDescription from "@/Pages/accounting/accountDocument/description/AccountDocumentDescription";
-import { useNavigate, generatePath } from "react-router-dom";
 import * as uuid from "uuid";
 import FrmAddAccountDocument from "./../add/FrmAddAccountDocument";
 import AddItemDetailList from "./../add/AddItemDetailList";
 import FrmEditAccountDocument from "./../edit/FrmEditAccountDocument";
-import PropTypes from 'prop-types'
+
 //====================================================================
 //                        Declaration
 //====================================================================
 const AccountDocumentList = (props) => {
-
   const pageTitle = "مدیریت اسناد حسابداری";
   const [listData, listLoading, listError, listApiCall] =
     api.useFetchWithHandler();
@@ -58,7 +55,7 @@ const AccountDocumentList = (props) => {
     setDataSource(listData?.data);
     setPagination({
       ...pagination,
-      total: listData?.data && listData?.data[0]?.totalCount
+      total: listData?.data && listData?.data[0]?.totalCount,
     });
   }, [listData]);
 
@@ -70,14 +67,6 @@ const AccountDocumentList = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const onSuccessEdit = () => {
-    setModalState(false);
-    fillGrid();
-  };
-  const onSuccessAdd = () => {
-    setModalState(false);
-    fillGrid();
-  };
 
   const fillGrid = async () => {
     const queryString = qs.stringify({
@@ -101,7 +90,6 @@ const AccountDocumentList = (props) => {
     setOpenFilter(false);
   };
   const onAdd = () => {
-    // navigate("/accounting/accountDocument/new");
     const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList);
     setModalContent(
@@ -109,12 +97,7 @@ const AccountDocumentList = (props) => {
     );
     setModalState(true);
   };
-  const onDelete = async (id) => {
-    await delApiCall(`${url.ACCOUNT_DOCUMENT}/${id}`);
-  };
   const onEdit = (id) => {
-    // id &&
-    //   navigate(generatePath("/accounting/accountDocument/edit/:id", { id }));
     const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
     setModalSize(updateList);
     setModalContent(
@@ -122,6 +105,10 @@ const AccountDocumentList = (props) => {
     );
     setModalState(true);
   };
+  const onDelete = async (id) => {
+    await delApiCall(`${url.ACCOUNT_DOCUMENT}/${id}`);
+  };
+
   const onView = (id) => {
     setModalSize({ ...defaultValues.MODAL_LARGE });
     setModalContent(<AccountDocumentDescription id={id} key={id} />);
@@ -131,6 +118,14 @@ const AccountDocumentList = (props) => {
     setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE });
     setModalContent(<AddItemDetailList id={id} key={uuid.v1()} />);
     setModalState(true);
+  };
+  const onSuccessEdit = () => {
+    setModalState(false);
+    fillGrid();
+  };
+  const onSuccessAdd = () => {
+    setModalState(false);
+    fillGrid();
   };
   //====================================================================
   //                        Child Components

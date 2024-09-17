@@ -5,7 +5,6 @@ import MyDatePicker from "@/components/common/MyDatePicker";
 import { useFetch, usePutWithHandler } from "@/api";
 import PropTypes from "prop-types";
 import useRequestManager from "@/hooks/useRequestManager";
-import TBL from "../../../accounting/accountDocument/add/Table";
 import * as api from "@/api";
 import ModalHeader from "@/components/common/ModalHeader";
 import { MdEditDocument } from "react-icons/md";
@@ -39,6 +38,10 @@ export const FrmEditAccountDocument = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
+    editData?.isSuccess && onSuccess();
+  }, [editData]);
+
+  useEffect(() => {
     form.resetFields();
   }, [form]);
 
@@ -61,7 +64,7 @@ export const FrmEditAccountDocument = (props) => {
 
   const onFinish = async (values) => {
     // let valueHeader = form.getFieldsValue();
-    const header = {
+    const dto = {
       ...values,
       documentNumber: 0,
       id: id,
@@ -70,12 +73,7 @@ export const FrmEditAccountDocument = (props) => {
       ),
     };
 
-    const dto = {
-      header,
-    };
-
     await editApiCall(url.ACCOUNT_DOCUMENT, dto);
-    // navigate("/accounting/accountDocument");
   };
 
   //====================================================================
@@ -91,7 +89,6 @@ export const FrmEditAccountDocument = (props) => {
       <ModalHeader title={"ویرایش سند حسابداری"} icon={<MdEditDocument />} />
       <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
         <Ant.Row gutter={[8, 8]}>
-
           <Ant.Col lg={16}>
             <Ant.Form.Item name={"persianDateTilte"} label={"تاریخ"}>
               <MyDatePicker />
@@ -169,7 +166,6 @@ export const FrmEditAccountDocument = (props) => {
               <Ant.Button
                 type="primary"
                 loading={editLoading}
-
                 onClick={() => {
                   form.submit();
                 }}

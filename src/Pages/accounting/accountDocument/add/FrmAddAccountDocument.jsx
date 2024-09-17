@@ -7,7 +7,6 @@ import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import PropTypes from "prop-types";
 
-import { useNavigate } from "react-router-dom";
 import { HiDocumentPlus } from "react-icons/hi2";
 const FrmAddAccountDocument = (props) => {
   const { onSuccess } = props;
@@ -25,7 +24,7 @@ const FrmAddAccountDocument = (props) => {
   useRequestManager({ error: accTypeError });
   useRequestManager({ error: branchError });
 
-  const navigate = useNavigate();
+
 
   //====================================================================
   //                       useEffects
@@ -49,7 +48,7 @@ const FrmAddAccountDocument = (props) => {
       calendarId: parseInt(values?.calendarId?.toString().replace(/\//g, "")),
     };
     await addApiCall(url.ACCOUNT_DOCUMENT, dto);
-    navigate("/accounting/accountDocument");
+
   };
 
   //====================================================================
