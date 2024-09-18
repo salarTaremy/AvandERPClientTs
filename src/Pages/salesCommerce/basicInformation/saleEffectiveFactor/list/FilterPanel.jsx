@@ -41,7 +41,7 @@ const FilterPanel = (props) => {
                     <Ant.Select
                         allowClear={true}
                         placeholder={'انتخاب کنید...'}
-                        disable={effectiveFactorTypeLoading }
+                        disabled={effectiveFactorTypeLoading }
                         loading={effectiveFactorTypeLoading}
                         options={effectiveFactorTypeData?.data}
                         optionRender={(option) => (

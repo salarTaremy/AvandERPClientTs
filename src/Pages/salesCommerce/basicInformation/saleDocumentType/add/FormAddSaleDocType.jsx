@@ -57,7 +57,7 @@ const FormAddCurrency = (props) => {
           <Ant.Select
             allowClear={true}
             placeholder={'انتخاب کنید...'}
-            disable={mappedDocIssueLoading}
+            disabled={mappedDocIssueLoading}
             loading={mappedDocIssueLoading}
             options={mappedDocIssueData?.data}
             fieldNames={{ label: 'title', value: 'id' }}

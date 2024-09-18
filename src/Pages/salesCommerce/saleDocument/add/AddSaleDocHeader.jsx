@@ -168,7 +168,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleChannelLoading}
+                  disabled={saleChannelLoading}
                   loading={saleChannelLoading}
                   options={saleChannelData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -213,7 +213,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleDocTypeLoading }
+                  disabled={saleDocTypeLoading }
                   loading={saleDocTypeLoading}
                   options={saleDocTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -230,7 +230,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptionsVisitor}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={visitorLoading}
+                  disabled={visitorLoading}
                   loading={visitorLoading}
                   options={visitorData?.data}
                   fieldNames={{ label: "fullName", value: "id" }}
@@ -247,7 +247,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={paymentTypeLoading }
+                  disabled={paymentTypeLoading }
                   loading={paymentTypeLoading}
                   options={paymentTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -264,7 +264,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleTypeLoading }
+                  disabled={saleTypeLoading }
                   loading={saleTypeLoading}
                   options={saleTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -281,7 +281,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={deliveryTypeLoading }
+                  disabled={deliveryTypeLoading }
                   loading={deliveryTypeLoading}
                   options={deliveryTypeData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -298,7 +298,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptions}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={saleClassificationLoading }
+                  disabled={saleClassificationLoading }
                   loading={saleClassificationLoading}
                   options={saleClassificationData?.data}
                   fieldNames={{ label: "title", value: "id" }}
@@ -315,7 +315,7 @@ const AddSaleDocHeader = (props) => {
                   {...commonOptionsBranch}
                   allowClear={true}
                   placeholder={"انتخاب کنید..."}
-                  disable={branchLoading }
+                  disabled={branchLoading }
                   loading={branchLoading}
                   options={branchData?.data}
                   fieldNames={{ label: "name", value: "id" }}
