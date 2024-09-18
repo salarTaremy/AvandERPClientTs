@@ -165,7 +165,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                     <Ant.Col span={24} sm={10}>
                         {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                         <CoustomContent bordered>
-                            <Ant.Col s>
+                            <Ant.Col >
                                 <Ant.Form.Item
                                     rules={[{ required: true }]}
                                     name={"counterpartyId"}
