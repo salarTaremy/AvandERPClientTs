@@ -9,46 +9,57 @@ import BankAccountList from "./BankAccountList";
 import HeaderCounterParty from "./HeaderCounterParty";
 import CoustomContent from "@/components/common/CoustomContent";
 
-const { TabPane } = Ant.Tabs;
-
 const DetailedCounterPartyList = (props) => {
   const { id, onHeaderEdit } = props;
   const [data, loading, error] = api.useFetch(`${url.COUNTER_PARTY}/${id}`);
   useRequestManager({ error: error });
 
+  const items = [
+    {
+      label: "اطلاعات تماس",
+      key: "1",
+      children: data?.data?.addressList?.length === 0 ? (
+        <Ant.Empty />
+      ) : (
+        <AddressList id={id} />
+      ),
+    },
+    {
+      label: "اطلاعات بانکی",
+      key: "2",
+      children: data?.data?.bankAccountList?.length === 0 ? (
+        <Ant.Empty />
+      ) : (
+        <BankAccountList counterpartyId={id} />
+      ),
+    },
+  ];
+
   //====================================================================
   //                        Component
   //====================================================================
   return (
-    <>
     <CoustomContent height="80vh">
-      <Ant.Skeleton active  loading={loading}>
+      <Ant.Skeleton active loading={loading}>
         <HeaderCounterParty id={id} onHeaderEdit={onHeaderEdit} />
         <Ant.Divider />
-        <Ant.Tabs type="card" defaultActiveKey="1">
-          <TabPane tab="اطلاعات تماس" key="1">
-            {data?.data?.addressList && data?.data?.addressList.length == 0 ? (
-              <Ant.Empty />
-            ) : (
-              <AddressList id={id} />
-            )}
-          </TabPane>
-          <TabPane tab="اطلاعات بانکی" key="2">
-            {data?.data?.bankAccountList &&
-              data?.data?.bankAccountList.length == 0 ? (
-              <Ant.Empty />
-            ) : (
-              <BankAccountList counterpartyId={id} />
-            )}
-          </TabPane>
-        </Ant.Tabs>
+        <Ant.Tabs
+          type="card"
+          defaultActiveKey="1"
+          items={items.map(item => ({
+            key: item.key,
+            label: item.label,
+            children: item.children,
+          }))}
+        />
       </Ant.Skeleton>
-      </CoustomContent>
-    </>
+    </CoustomContent>
   );
 };
 
-export default DetailedCounterPartyList;
 DetailedCounterPartyList.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
+  onHeaderEdit: PropTypes.func.isRequired,
 };
+
+export default DetailedCounterPartyList;

@@ -310,7 +310,6 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
                     disable={saleChannelLoading}
-
                     loading={saleChannelLoading}
                     options={saleChannelData?.data}
                     fieldNames={{ label: "title", value: "id" }}

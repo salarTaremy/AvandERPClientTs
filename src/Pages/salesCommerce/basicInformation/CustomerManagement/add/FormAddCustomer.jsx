@@ -272,7 +272,7 @@ const FormAddCustomer = ({ onSucces }) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={customerGroupLoading }
+                    disabled={customerGroupLoading || false}
                     loading={customerGroupLoading}
                     options={customerGroupList?.data}
                     fieldNames={{ label: "title", value: "id" }}

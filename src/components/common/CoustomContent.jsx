@@ -1,5 +1,6 @@
 import React from "react";
 import * as Ant from "antd";
+import PropTypes from "prop-types";
 import { MdWidthFull } from "react-icons/md";
 
 const CoustomContent = (props) => {
@@ -23,4 +24,10 @@ const CoustomContent = (props) => {
   );
 };
 
+
+
 export default CoustomContent;
+CoustomContent.propTypes = {
+  scroll: PropTypes.bool,
+};
+
