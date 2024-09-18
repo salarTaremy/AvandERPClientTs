@@ -78,7 +78,7 @@ const FilterPanel = (props) => {
                 >
                     <DebounceSelect
                         onChange={handleCounterParty}
-                        maxCount={1}
+
                         placeholder="بخشی از نام ویزیتور را تایپ کنید..."
                         fetchOptions={getAllCounterPartyForDropDown}
                     />

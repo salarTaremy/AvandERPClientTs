@@ -79,7 +79,7 @@ const FilterPanel = (props) => {
               label={"نام انباردار"}
             >
               <DebounceSelect
-                maxCount={1}
+
                 placeholder="بخشی از نام  انباردار را تایپ کنید..."
                 fetchOptions={getAllCounterPartyForDropDown}
               />

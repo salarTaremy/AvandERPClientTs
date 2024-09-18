@@ -215,7 +215,7 @@ const FormAddCustomer = ({ onSucces }) => {
                 >
                   <DebounceSelect
                     onChange={handleCounterParty}
-                    maxCount={1}
+
                     placeholder="بخشی از نام طرف حساب را تایپ کنید..."
                     fetchOptions={getAllCounterPartyForDropDown}
                     dropdownRender={(menu) => (

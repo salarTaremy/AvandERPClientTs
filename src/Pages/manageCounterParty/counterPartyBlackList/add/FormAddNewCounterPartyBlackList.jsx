@@ -70,7 +70,7 @@ const FormAddNewCounterPartyBlackList = (props) => {
                 <Ant.Form.Item name="counterpartyName" label={"نام طرف حساب "} rules={[{ required: true }]}>
                     <DebounceSelect
                         mode="multiple"
-                        maxCount={1}
+
                         placeholder="انتخاب کنید..."
                         fetchOptions={getAllCounterPartyForDropDown}
                         value={value}

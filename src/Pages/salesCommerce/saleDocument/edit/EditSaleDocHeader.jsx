@@ -200,7 +200,7 @@ const EditSaleDocHeader = (props) => {
                   label="مشتری"
                 >
                   <DebounceSelect
-                    maxCount={1}
+
                     placeholder="بخشی از نام مشتری را تایپ کنید..."
                     fetchOptions={getCustomerForDropDown}
                     onChange={(newValue) => {

@@ -103,9 +103,9 @@ const EditSaleDoc = (props) => {
 
   return (
     <>
-      <ModalHeader>
-        {`برگه فروش ${id}`}
-      </ModalHeader>
+      <ModalHeader title={`برگه فروش ${id}`}/>
+
+
       <Row align="middle"
         gutter={[16, 16]}>
         <Col sm={24}>
