@@ -87,7 +87,7 @@ const FormAddNewWarehouse = (props) => {
               rules={[{ required: true }]}
             >
               <DebounceSelect
-                maxCount={1}
+
                 placeholder="بخشی از نام  انباردار را تایپ کنید..."
                 fetchOptions={getAllCounterPartyForDropDown}
               />

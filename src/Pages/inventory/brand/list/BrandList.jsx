@@ -83,7 +83,7 @@ const BrandList = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditBrand onSuccess={onSuccessEdit} key={val.id} obj={val} id={val.id} />,
+      <FormEditBrand myKey={val?.id} obj={val} id={val?.id}  onSuccess={onSuccessEdit} />,
     )
     setModalState(true)
   }

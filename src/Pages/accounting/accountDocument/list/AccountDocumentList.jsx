@@ -31,7 +31,6 @@ const AccountDocumentList = (props) => {
   const [filterCount, setFilterCount] = useState(0);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
-  const [openSide, setOpenSide] = useState(false);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   const [pagination, setPagination] = useState({
     current: 1,

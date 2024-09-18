@@ -58,7 +58,7 @@ const FrmAddAccountDocument = (props) => {
   return (
     <>
       <ModalHeader title={"ایجاد سند حسابداری"} icon={<HiDocumentPlus />} />
-      <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
+      <Ant.Form form={form} layout="vertical" onFinish={onFinish} >
         <Ant.Row gutter={[8, 8]}>
           <Ant.Col lg={16}>
             <Ant.Form.Item name={"calendarId"} label="تاریخ">

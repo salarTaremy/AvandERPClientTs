@@ -87,7 +87,7 @@ export const FrmEditAccountDocument = (props) => {
   return (
     <>
       <ModalHeader title={"ویرایش سند حسابداری"} icon={<MdEditDocument />} />
-      <Ant.Form form={form} layout="vertical" onFinish={onFinish} Failed={null}>
+      <Ant.Form form={form} layout="vertical" onFinish={onFinish} >
         <Ant.Row gutter={[8, 8]}>
           <Ant.Col lg={16}>
             <Ant.Form.Item name={"persianDateTilte"} label={"تاریخ"}>

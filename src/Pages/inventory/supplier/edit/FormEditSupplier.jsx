@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import * as Ant from 'antd'
-import PropTypes from 'prop-types'
 import * as url from '@/api/url'
 import { usePutWithHandler, useFetchWithHandler } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import { PiArrowLineDownLeftLight } from 'react-icons/pi'
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaBoxOpen } from "react-icons/fa";
+import PropTypes from 'prop-types'
 const FormEditSupplier = (props) => {
-  const { onSuccess, id, key } = props
-  const [loading, setLoading] = useState(false)
+  const { onSuccess, id,myKey } = props
+
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] = useFetchWithHandler()
@@ -41,11 +41,10 @@ const FormEditSupplier = (props) => {
   }
 
   const onFinish = async (values) => {
-    console.log(values, 'values')
-    setLoading(true)
+
     const req = { ...values, id: id }
     await editApiCall(url.SUPPLIER, req)
-    setLoading(false)
+
     onSuccess()
   }
   const getMaxCode = async () => {
@@ -69,7 +68,7 @@ const FormEditSupplier = (props) => {
     <>
       <ModalHeader title={'ویرایش تأمین کننده'} icon={<FaBoxOpen />} />
       <Ant.Skeleton active loading={loadingData}>
-        <Ant.Form form={form} key={key} onFinish={onFinish} layout="vertical">
+        <Ant.Form form={form}  onFinish={onFinish} layout="vertical">
           <Ant.Form.Item name="name" label={'نام'} rules={[{ required: true }]}>
             <Ant.Input allowClear showCount maxLength={200} />
           </Ant.Form.Item>
