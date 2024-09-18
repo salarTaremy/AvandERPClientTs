@@ -245,7 +245,7 @@ export const BasicInfoStep = (props) => {
               title={"اطلاعات هویتی"}
               bordered
               size="small"
-              scroll={false}
+              {...{scroll:false}}
             >
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>

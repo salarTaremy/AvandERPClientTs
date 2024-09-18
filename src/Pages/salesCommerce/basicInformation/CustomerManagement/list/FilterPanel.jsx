@@ -139,7 +139,7 @@ const FilterPanel = (props) => {
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={saleChannelLoading}
+            disabled={saleChannelLoading}
             loading={saleChannelLoading}
             options={saleChannelData?.data}
             fieldNames={{ label: "title", value: "id" }}
@@ -151,7 +151,7 @@ const FilterPanel = (props) => {
           <Ant.Select
             allowClear={true}
             placeholder={"انتخاب کنید..."}
-            disable={customerGradeLoading}
+            disabled={customerGradeLoading}
             loading={customerGradeLoading}
             options={customerGradeList?.data}
             fieldNames={{ label: "title", value: "id" }}

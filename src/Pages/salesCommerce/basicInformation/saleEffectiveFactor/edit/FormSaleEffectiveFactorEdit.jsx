@@ -58,7 +58,7 @@ const FormSaleEffectiveFactorEdit = (props) => {
               <Ant.Form.Item name="saleEffectiveOperativeTypeId" label={"نوع"} rules={[{ required: true }]}>
                 <Ant.Select
                   placeholder={'انتخاب کنید...'}
-                  disable={effectiveFactorTypeLoading }
+                  disabled={effectiveFactorTypeLoading }
                   loading={effectiveFactorTypeLoading}
                   options={effectiveFactorTypeData?.data}
                   optionRender={(option) => (
