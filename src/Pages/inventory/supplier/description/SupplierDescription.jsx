@@ -20,19 +20,22 @@ const SupplierDescription = (props) => {
       key: '1',
       label: 'شناسه',
       children: data?.data?.id,
+      span: 3,
 
     },
     {
       key: '2',
       label: ' کد ',
       children: data?.data?.code,
+      span: 3,
 
     },
     {
       key: '3',
       label: 'نام ',
-      span: 3,
+
       children: data?.data?.name,
+      span: 3,
     },
 ,
   ]

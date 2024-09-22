@@ -73,7 +73,6 @@ const TreeDropDownLaziyLoad = (props) => {
   }, [detailedAccData]);
 
 
-س
   const loadData = (selectedOptions) => {
     console.log(selectedOptions,"selectedOptions")
     detailedAccApiCall(url.DETAILED_ACCOUNT + '?DetailedAccountGroupId=' + selectedOptions[0].id);

@@ -15,19 +15,19 @@ const DetailProductListDescription = (props) => {
       key: "1",
       label: "شناسه",
       children: data?.data?.id,
-      span: 2,
+
     },
     {
       key: "2",
       label: "کد",
       children: data?.data?.code,
-      span: 2,
+
     },
     {
       key: "3",
       label: "کد دوم",
       children: data?.data?.secondCode,
-      span: 2,
+
     },
     // {
     //   key: '4',
@@ -47,19 +47,20 @@ const DetailProductListDescription = (props) => {
       key: "6",
       label: "برند",
       children: data?.data?.brandName,
-      span: 6,
+      span: 3,
+
     },
     {
       key: "7",
       label: "نام کالا",
       children: data?.data?.name,
-      span: 6,
+      span: 3,
     },
     {
       key: "8",
       label: "نام دوم کالا",
       children: data?.data?.secondName,
-      span: 6,
+      span: 2,
     },
   ];
   //====================================================================

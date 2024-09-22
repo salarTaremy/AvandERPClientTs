@@ -40,7 +40,7 @@ export const FormAddSaleClassification = (props) => {
     showSearch: true,
     filterOption: (input, option) =>
       option.name.toLowerCase().includes(input.toLowerCase()),
-    matching: true,
+
   };
   const filter = (inputValue, path) =>
     path.some(

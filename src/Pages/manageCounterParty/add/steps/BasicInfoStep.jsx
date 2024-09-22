@@ -519,7 +519,7 @@ export const BasicInfoStep = (props) => {
                 )}
                 <Ant.Col lg={(!isIndividual && 6) || 8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
-                    allowClear
+
                     name={"economicCode"}
                     label="کداقتصادی"
                     rules={[
