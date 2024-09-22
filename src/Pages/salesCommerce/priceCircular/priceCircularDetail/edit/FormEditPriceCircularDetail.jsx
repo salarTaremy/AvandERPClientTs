@@ -72,10 +72,10 @@ const FormEditPriceCircularDetail = (props) => {
                         label={"سری ساخت"}
                         rules={[{ required: false }]}
                     >
-                        <Ant.Input allowClear showCount maxLength={100} />
+                        <Ant.Input  showCount maxLength={100} />
                     </Ant.Form.Item>
                     <Ant.Form.Item name="price" label={"قیمت"} rules={[{ required: true }]}  >
-                        <Ant.InputNumber allowClear showCount maxLength={100}
+                        <Ant.InputNumber  showCount maxLength={100}
                             formatter={(value) =>
                                 value.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             style={{ width: "100%" }} />
@@ -83,7 +83,7 @@ const FormEditPriceCircularDetail = (props) => {
                     <Ant.Form.Item name="consumerPrice" label={"قیمت مصرف کننده"} rules={[{
                         required: false
                     }]}>
-                        <Ant.InputNumber allowClear showCount maxLength={100}
+                        <Ant.InputNumber  showCount maxLength={100}
                             formatter={(value) =>
                                 value.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             style={{ width: "100%" }} />

@@ -135,13 +135,13 @@ const FilterPanel = (props) => {
         onFinishFailed={null}
       >
         <Ant.Form.Item name={"documentNumber"} label="شماره برگه">
-          <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
+          <Ant.InputNumber  min={1} style={{ width: "100%" }} />
         </Ant.Form.Item>
         <Ant.Form.Item name={"serialNumber"} label="شماره سریال ">
-          <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
+          <Ant.InputNumber  min={1} style={{ width: "100%" }} />
         </Ant.Form.Item>
         <Ant.Form.Item name={"customerCode"} label="کد مشتری">
-          <Ant.InputNumber allowClear min={1} style={{ width: "100%" }} />
+          <Ant.InputNumber  min={1} style={{ width: "100%" }} />
         </Ant.Form.Item>
         <Ant.Form.Item name={"customerId"} label="مشتری">
           <DebounceSelect

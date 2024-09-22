@@ -96,34 +96,34 @@ const FilterPanel = (props) => {
         </Ant.Space>
         <Ant.Space>
           <Ant.Form.Item name={'fromDocumentNumber'} label="شماره" autoFocus>
-            <Ant.InputNumber allowClear min={0} addonBefore={'از'} />
+            <Ant.InputNumber  min={0} addonBefore={'از'} />
           </Ant.Form.Item>
           <Ant.Form.Item name={'toDocumentNumber'} label=" ">
-            <Ant.InputNumber allowClear min={0} addonBefore={'تا'} />
+            <Ant.InputNumber  min={0} addonBefore={'تا'} />
           </Ant.Form.Item>
         </Ant.Space>
         <Ant.Space>
           <Ant.Form.Item name={'fromInflectionNumber'} label="شماره عطف">
-            <Ant.InputNumber allowClear min={0} addonBefore={'از'} />
+            <Ant.InputNumber  min={0} addonBefore={'از'} />
           </Ant.Form.Item>
           <Ant.Form.Item name={'toInflectionNumber'} label=" ">
-            <Ant.InputNumber allowClear min={0} addonBefore={'تا'} />
+            <Ant.InputNumber  min={0} addonBefore={'تا'} />
           </Ant.Form.Item>
         </Ant.Space>
         <Ant.Space>
           <Ant.Form.Item name={'fromSubNumber'} label="شماره فرعی">
-            <Ant.InputNumber allowClear min={0} addonBefore={'از'} />
+            <Ant.InputNumber  min={0} addonBefore={'از'} />
           </Ant.Form.Item>
           <Ant.Form.Item name={'toSubNumber'} label=" ">
-            <Ant.InputNumber allowClear mmin={0} addonBefore={'تا'} />
+            <Ant.InputNumber  mmin={0} addonBefore={'تا'} />
           </Ant.Form.Item>
         </Ant.Space>
         <Ant.Space>
           <Ant.Form.Item name={'fromDailyNumber'} label="شماره روزانه">
-            <Ant.InputNumber allowClear min={0} addonBefore={'از'} />
+            <Ant.InputNumber  min={0} addonBefore={'از'} />
           </Ant.Form.Item>
           <Ant.Form.Item name={'toDailyNumber'} label=" ">
-            <Ant.InputNumber allowClear min={0} addonBefore={'تا'} />
+            <Ant.InputNumber  min={0} addonBefore={'تا'} />
           </Ant.Form.Item>
         </Ant.Space>
         <Ant.Form.Item>

@@ -129,7 +129,7 @@ const SaleDocumentList = () => {
     setDocumentDetailModalState(true);
   };
   const onAdd = async (id) => {
-    console.log(id, "iiii")
+
     const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
     setModalSize(updateList)
     setDocumentDetailModalContent(<AddSaleDocHeader onSuccess={onSuccessAdd} key={uuid.v1()} />);

@@ -69,11 +69,11 @@ const FrmLinkAccountDetailAccount = (props) => {
       key: "name",
       render: (text, record, index) => (
         <>
-       
+
         <Ant.Typography.Text  strong> {`${record.detailedAccountGroupCode}- `}</Ant.Typography.Text>
         <Ant.Typography.Text > {`${record.name} `}</Ant.Typography.Text>
         <Ant.Typography.Text type="secondary">{`(${record.detailedAccountCount})`}</Ant.Typography.Text>
-        
+
         </>
       ),
     },
@@ -94,7 +94,7 @@ const FrmLinkAccountDetailAccount = (props) => {
           options={detailedAccLevel}
           fieldNames={{ label: "name", value: "id" }}
           optionFilterProp="children"
-          allowClear
+          allowClear={true}
           filterOption={(input, option) =>
             option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
             0

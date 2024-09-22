@@ -338,7 +338,7 @@ const FilterPanel = (props) => {
             <Ant.Form.Item name={"fromTotalPrice"}>
               <Ant.InputNumber
                 controls={false}
-                allowClear
+
                 addonBefore="از"
                 parser={(value) => value?.replace(/\$\s?|(,*)/g, "")}
                 formatter={(value) =>
@@ -354,7 +354,7 @@ const FilterPanel = (props) => {
             <Ant.Form.Item name={"toTotalPrice"}>
               <Ant.InputNumber
                 controls={false}
-                allowClear
+
                 addonBefore="تا"
                 parser={(value) => value?.replace(/\$\s?|(,*)/g, "")}
                 formatter={(value) =>

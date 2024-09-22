@@ -70,7 +70,7 @@ const SaleEffectiveFactor = () => {
 
   const onEdit = async (value) => {
     setModalContent(
-      <FormSaleEffectiveFactorEdit onSuccess={onSuccessEdit} key={value.id} obj={value} id={value.id} />,
+      <FormSaleEffectiveFactorEdit onSuccess={onSuccessEdit} myKey={value?.id} obj={value} id={value?.id} />,
     );
     setModalOpenState(true);
   };

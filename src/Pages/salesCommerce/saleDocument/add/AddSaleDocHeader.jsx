@@ -166,7 +166,7 @@ const AddSaleDocHeader = (props) => {
               >
                 <Ant.Select
                   {...commonOptions}
-                  allowClear={true}
+                  allowClear
                   placeholder={"انتخاب کنید..."}
                   disabled={saleChannelLoading}
                   loading={saleChannelLoading}

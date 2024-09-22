@@ -184,7 +184,7 @@ const EditSaleDocHeader = (props) => {
                   label="کانال فروش"
                 >
                   <Ant.Select
-                    allowClear={true}
+                    allowClear
                     placeholder={"انتخاب کنید..."}
                     disabled={saleChannelLoading }
                     loading={saleChannelLoading}
@@ -297,7 +297,7 @@ const EditSaleDocHeader = (props) => {
                 >
                   <Ant.Select
                     {...commonOptions}
-                    allowClear={true}
+                    allowClear
                     placeholder={"انتخاب کنید..."}
                     disabled={deliveryTypeLoading }
                     loading={deliveryTypeLoading}
@@ -314,7 +314,7 @@ const EditSaleDocHeader = (props) => {
                 >
                   <Ant.Select
                     {...commonOptions}
-                    allowClear={true}
+                    allowClear
                     placeholder={"انتخاب کنید..."}
                     disabled={saleClassificationLoading }
                     loading={saleClassificationLoading}
@@ -331,7 +331,7 @@ const EditSaleDocHeader = (props) => {
                 >
                   <Ant.Select
                     {...commonOptionsBranch}
-                    allowClear={true}
+                    allowClear
                     placeholder={"انتخاب کنید..."}
                     disabled={branchLoading }
                     loading={branchLoading}
