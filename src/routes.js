@@ -26,7 +26,7 @@ import BrandList from './Pages/inventory/brand/list/BrandList'
 import ProductList from './Pages/inventory/product/list/ProductList'
 import EditProductList from './Pages/inventory/product/edit/EditProductList'
 import WarehouseManagment from './Pages/inventory/wareHouse/list/WarehouseManagment'
-
+import InventoryDocumentManagement from './Pages/inventory/inventoryDocument/list/InventoryDocumentManagement'
 
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
@@ -104,6 +104,7 @@ const routes = [
   { path: '/inventory/product/add', name: 'تعریف کالا', element: AddProduct, exact: true },
   { path: '/inventory/product/list', name: 'فهرست کالا', element: ProductList },
   { path: '/inventory/product/edit/:id', name: 'ویرایش کالا', element: EditProductList },
+  { path: '/inventory/inventoryDocumentManagement', name: 'مدیریت برگه های انبار', element: InventoryDocumentManagement },
   { path: '/inventory/Warehouse', name: ' مدیریت انبارها', element: WarehouseManagment },
   { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
   { path: '/base/brand', name: 'برند', element: BrandList },
