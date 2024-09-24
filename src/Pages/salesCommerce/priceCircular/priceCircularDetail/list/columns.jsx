@@ -5,7 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import * as defaultValues from "@/defaultValues";
 
-export const columns = (onDelete, onEdit,onProductView, onBatchNumberView) => {
+export const columns = (onDelete, onEdit, onProductView, onBatchNumberView) => {
     return [
         {
             title: "کد کالا",
@@ -63,24 +63,27 @@ export const columns = (onDelete, onEdit,onProductView, onBatchNumberView) => {
             ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, val) => (
                 <>
-                    <Ant.Space direction="horizontal" size={20}>
+                    <Ant.Space >
                         <Ant.Button
                             className="text-blue-600"
                             onClick={() => onEdit(val)}
                             icon={<FiEdit />}
-                            type="text"
+                            color="primary"
+                            variant="filled"
                         />
+
+                        <Ant.Popconfirm
+                            onConfirm={() => onDelete(val.id)}
+                            title={`برای حذف  "${val.productName}" مطمئن هستید؟`}
+                        >
+                            <Ant.Button
+                                className="text-red-600"
+                                icon={<RiDeleteBin6Line />}
+                                color="danger"
+                                variant="filled"
+                            />
+                        </Ant.Popconfirm>
                     </Ant.Space>
-                    <Ant.Popconfirm
-                        onConfirm={() => onDelete(val.id)}
-                        title={`برای حذف  "${val.productName}" مطمئن هستید؟`}
-                    >
-                        <Ant.Button
-                            className="text-red-600"
-                            icon={<RiDeleteBin6Line />}
-                            type="text"
-                        />
-                    </Ant.Popconfirm>
                 </>
             )
         }

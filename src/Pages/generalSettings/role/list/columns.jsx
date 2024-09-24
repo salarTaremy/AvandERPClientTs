@@ -104,36 +104,41 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Dropdown
-            menu={{
-              items: getMenuItems(val),
-            }}
-            placement="bottom"
-            arrow
-          >
-            <Ant.Button
-              onClick={() => { }}
-              className="text-blue-600"
-              icon={<CgMoreVertical />}
-              type="text"
-            />
-          </Ant.Dropdown>
+          <Ant.Space>
+            <Ant.Dropdown
+              menu={{
+                items: getMenuItems(val),
+              }}
+              placement="bottom"
+              arrow
+            >
+              <Ant.Button
+                onClick={() => { }}
+                className="text-blue-600"
+                icon={<CgMoreVertical />}
+                color="default"
+                variant="filled"
+              />
+            </Ant.Dropdown>
             <Ant.Button
               onClick={() => onEdit(val)}
               className="text-blue-600"
               icon={<FiEdit />}
-              type="text"
+              color="primary"
+              variant="filled"
             />
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val.id)}
-            title={` برای حذف نقش  "${val.persianTitle}" مطمئن هستید؟`}
-          >
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(val.id)}
+              title={` برای حذف نقش  "${val.persianTitle}" مطمئن هستید؟`}
+            >
               <Ant.Button
                 className="text-rose-600"
                 icon={<RiDeleteBin6Line />}
-                type="text"
+                color="danger"
+                variant="filled"
               />
-          </Ant.Popconfirm>
+            </Ant.Popconfirm>
+          </Ant.Space>
         </>
       ),
     },

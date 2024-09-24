@@ -30,7 +30,7 @@ const getDocumentTypeColor = (saleDocumentTypeId) => {
 
 
 
-export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
+export const columns = (onDelete, onEdit, onView, onViewCustomer, onOpenDoc) => {
     const getMenuItems = (record) => [
         {
             key: '1',
@@ -201,14 +201,16 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
                                     onClick={() => { }}
                                     className="text-blue-600"
                                     icon={<CgMoreVertical />}
-                                    type="text"
+                                    color="default"
+                                    variant="filled"
                                 />
                             </Ant.Dropdown>
                             <Ant.Button
                                 onClick={() => onView(record.id)}
                                 className="text-sky-600"
                                 icon={<GrView />}
-                                type="text"
+                                color="primary"
+                                variant="filled"
                             />
                             <Ant.Popconfirm
                                 onConfirm={() => onDelete(record.id)}
@@ -218,7 +220,8 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer,onOpenDoc) => {
                                 <Ant.Button
                                     className="text-red-600"
                                     icon={<RiDeleteBin6Line />}
-                                    type="text"
+                                    color="danger"
+                                    variant="filled"
                                 />
                             </Ant.Popconfirm>
                         </Ant.Space>

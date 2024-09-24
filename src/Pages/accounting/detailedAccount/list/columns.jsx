@@ -58,20 +58,25 @@ export const columns = (onDelete, onEdit, onView) => {
                 onClick={() => onEdit(record)}
                 className="text-blue-600"
                 icon={<FiEdit />}
-                type="text"
+                color="default"
+                variant="filled"
               />
               <Ant.Button
                 onClick={() => onView(record.id)}
                 className="text-sky-600"
                 icon={<GrView />}
-                type="text"
+                color="primary"
+                variant="filled"
               />
               <Ant.Popconfirm
                 onConfirm={() => onDelete(record.id)}
                 title="حدف ایتم"
                 description={`برای حذف حساب تفصیل ${record.name} مطمئن هستید ؟`}
               >
-                <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
+                <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />}
+                  color="danger"
+                  variant="filled"
+                />
               </Ant.Popconfirm>
             </Ant.Space>
           </>

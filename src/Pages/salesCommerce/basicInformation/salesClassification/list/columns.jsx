@@ -14,16 +14,16 @@ const columns = (onDelete, onEdit, onView) => {
         key: 'id',
 
         width: 80,
-        fixed:true,
-        align:'center',
-        className:"text-xs sm:text-sm",
+        fixed: true,
+        align: 'center',
+        className: "text-xs sm:text-sm",
       },
       {
         title: 'عنوان',
         dataIndex: 'title',
         key: 'title',
         width: 80,
-        className:"text-xs sm:text-sm",
+        className: "text-xs sm:text-sm",
         sorter: (a, b) => a.title.localeCompare(b.title),
       },
 
@@ -31,19 +31,24 @@ const columns = (onDelete, onEdit, onView) => {
         ...defaultValues.TABLES_OPERATION_COLUMN,
         render: (text, val) =>
           <>
-            <Ant.Space direction="horizontal" size={20}>
+            <Ant.Space >
               <Ant.Button
                 onClick={() => onEdit(val)}
                 className="text-blue-600"
                 icon={<FiEdit />}
-                type="text"
+                color="primary"
+                variant="filled"
               />
 
-            </Ant.Space>
 
-            <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف طبقه بندی"${val.title}" مطمئن هستید؟`}>
-              <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
-            </Ant.Popconfirm>
+
+              <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف طبقه بندی"${val.title}" مطمئن هستید؟`}>
+                <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />}
+                  color="danger"
+                  variant="filled"
+                />
+              </Ant.Popconfirm>
+            </Ant.Space>
           </>
       },
 

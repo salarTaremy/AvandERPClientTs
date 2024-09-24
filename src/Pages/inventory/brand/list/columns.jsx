@@ -22,14 +22,14 @@ const columns = (onDelete, onEdit, onView) => {
       key: "code",
       align: 'center',
       width: 80,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
     },
     {
       title: "نام برند",
       dataIndex: "name",
       key: "name",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -38,7 +38,7 @@ const columns = (onDelete, onEdit, onView) => {
       key: "supplierId",
       align: 'center',
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.supplierId),
     },
     {
@@ -46,7 +46,7 @@ const columns = (onDelete, onEdit, onView) => {
       dataIndex: "supplierName",
       key: "supplierName",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.supplierName),
     },
 
@@ -54,19 +54,21 @@ const columns = (onDelete, onEdit, onView) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Space direction="horizontal" size={20}>
+          <Ant.Space >
             <Ant.Button
               onClick={() => onEdit(val)}
               className="text-blue-600"
               icon={<FiEdit />}
-              type="text"
+              color="default"
+              variant="filled"
             />
-          </Ant.Space>
+          
           <Ant.Button
             onClick={() => onView(val.id)}
             className="text-sky-600"
             icon={<GrView />}
-            type="text"
+            color="primary"
+            variant="filled"
           />
           <Ant.Popconfirm
             onConfirm={() => onDelete(val.id)}
@@ -75,9 +77,11 @@ const columns = (onDelete, onEdit, onView) => {
             <Ant.Button
               className="text-red-600"
               icon={<RiDeleteBin6Line />}
-              type="text"
+              color="danger"
+              variant="filled"
             />
           </Ant.Popconfirm>
+          </Ant.Space>
         </>
       ),
     },

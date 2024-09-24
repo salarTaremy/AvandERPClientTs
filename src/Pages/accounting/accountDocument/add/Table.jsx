@@ -354,7 +354,7 @@ export const Table = (props) => {
             defaultValue={record.detailedAccountId4}
             placeholder={"انتخاب کنید..."}
             size="default"
-            disabled={dtAccLoading }
+            disabled={dtAccLoading}
             loading={dtAccLoading}
             options={dtAccData?.data}
             rules={[{ required: true }]}
@@ -534,7 +534,8 @@ export const Table = (props) => {
             <Ant.Button
               className="text-red-600"
               icon={<RiDeleteBin6Line />}
-              type="text"
+              color="primary"
+              variant="filled"
             />
           </Ant.Popconfirm>
         </>
@@ -562,28 +563,28 @@ export const Table = (props) => {
         onFinishFailed={null}
       >
 
-          <Ant.Row gutter={[16, 16]}>
-            <Ant.Col span={24} md={24} lg={24}>
-              <Ant.Skeleton active loading={allLoading}>
-                <Ant.Table
-                  bordered={false}
-                  pagination={false}
-                  scroll={{
-                    x: 2000,
-                    y: "45vh",
-                  }}
-                  title={addRow}
-                  footer={footer}
-                  columns={columns}
-                  dataSource={
-                    params.id !== undefined && params.id !== null
-                      ? dataNewSource
-                      : dataSource
-                  }
-                ></Ant.Table>
-              </Ant.Skeleton>
-            </Ant.Col>
-          </Ant.Row>
+        <Ant.Row gutter={[16, 16]}>
+          <Ant.Col span={24} md={24} lg={24}>
+            <Ant.Skeleton active loading={allLoading}>
+              <Ant.Table
+                bordered={false}
+                pagination={false}
+                scroll={{
+                  x: 2000,
+                  y: "45vh",
+                }}
+                title={addRow}
+                footer={footer}
+                columns={columns}
+                dataSource={
+                  params.id !== undefined && params.id !== null
+                    ? dataNewSource
+                    : dataSource
+                }
+              ></Ant.Table>
+            </Ant.Skeleton>
+          </Ant.Col>
+        </Ant.Row>
 
       </Ant.Form>
     </>

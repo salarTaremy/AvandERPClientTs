@@ -11,15 +11,15 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "id",
       key: "code",
       width: 80,
-      align:'center',
-      className:"text-xs sm:text-sm",
+      align: 'center',
+      className: "text-xs sm:text-sm",
     },
     {
       title: "نام ",
       dataIndex: "title",
       key: "title",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
@@ -27,7 +27,7 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "persianTitle",
       key: "persianTitle",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.title.localeCompare(b.persianTitle),
     },
     {
@@ -35,7 +35,7 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "symbol",
       key: "symbol",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.title.localeCompare(b.symbol),
     },
 
@@ -43,24 +43,27 @@ const columns = (onDelete, onEdit) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Space direction="horizontal" size={20}>
+          <Ant.Space >
             <Ant.Button
               className="text-blue-600"
               onClick={() => onEdit(val)}
               icon={<FiEdit />}
-              type="text"
+              color="primary"
+              variant="filled"
             />
+
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(val.id)}
+              title={`برای حذف  "${val.persianTitle}" مطمئن هستید؟`}
+            >
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                color="danger"
+                variant="filled"
+              />
+            </Ant.Popconfirm>
           </Ant.Space>
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val.id)}
-            title={`برای حذف  "${val.persianTitle}" مطمئن هستید؟`}
-          >
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
-          </Ant.Popconfirm>
         </>
       ),
     },

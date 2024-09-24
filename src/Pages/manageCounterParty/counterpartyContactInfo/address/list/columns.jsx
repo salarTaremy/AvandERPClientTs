@@ -36,32 +36,37 @@ export const columns = (onDelete, onEdit, onPhoneNumberAdd) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, value, index) => (
         <>
-        <Ant.Tooltip placement="top" title={"افزودن شماره تماس"}>
-            <Ant.Button
-              className="text-blue-600"
-              onClick={() => onPhoneNumberAdd(value)}
-              icon={<PhoneOutlined />}
-              type="text"
-            />
-          </Ant.Tooltip>
-          <Ant.Tooltip placement="top" title={"ویرایش"}>
-            <Ant.Button
-              className="text-blue-600"
-              onClick={() => onEdit(value.id)}
-              icon={<FiEdit />}
-              type="text"
-            />
-          </Ant.Tooltip>
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(value.id)}
-            title={`برای حذف  مطمئن هستید؟`}
-          >
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
-          </Ant.Popconfirm>
+          <Ant.Space>
+            <Ant.Tooltip placement="top" title={"افزودن شماره تماس"}>
+              <Ant.Button
+                className="text-blue-600"
+                onClick={() => onPhoneNumberAdd(value)}
+                icon={<PhoneOutlined />}
+                color="default"
+                variant="filled"
+              />
+            </Ant.Tooltip>
+            <Ant.Tooltip placement="top" title={"ویرایش"}>
+              <Ant.Button
+                className="text-blue-600"
+                onClick={() => onEdit(value.id)}
+                icon={<FiEdit />}
+                color="primary"
+                variant="filled"
+              />
+            </Ant.Tooltip>
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(value.id)}
+              title={`برای حذف  مطمئن هستید؟`}
+            >
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                color="danger"
+                variant="filled"
+              />
+            </Ant.Popconfirm>
+          </Ant.Space>
         </>
       ),
     },

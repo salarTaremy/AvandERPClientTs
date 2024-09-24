@@ -40,7 +40,7 @@ const columns = (onDelete, onEdit) => {
           <>
 
             {val.isSystematic ? (
-            <Ant.Tag color="green" bordered={false}>سیستمی</Ant.Tag>
+              <Ant.Tag color="green" bordered={false}>سیستمی</Ant.Tag>
             ) : (
               <Ant.Tag color="pink" bordered={false}>غیر سیستمی</Ant.Tag>
             )}
@@ -52,24 +52,27 @@ const columns = (onDelete, onEdit) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Space direction="horizontal" size={20}>
+          <Ant.Space >
             <Ant.Button
               onClick={() => onEdit(val)}
               className="text-blue-600"
               icon={<FiEdit />}
-              type="text"
+              color="default"
+              variant="filled"
             />
+
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(val.id)}
+              title={`برای حذف نوع سند "${val.name}" مطمئن هستید؟`}
+            >
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                color="danger"
+                variant="filled"
+              />
+            </Ant.Popconfirm>
           </Ant.Space>
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val.id)}
-            title={`برای حذف نوع سند "${val.name}" مطمئن هستید؟`}
-          >
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
-          </Ant.Popconfirm>
         </>
       ),
     },

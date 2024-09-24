@@ -262,14 +262,14 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       render: (text, record, index) => {
         const customerTypeId = record.customerTypeId;
         return (
-            (customerTypeId == COUNTERPARTY_TYPE.Institution || customerTypeId == COUNTERPARTY_TYPE.CivicParticipation) && 
-            <Ant.Typography.Link
-              onClick={() => onViewCompanyInformation(record.customerLegalEntityIdentity)}
-            >
-              {text}
-            </Ant.Typography.Link> || (record.customerLegalEntityIdentity)
-          )
-        }
+          (customerTypeId == COUNTERPARTY_TYPE.Institution || customerTypeId == COUNTERPARTY_TYPE.CivicParticipation) &&
+          <Ant.Typography.Link
+            onClick={() => onViewCompanyInformation(record.customerLegalEntityIdentity)}
+          >
+            {text}
+          </Ant.Typography.Link> || (record.customerLegalEntityIdentity)
+        )
+      }
     },
     {
       title: "کد اقتصادی",
@@ -281,14 +281,14 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
       render: (text, record, index) => {
         const customerTypeId = record.customerTypeId;
         return (
-            (customerTypeId == COUNTERPARTY_TYPE.Individual || customerTypeId == COUNTERPARTY_TYPE.ForeignIndividual) && 
-            <Ant.Typography.Link
-              onClick={() => onViewCompanyInformation(record.customerEconomicCode)}
-            >
-              {record.customerEconomicCode}
-            </Ant.Typography.Link> || (record.customerEconomicCode)
-          )
-        }
+          (customerTypeId == COUNTERPARTY_TYPE.Individual || customerTypeId == COUNTERPARTY_TYPE.ForeignIndividual) &&
+          <Ant.Typography.Link
+            onClick={() => onViewCompanyInformation(record.customerEconomicCode)}
+          >
+            {record.customerEconomicCode}
+          </Ant.Typography.Link> || (record.customerEconomicCode)
+        )
+      }
     },
     {
       title: "تاریخ صدور",
@@ -406,7 +406,8 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
                   <Ant.Button
                     className="text-pink-600"
                     icon={<BsSend />}
-                    type="text"
+                    color="default"
+                    variant="filled"
                     size="middle"
                     disabled={record.statusId && record.statusId === 1}
                   />
@@ -419,7 +420,8 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
                   }
                   className="text-cyan-400"
                   icon={<BiMessageSquareError />}
-                  type="text"
+                  color="default"
+                  variant="filled"
                   size="middle"
                   disabled={!record.sentTimes}
                 />
@@ -429,7 +431,8 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
                   onClick={() => onViewSaleDocument(record.id)}
                   className="text-sky-600"
                   icon={<GrView />}
-                  type="text"
+                  color="primary"
+                  variant="filled"
                   size="middle"
                 />
               </Ant.Tooltip>

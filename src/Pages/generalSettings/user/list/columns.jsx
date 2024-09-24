@@ -104,30 +104,38 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses, o
                 ...defaultValues.TABLES_OPERATION_COLUMN,
                 render: (text, val) => (
                     <>
+                        <Ant.Space>
 
-                        <Ant.Dropdown
-                            menu={{
-                                items: getMenuItems(val),
-                            }}
-                            placement="bottom"
-                            arrow
-                        >
+                            <Ant.Dropdown
+                                menu={{
+                                    items: getMenuItems(val),
+                                }}
+                                placement="bottom"
+                                arrow
+                            >
+                                <Ant.Button
+                                    onClick={() => { }}
+                                    className="text-blue-600"
+                                    icon={<CgMoreVertical />}
+                                    color="default"
+                                     variant="filled"
+                                />
+                            </Ant.Dropdown>
                             <Ant.Button
-                                onClick={() => { }}
-                                className="text-blue-600"
-                                icon={<CgMoreVertical />}
-                                type="text"
+                                onClick={() => onDescription(val)}
+                                className="text-sky-600"
+                                icon={<GrView />}
+                                color="primary"
+                                 variant="filled"
                             />
-                        </Ant.Dropdown>
-                        <Ant.Button
-                            onClick={() => onDescription(val)}
-                            className="text-sky-600"
-                            icon={<GrView />}
-                            type="text"
-                        />
-                        <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>
-                            <Ant.Button className="text-rose-600" icon={<RiDeleteBin6Line />} type="text" />
-                        </Ant.Popconfirm>
+                            <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کاربر "${val.userName}" مطمئن هستید؟`}>
+                                <Ant.Button className="text-rose-600" icon={<RiDeleteBin6Line />} 
+                                // type="text" 
+                                color="danger"
+                                 variant="filled"
+                                />
+                            </Ant.Popconfirm>
+                        </Ant.Space>
                     </>
                 )
             }
