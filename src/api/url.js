@@ -242,13 +242,13 @@ export const ASSIGN_SALE_CHANNEL_TO_USER = 'AccessControl/AssignSaleChannelToUse
 export const GET_ASSIGNED_SALE_DOCUMENT_TYPES = 'AccessControl/GetAssignedSaleDocumentTypes'
 export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocumentTypeToUser'
 
-//Inventory
+//WareHouse
 export const WAREHOUSE = 'Warehouse'
 export const WAREHOUSE_TYPE = 'WarehouseType'
 export const LINK_PRODUCT_WARE_HOUSE = 'LinkProductWarehouse'
 export const LINK_PRODUCT_WARE_HOUSE_ADD_LIST = '/LinkProductWarehouse/AddList'
-export const INVENTORY_DOCUMENT = 'InventoryDocument'
-export const INVENTORY_DOCUMENT_TYPE = 'InventoryDocumentType'
+export const INVENTORY_DOCUMENT_TYPE = '/InventoryDocumentType'
+
 
 //CityDistrict
 export const CITY_DISTRICT = 'CityDistrict'

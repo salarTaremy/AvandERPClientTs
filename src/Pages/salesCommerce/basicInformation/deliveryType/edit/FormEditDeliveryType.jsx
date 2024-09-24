@@ -236,4 +236,6 @@ FormEditDeliveryType.propTypes = {
   onSuccess: PropTypes.func,
   obj: PropTypes.any,
   id: PropTypes.number,
+  form: PropTypes.any,
+
 };

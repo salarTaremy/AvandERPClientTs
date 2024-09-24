@@ -34,7 +34,7 @@ const columns = (onDelete, onEdit) => {
       title: "توضیحات ",
       dataIndex: "description",
       key: "description",
-      width: 100,
+      width: 300,
       className: "text-xs sm:text-sm",
 
     },
