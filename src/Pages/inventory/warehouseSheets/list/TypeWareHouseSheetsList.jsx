@@ -16,6 +16,7 @@ const TypeWareHouseSheetsList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [dataSource, setDataSource] = useState(null);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useRequestManager({ error: error });
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   const [modalState, setModalState] = useState(false);
@@ -51,28 +52,33 @@ const TypeWareHouseSheetsList = () => {
   };
   const onAdd = () => {
     setModalContent(
-     <FormAddTypeWareHouseSheetsList key={uuid.v1()}  />,
+     <FormAddTypeWareHouseSheetsList key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
     setModalState(true);
   };
-  const onSuccessAdd = () => {
-    setModalState(false);
-    getAllSaleChannel();
-  };
-  const onSuccessEdit = () => {
-    setModalState(false);
-    getAllSaleChannel();
-  };
-  //====================================================================
-  //                        Events
-  //====================================================================
   const onEdit = (val) => {
+
     setModalContent(
-      <FormEditTypeWareHouseSheetsList key={uuid.v1()}  />,
+      <FormEditTypeWareHouseSheetsList id={val?.id} key={val?.id}  onSuccess={onSuccessEdit}  />,
     );
     setModalState(true);
   };
 
+
+  //====================================================================
+  //                        Events
+  //====================================================================
+  const onSuccessAdd = () => {
+    setModalState(false);
+    getAllTypeWareHouseSheets();
+  };
+  const onSuccessEdit = () => {
+    setModalState(false);
+    getAllTypeWareHouseSheets();
+  };
+  const onTableChange = (pagination, filter, sorter) => {
+    setPagination(pagination);
+  }
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -109,6 +115,8 @@ const TypeWareHouseSheetsList = () => {
           {...defaultValues.TABLE_PROPS}
           title={title}
           columns={columns(onDelSuccess, onEdit)}
+          pagination={pagination}
+          onChange={onTableChange}
           dataSource={dataSource}
           loading={loading}
         />
