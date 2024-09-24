@@ -9,7 +9,10 @@ import CoustomContent from "@/components/common/CoustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 import dayjs from "dayjs";
-import MyDatePicker, { FormatDateToPost, FormatDateToDisplay } from "@/components/common/MyDatePicker";
+import MyDatePicker, {
+  FormatDateToPost,
+  FormatDateToDisplay,
+} from "@/components/common/MyDatePicker";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import ButtonList from "@/components/common/ButtonList";
 
@@ -175,11 +178,11 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        <Ant.Row gutter={[4, 4]}>
+        <Ant.Row gutter={[4, 16]}>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CoustomContent>
+            <CoustomContent bordered>
               <Ant.Row gutter={10}>
-                <Ant.Col xs={24} sm={24} md={12} lg={5}>
+                <Ant.Col xs={24} sm={24} md={12} lg={8}>
                   <Ant.Form.Item
                     name={"documentNumber"}
                     label="شماره"
@@ -188,7 +191,28 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                     <Ant.InputNumber style={{ width: "100%" }} />
                   </Ant.Form.Item>
                 </Ant.Col>
-                <Ant.Col xs={24} sm={24} md={12} lg={6}>
+                <Ant.Col xs={24} sm={24} md={6} lg={5}>
+                  <Ant.Form.Item
+                    name={"issueDateCalendarId"}
+                    label="تاریخ  صدور"
+                    rules={[{ required: true }]}
+                  >
+                    <MyDatePicker />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col xs={24} sm={24} md={6} lg={3}>
+                  <Ant.Form.Item
+                    name={"issueTime"}
+                    label="ساعت صدور"
+                    rules={[{ required: true }]}
+                  >
+                    <Ant.TimePicker
+                      onChange={timePickerOnChange}
+                      style={{ width: "100%" }}
+                    />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col xs={24} sm={24} md={12} lg={8}>
                   <Ant.Form.Item
                     name={"inventoryDocumentTypeId"}
                     label="نوع برگه"
@@ -203,7 +227,9 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
-                <Ant.Col xs={24} sm={24} md={12} lg={5}>
+              </Ant.Row>
+              <Ant.Row gutter={10}>
+                <Ant.Col xs={24} sm={24} md={12} lg={8}>
                   <Ant.Form.Item
                     name={"warehouseId"}
                     label="انبار"
@@ -217,46 +243,6 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                       fieldNames={{ label: "title", value: "id" }}
                     />
                   </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col xs={24} sm={24} md={6} lg={5}>
-                  <Ant.Form.Item
-                    name={"issueDateCalendarId"}
-                    label="تاریخ  صدور"
-                    rules={[{ required: true }]}
-                  >
-                    <MyDatePicker />
-                  </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col xs={24} sm={24} md={6} lg={3}>
-                  <Ant.Form.Item name={"issueTime"} label="ساعت صدور">
-                    <Ant.TimePicker
-                      onChange={timePickerOnChange}
-                      style={{ width: "100%" }}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-              </Ant.Row>
-              <Ant.Row gutter={10}>
-                <Ant.Col xs={24} sm={24} md={12} lg={8}>
-                  <Ant.Form.Item name={"counterpartyId"} label="طرف حساب">
-                    <DebounceSelect
-                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
-                      fetchOptions={getCounterpartyForDropDown}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col xs={24} sm={24} md={12} lg={8}>
-                  <Ant.Form.Item
-                    name={"secondCounterpartyId"}
-                    label="طرف حساب دوم"
-                  >
-                    <DebounceSelect
-                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
-                      fetchOptions={getCounterpartyForDropDown}
-                    />
-                  </Ant.Form.Item>
-                </Ant.Col>
-                <Ant.Col xs={24} sm={24} md={12} lg={5}>
                   <Ant.Form.Item
                     name={"oppositeWarehouseId"}
                     label="انبار مقابل"
@@ -270,17 +256,27 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
-                <Ant.Col xs={24} sm={24} md={6} lg={3}>
-                  <Ant.Form.Item name={"isReserve"} label="رزرو موجودی">
-                    <Ant.Switch />
+                <Ant.Col xs={24} sm={24} md={12} lg={8}>
+                  <Ant.Form.Item name={"counterpartyId"} label="طرف حساب">
+                    <DebounceSelect
+                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
+                      fetchOptions={getCounterpartyForDropDown}
+                    />
+                  </Ant.Form.Item>
+                  <Ant.Form.Item
+                    name={"secondCounterpartyId"}
+                    label="طرف حساب دوم"
+                  >
+                    <DebounceSelect
+                      placeholder="بخشی از نام طرف حساب را تایپ کنید..."
+                      fetchOptions={getCounterpartyForDropDown}
+                    />
                   </Ant.Form.Item>
                 </Ant.Col>
-              </Ant.Row>
-              <Ant.Row gutter={10}>
-                <Ant.Col span={24}>
+                <Ant.Col xs={24} sm={24} md={12} lg={8}>
                   <Ant.Form.Item name={"description"} label="توضیحات">
                     <Ant.Input.TextArea
-                      rows={2}
+                      rows={5}
                       style={{ resize: "none" }}
                       showCount
                       maxLength={300}
@@ -291,7 +287,7 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
             </CoustomContent>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CoustomContent>
+            <CoustomContent bordered>
               <Ant.Table
                 columns={columns}
                 dataSource={dataTest}
@@ -302,23 +298,26 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
               />
             </CoustomContent>
           </Ant.Col>
-          <Ant.Col xs={24} sm={24} md={12} lg={20}></Ant.Col>
-          <Ant.Col xs={24} sm={24} md={6} lg={2}>
-            <Ant.Button type="primary" block>
-              {"ذخیره"}
-            </Ant.Button>
-          </Ant.Col>
-          <Ant.Col xs={24} sm={24} md={6} lg={2}>
-            <Ant.Popconfirm
-              title={
-                "در صورت خروج از این صفحه، اطلاعات ذخیره نخواهد شد، آیا مطمئن هستید؟"
-              }
-              onConfirm={onCancel}
-            >
-              <Ant.Button type="default" block>
-                {"انصراف"}
-              </Ant.Button>
-            </Ant.Popconfirm>
+          <Ant.Col span={24}>
+            <Ant.Row justify={"end"} gutter={[8, 16]}>
+              <Ant.Col xs={24} sm={24} md={12} lg={2}>
+                <Ant.Button type="primary" block>
+                  {"ذخیره"}
+                </Ant.Button>
+              </Ant.Col>
+              <Ant.Col xs={24} sm={24} md={12} lg={2}>
+                <Ant.Popconfirm
+                  title={
+                    "در صورت خروج از این صفحه، اطلاعات ذخیره نخواهد شد، آیا مطمئن هستید؟"
+                  }
+                  onConfirm={onCancel}
+                >
+                  <Ant.Button type="default" block>
+                    {"انصراف"}
+                  </Ant.Button>
+                </Ant.Popconfirm>
+              </Ant.Col>
+            </Ant.Row>
           </Ant.Col>
         </Ant.Row>
       </Ant.Form>
