@@ -52,7 +52,7 @@ const columns = (onDelete, onEdit) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Space direction="horizontal" size={20}>
+          <Ant.Space >
             <Ant.Button
               onClick={() => onEdit(val)}
               className="text-blue-600"

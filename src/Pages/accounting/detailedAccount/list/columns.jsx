@@ -74,7 +74,7 @@ export const columns = (onDelete, onEdit, onView) => {
                 description={`برای حذف حساب تفصیل ${record.name} مطمئن هستید ؟`}
               >
                 <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />}
-                  color="primary"
+                  color="danger"
                   variant="filled"
                 />
               </Ant.Popconfirm>

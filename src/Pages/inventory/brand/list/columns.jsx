@@ -54,7 +54,7 @@ const columns = (onDelete, onEdit, onView) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Space direction="horizontal" size={20}>
+          <Ant.Space >
             <Ant.Button
               onClick={() => onEdit(val)}
               className="text-blue-600"
@@ -62,25 +62,25 @@ const columns = (onDelete, onEdit, onView) => {
               color="default"
               variant="filled"
             />
-
+          
+          <Ant.Button
+            onClick={() => onView(val.id)}
+            className="text-sky-600"
+            icon={<GrView />}
+            color="primary"
+            variant="filled"
+          />
+          <Ant.Popconfirm
+            onConfirm={() => onDelete(val.id)}
+            title={`برای حذف برند"${val.name}" مطمئن هستید؟`}
+          >
             <Ant.Button
-              onClick={() => onView(val.id)}
-              className="text-sky-600"
-              icon={<GrView />}
-              color="primary"
+              className="text-red-600"
+              icon={<RiDeleteBin6Line />}
+              color="danger"
               variant="filled"
             />
-            <Ant.Popconfirm
-              onConfirm={() => onDelete(val.id)}
-              title={`برای حذف برند"${val.name}" مطمئن هستید؟`}
-            >
-              <Ant.Button
-                className="text-red-600"
-                icon={<RiDeleteBin6Line />}
-                color="danger"
-                variant="filled"
-              />
-            </Ant.Popconfirm>
+          </Ant.Popconfirm>
           </Ant.Space>
         </>
       ),

@@ -63,7 +63,7 @@ export const columns = (onDelete, onEdit, onProductView, onBatchNumberView) => {
             ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, val) => (
                 <>
-                    <Ant.Space direction="horizontal" size={20}>
+                    <Ant.Space >
                         <Ant.Button
                             className="text-blue-600"
                             onClick={() => onEdit(val)}
