@@ -24,8 +24,8 @@ const columns = (onDelete, onEdit) => {
     },
     {
       title: "ماهیت ",
-      dataIndex: "nature",
-      key: "nature",
+      dataIndex: "natureName",
+      key: "natureName",
       width: 100,
       className: "text-xs sm:text-sm",
       sorter: (a, b) => a.title.localeCompare(b.nature),

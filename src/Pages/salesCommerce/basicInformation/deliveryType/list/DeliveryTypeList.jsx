@@ -74,7 +74,7 @@ const DeliveryType = () => {
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditDeliveryType onSuccess={onSuccessEdit} obj={val} id={val.id} key={val.id} />,
+      <FormEditDeliveryType onSuccess={onSuccessEdit}  obj={val} id={val.id} key={val.id} />,
 
     );
     setModalState(true);

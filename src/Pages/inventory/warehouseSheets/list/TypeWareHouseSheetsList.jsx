@@ -59,7 +59,7 @@ const TypeWareHouseSheetsList = () => {
   const onEdit = (val) => {
 
     setModalContent(
-      <FormEditTypeWareHouseSheetsList id={val?.id} key={val?.id}  onSuccess={onSuccessEdit}  />,
+      <FormEditTypeWareHouseSheetsList  id={val?.id} key={val?.id}  onSuccess={onSuccessEdit}   />,
     );
     setModalState(true);
   };

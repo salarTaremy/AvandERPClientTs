@@ -90,6 +90,7 @@ const FormEditDeliveryType = (props) => {
         parseInt(accData.data.parentKey),
         parseInt(accData.data.key),
       ];
+      console.log(treeArray,"treeArray111")
       form.setFieldValue("accountId", treeArray);
     }
   }, [accData]);

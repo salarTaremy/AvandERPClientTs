@@ -15,7 +15,7 @@ import {
 } from "react-icons/bs";
 const FormEditTypeWareHouseSheetsList = (props) => {
   const { onSuccess, id } = props;
-  const [form] = Ant.Form.useForm();
+
   const [
     accounTreeData,
     accounTreeLoading,
@@ -41,6 +41,7 @@ const FormEditTypeWareHouseSheetsList = (props) => {
   useRequestManager({ error: dtAccError });
   useRequestManager({ error: accError });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
+  const [form] = Ant.Form.useForm();
   const natureList = [
     { id: 0, title: "خنثی" },
     { id: 1, title: "افزاینده" },
@@ -71,6 +72,12 @@ const FormEditTypeWareHouseSheetsList = (props) => {
     accounTreeApicall(url.ACCOUNT_TREE);
   }, []);
   useEffect(() => {
+    form.resetFields();
+    typeWareHouseSheetsByIdData?.isSuccess &&
+      form.setFieldsValue({ ...(typeWareHouseSheetsByIdData?.data || null) });
+  }, [typeWareHouseSheetsByIdData]);
+
+  useEffect(() => {
     editData?.isSuccess && onSuccess();
   }, [editData]);
 
@@ -82,12 +89,6 @@ const FormEditTypeWareHouseSheetsList = (props) => {
         `${url.ACCOUNT}/${typeWareHouseSheetsByIdData?.data?.accountId}`,
       );
   }, [accounTreeData]);
-
-  useEffect(() => {
-    form.resetFields();
-    typeWareHouseSheetsByIdData?.isSuccess &&
-      form.setFieldsValue({ ...(typeWareHouseSheetsByIdData?.data || null) });
-  }, [typeWareHouseSheetsByIdData]);
 
   useEffect(() => {
     if (accData?.isSuccess && accData?.data) {
@@ -102,18 +103,18 @@ const FormEditTypeWareHouseSheetsList = (props) => {
 
   useEffect(() => {
     if (
-      typeWareHouseSheetsByIdData?.isSuccess &&
-      typeWareHouseSheetsByIdData?.data
+      accData?.isSuccess &&
+      accData?.data
     ) {
       const treeArray = [
-        parseInt(typeWareHouseSheetsByIdData.data.accountGroupCode),
-        parseInt(typeWareHouseSheetsByIdData.data.parentKey),
-        parseInt(typeWareHouseSheetsByIdData.data.key),
+        parseInt(accData?.data?.accountGroupCode),
+        parseInt(accData?.data?.parentKey),
+        parseInt(accData?.data?.key),
       ];
-      console.log(treeArray, "treeArray");
+
       form.setFieldValue("accountId", treeArray);
     }
-  }, [typeWareHouseSheetsByIdData]);
+  }, [accData]);
 
   //   useEffect(() => {
   //     debugger
@@ -131,9 +132,9 @@ const FormEditTypeWareHouseSheetsList = (props) => {
     getTypeWareHouseSheetsById();
   }, []);
 
-  useEffect(() => {
-    accounTreeData?.isSuccess && setOptions(accounTreeData?.data);
-  }, [accounTreeData]);
+  // useEffect(() => {
+  //   accounTreeData?.isSuccess && setOptions(accounTreeData?.data);
+  // }, [accounTreeData]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -290,5 +291,5 @@ export default FormEditTypeWareHouseSheetsList;
 FormEditTypeWareHouseSheetsList.propTypes = {
   onSuccess: PropTypes.func,
   id: PropTypes.number,
-  form: PropTypes.any,
+
 };
