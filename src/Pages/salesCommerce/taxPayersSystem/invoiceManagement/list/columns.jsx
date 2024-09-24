@@ -406,7 +406,7 @@ export const columns = (onViewSaleDocument, onViewCustomer, onInquiry, onSendToT
                   <Ant.Button
                     className="text-pink-600"
                     icon={<BsSend />}
-                    color="danger"
+                    color="default"
                     variant="filled"
                     size="middle"
                     disabled={record.statusId && record.statusId === 1}
