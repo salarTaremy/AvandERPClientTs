@@ -79,30 +79,35 @@ const columns = (onDelete, onEdit, onConnection) => {
       ...defaultValues.TABLES_OPERATION_COLUMN,
       render: (text, val) => (
         <>
-          <Ant.Tooltip title="تخصیص کالا به انبار">
+          <Ant.Space>
+            <Ant.Tooltip title="تخصیص کالا به انبار">
+              <Ant.Button
+                onClick={() => onConnection(val)}
+                className="text-violet-600"
+                icon={<IoIosLink />}
+                color="default"
+                variant="filled"
+              />
+            </Ant.Tooltip>
             <Ant.Button
-              onClick={() => onConnection(val)}
-              className="text-violet-600"
-              icon={<IoIosLink />}
-              type="text"
+              onClick={() => onEdit(val)}
+              className="text-blue-600"
+              icon={<FiEdit />}
+              color="primary"
+              variant="filled"
             />
-          </Ant.Tooltip>
-          <Ant.Button
-            onClick={() => onEdit(val)}
-            className="text-blue-600"
-            icon={<FiEdit />}
-            type="text"
-          />
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val.id)}
-            title={` برای حذف   "${val.title}" مطمئن هستید؟`}
-          >
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
-          </Ant.Popconfirm>
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(val.id)}
+              title={` برای حذف   "${val.title}" مطمئن هستید؟`}
+            >
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                color="danger"
+                variant="filled"
+              />
+            </Ant.Popconfirm>
+          </Ant.Space>
         </>
       ),
     },

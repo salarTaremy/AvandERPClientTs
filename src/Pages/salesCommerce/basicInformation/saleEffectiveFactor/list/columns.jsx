@@ -86,34 +86,39 @@ export const columns = (onDelete, onEdit, onView) => {
             ...defaultValues.TABLES_OPERATION_COLUMN,
             render: (text, value) => (
                 <>
-                    <Ant.Tooltip placement="top" title={'ویرایش'}>
-                        <Ant.Button
-                            className="text-blue-600"
-                            onClick={() => onEdit(value)}
-                            icon={<FiEdit />}
-                            type="text"
-                        />
-                    </Ant.Tooltip>
-                    <Ant.Tooltip placement="top" title={'مشاهده جزییات'}>
-                        <Ant.Button
-                            onClick={() => onView(value.id)}
-                            className="text-sky-600"
-                            icon={<GrView />}
-                            type="text"
-                        />
-                    </Ant.Tooltip>
-                    <Ant.Tooltip placement="top" title={' حذف'}>
-                        <Ant.Popconfirm
-                            onConfirm={() => onDelete(value.id)}
-                            title={`آیا از حذف "${value.name}" مطمئن هستید؟`}
-                        >
+                    <Ant.Space>
+                        <Ant.Tooltip placement="top" title={'ویرایش'}>
                             <Ant.Button
-                                className="text-red-600"
-                                icon={<RiDeleteBin6Line />}
-                                type="text"
+                                className="text-blue-600"
+                                onClick={() => onEdit(value)}
+                                icon={<FiEdit />}
+                                color="default"
+                                variant="filled"
                             />
-                        </Ant.Popconfirm>
-                    </Ant.Tooltip>
+                        </Ant.Tooltip>
+                        <Ant.Tooltip placement="top" title={'مشاهده جزییات'}>
+                            <Ant.Button
+                                onClick={() => onView(value.id)}
+                                className="text-sky-600"
+                                icon={<GrView />}
+                                color="primary"
+                                variant="filled"
+                            />
+                        </Ant.Tooltip>
+                        <Ant.Tooltip placement="top" title={' حذف'}>
+                            <Ant.Popconfirm
+                                onConfirm={() => onDelete(value.id)}
+                                title={`آیا از حذف "${value.name}" مطمئن هستید؟`}
+                            >
+                                <Ant.Button
+                                    className="text-red-600"
+                                    icon={<RiDeleteBin6Line />}
+                                    color="danger"
+                                    variant="filled"
+                                />
+                            </Ant.Popconfirm>
+                        </Ant.Tooltip>
+                    </Ant.Space>
                 </>
             )
         }

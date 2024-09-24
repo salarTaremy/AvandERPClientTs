@@ -11,15 +11,15 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "id",
       key: "code",
       width: 80,
-      align:'center',
-      className:"text-xs sm:text-sm",
+      align: 'center',
+      className: "text-xs sm:text-sm",
     },
     {
       title: "نام ",
       dataIndex: "title",
       key: "title",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.title.localeCompare(b.title),
     },
     {
@@ -27,7 +27,7 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "description",
       key: "description",
       width: 200,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
     },
 
     {
@@ -39,19 +39,22 @@ const columns = (onDelete, onEdit) => {
               className="text-blue-600"
               onClick={() => onEdit(val)}
               icon={<FiEdit />}
-              type="text"
+              color="primary"
+              variant="filled"
             />
+
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(val.id)}
+              title={`برای حذف  "${val.title}" مطمئن هستید؟`}
+            >
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                color="danger"
+                variant="filled"
+              />
+            </Ant.Popconfirm>
           </Ant.Space>
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val.id)}
-            title={`برای حذف  "${val.title}" مطمئن هستید؟`}
-          >
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
-          </Ant.Popconfirm>
         </>
       ),
     },

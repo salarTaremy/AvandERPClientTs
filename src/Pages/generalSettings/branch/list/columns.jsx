@@ -11,15 +11,15 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "id",
       key: "code",
       width: 80,
-      align:'center',
-      className:"text-xs sm:text-sm",
+      align: 'center',
+      className: "text-xs sm:text-sm",
     },
     {
       title: "نام شعبه ",
       dataIndex: "name",
       key: "name",
       width: 100,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
@@ -27,7 +27,7 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "address",
       key: "address",
       width: 400,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
       sorter: (a, b) => a.address.localeCompare(b.address),
     },
     {
@@ -35,7 +35,7 @@ const columns = (onDelete, onEdit) => {
       dataIndex: "description",
       key: "description",
       width: 300,
-      className:"text-xs sm:text-sm",
+      className: "text-xs sm:text-sm",
     },
     {
       ...defaultValues.TABLES_OPERATION_COLUMN,
@@ -46,19 +46,21 @@ const columns = (onDelete, onEdit) => {
               className="text-blue-600"
               onClick={() => onEdit(val)}
               icon={<FiEdit />}
-              type="text"
+              color="default"
+              variant="filled"
             />
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(val.id)}
+              title={`برای حذف شعبه "${val.name}" مطمئن هستید؟`}
+            >
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                color="danger"
+                variant="filled"
+              />
+            </Ant.Popconfirm>
           </Ant.Space>
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val.id)}
-            title={`برای حذف شعبه "${val.name}" مطمئن هستید؟`}
-          >
-            <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
-            />
-          </Ant.Popconfirm>
         </>
       ),
     },

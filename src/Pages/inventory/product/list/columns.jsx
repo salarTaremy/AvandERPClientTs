@@ -43,21 +43,28 @@ const columns = (onDelete, onView, onEdit) => {
                 render: (text, val) =>
 
                     <>
-                        <Ant.Button
-                            className="text-blue-600"
-                            onClick={() => onEdit(val.id)}
-                            icon={<FiEdit />}
-                            type="text"
-                        />
-                        <Ant.Button
-                            onClick={() => onView(val.id)}
-                            className="text-sky-600"
-                            icon={<GrView />}
-                            type="text"
-                        />
-                        <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کالا "${val.name}" مطمئن هستید؟`}>
-                            <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
-                        </Ant.Popconfirm>
+                        <Ant.Space>
+                            <Ant.Button
+                                className="text-blue-600"
+                                onClick={() => onEdit(val.id)}
+                                icon={<FiEdit />}
+                                color="default"
+                                variant="filled"
+                            />
+                            <Ant.Button
+                                onClick={() => onView(val.id)}
+                                className="text-sky-600"
+                                icon={<GrView />}
+                                color="primary"
+                                variant="filled"
+                            />
+                            <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={`برای حذف کالا "${val.name}" مطمئن هستید؟`}>
+                                <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />}
+                                    color="danger"
+                                    variant="filled"
+                                />
+                            </Ant.Popconfirm>
+                        </Ant.Space>
                     </>
             }
         ]

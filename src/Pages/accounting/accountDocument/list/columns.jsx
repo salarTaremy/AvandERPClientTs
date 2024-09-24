@@ -44,7 +44,7 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
     {
       key: '1',
       label: (
-        <Ant.Tooltip placement="right" title={`ویرایش سند  (${record.inflectionNumber})` }>
+        <Ant.Tooltip placement="right" title={`ویرایش سند  (${record.inflectionNumber})`}>
           <a onClick={() => onEdit(record.id)}><FiEdit className="text-blue-600" /></a>
         </Ant.Tooltip>
       ),
@@ -52,7 +52,7 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
     {
       key: '2',
       label: (
-        <Ant.Tooltip placement="right" title={`گشایش سند  (${record.inflectionNumber})` }>
+        <Ant.Tooltip placement="right" title={`گشایش سند  (${record.inflectionNumber})`}>
           <a onClick={() => addItem(record.id)}><LuFolderOpen className="text-purple-600" /></a>
         </Ant.Tooltip>
       ),
@@ -149,14 +149,16 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
                   onClick={() => { }}
                   className="text-blue-600"
                   icon={<CgMoreVertical />}
-                  type="text"
+                  color="default"
+                  variant="filled"
                 />
               </Ant.Dropdown>
               <Ant.Button
                 onClick={() => onView(record.id)}
                 className="text-sky-600"
                 icon={<GrView />}
-                type="text"
+                color="primary"
+                variant="filled"
               />
               <Ant.Popconfirm
                 onConfirm={() => onDelete(record.id)}
@@ -166,7 +168,8 @@ export const columns = (onDelete, onEdit, onView, addItem) => {
                 <Ant.Button
                   className="text-red-600"
                   icon={<RiDeleteBin6Line />}
-                  type="text"
+                  color="danger"
+                  variant="filled"
                 />
               </Ant.Popconfirm>
             </Ant.Space>

@@ -30,19 +30,22 @@ const columns = (onDelete, onEdit) => {
                                 className="text-blue-600"
                                 onClick={() => onEdit(val)}
                                 icon={<FiEdit />}
-                                type="text"
+                                color="primary"
+                                variant="filled"
                             />
+
+                            <Ant.Popconfirm
+                                onConfirm={() => onDelete(val.id)}
+                                title={`برای حذف گروه مشتری "${val.title}" مطمئن هستید؟`}
+                            >
+                                <Ant.Button
+                                    className="text-red-600"
+                                    icon={<RiDeleteBin6Line />}
+                                    color="danger"
+                                    variant="filled"
+                                />
+                            </Ant.Popconfirm>
                         </Ant.Space>
-                        <Ant.Popconfirm
-                            onConfirm={() => onDelete(val.id)}
-                            title={`برای حذف گروه مشتری "${val.title}" مطمئن هستید؟`}
-                        >
-                            <Ant.Button
-                                className="text-red-600"
-                                icon={<RiDeleteBin6Line />}
-                                type="text"
-                            />
-                        </Ant.Popconfirm>
                     </>
                 )
             }

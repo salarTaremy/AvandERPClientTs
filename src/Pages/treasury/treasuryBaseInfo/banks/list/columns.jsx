@@ -19,34 +19,39 @@ const columns = (onDelete, onEdit, onBranch) => {
                 ...defaultValues.TABLES_OPERATION_COLUMN,
                 render: (text, val) => (
                     <>
-                        <Ant.Tooltip placement="top" title={'شعب'}>
-                            <Ant.Button
-                                className="text-green-600"
-                                onClick={() => onBranch(val)}
-                                icon={<FaCodeBranch />}
-                                type="text"
-                            />
-                        </Ant.Tooltip>
-                        <Ant.Tooltip placement="top" title={'ویرایش '}>
-                            <Ant.Button
-                                className="text-blue-600"
-                                onClick={() => onEdit(val)}
-                                icon={<FiEdit />}
-                                type="text"
-                            />
-                        </Ant.Tooltip>
-                        <Ant.Tooltip placement="top" title={' حذف'}>
-                            <Ant.Popconfirm
-                                onConfirm={() => onDelete(val.id)}
-                                title={`برای حذف بانک "${val.title}" مطمئن هستید؟`}
-                            >
+                        <Ant.Space>
+                            <Ant.Tooltip placement="top" title={'شعب'}>
                                 <Ant.Button
-                                    className="text-red-600"
-                                    icon={<RiDeleteBin6Line />}
-                                    type="text"
+                                    className="text-green-600"
+                                    onClick={() => onBranch(val)}
+                                    icon={<FaCodeBranch />}
+                                    color="default"
+                                    variant="filled"
                                 />
-                            </Ant.Popconfirm>
-                        </Ant.Tooltip>
+                            </Ant.Tooltip>
+                            <Ant.Tooltip placement="top" title={'ویرایش '}>
+                                <Ant.Button
+                                    className="text-blue-600"
+                                    onClick={() => onEdit(val)}
+                                    icon={<FiEdit />}
+                                    color="primary"
+                                    variant="filled"
+                                />
+                            </Ant.Tooltip>
+                            <Ant.Tooltip placement="top" title={' حذف'}>
+                                <Ant.Popconfirm
+                                    onConfirm={() => onDelete(val.id)}
+                                    title={`برای حذف بانک "${val.title}" مطمئن هستید؟`}
+                                >
+                                    <Ant.Button
+                                        className="text-red-600"
+                                        icon={<RiDeleteBin6Line />}
+                                        color="danger"
+                                        variant="filled"
+                                    />
+                                </Ant.Popconfirm>
+                            </Ant.Tooltip>
+                        </Ant.Space>
                     </>
                 )
             }

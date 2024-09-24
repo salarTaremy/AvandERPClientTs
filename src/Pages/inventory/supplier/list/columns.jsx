@@ -24,7 +24,7 @@ const columns = (onDelete, onEdit, onView) => {
         dataIndex: 'name',
         key: 'name',
         width: 80,
-        className:"text-xs sm:text-sm",
+        className: "text-xs sm:text-sm",
         sorter: (a, b) => a.name.localeCompare(b.name),
       },
       {
@@ -33,7 +33,7 @@ const columns = (onDelete, onEdit, onView) => {
         key: 'code',
         align: 'center',
         width: 80,
-        className:"text-xs sm:text-sm",
+        className: "text-xs sm:text-sm",
       },
       {
         ...defaultValues.TABLES_OPERATION_COLUMN,
@@ -44,19 +44,25 @@ const columns = (onDelete, onEdit, onView) => {
                 onClick={() => onEdit(val)}
                 className="text-blue-600"
                 icon={<FiEdit />}
-                type="text"
+                color="default"
+                variant="filled"
               />
 
+
+              <Ant.Button
+                onClick={() => onView(val.id)}
+                className="text-sky-600"
+                icon={<GrView />}
+                color="primary"
+                variant="filled"
+              />
+              <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={` برای حذف تامین کننده  "${val.name}" مطمئن هستید؟`}>
+                <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />}
+                  color="danger"
+                  variant="filled"
+                />
+              </Ant.Popconfirm>
             </Ant.Space>
-            <Ant.Button
-              onClick={() => onView(val.id)}
-              className="text-sky-600"
-              icon={<GrView />}
-              type="text"
-            />
-            <Ant.Popconfirm onConfirm={() => onDelete(val.id)} title={` برای حذف تامین کننده  "${val.name}" مطمئن هستید؟`}>
-              <Ant.Button className="text-red-600" icon={<RiDeleteBin6Line />} type="text" />
-            </Ant.Popconfirm>
           </>
       },
 

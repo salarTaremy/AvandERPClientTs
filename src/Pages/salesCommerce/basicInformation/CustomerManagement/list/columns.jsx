@@ -5,7 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { GrView } from "react-icons/gr";
 import * as defaultValues from "@/defaultValues";
 
-const columns = (onDelete, onEdit,onView) => {
+const columns = (onDelete, onEdit, onView) => {
   return [
     {
       title: "کد",
@@ -13,7 +13,7 @@ const columns = (onDelete, onEdit,onView) => {
       key: "code",
       width: 50,
       className: "text-xs sm:text-sm",
-      align:'center'
+      align: 'center'
     },
     {
       title: "نام و نام خانوادگی",
@@ -28,7 +28,7 @@ const columns = (onDelete, onEdit,onView) => {
       dataIndex: "counterpartyTypeTitle",
       key: "counterpartyTypeTitle",
       width: 100,
-      align:'center',
+      align: 'center',
       className: "text-xs sm:text-sm",
     },
     {
@@ -36,7 +36,7 @@ const columns = (onDelete, onEdit,onView) => {
       dataIndex: "nationalCode",
       key: "nationalCode",
       width: 80,
-      align:'center',
+      align: 'center',
       className: "text-xs sm:text-sm",
     },
     {
@@ -48,25 +48,29 @@ const columns = (onDelete, onEdit,onView) => {
               className="text-blue-600"
               onClick={() => onEdit(val)}
               icon={<FiEdit />}
-              type="text"
+              color="default"
+              variant="filled"
             />
-          </Ant.Space>
-          <Ant.Button
-            onClick={() => onView(val.id)}
-            className="text-sky-600"
-            icon={<GrView />}
-            type="text"
-          />
-          <Ant.Popconfirm
-            onConfirm={() => onDelete(val.id)}
-            title={`برای حذف رتبه مشتری "${val.counterpartyTypeTitle}" مطمئن هستید؟`}
-          >
+
             <Ant.Button
-              className="text-red-600"
-              icon={<RiDeleteBin6Line />}
-              type="text"
+              onClick={() => onView(val.id)}
+              className="text-sky-600"
+              icon={<GrView />}
+              color="primary"
+              variant="filled"
             />
-          </Ant.Popconfirm>
+            <Ant.Popconfirm
+              onConfirm={() => onDelete(val.id)}
+              title={`برای حذف رتبه مشتری "${val.counterpartyTypeTitle}" مطمئن هستید؟`}
+            >
+              <Ant.Button
+                className="text-red-600"
+                icon={<RiDeleteBin6Line />}
+                color="danger"
+                variant="filled"
+              />
+            </Ant.Popconfirm>
+          </Ant.Space>
         </>
       ),
     },

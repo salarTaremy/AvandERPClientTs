@@ -104,13 +104,15 @@ export const columns = (onDelete, onEdit, onView, onViewCounterparty) => {
                 onClick={() => onEdit(record.id)}
                 className="text-blue-600"
                 icon={<FiEdit />}
-                type="text"
+                color="default"
+                variant="filled"
               />
               <Ant.Button
                 onClick={() => onView(record.id)}
                 className="text-sky-600"
                 icon={<GrView />}
-                type="text"
+                color="primary"
+                variant="filled"
               />
               <Ant.Popconfirm
                 onConfirm={() => onDelete(record.id)}
@@ -120,7 +122,8 @@ export const columns = (onDelete, onEdit, onView, onViewCounterparty) => {
                 <Ant.Button
                   className="text-red-600"
                   icon={<RiDeleteBin6Line />}
-                  type="text"
+                  color="danger"
+                  variant="filled"
                 />
               </Ant.Popconfirm>
             </Ant.Space>
