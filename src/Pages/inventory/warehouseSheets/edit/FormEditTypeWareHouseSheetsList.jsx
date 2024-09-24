@@ -111,7 +111,7 @@ const FormEditTypeWareHouseSheetsList = (props) => {
         parseInt(typeWareHouseSheetsByIdData.data.key),
       ];
       console.log(treeArray, "treeArray");
-      form.setFieldValue("accountId", isNaN(treeArray) ?? 0);
+      form.setFieldValue("accountId", treeArray);
     }
   }, [typeWareHouseSheetsByIdData]);
 
