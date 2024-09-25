@@ -93,7 +93,7 @@ const columns = (onDelete, onEdit, onConnection) => {
               onClick={() => onEdit(val)}
               className="text-blue-600"
               icon={<FiEdit />}
-              color="primary"
+              color="default"
               variant="filled"
             />
             <Ant.Popconfirm

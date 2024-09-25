@@ -534,7 +534,7 @@ export const Table = (props) => {
             <Ant.Button
               className="text-red-600"
               icon={<RiDeleteBin6Line />}
-              color="primary"
+              color="danger"
               variant="filled"
             />
           </Ant.Popconfirm>

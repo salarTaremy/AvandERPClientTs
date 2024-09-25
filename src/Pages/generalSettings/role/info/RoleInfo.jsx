@@ -65,7 +65,8 @@ const RoleInfo = ({ roleId, name }) => {
                             <Ant.Button
                                 className="text-red-600"
                                 icon={<RiDeleteBin6Line />}
-                                type="text"
+                                color="danger"
+                                variant="filled"
                             />
                         </Ant.Popconfirm>
                     </>
@@ -79,7 +80,7 @@ const RoleInfo = ({ roleId, name }) => {
     //====================================================================
     return (
         <>
-            <ModalHeader title={` لیست کاربران نقش "${name}"`} icon={<TiThList />}/>
+            <ModalHeader title={` لیست کاربران نقش "${name}"`} icon={<TiThList />} />
             <Ant.Skeleton active loading={loading}>
                 <Ant.Table
                     {...defaultValues.TABLE_PROPS}

@@ -98,7 +98,8 @@ const ActionSwitchList = (props) => {
               className="text-violet-600"
               onClick={() => onPermission(val)}
               icon={<VscGithubAction />}
-              type="text"
+              color="default"
+              variant="filled"
             />
           </>
         ),

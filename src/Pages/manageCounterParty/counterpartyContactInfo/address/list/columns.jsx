@@ -51,7 +51,7 @@ export const columns = (onDelete, onEdit, onPhoneNumberAdd) => {
                 className="text-blue-600"
                 onClick={() => onEdit(value.id)}
                 icon={<FiEdit />}
-                color="primary"
+                color="default"
                 variant="filled"
               />
             </Ant.Tooltip>

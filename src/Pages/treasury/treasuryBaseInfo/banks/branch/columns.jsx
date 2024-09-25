@@ -44,7 +44,7 @@ const columns = (onDelete, onEdit) => {
                             className="text-blue-600"
                             onClick={() => onEdit(val)}
                             icon={<FiEdit />}
-                            color="primary"
+                            color="default"
                             variant="filled"
                         />
 

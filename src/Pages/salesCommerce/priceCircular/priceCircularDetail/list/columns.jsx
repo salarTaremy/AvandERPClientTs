@@ -68,7 +68,7 @@ export const columns = (onDelete, onEdit, onProductView, onBatchNumberView) => {
                             className="text-blue-600"
                             onClick={() => onEdit(val)}
                             icon={<FiEdit />}
-                            color="primary"
+                            color="default"
                             variant="filled"
                         />
 

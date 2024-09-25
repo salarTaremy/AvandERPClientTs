@@ -124,7 +124,7 @@ const columns = (onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch) =
               onClick={() => onEdit(val)}
               className="text-blue-600"
               icon={<FiEdit />}
-              color="primary"
+              color="default"
               variant="filled"
             />
             <Ant.Popconfirm

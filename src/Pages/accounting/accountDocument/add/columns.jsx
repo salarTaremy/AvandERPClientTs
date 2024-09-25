@@ -182,37 +182,38 @@ const column = (onDelete, onEdit, onError) => {
 
         return (
           <>
-            <Ant.Space direction="horizontal">
+            <Ant.Space >
               <Ant.Tooltip
                 className={showWarning ? "" : "invisible"}
                 title="مشاهده خطا"
               >
                 <Ant.Button
                   onClick={() => onError(val)}
-                  type="text"
+                  color="default"
+                  variant="filled"
                   icon={<TiWarningOutline />}
                   className="text-orange-400"
                 />
               </Ant.Tooltip>
-            </Ant.Space>
-            <Ant.Space direction="horizontal">
               <Ant.Button
                 className="text-blue-600"
                 onClick={() => onEdit(val)}
                 icon={<FiEdit />}
-                type="text"
+                color="default"
+                variant="filled"
               />
+              <Ant.Popconfirm
+                onConfirm={() => onDelete(val)}
+                title={`برای حذف سطر مطمئن هستید؟`}
+              >
+                <Ant.Button
+                  className="text-red-600"
+                  icon={<RiDeleteBin6Line />}
+                  color="danger"
+                  variant="filled"
+                />
+              </Ant.Popconfirm>
             </Ant.Space>
-            <Ant.Popconfirm
-              onConfirm={() => onDelete(val)}
-              title={`برای حذف سطر مطمئن هستید؟`}
-            >
-              <Ant.Button
-                className="text-red-600"
-                icon={<RiDeleteBin6Line />}
-                type="text"
-              />
-            </Ant.Popconfirm>
           </>
         );
       },
