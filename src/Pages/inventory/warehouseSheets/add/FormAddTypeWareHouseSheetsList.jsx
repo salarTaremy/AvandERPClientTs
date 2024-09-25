@@ -36,8 +36,8 @@ const FormAddTypeWareHouseSheetsList = (props) => {
   useRequestManager({ error: addError, loading: addLoading, data: addData });
   const natureList = [
     { id: 0, title: "خنثی" },
-    { id: 1, title: "افزاینده" },
-    { id: -1, title: "کاهنده" },
+    { id: 1, title: "رسید" },
+    { id: -1, title: "حواله" },
   ];
   const commonOptionsAcc = {
     placeholder: "انتخاب کنید...",

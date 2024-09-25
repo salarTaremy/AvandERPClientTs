@@ -5,9 +5,13 @@ import columns from "../list/columns";
 import * as defaultValues from "@/defaultValues";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
+import qs from 'qs'
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
+import FilterPanel from './FilterPanel'
+import FilterDrawer from '@/components/common/FilterDrawer'
+import FilterBedge from '@/components/common/FilterBedge'
 import FormAddTypeWareHouseSheetsList from "../add/FormAddTypeWareHouseSheetsList";
 import FormEditTypeWareHouseSheetsList from "../edit/FormEditTypeWareHouseSheetsList";
 import * as uuid from "uuid";
@@ -21,14 +25,21 @@ const TypeWareHouseSheetsList = () => {
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
+  const [openFilter, setOpenFilter] = useState(false)
+  const [filterCount, setFilterCount] = useState(0)
+  const [filterObject, setFilterObject] = useState()
 
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
 
+  useEffect(() => {
+    filterObject &&
+      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
+    !filterObject && setFilterCount(0)
     getAllTypeWareHouseSheets();
-  }, []);
+
+  }, [filterObject])
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -44,9 +55,19 @@ const TypeWareHouseSheetsList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
+
   const getAllTypeWareHouseSheets = async () => {
-    await ApiCall(url.INVENTORY_DOCUMENT_TYPE);
-  };
+    const queryString = qs.stringify(filterObject)
+    await ApiCall(`${url.INVENTORY_DOCUMENT_TYPE}?${queryString}`)
+  }
+  const onRemoveFilter = () => {
+    setFilterObject(null)
+    setOpenFilter(false)
+  }
+  const onFilterChanged = async (filterObject) => {
+    setFilterObject(filterObject)
+    setOpenFilter(false)
+  }
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.INVENTORY_DOCUMENT_TYPE}/${id}`);
   };
@@ -85,9 +106,13 @@ const TypeWareHouseSheetsList = () => {
   const title = () => {
     return (
       <ButtonList
+      filterCount={filterCount}
         onAdd={onAdd}
+        onFilter={() => {
+          setOpenFilter(true)
+        }}
         onRefresh={() => {
-          getAllSaleChannel();
+          getAllTypeWareHouseSheets();
         }}
       />
     );
@@ -110,6 +135,14 @@ const TypeWareHouseSheetsList = () => {
         {modalContent}
       </Ant.Modal>
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"انواع برگه های انبار"} type="inner" >
+      <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
         <Ant.Table
           size="small"
           {...defaultValues.TABLE_PROPS}
@@ -120,6 +153,7 @@ const TypeWareHouseSheetsList = () => {
           dataSource={dataSource}
           loading={loading}
         />
+         </FilterBedge>
       </Ant.Card>
     </>
   );

@@ -44,8 +44,8 @@ const FormEditTypeWareHouseSheetsList = (props) => {
   const [form] = Ant.Form.useForm();
   const natureList = [
     { id: 0, title: "خنثی" },
-    { id: 1, title: "افزاینده" },
-    { id: -1, title: "کاهنده" },
+    { id: 1, title: "رسید" },
+    { id: -1, title: "حواله" },
   ];
   const commonOptionsAcc = {
     placeholder: "انتخاب کنید...",
@@ -102,10 +102,7 @@ const FormEditTypeWareHouseSheetsList = (props) => {
   }, [accData]);
 
   useEffect(() => {
-    if (
-      accData?.isSuccess &&
-      accData?.data
-    ) {
+    if (accData?.isSuccess && accData?.data) {
       const treeArray = [
         parseInt(accData?.data?.accountGroupCode),
         parseInt(accData?.data?.parentKey),
@@ -122,7 +119,7 @@ const FormEditTypeWareHouseSheetsList = (props) => {
 
   //       const updatedOptions = accounGroupTreeData.data.map((option, index) => ({
   //         ...option,
-  //         key: option?.key || index
+  //         key: option?.code || index
   //       }));
   //       setOptions(updatedOptions);
   //     }
@@ -291,5 +288,4 @@ export default FormEditTypeWareHouseSheetsList;
 FormEditTypeWareHouseSheetsList.propTypes = {
   onSuccess: PropTypes.func,
   id: PropTypes.number,
-
 };
