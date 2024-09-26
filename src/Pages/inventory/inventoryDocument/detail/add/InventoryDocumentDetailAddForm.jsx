@@ -5,7 +5,7 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import { useFetch, GetAsync } from "@/api";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 
@@ -75,7 +75,7 @@ const InventoryDocumentDetailAddForm = ({ onSuccess }) => {
         title={"افزودن اقلام برگه ی انبار"}
         icon={<FaFileMedical />}
       />
-      <CoustomContent>
+      <CustomContent>
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <Ant.Form.Item
             name={"productId"}
@@ -144,7 +144,7 @@ const InventoryDocumentDetailAddForm = ({ onSuccess }) => {
             </Ant.Button>
           </Ant.Form.Item>
         </Ant.Form>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

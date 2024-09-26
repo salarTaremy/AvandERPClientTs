@@ -12,7 +12,7 @@ import GanttA from './GanttA'
 import GanttB from './GanttB'
 import { validateNationalCode } from '@/Tools'
 import { useParams, useLocation } from 'react-router-dom';
-import CoustomContent from '@/components/common/CoustomContent'
+import CustomContent from '@/components/common/CustomContent'
 
 // import * as _viewer from 'stimulsoft-reports-js/Scripts/stimulsoft.viewer';
 // import * as _designer from 'stimulsoft-reports-js/Scripts/stimulsoft.designer';

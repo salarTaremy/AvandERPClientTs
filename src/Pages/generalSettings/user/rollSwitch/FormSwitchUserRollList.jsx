@@ -13,7 +13,7 @@ import qs from "qs";
 import useRequestManager from "@/hooks/useRequestManager";
 import * as styles from "@/styles";
 import ModalHeader from "@/components/common/ModalHeader";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { AiOutlineDeploymentUnit } from "react-icons/ai";
 const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   const [dataSource, setDataSource] = useState(null);
@@ -156,7 +156,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     <>
       <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} icon={<AiOutlineDeploymentUnit />} />
 
-      <CoustomContent >
+      <CustomContent >
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -176,7 +176,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
             loading={loading}
           />
         </FilterBedge>
-      </CoustomContent>
+      </CustomContent>
 
       <Ant.Button
         block

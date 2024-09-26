@@ -6,7 +6,7 @@ import * as url from "@/api/url";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import { CodeSandboxCircleFilled } from '@ant-design/icons';
-import CoustomContent from '@/components/common/CoustomContent';
+import CustomContent from '@/components/common/CustomContent';
 
 
 
@@ -60,7 +60,7 @@ const OtherSettingList = () => {
     return (
         <>
             <Ant.Form form={form} onFinish={onFinish} >
-                <CoustomContent title={"سایر تنظیمات"} bordered size="small" loading={loading}>
+                <CustomContent title={"سایر تنظیمات"} bordered size="small" loading={loading}>
                     <Ant.Row gutter={[16, 8]}>
                         <Ant.Col span={24} sm={10}>
                             <Ant.Form.Item
@@ -110,7 +110,7 @@ const OtherSettingList = () => {
                             </Ant.Form.Item>
                         </Ant.Col>
                     </Ant.Row>
-                </CoustomContent>
+                </CustomContent>
             </Ant.Form >
         </>
     );

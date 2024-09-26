@@ -10,7 +10,7 @@ import * as styles from "@/styles";
 import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import useAllLoading from "@/hooks/useAllLoading ";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import SaleDocumentHeaderInfo from "../header/SaleDocumentHeaderInfo";
 import ModalHeader from '@/components/common/ModalHeader';
 //====================================================================
@@ -109,9 +109,9 @@ const EditSaleDoc = (props) => {
       <Row align="middle"
         gutter={[16, 16]}>
         <Col sm={24}>
-          <CoustomContent bordered  >
+          <CustomContent bordered  >
             {'نام مشتری'} <br />{'نام مشتری'}<br />{'نام مشتری'}
-          </CoustomContent>
+          </CustomContent>
         </Col>
         <Col sm={24}>
           <Ant.Table
@@ -122,15 +122,15 @@ const EditSaleDoc = (props) => {
         </Col>
 
         <Col sm={24} lg={12} xl={12}>
-          <CoustomContent bordered height={100}>
+          <CustomContent bordered height={100}>
             {'مبلغ:18,000,000'}<br></br>{'تخفیف:1,000,000'}<br></br>{'مالیات:17,000,000'}<br></br>{'درصد تخفیف:'}<br></br>{'مبلغ نهایی:'}
 
-          </CoustomContent>
+          </CustomContent>
         </Col>
         <Col span={24} md={12} >
-          <CoustomContent bordered>
+          <CustomContent bordered>
             {'جمع'}
-          </CoustomContent>
+          </CustomContent>
         </Col>
       </Row>
 

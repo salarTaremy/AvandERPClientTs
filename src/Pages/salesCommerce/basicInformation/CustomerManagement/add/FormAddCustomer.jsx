@@ -14,7 +14,7 @@ import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGr
 import * as defaultValues from "@/defaultValues";
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { PlusOutlined } from '@ant-design/icons'
 import { FormCounterpartyAdd } from "@/Pages/manageCounterParty/add/FormCounterpartyAdd";
 import { FaUserPlus } from "react-icons/fa6";
@@ -206,7 +206,7 @@ const FormAddCustomer = ({ onSucces }) => {
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col span={24} sm={10}>
-            <CoustomContent bordered >
+            <CustomContent bordered >
               <Ant.Col>
                 <Ant.Form.Item
                   rules={[{ required: true }]}
@@ -381,18 +381,18 @@ const FormAddCustomer = ({ onSucces }) => {
                 </Ant.Button>
               </Ant.Col>
 
-            </CoustomContent>
+            </CustomContent>
           </Ant.Col>
           <Ant.Col span={24} sm={14}>
             <Ant.Skeleton active loading={loadingData}>
 
-              <CoustomContent bordered >
+              <CustomContent bordered >
                 {empty == undefined ? (
                   <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                 ) : (
                   <HeaderCounterParty id={listData?.data?.id} onHeaderEdit={onHeaderEdit} />
                 )}
-              </CoustomContent>
+              </CustomContent>
 
             </Ant.Skeleton>
           </Ant.Col>

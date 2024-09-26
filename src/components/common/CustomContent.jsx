@@ -3,7 +3,7 @@ import * as Ant from "antd";
 import PropTypes from "prop-types";
 import { MdWidthFull } from "react-icons/md";
 
-const CoustomContent = (props) => {
+const CustomContent = (props) => {
   const { shadow, bordered, height, bgColor, scroll = true } = props;
   const cardStyle = {
     overflow: (scroll && "auto") || "none",
@@ -26,8 +26,8 @@ const CoustomContent = (props) => {
 
 
 
-export default CoustomContent;
-CoustomContent.propTypes = {
+export default CustomContent;
+CustomContent.propTypes = {
   scroll: PropTypes.bool,
 };
 

@@ -7,7 +7,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import AddressList from "./AddressList";
 import BankAccountList from "./BankAccountList";
 import HeaderCounterParty from "./HeaderCounterParty";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 
 const DetailedCounterPartyList = (props) => {
   const { id, onHeaderEdit } = props;
@@ -39,7 +39,7 @@ const DetailedCounterPartyList = (props) => {
   //                        Component
   //====================================================================
   return (
-    <CoustomContent height="80vh">
+    <CustomContent height="80vh">
       <Ant.Skeleton active loading={loading}>
         <HeaderCounterParty id={id} onHeaderEdit={onHeaderEdit} />
         <Ant.Divider />
@@ -53,7 +53,7 @@ const DetailedCounterPartyList = (props) => {
           }))}
         />
       </Ant.Skeleton>
-    </CoustomContent>
+    </CustomContent>
   );
 };
 

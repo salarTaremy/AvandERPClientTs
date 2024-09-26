@@ -7,7 +7,7 @@ import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
 import { useFetch, GetAsync } from "@/api";
 import useRequestManager  from "@/hooks/useRequestManager";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 import dayjs from "dayjs";
@@ -158,7 +158,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
       >
         <Ant.Row gutter={[4, 16]}>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CoustomContent bordered>
+            <CustomContent bordered>
               <Ant.Row gutter={10}>
                 <Ant.Col xs={24} sm={24} md={12} lg={8}>
                   <Ant.Form.Item
@@ -262,10 +262,10 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CoustomContent bordered>
+            <CustomContent bordered>
               <Ant.Table
                 columns={documentDetailColumns(onDocumentDetailDelete)}
                 dataSource={documentDetailDataSource}
@@ -274,7 +274,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                 size="middle"
                 bordered={false}
               />
-            </CoustomContent>
+            </CustomContent>
           </Ant.Col>
           <Ant.Col span={24}>
             <Ant.Row justify={"end"} gutter={[8, 16]}>

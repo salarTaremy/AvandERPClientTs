@@ -5,7 +5,7 @@ import { useFetchWithHandler, usePutWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { BsMenuButtonWideFill   } from "react-icons/bs";
 
 const RoleMenuList = ({ id, name, onSuccess }) => {
@@ -107,7 +107,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
     <>
       <ModalHeader title={`دسترسی منو نقش " ${name} "`} icon={<BsMenuButtonWideFill />}/>
         <Ant.Skeleton active loading={loading}>
-          <CoustomContent height="60vh">
+          <CustomContent height="60vh">
             <Ant.Tree
               checkable
               onExpand={onExpand}
@@ -119,7 +119,7 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
               selectedKeys={selectedKeys}
               treeData={items}
             />
-          </CoustomContent>
+          </CustomContent>
         </Ant.Skeleton>
 
         <Ant.Button type="primary" onClick={onFinish}>

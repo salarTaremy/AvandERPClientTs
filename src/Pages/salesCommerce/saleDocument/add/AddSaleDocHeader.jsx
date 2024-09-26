@@ -10,7 +10,7 @@ import DebounceSelect from "@/components/common/DebounceSelect";
 import ModalHeader from "@/components/common/ModalHeader";
 import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { FaFileMedical } from "react-icons/fa";
 import useAllLoading from "@/hooks/useAllLoading ";
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
@@ -140,7 +140,7 @@ const AddSaleDocHeader = (props) => {
       >
         <CustomerDescription id={idCustomer} />
       </Ant.Modal>
-      <CoustomContent height="70vh">
+      <CustomContent height="70vh">
         <ModalHeader title={"افزودن  برگه فروش"} icon={<FaFileMedical />} />
         <Ant.Form
           form={form}
@@ -340,7 +340,7 @@ const AddSaleDocHeader = (props) => {
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

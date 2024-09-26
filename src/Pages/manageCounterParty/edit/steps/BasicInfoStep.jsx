@@ -7,7 +7,7 @@ import * as url from "@/api/url";
 import { useFetchWithHandler, useFetch } from "@/api";
 import { validateNationalCode } from "@/Tools";
 import useRequestManager from "@/hooks/useRequestManager";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { COUNTERPARTY_TYPE } from "@/staticValues";
 //====================================================================
 //                        Declaration
@@ -155,7 +155,7 @@ export const BasicInfoStep = (props) => {
   //====================================================================
   return (
     <>
-   <CoustomContent height= "70vh"
+   <CustomContent height= "70vh"
       >
         <Ant.Skeleton active  loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>
@@ -178,7 +178,7 @@ export const BasicInfoStep = (props) => {
 
           {/*** کدگذاری ***/}
           <Ant.Row gutter={[16, 8]}>
-            <CoustomContent itle={"کدگذاری"} bordered size="small"  >
+            <CustomContent itle={"کدگذاری"} bordered size="small"  >
               {/* <Ant.Card title={"کدگذاری"} type="inner" size="small"> */}
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -222,11 +222,11 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent >
+            </CustomContent >
 
             {/*** اطلاعات هویتی ***/}
 
-            <CoustomContent  {...{scroll:false}} title={"اطلاعات هویتی"} bordered size="small">
+            <CustomContent  {...{scroll:false}} title={"اطلاعات هویتی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -543,11 +543,11 @@ export const BasicInfoStep = (props) => {
                   </Ant.Col>
                 )}
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
 
             {/*** اطلاعات جغرافیایی ***/}
 
-            <CoustomContent title={"اطلاعات جغرافیایی"} bordered size="small">
+            <CustomContent title={"اطلاعات جغرافیایی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={12} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -601,11 +601,11 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
 
             {/*** اطلاعات تکمیلی ***/}
 
-            <CoustomContent title={"اطلاعات تکمیلی"} bordered size="small">
+            <CustomContent title={"اطلاعات تکمیلی"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={10} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -645,12 +645,12 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
 
 
             </Ant.Row >
         </Ant.Skeleton>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

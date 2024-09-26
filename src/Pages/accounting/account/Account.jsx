@@ -11,7 +11,7 @@ import { RequestManager } from '@/components/common/RequestManager'
 import { FrmEditAccount } from './edit/FrmEditAccount'
 import { FrmEditAccountGroup } from './edit/FrmEditAccountGroup'
 import { FrmEditAccountHeader } from './edit/FrmEditAccountHeader'
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -161,7 +161,7 @@ const Account = () => {
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col span={24} md={10}>
               {/* <Ant.Card bordered style={{ ...styles.CARD_DEFAULT_STYLES }} loading={accLoading}> */}
-              <CoustomContent bordered height="77vh" loading={accLoading}>
+              <CustomContent bordered height="77vh" loading={accLoading}>
                 <Tree
 
                   showIcon
@@ -176,11 +176,11 @@ const Account = () => {
                   // loadData={loadData}
                 />
                 {/* </Ant.Card> */}
-              </CoustomContent>
+              </CustomContent>
             </Ant.Col>
 
             <Ant.Col span={24} md={14}>
-              <CoustomContent bordered height="77vh" loading={accLoading}>
+              <CustomContent bordered height="77vh" loading={accLoading}>
                 {(!selectedNode || selectedNode?.level === 0) && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 1 && (
                   <FrmEditAccountGroup key={selectedNode?.key} accountGroupId={selectedNode?.accountGroupId} />
@@ -191,7 +191,7 @@ const Account = () => {
                 {selectedNode?.level === 3 && (
                   <FrmEditAccount key={selectedNode?.key} accountId={selectedNode?.accountId} />
                 )}
-              </CoustomContent>
+              </CustomContent>
               {/* </Ant.Card> */}
 
             </Ant.Col>

@@ -6,7 +6,7 @@ import qs from "qs";
 import * as uuid from "uuid";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import InquiryListItem from "./InquiryListItem";
 //====================================================================
 //                        Declaration
@@ -36,11 +36,11 @@ const InquiryResult = (props) => {
   return (
     <>
       <ModalHeader title={pageTitle} />
-      <CoustomContent height="60vh">
+      <CustomContent height="60vh">
         <Ant.Skeleton active loading={inquiryLoading}>
           <InquiryListItem inquiryData={inquiryResultData} key={uuid.v1()} />
         </Ant.Skeleton>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

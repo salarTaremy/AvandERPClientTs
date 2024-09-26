@@ -9,7 +9,7 @@ import * as url from "@/api/url";
 import { useFetchWithHandler, useFetch } from "@/api";
 import { validateNationalCode } from "@/Tools";
 import useRequestManager from "@/hooks/useRequestManager";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { COUNTERPARTY_TYPE } from "@/staticValues";
 //====================================================================
 //                        Declaration
@@ -172,7 +172,7 @@ export const BasicInfoStep = (props) => {
   //====================================================================
   return (
     <>
-      <CoustomContent height="70vh">
+      <CustomContent height="70vh">
         <Ant.Skeleton active loading={counterpartyFetchLoading}>
           <Ant.Row gutter={[16, 8]}>
             <Ant.Col lg={8} md={12} sm={12} xs={24}>
@@ -194,7 +194,7 @@ export const BasicInfoStep = (props) => {
 
           <Ant.Row gutter={[16, 8]}>
             {/*** کدگذاری ***/}
-            <CoustomContent title={"کدگذاری"} bordered size="small">
+            <CustomContent title={"کدگذاری"} bordered size="small">
               <Ant.Row gutter={[16, 8]}>
                 <Ant.Col lg={8} md={12} sm={12} xs={24}>
                   <Ant.Form.Item
@@ -237,10 +237,10 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
 
             {/*** اطلاعات هویتی ***/}
-            <CoustomContent
+            <CustomContent
               className=""
               title={"اطلاعات هویتی"}
               bordered
@@ -604,10 +604,10 @@ export const BasicInfoStep = (props) => {
                   </Ant.Col>
                 )}
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
             {/*** اطلاعات جغرافیایی ***/}
 
-            <CoustomContent
+            <CustomContent
               className=""
               title={"اطلاعات جغرافیایی "}
               bordered
@@ -672,10 +672,10 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
             {/*** اطلاعات تکمیلی ***/}
 
-            <CoustomContent
+            <CustomContent
               className=""
               title={"اطلاعات تکمیلی"}
               bordered
@@ -720,10 +720,10 @@ export const BasicInfoStep = (props) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CoustomContent>
+            </CustomContent>
           </Ant.Row>
         </Ant.Skeleton>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

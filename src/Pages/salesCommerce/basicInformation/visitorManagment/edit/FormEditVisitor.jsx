@@ -12,7 +12,7 @@ import HeaderCounterParty from "../../../../manageCounterParty/description/Heade
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import FormEditCounterParty from '@/Pages/manageCounterParty/edit/FormEditCounterParty';
 import { FaUserPen } from "react-icons/fa6";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 
 const FormEditVisitor = (props) => {
     const { onSuccess, id } = props
@@ -139,7 +139,7 @@ const FormEditVisitor = (props) => {
                     <Ant.Row gutter={[16, 8]}>
                         <Ant.Col span={24} sm={10}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-                            <CoustomContent bordered>
+                            <CustomContent bordered>
                                 <Ant.Col>
                                     <Ant.Form.Item
                                         rules={[{ required: true }]}
@@ -201,15 +201,15 @@ const FormEditVisitor = (props) => {
                                         {'تایید'}
                                     </Ant.Button>
                                 </Ant.Form.Item>
-                            </CoustomContent>
+                            </CustomContent>
                             {/* </Ant.Card> */}
                         </Ant.Col>
                         <Ant.Col span={24} sm={14}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-                            <CoustomContent bordered>
+                            <CustomContent bordered>
                                 <HeaderCounterParty id={listData?.data?.counterpartyId} onHeaderEdit={onHeaderEdit} />
                                 {/* </Ant.Card> */}
-                            </CoustomContent>
+                            </CustomContent>
                         </Ant.Col>
                     </Ant.Row>
                 </Ant.Form>

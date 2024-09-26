@@ -6,7 +6,7 @@ import * as url from "@/api/url";
 import qs from "qs";
 import * as uuid from "uuid";
 import * as defaultValues from "@/defaultValues";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import columns from "./columns";
 import FrmAddFundList from "../add/FrmAddFundList";
 import FrmEditFundList from "../edit/FrmEditFundList";
@@ -142,7 +142,7 @@ const FundList = () => {
         {modalContent}
       </Ant.Modal>
 
-      <CoustomContent height="80vh" shadow title={"صندوق ها"}>
+      <CustomContent height="80vh" shadow title={"صندوق ها"}>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -159,7 +159,7 @@ const FundList = () => {
             loading={loadingData}
           />
         </FilterBedge>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

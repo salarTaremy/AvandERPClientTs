@@ -10,7 +10,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import FilterPanel from "../action/FilterPanel";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { TiThList } from "react-icons/ti";
 import * as styles from "@/styles";
 
@@ -101,7 +101,7 @@ const RoleActionList = ({ id, name }) => {
   return (
     <>
       <ModalHeader title={`لیست عملیات نقش "${name}"`} icon={<TiThList />} />
-      <CoustomContent>
+      <CustomContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -121,7 +121,7 @@ const RoleActionList = ({ id, name }) => {
             loading={loading}
           />
         </FilterBedge>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

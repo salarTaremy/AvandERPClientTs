@@ -14,7 +14,7 @@ import DebounceSelect from "@/components/common/DebounceSelect";
 import ModalHeader from "@/components/common/ModalHeader";
 import MyDatePicker from "@/components/common/MyDatePicker";
 import useRequestManager from "@/hooks/useRequestManager";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import CustomerDescription from "../../../salesCommerce/basicInformation/CustomerManagement/description/CustomerDescription";
 import { GrView } from "react-icons/gr";
 import { BiEdit } from "react-icons/bi";
@@ -158,7 +158,7 @@ const EditSaleDocHeader = (props) => {
       >
         <CustomerDescription id={idCustomer} />
       </Ant.Modal>
-      <CoustomContent height="70vh">
+      <CustomContent height="70vh">
         <ModalHeader title={"ویرایش برگه فروش"} icon={<BiEdit />} />
         <Ant.Skeleton active loading={loadingData}>
           <Ant.Form
@@ -363,7 +363,7 @@ const EditSaleDocHeader = (props) => {
             </Ant.Row>
           </Ant.Form>
         </Ant.Skeleton>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

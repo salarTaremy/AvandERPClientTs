@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import * as Ant from "antd";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import * as defaultValues from "@/defaultValues";
 import ButtonList from "@/components/common/ButtonList";
@@ -139,7 +139,7 @@ const ProductConnection = (props) => {
   return (
     <>
       <ModalHeader title={"تخصیص کالا به انبار"} icon={<FaWarehouse />} />
-      <CoustomContent>
+      <CustomContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -174,7 +174,7 @@ const ProductConnection = (props) => {
             </Ant.Button>
           </Ant.Form.Item>
         </FilterBedge>
-      </CoustomContent >
+      </CustomContent >
     </>
   );
 };

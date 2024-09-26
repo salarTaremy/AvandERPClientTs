@@ -14,7 +14,7 @@ import {
   TeamOutlined,
   UserSwitchOutlined,
 } from "@ant-design/icons";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import {
   green,
   gold,
@@ -72,10 +72,10 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
         text={counterpartyData?.data?.counterpartyType}
         color={getCounterpartyTypeColor()}
       >
-        <CoustomContent type="inner" bordered>
+        <CustomContent type="inner" bordered>
           <Ant.Row>
             <Ant.Col span={24}>
-              <CoustomContent  >
+              <CustomContent  >
                 <Ant.Row>
                   <Ant.Col xs={24} sm={4} md={4} lg={4}>
                     <Ant.Space
@@ -233,10 +233,10 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
                     </Ant.Row>
                   </Ant.Col>
                 </Ant.Row>
-              </CoustomContent>
+              </CustomContent>
             </Ant.Col>
           </Ant.Row>
-        </CoustomContent>
+        </CustomContent>
       </Ant.Badge.Ribbon>
     </>
   );

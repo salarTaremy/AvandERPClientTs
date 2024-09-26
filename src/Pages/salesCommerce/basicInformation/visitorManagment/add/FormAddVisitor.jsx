@@ -5,7 +5,7 @@ import { useFetch, useFetchWithHandler, GetAsync, usePostWithHandler } from "@/a
 import qs from "qs";
 import * as url from "@/api/url";
 import * as uuid from "uuid";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
@@ -164,7 +164,7 @@ const FormAddVisitor = ({ onSuccess }) => {
                 <Ant.Row gutter={[16, 8]}>
                     <Ant.Col span={24} sm={10}>
                         {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-                        <CoustomContent bordered>
+                        <CustomContent bordered>
                             <Ant.Col >
                                 <Ant.Form.Item
                                     rules={[{ required: true }]}
@@ -253,19 +253,19 @@ const FormAddVisitor = ({ onSuccess }) => {
                                     {"تایید"}
                                 </Ant.Button>
                             </Ant.Col>
-                        </CoustomContent>
+                        </CustomContent>
                         {/* </Ant.Card> */}
                     </Ant.Col>
                     <Ant.Col span={24} sm={14}>
                         <Ant.Skeleton active loading={loadingData}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-                            <CoustomContent bordered>
+                            <CustomContent bordered>
                                 {empty == undefined ? (
                                     <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                                 ) : (
                                     <HeaderCounterParty id={listData?.data?.id} onHeaderEdit={onHeaderEdit} />
                                 )}
-                            </CoustomContent>
+                            </CustomContent>
                             {/* </Ant.Card> */}
                         </Ant.Skeleton>
                     </Ant.Col>

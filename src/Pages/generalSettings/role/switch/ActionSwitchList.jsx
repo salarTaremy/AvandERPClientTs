@@ -14,7 +14,7 @@ import { VscGithubAction } from "react-icons/vsc";
 import FormActionPermission from "./permission/FormActionPermission";
 import * as uuid from "uuid";
 import * as styles from "@/styles";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { SiGithubactions } from "react-icons/si";
 
 const ActionSwitchList = (props) => {
@@ -160,7 +160,7 @@ const ActionSwitchList = (props) => {
         {modalContent}
       </Ant.Modal>
 
-      <CoustomContent>
+      <CustomContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -179,7 +179,7 @@ const ActionSwitchList = (props) => {
             loading={loading}
           />
         </FilterBedge>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

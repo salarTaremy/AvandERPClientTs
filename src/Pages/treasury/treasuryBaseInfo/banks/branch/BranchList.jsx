@@ -15,7 +15,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import columns from "./columns";
 import FormEditBankBranch from "./edit/FormEditBankBranch";
 import ModalHeader from "@/components/common/ModalHeader";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import { BsBank2 } from "react-icons/bs";
 
 const BranchList = (props) => {
@@ -159,7 +159,7 @@ const BranchList = (props) => {
         {modalContent}
       </Ant.Modal>
       <ModalHeader title={` شعب بانک "${bankTitle}"`} icon={<BsBank2 />} />
-      <CoustomContent>
+      <CustomContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -179,7 +179,7 @@ const BranchList = (props) => {
             loading={loading}
           />
         </FilterBedge>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

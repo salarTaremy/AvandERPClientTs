@@ -6,7 +6,7 @@ import PropTypes, { string } from "prop-types";
 import qs from "qs";
 import * as url from "@/api/url";
 import * as api from "@/api";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import ButtonList from "@/components/common/ButtonList";
 import { MdDescription } from "react-icons/md";
 import { useFetchWithHandler, usePutWithHandler } from "@/api";
@@ -516,21 +516,21 @@ const AddItemDetailList = (props) => {
         }
         icon={<MdDescription />}
       />
-      <CoustomContent height="75vh" loading={allLoading}>
+      <CustomContent height="75vh" loading={allLoading}>
         <Grid />
         <Ant.Row>
           <Ant.Col>
-            <CoustomContent bordered>
+            <CustomContent bordered>
               <Ant.Descriptions
                 bordered={false}
                 layout="horizontal"
                 size="small"
                 items={documentInfo}
               />
-            </CoustomContent>
+            </CustomContent>
           </Ant.Col>
         </Ant.Row>
-      </CoustomContent>
+      </CustomContent>
     </>
   );
 };

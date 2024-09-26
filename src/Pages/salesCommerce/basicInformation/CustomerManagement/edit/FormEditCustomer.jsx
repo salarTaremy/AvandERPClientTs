@@ -6,7 +6,7 @@ import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
-import CoustomContent from "@/components/common/CoustomContent";
+import CustomContent from "@/components/common/CustomContent";
 import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -196,7 +196,7 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                 loading={editLoading}
                 style={{ ...styles.CARD_DEFAULT_STYLES }}
               > */}
-            <CoustomContent bordered loading={editLoading}>
+            <CustomContent bordered loading={editLoading}>
               <Ant.Col>
                 <Ant.Form.Item
                   rules={[{ required: true }, { max: 10 }]}
@@ -345,18 +345,18 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                   {"تایید"}
                 </Ant.Button>
               </Ant.Col>
-            </CoustomContent>
+            </CustomContent>
             {/* </Ant.Card> */}
           </Ant.Col>
           <Ant.Col span={24} sm={14}>
             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-            <CoustomContent bordered loading={editLoading} >
+            <CustomContent bordered loading={editLoading} >
               {/* {empty == undefined ? (
                   <Ant.Empty loading={editLoading} />
                 ) : ( */}
               <HeaderCounterParty id={editData?.data?.counterpartyId} onHeaderEdit={onHeaderEdit} />
               {/* )} */}
-            </CoustomContent>
+            </CustomContent>
             {/* </Ant.Card> */}
           </Ant.Col>
         </Ant.Row>
