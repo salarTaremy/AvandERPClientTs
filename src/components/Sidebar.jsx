@@ -12,6 +12,7 @@ import useRequestManager from "../hooks/useRequestManager";
 import { Link } from "react-router-dom";
 import * as AntIcons from "@ant-design/icons";
 import { SearchOutlined } from "@ant-design/icons";
+import SidebarIcon from "./SidebarIcon";
 
 const { Sider } = Layout;
 const sliderStyle = {
@@ -152,7 +153,8 @@ const AppSidebar = (props) => {
           delete item.icon;
         }
       } else {
-        item.icon = <AntIcons.WindowsOutlined />;
+        console.log(item.icon + ' ')
+        item.icon = <SidebarIcon iconName={item.icon}/>;
       }
       if (item.children) {
         delete item.type;
