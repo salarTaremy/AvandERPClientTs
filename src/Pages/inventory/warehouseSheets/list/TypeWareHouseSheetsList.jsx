@@ -86,6 +86,10 @@ const TypeWareHouseSheetsList = () => {
   };
 
 
+
+
+
+
   //====================================================================
   //                        Events
   //====================================================================
@@ -93,13 +97,16 @@ const TypeWareHouseSheetsList = () => {
     setModalState(false);
     getAllTypeWareHouseSheets();
   };
+
   const onSuccessEdit = () => {
     setModalState(false);
     getAllTypeWareHouseSheets();
   };
+
   const onTableChange = (pagination, filter, sorter) => {
     setPagination(pagination);
   }
+
   //====================================================================
   //                        Child Components
   //====================================================================

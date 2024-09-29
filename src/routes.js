@@ -28,6 +28,7 @@ import EditProductList from './Pages/inventory/product/edit/EditProductList'
 import WarehouseManagment from './Pages/inventory/wareHouse/list/WarehouseManagment'
 import InventoryDocumentManagement from './Pages/inventory/inventoryDocument/list/InventoryDocumentManagement'
 import TypeWareHouseSheetsList from './Pages/inventory/warehouseSheets/list/TypeWareHouseSheetsList'
+import ProductKardexList from './Pages/inventory/wareHouse/reports/productKardex/ProductKardexList'
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
 import CustomValidator from './Pages/Developers/Samples/CustomValidator'
@@ -106,6 +107,7 @@ const routes = [
   { path: '/inventory/product/edit/:id', name: 'ویرایش کالا', element: EditProductList },
   { path: '/inventory/inventoryDocumentManagement', name: 'مدیریت برگه های انبار', element: InventoryDocumentManagement },
   { path: '/inventory/Warehouse', name: ' مدیریت انبارها', element: WarehouseManagment },
+  { path: '/warehouseReports/productKardex', name: 'کاردکس کالا', element: ProductKardexList },
   { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
   { path: '/inventory/warehouse/typeWareHouseSheets', name: ' انواع برگه های انبار', element: TypeWareHouseSheetsList },
   { path: '/base/brand', name: 'برند', element: BrandList },

@@ -4,9 +4,9 @@ import * as Ant from 'antd'
 import * as url from '@/api/url'
 import qs from 'qs'
 import * as styles from '@/styles'
-import columns from '../list/columns'
+import columns from './columns'
 import * as defaultValues from '@/defaultValues'
-import FilterPanel from '../list/FilterPanel'
+import FilterPanel from './FilterPanel'
 import FilterDrawer from '@/components/common/FilterDrawer'
 import FilterBedge from '@/components/common/FilterBedge'
 import ButtonList from '@/components/common/ButtonList'
@@ -16,15 +16,15 @@ import {
   useFetchWithHandler,
   useDelWithHandler,
 } from '@/api'
-import DetailProductListDescription from '../description/DetailProductListDescription'
+
 import { useNavigate, generatePath } from "react-router-dom"
-import AddProduct from '../add/AddProduct'
+
 
 
 //====================================================================
 //                        Declaration
 //====================================================================
-const ProductList = () => {
+const ProductKardexList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler()
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler()
   const [dataSource, setDataSource] = useState(null)
@@ -46,7 +46,7 @@ const ProductList = () => {
     filterObject &&
       setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
     !filterObject && setFilterCount(0)
-    getAllProductList()
+    getAllProductKardex()
   }, [filterObject])
 
   useEffect(() => {
@@ -61,10 +61,12 @@ const ProductList = () => {
   //====================================================================
   //                        Functions
   //====================================================================
-  const getAllProductList = async () => {
-    const queryString = qs.stringify(filterObject)
-    await ApiCall(`${url.PRODUCT}?${queryString}`)
-  }
+
+  const getAllProductKardex= async () => {
+    await ApiCall(url.PRODUCT_KARDEX);
+  };
+
+
 
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject)
@@ -84,10 +86,7 @@ const ProductList = () => {
     setPagination(pagination);
   }
 
-  const onAdd = () => {
-    setModalContent(<AddProduct key={uuid.v1()} onSuccessAdd={onSuccessAdd} />)
-    setModalState(true)
-  }
+
 
   const onSuccessAdd = () => {
     setModalState(false);
@@ -97,13 +96,7 @@ const ProductList = () => {
   //====================================================================
   //                        Events
   //====================================================================
-  const onView = (id) => {
-    setModalContent(<DetailProductListDescription id={id} key={id} />)
-    setModalState(true)
-  }
-  const onEdit = (id) => {
-    id && navigateTo(`/inventory/product/edit/${id}`, { id })
-  }
+
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -111,9 +104,9 @@ const ProductList = () => {
     return (
       <ButtonList
         filterCount={filterCount}
-        onAdd={onAdd}
+
         onRefresh={() => {
-          getAllProductList()
+            getAllProductKardex()
         }}
         onFilter={() => {
           setOpenFilter(true)
@@ -142,7 +135,7 @@ const ProductList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={'مدیریت کالا و خدمات'} type="inner" >
+      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={'لیست کاردکس کالا'} type="inner" >
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -154,7 +147,7 @@ const ProductList = () => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             title={title}
-            columns={columns(onDelSuccess, onView, onEdit)}
+            columns={columns()}
             dataSource={dataSource}
             pagination={pagination}
             onChange={onTableChange}
@@ -167,4 +160,4 @@ const ProductList = () => {
   )
 
 }
-export default ProductList
+export default ProductKardexList
