@@ -250,6 +250,12 @@ export const LINK_PRODUCT_WARE_HOUSE_ADD_LIST = '/LinkProductWarehouse/AddList'
 export const INVENTORY_DOCUMENT = 'InventoryDocument'
 export const INVENTORY_DOCUMENT_TYPE = '/InventoryDocumentType'
 
+
+
+//InventoryReport
+
+export const PRODUCT_KARDEX = '/InventoryReport/ProductKardexGet'
+
 //CityDistrict
 export const CITY_DISTRICT = 'CityDistrict'
 

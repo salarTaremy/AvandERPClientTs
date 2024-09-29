@@ -205,7 +205,7 @@ const FormEditTypeWareHouseSheetsList = (props) => {
                   placeholder="لطفا انتخاب کنید ..."
                   optionRender={(option) => (
                     <>
-                      <Ant.Space key={option.key}>
+                      {/* <Ant.Space key={option.key}> */}
                         {option.level === 1 && (
                           <BsFillJournalBookmarkFill className="text-blue-500" />
                         )}
@@ -216,7 +216,7 @@ const FormEditTypeWareHouseSheetsList = (props) => {
                           <BsBook className="text-green-600" />
                         )}
                         {option.fullCode}-{option.name}
-                      </Ant.Space>
+                      {/* </Ant.Space> */}
                     </>
                   )}
                   fieldNames={{
