@@ -21,6 +21,7 @@ import * as Fi from "react-icons/fi";
 import * as Pi from "react-icons/pi";
 import * as Im from "react-icons/im";
 import * as Go from "react-icons/go";
+import * as Hi from "react-icons/hi";
 
 
 
@@ -148,7 +149,30 @@ const SidebarIcon = ({ iconName }) => {
             return <Cg.CgDollar className={className} />;
         case 'AiOutlineDeliveredProcedure':
             return <Ai.AiOutlineDeliveredProcedure className={className} />;
-
+        case 'GrDocumentConfig':
+            return <Gr.GrDocumentConfig className={className} />;
+        case 'GrDocumentImage':
+            return <Gr.GrDocumentImage className={className} />;
+        case 'TbUsersGroup':
+            return <Tb.TbUsersGroup className={className} />;
+        case 'TiGroupOutline':
+            return <Ti.TiGroupOutline className={className} />;
+        case 'GiLevelEndFlag':
+            return <Gi.GiLevelEndFlag className={className} />;
+        case 'HiOutlineReceiptTax':
+            return <Hi.HiOutlineReceiptTax className={className} />;
+        case 'GrDocumentStore':
+            return <Gr.GrDocumentStore className={className} />;
+        case 'LuFileLock':
+            return <Lu.LuFileLock className={className} />;
+        case 'GrDocumentRtf':
+            return <Gr.GrDocumentRtf className={className} />;
+        case 'PiCity':
+            return <Pi.PiCity className={className} />;
+        case 'RiUserLocationLine':
+            return <Ri.RiUserLocationLine className={className} />;
+        case 'FiSettings':
+            return <Fi.FiSettings className={className} />;
 
         default:
             return <Fa.FaRegFolder className={className} />;
