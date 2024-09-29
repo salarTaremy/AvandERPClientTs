@@ -4,15 +4,17 @@ import { PropTypes } from "prop-types";
 import * as url from "@/api/url";
 import { useFetch } from "@/api";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import MyDatePicker from "@/components/common/MyDatePicker";
+
 import useRequestManager from "@/hooks/useRequestManager";
+import MyDatePicker, {
+  FormatDateToDisplay,
+  FormatDateToPost,
+} from "@/components/common/MyDatePicker";
 import * as api from "@/api";
 const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   const [form] = Ant.Form.useForm();
-  //   const [brandData, brandLoading, brandError] = useFetch(
-  //     url.BRAND_GET_WITH_PERMISSION,
-  //   );
+
   const [batchNumberList, batchNumberLoading, batchNumberError] = api.useFetch(
     url.BATCH_NUMBER,
   );
@@ -24,7 +26,7 @@ const FilterPanel = (props) => {
     inventoryDocumentLoading,
     inventoryDocumentError,
   ] = api.useFetch(url.INVENTORY_DOCUMENT_TYPE);
-  //   useRequestManager({ error: brandError });
+
   useRequestManager({ error: batchNumberError });
   useRequestManager({ error: wareHouseError });
   useRequestManager({ error: inventoryDocumentError });
@@ -45,25 +47,44 @@ const FilterPanel = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    filterObject && form.setFieldsValue({ ...filterObject });
+    const dateFilter = {};
+    if (filterObject?.FromIssueDateCalendarId) {
+      dateFilter.FromIssueDateCalendarId = FormatDateToDisplay(
+        filterObject?.FromIssueDateCalendarId,
+      );
+    }
+    if (filterObject?.ToIssueDateCalendarId) {
+      dateFilter.ToIssueDateCalendarId = FormatDateToDisplay(
+        filterObject?.ToIssueDateCalendarId,
+      );
+    }
+    filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
   }, []);
+
+  // useEffect(() => {
+  //   filterObject && form.setFieldsValue({ ...filterObject });
+  // }, []);
 
   //====================================================================
   //                        Functions
   //====================================================================
   const onFinish = (values) => {
-    console.log(values, "values");
-    console.log( values?.FromIssueDateCalendarId
-      ?.toString()
-      .replace(/\//g, ""), "ccccc");
+    const otherFilterItems = {};
+    if (values?.FromIssueDateCalendarId) {
+      otherFilterItems.FromIssueDateCalendarId = FormatDateToPost(
+        values?.FromIssueDateCalendarId,
+      );
+    }
+
+    if (values?.ToIssueDateCalendarId) {
+      otherFilterItems.ToIssueDateCalendarId = FormatDateToPost(
+        values?.ToIssueDateCalendarId,
+      );
+    }
+
     onSubmit({
       ...values,
-      FromIssueDateCalendarId: values?.fromIssueDateCalendarId
-        ?.toString()
-        .replace(/\//g, ""),
-        ToIssueDateCalendarId: values?.ToIssueDateCalendarId
-        ?.toString()
-        .replace(/\//g, ""),
+      ...otherFilterItems,
     });
   };
   //====================================================================

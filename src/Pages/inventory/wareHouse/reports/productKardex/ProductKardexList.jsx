@@ -14,14 +14,13 @@ import useRequestManager from "@/hooks/useRequestManager";
 import * as uuid from "uuid";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 
-import { useNavigate, generatePath } from "react-router-dom";
 
 //====================================================================
 //                        Declaration
 //====================================================================
 const ProductKardexList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
-  const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
+
   const [dataSource, setDataSource] = useState(null);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
@@ -30,8 +29,8 @@ const ProductKardexList = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useRequestManager({ error: error });
-  useRequestManager({ error: delError, data: delSaving, loading: delLoading });
-  const navigateTo = useNavigate();
+
+
 
   //====================================================================
   //                        useEffects
@@ -49,12 +48,7 @@ const ProductKardexList = () => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
 
-  useEffect(() => {
-    delSaving?.isSuccess &&
-      setDataSource([
-        ...dataSource?.filter((c) => c.id !== delSaving?.data?.id),
-      ]);
-  }, [delSaving]);
+
 
   //====================================================================
   //                        Functions
