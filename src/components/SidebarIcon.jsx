@@ -185,8 +185,12 @@ const SidebarIcon = ({ iconName }) => {
             return <Hi.HiOutlineDocumentReport className={className} />;
         case 'MdOutlineAddchart':
             return <Md.MdOutlineAddchart className={className} />;
-            case 'AiOutlinePieChart':
-                return <Ai.AiOutlinePieChart className={className} />;
+        case 'AiOutlinePieChart':
+            return <Ai.AiOutlinePieChart className={className} />;
+        case 'BiNetworkChart':
+            return <Bi.BiNetworkChart className={className} />;
+        case 'MdAddChart':
+            return <Md.MdAddChart className={className} />;
             
 
         default:
