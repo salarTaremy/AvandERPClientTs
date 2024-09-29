@@ -29,8 +29,7 @@ const columns = () => {
       align: "center",
       width: 80,
       className: "text-xs sm:text-sm",
-
-      render: (text, record) => `${record.issueDate},${record.issueTime}`,
+      render: (text, record) => `${record.issueDate},${record.issueTime.substr(0,8)}`,
     },
     {
       title: "کد محصول",

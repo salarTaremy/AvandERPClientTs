@@ -75,7 +75,6 @@ const FormAddSupplier = (props) => {
   //                        Component
   //====================================================================
   const onFinish = async (values) => {
-    console.log(values, "values");
     setLoading(true);
     const req = {
       ...values,
@@ -83,7 +82,6 @@ const FormAddSupplier = (props) => {
         values?.openingDateCalendarId?.toString().replace(/\//g, ""),
       ),
     };
-    console.log(req, "req");
     await addApiCall(url.FUND, req);
     setLoading(false);
   };

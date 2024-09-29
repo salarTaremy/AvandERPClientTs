@@ -138,7 +138,6 @@ const InquiryListItem = (props) => {
     //    create collapse children foreach inquiry result
     //====================================================
     const errorCount = inquiryItem.errorList?.length;
-    console.log(errorCount);
     const warningCount = inquiryItem.warningList?.length;
     const errorCountTag = (errorCount > 0 && <Ant.Tag color="red" bordered={false}>{`${errorCount} خطا`}</Ant.Tag>);
     const warningCountTag = (warningCount > 0 && <Ant.Tag color="orange" bordered={false}>{`${warningCount} اخطار`}</Ant.Tag>);

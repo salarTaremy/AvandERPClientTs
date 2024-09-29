@@ -117,7 +117,7 @@ const ProductKardexList = () => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"لیست کاردکس کالا"}
+        title={"کاردکس تعدادی کالا"}
         type="inner"
       >
         <FilterDrawer
