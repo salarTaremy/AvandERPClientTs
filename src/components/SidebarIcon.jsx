@@ -8,6 +8,7 @@ import * as Ai from "react-icons/ai";
 import * as Bs from "react-icons/bs";
 import * as Bi from "react-icons/bi";
 import * as Ci from "react-icons/ci";
+import * as Gi from "react-icons/gi";
 import * as Cg from "react-icons/cg";
 import * as Io from "react-icons/io";
 import * as Fa from "react-icons/fa";
@@ -22,6 +23,7 @@ import * as Pi from "react-icons/pi";
 import * as Im from "react-icons/im";
 import * as Go from "react-icons/go";
 import * as Hi from "react-icons/hi";
+import * as Ti from "react-icons/ti";
 
 
 
@@ -59,7 +61,7 @@ const SidebarIcon = ({ iconName }) => {
         case 'SiAmazondocumentdb':
             return <Si.SiAmazondocumentdb className={className} color={color} />;
         case 'GrDocumentNotes':
-            return <Hi2.GrDocumentNotes className={className} color={color} />;
+            return <Gr.GrDocumentNotes className={className} color={color} />;
         case 'HiOutlineBanknotes':
             return <Hi2.HiOutlineBanknotes className={className} color={color} />;
         case 'CiBank':
@@ -83,7 +85,7 @@ const SidebarIcon = ({ iconName }) => {
         case 'MdOutlinePayment':
             return <Md.MdOutlinePayment className={className} color={color} />;
         case 'RiSecurePaymentLine':
-            return <Ri.MdOutlinePaRiSecurePaymentLineyment className={className} color={color} />;
+            return <Ri.RiSecurePaymentLine className={className} color={color} />;
         case 'LiaCommentsDollarSolid':
             return <Lia.LiaCommentsDollarSolid className={className} color={color} />;
         case 'LiaComment':
