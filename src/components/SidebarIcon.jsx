@@ -27,7 +27,7 @@ import * as Hi from "react-icons/hi";
 
 
 const SidebarIcon = ({ iconName }) => {
-    const className = "ml-2  text-sky-700  size-4"
+    const className = "ml-2  text-blue-600  size-4"
     const color = ""
 
 
