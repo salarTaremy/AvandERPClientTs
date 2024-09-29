@@ -153,7 +153,6 @@ const AppSidebar = (props) => {
           delete item.icon;
         }
       } else {
-        console.log(item.icon + ' ')
         item.icon = <SidebarIcon iconName={item.icon}/>;
       }
       if (item.children) {

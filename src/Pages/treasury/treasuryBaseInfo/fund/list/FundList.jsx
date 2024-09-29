@@ -90,7 +90,6 @@ const FundList = () => {
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    console.log(val, "val");
     setModalContent(
       <FrmEditFundList onSuccess={onSuccessEdit} key={val.id} id={val.id} />,
     );

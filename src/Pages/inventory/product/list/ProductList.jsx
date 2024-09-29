@@ -160,6 +160,7 @@ const ProductList = () => {
             onChange={onTableChange}
             loading={loading}
           />
+
         </FilterBedge>
 
       </Ant.Card>
