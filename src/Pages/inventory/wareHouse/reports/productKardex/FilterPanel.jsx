@@ -61,10 +61,6 @@ const FilterPanel = (props) => {
     filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
   }, []);
 
-  // useEffect(() => {
-  //   filterObject && form.setFieldsValue({ ...filterObject });
-  // }, []);
-
   //====================================================================
   //                        Functions
   //====================================================================
