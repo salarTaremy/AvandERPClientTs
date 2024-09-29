@@ -27,174 +27,175 @@ import * as Hi from "react-icons/hi";
 
 
 const SidebarIcon = ({ iconName }) => {
-    const className = "ml-2"
+    const className = "ml-2  text-sky-700  size-4"
+    const color = ""
 
 
     switch (iconName) {
         case 'LuBookUp':
-            return <Lu.LuBookUp className={className} />;
+            return <Lu.LuBookUp className={className} color={color} />;
         case 'LuBookMarked':
-            return <Lu.LuBookMarked className={className} />;
+            return <Lu.LuBookMarked className={className} color={color} />;
         case 'LuBookOpenCheck':
-            return <Lu.LuBookOpenCheck className={className} />;
+            return <Lu.LuBookOpenCheck className={className} color={color} />;
         case 'LuBookLock':
-            return <Lu.LuBookLock className={className} />;
+            return <Lu.LuBookLock className={className} color={color} />;
         case 'AiOutlineBook':
-            return <Ai.AiOutlineBook className={className} />;
+            return <Ai.AiOutlineBook className={className} color={color} />;
         case 'MdOutlineInventory':
-            return <Md.MdOutlineInventory className={className} />;
+            return <Md.MdOutlineInventory className={className} color={color} />;
         case 'AiOutlineProduct':
-            return <Ai.AiOutlineProduct className={className} />;
+            return <Ai.AiOutlineProduct className={className} color={color} />;
         case 'MdOutlineWarehouse':
-            return <Md.MdOutlineWarehouse className={className} />;
+            return <Md.MdOutlineWarehouse className={className} color={color} />;
         case 'GrDocumentPerformance':
-            return <Gr.GrDocumentPerformance className={className} />;
+            return <Gr.GrDocumentPerformance className={className} color={color} />;
         case 'GrDocumentOutlook':
-            return <Gr.GrDocumentOutlook className={className} />;
+            return <Gr.GrDocumentOutlook className={className} color={color} />;
         case 'HiOutlineDocumentChartBar':
-            return <Hi2.HiOutlineDocumentChartBar className={className} />;
+            return <Hi2.HiOutlineDocumentChartBar className={className} color={color} />;
         case 'GrUserSettings ':
-            return <Gr.GrUserSettings className={className} />;
+            return <Gr.GrUserSettings className={className} color={color} />;
         case 'SiAmazondocumentdb':
-            return <Si.SiAmazondocumentdb className={className} />;
+            return <Si.SiAmazondocumentdb className={className} color={color} />;
         case 'GrDocumentNotes':
-            return <Hi2.GrDocumentNotes className={className} />;
+            return <Hi2.GrDocumentNotes className={className} color={color} />;
         case 'HiOutlineBanknotes':
-            return <Hi2.HiOutlineBanknotes className={className} />;
+            return <Hi2.HiOutlineBanknotes className={className} color={color} />;
         case 'CiBank':
-            return <Ci.CiBank className={className} />;
+            return <Ci.CiBank className={className} color={color} />;
         case 'BsPiggyBank':
-            return <Bs.BsPiggyBank className={className} />;
+            return <Bs.BsPiggyBank className={className} color={color} />;
         case 'TbCashBanknote':
-            return <Tb.TbCashBanknote className={className} />;
+            return <Tb.TbCashBanknote className={className} color={color} />;
         case 'MdOutlineCommentBank':
-            return <Md.MdOutlineCommentBank className={className} />;
+            return <Md.MdOutlineCommentBank className={className} color={color} />;
         case 'LuBanknote':
-            return <Lu.LuBanknote className={className} />;
+            return <Lu.LuBanknote className={className} color={color} />;
         case 'FaCommentDollar':
-            return <Fa.FaCommentDollar className={className} />;
+            return <Fa.FaCommentDollar className={className} color={color} />;
         case 'BiCommentCheck':
-            return <Bi.BiCommentCheck ntBank className={className} />;
+            return <Bi.BiCommentCheck ntBank className={className} color={color} />;
         case 'BiCommentDetail':
-            return <Bi.BiCommentDetail className={className} />;
+            return <Bi.BiCommentDetail className={className} color={color} />;
         case 'BiCommentEdit':
-            return <Bi.BiCommentEdit className={className} />;
+            return <Bi.BiCommentEdit className={className} color={color} />;
         case 'MdOutlinePayment':
-            return <Md.MdOutlinePayment className={className} />;
+            return <Md.MdOutlinePayment className={className} color={color} />;
         case 'RiSecurePaymentLine':
-            return <Ri.MdOutlinePaRiSecurePaymentLineyment className={className} />;
+            return <Ri.MdOutlinePaRiSecurePaymentLineyment className={className} color={color} />;
         case 'LiaCommentsDollarSolid':
-            return <Lia.LiaCommentsDollarSolid className={className} />;
+            return <Lia.LiaCommentsDollarSolid className={className} color={color} />;
         case 'LiaComment':
-            return <Lia.LiaComment className={className} />;
+            return <Lia.LiaComment className={className} color={color} />;
         case 'LiaComments':
-            return <Lia.LiaComments className={className} />;
+            return <Lia.LiaComments className={className} color={color} />;
         case 'FiUsers':
-            return <Fi.FiUsers className={className} />;
+            return <Fi.FiUsers className={className} color={color} />;
         case 'GrUserSettings':
-            return <Gr.GrUserSettings className={className} />;
+            return <Gr.GrUserSettings className={className} color={color} />;
         case 'RiUserStarLine':
-            return <Ri.RiUserStarLine className={className} />;
+            return <Ri.RiUserStarLine className={className} color={color} />;
         case 'PiMoneyWavyThin':
-            return <Pi.PiMoneyWavyThin className={className} />;
+            return <Pi.PiMoneyWavyThin className={className} color={color} />;
         case 'CiCircleList':
-            return <Ci.CiCircleList className={className} />;
+            return <Ci.CiCircleList className={className} color={color} />;
         case 'ImMakeGroup':
-            return <Im.ImMakeGroup className={className} />;
+            return <Im.ImMakeGroup className={className} color={color} />;
         case 'MdOutlineCoffeeMaker':
-            return <Md.MdOutlineCoffeeMaker className={className} />;
+            return <Md.MdOutlineCoffeeMaker className={className} color={color} />;
         case 'LuFolderSync':
-            return <Lu.LuFolderSync className={className} />;
+            return <Lu.LuFolderSync className={className} color={color} />;
         case 'BsBackpack':
-            return <Bs.BsBackpack className={className} />;
+            return <Bs.BsBackpack className={className} color={color} />;
         case 'BsBoundingBox':
-            return <Bs.BsBoundingBox className={className} />;
+            return <Bs.BsBoundingBox className={className} color={color} />;
         case 'AiOutlineDashboard':
-            return <Ai.AiOutlineDashboard className={className} />;
+            return <Ai.AiOutlineDashboard className={className} color={color} />;
         case 'IoColorPaletteOutline':
-            return <Io5.IoColorPaletteOutline className={className} />;
+            return <Io5.IoColorPaletteOutline className={className} color={color} />;
         case 'RiFontColor':
-            return <Ri.RiFontColor className={className} />;
+            return <Ri.RiFontColor className={className} color={color} />;
         case 'AiOutlineUserSwitch':
-            return <Ai.AiOutlineUserSwitch className={className} />;
+            return <Ai.AiOutlineUserSwitch className={className} color={color} />;
         case 'GrDocumentTest':
-            return <Gr.GrDocumentTest className={className} />;
+            return <Gr.GrDocumentTest className={className} color={color} />;
         case 'GrDocumentCloud':
-            return <Gr.GrDocumentCloud className={className} />;
+            return <Gr.GrDocumentCloud className={className} color={color} />;
         case 'LuUsers2':
-            return <Lu.LuUsers2 className={className} />;
+            return <Lu.LuUsers2 className={className} color={color} />;
         case 'TbBrandAirtable':
-            return <Tb.TbBrandAirtable className={className} />;
+            return <Tb.TbBrandAirtable className={className} color={color} />;
         case 'IoIosGitBranch':
-            return <Io.IoIosGitBranch className={className} />;
+            return <Io.IoIosGitBranch className={className} color={color} />;
         case 'TbFileReport':
-            return <Tb.TbFileReport className={className} />;
+            return <Tb.TbFileReport className={className} color={color} />;
         case 'FaBalanceScale':
-            return <Fa.FaBalanceScale className={className} />;
+            return <Fa.FaBalanceScale className={className} color={color} />;
         case 'FaUncharted':
-            return <Fa.FaUncharted className={className} />;
+            return <Fa.FaUncharted className={className} color={color} />;
         case 'PiChartLineDownLight':
-            return <Pi.PiChartLineDownLight className={className} />;
+            return <Pi.PiChartLineDownLight className={className} color={color} />;
         case 'IoAccessibilityOutline':
-            return <Io5.IoAccessibilityOutline className={className} />;
+            return <Io5.IoAccessibilityOutline className={className} color={color} />;
         case 'RiUserSettingsLine':
-            return <Ri.RiUserSettingsLine className={className} />;
+            return <Ri.RiUserSettingsLine className={className} color={color} />;
         case 'CgChanel':
-            return <Cg.CgChanel className={className} />;
+            return <Cg.CgChanel className={className} color={color} />;
         case 'MdOutlinePayment':
-            return <Md.MdOutlinePayment className={className} />;
+            return <Md.MdOutlinePayment className={className} color={color} />;
         case 'GoShieldLock':
-            return <Go.GoShieldLock className={className} />;
+            return <Go.GoShieldLock className={className} color={color} />;
         case 'CgDollar':
-            return <Cg.CgDollar className={className} />;
+            return <Cg.CgDollar className={className} color={color} />;
         case 'AiOutlineDeliveredProcedure':
-            return <Ai.AiOutlineDeliveredProcedure className={className} />;
+            return <Ai.AiOutlineDeliveredProcedure className={className} color={color} />;
         case 'GrDocumentConfig':
-            return <Gr.GrDocumentConfig className={className} />;
+            return <Gr.GrDocumentConfig className={className} color={color} />;
         case 'GrDocumentImage':
-            return <Gr.GrDocumentImage className={className} />;
+            return <Gr.GrDocumentImage className={className} color={color} />;
         case 'TbUsersGroup':
-            return <Tb.TbUsersGroup className={className} />;
+            return <Tb.TbUsersGroup className={className} color={color} />;
         case 'TiGroupOutline':
-            return <Ti.TiGroupOutline className={className} />;
+            return <Ti.TiGroupOutline className={className} color={color} />;
         case 'GiLevelEndFlag':
-            return <Gi.GiLevelEndFlag className={className} />;
+            return <Gi.GiLevelEndFlag className={className} color={color} />;
         case 'HiOutlineReceiptTax':
-            return <Hi.HiOutlineReceiptTax className={className} />;
+            return <Hi.HiOutlineReceiptTax className={className} color={color} />;
         case 'GrDocumentStore':
-            return <Gr.GrDocumentStore className={className} />;
+            return <Gr.GrDocumentStore className={className} color={color} />;
         case 'LuFileLock':
-            return <Lu.LuFileLock className={className} />;
+            return <Lu.LuFileLock className={className} color={color} />;
         case 'GrDocumentRtf':
-            return <Gr.GrDocumentRtf className={className} />;
+            return <Gr.GrDocumentRtf className={className} color={color} />;
         case 'PiCity':
-            return <Pi.PiCity className={className} />;
+            return <Pi.PiCity className={className} color={color} />;
         case 'RiUserLocationLine':
-            return <Ri.RiUserLocationLine className={className} />;
+            return <Ri.RiUserLocationLine className={className} color={color} />;
         case 'FiSettings':
-            return <Fi.FiSettings className={className} />;
+            return <Fi.FiSettings className={className} color={color} />;
         case 'RiFundsLine':
-            return <Ri.RiFundsLine className={className} />;
+            return <Ri.RiFundsLine className={className} color={color} />;
         case 'FaRegUserv':
-            return <Fa.FaRegUser className={className} />;
+            return <Fa.FaRegUser className={className} color={color} />;
         case 'FaRegObjectUngroup':
-            return <Fa.FaRegObjectUngroup className={className} />;
+            return <Fa.FaRegObjectUngroup className={className} color={color} />;
         case 'BsFiletypeDoc':
-            return <Bs.BsFiletypeDoc className={className} />;
+            return <Bs.BsFiletypeDoc className={className} color={color} />;
         case 'HiOutlineDocumentReport':
-            return <Hi.HiOutlineDocumentReport className={className} />;
+            return <Hi.HiOutlineDocumentReport className={className} color={color} />;
         case 'MdOutlineAddchart':
-            return <Md.MdOutlineAddchart className={className} />;
+            return <Md.MdOutlineAddchart className={className} color={color} />;
         case 'AiOutlinePieChart':
-            return <Ai.AiOutlinePieChart className={className} />;
+            return <Ai.AiOutlinePieChart className={className} color={color} />;
         case 'BiNetworkChart':
-            return <Bi.BiNetworkChart className={className} />;
+            return <Bi.BiNetworkChart className={className} color={color} />;
         case 'MdAddChart':
-            return <Md.MdAddChart className={className} />;
-            
+            return <Md.MdAddChart className={className} color={color} />;
+
 
         default:
-            return <Fa.FaRegFolder className={className} />;
+            return <Fa.FaRegFolder className={className} color={color} />;
 
     }
 }
