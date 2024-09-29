@@ -173,6 +173,19 @@ const SidebarIcon = ({ iconName }) => {
             return <Ri.RiUserLocationLine className={className} />;
         case 'FiSettings':
             return <Fi.FiSettings className={className} />;
+        case 'RiFundsLine':
+            return <Ri.RiFundsLine className={className} />;
+        case 'FaRegUserv':
+            return <Fa.FaRegUser className={className} />;
+        case 'FaRegObjectUngroup':
+            return <Fa.FaRegObjectUngroup className={className} />;
+        case 'BsFiletypeDoc':
+            return <Bs.BsFiletypeDoc className={className} />;
+        case 'HiOutlineDocumentReport':
+            return <Hi.HiOutlineDocumentReport className={className} />;
+        case 'MdOutlineAddchart':
+            return <Md.MdOutlineAddchart className={className} />;
+
 
         default:
             return <Fa.FaRegFolder className={className} />;
