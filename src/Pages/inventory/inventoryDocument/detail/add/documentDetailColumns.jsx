@@ -40,8 +40,8 @@ export const documentDetailColumns = (onDelete) => {
     },
     {
       title: "واحد",
-      dataIndex: "unit",
-      key: "unit",
+      dataIndex: "productUnit",
+      key: "productUnit",
       align: "center",
       className: "text-xs sm:text-sm",
       width: 100,
