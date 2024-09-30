@@ -246,6 +246,7 @@ export const ASSIGN_SALE_DOCUMENT_TYPE_TO_USER = 'AccessControl/AssignSaleDocume
 //Inventory
 export const WAREHOUSE = 'Warehouse'
 export const WAREHOUSE_TYPE = 'WarehouseType'
+export const WAREHOUSE_STOCK_GET = 'Warehouse/GetStock'
 export const LINK_PRODUCT_WARE_HOUSE = 'LinkProductWarehouse'
 export const LINK_PRODUCT_WARE_HOUSE_ADD_LIST = '/LinkProductWarehouse/AddList'
 export const INVENTORY_DOCUMENT = 'InventoryDocument'
