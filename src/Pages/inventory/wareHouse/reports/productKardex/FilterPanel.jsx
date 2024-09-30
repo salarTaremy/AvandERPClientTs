@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { PropTypes } from "prop-types";
 import * as url from "@/api/url";
-import { useFetch } from "@/api";
+import qs from "qs";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
 import useRequestManager from "@/hooks/useRequestManager";
@@ -10,7 +10,11 @@ import MyDatePicker, {
   FormatDateToDisplay,
   FormatDateToPost,
 } from "@/components/common/MyDatePicker";
+import { TbBrandAirtable } from "react-icons/tb";
+import { AiOutlineProduct } from "react-icons/ai";
+import { RiBarcodeBoxLine } from "react-icons/ri";
 import * as api from "@/api";
+import { useFetch, useFetchWithHandler } from "@/api";
 const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   const [form] = Ant.Form.useForm();
@@ -22,11 +26,18 @@ const FilterPanel = (props) => {
     url.WAREHOUSE,
   );
   const [
+    productListData,
+    productListLoading,
+    productListError,
+    productListApiCall,
+  ] = useFetchWithHandler();
+
+  const [
     inventoryDocumentList,
     inventoryDocumentLoading,
     inventoryDocumentError,
   ] = api.useFetch(url.INVENTORY_DOCUMENT_TYPE);
-
+  const [validationErrors, setValidationErrors] = useState();
   useRequestManager({ error: batchNumberError });
   useRequestManager({ error: wareHouseError });
   useRequestManager({ error: inventoryDocumentError });
@@ -39,6 +50,7 @@ const FilterPanel = (props) => {
     showSearch: true,
     filterOption: (input, option) => option.title.indexOf(input) >= 0,
   };
+  const [productCascaderOption, setProductCascaderOption] = useState([]);
   const commonOptionsWareHouse = {
     showSearch: true,
     filterOption: (input, option) => option.title.indexOf(input) >= 0,
@@ -46,6 +58,17 @@ const FilterPanel = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
+  // useEffect(() => {
+  //   const queryString = qs.stringify({ warehouseId: 22 });
+  //   productListApiCall(`${url.PRODUCT_TREE}?${queryString}`);
+  // }, []);
+  useEffect(() => {
+    getAllProductList();
+  }, []);
+  useEffect(() => {
+    productListData?.isSuccess &&
+      setProductCascaderOption(productListData?.data);
+  }, [productListData]);
   useEffect(() => {
     const dateFilter = {};
     if (filterObject?.FromIssueDateCalendarId) {
@@ -64,7 +87,51 @@ const FilterPanel = (props) => {
   //====================================================================
   //                        Functions
   //====================================================================
+  const getAllProductList = async () => {
+    await productListApiCall(url.PRODUCT_TREE);
+  };
+  const onProductChange = (value, option) => {
+    if (option.length > 1) {
+      const selectedProduct = option[option.length - 2];
+      const selectedBatchNumber = option[option.length - 1];
+      setDocumentDetailValues((documentDetailValues) => ({
+        ...documentDetailValues,
+        product: { id: selectedProduct.productId, name: selectedProduct.name },
+        productDetail: {
+          id: selectedBatchNumber.batchNumberId,
+          batchNumber: selectedBatchNumber.name,
+        },
+      }));
+
+      //TODO: Get product inventory from API
+      // const inventory = 456;
+      // const totalInventory = 791;
+      // setProductInventory({
+      //   batchNumberInventory: inventory,
+      //   totalInventory: totalInventory,
+      // });
+
+      setValidationErrors("");
+    } else {
+      setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
+    }
+  };
+  const productFilter = (inputValue, path) =>
+    path.some(
+      (option) =>
+        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
+        String(option.fullCode).indexOf(inputValue) > -1,
+    );
+
   const onFinish = (values) => {
+    let result;
+
+    if (values?.productId && values?.productId.length === 3) {
+      result = values?.productId[2];
+    } else if (values?.productId.length === 2) {
+      result = values?.productId[1];
+    }
+
     const otherFilterItems = {};
     if (values?.FromIssueDateCalendarId) {
       otherFilterItems.FromIssueDateCalendarId = FormatDateToPost(
@@ -81,6 +148,7 @@ const FilterPanel = (props) => {
     onSubmit({
       ...values,
       ...otherFilterItems,
+      productId: result,
     });
   };
   //====================================================================
@@ -106,19 +174,41 @@ const FilterPanel = (props) => {
           <MyDatePicker />
         </Ant.Form.Item>
         <Ant.Form.Item
-          name={"ProductId"}
-          label=" نام محصول"
-          rules={[{ required: false }]}
+          name={"productId"}
+          label="کالا"
+          rules={[{ required: true }]}
+          help={
+            validationErrors && (
+              <Ant.Typography.Text type="danger">
+                {validationErrors}
+              </Ant.Typography.Text>
+            )
+          }
         >
           <Ant.Cascader
-            //   loading={CityLoading}
-            //   options={options}
-            //   onChange={onChange}
+            loading={productListLoading}
+            options={productCascaderOption}
+            optionRender={(option) => (
+              <>
+                {option.level === 1 && (
+                  <TbBrandAirtable className="text-indigo-500" />
+                )}
+                {option.level === 2 && (
+                  <AiOutlineProduct className="text-cyan-500" />
+                )}
+                {option.level === 3 && (
+                  <RiBarcodeBoxLine className="text-teal-500" />
+                )}
+                {/* {option.title} */} {option.title}{" "}
+              </>
+            )}
             placeholder="لطفا انتخاب کنید ..."
-            //   fieldNames={{ label: "name", value: "id", children: "children" }}
-            //   showSearch={{
-            //     filter,
-            //   }}
+            fieldNames={{
+              label: "title",
+              value: "id",
+              children: "children",
+            }}
+            showSearch={{ productFilter }}
           />
         </Ant.Form.Item>
         <Ant.Form.Item name={"BatchNumberId"} label="لیست سری ساخت ">
