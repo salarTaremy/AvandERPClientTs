@@ -89,6 +89,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const onDocumentDetailAddSucceeded = (detailData) => {
     const inventoryDocumentDetail = {
       rowNumber: documentDetailDataSource.length + 1,
+      key: detailData?.key,
       productId: detailData?.product.id,
       productName: detailData?.product.name,
       productDetailId: detailData?.productDetail.id,
@@ -145,6 +146,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
       <Ant.Modal
         centered
         {...defaultValues.MODAL_PROPS}
+        width={600}
         open={modalOpenState}
         getContainer={null}
         footer={null}
@@ -204,6 +206,10 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       disabled={documentTypeListLoading}
                       loading={documentTypeListLoading}
                       options={documentTypeData?.data}
+                      showSearch
+                      filterOption={(searchText, option) => (
+                        option.title.toLowerCase().includes(searchText.toLowerCase())
+                      )}
                       fieldNames={{ label: "title", value: "id" }}
                     />
                   </Ant.Form.Item>
@@ -221,6 +227,10 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       disabled={warehouseListLoading}
                       loading={warehouseListLoading}
                       options={warehouseListData?.data}
+                      showSearch
+                      filterOption={(searchText, option) => (
+                        option.title.toLowerCase().includes(searchText.toLowerCase())
+                      )}
                       fieldNames={{ label: "title", value: "id" }}
                       onChange={onWarehouseChange}
                     />
@@ -234,6 +244,10 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       disabled={warehouseListLoading}
                       loading={warehouseListLoading}
                       options={warehouseListData?.data}
+                      showSearch
+                      filterOption={(searchText, option) => (
+                        option.title.toLowerCase().includes(searchText.toLowerCase())
+                      )}
                       fieldNames={{ label: "title", value: "id" }}
                     />
                   </Ant.Form.Item>
@@ -269,7 +283,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
             </CustomContent>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CustomContent bordered scroll={true} height="40vh">
+            <CustomContent bordered scroll height="40vh">
               <Ant.Table
                 columns={documentDetailColumns(onDocumentDetailDelete)}
                 dataSource={documentDetailDataSource}
