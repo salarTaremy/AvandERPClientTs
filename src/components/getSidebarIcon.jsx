@@ -27,11 +27,12 @@ import * as Ti from "react-icons/ti";
 
 
 
+const getSidebarIcon = ( iconName ) => {
 
-const SidebarIcon = ({ iconName }) => {
-    const className = "ml-2  text-blue-600  size-4"
-    const color = ""
 
+    const className = "size-4"
+    // const color = "orange"
+    const color = "purple"
 
     switch (iconName) {
         case 'LuBookUp':
@@ -202,5 +203,5 @@ const SidebarIcon = ({ iconName }) => {
     }
 }
 
-export default SidebarIcon;
+export default getSidebarIcon;
 

@@ -12,7 +12,8 @@ import useRequestManager from "../hooks/useRequestManager";
 import { Link } from "react-router-dom";
 import * as AntIcons from "@ant-design/icons";
 import { SearchOutlined } from "@ant-design/icons";
-import SidebarIcon from "./SidebarIcon";
+import getSidebarIcon from "./getSidebarIcon";
+import * as Fa from "react-icons/fa";
 
 const { Sider } = Layout;
 const sliderStyle = {
@@ -139,7 +140,6 @@ const AppSidebar = (props) => {
     return filteredTree;
   };
 
-
   const processNavMenu = (menu) => {
     if (!menu) {
       return null;
@@ -153,7 +153,8 @@ const AppSidebar = (props) => {
           delete item.icon;
         }
       } else {
-        item.icon = <SidebarIcon iconName={item.icon}/>;
+        item.icon = getSidebarIcon(item.icon)
+
       }
       if (item.children) {
         delete item.type;
