@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import * as api from "@/api";
 import * as url from "@/api/url";
 import * as Ant from "antd";
-import { Typography } from "antd";
+import { FaBarcode } from "react-icons/fa6";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 //====================================================================
 //                        Declaration
 //====================================================================
 const BatchNumberDescription = (props) => {
-    const {id} = props;
-    const pageTitle = "سری ساخت";
+    const { id } = props;
+    const pageTitle = "جزئیات سری ساخت";
     const [batchNumberData, batchNumberLoading, batchNumberError] = api.useFetch(`${url.BATCH_NUMBER}/${id}`);
-    useRequestManager({error: batchNumberError});
+    useRequestManager({ error: batchNumberError });
 
     const descriptionItems = [
         {
@@ -34,7 +34,17 @@ const BatchNumberDescription = (props) => {
             key: "4",
             label: "عمر مفید",
             children: `${batchNumberData?.data?.shelfLife} ماه`
-        }
+        },
+        {
+            key: "5",
+            label: " تاریخ تولید میلادی",
+            children: batchNumberData?.data?.gregorianProductionDate
+        },
+        {
+            key: "6",
+            label: "تاریخ انقضا میلادی",
+            children: batchNumberData?.data?.gregorianExpiryDate
+        },
     ];
 
     //====================================================================
@@ -42,24 +52,24 @@ const BatchNumberDescription = (props) => {
     //====================================================================
     return (
         <>
-        <Ant.Skeleton active  loading={batchNumberLoading}>
-        <ModalHeader title={pageTitle}/>
-            <Ant.Descriptions
-                column={{
-                    xs: 1,
-                    sm: 1,
-                    md: 4,
-                    lg: 4,
-                    xl: 4,
-                    xxl: 4
-                }}
+            <Ant.Skeleton active loading={batchNumberLoading}>
+                <ModalHeader title={pageTitle} icon={<FaBarcode />} />
+                <Ant.Descriptions
+                    // column={{
+                    //     xs: 1,
+                    //     sm: 1,
+                    //     md: 4,
+                    //     lg: 4,
+                    //     xl: 4,
+                    //     xxl: 4
+                    // }}
 
-                bordered
-                layout="vertical"
-                size="medium"
-                items={descriptionItems}
-            />
-        </Ant.Skeleton>
+                    bordered
+                    layout="vertical"
+                    size="medium"
+                    items={descriptionItems}
+                />
+            </Ant.Skeleton>
         </>
     )
 }
