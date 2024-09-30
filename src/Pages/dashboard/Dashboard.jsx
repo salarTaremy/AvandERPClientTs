@@ -13,6 +13,7 @@ import GanttB from './GanttB'
 import { validateNationalCode } from '@/Tools'
 import { useParams, useLocation } from 'react-router-dom';
 import CustomContent from '@/components/common/CustomContent'
+import { ClockCircleOutlined } from '@ant-design/icons';
 
 // import * as _viewer from 'stimulsoft-reports-js/Scripts/stimulsoft.viewer';
 // import * as _designer from 'stimulsoft-reports-js/Scripts/stimulsoft.designer';
@@ -41,6 +42,37 @@ const Dashboard = () => {
         </Ant.Row>
 
 
+
+        {/* <Ant.Timeline
+            mode="alternate"
+            reverse
+            items={[
+                {
+                    dot: (<ClockCircleOutlined />),
+                    color: 'blue',
+                    children: <CustomContent bordered  shadow><p>salam:</p></CustomContent>,
+                    label: 'label',
+                    position: 'left'
+                },
+                {
+                    dot: (<ClockCircleOutlined />),
+                    color: 'blue',
+                    children: <CustomContent bordered><p>salam:</p></CustomContent>,
+                    label: 'label',
+                    position: 'left'
+                },
+                {
+                    dot: (<ClockCircleOutlined />),
+                    color: 'green',
+                    children: <CustomContent bordered><p>salam:</p></CustomContent>,
+                    label: 'label',
+                    position: 'right'
+                },
+            ]}
+        /> */}
+
+
+       
     </>
 
 }

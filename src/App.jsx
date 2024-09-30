@@ -1,7 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "./components/Layout";
-import { BackTop, ConfigProvider, theme } from "antd";
+import { BackTop, ConfigProvider, theme, Timeline } from "antd";
 import faIR from "antd/locale/fa_IR";
 import "./scss/style.scss";
 import "./index.css";
@@ -38,6 +38,9 @@ const App = () => {
     },
     algorithm: getTheme(),
     components: {
+      Timeline:{
+        dotBg:"transparent",
+      },
       Input:{
         // hoverBg:'rgba(128, 128, 128, 0.1)',
       },
