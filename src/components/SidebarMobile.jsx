@@ -8,12 +8,7 @@ import { useFetchWithHandler } from "@/api";
 import * as AntIcons from "@ant-design/icons";
 import * as url from "@/api/url";
 
-const Fatemeh = ({ Ic }) => {
-  return (
-    <AntIcons.WindowsOutlined />
-    // <>{Ic}</>
-  );
-};
+
 const SidebarMobile = (props) => {
   const { onCloseSide, openSide,closeItemMenu } = props;
   const [items, setItems] = useState([]);
@@ -49,7 +44,7 @@ const SidebarMobile = (props) => {
       if (item.componentName === "CNavTitle") {
         item.type = "group";
       } else {
-        item.icon = <Fatemeh />;
+        item.icon = <></>
       }
       if (item.children) {
         delete item.type;
