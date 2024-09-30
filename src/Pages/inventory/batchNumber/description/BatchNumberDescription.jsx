@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as api from "@/api";
 import * as url from "@/api/url";
 import * as Ant from "antd";
-import { Typography } from "antd";
+import { FaBarcode } from "react-icons/fa6";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 //====================================================================
