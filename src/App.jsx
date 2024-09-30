@@ -38,6 +38,9 @@ const App = () => {
     },
     algorithm: getTheme(),
     components: {
+      Input:{
+        // hoverBg:'rgba(128, 128, 128, 0.1)',
+      },
       Button: {
         // colorPrimary: `#c034eb`,
         // colorPrimaryHover: `#d776f5`,
