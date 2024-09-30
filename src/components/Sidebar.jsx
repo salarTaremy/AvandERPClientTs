@@ -161,7 +161,7 @@ const AppSidebar = (props) => {
         item.children = processNavMenu(item.children);
       }
       item.label =
-        (item.to && <Link to={item.to}>{item.title}</Link>) || item.title;
+      (   item.to && <Link to={item.to}>{item.title}</Link>) || item.title;
       return { ...item };
     });
   };
@@ -217,11 +217,16 @@ const AppSidebar = (props) => {
   //====================================================================
   return (
     <>
+    {'showImageSider:'}
+    {JSON.stringify(showImageSider)}
+    <br></br>
+    {'collapsedSider:'}
+    {JSON.stringify(collapsedSider)}
       <Sider
         width={280}
         className="sidebar hidden lg:block"
         collapsed={collapsedSider}
-        items={items}
+        // items={items}
       >
         {!showImageSider && (
           <Image
