@@ -217,11 +217,11 @@ const AppSidebar = (props) => {
   //====================================================================
   return (
     <>
-    {'showImageSider:'}
+    {/* {'showImageSider:'}
     {JSON.stringify(showImageSider)}
     <br></br>
     {'collapsedSider:'}
-    {JSON.stringify(collapsedSider)}
+    {JSON.stringify(collapsedSider)} */}
       <Sider
         width={280}
         className="sidebar hidden lg:block"
