@@ -11,9 +11,9 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
+import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
 import * as uuid from "uuid";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
-
 
 //====================================================================
 //                        Declaration
@@ -29,8 +29,6 @@ const ProductKardexList = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useRequestManager({ error: error });
-
-
 
   //====================================================================
   //                        useEffects
@@ -48,16 +46,13 @@ const ProductKardexList = () => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
 
-
-
   //====================================================================
   //                        Functions
   //====================================================================
 
   const getAllProductKardex = async () => {
     const queryString = qs.stringify(filterObject);
-    await ApiCall(`${url.PRODUCT_KARDEX}?${queryString}`)
-
+    await ApiCall(`${url.PRODUCT_KARDEX}?${queryString}`);
   };
 
   const onFilterChanged = async (filterObject) => {
@@ -77,6 +72,15 @@ const ProductKardexList = () => {
   //====================================================================
   //                        Events
   //====================================================================
+  const onBatchNumberView = (batchNumberId) => {
+    setModalContent(<BatchNumberDescription id={batchNumberId} />);
+    setModalState(true);
+  };
+  const onProductKardexView = (val) => {
+    // setModalContent(<BatchNumberDescription id={batchNumberId} />);
+    console.log(val,"val")
+    setModalState(true);
+  };
 
   //====================================================================
   //                        Child Components
@@ -102,16 +106,17 @@ const ProductKardexList = () => {
     <>
       <Ant.Modal
         open={modalState}
-        handleCancel={() => {
-          setModalState(false);
-        }}
+        {...defaultValues.MODAL_LARGE}
+        {...defaultValues.MODAL_PROPS}
+        footer={null}
+        centered
         onCancel={() => {
           setModalState(false);
         }}
-        footer={null}
-        centered
-        {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_LARGE}
+        onOk={() => {
+          setModalState(false);
+        }}
+
       >
         {modalContent}
       </Ant.Modal>
@@ -131,13 +136,12 @@ const ProductKardexList = () => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             title={title}
-            columns={columns()}
+            columns={columns(onProductKardexView,onBatchNumberView)}
             dataSource={dataSource}
             pagination={pagination}
             onChange={onTableChange}
             loading={loading}
           />
-
         </FilterBedge>
       </Ant.Card>
     </>

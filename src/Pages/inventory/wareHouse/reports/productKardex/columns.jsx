@@ -9,16 +9,25 @@ import { MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
 const getDocumentTypeProp = (documentTypeNature) => {
   switch (documentTypeNature) {
     case 1:
-      return {color:"green" ,title:"وارده" , className:"text-green-600",operator:" +"};
+      return {
+        color: "green",
+        title: "وارده",
+        className: "text-green-600",
+        operator: " +",
+      };
     case -1:
-      return {color:"red" ,title:"صادره", className:"text-red-600",operator:" -"};
-      default:
-        return {color:"blue" ,title:"خنثی", className:"",operator:""};
+      return {
+        color: "red",
+        title: "صادره",
+        className: "text-red-600",
+        operator: " -",
+      };
+    default:
+      return { color: "blue", title: "خنثی", className: "", operator: "" };
   }
 };
-const columns = () => {
+const columns = (onProductKardexView, onBatchNumberView) => {
   return [
-
     {
       title: "تاریخ",
       dataIndex: "issueDate",
@@ -26,7 +35,8 @@ const columns = () => {
       align: "center",
       width: 80,
       className: "text-xs sm:text-sm",
-      render: (text, record) => `${record.issueTime.substr(0, 8)} - ${record.issueDate} `,
+      render: (text, record) =>
+        `${record.issueTime.substr(0, 8)} - ${record.issueDate} `,
     },
     {
       title: "شماره برگه",
@@ -48,30 +58,34 @@ const columns = () => {
       dataIndex: "batchNumber",
       key: "batchNumber",
       width: 40,
-      align:'center',
+      align: "center",
       className: "text-xs sm:text-sm",
+      render: (text, record, index) => (
+        <Ant.Typography.Link
+          onClick={() => onBatchNumberView(record.batchNumberId)}
+        >
+          {record.batchNumber}
+        </Ant.Typography.Link>
+      ),
     },
     {
       title: "شرح",
       dataIndex: "inventoryDocumentTypeName",
       key: "inventoryDocumentTypeName",
-      width: 100,
+      width: 150,
       className: "text-xs sm:text-sm",
       render: (text, record, index) => {
         return (
           <>
-          {record?.inventoryDocumentTypeName}
-          {' '}
-            {record?.isReserve && <Ant.Tag
-              bordered={false}
-              color={'orange'}
-            >
-              {'رزرو'}
-            </Ant.Tag>}
-          </>)
-      }
-
-
+            {record?.inventoryDocumentTypeName}{" "}
+            {record?.isReserve && (
+              <Ant.Tag bordered={false} color={"orange"}>
+                {"رزرو"}
+              </Ant.Tag>
+            )}
+          </>
+        );
+      },
     },
     {
       title: "نوع گردش",
@@ -83,7 +97,6 @@ const columns = () => {
       render: (text, record, index) => {
         return (
           <>
-
             {/* {record?.documentTypeNature === 1   ? <MdOutlineFileDownload/> : <MdOutlineFileUpload/>} */}
             <Ant.Tag
               bordered={false}
@@ -91,7 +104,6 @@ const columns = () => {
             >
               {getDocumentTypeProp(record?.documentTypeNature).title}
             </Ant.Tag>
-
           </>
         );
       },
@@ -105,14 +117,17 @@ const columns = () => {
       render: (text, record, index) => {
         return (
           <>
-            <Ant.Typography.Text className={getDocumentTypeProp(record?.documentTypeNature).className}>
-
+            <Ant.Typography.Text
+              className={
+                getDocumentTypeProp(record?.documentTypeNature).className
+              }
+            >
               {record.quantity}
               {getDocumentTypeProp(record?.documentTypeNature).operator}
             </Ant.Typography.Text>
           </>
-        )
-      }
+        );
+      },
     },
     {
       title: "مانده",
@@ -123,12 +138,29 @@ const columns = () => {
       render: (text, record, index) => {
         return (
           <>
-            <Ant.Typography.Text className='text-blue-600'>
+            <Ant.Typography.Text className="text-blue-600">
               {record.balance}
             </Ant.Typography.Text>
           </>
-        )
-      }
+        );
+      },
+    },
+    {
+      ...defaultValues.TABLES_OPERATION_COLUMN,
+
+      render: (text, value, index) => (
+        <>
+          <Ant.Space>
+            <Ant.Button
+              onClick={() => onProductKardexView(value?.id)}
+              className="text-sky-600"
+              icon={<GrView />}
+              color="primary"
+              variant="filled"
+            />
+          </Ant.Space>
+        </>
+      ),
     },
   ];
 };
