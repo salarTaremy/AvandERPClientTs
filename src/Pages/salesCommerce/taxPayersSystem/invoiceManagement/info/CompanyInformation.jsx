@@ -89,7 +89,7 @@ const CompanyInformation = (props) => {
                 }}
                 loading={loadingData}
             >
-                <FiRefreshCw />
+                {loadingData || <FiRefreshCw />}
             </Ant.Button>
         )
     }
@@ -109,12 +109,12 @@ const CompanyInformation = (props) => {
                     <Ant.Input addonAfter={<AddonAfter />} />
                 </Ant.Form.Item>
             </Ant.Form>
-            <Ant.Space >
+            <Ant.Flex  gap={'middle'}>
                 <ResultAnimation size={75} state={loadingData && "active" || listData?.data?.isExist === true && "success" || "exception"} />
-                <Ant.Skeleton active  title={false} loading={loadingData}>
+                <Ant.Skeleton active  loading={loadingData}>
                     <Ant.Descriptions items={items} />
                 </Ant.Skeleton>
-            </Ant.Space>
+            </Ant.Flex>
         </>
     );
 }
