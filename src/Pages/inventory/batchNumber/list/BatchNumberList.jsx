@@ -93,6 +93,7 @@ const BatchNumberList = () => {
             <FormEditBatchNumber
                 id={val.id}
                 onSuccess={onSuccessEdit}
+                key={val.id}
             />,
         );
         setModalState(true);
