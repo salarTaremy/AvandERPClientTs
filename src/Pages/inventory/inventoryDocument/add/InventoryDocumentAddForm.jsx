@@ -49,10 +49,6 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
     form.setFieldValue("issueDateCalendarId", currentDate);
     form.setFieldValue("issueTime", timeData);
   }, [form]);
-
-  useEffect(() => {
-    console.log(documentTypeData?.data);
-  }, [documentTypeData])
   //====================================================================
   //                        Functions
   //====================================================================
@@ -82,6 +78,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const onDocumentDetailAdd = () => {
     setModalContent(
       <InventoryDocumentDetailAddForm
+        warehouseId={inventoryDocument.warehouseId}
         onSuccess={onDocumentDetailAddSucceeded}
         key={uuid.v1()}
       />,
@@ -96,9 +93,11 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
       productName: detailData?.product.name,
       productDetailId: detailData?.productDetail.id,
       batchNumber: detailData?.productDetail.batchNumber,
-      productUnitId: "",
+      productUnit: detailData?.productUnit.name,
+      productUnitId: detailData?.productUnit.id,
       quantity: detailData?.quantity,
-      unitPrice: "",
+      unitPrice: detailData?.unitPrice,
+      totalPrice: detailData?.totalPrice,
       description: detailData?.description,
     };
     setDocumentDetailDataSource((documentDetailDataSource) => [
@@ -111,6 +110,10 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
 
   const onDocumentDetailDelete = () => {
     console.log("deleted");
+  }
+
+  const onWarehouseChange = (value, option) => {
+    setInventoryDocument((inventoryDocument) => ({...inventoryDocument, warehouseId: value}));
   }
 
   const onFinish = (formValues) => {
@@ -131,7 +134,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   //                        Child Component
   //====================================================================
   const tableTitle = () => {
-    return <ButtonList onAdd={onDocumentDetailAdd} />;
+    return inventoryDocument.warehouseId && <ButtonList onAdd={onDocumentDetailAdd} />;
   };
   //====================================================================
   //                        Component
@@ -219,6 +222,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       loading={warehouseListLoading}
                       options={warehouseListData?.data}
                       fieldNames={{ label: "title", value: "id" }}
+                      onChange={onWarehouseChange}
                     />
                   </Ant.Form.Item>
                   <Ant.Form.Item
@@ -265,7 +269,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
             </CustomContent>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CustomContent bordered>
+            <CustomContent bordered scroll={true} height="40vh">
               <Ant.Table
                 columns={documentDetailColumns(onDocumentDetailDelete)}
                 dataSource={documentDetailDataSource}
