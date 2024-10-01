@@ -127,7 +127,7 @@ const FilterPanel = (props) => {
     let result;
 
     if (values?.productId && values?.productId.length === 3) {
-      result = values?.productId[2];
+      result = values?.productId[1];
     } else if (values?.productId.length === 2) {
       result = values?.productId[1];
     }
@@ -205,7 +205,7 @@ const FilterPanel = (props) => {
             placeholder="لطفا انتخاب کنید ..."
             fieldNames={{
               label: "title",
-              value: "id",
+              value: "productId",
               children: "children",
             }}
             showSearch={{ productFilter }}
