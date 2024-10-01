@@ -66,7 +66,9 @@ const BatchNumberDescription = (props) => {
           size="medium"
           items={descriptionItems}
         /> */}
-        <ModalHeader title={` مشاهده سری ساخت (${batchNumberData?.data?.batchNumber}) ` } />
+        <ModalHeader
+          title={` مشاهده سری ساخت (${batchNumberData?.data?.batchNumber}) `}
+        />
         <Ant.Badge.Ribbon
           text={`عمر مفید${batchNumberData?.data?.shelfLife} ماه`}
         >
@@ -89,39 +91,18 @@ const BatchNumberDescription = (props) => {
                     </Ant.Typography.Text>
                   </Ant.Col>
                   <Ant.Col xs={24} sm={24} md={12} lg={12}>
-                    {/* <Ant.Row justify="space-around" align="middle">
-                      <Ant.Col span={4}>
-                      {"تاریخ تولید"}:
-                      </Ant.Col>
-
-                      <Ant.Col span={4}>
-                      {"تاریخ تولید"}:dfdfd
-                      </Ant.Col>
-
-                      <Ant.Col span={4}>
-                      {"تاریخ تولید"}:dfdfdf
-                      </Ant.Col>
-
-                      <Ant.Col span={4}>
-                      {"تاریخ تولید"}:dfdf
-                      </Ant.Col>
-
-                    </Ant.Row> */}
-                    <>
-                      <Ant.Space direction="vertical">
-                        <Ant.Typography.Text
-                          type="secondary"
-                          icon={<BsCalendar4Week className="text-blue-600" />}
-                        >
-                          {"تاریخ تولید"}:
-                          {batchNumberData?.data?.productionDate}
-                        </Ant.Typography.Text>
-                        <Ant.Typography.Text type="secondary">
-                          {"تاریخ تولید"}:
-                          {batchNumberData?.data?.gregorianProductionDate}
-                        </Ant.Typography.Text>
-                      </Ant.Space>
-                    </>
+                    <Ant.Space direction="vertical">
+                      <Ant.Typography.Text
+                        type="secondary"
+                        icon={<BsCalendar4Week className="text-blue-600" />}
+                      >
+                        {"تاریخ تولید"}:{batchNumberData?.data?.productionDate}
+                      </Ant.Typography.Text>
+                      <Ant.Typography.Text type="secondary">
+                        {"تاریخ تولید"}:
+                        {batchNumberData?.data?.gregorianProductionDate}
+                      </Ant.Typography.Text>
+                    </Ant.Space>
                   </Ant.Col>
                   <Ant.Col xs={24} sm={24} md={12} lg={12}>
                     <Ant.Space direction="vertical">
