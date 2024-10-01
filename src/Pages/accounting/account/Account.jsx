@@ -180,6 +180,7 @@ const Account = () => {
             </Ant.Col>
 
             <Ant.Col span={24} md={14}>
+            <Ant.Badge.Ribbon text={(selectedNode?.level === 1 && "گروه")||(selectedNode?.level === 2 && "کل")||(selectedNode?.level === 3 && "معین")} >
               <CustomContent bordered height="77vh" loading={accLoading}>
                 {(!selectedNode || selectedNode?.level === 0) && <Ant.Empty description={emptyDescription} />}
                 {selectedNode?.level === 1 && (
@@ -193,6 +194,8 @@ const Account = () => {
                 )}
               </CustomContent>
               {/* </Ant.Card> */}
+                
+                </Ant.Badge.Ribbon>
 
             </Ant.Col>
           </Ant.Row>
