@@ -124,13 +124,15 @@ const FilterPanel = (props) => {
     );
 
   const onFinish = (values) => {
-    let result;
+    console.log(values,"values")
+    debugger;
+    // let result;
 
-    if (values?.productId && values?.productId.length === 3) {
-      result = values?.productId[1];
-    } else if (values?.productId.length === 2) {
-      result = values?.productId[1];
-    }
+    // if (values?.productId && values?.productId.length === 3) {
+    //   result = values?.productId[1];
+    // } else if (values?.productId.length === 2) {
+    //   result = values?.productId[1];
+    // }
 
     const otherFilterItems = {};
     if (values?.FromIssueDateCalendarId) {
@@ -148,7 +150,7 @@ const FilterPanel = (props) => {
     onSubmit({
       ...values,
       ...otherFilterItems,
-      productId: result,
+      // productId: result,
     });
   };
   //====================================================================
@@ -173,7 +175,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"ToIssueDateCalendarId"} label="تا تاریخ">
           <MyDatePicker />
         </Ant.Form.Item>
-        <Ant.Form.Item
+        {/* <Ant.Form.Item
           name={"productId"}
           label="کالا"
           rules={[{ required: true }]}
@@ -199,7 +201,7 @@ const FilterPanel = (props) => {
                 {option.level === 3 && (
                   <RiBarcodeBoxLine className="text-teal-500" />
                 )}
-                {/* {option.title} */} {option.title}{" "}
+              {option.title}{" "}
               </>
             )}
             placeholder="لطفا انتخاب کنید ..."
@@ -220,7 +222,7 @@ const FilterPanel = (props) => {
             options={batchNumberList?.data}
             fieldNames={{ label: "batchNumber", value: "id" }}
           />
-        </Ant.Form.Item>
+        </Ant.Form.Item> */}
         <Ant.Form.Item name={"WarehouseId"} label="نام انبار">
           <Ant.Select
             {...commonOptionsWareHouse}

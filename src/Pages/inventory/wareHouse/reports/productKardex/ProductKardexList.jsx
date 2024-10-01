@@ -7,18 +7,20 @@ import * as styles from "@/styles";
 import columns from "./columns";
 import * as defaultValues from "@/defaultValues";
 import FilterPanel from "./FilterPanel";
+// import ProductKardex from "../ProductKardex";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
+import { PropTypes } from "prop-types";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
-import * as uuid from "uuid";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
 
 //====================================================================
 //                        Declaration
 //====================================================================
-const ProductKardexList = () => {
+const ProductKardexList = (props) => {
+  const { BatchNumberId, productId } = props;
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
 
   const [dataSource, setDataSource] = useState(null);
@@ -34,29 +36,53 @@ const ProductKardexList = () => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
+    console.log(BatchNumberId, "BatchNumberId");
+    console.log(productId, "productId");
+  }, [BatchNumberId, productId]);
+  useEffect(() => {
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getAllProductKardex();
+   getAllProductKardex();
   }, [filterObject]);
+  useEffect(() => {
+    getAllProductKardex();
+  }, []);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
+
+
+
 
   //====================================================================
   //                        Functions
   //====================================================================
 
   const getAllProductKardex = async () => {
-    const queryString = qs.stringify(filterObject);
-    await ApiCall(`${url.PRODUCT_KARDEX}?${queryString}`);
+
+    // setFilterObject({
+    //   ...filterObject,
+    //   BatchNumberId: BatchNumberId,
+    //   productId: productId,
+    // });
+    const queryString={
+      ...filterObject,
+      BatchNumberId: BatchNumberId,
+      productId: productId
+
+    }
+
+    console.log(queryString, "queryString");
+    await ApiCall(`${url.PRODUCT_KARDEX}?${qs.stringify(queryString)}`);
   };
 
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
+
     setOpenFilter(false);
   };
 
@@ -77,8 +103,8 @@ const ProductKardexList = () => {
     setModalState(true);
   };
   const onProductKardexView = (val) => {
-    // setModalContent(<BatchNumberDescription id={batchNumberId} />);
-    console.log(val,"val")
+    // setModalContent(<ProductKardex />);
+    console.log(val, "val");
     setModalState(true);
   };
 
@@ -116,35 +142,38 @@ const ProductKardexList = () => {
         onOk={() => {
           setModalState(false);
         }}
-
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card
+      {/* <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
         title={"کاردکس تعدادی کالا"}
         type="inner"
+      > */}
+      <FilterDrawer
+        open={openFilter}
+        onClose={() => setOpenFilter(false)}
+        onRemoveFilter={onRemoveFilter}
       >
-        <FilterDrawer
-          open={openFilter}
-          onClose={() => setOpenFilter(false)}
-          onRemoveFilter={onRemoveFilter}
-        >
-          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-        </FilterDrawer>
-        <FilterBedge filterCount={filterCount}>
-          <Ant.Table
-            {...defaultValues.TABLE_PROPS}
-            title={title}
-            columns={columns(onProductKardexView,onBatchNumberView)}
-            dataSource={dataSource}
-            pagination={pagination}
-            onChange={onTableChange}
-            loading={loading}
-          />
-        </FilterBedge>
-      </Ant.Card>
+        <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+      </FilterDrawer>
+      <FilterBedge filterCount={filterCount}>
+        <Ant.Table
+          {...defaultValues.TABLE_PROPS}
+          title={title}
+          columns={columns(onProductKardexView, onBatchNumberView)}
+          dataSource={dataSource}
+          pagination={pagination}
+          onChange={onTableChange}
+          loading={loading}
+        />
+      </FilterBedge>
+      {/* </Ant.Card> */}
     </>
   );
 };
 export default ProductKardexList;
+ProductKardexList.propTypes = {
+  productId: PropTypes.any,
+  BatchNumberId: PropTypes.any,
+};
