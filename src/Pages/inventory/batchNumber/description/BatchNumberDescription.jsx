@@ -68,7 +68,7 @@ const BatchNumberDescription = (props) => {
         /> */}
         <ModalHeader title={` مشاهده سری ساخت (${batchNumberData?.data?.batchNumber}) ` } />
         <Ant.Badge.Ribbon
-          text={`عمر مفید:${batchNumberData?.data?.shelfLife} ماه`}
+          text={`عمر مفید${batchNumberData?.data?.shelfLife} ماه`}
         >
           <CustomContent bordered>
             <Ant.Row>
