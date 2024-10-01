@@ -179,7 +179,7 @@ const getSidebarIcon = ( iconName ) => {
             return <Fi.FiSettings className={className} color={color} />;
         case 'RiFundsLine':
             return <Ri.RiFundsLine className={className} color={color} />;
-        case 'FaRegUserv':
+        case 'FaRegUser':
             return <Fa.FaRegUser className={className} color={color} />;
         case 'FaRegObjectUngroup':
             return <Fa.FaRegObjectUngroup className={className} color={color} />;
