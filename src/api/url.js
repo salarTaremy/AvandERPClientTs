@@ -257,6 +257,7 @@ export const INVENTORY_DOCUMENT_TYPE = '/InventoryDocumentType'
 //InventoryReport
 
 export const PRODUCT_KARDEX = '/InventoryReport/ProductKardexGet'
+export const PRODUCT_KARDEX_DETAIL = '/InventoryReport/ProductKardexDetailGet'
 
 //CityDistrict
 export const CITY_DISTRICT = 'CityDistrict'
