@@ -17,6 +17,8 @@ import FormAddNewWarehouse from "../add/FormAddNewWarehouse";
 import FormEditWarehouse from "../edit/FormEditWarehouse";
 import ProductConnection from "../connection/ProductConnection";
 
+import DetailWareHouse from "../description/DetailWareHouse"
+
 const WareHouseManagment = () => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
@@ -121,6 +123,12 @@ const WareHouseManagment = () => {
     );
     setModalState(true);
   };
+  const onView = (warehouseId) => {
+    setModalContent(
+      <DetailWareHouse id={warehouseId} />,
+    );
+    setModalState(true);
+  };
 
   const handleTableChange = (pagination) => {
     setPagination(pagination);
@@ -184,7 +192,7 @@ const WareHouseManagment = () => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             pagination={pagination}
-            columns={columns(onDelete, onEdit, onConnection)}
+            columns={columns(onDelete, onEdit, onConnection,onView )}
             onChange={handleTableChange}
             dataSource={dataSource}
             title={title}

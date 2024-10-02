@@ -35,6 +35,7 @@ const columns = (onProductKardexView, onBatchNumberView,onWarehouseView,onProduc
         </Ant.Typography.Link>
       ),
     },
+
     {
       title: "کد محصول",
       dataIndex: "productCode",

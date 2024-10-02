@@ -23,35 +23,7 @@ const BatchNumberDescription = (props) => {
   );
   useRequestManager({ error: batchNumberError });
 
-  const descriptionItems = [
-    {
-      key: "1",
-      label: "سری ساخت",
-      children: batchNumberData?.data?.batchNumber,
-      span: 3,
-    },
-    {
-      key: "2",
-      label: "تاریخ تولید",
-      children: batchNumberData?.data?.productionDate,
-      children: `${batchNumberData?.data?.expiryDate} ( ${batchNumberData?.data?.gregorianProductionDate})`,
-      span: 3,
-    },
-    {
-      key: "3",
-      label: "تاریخ انقضا",
 
-      children: `${batchNumberData?.data?.expiryDate} ( ${batchNumberData?.data?.gregorianExpiryDate})`,
-
-      span: 3,
-    },
-    {
-      key: "4",
-      label: "عمر مفید",
-      children: `${batchNumberData?.data?.shelfLife} ماه`,
-      span: 3,
-    },
-  ];
 
   //====================================================================
   //                        Component
@@ -59,13 +31,6 @@ const BatchNumberDescription = (props) => {
   return (
     <>
       <Ant.Skeleton active loading={batchNumberLoading}>
-        {/* <ModalHeader title={pageTitle} /> */}
-        {/* <Ant.Descriptions
-          bordered
-          layout="horizontal"
-          size="medium"
-          items={descriptionItems}
-        /> */}
         <ModalHeader
           title={` مشاهده سری ساخت (${batchNumberData?.data?.batchNumber}) `}
         />
