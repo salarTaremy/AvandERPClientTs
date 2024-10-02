@@ -195,6 +195,8 @@ const getSidebarIcon = ( iconName ) => {
             return <Bi.BiNetworkChart className={className} color={color} />;
         case 'MdAddChart':
             return <Md.MdAddChart className={className} color={color} />;
+        case 'MdOutlineWarehouse ':
+            return <Md.MdOutlineWarehouse  className={className} color={color} />;
 
 
         default:

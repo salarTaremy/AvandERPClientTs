@@ -19,8 +19,8 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 //====================================================================
 //                        Declaration
 //====================================================================
-const ProductKardexList = (props) => {
-  const { BatchNumberId, productId } = props;
+const WarehouseStockList = (props) => {
+//   const { BatchNumberId, productId } = props;
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
 
   const [dataSource, setDataSource] = useState(null);
@@ -35,20 +35,23 @@ const ProductKardexList = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    console.log(BatchNumberId, "BatchNumberId");
-    console.log(productId, "productId");
-  }, [BatchNumberId, productId]);
+//   useEffect(() => {
+//     console.log(BatchNumberId, "BatchNumberId");
+//     console.log(productId, "productId");
+//   }, [BatchNumberId, productId]);
+
+
+
   useEffect(() => {
     filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-   getAllProductKardex();
+    getAllWarehouseStock();
   }, [filterObject]);
   useEffect(() => {
-    getAllProductKardex();
+    getAllWarehouseStock();
   }, []);
 
   useEffect(() => {
@@ -62,7 +65,7 @@ const ProductKardexList = (props) => {
   //                        Functions
   //====================================================================
 
-  const getAllProductKardex = async () => {
+  const getAllWarehouseStock = async () => {
 
     // setFilterObject({
     //   ...filterObject,
@@ -71,13 +74,13 @@ const ProductKardexList = (props) => {
     // });
     const queryString={
       ...filterObject,
-      BatchNumberId: BatchNumberId,
-      productId: productId
+    //   BatchNumberId: BatchNumberId,
+    //   productId: productId
 
     }
 
     console.log(queryString, "queryString");
-    await ApiCall(`${url.PRODUCT_KARDEX}?${qs.stringify(queryString)}`);
+    await ApiCall(`${url.WAREHOUSE_STOCK_GET}?${qs.stringify(queryString)}`);
   };
 
   const onFilterChanged = async (filterObject) => {
@@ -99,7 +102,8 @@ const ProductKardexList = (props) => {
   //                        Events
   //====================================================================
   const onBatchNumberView = (batchNumberId) => {
-    setModalContent(<BatchNumberDescription id={batchNumberId} />);
+console.log(batchNumberId,"batchNumberId")
+    // setModalContent();
     setModalState(true);
   };
   const onProductKardexView = (val) => {
@@ -147,7 +151,7 @@ const ProductKardexList = (props) => {
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
-        title={"کاردکس تعدادی کالا"}
+        title={"موجودی انبار"}
         type="inner"
       >
       <FilterDrawer
@@ -172,8 +176,8 @@ const ProductKardexList = (props) => {
     </>
   );
 };
-export default ProductKardexList;
-ProductKardexList.propTypes = {
-  productId: PropTypes.any,
-  BatchNumberId: PropTypes.any,
-};
+export default WarehouseStockList;
+// ProductKardexList.propTypes = {
+//   productId: PropTypes.any,
+//   BatchNumberId: PropTypes.any,
+// };

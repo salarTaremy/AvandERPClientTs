@@ -31,6 +31,8 @@ import TypeWareHouseSheetsList from './Pages/inventory/warehouseSheets/list/Type
 import ProductKardexList from './Pages/inventory/wareHouse/reports/productKardex/ProductKardexList'
 import BatchNumberList from './Pages/inventory/batchNumber/list/BatchNumberList'
 import ProductKardexDetailList from './Pages/inventory/wareHouse/reports/productKardex/ProductKardexDetailList'
+
+import WarehouseStockList from './Pages/inventory/wareHouse/reports/warehouseStock/WarehouseStockList'
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
 import CustomValidator from './Pages/Developers/Samples/CustomValidator'
@@ -90,6 +92,7 @@ import Home from './Pages/Home'
 import { element } from 'prop-types'
 
 
+
 const routes = [
   { path: '/', exact: true, name: 'خانه', element: Home },
   { path: '/dashboard', name: 'داشبورد', element: Dashboard },
@@ -110,6 +113,7 @@ const routes = [
   { path: '/inventory/inventoryDocumentManagement', name: 'مدیریت برگه های انبار', element: InventoryDocumentManagement },
   { path: '/inventory/Warehouse', name: ' مدیریت انبارها', element: WarehouseManagment },
   { path: '/warehouseReports/productKardex', name: 'کاردکس کالا', element: ProductKardexList },
+  { path: '/warehouseReports/warehouseStock', name: 'موجودی انبار', element: WarehouseStockList },
   { path: '/warehouseReports/ProductKardexDetail', name: 'جزئیات کاردکس کالا', element: ProductKardexDetailList },
   { path: '/base/supplier', name: 'تأمین کننده', element: SupplierList },
   { path: '/base/batchNumber', name: 'مدیریت سری ساخت', element: BatchNumberList },
