@@ -124,15 +124,14 @@ const FilterPanel = (props) => {
     );
 
   const onFinish = (values) => {
-    console.log(values,"values")
-    debugger;
-    // let result;
 
-    // if (values?.productId && values?.productId.length === 3) {
-    //   result = values?.productId[1];
-    // } else if (values?.productId.length === 2) {
-    //   result = values?.productId[1];
-    // }
+    let result;
+
+    if (values?.productId && values?.productId.length === 3) {
+      result = values?.productId[1];
+    } else if (values?.productId.length === 2) {
+      result = values?.productId[1];
+    }
 
     const otherFilterItems = {};
     if (values?.FromIssueDateCalendarId) {
@@ -175,7 +174,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"ToIssueDateCalendarId"} label="تا تاریخ">
           <MyDatePicker />
         </Ant.Form.Item>
-        {/* <Ant.Form.Item
+        <Ant.Form.Item
           name={"productId"}
           label="کالا"
           rules={[{ required: true }]}
@@ -222,7 +221,7 @@ const FilterPanel = (props) => {
             options={batchNumberList?.data}
             fieldNames={{ label: "batchNumber", value: "id" }}
           />
-        </Ant.Form.Item> */}
+        </Ant.Form.Item>
         <Ant.Form.Item name={"WarehouseId"} label="نام انبار">
           <Ant.Select
             {...commonOptionsWareHouse}

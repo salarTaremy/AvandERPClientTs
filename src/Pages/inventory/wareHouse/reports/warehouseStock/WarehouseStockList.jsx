@@ -7,20 +7,21 @@ import * as styles from "@/styles";
 import columns from "./columns";
 import * as defaultValues from "@/defaultValues";
 import FilterPanel from "./FilterPanel";
-// import ProductKardex from "../ProductKardex";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
+
 import { PropTypes } from "prop-types";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
-import { useFetchWithHandler, useDelWithHandler } from "@/api";
+import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription"
+import { useFetchWithHandler } from "@/api";
 
 //====================================================================
 //                        Declaration
 //====================================================================
 const WarehouseStockList = (props) => {
-//   const { BatchNumberId, productId } = props;
+  //   const { BatchNumberId, productId } = props;
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
 
   const [dataSource, setDataSource] = useState(null);
@@ -35,12 +36,10 @@ const WarehouseStockList = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-//   useEffect(() => {
-//     console.log(BatchNumberId, "BatchNumberId");
-//     console.log(productId, "productId");
-//   }, [BatchNumberId, productId]);
-
-
+  //   useEffect(() => {
+  //     console.log(BatchNumberId, "BatchNumberId");
+  //     console.log(productId, "productId");
+  //   }, [BatchNumberId, productId]);
 
   useEffect(() => {
     filterObject &&
@@ -48,7 +47,7 @@ const WarehouseStockList = (props) => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getAllWarehouseStock();
+    // getAllWarehouseStock();
   }, [filterObject]);
   useEffect(() => {
     getAllWarehouseStock();
@@ -58,26 +57,21 @@ const WarehouseStockList = (props) => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
 
-
-
-
   //====================================================================
   //                        Functions
   //====================================================================
 
   const getAllWarehouseStock = async () => {
-
     // setFilterObject({
     //   ...filterObject,
     //   BatchNumberId: BatchNumberId,
     //   productId: productId,
     // });
-    const queryString={
+    const queryString = {
       ...filterObject,
-    //   BatchNumberId: BatchNumberId,
-    //   productId: productId
-
-    }
+      //   BatchNumberId: BatchNumberId,
+      //   productId: productId
+    };
 
     console.log(queryString, "queryString");
     await ApiCall(`${url.WAREHOUSE_STOCK_GET}?${qs.stringify(queryString)}`);
@@ -102,8 +96,15 @@ const WarehouseStockList = (props) => {
   //                        Events
   //====================================================================
   const onBatchNumberView = (batchNumberId) => {
-console.log(batchNumberId,"batchNumberId")
-    // setModalContent();
+    setModalContent(<BatchNumberDescription id={batchNumberId} />);
+    setModalState(true);
+  };
+  const onWarehouseView = (warehouseId) => {
+    // setModalContent(<BatchNumberDescription id={warehouseId} />);
+    setModalState(true);
+  };
+  const onProductView = (productId) => {
+    setModalContent(<DetailProductListDescription id={productId} />);
     setModalState(true);
   };
   const onProductKardexView = (val) => {
@@ -154,24 +155,29 @@ console.log(batchNumberId,"batchNumberId")
         title={"موجودی انبار"}
         type="inner"
       >
-      <FilterDrawer
-        open={openFilter}
-        onClose={() => setOpenFilter(false)}
-        onRemoveFilter={onRemoveFilter}
-      >
-        <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-      </FilterDrawer>
-      <FilterBedge filterCount={filterCount}>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          columns={columns(onProductKardexView, onBatchNumberView)}
-          dataSource={dataSource}
-          pagination={pagination}
-          onChange={onTableChange}
-          loading={loading}
-        />
-      </FilterBedge>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            columns={columns(
+              onProductKardexView,
+              onBatchNumberView,
+              onWarehouseView,
+              onProductView
+            )}
+            dataSource={dataSource}
+            pagination={pagination}
+            onChange={onTableChange}
+            loading={loading}
+          />
+        </FilterBedge>
       </Ant.Card>
     </>
   );
