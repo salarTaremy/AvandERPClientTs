@@ -30,7 +30,7 @@ import InventoryDocumentManagement from './Pages/inventory/inventoryDocument/lis
 import TypeWareHouseSheetsList from './Pages/inventory/warehouseSheets/list/TypeWareHouseSheetsList'
 import ProductKardexList from './Pages/inventory/wareHouse/reports/productKardex/ProductKardexList'
 import BatchNumberList from './Pages/inventory/batchNumber/list/BatchNumberList'
-import ProductKardexDetailList from './Pages/inventory/wareHouse/reports/productKardexDetail/ProductKardexDetailList'
+import ProductKardexDetailList from './Pages/inventory/wareHouse/reports/productKardex/ProductKardexDetailList'
 //Developer
 import BlankPage from './Pages/Developers/Samples/BlankPage'
 import CustomValidator from './Pages/Developers/Samples/CustomValidator'

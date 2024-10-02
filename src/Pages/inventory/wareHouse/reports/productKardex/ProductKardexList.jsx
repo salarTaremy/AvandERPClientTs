@@ -104,7 +104,7 @@ const ProductKardexList = (props) => {
   };
   const onProductKardexView = (val) => {
     // setModalContent(<ProductKardex />);
-    console.log(val, "val");
+
     setModalState(true);
   };
 
