@@ -86,7 +86,8 @@ function RoleManagement() {
   };
 
   const onEdit = (val) => {
-    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
+    setModalSize(updateList)
     setModalContent(
       <FormEditRole
         onSuccess={onSuccessEdit}
