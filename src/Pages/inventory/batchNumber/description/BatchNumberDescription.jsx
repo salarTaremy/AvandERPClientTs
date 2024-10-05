@@ -7,7 +7,7 @@ import * as Ant from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import CustomContent from "@/components/common/CustomContent";
-
+import { Col, Divider, Row } from 'antd';
 import { theme } from "antd";
 const { useToken } = theme;
 import { BsCalendar4Week } from "react-icons/bs";
@@ -56,32 +56,64 @@ const BatchNumberDescription = (props) => {
                     </Ant.Typography.Text>
                   </Ant.Col>
                   <Ant.Col xs={24} sm={24} md={12} lg={12}>
-                    <Ant.Space direction="vertical">
-                      <Ant.Typography.Text
-                        type="secondary"
-                        icon={<BsCalendar4Week className="text-blue-600" />}
-                      >
-                        {"تاریخ تولید"}:{batchNumberData?.data?.productionDate}
-                      </Ant.Typography.Text>
-                      <Ant.Typography.Text type="secondary">
-                        {"تاریخ تولید"}:
-                        {batchNumberData?.data?.gregorianProductionDate}
-                      </Ant.Typography.Text>
-                    </Ant.Space>
+                    <Row justify="center" align="middle">
+                      <Col span={8}>
+                        <Ant.Typography.Text
+                          type="secondary"
+                          icon={<BsCalendar4Week className="text-blue-600" />}
+                        >
+                          {"تاریخ تولید:"}
+                        </Ant.Typography.Text>
+                      </Col>
+                      <Col span={8}>
+                        <Ant.Space direction="vertical">
+
+                          <Ant.Typography.Text
+                            type="secondary"
+                            icon={<BsCalendar4Week className="text-blue-600" />}
+                          >
+                            {batchNumberData?.data?.productionDate}
+                          </Ant.Typography.Text>
+                          <Ant.Typography.Text
+                            type="secondary"
+                            icon={<BsCalendar4Week className="text-blue-600" />}
+                          >
+                            {batchNumberData?.data?.gregorianProductionDate}
+                          </Ant.Typography.Text>
+                        </Ant.Space>
+                      </Col>
+                    </Row>
                   </Ant.Col>
                   <Ant.Col xs={24} sm={24} md={12} lg={12}>
-                    <Ant.Space direction="vertical">
-                      <Ant.Typography.Text
-                        type="secondary"
-                        icon={<BsCalendar4Week className="text-blue-600" />}
-                      >
-                        {"تاریخ انقضا "}:{batchNumberData?.data?.expiryDate}
-                      </Ant.Typography.Text>
-                      <Ant.Typography.Text type="secondary">
-                        {"تاریخ انقضا "}:
-                        {batchNumberData?.data?.gregorianExpiryDate}
-                      </Ant.Typography.Text>
-                    </Ant.Space>
+                    <Row justify="center" align="middle">
+                      <Col span={8}>
+                        <Ant.Typography.Text
+                          type="secondary"
+                          icon={<BsCalendar4Week className="text-blue-600" />}
+                        >
+                          {"تاریخ انقضا:"}
+                        </Ant.Typography.Text>
+
+                      </Col>
+                      <Col span={8}>
+                        <Ant.Space direction="vertical">
+                          <Ant.Typography.Text
+                            type="secondary"
+                            icon={<BsCalendar4Week className="text-blue-600" />}
+                          >
+                            {batchNumberData?.data?.expiryDate}
+                          </Ant.Typography.Text>
+
+                          <Ant.Typography.Text
+                            type="secondary"
+                            icon={<BsCalendar4Week className="text-blue-600" />}
+                          >
+                            {batchNumberData?.data?.gregorianExpiryDate}
+                          </Ant.Typography.Text>
+                        </Ant.Space>
+                      </Col>
+                    </Row>
+
                   </Ant.Col>
                 </Ant.Row>
               </Ant.Col>
