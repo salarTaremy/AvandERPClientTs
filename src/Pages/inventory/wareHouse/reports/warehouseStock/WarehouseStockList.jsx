@@ -120,9 +120,9 @@ const WarehouseStockList = (props) => {
     return (
       <ButtonList
         filterCount={filterCount}
-        onRefresh={() => {
-          getAllWarehouseStock();
-        }}
+        // onRefresh={() => {
+        //   getAllWarehouseStock();
+        // }}
         onFilter={() => {
           setOpenFilter(true);
         }}

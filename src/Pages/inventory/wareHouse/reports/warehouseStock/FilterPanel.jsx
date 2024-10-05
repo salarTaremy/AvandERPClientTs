@@ -57,11 +57,6 @@ const FilterPanel = (props) => {
   }, [productListData]);
   useEffect(() => {
     const dateFilter = {};
-    if (filterObject?.FromIssueDateCalendarId) {
-      dateFilter.FromIssueDateCalendarId = FormatDateToDisplay(
-        filterObject?.FromIssueDateCalendarId,
-      );
-    }
     if (filterObject?.ToIssueDateCalendarId) {
       dateFilter.ToIssueDateCalendarId = FormatDateToDisplay(
         filterObject?.ToIssueDateCalendarId,
@@ -93,11 +88,6 @@ const FilterPanel = (props) => {
     }
 
     const otherFilterItems = {};
-    if (values?.FromIssueDateCalendarId) {
-      otherFilterItems.FromIssueDateCalendarId = FormatDateToPost(
-        values?.FromIssueDateCalendarId,
-      );
-    }
 
     if (values?.ToIssueDateCalendarId) {
       otherFilterItems.ToIssueDateCalendarId = FormatDateToPost(

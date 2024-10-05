@@ -114,6 +114,8 @@ const columns = (onProductKardexView, onBatchNumberView,onWarehouseView,onProduc
       width: 60,
       className: "text-xs sm:text-sm",
       align: "center",
+      sorter: true,
+      render: (text, record, index) => record.totalStock.toLocaleString(),
     },
     {
       title: "جمع کل",
@@ -122,6 +124,8 @@ const columns = (onProductKardexView, onBatchNumberView,onWarehouseView,onProduc
       width: 60,
       className: "text-xs sm:text-sm",
       align: "center",
+      sorter: true,
+      render: (text, record, index) => record.sumReserve.toLocaleString(),
     },
     {
       ...defaultValues.TABLES_OPERATION_COLUMN,
