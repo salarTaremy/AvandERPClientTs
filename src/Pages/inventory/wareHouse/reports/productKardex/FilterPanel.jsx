@@ -65,7 +65,7 @@ const FilterPanel = (props) => {
     getAllProductList();
   }, []);
 
-  
+
   useEffect(() => {
     productListData?.isSuccess &&
       setProductCascaderOption(productListData?.data);
@@ -216,16 +216,6 @@ const FilterPanel = (props) => {
           />
         </Ant.Form.Item>
 
-        <Ant.Form.Item
-          name="IsConfirm"
-          defaultChecked={false}
-          label={"تایید شده/تایید نشده"}
-        >
-          <Ant.Switch
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-          />
-        </Ant.Form.Item>
 
         <Ant.Button
           block

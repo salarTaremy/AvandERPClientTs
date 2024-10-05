@@ -85,7 +85,7 @@ const FilterPanel = (props) => {
     );
 
   const onFinish = (values) => {
-
+    let result;
     if (values?.productId && values?.productId.length === 3) {
       result = values?.productId[1];
     } else if (values?.productId.length === 2) {
@@ -127,17 +127,14 @@ const FilterPanel = (props) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        <Ant.Form.Item name={"FromIssueDateCalendarId"} label="از تاریخ">
-          <MyDatePicker />
-        </Ant.Form.Item>
-        <Ant.Form.Item name={"ToIssueDateCalendarId"} label="تا تاریخ">
+
+        <Ant.Form.Item name={"ToIssueDateCalendarId"} label=" تا تاریخ">
           <MyDatePicker />
         </Ant.Form.Item>
         <Ant.Form.Item
           name={"productId"}
           label="کالا"
-          rules={[{ required: false }]}
-
+          rules={[{ required: true }]}
         >
           <Ant.Cascader
             loading={productListLoading}
@@ -153,7 +150,7 @@ const FilterPanel = (props) => {
                 {option.level === 3 && (
                   <RiBarcodeBoxLine className="text-teal-500" />
                 )}
-              {option.title}{" "}
+                {option.title}{" "}
               </>
             )}
             placeholder="لطفا انتخاب کنید ..."
@@ -175,7 +172,7 @@ const FilterPanel = (props) => {
             fieldNames={{ label: "batchNumber", value: "id" }}
           />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"WarehouseId"} label="نام انبار">
+        <Ant.Form.Item     rules={[{ required: true }]} name={"WarehouseId"} label="نام انبار">
           <Ant.Select
             {...commonOptionsWareHouse}
             disabled={wareHouseLoading}
@@ -187,16 +184,6 @@ const FilterPanel = (props) => {
         </Ant.Form.Item>
 
 
-        <Ant.Form.Item
-          name="IsConfirm"
-          defaultChecked={false}
-          label={"تایید شده/تایید نشده"}
-        >
-          <Ant.Switch
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-          />
-        </Ant.Form.Item>
 
         <Ant.Button
           block

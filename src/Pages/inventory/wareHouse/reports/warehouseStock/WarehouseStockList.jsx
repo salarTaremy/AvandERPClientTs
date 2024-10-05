@@ -30,7 +30,7 @@ const WarehouseStockList = (props) => {
   const [modalState, setModalState] = useState(false);
   const [filterObject, setFilterObject] = useState();
   const [filterCount, setFilterCount] = useState(0);
-  const [openFilter, setOpenFilter] = useState(false);
+  const [openFilter, setOpenFilter] = useState(true);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useRequestManager({ error: error });
 
@@ -48,7 +48,7 @@ const WarehouseStockList = (props) => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    getAllWarehouseStock();
+    !openFilter && getAllWarehouseStock();
   }, [filterObject]);
 
 
