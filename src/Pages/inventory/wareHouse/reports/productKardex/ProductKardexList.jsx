@@ -7,7 +7,6 @@ import * as styles from "@/styles";
 import columns from "./columns";
 import * as defaultValues from "@/defaultValues";
 import FilterPanel from "./FilterPanel";
-// import ProductKardex from "../ProductKardex";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
