@@ -44,8 +44,8 @@ const BatchNumberDescription = (props) => {
                   <Ant.QRCode
                     size={110}
                     value={batchNumberData?.data?.batchNumber  
-                      + ' ' + batchNumberData?.data?.gregorianProductionDate
-                      + ' ' + batchNumberData?.data?.gregorianExpiryDate
+                      + '\nPrd: ' + batchNumberData?.data?.gregorianProductionDate
+                      + '\nExp: ' + batchNumberData?.data?.gregorianExpiryDate
                       }
                     color={token.colorInfoText}
                   />
