@@ -14,7 +14,8 @@ import useRequestManager from "@/hooks/useRequestManager";
 
 import { PropTypes } from "prop-types";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
-import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription"
+import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription";
+import DetailWareHouse from "../../../../inventory/wareHouse/description/DetailWareHouse"
 import { useFetchWithHandler } from "@/api";
 
 //====================================================================
@@ -47,11 +48,10 @@ const WarehouseStockList = (props) => {
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-    // getAllWarehouseStock();
-  }, [filterObject]);
-  useEffect(() => {
     getAllWarehouseStock();
-  }, []);
+  }, [filterObject]);
+
+
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -100,7 +100,7 @@ const WarehouseStockList = (props) => {
     setModalState(true);
   };
   const onWarehouseView = (warehouseId) => {
-    // setModalContent(<BatchNumberDescription id={warehouseId} />);
+    setModalContent(<DetailWareHouse id={warehouseId} />);
     setModalState(true);
   };
   const onProductView = (productId) => {
@@ -108,7 +108,7 @@ const WarehouseStockList = (props) => {
     setModalState(true);
   };
   const onProductKardexView = (val) => {
-    // setModalContent(<ProductKardex />);
+    // setModalContent(<DetailWareHouse id={val?.id} />);
 
     setModalState(true);
   };
@@ -121,7 +121,7 @@ const WarehouseStockList = (props) => {
       <ButtonList
         filterCount={filterCount}
         onRefresh={() => {
-          getAllProductKardex();
+          getAllWarehouseStock();
         }}
         onFilter={() => {
           setOpenFilter(true);
