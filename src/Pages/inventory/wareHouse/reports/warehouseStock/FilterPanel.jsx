@@ -31,8 +31,6 @@ const FilterPanel = (props) => {
     productListError,
     productListApiCall,
   ] = useFetchWithHandler();
-
-  const [validationErrors, setValidationErrors] = useState();
   useRequestManager({ error: batchNumberError });
   useRequestManager({ error: wareHouseError });
   useRequestManager({ error: productListError });
@@ -88,8 +86,6 @@ const FilterPanel = (props) => {
 
   const onFinish = (values) => {
 
-    let result;
-
     if (values?.productId && values?.productId.length === 3) {
       result = values?.productId[1];
     } else if (values?.productId.length === 2) {
@@ -141,13 +137,7 @@ const FilterPanel = (props) => {
           name={"productId"}
           label="کالا"
           rules={[{ required: false }]}
-          help={
-            validationErrors && (
-              <Ant.Typography.Text type="danger">
-                {validationErrors}
-              </Ant.Typography.Text>
-            )
-          }
+
         >
           <Ant.Cascader
             loading={productListLoading}
