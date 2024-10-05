@@ -42,8 +42,11 @@ const BatchNumberDescription = (props) => {
               <Ant.Col xs={24} sm={4} md={4} lg={4}>
                 <Ant.Space direction="vertical" align="center" size="middle">
                   <Ant.QRCode
-                    size={100}
-                    value={batchNumberData?.data?.batchNumber}
+                    size={110}
+                    value={batchNumberData?.data?.batchNumber  
+                      + ' ' + batchNumberData?.data?.gregorianProductionDate
+                      + ' ' + batchNumberData?.data?.gregorianExpiryDate
+                      }
                     color={token.colorInfoText}
                   />
                 </Ant.Space>
