@@ -24,30 +24,29 @@ const ProductKardexList = (props) => {
   const [dataSource, setDataSource] = useState(null);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
-  const [filterObject, setFilterObject] = useState();
+  const [filterObject, setFilterObject] = useState({});
   const [filterCount, setFilterCount] = useState(0);
-  const [openFilter, setOpenFilter] = useState(false);
+  const [openFilter, setOpenFilter] = useState(true);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useRequestManager({ error: error });
 
   //====================================================================
   //                        useEffects
   //====================================================================
+
   useEffect(() => {
-    console.log(BatchNumberId, "BatchNumberId");
-    console.log(productId, "productId");
-  }, [BatchNumberId, productId]);
-  useEffect(() => {
-    filterObject &&
+    console.log('filterObject',filterObject)
+    filterObject &&  
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
     !filterObject && setFilterCount(0);
-   getAllProductKardex();
+    !openFilter && getAllProductKardex();
   }, [filterObject]);
-  useEffect(() => {
-    getAllProductKardex();
-  }, []);
+
+  // useEffect(() => {
+  //   getAllProductKardex();
+  // }, []);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -61,26 +60,17 @@ const ProductKardexList = (props) => {
   //====================================================================
 
   const getAllProductKardex = async () => {
-
-    // setFilterObject({
-    //   ...filterObject,
-    //   BatchNumberId: BatchNumberId,
-    //   productId: productId,
-    // });
     const queryString={
       ...filterObject,
       BatchNumberId: BatchNumberId,
       productId: productId
 
     }
-
-    console.log(queryString, "queryString");
     await ApiCall(`${url.PRODUCT_KARDEX}?${qs.stringify(queryString)}`);
   };
 
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
-
     setOpenFilter(false);
   };
 
@@ -113,9 +103,9 @@ const ProductKardexList = (props) => {
     return (
       <ButtonList
         filterCount={filterCount}
-        onRefresh={() => {
-          getAllProductKardex();
-        }}
+        // onRefresh={() => {
+        //   getAllProductKardex();
+        // }}
         onFilter={() => {
           setOpenFilter(true);
         }}

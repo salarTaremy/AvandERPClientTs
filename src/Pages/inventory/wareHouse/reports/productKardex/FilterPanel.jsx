@@ -37,7 +37,6 @@ const FilterPanel = (props) => {
     inventoryDocumentLoading,
     inventoryDocumentError,
   ] = api.useFetch(url.INVENTORY_DOCUMENT_TYPE);
-  const [validationErrors, setValidationErrors] = useState();
   useRequestManager({ error: batchNumberError });
   useRequestManager({ error: wareHouseError });
   useRequestManager({ error: inventoryDocumentError });
@@ -65,6 +64,8 @@ const FilterPanel = (props) => {
   useEffect(() => {
     getAllProductList();
   }, []);
+
+  
   useEffect(() => {
     productListData?.isSuccess &&
       setProductCascaderOption(productListData?.data);
@@ -90,32 +91,7 @@ const FilterPanel = (props) => {
   const getAllProductList = async () => {
     await productListApiCall(url.PRODUCT_TREE);
   };
-  const onProductChange = (value, option) => {
-    if (option.length > 1) {
-      const selectedProduct = option[option.length - 2];
-      const selectedBatchNumber = option[option.length - 1];
-      setDocumentDetailValues((documentDetailValues) => ({
-        ...documentDetailValues,
-        product: { id: selectedProduct.productId, name: selectedProduct.name },
-        productDetail: {
-          id: selectedBatchNumber.batchNumberId,
-          batchNumber: selectedBatchNumber.name,
-        },
-      }));
 
-      //TODO: Get product inventory from API
-      // const inventory = 456;
-      // const totalInventory = 791;
-      // setProductInventory({
-      //   batchNumberInventory: inventory,
-      //   totalInventory: totalInventory,
-      // });
-
-      setValidationErrors("");
-    } else {
-      setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
-    }
-  };
   const productFilter = (inputValue, path) =>
     path.some(
       (option) =>
@@ -163,8 +139,11 @@ const FilterPanel = (props) => {
   //====================================================================
   return (
     <>
+    {JSON.stringify(form?.ErrorList)}
       <Ant.Form
+      requiredMark={false}
         form={form}
+        // variant="filled"
         onFinish={onFinish}
         layout="vertical"
         onFinishFailed={null}
@@ -175,17 +154,10 @@ const FilterPanel = (props) => {
         <Ant.Form.Item name={"ToIssueDateCalendarId"} label="تا تاریخ">
           <MyDatePicker />
         </Ant.Form.Item>
-        {/* <Ant.Form.Item
+        <Ant.Form.Item
           name={"productId"}
           label="کالا"
           rules={[{ required: true }]}
-          help={
-            validationErrors && (
-              <Ant.Typography.Text type="danger">
-                {validationErrors}
-              </Ant.Typography.Text>
-            )
-          }
         >
           <Ant.Cascader
             loading={productListLoading}
@@ -222,7 +194,7 @@ const FilterPanel = (props) => {
             options={batchNumberList?.data}
             fieldNames={{ label: "batchNumber", value: "id" }}
           />
-        </Ant.Form.Item> */}
+        </Ant.Form.Item>
         <Ant.Form.Item name={"WarehouseId"} label="نام انبار">
           <Ant.Select
             {...commonOptionsWareHouse}
