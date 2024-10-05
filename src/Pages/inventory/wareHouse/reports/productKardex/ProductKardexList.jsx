@@ -44,10 +44,6 @@ const ProductKardexList = (props) => {
     !openFilter && getAllProductKardex();
   }, [filterObject]);
 
-  // useEffect(() => {
-  //   getAllProductKardex();
-  // }, []);
-
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
@@ -103,9 +99,6 @@ const ProductKardexList = (props) => {
     return (
       <ButtonList
         filterCount={filterCount}
-        // onRefresh={() => {
-        //   getAllProductKardex();
-        // }}
         onFilter={() => {
           setOpenFilter(true);
         }}
