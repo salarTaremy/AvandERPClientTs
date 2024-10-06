@@ -142,7 +142,7 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
                         <Ant.Tooltip title="ویرایش">
                           <Ant.Button
                             onClick={() =>
-                              onHeaderEdit(counterpartyData?.data?.id)
+                              onHeaderEdit(id)
                             }
                             className="text-blue-600"
                             icon={<FiEdit />}

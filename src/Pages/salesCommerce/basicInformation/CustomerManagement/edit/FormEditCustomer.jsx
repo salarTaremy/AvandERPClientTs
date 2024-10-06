@@ -138,12 +138,12 @@ const FormEditCustomer = ({ id, onSuccess }) => {
     handleCounterParty()
   };
 
-  const onHeaderEdit = (data) => {
+  const onHeaderEdit = (id) => {
     setModalContent(
       <FormEditCounterParty
         onSuccess={onSuccessEdit}
         key={uuid.v1()}
-        id={(data.id)}
+        id={id}
       />
     );
     setModalState(true);
