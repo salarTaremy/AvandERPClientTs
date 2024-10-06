@@ -66,7 +66,7 @@ const BatchNumberDescription = (props) => {
                       >
                         {"تاریخ تولید:"}
                       </Ant.Typography.Text>
-                      <Ant.Space direction="vertical">
+                      <Ant.Space direction="vertical" align="center">
 
                         <Ant.Typography.Text
                           type="secondary"
@@ -91,7 +91,7 @@ const BatchNumberDescription = (props) => {
                       >
                         {"تاریخ انقضا:"}
                       </Ant.Typography.Text>
-                      <Ant.Space direction="vertical">
+                      <Ant.Space direction="vertical" align="center">
 
                         <Ant.Typography.Text
                           type="secondary"
