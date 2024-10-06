@@ -42,6 +42,7 @@ import DebounceSelectSample from './Pages/Developers/Samples/DebounceSelectSampl
 import CitySelector from './Pages/Developers/Samples/CitySelector'
 import TreeDropDownLaziyLoad from './Pages/Developers/Samples/TreeDropDownLaziyLoad'
 import TableWithServerSideSort from './Pages/Developers/Samples/TableWithServerSideSort'
+import ProductPickerSample from './Pages/Developers/Samples/ProductPickerSample'
 
 
 //GeneralSettings
@@ -123,6 +124,7 @@ const routes = [
   { path: '/developers/samples/blankPage', name: 'صفحه خالی', element: BlankPage },
   { path: '/developers/samples/customValidator', name: 'صفحه خالی', element: CustomValidator },
   { path: '/developers/samples/datePickerSample', name: 'تایم پیکر', element: DatePickerSample },
+  { path: '/developers/samples/productPickerSample', name: 'ProductPicker', element: ProductPickerSample },
   { path: '/developers/samples/listSample/listSample', name: 'نمونه لیست', element: ListSample },
   { path: '/developers/samples/debounceSelectSample', name: 'نمونه سلکت باکس با امکان جستجوی سمت سرور', element: DebounceSelectSample },
   { path: '/developers/samples/citySelector', name: 'نمونه DropDown درختی', element: CitySelector },
