@@ -5,11 +5,12 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
-import { useFetch, GetAsync } from "@/api";
-import useRequestManager  from "@/hooks/useRequestManager";
+import { useFetch, GetAsync, useFetchWithHandler } from "@/api";
+import useRequestManager from "@/hooks/useRequestManager";
 import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
+import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import dayjs from "dayjs";
 import MyDatePicker, {
   FormatDateToPost,
@@ -26,7 +27,9 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const [form] = Ant.Form.useForm();
   const [documentTypeData, documentTypeListLoading, documentTypeListError] =
     useFetch(url.INVENTORY_DOCUMENT_TYPE);
-    
+  const [docNumber, docNumberLoading, docNumberError, docNumberApiCall] =
+    useFetchWithHandler();
+
   const [warehouseListData, warehouseListLoading, warehouseListError] =
     useFetch(url.WAREHOUSE);
 
@@ -36,9 +39,10 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const [issueTime, setIssueime] = useState("");
   const [inventoryDocument, setInventoryDocument] = useState({});
   const [documentDetailDataSource, setDocumentDetailDataSource] = useState([]);
-   
-  useRequestManager({ error: documentTypeListError});
-  useRequestManager({ error: warehouseListError});
+
+  useRequestManager({ error: documentTypeListError });
+  useRequestManager({ error: warehouseListError });
+  useRequestManager({ error: docNumberError });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -49,9 +53,17 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
     form.setFieldValue("issueDateCalendarId", currentDate);
     form.setFieldValue("issueTime", timeData);
   }, [form]);
+
+  useEffect(() => {
+    docNumber?.isSuccess && form.setFieldValue('documentNumber', docNumber?.data);
+  }, [docNumber])
   //====================================================================
   //                        Functions
   //====================================================================
+  const getLastDocumentNumber = async () => {
+    await docNumberApiCall(url.INVENTORY_DOCUMENT_GET_LAST_DOCUMENT_NUMBER);
+  };
+
   const timePickerOnChange = (time, timeString) => {
     setIssueime(timeString);
   };
@@ -109,13 +121,18 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
     setModalOpenState(false);
   };
 
-  const onDocumentDetailDelete = () => {
-    console.log("deleted");
-  }
+  const onDocumentDetailDelete = (key) => {
+    setDocumentDetailDataSource((documentDetailDataSource) => {
+      documentDetailDataSource.splice(documentDetailDataSource.indexOf(key), 1);
+    });
+  };
 
   const onWarehouseChange = (value, option) => {
-    setInventoryDocument((inventoryDocument) => ({...inventoryDocument, warehouseId: value}));
-  }
+    setInventoryDocument((inventoryDocument) => ({
+      ...inventoryDocument,
+      warehouseId: value,
+    }));
+  };
 
   const onFinish = (formValues) => {
     setInventoryDocument({
@@ -135,7 +152,11 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   //                        Child Component
   //====================================================================
   const tableTitle = () => {
-    return inventoryDocument.warehouseId && <ButtonList onAdd={onDocumentDetailAdd} />;
+    return (
+      inventoryDocument.warehouseId && (
+        <ButtonList onAdd={onDocumentDetailAdd} />
+      )
+    );
   };
   //====================================================================
   //                        Component
@@ -144,7 +165,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
     <>
       <ModalHeader title={"افزودن  برگه انبار"} icon={<FaFileMedical />} />
       <Ant.Modal
-        centered
+        //centered
         {...defaultValues.MODAL_PROPS}
         width={600}
         open={modalOpenState}
@@ -171,7 +192,19 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                     label="شماره"
                     rules={[{ required: true }]}
                   >
-                    <Ant.InputNumber style={{ width: "100%" }} />
+                    <Ant.InputNumber
+                      style={{ width: "100%" }}
+                      addonBefore={
+                        <Ant.Button
+                          size="small"
+                          type="text"
+                          loading={docNumberLoading}
+                          onClick={getLastDocumentNumber}
+                        >
+                          <PiArrowLineDownLeftLight />
+                        </Ant.Button>
+                      }
+                    />
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col xs={24} sm={24} md={6} lg={5}>
@@ -207,9 +240,11 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       loading={documentTypeListLoading}
                       options={documentTypeData?.data}
                       showSearch
-                      filterOption={(searchText, option) => (
-                        option.title.toLowerCase().includes(searchText.toLowerCase())
-                      )}
+                      filterOption={(searchText, option) =>
+                        option.title
+                          .toLowerCase()
+                          .includes(searchText.toLowerCase())
+                      }
                       fieldNames={{ label: "title", value: "id" }}
                     />
                   </Ant.Form.Item>
@@ -228,9 +263,11 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       loading={warehouseListLoading}
                       options={warehouseListData?.data}
                       showSearch
-                      filterOption={(searchText, option) => (
-                        option.title.toLowerCase().includes(searchText.toLowerCase())
-                      )}
+                      filterOption={(searchText, option) =>
+                        option.title
+                          .toLowerCase()
+                          .includes(searchText.toLowerCase())
+                      }
                       fieldNames={{ label: "title", value: "id" }}
                       onChange={onWarehouseChange}
                     />
@@ -245,9 +282,11 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       loading={warehouseListLoading}
                       options={warehouseListData?.data}
                       showSearch
-                      filterOption={(searchText, option) => (
-                        option.title.toLowerCase().includes(searchText.toLowerCase())
-                      )}
+                      filterOption={(searchText, option) =>
+                        option.title
+                          .toLowerCase()
+                          .includes(searchText.toLowerCase())
+                      }
                       fieldNames={{ label: "title", value: "id" }}
                     />
                   </Ant.Form.Item>

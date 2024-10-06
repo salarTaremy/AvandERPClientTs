@@ -251,6 +251,7 @@ export const LINK_PRODUCT_WARE_HOUSE = 'LinkProductWarehouse'
 export const LINK_PRODUCT_WARE_HOUSE_ADD_LIST = '/LinkProductWarehouse/AddList'
 export const INVENTORY_DOCUMENT = 'InventoryDocument'
 export const INVENTORY_DOCUMENT_TYPE = '/InventoryDocumentType'
+export const INVENTORY_DOCUMENT_GET_LAST_DOCUMENT_NUMBER = 'InventoryDocument/GetLastDocumentNumber'
 
 
 

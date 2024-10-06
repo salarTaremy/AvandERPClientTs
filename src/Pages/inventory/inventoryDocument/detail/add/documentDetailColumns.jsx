@@ -9,7 +9,7 @@ export const documentDetailColumns = (onDelete) => {
     {
       title: "ردیف",
       dataIndex: "rowNumber",
-      key: "rowNumber",
+      key: "key",
       align: "center",
       className: "text-xs sm:text-sm",
       width: 80,
@@ -72,7 +72,7 @@ export const documentDetailColumns = (onDelete) => {
                 className="text-red-600"
                 icon={<RiDeleteBin6Line />}
                 type="text"
-                onClick={onDelete}
+                onClick={() => onDelete(record.key)}
               />
             </Ant.Space>
           </>
