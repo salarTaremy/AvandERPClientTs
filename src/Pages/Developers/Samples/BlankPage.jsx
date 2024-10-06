@@ -9,7 +9,7 @@ import * as api from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import useAllLoading from '@/hooks/useAllLoading '
 
-import ProductKardexList from "../../inventory/wareHouse/reports/productKardex/ProductKardexList"
+// import ProductKardexList from "../../inventory/wareHouse/reports/productKardex/ProductKardexList"
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -53,7 +53,7 @@ const BlankPage = (props) => {
       <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} loading={false} title={pageTitle} type='inner' >
         <BlankPage/>
         {/* Write Code Here */}
-        <ProductKardexList productId={1} BatchNumberId={2} />
+        {/* <ProductKardexList productId={1} BatchNumberId={2} /> */}
       </Ant.Card>
 
   )
