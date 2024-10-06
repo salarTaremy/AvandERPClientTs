@@ -9,22 +9,13 @@ import useRequestManager from "@/hooks/useRequestManager";
 import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
-import { TbBrandAirtable } from "react-icons/tb";
-import { AiOutlineProduct } from "react-icons/ai";
-import { RiBarcodeBoxLine } from "react-icons/ri";
 import { SyncOutlined } from "@ant-design/icons";
-
+import ProductPicker from "@/components/common/ProductPicker";
 //====================================================================
 //                        Declaration
 //====================================================================
 const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
   const [form] = Ant.Form.useForm();
-  const [
-    productListData,
-    productListLoading,
-    productListError,
-    productListApiCall,
-  ] = useFetchWithHandler();
 
   const [
     productUnitlListData,
@@ -47,12 +38,10 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
     productDetailApiCall,
   ] = useFetchWithHandler();
 
-  useRequestManager({ error: productListError });
   useRequestManager({ error: productUnitListError });
   useRequestManager({ error: warehouseStockListError });
 
   const [validationErrors, setValidationErrors] = useState();
-  const [productCascaderOption, setProductCascaderOption] = useState([]);
   const [documentDetailValues, setDocumentDetailValues] = useState({});
   const [productStock, setProductStock] = useState({
     reserved: 0,
@@ -64,16 +53,6 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    const queryString = qs.stringify({ warehouseId: warehouseId });
-    productListApiCall(`${url.PRODUCT_TREE}?${queryString}`);
-  }, []);
-
-  useEffect(() => {
-    productListData?.isSuccess &&
-      setProductCascaderOption(productListData?.data);
-  }, [productListData]);
-
   useEffect(() => {
     const stock = { reserved: 0, real: 0, total: 0 };
     if (warehouseStockListData?.isSuccess) {
@@ -115,34 +94,25 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
     await productDetailApiCall(`${url.PRODUCT}/${productId}`);
   };
 
-  const productFilter = (inputValue, path) =>
-    path.some(
-      (option) =>
-        option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
-        String(option.fullCode).indexOf(inputValue) > -1,
-    );
+  const onProductChange = async (optionData) => {
+    if (optionData.productDetail) {
+      setValidationErrors("");
 
-  const onProductChange = async (value, option) => {
-    if (option.length > 1) {
-      const selectedProduct = option[option.length - 2];
-      const selectedBatchNumber = option[option.length - 1];
       setDocumentDetailValues((documentDetailValues) => ({
         ...documentDetailValues,
-        product: { id: selectedProduct.productId, name: selectedProduct.name },
+        product: { id: optionData.product.id, name: optionData.product.name },
         productDetail: {
-          id: selectedBatchNumber.productDetailId,
-          batchNumber: selectedBatchNumber.name,
+          id: optionData.productDetail.productDetailId,
+          batchNumber: optionData.productDetail.batchNumber,
         },
       }));
 
       await getWarehouseStock(
-        selectedProduct.productId,
-        selectedBatchNumber.productDetailId,
+        optionData.product.id,
+        optionData.productDetail.productDetailId,
       );
-      await getProductUnitList(selectedProduct.productId);
-      await getProductDetail(selectedProduct.productId);
-
-      setValidationErrors("");
+      await getProductUnitList(optionData.product.id);
+      await getProductDetail(optionData.product.id);
     } else {
       setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
     }
@@ -175,7 +145,7 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
   return (
     <>
       <ModalHeader title={"افزودن اقلام برگه انبار"} icon={<FaFileMedical />} />
-      <CustomContent>
+      <CustomContent scroll>
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
           <Ant.Row gutter={[8, 12]}>
             <Ant.Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -191,33 +161,10 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
                   )
                 }
               >
-                <Ant.Cascader
-                  loading={productListLoading}
-                  options={productCascaderOption}
+                <ProductPicker
+                  warehouseId={warehouseId}
+                  mode="productDetail"
                   onChange={onProductChange}
-                  optionRender={(option) => (
-                    <>
-                      <Ant.Flex gap="small" key={uuid.v1()}>
-                        {option.level === 1 && (
-                          <TbBrandAirtable className="text-indigo-500" />
-                        )}
-                        {option.level === 2 && (
-                          <AiOutlineProduct className="text-cyan-500" />
-                        )}
-                        {option.level === 3 && (
-                          <RiBarcodeBoxLine className="text-teal-500" />
-                        )}
-                        {option.title}
-                      </Ant.Flex>
-                    </>
-                  )}
-                  placeholder="لطفا انتخاب کنید ..."
-                  fieldNames={{
-                    label: "title",
-                    value: "id",
-                    children: "children",
-                  }}
-                  showSearch={{ productFilter }}
                 />
               </Ant.Form.Item>
             </Ant.Col>
@@ -297,7 +244,7 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
                 {warehouseStockListLoading && <SyncOutlined spin />}
               </Ant.Typography.Text>
             </Ant.Col>
-            <Ant.Col xs={12} sm={12} md={8} lg={8} xl={8} xxl={8}>
+            <Ant.Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
               <Ant.Typography.Text type="secondary">
                 {"تامین کننده: "}
               </Ant.Typography.Text>
