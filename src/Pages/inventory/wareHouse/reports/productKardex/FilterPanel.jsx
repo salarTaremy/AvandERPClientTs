@@ -61,6 +61,7 @@ const FilterPanel = (props) => {
   }, [warehouseId]);
 
   useEffect(() => {
+    console.log(product?.brand?.id)
     setBrand(product?.brand?.id);
   }, [product]);
 
@@ -87,6 +88,8 @@ const FilterPanel = (props) => {
   //====================================================================
 
   const onFinish = (values) => {
+
+
     const otherFilterItems = {};
     if (values?.fromIssueDateCalendarId) {
       otherFilterItems.fromIssueDateCalendarId = FormatDateToPost(
@@ -108,9 +111,11 @@ const FilterPanel = (props) => {
     //  form.setFieldValue("ProductId", [brandId, product?.product?.id]);
     //    console.log( form.getFieldValue('ProductId'),"ProductId")
     onSubmit({
-      ...values,
-      ...otherFilterItems,
-      ProductId: product?.product?.id,
+      // ...values,
+      // ...otherFilterItems,
+      // ProductId: product?.product?.id,
+      ProductId : values.Product.product.id,
+      BrandId : values.Product.brand.id,
       BatchNumberId: batchNumber?.productDetail?.batchNumberId,
       // BrandId:product?.brand?.id,
     });
@@ -125,7 +130,6 @@ const FilterPanel = (props) => {
   //====================================================================
   return (
     <>
-      {JSON.stringify(filterObject, null, 1, 1)}
 
       <Ant.Form
         requiredMark={false}
@@ -180,11 +184,12 @@ const FilterPanel = (props) => {
         {valueType === "0" && (
           <Ant.Form.Item
             rules={[{ required: true }]}
-            name={"ProductId"}
+            name={"Product"}
             label=" کالا "
           >
             <ProductPicker
-              // initialValues={{brandId: brand, productId: filterObject?.ProductId}}
+              // initialValues={(filterObject?.BrandId && filterObject?.ProductId 
+              //   &&  {brandId: filterObject?.BrandId, productId:  filterObject?.ProductId})|| null }
               disabled={loadingProduct}
               warehouseId={warehouseId}
               onLoadingChange={(value) => {
