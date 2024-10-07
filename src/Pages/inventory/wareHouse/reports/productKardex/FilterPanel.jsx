@@ -18,16 +18,16 @@ const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   const [form] = Ant.Form.useForm();
 
-
   const [wareHouseList, wareHouseLoading, wareHouseError] = api.useFetch(
     url.WAREHOUSE,
   );
   const [valueType, setValueType] = useState("0");
   const [warehouseId, setWarehouseId] = useState(null);
-  const [productId, setProductId] = useState(null);
-  const [batchNumberId, setBatchNumberId] = useState(null);
-  const [loadingProduct, setLoadingProduct] = useState(null);
-  const [loadingBachNumber, setLoadingBachNumber] = useState(null);
+  const [brand, setBrand] = useState(null);
+  const [product, setProduct] = useState(null);
+  const [batchNumber, setBatchNumber] = useState(null);
+  const [loadingProduct, setLoadingProduct] = useState(false);
+  const [loadingBachNumber, setLoadingBachNumber] = useState(false);
 
   const [
     inventoryDocumentList,
@@ -42,8 +42,7 @@ const FilterPanel = (props) => {
     inventoryDocumentLoading,
     wareHouseLoading,
     loadingBachNumber,
-    loadingProduct
-
+    loadingProduct,
   ]);
   const commonOptionsInventoryDocumentType = {
     showSearch: true,
@@ -58,22 +57,31 @@ const FilterPanel = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    console.log(warehouseId,"warehouseId")
+    console.log(warehouseId, "warehouseId");
   }, [warehouseId]);
+  useEffect(() => {
+    setBrand(product && product?.brand?.id);
+  }, [product]);
+  useEffect(() => {
+    console.log(brand, "brand");
+    console.log( product?.product?.id, "productproduct");
+  }, [brand]);
 
 
   useEffect(() => {
     const dateFilter = {};
-    if (filterObject?.FromIssueDateCalendarId) {
-      dateFilter.FromIssueDateCalendarId = FormatDateToDisplay(
-        filterObject?.FromIssueDateCalendarId,
+
+    if (filterObject?.fromIssueDateCalendarId) {
+      dateFilter.fromIssueDateCalendarId = FormatDateToDisplay(
+        filterObject?.fromIssueDateCalendarId,
       );
     }
-    if (filterObject?.ToIssueDateCalendarId) {
-      dateFilter.ToIssueDateCalendarId = FormatDateToDisplay(
-        filterObject?.ToIssueDateCalendarId,
+    if (filterObject?.toIssueDateCalendarId) {
+      dateFilter.toIssueDateCalendarId = FormatDateToDisplay(
+        filterObject?.toIssueDateCalendarId,
       );
     }
+
     filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
   }, []);
 
@@ -82,12 +90,29 @@ const FilterPanel = (props) => {
   //====================================================================
 
   const onFinish = (values) => {
+    const otherFilterItems = {};
+    if (values?.fromIssueDateCalendarId) {
+      otherFilterItems.fromIssueDateCalendarId = FormatDateToPost(
+        values?.fromIssueDateCalendarId,
+      );
+    }
+
+    if (values?.toIssueDateCalendarId) {
+      otherFilterItems.toIssueDateCalendarId = FormatDateToPost(
+        values?.toIssueDateCalendarId,
+      );
+    }
+
+    //     let brandId=product?.brand?.id
+    //     console.log(brandId,"kkkbrandId")
+    //  form.setFieldValue("ProductId", [brandId, product?.product?.id]);
+    //    console.log( form.getFieldValue('ProductId'),"ProductId")
 
     onSubmit({
       ...values,
-
-      ProductId: productId?.product?.id,
-      BatchNumberId: batchNumberId?.productDetail?.batchNumberId,
+      ...otherFilterItems,
+      ProductId: product?.product?.id,
+      BatchNumberId: batchNumber?.productDetail?.batchNumberId,
     });
   };
   //====================================================================
@@ -101,9 +126,7 @@ const FilterPanel = (props) => {
   return (
     <>
       {JSON.stringify(form?.ErrorList)}
-      {JSON.stringify(loadingBachNumber)}
-      {JSON.stringify(loadingProduct)}
-      {/* <Ant.Skeleton active loading={allLoading}> */}
+
       <Ant.Form
         requiredMark={false}
         form={form}
@@ -112,10 +135,10 @@ const FilterPanel = (props) => {
         layout="vertical"
         onFinishFailed={null}
       >
-        <Ant.Form.Item name={"FromIssueDateCalendarId"} label="از تاریخ">
+        <Ant.Form.Item name={"fromIssueDateCalendarId"} label="از تاریخ">
           <MyDatePicker />
         </Ant.Form.Item>
-        <Ant.Form.Item name={"ToIssueDateCalendarId"} label="تا تاریخ">
+        <Ant.Form.Item name={"toIssueDateCalendarId"} label="تا تاریخ">
           <MyDatePicker />
         </Ant.Form.Item>
         <Ant.Form.Item name={"WarehouseId"} label="نام انبار">
@@ -130,7 +153,7 @@ const FilterPanel = (props) => {
           />
         </Ant.Form.Item>
         <Ant.Form.Item
-          label="کالا و سری ساخت "
+          label="کالا و سری ساخت"
           rules={[
             {
               required: true,
@@ -139,7 +162,7 @@ const FilterPanel = (props) => {
           ]}
         >
           <Ant.Segmented
-           disabled={loadingProduct || loadingBachNumber}
+            disabled={loadingProduct || loadingBachNumber}
             block
             options={[
               {
@@ -158,28 +181,39 @@ const FilterPanel = (props) => {
           <Ant.Form.Item
             rules={[{ required: true }]}
             name={"ProductId"}
-            label="کالا"
-
+            label=" کالا "
           >
             <ProductPicker
-            disabled={loadingProduct }
+               initialValues={{brandId: brand, productId: product?.product?.id}}
+              //  initialValues={{brandId: 1140, productId: 33479}}
+              disabled={loadingProduct}
               warehouseId={warehouseId}
-              onLoadingChange= {(value) =>{setLoadingProduct(value)}}
-              onChange={(selectedProduct) =>setProductId(selectedProduct)}
+              onLoadingChange={(value) => {
+                setLoadingProduct(value);
+              }}
+              onChange={(selectedProduct) => setProduct(selectedProduct)}
               mode="product"
             />
           </Ant.Form.Item>
         )}
         {valueType === "1" && (
           <Ant.Form.Item
-
-            name={"BatchNumberId"}
+            // initialValues={{brandId: brandId, productId: productId, batchNumberId: batchNumberId}}
             label="برند، کالا و سری ساخت"
+            name={"BatchNumberId"}
             rules={[{ required: false }]}
           >
             <ProductPicker
-            disabled={ loadingBachNumber}
-            onLoadingChange= {(value) =>{setLoadingBachNumber(value)}}   onChange={(selectedBatchNumber) =>setBatchNumberId(selectedBatchNumber)} warehouseId={warehouseId} mode="productDetail" />
+              disabled={loadingBachNumber}
+              onLoadingChange={(value) => {
+                setLoadingBachNumber(value);
+              }}
+              onChange={(selectedBatchNumber) =>
+                setBatchNumber(selectedBatchNumber)
+              }
+              warehouseId={warehouseId}
+              mode="productDetail"
+            />
           </Ant.Form.Item>
         )}
 
@@ -205,7 +239,6 @@ const FilterPanel = (props) => {
           {"اعمال"}
         </Ant.Button>
       </Ant.Form>
-      {/* </Ant.Skeleton> */}
     </>
   );
 };
