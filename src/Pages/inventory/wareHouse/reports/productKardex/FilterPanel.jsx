@@ -196,6 +196,7 @@ const FilterPanel = (props) => {
 
         <Ant.Button
           block
+          disabled={allLoading}
           type="primary"
           onClick={() => {
             form.submit();
