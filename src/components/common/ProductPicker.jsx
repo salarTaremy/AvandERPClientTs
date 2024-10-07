@@ -28,11 +28,8 @@ const ProductPicker = ({
     productListError,
     productListApiCall,
   ] = useFetchWithHandler();
-
   useRequestManager({ error: productListError });
-
   const [productCascaderOption, setProductCascaderOption] = useState([]);
-  const [selectedValue, setSelectedValue] = useState([]);
   //====================================================================
   //                        useEffects
   //====================================================================
