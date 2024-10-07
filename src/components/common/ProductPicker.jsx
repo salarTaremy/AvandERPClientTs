@@ -15,11 +15,11 @@ import { RiBarcodeBoxLine } from "react-icons/ri";
 //====================================================================
 const ProductPicker = ({
   warehouseId,
-  mode,
-  onChange,
-  onLoadingChange,
-  disabled,
-  initialValues,
+  mode,               // Any: 'productDetail'  or 'product'
+  onChange,           //(value) => void
+  onLoadingChange,    //(value) => void
+  disabled,           //boolean
+  initialValues,      //[]
   mobileMode = false,
 }) => {
   const [
