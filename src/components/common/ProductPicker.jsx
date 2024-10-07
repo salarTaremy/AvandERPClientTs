@@ -49,9 +49,10 @@ const ProductPicker = ({
       maxLevel: maxLevelToRender,
     });
     productListApiCall(`${url.PRODUCT_TREE}?${queryString}`);
-  }, []);
+  }, [warehouseId]);
 
   useEffect(() => {
+    console.log('productListData changed', productListData)
     productListData?.isSuccess &&
       setProductCascaderOption(productListData?.data);
   }, [productListData]);
@@ -140,6 +141,8 @@ const ProductPicker = ({
   //                        Component
   //====================================================================
   return (
+ <>
+ {mode}
     <Ant.Cascader
     disabled={disabled || false}
       defaultValue={initialValues && setDefaultValue()}
@@ -170,10 +173,11 @@ const ProductPicker = ({
       }}
       showSearch={{ productFilter }}
     />
+ </>
   );
 };
 ProductPicker.propTypes = {
-  warehouseId: PropTypes.number,
+  warehouseId: PropTypes.number.isRequired,
   mode: PropTypes.string,
   onChange: PropTypes.func,
   onLoadingChange: PropTypes.func,
