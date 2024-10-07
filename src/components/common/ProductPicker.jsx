@@ -17,6 +17,7 @@ const ProductPicker = ({
   warehouseId,
   mode,
   onChange,
+  onLoadingChange,
   initialValues,
   mobileMode = false,
 }) => {
@@ -53,6 +54,14 @@ const ProductPicker = ({
     productListData?.isSuccess &&
       setProductCascaderOption(productListData?.data);
   }, [productListData]);
+
+
+  useEffect(() => {
+    onLoadingChange(productListLoading)
+  }, [productListLoading]);
+
+
+  
   //====================================================================
   //                        Functions
   //====================================================================
@@ -124,7 +133,7 @@ const ProductPicker = ({
       };
     }
 
-    onChange(selectedOptionData);
+    onChange && onChange(selectedOptionData);
   };
   //====================================================================
   //                        Component
@@ -165,6 +174,7 @@ ProductPicker.propTypes = {
   warehouseId: PropTypes.number,
   mode: PropTypes.string,
   onChange: PropTypes.func,
+  onLoadingChange: PropTypes.func,  
   initialValues: PropTypes.object,
   mobileMode: PropTypes.bool,
 };
