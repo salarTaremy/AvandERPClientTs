@@ -59,18 +59,15 @@ const FilterPanel = (props) => {
   useEffect(() => {
     console.log(warehouseId, "warehouseId");
   }, [warehouseId]);
-  useEffect(() => {
-    setBrand(product && product?.brand?.id);
-  }, [product]);
-  useEffect(() => {
-    console.log(brand, "brand");
-    console.log( product?.product?.id, "productproduct");
-  }, [brand]);
 
+  useEffect(() => {
+    setBrand(product?.brand?.id);
+  }, [product]);
 
   useEffect(() => {
     const dateFilter = {};
 
+    console.log(filterObject?.ProductId, "filterObject");
     if (filterObject?.fromIssueDateCalendarId) {
       dateFilter.fromIssueDateCalendarId = FormatDateToDisplay(
         filterObject?.fromIssueDateCalendarId,
@@ -81,7 +78,7 @@ const FilterPanel = (props) => {
         filterObject?.toIssueDateCalendarId,
       );
     }
-
+    setBrand(product?.brand?.id);
     filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
   }, []);
 
@@ -103,16 +100,19 @@ const FilterPanel = (props) => {
       );
     }
 
+    setProduct(values.ProductId);
+    setBrand(product?.brand?.id);
+
     //     let brandId=product?.brand?.id
     //     console.log(brandId,"kkkbrandId")
     //  form.setFieldValue("ProductId", [brandId, product?.product?.id]);
     //    console.log( form.getFieldValue('ProductId'),"ProductId")
-
     onSubmit({
       ...values,
       ...otherFilterItems,
       ProductId: product?.product?.id,
       BatchNumberId: batchNumber?.productDetail?.batchNumberId,
+      // BrandId:product?.brand?.id,
     });
   };
   //====================================================================
@@ -125,7 +125,7 @@ const FilterPanel = (props) => {
   //====================================================================
   return (
     <>
-      {JSON.stringify(form?.ErrorList)}
+      {JSON.stringify(filterObject, null, 1, 1)}
 
       <Ant.Form
         requiredMark={false}
@@ -184,8 +184,7 @@ const FilterPanel = (props) => {
             label=" کالا "
           >
             <ProductPicker
-               initialValues={{brandId: brand, productId: product?.product?.id}}
-              //  initialValues={{brandId: 1140, productId: 33479}}
+              // initialValues={{brandId: brand, productId: filterObject?.ProductId}}
               disabled={loadingProduct}
               warehouseId={warehouseId}
               onLoadingChange={(value) => {
