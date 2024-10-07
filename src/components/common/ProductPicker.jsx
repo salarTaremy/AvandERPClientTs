@@ -175,7 +175,7 @@ const ProductPicker = ({
 };
 ProductPicker.propTypes = {
   warehouseId: PropTypes.number.isRequired,
-  mode: PropTypes.string,
+  mode: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onLoadingChange: PropTypes.func,
   initialValues: PropTypes.object,
