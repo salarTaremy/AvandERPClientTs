@@ -4,15 +4,22 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import { useFetchWithHandler } from "@/api";
 import qs from "qs";
-import { FaRegArrowAltCircleDown, FaRegArrowAltCircleUp } from "react-icons/fa";
 import CustomContent from '@/components/common/CustomContent';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import useRequestManager from "@/hooks/useRequestManager";
+import { LoadingOutlined } from '@ant-design/icons';
+import { PiArrowSquareDownDuotone, PiArrowSquareUpDuotone } from "react-icons/pi";
+
 
 const ProductKardexDetailList = () => {
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
+    const [scrollableContent, setScrollableContent] = useState([]);
+    useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
+    const [hasMore, setHasMore] = useState(true)
     const [pagination, setPagination] = useState({
         current: 1,
-        pageSize: 30,
+        pageSize: 10,
     });
 
     //====================================================================
@@ -20,159 +27,164 @@ const ProductKardexDetailList = () => {
     //====================================================================
     useEffect(() => {
         getAllProductKardexDetail();
-        // window.addEventListener('scroll', handleScroll);
-        // return () => window.removeEventListener('scroll', handleScroll);
     }, [pagination.current, pagination.pageSize]);
 
     useEffect(() => {
-        setDataSource((listData?.isSuccess && listData?.data) || null);
-        setPagination({
-            ...pagination,
-            total: listData?.data && listData?.data[0]?.totalCount,
-        });
-        createProductDetailItems(listData?.data)
+        listData?.isSuccess && setScrollableContent((scrollableContent) => (scrollableContent.concat(listData?.data)));
     }, [listData]);
 
+    useEffect(() => {
+        createProductDetailItems();
+    }, [scrollableContent])
     //====================================================================
     //                        Functions
     //====================================================================
 
     const getAllProductKardexDetail = async () => {
         const queryString = qs.stringify({
-            PageNumber: pagination.current,
-            PageSize: pagination.pageSize,
+            pageNumber: pagination.current,
+            pageSize: pagination.pageSize,
         });
         await ApiCall(`${url.PRODUCT_KARDEX_DETAIL}?${queryString}`)
     };
 
-    const handleScroll = () => {
-        if (
-            window.innerHeight + document.documentElement.scrollTop
-            === document.documentElement.offsetHeight
-        ) {
-            getAllProductKardexDetail(pagination.current + 1);
-            setPagination(pagination.current + 1);
+    const fetchMoreData = () => {
+        if (scrollableContent?.length >= 52) { //pagination.total
+            setHasMore(false);
+            return;
+        }
+        else {
+            setPagination({ ...pagination, current: pagination.current + 1 });
         }
     };
 
+    const renderTimelineItem = (item) => {
+        return <CustomContent shadow="true">
+            <Ant.Row>
+                <Ant.Col lg={14} md={24} sm={24} xs={24} >
+                    <Ant.Typography.Text type="secondary">
+                        {`نام انبار: ${item.warehouseName}`}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={10} md={24} sm={24} xs={24}>
+                    <Ant.Typography.Text type="secondary">
+                        {`نام طرف حساب: ${item.counterpartyName}`}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={14} md={24} sm={24} xs={24}>
+                    <Ant.Typography.Text type="secondary">
+                        {`نام کالا: `} { }
+                    </Ant.Typography.Text>
+                    <Ant.Typography.Text strong>
+                        {`${item.productName} `}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={10} md={24} sm={24} xs={24} >
+                    <Ant.Typography.Text type="secondary">
+                        {`کد کالا: `}{ }
+                    </Ant.Typography.Text>
+                    <Ant.Typography.Text strong>
+                        {`${item.productCode}`}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={14} md={24} sm={24} xs={24} >
+                    <Ant.Typography.Text type="secondary">
+                        {`نام دوم کالا: ${item.productSecondName}`}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={10} md={24} sm={24} xs={24}>
+                    <Ant.Typography.Text type="secondary">
+                        {`کد دوم کالا: ${item.productSecondCode}`}
+                    </Ant.Typography.Text>
+                </Ant.Col >
+                <Ant.Col span={24}>
+                    <Ant.Typography.Text type="secondary">
+                        {`نام لاتین کالا: ${item.productLatinName}`}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={14} md={24} sm={24} xs={24} >
+                    <Ant.Typography.Text type="secondary">
+                        {` سری ساخت: ${item.batchNumber}`}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={10} md={24} sm={24} xs={24}>
+                    <Ant.Typography.Text type="secondary">
+                        {` عمر مفید: ${item.shelfLife} ماه`}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={14} md={24} sm={24} xs={24}>
+                    <Ant.Typography.Text type="secondary">
+                        {` واحد : ${item.productUnitName} `}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col lg={10} md={24} sm={24} xs={24}>
+                    <Ant.Typography.Text type="secondary">
+                        {` نوع واحد : ${item.productUnitTypeName} `}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col>
+                    <Ant.Typography.Text strong>
+                        {`${item.inventoryDocumentTypeName} `}
+                    </Ant.Typography.Text>
+                </Ant.Col>
+            </Ant.Row>
+        </CustomContent>
+    }
+
     const createProductDetailItems = () => {
         let itemList = [];
-        listData?.data?.map((item) => {
+        scrollableContent?.map((item) => {
             itemList.push({
                 key: item.id,
                 dot: (item.inventoryDocumentTypeNature == 1 &&
-                    <FaRegArrowAltCircleDown style={{ fontSize: '18px', color: 'green' }} />) ||
-                    < FaRegArrowAltCircleUp style={{ fontSize: '18px', color: 'red' }} />,
+                    <PiArrowSquareDownDuotone style={{ fontSize: '30px', color: 'green' }} />) ||
+                    < PiArrowSquareUpDuotone style={{ fontSize: '30px', color: 'red' }} />,
                 position: (item.inventoryDocumentTypeNature == 1 && 'right') || 'left',
                 label: <Ant.Typography.Text type="secondary">
-                    {` ${item.issueDate} - ${item.issueTime}`}
+                    {` ${item.issueTime?.substring(0, 8)} - ${item.issueDate} `}
                 </Ant.Typography.Text>,
                 children: (
                     <>
-                        {item.isReserve == true &&
-                            <Ant.Badge.Ribbon
-                                text={'رزرو'}
-                                color='orange'
-                            >
-                            </Ant.Badge.Ribbon>}
-                        <CustomContent shadow="true" >
-
-                            <Ant.Row >
-                                <Ant.Col span={14}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {`نام انبار: ${item.warehouseName}`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={10}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {`نام طرف حساب: ${item.counterpartyName}`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={14}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {`نام کالا: `} { }
-                                    </Ant.Typography.Text>
-                                    <Ant.Typography.Text strong>
-                                        {`${item.productName} `}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={10}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {`کد کالا: `}{ }
-                                    </Ant.Typography.Text>
-                                    <Ant.Typography.Text strong>
-                                        {`${item.productCode}`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={14}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {`نام دوم کالا: ${item.productSecondName}`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={10}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {`کد دوم کالا: ${item.productSecondCode}`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={24}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {`نام لاتین کالا: ${item.productLatinName}`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={14}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {` سری ساخت: ${item.batchNumber}`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={10}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {` عمر مفید: ${item.shelfLife} ماه`}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={14}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {` واحد : ${item.productUnitName} `}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col span={10}>
-                                    <Ant.Typography.Text type="secondary">
-                                        {` نوع واحد : ${item.productUnitTypeName} `}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                                <Ant.Col>
-                                    <Ant.Typography.Text strong>
-                                        {`${item.inventoryDocumentTypeName} `}
-                                    </Ant.Typography.Text>
-                                </Ant.Col>
-                            </Ant.Row>
-                        </CustomContent>
+                        {item.isReserve && <Ant.Badge.Ribbon
+                            text={item.isReserve == true && 'رزرو'}
+                            color={item.isReserve == true && 'orange'}
+                        >
+                            {renderTimelineItem(item)}
+                        </Ant.Badge.Ribbon >}
+                        {!item.isReserve && renderTimelineItem(item)}
                     </>
                 ),
             });
         });
-
         setDataSource(itemList);
     }
-
 
     //====================================================================
     //                        Component
     //====================================================================
     return (
         <>
-            <h3>{'کاردکس کالا با جزئیات'}</h3>
+            <h3>جزئیات کاردکس کالا</h3>
             <br></br>
-            {listData?.data?.isReserve == true &&
-                <Ant.Badge.Ribbon
-                    text={'رزرو'}
-                    color='orange'
-                />}
-            <Ant.Timeline
-                mode="alternate"
-                items={dataSource}
-                pending="در حال بارگیری اطلاعات "
-                pagination={pagination}
-            />
+            <InfiniteScroll
+                dataLength={scrollableContent?.length}
+                next={fetchMoreData}
+                hasMore={hasMore}
+                scrollThreshold={"0.9"}
+                loader={<LoadingOutlined />}
+                height={"80vh"}
+                endMessage={<Ant.Typography.Text >{"اطلاعات بیشتری برای نمایش وجود ندارد."}</Ant.Typography.Text>}
+                style={{ textAlign: "center" }}
+            >
+
+                <Ant.Timeline className='m-5'
+                    mode="alternate"
+                    items={dataSource}
+                    loading={loading}
+                />
+
+            </InfiniteScroll>
+
         </>
     )
 }
