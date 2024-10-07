@@ -5,7 +5,12 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
-import { useFetch, GetAsync, useFetchWithHandler } from "@/api";
+import {
+  useFetch,
+  GetAsync,
+  useFetchWithHandler,
+  usePostWithHandler,
+} from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -27,36 +32,43 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const [form] = Ant.Form.useForm();
   const [documentTypeData, documentTypeListLoading, documentTypeListError] =
     useFetch(url.INVENTORY_DOCUMENT_TYPE);
-  const [docNumber, docNumberLoading, docNumberError, docNumberApiCall] =
-    useFetchWithHandler();
-
   const [warehouseListData, warehouseListLoading, warehouseListError] =
     useFetch(url.WAREHOUSE);
+  const [docNumber, docNumberLoading, docNumberError, docNumberApiCall] =
+    useFetchWithHandler();
+  const [
+    documentAddData,
+    documentAddLoading,
+    documentAddError,
+    documentAddApiCall,
+  ] = usePostWithHandler();
 
   const [modalOpenState, setModalOpenState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
   const [issueTime, setIssueime] = useState("");
-  const [inventoryDocument, setInventoryDocument] = useState({});
+  const [warehouseId, setWarehouseId] = useState(0);
   const [documentDetailDataSource, setDocumentDetailDataSource] = useState([]);
 
   useRequestManager({ error: documentTypeListError });
   useRequestManager({ error: warehouseListError });
   useRequestManager({ error: docNumberError });
+  useRequestManager({
+    data: documentAddData,
+    loading: documentAddLoading,
+    error: documentAddError,
+  });
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    const currentDate = new Date();
-    const currentTime = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}.${currentDate.getMilliseconds()}`;
-    const timeData = dayjs(currentTime, "HH:mm:ss.fff");
-    form.setFieldValue("issueDateCalendarId", currentDate);
-    form.setFieldValue("issueTime", timeData);
-  }, [form]);
+    docNumber?.isSuccess &&
+      form.setFieldValue("documentNumber", docNumber?.data);
+  }, [docNumber]);
 
   useEffect(() => {
-    docNumber?.isSuccess && form.setFieldValue('documentNumber', docNumber?.data);
-  }, [docNumber])
+    documentAddData?.isSuccess && onSuccess();
+  }, [documentAddData]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -90,8 +102,9 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const onDocumentDetailAdd = () => {
     setModalContent(
       <InventoryDocumentDetailAddForm
-        warehouseId={inventoryDocument.warehouseId}
+        warehouseId={warehouseId}
         onSuccess={onDocumentDetailAddSucceeded}
+        onCancel={() => setModalOpenState(false)}
         key={uuid.v1()}
       />,
     );
@@ -113,6 +126,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
       totalPrice: detailData?.totalPrice,
       description: detailData?.description,
     };
+
     setDocumentDetailDataSource((documentDetailDataSource) => [
       ...documentDetailDataSource,
       inventoryDocumentDetail,
@@ -128,35 +142,30 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   };
 
   const onWarehouseChange = (value, option) => {
-    setInventoryDocument((inventoryDocument) => ({
-      ...inventoryDocument,
-      warehouseId: value,
-    }));
+    setWarehouseId(value);
   };
 
-  const onFinish = (formValues) => {
-    setInventoryDocument({
+  const onFinish = async (formValues) => {
+    const inventoryDocument = {
       documentNumber: formValues?.documentNumber,
       inventoryDocumentTypeId: formValues?.inventoryDocumentTypeId,
       warehouseId: formValues?.warehouseId,
       issueDateCalendarId: FormatDateToPost(formValues?.issueDateCalendarId),
-      issueTime: dayjs(issueTime, "HH:mm:ss.fff"),
-      counterpartyId: formValues?.counterpartyId,
-      secondCounterpartyId: formValues?.secondCounterpartyId,
+      issueTime: issueTime,
+      counterpartyId: formValues?.counterpartyId?.value,
+      secondCounterpartyId: formValues?.secondCounterpartyId?.value,
       oppositeWarehouseId: formValues?.oppositeWarehouseId,
       description: formValues?.description,
-      inventoryDocumentDetail: [],
-    });
+      documentDetail: documentDetailDataSource,
+    };
+
+    await documentAddApiCall(url.INVENTORY_DOCUMENT, inventoryDocument);
   };
   //====================================================================
   //                        Child Component
   //====================================================================
   const tableTitle = () => {
-    return (
-      inventoryDocument.warehouseId && (
-        <ButtonList onAdd={onDocumentDetailAdd} />
-      )
-    );
+    return (warehouseId && <ButtonList onAdd={onDocumentDetailAdd} /> || <></>);
   };
   //====================================================================
   //                        Component
@@ -165,14 +174,12 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
     <>
       <ModalHeader title={"افزودن  برگه انبار"} icon={<FaFileMedical />} />
       <Ant.Modal
-        //centered
-        {...defaultValues.MODAL_PROPS}
+        closable={false}
+        maskClosable={false}
         width={600}
         open={modalOpenState}
         getContainer={null}
         footer={null}
-        onCancel={() => setModalOpenState(false)}
-        onOk={() => setModalOpenState(false)}
       >
         {modalContent}
       </Ant.Modal>
@@ -186,7 +193,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
             <CustomContent bordered>
               <Ant.Row gutter={10}>
-                <Ant.Col xs={24} sm={24} md={12} lg={8}>
+                <Ant.Col xs={24} sm={24} md={12} lg={4}>
                   <Ant.Form.Item
                     name={"documentNumber"}
                     label="شماره"
@@ -205,6 +212,14 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                         </Ant.Button>
                       }
                     />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col xs={24} sm={24} md={12} lg={4}>
+                  <Ant.Form.Item
+                    name={"folioReferenceNumber"}
+                    label="شماره عطف"
+                  >
+                    <Ant.InputNumber style={{ width: "100%" }}/>
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col xs={24} sm={24} md={6} lg={5}>
@@ -336,7 +351,12 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
           <Ant.Col span={24}>
             <Ant.Row justify={"end"} gutter={[8, 16]}>
               <Ant.Col xs={24} sm={24} md={12} lg={2}>
-                <Ant.Button type="primary" block>
+                <Ant.Button
+                  type="primary"
+                  block
+                  loading={documentAddLoading}
+                  onClick={() => form.submit()}
+                >
                   {"ذخیره"}
                 </Ant.Button>
               </Ant.Col>

@@ -72,6 +72,8 @@ export const documentDetailColumns = (onDelete) => {
                 className="text-red-600"
                 icon={<RiDeleteBin6Line />}
                 type="text"
+                color="danger"
+                variant="filled"
                 onClick={() => onDelete(record.key)}
               />
             </Ant.Space>

@@ -179,13 +179,12 @@ const InventoryDocumentManagement = () => {
     <>
       <Ant.Modal
         centered
-        {...defaultValues.MODAL_PROPS}
+        closable={false}
+        maskClosable={false}
         {...modalSize}
         open={modalOpenState}
         getContainer={null}
         footer={null}
-        onCancel={() => setModalOpenState(false)}
-        onOk={() => setModalOpenState(false)}
       >
         {modalContent}
       </Ant.Modal>
