@@ -42,7 +42,7 @@ const FilterPanel = (props) => {
   }, []);
 
   useEffect(() => {
-  console.log(warehouseId,"warehouseId")
+  console.log(warehouseId)
   }, [warehouseId]);
 
   //====================================================================

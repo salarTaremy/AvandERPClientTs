@@ -26,6 +26,8 @@ const FilterPanel = (props) => {
   const [warehouseId, setWarehouseId] = useState(null);
   const [productId, setProductId] = useState(null);
   const [batchNumberId, setBatchNumberId] = useState(null);
+  const [loadingProduct, setLoadingProduct] = useState(null);
+  const [loadingBachNumber, setLoadingBachNumber] = useState(null);
 
   const [
     inventoryDocumentList,
@@ -39,6 +41,8 @@ const FilterPanel = (props) => {
   const allLoading = useAllLoading([
     inventoryDocumentLoading,
     wareHouseLoading,
+    loadingBachNumber,
+    loadingProduct
 
   ]);
   const commonOptionsInventoryDocumentType = {
@@ -53,6 +57,9 @@ const FilterPanel = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
+  useEffect(() => {
+    console.log(warehouseId,"warehouseId")
+  }, [warehouseId]);
 
 
   useEffect(() => {
@@ -94,7 +101,9 @@ const FilterPanel = (props) => {
   return (
     <>
       {JSON.stringify(form?.ErrorList)}
-      <Ant.Skeleton active loading={allLoading}>
+      {JSON.stringify(loadingBachNumber)}
+      {JSON.stringify(loadingProduct)}
+      {/* <Ant.Skeleton active loading={allLoading}> */}
       <Ant.Form
         requiredMark={false}
         form={form}
@@ -130,6 +139,7 @@ const FilterPanel = (props) => {
           ]}
         >
           <Ant.Segmented
+           disabled={loadingProduct || loadingBachNumber}
             block
             options={[
               {
@@ -152,8 +162,9 @@ const FilterPanel = (props) => {
 
           >
             <ProductPicker
+            disabled={loadingProduct }
               warehouseId={warehouseId}
-
+              onLoadingChange= {(value) =>{setLoadingProduct(value)}}
               onChange={(selectedProduct) =>setProductId(selectedProduct)}
               mode="product"
             />
@@ -161,11 +172,14 @@ const FilterPanel = (props) => {
         )}
         {valueType === "1" && (
           <Ant.Form.Item
+
             name={"BatchNumberId"}
             label="برند، کالا و سری ساخت"
             rules={[{ required: false }]}
           >
-            <ProductPicker   onChange={(selectedBatchNumber) =>setBatchNumberId(selectedBatchNumber)} warehouseId={warehouseId} mode="productDetail" />
+            <ProductPicker
+            disabled={ loadingBachNumber}
+            onLoadingChange= {(value) =>{setLoadingBachNumber(value)}}   onChange={(selectedBatchNumber) =>setBatchNumberId(selectedBatchNumber)} warehouseId={warehouseId} mode="productDetail" />
           </Ant.Form.Item>
         )}
 
@@ -190,7 +204,7 @@ const FilterPanel = (props) => {
           {"اعمال"}
         </Ant.Button>
       </Ant.Form>
-      </Ant.Skeleton>
+      {/* </Ant.Skeleton> */}
     </>
   );
 };

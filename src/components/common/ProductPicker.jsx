@@ -18,6 +18,7 @@ const ProductPicker = ({
   mode,
   onChange,
   onLoadingChange,
+  disabled,
   initialValues,
   mobileMode = false,
 }) => {
@@ -140,6 +141,7 @@ const ProductPicker = ({
   //====================================================================
   return (
     <Ant.Cascader
+    disabled={disabled || false}
       defaultValue={initialValues && setDefaultValue()}
       loading={productListLoading}
       options={productCascaderOption}
