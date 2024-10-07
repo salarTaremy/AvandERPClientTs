@@ -57,11 +57,11 @@ const ProductPicker = ({
 
 
   useEffect(() => {
-    onLoadingChange(productListLoading)
+    onLoadingChange &&  onLoadingChange(productListLoading)
   }, [productListLoading]);
 
 
-  
+
   //====================================================================
   //                        Functions
   //====================================================================
@@ -174,7 +174,7 @@ ProductPicker.propTypes = {
   warehouseId: PropTypes.number,
   mode: PropTypes.string,
   onChange: PropTypes.func,
-  onLoadingChange: PropTypes.func,  
+  onLoadingChange: PropTypes.func,
   initialValues: PropTypes.object,
   mobileMode: PropTypes.bool,
 };
