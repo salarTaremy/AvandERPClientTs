@@ -141,7 +141,7 @@ const ProductPicker = ({
  <>
  {mode}
     <Ant.Cascader
-    disabled={disabled || false}
+    disabled={disabled ||productListLoading || false}
       defaultValue={initialValues && setDefaultValue()}
       loading={productListLoading}
       options={productCascaderOption}
