@@ -16,7 +16,6 @@ import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
-import dayjs from "dayjs";
 import MyDatePicker, {
   FormatDateToPost,
 } from "@/components/common/MyDatePicker";
@@ -148,6 +147,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const onFinish = async (formValues) => {
     const inventoryDocument = {
       documentNumber: formValues?.documentNumber,
+      folioReferenceNumber: formValues?.folioReferenceNumber,
       inventoryDocumentTypeId: formValues?.inventoryDocumentTypeId,
       warehouseId: formValues?.warehouseId,
       issueDateCalendarId: FormatDateToPost(formValues?.issueDateCalendarId),

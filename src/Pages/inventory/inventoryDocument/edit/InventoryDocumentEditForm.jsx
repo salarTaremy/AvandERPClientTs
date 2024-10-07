@@ -2,19 +2,28 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import qs from "qs";
 import * as Ant from "antd";
+import dayjs from "dayjs";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
-import { useFetch, GetAsync } from "@/api";
+import * as uuid from "uuid";
+import {
+  useFetch,
+  GetAsync,
+  useFetchWithHandler,
+  usePutWithHandler,
+} from "@/api";
+import useRequestManager from "@/hooks/useRequestManager";
 import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
-import dayjs from "dayjs";
 import MyDatePicker, {
-  FormatDateToPost,
   FormatDateToDisplay,
+  FormatDateToPost,
 } from "@/components/common/MyDatePicker";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import ButtonList from "@/components/common/ButtonList";
+import InventoryDocumentDetailAddForm from "../detail/add/InventoryDocumentDetailAddForm";
+import { documentDetailColumns } from "../detail/add/documentDetailColumns";
 
 //====================================================================
 //                        Declaration
@@ -26,22 +35,72 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   const [warehouseListData, warehouseListLoading, warehouseListError] =
     useFetch(url.WAREHOUSE);
 
-  const [issueTime, setIssueime] = useState("");
+  const [fetchedData, fetchLoading, fetchError, fetchApiCall] =
+    useFetchWithHandler();
+  const [
+    documentSavedData,
+    documentSaveLoading,
+    documentSaveError,
+    documentSaveApiCall,
+  ] = usePutWithHandler();
+
+  const [modalOpenState, setModalOpenState] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
+  const [warehouseId, setWarehouseId] = useState(0);
+  const [documentDetailDataSource, setDocumentDetailDataSource] = useState([]);
+
+  useRequestManager({ error: documentTypeListError });
+  useRequestManager({ error: warehouseListError });
+  useRequestManager({ error: fetchError });
+  useRequestManager({
+    data: documentSavedData,
+    loading: documentSaveLoading,
+    error: documentSaveError,
+  });
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    const currentDate = new Date();
-    const currentTime = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}.${currentDate.getMilliseconds()}`;
-    const timeData = dayjs(currentTime, "HH:mm:ss.fff");
-    form.setFieldValue("issueDateCalendarId", currentDate);
-    form.setFieldValue("issueTime", timeData);
-  }, [form]);
+    fetchDataToEdit();
+  }, []);
+
+  useEffect(() => {
+    if (fetchedData?.isSuccess) {
+      const customizedDisplayData = {
+        issueTime: dayjs(fetchedData?.data?.issueTime, "HH:mm:ss.fff"),
+        issueDateCalendarId: FormatDateToDisplay(
+          fetchedData?.data?.issueDateCalendarId,
+        ),
+        counterpartyId: {
+          id: fetchedData?.data?.counterpartyId,
+          label: fetchedData?.data?.counterpartyTitle,
+        },
+        secondCounterpartyId: {
+          id: fetchedData?.data?.secondCounterpartyId,
+          label: fetchedData?.data?.secondCounterpartyTitle,
+        },
+      };
+      setWarehouseId(fetchedData?.data?.warehouseId);
+      form.setFieldsValue({
+        ...(fetchedData?.data || null),
+        ...(fetchedData?.data ? customizedDisplayData : null),
+      });
+
+      if (fetchedData?.data?.documentDetails) {
+        setDocumentDetailDataSource(fetchedData?.data?.documentDetails);
+      }
+    }
+  }, [fetchedData]);
+
+  useEffect(() => {
+    documentSavedData?.isSuccess && onSuccess();
+  }, [documentSavedData]);
   //====================================================================
   //                        Functions
   //====================================================================
-  const timePickerOnChange = (time, timeString) => {
-    setIssueime(timeString);
+  const fetchDataToEdit = async () => {
+    await fetchApiCall(`${url.INVENTORY_DOCUMENT}/${id}`);
   };
 
   const getCounterpartyForDropDown = async (searchText) => {
@@ -63,115 +122,91 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
     }
   };
 
-  const onFinish = () => {};
-  const columns = [
-    {
-      title: "شناسه  ",
-      dataIndex: "code",
-      key: "code",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 100,
-    },
-    {
-      title: "نام  ",
-      dataIndex: "title",
-      key: "title",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 400,
-    },
-    {
-      title: "سری ساخت  ",
-      dataIndex: "batch",
-      key: "batch",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 100,
-    },
-    {
-      title: "تعداد  ",
-      dataIndex: "quantity",
-      key: "quantity",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 100,
-    },
-    {
-      title: "واحد  ",
-      dataIndex: "unit",
-      key: "unit",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 100,
-    },
-    {
-      title: "مبلغ واحد  ",
-      dataIndex: "unitPrice",
-      key: "unitPrice",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 150,
-    },
-    {
-      title: "مبلغ کل  ",
-      dataIndex: "total",
-      key: "total",
-      align: "center",
-      className: "text-xs sm:text-sm",
-      width: 150,
-    },
-  ];
-  const dataTest = [
-    {
-      code: "1234",
-      title: "شامپو بس هتلی",
-      batch: "D37323D3",
-      quantity: 34,
-      unit: "عدد",
-      unitPrice: 900,
-      total: 5454,
-    },
-    {
-      code: "1235",
-      title: "شوینده بس کرمی",
-      batch: "D37323D3",
-      quantity: 234,
-      unit: "عدد",
-      unitPrice: 200,
-      total: 6561,
-    },
-    {
-      code: "1236",
-      title: "شوینده بس کرمی - رایحه سیب",
-      batch: "B3423T3",
-      quantity: 23,
-      unit: "عدد",
-      unitPrice: 1200,
-      total: 4353,
-    },
-    {
-      code: "1237",
-      title: "شوینده بس کرمی - رایحه هلو",
-      batch: "B3423T3",
-      quantity: 12,
-      unit: "عدد",
-      unitPrice: 2300,
-      total: 5474574,
-    },
-  ];
+  const onDocumentDetailAdd = () => {
+    setModalContent(
+      <InventoryDocumentDetailAddForm
+        warehouseId={warehouseId}
+        onSuccess={onDocumentDetailAddSucceeded}
+        onCancel={() => setModalOpenState(false)}
+        key={uuid.v1()}
+      />,
+    );
+    setModalOpenState(true);
+  };
+
+  const onDocumentDetailAddSucceeded = (detailData) => {
+    const inventoryDocumentDetail = {
+      rowNumber: documentDetailDataSource.length + 1,
+      key: detailData?.key,
+      productId: detailData?.product.id,
+      productName: detailData?.product.name,
+      productDetailId: detailData?.productDetail.id,
+      batchNumber: detailData?.productDetail.batchNumber,
+      productUnit: detailData?.productUnit.name,
+      productUnitId: detailData?.productUnit.id,
+      quantity: detailData?.quantity,
+      unitPrice: detailData?.unitPrice,
+      totalPrice: detailData?.totalPrice,
+      description: detailData?.description,
+    };
+
+    setDocumentDetailDataSource((documentDetailDataSource) => [
+      ...documentDetailDataSource,
+      inventoryDocumentDetail,
+    ]);
+
+    setModalOpenState(false);
+  };
+
+  const onDocumentDetailDelete = (key) => {
+    setDocumentDetailDataSource((documentDetailDataSource) => {
+      documentDetailDataSource.splice(documentDetailDataSource.indexOf(key), 1);
+    });
+  };
+
+  const onWarehouseChange = (value, option) => {
+    setWarehouseId(value);
+  };
+
+  const onFinish = async (formValues) => {
+    const inventoryDocument = {
+      id: id,
+      folioReferenceNumber: formValues?.folioReferenceNumber,
+      inventoryDocumentTypeId: formValues?.inventoryDocumentTypeId,
+      warehouseId: formValues?.warehouseId,
+      issueDateCalendarId: FormatDateToPost(formValues?.issueDateCalendarId),
+      //issueTime: issueTime,
+      counterpartyId: formValues?.counterpartyId?.value,
+      secondCounterpartyId: formValues?.secondCounterpartyId?.value,
+      oppositeWarehouseId: formValues?.oppositeWarehouseId,
+      description: formValues?.description,
+      documentDetail: documentDetailDataSource,
+    };
+
+    await documentSaveApiCall(url.INVENTORY_DOCUMENT, inventoryDocument);
+  };
   //====================================================================
   //                        Child Component
   //====================================================================
   const tableTitle = () => {
-    return <ButtonList onAdd={() => {}} />;
+    return (warehouseId && <ButtonList onAdd={onDocumentDetailAdd} />) || <></>;
   };
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ویرایش  برگه انبار"} icon={<FaFileMedical />} />
+      <ModalHeader title={"افزودن  برگه انبار"} icon={<FaFileMedical />} />
+      <Ant.Modal
+        closable={false}
+        maskClosable={false}
+        width={600}
+        open={modalOpenState}
+        getContainer={null}
+        footer={null}
+      >
+        {modalContent}
+      </Ant.Modal>
       <Ant.Form
         form={form}
         onFinish={onFinish}
@@ -182,11 +217,15 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
             <CustomContent bordered>
               <Ant.Row gutter={10}>
-                <Ant.Col xs={24} sm={24} md={12} lg={8}>
+                <Ant.Col xs={24} sm={24} md={12} lg={4}>
+                  <Ant.Form.Item name={"documentNumber"} label="شماره">
+                    <Ant.InputNumber style={{ width: "100%" }} disabled />
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col xs={24} sm={24} md={12} lg={4}>
                   <Ant.Form.Item
-                    name={"documentNumber"}
-                    label="شماره"
-                    rules={[{ required: true }]}
+                    name={"folioReferenceNumber"}
+                    label="شماره عطف"
                   >
                     <Ant.InputNumber style={{ width: "100%" }} />
                   </Ant.Form.Item>
@@ -201,14 +240,10 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col xs={24} sm={24} md={6} lg={3}>
-                  <Ant.Form.Item
-                    name={"issueTime"}
-                    label="ساعت صدور"
-                    rules={[{ required: true }]}
-                  >
+                  <Ant.Form.Item name={"issueTime"} label="ساعت صدور">
                     <Ant.TimePicker
-                      onChange={timePickerOnChange}
                       style={{ width: "100%" }}
+                      disabled
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
@@ -223,6 +258,12 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                       disabled={documentTypeListLoading}
                       loading={documentTypeListLoading}
                       options={documentTypeData?.data}
+                      showSearch
+                      filterOption={(searchText, option) =>
+                        option.title
+                          .toLowerCase()
+                          .includes(searchText.toLowerCase())
+                      }
                       fieldNames={{ label: "title", value: "id" }}
                     />
                   </Ant.Form.Item>
@@ -240,7 +281,14 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                       disabled={warehouseListLoading}
                       loading={warehouseListLoading}
                       options={warehouseListData?.data}
+                      showSearch
+                      filterOption={(searchText, option) =>
+                        option.title
+                          .toLowerCase()
+                          .includes(searchText.toLowerCase())
+                      }
                       fieldNames={{ label: "title", value: "id" }}
+                      onChange={onWarehouseChange}
                     />
                   </Ant.Form.Item>
                   <Ant.Form.Item
@@ -252,6 +300,12 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                       disabled={warehouseListLoading}
                       loading={warehouseListLoading}
                       options={warehouseListData?.data}
+                      showSearch
+                      filterOption={(searchText, option) =>
+                        option.title
+                          .toLowerCase()
+                          .includes(searchText.toLowerCase())
+                      }
                       fieldNames={{ label: "title", value: "id" }}
                     />
                   </Ant.Form.Item>
@@ -287,10 +341,10 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
             </CustomContent>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CustomContent bordered>
+            <CustomContent bordered scroll height="40vh">
               <Ant.Table
-                columns={columns}
-                dataSource={dataTest}
+                columns={documentDetailColumns(onDocumentDetailDelete)}
+                dataSource={documentDetailDataSource}
                 title={tableTitle}
                 {...defaultValues.TABLE_PROPS}
                 size="middle"
@@ -301,7 +355,12 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
           <Ant.Col span={24}>
             <Ant.Row justify={"end"} gutter={[8, 16]}>
               <Ant.Col xs={24} sm={24} md={12} lg={2}>
-                <Ant.Button type="primary" block>
+                <Ant.Button
+                  type="primary"
+                  block
+                  loading={documentSaveLoading}
+                  onClick={() => form.submit()}
+                >
                   {"ذخیره"}
                 </Ant.Button>
               </Ant.Col>

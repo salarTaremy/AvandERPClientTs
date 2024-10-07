@@ -15,11 +15,11 @@ import { RiBarcodeBoxLine } from "react-icons/ri";
 //====================================================================
 const ProductPicker = ({
   warehouseId,
-  mode,
-  onChange,
-  onLoadingChange,
-  disabled,
-  initialValues,
+  mode,               // Any: 'productDetail'  or 'product'
+  onChange,           //(value) => void
+  onLoadingChange,    //(value) => void
+  disabled,           //boolean
+  initialValues,      //[]
   mobileMode = false,
 }) => {
   const [
@@ -28,11 +28,8 @@ const ProductPicker = ({
     productListError,
     productListApiCall,
   ] = useFetchWithHandler();
-
   useRequestManager({ error: productListError });
-
   const [productCascaderOption, setProductCascaderOption] = useState([]);
-  const [selectedValue, setSelectedValue] = useState([]);
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -49,9 +46,10 @@ const ProductPicker = ({
       maxLevel: maxLevelToRender,
     });
     productListApiCall(`${url.PRODUCT_TREE}?${queryString}`);
-  }, []);
+  }, [warehouseId,mode]);
 
   useEffect(() => {
+    console.log('productListData changed', productListData)
     productListData?.isSuccess &&
       setProductCascaderOption(productListData?.data);
   }, [productListData]);
@@ -140,8 +138,9 @@ const ProductPicker = ({
   //                        Component
   //====================================================================
   return (
+ <>
     <Ant.Cascader
-    disabled={disabled || false}
+    disabled={disabled ||productListLoading || false}
       defaultValue={initialValues && setDefaultValue()}
       loading={productListLoading}
       options={productCascaderOption}
@@ -170,11 +169,12 @@ const ProductPicker = ({
       }}
       showSearch={{ productFilter }}
     />
+ </>
   );
 };
 ProductPicker.propTypes = {
-  warehouseId: PropTypes.number,
-  mode: PropTypes.string,
+  warehouseId: PropTypes.number.isRequired,
+  mode: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onLoadingChange: PropTypes.func,
   initialValues: PropTypes.object,
