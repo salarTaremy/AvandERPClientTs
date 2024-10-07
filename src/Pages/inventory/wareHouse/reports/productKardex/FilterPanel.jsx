@@ -57,8 +57,17 @@ const FilterPanel = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
+    form.setFieldValue("Product",{brand:{id:1140 } ,product:{id:21768 }});
+    form.setFieldValue("Product",[1140,21768]);
+    form.setFieldValue("InventoryDocumentTypeId", 1);
+  }, []);
+
+
+  useEffect(() => {
     console.log(warehouseId, "warehouseId");
   }, [warehouseId]);
+
+
 
   useEffect(() => {
     console.log(product?.brand?.id)
@@ -89,6 +98,7 @@ const FilterPanel = (props) => {
 
   const onFinish = (values) => {
 
+    alert(JSON.stringify(values, null, 1, 1));
 
     const otherFilterItems = {};
     if (values?.fromIssueDateCalendarId) {
@@ -108,7 +118,9 @@ const FilterPanel = (props) => {
 
     //     let brandId=product?.brand?.id
     //     console.log(brandId,"kkkbrandId")
-    //  form.setFieldValue("ProductId", [brandId, product?.product?.id]);
+
+  
+
     //    console.log( form.getFieldValue('ProductId'),"ProductId")
     onSubmit({
       // ...values,
