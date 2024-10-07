@@ -46,7 +46,7 @@ const ProductPicker = ({
       maxLevel: maxLevelToRender,
     });
     productListApiCall(`${url.PRODUCT_TREE}?${queryString}`);
-  }, [warehouseId]);
+  }, [warehouseId,mode]);
 
   useEffect(() => {
     console.log('productListData changed', productListData)
