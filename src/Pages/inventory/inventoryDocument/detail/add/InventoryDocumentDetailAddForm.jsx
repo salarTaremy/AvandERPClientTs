@@ -14,7 +14,11 @@ import ProductPicker from "@/components/common/ProductPicker";
 //====================================================================
 //                        Declaration
 //====================================================================
-const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
+const InventoryDocumentDetailAddForm = ({
+  warehouseId,
+  onSuccess,
+  onCancel,
+}) => {
   const [form] = Ant.Form.useForm();
 
   const [
@@ -147,7 +151,7 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
       <ModalHeader title={"افزودن اقلام برگه انبار"} icon={<FaFileMedical />} />
       <CustomContent scroll>
         <Ant.Form form={form} layout="vertical" onFinish={onFinish}>
-          <Ant.Row gutter={[8, 12]}>
+          <Ant.Row gutter={[8, 8]}>
             <Ant.Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
               <Ant.Form.Item
                 name={"productId"}
@@ -264,11 +268,24 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
               </Ant.Form.Item>
             </Ant.Col>
             <Ant.Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-              <Ant.Form.Item>
-                <Ant.Button type="primary" block onClick={submitButtonOnClick}>
-                  {"ذخیره"}
-                </Ant.Button>
-              </Ant.Form.Item>
+              <Ant.Row justify={"end"} gutter={[8, 8]}>
+                <Ant.Col xs={24} sm={24} md={6} lg={6}>
+                  <Ant.Form.Item>
+                    <Ant.Button
+                      type="primary"
+                      block
+                      onClick={submitButtonOnClick}
+                    >
+                      {"ذخیره"}
+                    </Ant.Button>
+                  </Ant.Form.Item>
+                </Ant.Col>
+                <Ant.Col xs={24} sm={24} md={6} lg={6}>
+                  <Ant.Button type="default" block onClick={onCancel}>
+                    {"انصراف"}
+                  </Ant.Button>
+                </Ant.Col>
+              </Ant.Row>
             </Ant.Col>
           </Ant.Row>
         </Ant.Form>
@@ -280,6 +297,7 @@ const InventoryDocumentDetailAddForm = ({ warehouseId, onSuccess }) => {
 InventoryDocumentDetailAddForm.propTypes = {
   warehouseId: PropTypes.number.isRequired,
   onSuccess: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 export default InventoryDocumentDetailAddForm;
