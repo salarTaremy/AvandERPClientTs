@@ -10,7 +10,9 @@ import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 import { SyncOutlined } from "@ant-design/icons";
-import ProductPicker from "@/components/common/ProductPicker";
+import ProductPicker, {
+  GetSelectedValue as GetProductPickerValue
+} from "@/components/common/ProductPicker";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -98,7 +100,8 @@ const InventoryDocumentDetailAddForm = ({
     await productDetailApiCall(`${url.PRODUCT}/${productId}`);
   };
 
-  const onProductChange = async (optionData) => {
+  const onProductChange = async (value, option) => {
+    const optionData = GetProductPickerValue(option);
     if (optionData.productDetail) {
       setValidationErrors("");
 
