@@ -1,30 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Ant from "antd";
-import ProductPicker from "@/components/common/ProductPicker";
+import ProductPicker, {
+  GetSelectedValue as GetProductPickerValue,
+  FormatValueToDisplay as ProductPickerDisplayValue,
+} from "@/components/common/ProductPicker";
 
 const ProductPickerSample = () => {
   const [form] = Ant.Form.useForm();
   const [validationErrors, setValidationErrors] = useState();
   const [selectedItemValues, setSelectedItemValues] = useState({});
   
-  //warehouseId must be set from another input or a prop
+  //warehouseId must be set from another input or a prop, it's not mandatory
   const warehouseId = 3;
-  //these consts must be set from a server response
+  //these consts must be set from a server response in order to set intial value of the field (or form.setFielValue())
   const brandId = 1140;
-  const productId = 33481;
+  const productId = 33479;
   const batchNumberId = 8;
 
-  const onProductChange = async (optionData) => {
-    if (optionData.productDetail) {
+  useEffect(() => {
+    form.setFieldValue(
+      "productId",
+      ProductPickerDisplayValue([brandId, productId, batchNumberId]),
+    );
+  }, [form]);
+
+  const onProductChange = async (value, option) => {
+    const selectedValue = GetProductPickerValue(option);
+    if (selectedValue.productDetail) {
       setValidationErrors("");
 
       setSelectedItemValues({
-        brand: { id: optionData.brand.id, name: optionData.brand.name },
-        product: { id: optionData.product.id, name: optionData.product.name },
+        brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
+        product: { id: selectedValue.product.id, name: selectedValue.product.name },
         productDetail: {
-          id: optionData.productDetail.productDetailId,
-          batchNumberId: optionData.productDetail.batchNumberId,
-          batchNumber: optionData.productDetail.batchNumber,
+          id: selectedValue.productDetail.productDetailId,
+          batchNumberId: selectedValue.productDetail.batchNumberId,
+          batchNumber: selectedValue.productDetail.batchNumber,
         },
       });
     } else {
@@ -48,7 +59,7 @@ const ProductPickerSample = () => {
       <Ant.Row gutter={[8, 20]}>
         <Ant.Col span={24}>
           <Ant.Typography.Text>
-            به سه روش می توان از این کامپوننت استفاده کرد. نمونه ی هر کدام در
+            به دو روش می توان از این کامپوننت استفاده کرد. نمونه ی هر کدام در
             فرم زیر قابل مشاهده است.
           </Ant.Typography.Text>
         </Ant.Col>
