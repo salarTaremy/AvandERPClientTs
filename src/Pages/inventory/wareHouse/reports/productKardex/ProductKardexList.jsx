@@ -62,6 +62,7 @@ const ProductKardexList = (props) => {
       productId: productId
 
     }
+    delete queryString.BrandId
     await ApiCall(`${url.PRODUCT_KARDEX}?${qs.stringify(queryString)}`);
   };
 

@@ -8,10 +8,10 @@ const ProductPickerSample = () => {
   const [selectedItemValues, setSelectedItemValues] = useState({});
   
   //warehouseId must be set from another input or a prop
-  const warehouseId = 6;
+  const warehouseId = 3;
   //these consts must be set from a server response
   const brandId = 1140;
-  const productId = 33479;
+  const productId = 33481;
   const batchNumberId = 8;
 
   const onProductChange = async (optionData) => {
