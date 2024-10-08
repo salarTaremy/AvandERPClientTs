@@ -20,7 +20,7 @@ import FormAddPriceCirculardetail from "../add/FormAddPriceCirculardetail";
 //====================================================================
 const PriceCircularDetailList = (props) => {
     const { priceCircularHeaderId } = props;
-    const pageTitle = `جزییات بخشنامه "${'   '}"`;
+    const pageTitle = `جزییات بخشنامه "${priceCircularHeaderId}"`;
     const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler();
     const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
     useRequestManager({ error: delError, loading: delLoading, data: delSaving });
