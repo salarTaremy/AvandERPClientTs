@@ -19,8 +19,8 @@ import FormAddPriceCirculardetail from "../add/FormAddPriceCirculardetail";
 //                        Declaration
 //====================================================================
 const PriceCircularDetailList = (props) => {
-    const { priceCircularHeaderId, priceCircularHeaderName } = props;
-    const pageTitle = `جزییات بخشنامه "${priceCircularHeaderName}"`;
+    const { priceCircularHeaderId } = props;
+    const pageTitle = `جزییات بخشنامه "${'   '}"`;
     const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler();
     const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
     useRequestManager({ error: delError, loading: delLoading, data: delSaving });
@@ -57,7 +57,7 @@ const PriceCircularDetailList = (props) => {
     //====================================================================
     const getPriceCircularDetailList = async () => {
         const queryString = qs.stringify({
-            priceCircularHeaderId: props.priceCircularHeaderId
+            priceCircularHeaderId: priceCircularHeaderId
         });
         await listApiCall(`${url.PRICE_CIRCULAR_DETAIL}?${queryString}`);
     }

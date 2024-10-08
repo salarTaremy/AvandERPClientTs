@@ -91,9 +91,7 @@ const PriceCircularHeader = () => {
   }
 
   const onView = async (value) => {
-    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
-    setModalContent(<PriceCircularDetailList priceCircularHeaderId={value.id} priceCircularHeaderName={value.title} />);
-    setModalOpenState(true);
+    alert('پیاده سازی نشده')
   };
 
   const onSuccessAdd = () => {
@@ -122,6 +120,12 @@ const PriceCircularHeader = () => {
     setModalContent(<FormCopyPriceCircularHeader key={uuid.v1()} id={value} onSuccess={onSuccessAdd} />);
     setModalOpenState(true);
   }
+
+  const onOpen = async (value) => {
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
+    setModalContent(<PriceCircularDetailList priceCircularHeaderId={value} />);
+    setModalOpenState(true);
+  };
 
   //====================================================================
   //                        Child Components
@@ -170,7 +174,7 @@ const PriceCircularHeader = () => {
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
-            columns={columns(onDelete, onEdit, onView, onCopy, onChange)}
+            columns={columns(onDelete, onEdit, onView, onCopy, onChange,onOpen)}
             dataSource={dataSource}
             {...defaultValues.TABLE_PROPS}
             title={title}

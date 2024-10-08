@@ -7,8 +7,9 @@ import { FaRegCopy } from "react-icons/fa";
 import { GrDocumentLocked } from "react-icons/gr";
 import { CgMoreVertical } from "react-icons/cg";
 import * as defaultValues from "@/defaultValues";
+import { LuFolderOpen } from "react-icons/lu";
 
-export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
+export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
   const getMenuItems = (record) => [
     {
       key: "1",
@@ -23,19 +24,11 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
     {
       key: "2",
       label: (
-        <Ant.Popconfirm
-          onConfirm={() => onChange(record.id)}
-          title={`برای تغییر وضعیت "${record.title}" مطمئن هستید؟`}
-        >
-          <Ant.Tooltip placement="right" title={"تغییر وضعیت"}>
-            <GrDocumentLocked
-              className={
-                (record.isActive === true && "text-green-400") ||
-                "text-rose-600"
-              }
-            />
-          </Ant.Tooltip>
-        </Ant.Popconfirm>
+        <Ant.Tooltip placement="right" title={"گشایش"}>
+          <a onClick={() => onOpen(record.id)}>
+            <LuFolderOpen className="text-purple-600" />
+          </a>
+        </Ant.Tooltip>
       ),
     },
     {
@@ -48,6 +41,22 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange) => {
         </Ant.Tooltip>
       ),
     },
+    {
+      key: "4",
+      label: (
+        <Ant.Popconfirm
+          onConfirm={() => onChange(record.id)}
+          title={`برای تغییر وضعیت "${record.title}" مطمئن هستید؟`}
+        >
+          <Ant.Tooltip placement="right" title={"تغییر وضعیت"}>
+            <a>
+              <GrDocumentLocked className={(record.isActive === true && "text-green-400") || "text-rose-600"} />
+            </a>
+          </Ant.Tooltip>
+        </Ant.Popconfirm>
+      ),
+    },
+
   ];
 
   return [
