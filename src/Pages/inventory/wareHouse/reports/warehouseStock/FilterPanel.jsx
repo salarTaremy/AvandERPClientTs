@@ -8,6 +8,7 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import useRequestManager from "@/hooks/useRequestManager";
 import MyDatePicker, {
   FormatDateToDisplay,
+  FormatDateToPost
 } from "@/components/common/MyDatePicker";
 import ProductPicker from "@/components/common/ProductPicker";
 import useAllLoading from "@/hooks/useAllLoading ";
@@ -26,23 +27,30 @@ const FilterPanel = (props) => {
   const [warehouseId, setWarehouseId] = useState(null);
   const [productId, setProductId] = useState(null);
   const [batchNumberId, setBatchNumberId] = useState(null);
-  const allLoading = useAllLoading([wareHouseLoading]);
+
+  const [loadingProduct, setLoadingProduct] = useState(false);
+  const [loadingBachNumber, setLoadingBachNumber] = useState(false);
+  const allLoading = useAllLoading([
+    wareHouseLoading,
+    loadingBachNumber,
+    loadingProduct,
+  ]);
   //====================================================================
   //                        useEffects
   //====================================================================
 
   useEffect(() => {
     const dateFilter = {};
-    if (filterObject?.ToIssueDateCalendarId) {
-      dateFilter.ToIssueDateCalendarId = FormatDateToDisplay(
-        filterObject?.ToIssueDateCalendarId,
+    if (filterObject?.toIssueDateCalendarId) {
+      dateFilter.toIssueDateCalendarId = FormatDateToDisplay(
+        filterObject?.toIssueDateCalendarId,
       );
     }
     filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
   }, []);
 
   useEffect(() => {
-  console.log(warehouseId)
+    console.log(warehouseId,"ggggg");
   }, [warehouseId]);
 
   //====================================================================
@@ -50,8 +58,15 @@ const FilterPanel = (props) => {
   //====================================================================
 
   const onFinish = (values) => {
+    const toIssueDateCalendarId = {};
+    if (values?.toIssueDateCalendarId) {
+      otherFilterItems.toIssueDateCalendarId = FormatDateToPost(
+        values?.toIssueDateCalendarId,
+      );
+    }
     onSubmit({
       ...values,
+      ...toIssueDateCalendarId,
       ProductId: productId?.product?.id,
       BatchNumberId: batchNumberId?.productDetail?.batchNumberId,
     });
@@ -66,7 +81,7 @@ const FilterPanel = (props) => {
   //====================================================================
   return (
     <>
-      <Ant.Skeleton active loading={allLoading}>
+
         <Ant.Form
           form={form}
           onFinish={onFinish}
@@ -99,6 +114,9 @@ const FilterPanel = (props) => {
               warehouseId={warehouseId}
               onChange={(selectedProduct) => setProductId(selectedProduct)}
               mode="product"
+              onLoadingChange={(value) => {
+                setLoadingProduct(value);
+              }}
             />
           </Ant.Form.Item>
           <Ant.Form.Item
@@ -107,6 +125,9 @@ const FilterPanel = (props) => {
             rules={[{ required: true }]}
           >
             <ProductPicker
+              onLoadingChange={(value) => {
+                setLoadingBachNumber(value);
+              }}
               onChange={(selectedBatchNumber) =>
                 setBatchNumberId(selectedBatchNumber)
               }
@@ -117,6 +138,7 @@ const FilterPanel = (props) => {
 
           <Ant.Button
             block
+            disabled={allLoading}
             type="primary"
             onClick={() => {
               form.submit();
@@ -125,7 +147,7 @@ const FilterPanel = (props) => {
             {"اعمال"}
           </Ant.Button>
         </Ant.Form>
-      </Ant.Skeleton>
+
     </>
   );
 };
