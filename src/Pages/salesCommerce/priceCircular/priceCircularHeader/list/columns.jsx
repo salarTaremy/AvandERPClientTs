@@ -61,6 +61,22 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
 
   return [
     {
+      title: "شناسه",
+      dataIndex: "id",
+      key: "id",
+      align: "center",
+      className: "text-xs sm:text-sm",
+      width: 50,
+      render: (text, record, index) => {
+        return (
+          <a >
+            {record.id}
+          </a>
+        )
+      }
+
+    },
+    {
       title: "عنوان",
       dataIndex: "title",
       key: "title",
@@ -139,7 +155,6 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
               >
                 <a>
                   <Ant.Button
-                    onClick={() => { }}
                     className="text-blue-600"
                     icon={<CgMoreVertical />}
                     color="default"

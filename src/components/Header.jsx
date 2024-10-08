@@ -155,7 +155,6 @@ const HeaderComponent = (props) => {
                 className="lg:hidden xxl:hidden"
                 menu={{
                   items: menuList,
-                  onClick: () => { },
                 }}
               >
                 <Ant.Button

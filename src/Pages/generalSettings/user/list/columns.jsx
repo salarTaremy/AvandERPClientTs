@@ -114,7 +114,6 @@ const columns = (onDelete, onEdit, onReset, onInfo, onSwitch, onOtherAccesses, o
                                 arrow
                             >
                                 <Ant.Button
-                                    onClick={() => { }}
                                     className="text-blue-600"
                                     icon={<CgMoreVertical />}
                                     color="default"

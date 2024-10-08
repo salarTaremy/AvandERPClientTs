@@ -198,7 +198,6 @@ export const columns = (onDelete, onEdit, onView, onViewCustomer, onOpenDoc) => 
                                 arrow
                             >
                                 <Ant.Button
-                                    onClick={() => { }}
                                     className="text-blue-600"
                                     icon={<CgMoreVertical />}
                                     color="default"
