@@ -11,7 +11,7 @@ import { useFetchWithHandler, useDelWithHandler } from "@/api";
 import FilterPanel from "./FilterPanel";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
-import DetailedCounterPartyList from "./../description/DetailedCounterPartyList";
+import CounterpartyDescription from "../description/CounterpartyDescription";
 import { useNavigate, generatePath } from "react-router-dom";
 import * as uuid from "uuid";
 import qs from "qs";
@@ -110,20 +110,9 @@ const CounterPartyList = () => {
     setModalState(false);
     handleCounterParty()
   };
-
-  const onHeaderEdit = (id) => {
-
-    setModalContent(
-      <FormEditCounterParty
-        onSuccess={onSuccessEditHeader}
-        key={uuid.v1()}
-        id={id}
-      />
-    );
-    setModalState(true);
-  }
+  
   const onView = (id) => {
-    setModalContent(<DetailedCounterPartyList id={id} key={uuid.v1()} onHeaderEdit={onHeaderEdit} />);
+    setModalContent(<CounterpartyDescription id={id} key={uuid.v1()} />);
     setModalState(true);
   };
 

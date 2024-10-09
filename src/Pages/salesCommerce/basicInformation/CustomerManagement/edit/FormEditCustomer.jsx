@@ -7,7 +7,7 @@ import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import CustomContent from "@/components/common/CustomContent";
-import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
+import CounterpartyInformation from "@/Pages//manageCounterParty/description/CounterpartyInformation";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGrup";
@@ -354,7 +354,7 @@ const FormEditCustomer = ({ id, onSuccess }) => {
               {/* {empty == undefined ? (
                   <Ant.Empty loading={editLoading} />
                 ) : ( */}
-              <HeaderCounterParty id={editData?.data?.counterpartyId} onHeaderEdit={onHeaderEdit} />
+              <CounterpartyInformation id={editData?.data?.counterpartyId}/>
               {/* )} */}
             </CustomContent>
             {/* </Ant.Card> */}
