@@ -7,7 +7,7 @@ import ProductPicker, {
 
 const ProductPickerSample = () => {
   const [form] = Ant.Form.useForm();
-  const [validationErrors, setValidationErrors] = useState();
+  const [validationErrors, setValidationErrors] = useState(null);
   const [selectedItemValues, setSelectedItemValues] = useState({});
   
   //warehouseId must be set from another input or a prop, it's not mandatory
@@ -16,12 +16,23 @@ const ProductPickerSample = () => {
   const brandId = 1140;
   const productId = 33479;
   const batchNumberId = 8;
+  const productDetailId = 16;
 
   useEffect(() => {
     form.setFieldValue(
-      "productId",
+      "productAndBatchNumber",
       ProductPickerDisplayValue([brandId, productId, batchNumberId]),
     );
+
+    setSelectedItemValues({
+      brand: { id: brandId, name: "" },
+      product: { id: productId, name: "" },
+      productDetail: {
+        id: productDetailId,
+        batchNumberId: batchNumberId,
+        batchNumber: "",
+      },
+    });
   }, [form]);
 
   const onProductChange = async (value, option) => {
@@ -43,7 +54,7 @@ const ProductPickerSample = () => {
     }
   };
 
-  const onFinish = () => {
+  const onFinish = (formValues) => {
     console.log(selectedItemValues);
     const dataToDisplay = `اطلاعات انتخاب شده در آیتم اول: 
     \r\nbrandId: ${selectedItemValues.brand.id}\r\nbrandName: ${selectedItemValues.brand.name}
@@ -78,7 +89,7 @@ const ProductPickerSample = () => {
               }
             >
               <ProductPicker
-                initialValues={{brandId: brandId, productId: productId, batchNumberId: batchNumberId}}
+                //initialValues={{brandId: brandId, productId: productId, batchNumberId: batchNumberId}}
                 warehouseId={warehouseId}
                 mode="productDetail"
                 onChange={onProductChange}
