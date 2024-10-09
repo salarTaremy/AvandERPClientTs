@@ -196,7 +196,7 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"افزودن  برگه انبار"} icon={<FaFileMedical />} />
+      <ModalHeader title={fetchedData?.isSuccess && `ویرایش ${fetchedData?.data?.documentType} (شماره : ${fetchedData?.data?.documentNumber })` } icon={<FaFileMedical />} />
       <Ant.Modal
         closable={false}
         maskClosable={false}
@@ -215,7 +215,7 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
       >
         <Ant.Row gutter={[4, 16]}>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CustomContent bordered>
+            <Ant.Card bordered  >
               <Ant.Row gutter={10}>
                 <Ant.Col xs={24} sm={24} md={12} lg={4}>
                   <Ant.Form.Item name={"documentNumber"} label="شماره">
@@ -338,19 +338,20 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CustomContent>
+            </Ant.Card>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CustomContent bordered scroll height="40vh">
+            <Ant.Card >
               <Ant.Table
                 columns={documentDetailColumns(onDocumentDetailDelete)}
                 dataSource={documentDetailDataSource}
                 title={tableTitle}
                 {...defaultValues.TABLE_PROPS}
+                scroll =  {{ x: '100%', y: '20vh' }}
                 size="middle"
                 bordered={false}
               />
-            </CustomContent>
+            </Ant.Card>
           </Ant.Col>
           <Ant.Col span={24}>
             <Ant.Row justify={"end"} gutter={[8, 16]}>
