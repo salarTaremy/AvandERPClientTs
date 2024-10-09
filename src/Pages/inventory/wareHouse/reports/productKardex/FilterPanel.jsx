@@ -128,8 +128,8 @@ const FilterPanel = (props) => {
 
     //    console.log( form.getFieldValue('ProductId'),"ProductId")
 
-      delete values?.Product[0],
-    delete values?.Product[1]
+    //   delete values?.Product[0],
+    // delete values?.Product[1]
     onSubmit({
       ...values,
       ...otherFilterItems,

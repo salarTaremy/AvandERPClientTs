@@ -56,11 +56,14 @@ const ProductKardexList = (props) => {
   //====================================================================
 
   const getAllProductKardex = async () => {
-    // delete filterObject.Product[0],
-    // delete filterObject.Product[1]
+    const newFilterObject = {...filterObject}
+    
+    // delete newFilterObject.Product[0],
+    // delete newFilterObject.Product[1]
+    delete newFilterObject.Product
 
     const queryString={
-      ...filterObject,
+      ...newFilterObject,
       BatchNumberId: BatchNumberId,
       productId: productId
 
