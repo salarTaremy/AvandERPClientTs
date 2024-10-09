@@ -29,7 +29,19 @@ const InventoryDocumentManagement = () => {
     documentListApiCall,
   ] = useFetchWithHandler();
 
+  const [
+    documentDeleteData,
+    documentDeleteLoading,
+    documentDeleteError,
+    documentDeleteApiCall,
+  ] = useDelWithHandler();
+
   useRequestManager({ error: documentListError });
+  useRequestManager({
+    data: documentDeleteData,
+    loading: documentDeleteLoading,
+    error: documentDeleteError,
+  });
 
   const [dataSource, setDataSource] = useState(null);
   const [openFilter, setOpenFilter] = useState(false);
@@ -78,6 +90,13 @@ const InventoryDocumentManagement = () => {
     });
   }, [documentListData]);
 
+  useEffect(() => {
+    if (documentDeleteData?.isSuccess) {
+      setDataSource((dataSource) =>
+        dataSource.filter((item) => item.id !== documentDeleteData?.data?.id),
+      );
+    }
+  }, [documentDeleteData]);
   //====================================================================
   //                        Functions
   //====================================================================
@@ -122,9 +141,7 @@ const InventoryDocumentManagement = () => {
       open: true,
       closable: true,
       size: { ...defaultValues.MODAL_LARGE },
-      content: (
-        <CounterpartyInformation id={counterpartyId} />
-      ),
+      content: <CounterpartyInformation id={counterpartyId} />,
     });
   };
 
@@ -175,12 +192,16 @@ const InventoryDocumentManagement = () => {
   };
 
   const onDelete = async (id) => {
-    //TODO: not implemented
-    console.log("onDelete - " + id);
+    await documentDeleteApiCall(`${url.INVENTORY_DOCUMENT}/${id}`);
   };
 
   const onView = async (id) => {
-    setModalProps({ ...modalProps, open: true, closable: true, content: <InventoryDocumentDescription id={id} /> });
+    setModalProps({
+      ...modalProps,
+      open: true,
+      closable: true,
+      content: <InventoryDocumentDescription id={id} />,
+    });
   };
   //====================================================================
   //                        Child Components

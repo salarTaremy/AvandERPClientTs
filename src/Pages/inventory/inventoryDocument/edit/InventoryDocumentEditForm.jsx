@@ -13,7 +13,6 @@ import {
   usePutWithHandler,
 } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 import MyDatePicker, {
@@ -47,7 +46,11 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   const [modalOpenState, setModalOpenState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
-  const [warehouseId, setWarehouseId] = useState(0);
+  const [inventoryDocumentData, setInventoryDocumentData] = useState({
+    warehouseId: 0,
+    documentTypeId: 0,
+    documentTypeNature: 0,
+  });
   const [documentDetailDataSource, setDocumentDetailDataSource] = useState([]);
 
   useRequestManager({ error: documentTypeListError });
@@ -81,10 +84,16 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
           label: fetchedData?.data?.secondCounterpartyTitle,
         },
       };
-      setWarehouseId(fetchedData?.data?.warehouseId);
+
       form.setFieldsValue({
         ...(fetchedData?.data || null),
         ...(fetchedData?.data ? customizedDisplayData : null),
+      });
+
+      setInventoryDocumentData({
+        warehouseId: fetchedData?.data?.warehouseId,
+        documentTypeId: fetchedData?.data?.inventoryDocumentTypeId,
+        documentTypeNature: fetchedData?.data?.inventoryDocumentTypeNature
       });
 
       if (fetchedData?.data?.documentDetails) {
@@ -101,6 +110,21 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   //====================================================================
   const fetchDataToEdit = async () => {
     await fetchApiCall(`${url.INVENTORY_DOCUMENT}/${id}`);
+  };
+
+  const documentTypeOnChange = (value, option) => {
+    setInventoryDocumentData((inventoryDocumentData) => ({
+      ...inventoryDocumentData,
+      documentTypeId: value,
+      documentTypeNature: option.nature,
+    }));
+  };
+
+  const onWarehouseChange = (value, option) => {
+    setInventoryDocumentData((inventoryDocumentData) => ({
+      ...inventoryDocumentData,
+      warehouseId: value,
+    }));
   };
 
   const getCounterpartyForDropDown = async (searchText) => {
@@ -125,7 +149,8 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   const onDocumentDetailAdd = () => {
     setModalContent(
       <InventoryDocumentDetailAddForm
-        warehouseId={warehouseId}
+        warehouseId={inventoryDocumentData.warehouseId}
+        documentTypeNature={inventoryDocumentData.documentTypeNature}
         onSuccess={onDocumentDetailAddSucceeded}
         onCancel={() => setModalOpenState(false)}
         key={uuid.v1()}
@@ -159,13 +184,9 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   };
 
   const onDocumentDetailDelete = (key) => {
-    setDocumentDetailDataSource((documentDetailDataSource) => {
-      documentDetailDataSource.splice(documentDetailDataSource.indexOf(key), 1);
-    });
-  };
-
-  const onWarehouseChange = (value, option) => {
-    setWarehouseId(value);
+    setDocumentDetailDataSource((documentDetailDataSource) =>
+      documentDetailDataSource.filter((item) => item.key !== key),
+    );
   };
 
   const onFinish = async (formValues) => {
@@ -175,7 +196,6 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
       inventoryDocumentTypeId: formValues?.inventoryDocumentTypeId,
       warehouseId: formValues?.warehouseId,
       issueDateCalendarId: FormatDateToPost(formValues?.issueDateCalendarId),
-      //issueTime: issueTime,
       counterpartyId: formValues?.counterpartyId?.value,
       secondCounterpartyId: formValues?.secondCounterpartyId?.value,
       oppositeWarehouseId: formValues?.oppositeWarehouseId,
@@ -189,14 +209,25 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   //                        Child Component
   //====================================================================
   const tableTitle = () => {
-    return (warehouseId && <ButtonList onAdd={onDocumentDetailAdd} />) || <></>;
+    return (
+      (inventoryDocumentData.warehouseId &&
+        inventoryDocumentData.documentTypeId && (
+          <ButtonList onAdd={onDocumentDetailAdd} />
+        )) || <></>
+    );
   };
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <ModalHeader title={fetchedData?.isSuccess && `ویرایش ${fetchedData?.data?.documentType} (شماره : ${fetchedData?.data?.documentNumber })` } icon={<FaFileMedical />} />
+      <ModalHeader
+        title={
+          fetchedData?.isSuccess &&
+          `ویرایش ${fetchedData?.data?.documentType} (شماره : ${fetchedData?.data?.documentNumber})`
+        }
+        icon={<FaFileMedical />}
+      />
       <Ant.Modal
         closable={false}
         maskClosable={false}
@@ -215,7 +246,7 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
       >
         <Ant.Row gutter={[4, 16]}>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <Ant.Card bordered  >
+            <Ant.Card bordered>
               <Ant.Row gutter={10}>
                 <Ant.Col xs={24} sm={24} md={12} lg={4}>
                   <Ant.Form.Item name={"documentNumber"} label="شماره">
@@ -241,10 +272,7 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                 </Ant.Col>
                 <Ant.Col xs={24} sm={24} md={6} lg={3}>
                   <Ant.Form.Item name={"issueTime"} label="ساعت صدور">
-                    <Ant.TimePicker
-                      style={{ width: "100%" }}
-                      disabled
-                    />
+                    <Ant.TimePicker style={{ width: "100%" }} disabled />
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col xs={24} sm={24} md={12} lg={8}>
@@ -258,6 +286,7 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                       disabled={documentTypeListLoading}
                       loading={documentTypeListLoading}
                       options={documentTypeData?.data}
+                      onChange={documentTypeOnChange}
                       showSearch
                       filterOption={(searchText, option) =>
                         option.title
@@ -341,13 +370,13 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
             </Ant.Card>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <Ant.Card >
+            <Ant.Card>
               <Ant.Table
                 columns={documentDetailColumns(onDocumentDetailDelete)}
                 dataSource={documentDetailDataSource}
                 title={tableTitle}
                 {...defaultValues.TABLE_PROPS}
-                scroll =  {{ x: '100%', y: '20vh' }}
+                scroll={{ x: "100%", y: "20vh" }}
                 size="middle"
                 bordered={false}
               />

@@ -11,13 +11,14 @@ import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 import { SyncOutlined } from "@ant-design/icons";
 import ProductPicker, {
-  GetSelectedValue as GetProductPickerValue
+  GetSelectedValue as GetProductPickerValue,
 } from "@/components/common/ProductPicker";
 //====================================================================
 //                        Declaration
 //====================================================================
 const InventoryDocumentDetailAddForm = ({
   warehouseId,
+  documentTypeNature,
   onSuccess,
   onCancel,
 }) => {
@@ -184,12 +185,19 @@ const InventoryDocumentDetailAddForm = ({
                   {
                     validator: (_, value) => {
                       if (
-                        value != null &&
-                        value > 0 &&
-                        value <= productStock.total
+                        (documentTypeNature >= 0 &&
+                          value != null &&
+                          value > 0) ||
+                        (documentTypeNature < 0 &&
+                          value != null &&
+                          value > 0 &&
+                          value <= productStock.total)
                       ) {
                         return Promise.resolve();
-                      } else if (value >= productStock.total) {
+                      } else if (
+                        documentTypeNature < 0 &&
+                        value >= productStock.total
+                      ) {
                         return Promise.reject(
                           "مقدار وارد شده بیش از موجودی کالا است.",
                         );
@@ -299,6 +307,7 @@ const InventoryDocumentDetailAddForm = ({
 
 InventoryDocumentDetailAddForm.propTypes = {
   warehouseId: PropTypes.number.isRequired,
+  documentTypeNature: PropTypes.number.isRequired,
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func,
 };
