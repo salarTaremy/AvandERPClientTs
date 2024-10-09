@@ -11,7 +11,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { COUNTERPARTY_TYPE, COUNTERPARTY_ICON_COLOR } from "@/staticValues";
-import HeaderCounterParty from "@/Pages/manageCounterParty/description/HeaderCounterParty";
+import CounterpartyInformation from "@/Pages/manageCounterParty/description/CounterpartyInformation";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 import { MdDescription } from "react-icons/md";
 import {
@@ -57,22 +57,10 @@ const CustomerDescription = (props) => {
     onSuccess();
   };
 
-  const onHeaderEdit = (data) => {
-    setModalContent(
-      <FormEditCounterParty
-        onSuccess={onSuccessEdit}
-        key={uuid.v1()}
-        id={data?.id}
-      />,
-    );
-    setModalState(true);
-  };
-
   const onViewCounterparty = () => {
     setModalContent(
-      <HeaderCounterParty
+      <CounterpartyInformation
         id={data?.data?.counterpartyId}
-        onHeaderEdit={onHeaderEdit}
       />,
     );
     setModalState(true);

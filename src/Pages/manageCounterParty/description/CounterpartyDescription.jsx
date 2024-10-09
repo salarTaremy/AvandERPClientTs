@@ -6,11 +6,11 @@ import * as api from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import AddressList from "./AddressList";
 import BankAccountList from "./BankAccountList";
-import HeaderCounterParty from "./HeaderCounterParty";
+import CounterpartyInformation from "./CounterpartyInformation";
 import CustomContent from "@/components/common/CustomContent";
 
-const DetailedCounterPartyList = (props) => {
-  const { id, onHeaderEdit } = props;
+const CounterpartyDescription = (props) => {
+  const { id } = props;
   const [data, loading, error] = api.useFetch(`${url.COUNTER_PARTY}/${id}`);
   useRequestManager({ error: error });
 
@@ -41,7 +41,7 @@ const DetailedCounterPartyList = (props) => {
   return (
     <CustomContent height="80vh">
       <Ant.Skeleton active loading={loading}>
-        <HeaderCounterParty id={id} onHeaderEdit={onHeaderEdit} />
+        <CounterpartyInformation id={id}/>
         <Ant.Divider />
         <Ant.Tabs
           type="card"
@@ -57,9 +57,8 @@ const DetailedCounterPartyList = (props) => {
   );
 };
 
-DetailedCounterPartyList.propTypes = {
-  id: PropTypes.number.isRequired,
-  onHeaderEdit: PropTypes.func.isRequired,
+CounterpartyDescription.propTypes = {
+  id: PropTypes.number.isRequired
 };
 
-export default DetailedCounterPartyList;
+export default CounterpartyDescription;

@@ -7,7 +7,7 @@ import * as url from "@/api/url";
 import * as uuid from "uuid";
 import DebounceSelect from "@/components/common/DebounceSelect";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
-import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
+import CounterpartyInformation from "../../../../manageCounterParty/description/CounterpartyInformation";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
 import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGrup";
@@ -159,17 +159,6 @@ const FormAddCustomer = ({ onSucces }) => {
     setModalState(false);
     handleCounterParty()
   };
-
-  const onHeaderEdit = (data) => {
-    setModalContent(
-      <FormEditCounterParty
-        onSuccess={onSuccessEdit}
-        key={uuid.v1()}
-        id={(data.id)}
-      />
-    );
-    setModalState(true);
-  }
 
   const onSuccessAddCounterparty = () => {
     setModalState(false);
@@ -390,7 +379,7 @@ const FormAddCustomer = ({ onSucces }) => {
                 {empty == undefined ? (
                   <Ant.Empty description={'طرف حساب مربوطه را انتخاب کنید'} />
                 ) : (
-                  <HeaderCounterParty id={listData?.data?.id} onHeaderEdit={onHeaderEdit} />
+                  <CounterpartyInformation id={listData?.data?.id} />
                 )}
               </CustomContent>
 

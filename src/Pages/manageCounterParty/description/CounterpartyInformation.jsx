@@ -3,6 +3,7 @@ import * as Ant from "antd";
 import { useFetchWithHandler } from "@/api";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
+import * as uuid from "uuid";
 import { COUNTERPARTY_TYPE, COUNTERPARTY_ICON_COLOR } from "@/staticValues";
 import useRequestManager from "@/hooks/useRequestManager";
 import ModalHeader from "@/components/common/ModalHeader";
@@ -15,16 +16,9 @@ import {
   UserSwitchOutlined,
 } from "@ant-design/icons";
 import CustomContent from "@/components/common/CustomContent";
-import {
-  green,
-  gold,
-  cyan,
-  volcano,
-  purple,
-  magenta,
-} from "@ant-design/colors";
+import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 
-const HeaderCounterParty = ({ id, onHeaderEdit }) => {
+const CounterpartyInformation = ({ id }) => {
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
 
@@ -40,12 +34,31 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    handleCounterParty();
+    fetchCounterpartyData();
   }, [id]);
 
   //====================================================================
   //                        Functions
   //======================================================================
+  const fetchCounterpartyData = async () => {
+    await counterpartyApiCall(`${url.COUNTER_PARTY}/${id}`);
+  };
+
+  const onCounterpartyEdit = () => {
+    setModalContent(
+      <FormEditCounterParty
+        onSuccess={onSuccessEdit}
+        key={uuid.v1()}
+        id={id}
+      />,
+    );
+    setModalState(true);
+  };
+
+  const onSuccessEdit = async () => {
+    await fetchCounterpartyData();
+  };
+
   const getCounterpartyTypeColor = () => {
     switch (counterpartyTypeId) {
       case COUNTERPARTY_TYPE.Individual:
@@ -61,9 +74,7 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
     }
   };
 
-  const handleCounterParty = async () => {
-    await counterpartyApiCall(`${url.COUNTER_PARTY}/${id}`);
-  };
+  
 
   const counterpartyTypeId = counterpartyData?.data?.counterpartyTypeId;
   const counterpartyInfo = (
@@ -75,7 +86,7 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
         <CustomContent type="inner" bordered>
           <Ant.Row>
             <Ant.Col span={24}>
-              <CustomContent  >
+              <CustomContent>
                 <Ant.Row>
                   <Ant.Col xs={24} sm={4} md={4} lg={4}>
                     <Ant.Space
@@ -141,9 +152,7 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
                         </Ant.Typography.Text>
                         <Ant.Tooltip title="ویرایش">
                           <Ant.Button
-                            onClick={() =>
-                              onHeaderEdit(id)
-                            }
+                            onClick={onCounterpartyEdit}
                             className="text-blue-600"
                             icon={<FiEdit />}
                             type="text"
@@ -245,9 +254,8 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
     <>
       <ModalHeader title={"جزئیات طرف حساب"} icon={<MdDescription />} />
       <Ant.Modal
-        {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_EXTRA_LARGE}
         open={modalState}
-        handleCancel={() => setModalState(false)}
         onCancel={() => {
           setModalState(false);
         }}
@@ -267,4 +275,4 @@ const HeaderCounterParty = ({ id, onHeaderEdit }) => {
     </>
   );
 };
-export default HeaderCounterParty;
+export default CounterpartyInformation;

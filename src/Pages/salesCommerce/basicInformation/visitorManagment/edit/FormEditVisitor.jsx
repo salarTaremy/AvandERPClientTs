@@ -8,7 +8,7 @@ import * as uuid from "uuid";
 import { usePutWithHandler, useFetchWithHandler, useFetch, Get } from '@/api'
 import useRequestManager from '@/hooks/useRequestManager'
 import ModalHeader from "@/components/common/ModalHeader";
-import HeaderCounterParty from "../../../../manageCounterParty/description/HeaderCounterParty";
+import CounterpartyInformation from "@/Pages/manageCounterParty/description/CounterpartyInformation";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
 import FormEditCounterParty from '@/Pages/manageCounterParty/edit/FormEditCounterParty';
 import { FaUserPen } from "react-icons/fa6";
@@ -83,23 +83,6 @@ const FormEditVisitor = (props) => {
     const getFreeCode = async () => {
         await freeCodeApiCall(`${url.VISITOR_FREE_CODE}`)
     }
-
-    const onSuccessEdit = () => {
-        setModalState(false);
-        handleCounterParty()
-    };
-
-    const onHeaderEdit = (data) => {
-        setModalContent(
-            <FormEditCounterParty
-                onSuccess={onSuccessEdit}
-                key={uuid.v1()}
-                id={(data.id)}
-            />
-        );
-        setModalState(true);
-    }
-
 
     //====================================================================
     //                        Child Components
@@ -207,7 +190,7 @@ const FormEditVisitor = (props) => {
                         <Ant.Col span={24} sm={14}>
                             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
                             <CustomContent bordered>
-                                <HeaderCounterParty id={listData?.data?.counterpartyId} onHeaderEdit={onHeaderEdit} />
+                                <CounterpartyInformation id={listData?.data?.counterpartyId} />
                                 {/* </Ant.Card> */}
                             </CustomContent>
                         </Ant.Col>

@@ -4,7 +4,7 @@ import * as Ant from "antd";
 import * as defaultValues from "@/defaultValues";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export const documentDetailColumns = (onDelete) => {
+export const documentDetailColumns = (onDelete, onProductView, onBatchNumberView) => {
   return [
     {
       title: "ردیف",
@@ -21,6 +21,9 @@ export const documentDetailColumns = (onDelete) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 400,
+      render: (text, record, index) => (
+        <Ant.Typography.Link onClick={() => onProductView(record.productId)}>{record.productName}</Ant.Typography.Link>
+      )
     },
     {
       title: "سری ساخت",
@@ -29,6 +32,9 @@ export const documentDetailColumns = (onDelete) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 100,
+      render: (text, record, index) => (
+        <Ant.Typography.Link onClick={() => onBatchNumberView(record.batchNumberId)}>{record.batchNumber}</Ant.Typography.Link>
+      )
     },
     {
       title: "تعداد",
@@ -64,6 +70,7 @@ export const documentDetailColumns = (onDelete) => {
     },
     {
       ...defaultValues.TABLES_OPERATION_COLUMN,
+      hidden: !onDelete,
       render: (text, record, index) => {
         return (
           <>
