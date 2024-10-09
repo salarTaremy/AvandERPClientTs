@@ -12,9 +12,10 @@ import ButtonList from "@/components/common/ButtonList";
 import FilterPanel from "./FilterPanel";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterDrawer from "@/components/common/FilterDrawer";
-import HeaderCounterParty from "@/Pages/manageCounterParty/description/HeaderCounterParty";
+import CounterpartyInformation from "@/Pages/manageCounterParty/description/CounterpartyInformation";
 import InventoryDocumentAddForm from "../add/InventoryDocumentAddForm";
 import InventoryDocumentEditForm from "../edit/InventoryDocumentEditForm";
+import InventoryDocumentDescription from "../description/InventoryDocumentDescription";
 
 //====================================================================
 //                        Declaration
@@ -41,11 +42,12 @@ const InventoryDocumentManagement = () => {
     },
   });
 
-  const [modalSize, setModalSize] = useState({
-    ...defaultValues.MODAL_EXTRA_LARGE,
+  const [modalProps, setModalProps] = useState({
+    open: false,
+    closable: false,
+    size: { ...defaultValues.MODAL_EXTRA_LARGE },
+    content: null,
   });
-  const [modalOpenState, setModalOpenState] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
 
   //====================================================================
   //                        useEffects
@@ -116,35 +118,59 @@ const InventoryDocumentManagement = () => {
 
   //inventory document related events
   const onViewCounterparty = async (counterpartyId) => {
-    setModalContent(
-      <HeaderCounterParty id={counterpartyId} onHeaderEdit={() => {}} />,
-    );
-    setModalOpenState(true);
+    setModalProps({
+      open: true,
+      closable: true,
+      size: { ...defaultValues.MODAL_LARGE },
+      content: (
+        <CounterpartyInformation id={counterpartyId} />
+      ),
+    });
   };
 
   const onAdd = async () => {
-    const addModal = { ...defaultValues.MODAL_EXTRA_LARGE };
-    setModalSize(addModal);
-    setModalContent(
-      <InventoryDocumentAddForm onSuccess={onAddSucceeded} onCancel={onCancel} key={uuid.v1()} />,
-    );
-    setModalOpenState(true);
+    setModalProps({
+      open: true,
+      closable: false,
+      size: { ...defaultValues.MODAL_EXTRA_LARGE },
+      content: (
+        <InventoryDocumentAddForm
+          onSuccess={onAddSucceeded}
+          onCancel={onCancel}
+          key={uuid.v1()}
+        />
+      ),
+    });
   };
   const onCancel = async () => {
-    setModalOpenState(false);
-  }
+    setModalProps({
+      open: false,
+      closable: false,
+      size: { ...defaultValues.MODAL_EXTRA_LARGE },
+      content: null,
+    });
+  };
   const onAddSucceeded = () => {
-    setModalOpenState(false);
+    setModalProps({ ...modalProps, open: false });
     getInventoryDocumentList();
   };
   const onEdit = async (id) => {
-    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE };
-    setModalSize(updateList);
-    setModalContent(<InventoryDocumentEditForm id={id} key={id} onSuccess={onEditSucceeded} onCancel={onCancel} />);
-    setModalOpenState(true);
+    setModalProps({
+      open: true,
+      closable: false,
+      size: { ...defaultValues.MODAL_EXTRA_LARGE },
+      content: (
+        <InventoryDocumentEditForm
+          id={id}
+          key={id}
+          onSuccess={onEditSucceeded}
+          onCancel={onCancel}
+        />
+      ),
+    });
   };
   const onEditSucceeded = () => {
-    setModalOpenState(false);
+    setModalProps({ ...modalProps, open: false });
     getInventoryDocumentList();
   };
 
@@ -154,8 +180,7 @@ const InventoryDocumentManagement = () => {
   };
 
   const onView = async (id) => {
-    setModalContent(<></>);
-    setModalOpenState(true);
+    setModalProps({ ...modalProps, open: true, closable: true, content: <InventoryDocumentDescription id={id} /> });
   };
   //====================================================================
   //                        Child Components
@@ -179,14 +204,15 @@ const InventoryDocumentManagement = () => {
     <>
       <Ant.Modal
         centered
-        closable={false}
-        maskClosable={false}
-        {...modalSize}
-        open={modalOpenState}
+        closable={modalProps.closable}
+        maskClosable={modalProps.closable}
+        {...modalProps.size}
+        open={modalProps.open}
         getContainer={null}
         footer={null}
+        onCancel={onCancel}
       >
-        {modalContent}
+        {modalProps.content}
       </Ant.Modal>
       <Ant.Card
         style={{ ...styles.CARD_DEFAULT_STYLES }}
@@ -202,12 +228,7 @@ const InventoryDocumentManagement = () => {
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
-            columns={columns(
-              onDelete,
-              onEdit,
-              onView,
-              onViewCounterparty,
-            )}
+            columns={columns(onDelete, onEdit, onView, onViewCounterparty)}
             dataSource={dataSource}
             pagination={tableParams?.pagination}
             onChange={handleTableChange}
