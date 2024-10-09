@@ -4,7 +4,10 @@ import { PropTypes } from "prop-types";
 import * as url from "@/api/url";
 import qs from "qs";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import ProductPicker from "@/components/common/ProductPicker";
+import ProductPicker, {
+  GetSelectedValue as GetProductPickerValue,
+  FormatValueToDisplay as ProductPickerDisplayValue,
+} from "@/components/common/ProductPicker";
 import useRequestManager from "@/hooks/useRequestManager";
 import MyDatePicker, {
   FormatDateToDisplay,
@@ -17,14 +20,14 @@ import { useFetch, useFetchWithHandler } from "@/api";
 const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   const [form] = Ant.Form.useForm();
-
+  const [selectedItemValues, setSelectedItemValues] = useState({});
   const [wareHouseList, wareHouseLoading, wareHouseError] = api.useFetch(
     url.WAREHOUSE,
   );
   const [valueType, setValueType] = useState("0");
   const [warehouseId, setWarehouseId] = useState(null);
   const [brand, setBrand] = useState(null);
-  const [product, setProduct] = useState(null);
+  const [products, setProductLists] = useState(null);
   const [batchNumber, setBatchNumber] = useState(null);
   const [loadingProduct, setLoadingProduct] = useState(false);
   const [loadingBachNumber, setLoadingBachNumber] = useState(false);
@@ -56,23 +59,10 @@ const FilterPanel = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  useEffect(() => {
-    form.setFieldValue("Product",{brand:{id:1140 } ,product:{id:21768 }});
-    form.setFieldValue("Product",[1140,21768]);
-    form.setFieldValue("InventoryDocumentTypeId", 1);
-  }, []);
-
 
   useEffect(() => {
     console.log(warehouseId, "warehouseId");
   }, [warehouseId]);
-
-
-
-  useEffect(() => {
-    console.log(product?.brand?.id)
-    setBrand(product?.brand?.id);
-  }, [product]);
 
   useEffect(() => {
     const dateFilter = {};
@@ -88,7 +78,7 @@ const FilterPanel = (props) => {
         filterObject?.toIssueDateCalendarId,
       );
     }
-    setBrand(product?.brand?.id);
+
     filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
   }, []);
 
@@ -96,10 +86,27 @@ const FilterPanel = (props) => {
   //                        Functions
   //====================================================================
 
+
+  const onProductChange = async (value, option) => {
+    const selectedValue = GetProductPickerValue(option);
+
+    setSelectedItemValues({})
+      setSelectedItemValues({
+        brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
+        product: { id: selectedValue.product.id, name: selectedValue.product.name },
+        // productDetail: {
+        //   id: selectedValue.productDetail.productDetailId,
+        //   batchNumberId: selectedValue.productDetail.batchNumberId,
+        //   batchNumber: selectedValue.productDetail.batchNumber,
+        // },
+      });
+
+  };
   const onFinish = (values) => {
-
-    alert(JSON.stringify(values, null, 1, 1));
-
+    // alert(JSON.stringify(values, null, 1, 1));
+    console.log(values, "values");
+    console.log(selectedItemValues);
+    console.log(selectedItemValues?.product.id, "Product");
     const otherFilterItems = {};
     if (values?.fromIssueDateCalendarId) {
       otherFilterItems.fromIssueDateCalendarId = FormatDateToPost(
@@ -113,24 +120,25 @@ const FilterPanel = (props) => {
       );
     }
 
-    setProduct(values.ProductId);
-    setBrand(product?.brand?.id);
+    // setProduct(values.ProductId);
+    // setBrand(product?.brand?.id);
 
     //     let brandId=product?.brand?.id
     //     console.log(brandId,"kkkbrandId")
 
-  
-
     //    console.log( form.getFieldValue('ProductId'),"ProductId")
+
+      delete values?.Product[0],
+    delete values?.Product[1]
     onSubmit({
-      // ...values,
-      // ...otherFilterItems,
-      // ProductId: product?.product?.id,
-      ProductId : values.Product.product.id,
-      BrandId : values.Product.brand.id,
-      BatchNumberId: batchNumber?.productDetail?.batchNumberId,
-      // BrandId:product?.brand?.id,
+      ...values,
+      ...otherFilterItems,
+
+      ProductId: selectedItemValues?.product.id,
+      BrandId: selectedItemValues?.brand.id,
+      // BatchNumberId: batchNumber?.productDetail?.batchNumberId,
     });
+
   };
   //====================================================================
   //                        Child Components
@@ -142,7 +150,6 @@ const FilterPanel = (props) => {
   //====================================================================
   return (
     <>
-
       <Ant.Form
         requiredMark={false}
         form={form}
@@ -200,14 +207,14 @@ const FilterPanel = (props) => {
             label=" کالا "
           >
             <ProductPicker
-              // initialValues={(filterObject?.BrandId && filterObject?.ProductId 
+              // initialValues={(filterObject?.BrandId && filterObject?.ProductId
               //   &&  {brandId: filterObject?.BrandId, productId:  filterObject?.ProductId})|| null }
               disabled={loadingProduct}
               warehouseId={warehouseId}
               onLoadingChange={(value) => {
                 setLoadingProduct(value);
               }}
-              onChange={(selectedProduct) => setProduct(selectedProduct)}
+              onChange={onProductChange}
               mode="product"
             />
           </Ant.Form.Item>

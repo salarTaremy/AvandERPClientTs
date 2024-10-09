@@ -36,7 +36,7 @@ const ProductKardexList = (props) => {
 
   useEffect(() => {
     console.log('filterObject',filterObject)
-    filterObject &&  
+    filterObject &&
       setFilterCount(
         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
       );
@@ -56,13 +56,17 @@ const ProductKardexList = (props) => {
   //====================================================================
 
   const getAllProductKardex = async () => {
+    // delete filterObject.Product[0],
+    // delete filterObject.Product[1]
+
     const queryString={
       ...filterObject,
       BatchNumberId: BatchNumberId,
       productId: productId
 
     }
-    delete queryString.BrandId
+    delete queryString.BrandId;
+
     await ApiCall(`${url.PRODUCT_KARDEX}?${qs.stringify(queryString)}`);
   };
 
