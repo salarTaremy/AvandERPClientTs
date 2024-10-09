@@ -9,7 +9,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import useRequestManager from "@/hooks/useRequestManager";
 import { LoadingOutlined } from '@ant-design/icons';
 import { PiArrowSquareDownDuotone, PiArrowSquareUpDuotone } from "react-icons/pi";
-
+import ButtonList from "@/components/common/ButtonList";
+import FilterDrawer from "@/components/common/FilterDrawer";
+import FilterBedge from "@/components/common/FilterBedge";
+import FilterPanel from './FilterPanel';
 
 const ProductKardexDetailList = () => {
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -17,6 +20,10 @@ const ProductKardexDetailList = () => {
     useRequestManager({ error: error });
     const [dataSource, setDataSource] = useState(null);
     const [hasMore, setHasMore] = useState(true)
+    const [filterObject, setFilterObject] = useState({});
+    const [filterCount, setFilterCount] = useState(0);
+    const [openFilter, setOpenFilter] = useState(false);
+    const [position, setPosition] = useState()
     const [pagination, setPagination] = useState({
         current: 1,
         pageSize: 10,
@@ -26,11 +33,20 @@ const ProductKardexDetailList = () => {
     //                        useEffects
     //====================================================================
     useEffect(() => {
+        filterObject &&
+            setFilterCount(
+                Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+            );
+        !filterObject && setFilterCount(0);
         getAllProductKardexDetail();
-    }, [pagination.current, pagination.pageSize]);
+    }, [pagination.current, pagination.pageSize, filterObject]);
 
     useEffect(() => {
-        listData?.isSuccess && setScrollableContent((scrollableContent) => (scrollableContent.concat(listData?.data)));
+        if (listData?.isSuccess) {
+            if (filterCount > 0) { setScrollableContent((listData?.data)) }
+            else
+                setScrollableContent((scrollableContent) => (scrollableContent.concat(listData?.data)));
+        }
     }, [listData]);
 
     useEffect(() => {
@@ -42,10 +58,24 @@ const ProductKardexDetailList = () => {
 
     const getAllProductKardexDetail = async () => {
         const queryString = qs.stringify({
+            ...filterObject,
             pageNumber: pagination.current,
             pageSize: pagination.pageSize,
         });
         await ApiCall(`${url.PRODUCT_KARDEX_DETAIL}?${queryString}`)
+    };
+
+    const onFilterChanged = async (filterObject) => {
+        setFilterObject(filterObject);
+        setOpenFilter(false);
+        setScrollableContent([]);
+        setPagination({ ...pagination, current: 1 })
+    };
+    const onRemoveFilter = () => {
+        setFilterObject(null);
+        setOpenFilter(false);
+        setScrollableContent([]);
+        setPagination({ ...pagination, current: 1 })
     };
 
     const fetchMoreData = () => {
@@ -164,27 +194,38 @@ const ProductKardexDetailList = () => {
     //====================================================================
     return (
         <>
-            <h3>جزئیات کاردکس کالا</h3>
-            <br></br>
-            <InfiniteScroll
-                dataLength={scrollableContent?.length}
-                next={fetchMoreData}
-                hasMore={hasMore}
-                scrollThreshold={"0.9"}
-                loader={<LoadingOutlined />}
-                height={"80vh"}
-                endMessage={<Ant.Typography.Text >{"اطلاعات بیشتری برای نمایش وجود ندارد."}</Ant.Typography.Text>}
-                style={{ textAlign: "center" }}
+            <h3>کاردکس کالا با جزئیات</h3>
+            <ButtonList
+                filterCount={filterCount}
+                onFilter={() => {
+                    setOpenFilter(true);
+                }}
+            />
+            <FilterDrawer
+                open={openFilter}
+                onClose={() => setOpenFilter(false)}
+                onRemoveFilter={onRemoveFilter}
             >
-
-                <Ant.Timeline className='m-5'
-                    mode="alternate"
-                    items={dataSource}
-                    loading={loading}
-                />
-
-            </InfiniteScroll>
-
+                <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+            </FilterDrawer>
+            <FilterBedge filterCount={filterCount}>
+                <InfiniteScroll
+                    dataLength={scrollableContent?.length}
+                    next={fetchMoreData}
+                    hasMore={hasMore}
+                    scrollThreshold={"0.9"}
+                    loader={<LoadingOutlined />}
+                    height={"80vh"}
+                    endMessage={<Ant.Typography.Text >{"اطلاعات بیشتری برای نمایش وجود ندارد."}</Ant.Typography.Text>}
+                    style={{ textAlign: "center" }}
+                >
+                    <Ant.Timeline className='m-5'
+                        mode="alternate"
+                        items={dataSource}
+                        loading={loading}
+                    />
+                </InfiniteScroll>
+            </FilterBedge>
         </>
     )
 }
