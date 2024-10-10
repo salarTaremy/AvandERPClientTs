@@ -12,7 +12,6 @@ import {
   usePostWithHandler,
 } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
-import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
 import { FaFileMedical } from "react-icons/fa";
 import { PiArrowLineDownLeftLight } from "react-icons/pi";
@@ -45,8 +44,12 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const [modalOpenState, setModalOpenState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
-  const [issueTime, setIssueime] = useState("");
-  const [warehouseId, setWarehouseId] = useState(0);
+  const [inventoryDocumentData, setInventoryDocumentData] = useState({
+    issueTime: "",
+    warehouseId: 0,
+    documentTypeId: 0,
+    documentTypeNature: 0,
+  });
   const [documentDetailDataSource, setDocumentDetailDataSource] = useState([]);
 
   useRequestManager({ error: documentTypeListError });
@@ -72,11 +75,28 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   //                        Functions
   //====================================================================
   const getLastDocumentNumber = async () => {
-    await docNumberApiCall(url.INVENTORY_DOCUMENT_GET_LAST_DOCUMENT_NUMBER);
+    const queryString = qs.stringify({
+      warehouseId: inventoryDocumentData.warehouseId,
+      inventoryDocumentTypeId: inventoryDocumentData.documentTypeId,
+    });
+    await docNumberApiCall(
+      `${url.INVENTORY_DOCUMENT_GET_LAST_DOCUMENT_NUMBER}?${queryString}`,
+    );
   };
 
   const timePickerOnChange = (time, timeString) => {
-    setIssueime(timeString);
+    setInventoryDocumentData((inventoryDocumentData) => ({
+      ...inventoryDocumentData,
+      issueTime: timeString,
+    }));
+  };
+
+  const documentTypeOnChange = (value, option) => {
+    setInventoryDocumentData((inventoryDocumentData) => ({
+      ...inventoryDocumentData,
+      documentTypeId: value,
+      documentTypeNature: option.nature,
+    }));
   };
 
   const getCounterpartyForDropDown = async (searchText) => {
@@ -101,7 +121,8 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   const onDocumentDetailAdd = () => {
     setModalContent(
       <InventoryDocumentDetailAddForm
-        warehouseId={warehouseId}
+        warehouseId={inventoryDocumentData.warehouseId}
+        documentTypeNature={inventoryDocumentData.documentTypeNature}
         onSuccess={onDocumentDetailAddSucceeded}
         onCancel={() => setModalOpenState(false)}
         key={uuid.v1()}
@@ -135,13 +156,16 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   };
 
   const onDocumentDetailDelete = (key) => {
-    setDocumentDetailDataSource((documentDetailDataSource) => {
-      documentDetailDataSource.splice(documentDetailDataSource.indexOf(key), 1);
-    });
+    setDocumentDetailDataSource((documentDetailDataSource) =>
+      documentDetailDataSource.filter((item) => item.key !== key),
+    );
   };
 
   const onWarehouseChange = (value, option) => {
-    setWarehouseId(value);
+    setInventoryDocumentData((inventoryDocumentData) => ({
+      ...inventoryDocumentData,
+      warehouseId: value,
+    }));
   };
 
   const onFinish = async (formValues) => {
@@ -151,7 +175,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
       inventoryDocumentTypeId: formValues?.inventoryDocumentTypeId,
       warehouseId: formValues?.warehouseId,
       issueDateCalendarId: FormatDateToPost(formValues?.issueDateCalendarId),
-      issueTime: issueTime,
+      issueTime: inventoryDocumentData.issueTime,
       counterpartyId: formValues?.counterpartyId?.value,
       secondCounterpartyId: formValues?.secondCounterpartyId?.value,
       oppositeWarehouseId: formValues?.oppositeWarehouseId,
@@ -165,7 +189,12 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
   //                        Child Component
   //====================================================================
   const tableTitle = () => {
-    return (warehouseId && <ButtonList onAdd={onDocumentDetailAdd} /> || <></>);
+    return (
+      (inventoryDocumentData.warehouseId &&
+        inventoryDocumentData.documentTypeId && (
+          <ButtonList onAdd={onDocumentDetailAdd} />
+        )) || <></>
+    );
   };
   //====================================================================
   //                        Component
@@ -191,7 +220,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
       >
         <Ant.Row gutter={[4, 16]}>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CustomContent bordered>
+            <Ant.Card bordered>
               <Ant.Row gutter={10}>
                 <Ant.Col xs={24} sm={24} md={12} lg={4}>
                   <Ant.Form.Item
@@ -219,7 +248,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                     name={"folioReferenceNumber"}
                     label="شماره عطف"
                   >
-                    <Ant.InputNumber style={{ width: "100%" }}/>
+                    <Ant.InputNumber style={{ width: "100%" }} />
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col xs={24} sm={24} md={6} lg={5}>
@@ -254,6 +283,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                       disabled={documentTypeListLoading}
                       loading={documentTypeListLoading}
                       options={documentTypeData?.data}
+                      onChange={documentTypeOnChange}
                       showSearch
                       filterOption={(searchText, option) =>
                         option.title
@@ -334,10 +364,10 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                   </Ant.Form.Item>
                 </Ant.Col>
               </Ant.Row>
-            </CustomContent>
+            </Ant.Card>
           </Ant.Col>
           <Ant.Col xs={24} sm={24} md={24} lg={24}>
-            <CustomContent bordered scroll height="40vh">
+            <Ant.Card bordered style={{ overFlow: "auto", height: "50vh" }}>
               <Ant.Table
                 columns={documentDetailColumns(onDocumentDetailDelete)}
                 dataSource={documentDetailDataSource}
@@ -346,7 +376,7 @@ const InventoryDocumentAddForm = ({ onSuccess, onCancel }) => {
                 size="middle"
                 bordered={false}
               />
-            </CustomContent>
+            </Ant.Card>
           </Ant.Col>
           <Ant.Col span={24}>
             <Ant.Row justify={"end"} gutter={[8, 16]}>

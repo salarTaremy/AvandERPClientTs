@@ -23,7 +23,8 @@ const ProductKardexDetailList = () => {
     const [filterObject, setFilterObject] = useState({});
     const [filterCount, setFilterCount] = useState(0);
     const [openFilter, setOpenFilter] = useState(false);
-    const [position, setPosition] = useState()
+    const [width, setWidth] = useState(window.innerWidth)
+    const [isMobile, setIsMobile] = useState(false)
     const [pagination, setPagination] = useState({
         current: 1,
         pageSize: 10,
@@ -32,6 +33,15 @@ const ProductKardexDetailList = () => {
     //====================================================================
     //                        useEffects
     //====================================================================
+    useEffect(() => {
+
+        if (width < 768) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }, [width])
+
     useEffect(() => {
         filterObject &&
             setFilterCount(
@@ -52,6 +62,13 @@ const ProductKardexDetailList = () => {
     useEffect(() => {
         createProductDetailItems();
     }, [scrollableContent])
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange)
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange)
+        }
+    }, [])
     //====================================================================
     //                        Functions
     //====================================================================
@@ -88,9 +105,18 @@ const ProductKardexDetailList = () => {
         }
     };
 
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth)
+    }
+
     const renderTimelineItem = (item) => {
         return <CustomContent shadow="true">
             <Ant.Row>
+                {isMobile && <Ant.Col lg={14} md={24} sm={24} xs={24} >
+                    <Ant.Typography.Text type="secondary">
+                        {`ساعت: ${item.issueTime?.substring(0, 8)} - ${item.issueDate} `}
+                    </Ant.Typography.Text>
+                </Ant.Col>}
                 <Ant.Col lg={14} md={24} sm={24} xs={24} >
                     <Ant.Typography.Text type="secondary">
                         {`نام انبار: ${item.warehouseName}`}
@@ -164,15 +190,19 @@ const ProductKardexDetailList = () => {
     const createProductDetailItems = () => {
         let itemList = [];
         scrollableContent?.map((item) => {
+            let label = null
+            if (!isMobile) {
+                label = <Ant.Typography.Text type="secondary">
+                    {` ${item.issueTime?.substring(0, 8)} - ${item.issueDate} `}
+                </Ant.Typography.Text>
+            }
             itemList.push({
                 key: item.id,
                 dot: (item.inventoryDocumentTypeNature == 1 &&
                     <PiArrowSquareDownDuotone style={{ fontSize: '30px', color: 'green' }} />) ||
                     < PiArrowSquareUpDuotone style={{ fontSize: '30px', color: 'red' }} />,
                 position: (item.inventoryDocumentTypeNature == 1 && 'right') || 'left',
-                label: <Ant.Typography.Text type="secondary">
-                    {` ${item.issueTime?.substring(0, 8)} - ${item.issueDate} `}
-                </Ant.Typography.Text>,
+                label: label,
                 children: (
                     <>
                         {item.isReserve && <Ant.Badge.Ribbon
@@ -220,7 +250,7 @@ const ProductKardexDetailList = () => {
                     style={{ textAlign: "center" }}
                 >
                     <Ant.Timeline className='m-5'
-                        mode="alternate"
+                        mode={isMobile && 'left' || 'alternate'}
                         items={dataSource}
                         loading={loading}
                     />
