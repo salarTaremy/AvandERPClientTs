@@ -161,7 +161,6 @@ const FilterPanel = (props) => {
   //====================================================================
   return (
     <>
-      <pre>{JSON.stringify(filterObject, null, 1, 1)}</pre>
       <Ant.Form
         requiredMark={false}
         form={form}
@@ -186,15 +185,7 @@ const FilterPanel = (props) => {
             onChange={(val) => setWarehouseId(val)}
           />
         </Ant.Form.Item>
-        <Ant.Form.Item
-          label="کالا و سری ساخت"
-          rules={[
-            {
-              required: true,
-              message: "فیلد کالا اجباری است",
-            },
-          ]}
-        >
+        <Ant.Form.Item label="کالا و سری ساخت">
           <Ant.Segmented
             disabled={loadingProduct || loadingBachNumber}
             block
@@ -215,9 +206,20 @@ const FilterPanel = (props) => {
         </Ant.Form.Item>
         {valueType === "0" && (
           <Ant.Form.Item
-            rules={[{ required: true }]}
             name={"Product"}
             label=" کالا "
+            rules={[
+              {
+                validator: (_, value) =>
+                  new Promise((resolve, reject) => {
+                    if (value?.length != 2) {
+                      reject(new Error("انتخاب کالا اجباری است"));
+                    } else {
+                      resolve();
+                    }
+                  }),
+              },
+            ]}
           >
             <ProductPicker
               disabled={loadingProduct}
@@ -234,7 +236,18 @@ const FilterPanel = (props) => {
           <Ant.Form.Item
             label="برند، کالا و سری ساخت"
             name={"productDetail"}
-            rules={[{ required: false }]}
+            rules={[
+              {
+                validator: (_, value) =>
+                  new Promise((resolve, reject) => {
+                    if (value?.length != 3) {
+                      reject(new Error("انتخاب کالا و سری ساخت اجباری است"));
+                    } else {
+                      resolve();
+                    }
+                  }),
+              },
+            ]}
           >
             <ProductPicker
               disabled={loadingBachNumber}
