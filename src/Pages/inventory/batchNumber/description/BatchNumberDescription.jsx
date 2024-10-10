@@ -55,7 +55,7 @@ const BatchNumberDescription = (props) => {
                 <Ant.Row gutter={[8, 16]}>
                   <Ant.Col span={24}>
                     <Ant.Typography.Text>
-                      {"سری ساخت"}: {batchNumberData?.data?.batchNumber}
+                      {`عمر مفید: ${batchNumberData?.data?.shelfLife} ماه`}
                     </Ant.Typography.Text>
                   </Ant.Col>
                   <Ant.Col xs={24} sm={24} md={12} lg={12}>
