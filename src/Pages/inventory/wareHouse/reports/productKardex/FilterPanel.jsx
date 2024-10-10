@@ -25,7 +25,7 @@ const FilterPanel = (props) => {
     url.WAREHOUSE,
   );
   const [valueType, setValueType] = useState(
-    filterObject?.productDetail ? "1" : "0",
+    filterObject?.productAndBatchNumber ? "1" : "0",
   );
   const [warehouseId, setWarehouseId] = useState(null);
   const [loadingProduct, setLoadingProduct] = useState(false);
@@ -81,20 +81,26 @@ const FilterPanel = (props) => {
 
   const handleTypeChange = (value) => {
     if (value === "1") {
-      form.setFieldValue("ProductId", null);
+      form.setFieldValue("Product", null);
       setSelectedItemValues((prev) => ({
         ...prev,
         product: null,
       }));
     } else {
-      form.setFieldValue("BatchNumberId", null);
+      form.setFieldValue("productAndBatchNumber", null);
       setSelectedItemValues((prev) => ({
         ...prev,
-        productDetail: null,
+        productAndBatchNumber: null,
       }));
     }
 
     setValueType(value);
+  };
+  const onWarehouseChange = (val) => {
+    setWarehouseId(val);
+
+    form.setFieldValue("Product", null);
+    form.setFieldValue("productAndBatchNumber", null);
   };
   const onProductChange = async (value, option) => {
     const selectedValue = GetProductPickerValue(option);
@@ -116,10 +122,10 @@ const FilterPanel = (props) => {
         id: selectedValue.product.id,
         name: selectedValue.product.name,
       },
-      productDetail: {
-        id: selectedValue?.productDetail?.productDetailId,
-        batchNumberId: selectedValue?.productDetail?.batchNumberId,
-        batchNumber: selectedValue?.productDetail?.batchNumber,
+      productAndBatchNumber: {
+        id: selectedValue?.productAndBatchNumber?.productAndBatchNumberId,
+        batchNumberId: selectedValue?.productAndBatchNumber?.batchNumberId,
+        batchNumber: selectedValue?.productAndBatchNumber?.batchNumber,
       },
     });
   };
@@ -147,7 +153,7 @@ const FilterPanel = (props) => {
       ...otherFilterItems,
       ProductId: selectedItemValues?.product?.id ?? ProductId,
       BatchNumberId:
-        selectedItemValues?.productDetail?.batchNumberId ?? BatchNumberId,
+        selectedItemValues?.productAndBatchNumber?.batchNumberId ?? BatchNumberId,
       BrandId: selectedItemValues?.brand?.id,
     });
   };
@@ -182,7 +188,8 @@ const FilterPanel = (props) => {
             loading={wareHouseLoading}
             options={wareHouseList?.data}
             fieldNames={{ label: "title", value: "id" }}
-            onChange={(val) => setWarehouseId(val)}
+            // onChange={(val) => setWarehouseId(val)}
+            onChange={onWarehouseChange}
           />
         </Ant.Form.Item>
         <Ant.Form.Item label="کالا و سری ساخت">
@@ -199,7 +206,7 @@ const FilterPanel = (props) => {
                 value: "1",
               },
             ]}
-            defaultValue={filterObject?.productDetail ? "1" : "0"}
+            defaultValue={filterObject?.productAndBatchNumber ? "1" : "0"}
             // onChange={(e) => setValueType(e)}
             onChange={handleTypeChange}
           />
@@ -235,7 +242,7 @@ const FilterPanel = (props) => {
         {valueType === "1" && (
           <Ant.Form.Item
             label="برند، کالا و سری ساخت"
-            name={"productDetail"}
+            name={"productAndBatchNumber"}
             rules={[
               {
                 validator: (_, value) =>
@@ -256,7 +263,7 @@ const FilterPanel = (props) => {
               }}
               onChange={onBatchNumberChange}
               warehouseId={warehouseId}
-              mode="productDetail"
+              mode="productAndBatchNumber"
             />
           </Ant.Form.Item>
         )}

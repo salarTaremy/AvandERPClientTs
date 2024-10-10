@@ -39,7 +39,7 @@ const ProductKardexList = (props) => {
       filterObject &&
       Object.keys(filterObject).filter(
         (key) =>
-          key !== "Product" && key !== "productDetail" && key !== "BrandId",
+          key !== "Product" && key !== "productAndBatchNumber" && key !== "BrandId",
       );
 
     const newFilterObject = {};
@@ -70,7 +70,7 @@ const ProductKardexList = (props) => {
     const newFilterObject = { ...filterObject };
 
     delete newFilterObject.Product;
-    delete newFilterObject.productDetail;
+    delete newFilterObject.productAndBatchNumber;
     delete newFilterObject.BrandId;
 
     const queryString = {
