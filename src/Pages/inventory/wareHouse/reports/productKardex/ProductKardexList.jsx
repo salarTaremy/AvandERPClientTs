@@ -35,40 +35,53 @@ const ProductKardexList = (props) => {
   //====================================================================
 
   useEffect(() => {
-    console.log('filterObject',filterObject)
-    filterObject &&
-      setFilterCount(
-        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+    const filteredKeys =
+      filterObject &&
+      Object.keys(filterObject).filter(
+        (key) =>
+          key !== "Product" && key !== "productDetail" && key !== "BrandId",
       );
-    !filterObject && setFilterCount(0);
-    !openFilter && getAllProductKardex();
-  }, [filterObject]);
+
+    const newFilterObject = {};
+    filteredKeys?.forEach((key) => {
+      newFilterObject[key] = filterObject[key];
+    });
+
+    setFilterCount(filteredKeys?.filter((key) => filterObject[key]).length);
+
+    if (!filteredKeys?.length) {
+      setFilterCount(0);
+    }
+
+    if (!openFilter) {
+      getAllProductKardex(newFilterObject);
+    }
+  }, [filterObject, openFilter]);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
   }, [listData]);
-
-
-
 
   //====================================================================
   //                        Functions
   //====================================================================
 
   const getAllProductKardex = async () => {
-    const newFilterObject = {...filterObject}
-    
-    // delete newFilterObject.Product[0],
-    // delete newFilterObject.Product[1]
-    delete newFilterObject.Product
+    const newFilterObject = { ...filterObject };
 
-    const queryString={
+    delete newFilterObject.Product;
+    delete newFilterObject.productDetail;
+    delete newFilterObject.BrandId;
+
+    const queryString = {
       ...newFilterObject,
-      BatchNumberId: BatchNumberId,
-      productId: productId
+    };
+    const hasValidFilters = Object.values(queryString).some((value) => value);
+    console.log(hasValidFilters, "hasValidFilters");
 
+    if (!hasValidFilters) {
+      return;
     }
-    delete queryString.BrandId;
 
     await ApiCall(`${url.PRODUCT_KARDEX}?${qs.stringify(queryString)}`);
   };
@@ -139,24 +152,24 @@ const ProductKardexList = (props) => {
         title={"کاردکس تعدادی کالا"}
         type="inner"
       >
-      <FilterDrawer
-        open={openFilter}
-        onClose={() => setOpenFilter(false)}
-        onRemoveFilter={onRemoveFilter}
-      >
-        <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-      </FilterDrawer>
-      <FilterBedge filterCount={filterCount}>
-        <Ant.Table
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          columns={columns(onProductKardexView, onBatchNumberView)}
-          dataSource={dataSource}
-          pagination={pagination}
-          onChange={onTableChange}
-          loading={loading}
-        />
-      </FilterBedge>
+        <FilterDrawer
+          open={openFilter}
+          onClose={() => setOpenFilter(false)}
+          onRemoveFilter={onRemoveFilter}
+        >
+          <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+        </FilterDrawer>
+        <FilterBedge filterCount={filterCount}>
+          <Ant.Table
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            columns={columns(onProductKardexView, onBatchNumberView)}
+            dataSource={dataSource}
+            pagination={pagination}
+            onChange={onTableChange}
+            loading={loading}
+          />
+        </FilterBedge>
       </Ant.Card>
     </>
   );
