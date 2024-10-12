@@ -58,7 +58,7 @@ const WarehouseStockList = (props) => {
     if (!openFilter) {
       getAllWarehouseStock(newFilterObject);
     }
-  }, [filterObject, openFilter]);
+  }, [filterObject]);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);

@@ -52,13 +52,15 @@ const ProductKardexList = (props) => {
     setFilterCount(filteredKeys?.filter((key) => filterObject[key]).length);
 
     if (!filteredKeys?.length) {
-      setFilterCount(0);
+     setFilterCount(0);
     }
 
     if (!openFilter) {
-      getAllProductKardex(newFilterObject);
+    getAllProductKardex(newFilterObject);
     }
-  }, [filterObject, openFilter]);
+  }, [filterObject]);
+
+
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -69,6 +71,7 @@ const ProductKardexList = (props) => {
   //====================================================================
 
   const getAllProductKardex = async () => {
+
     const newFilterObject = { ...filterObject };
 
     delete newFilterObject.Product;
