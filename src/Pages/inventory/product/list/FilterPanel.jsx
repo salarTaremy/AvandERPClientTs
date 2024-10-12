@@ -96,6 +96,7 @@ const FilterPanel = (props) => {
           rules={[{ required: false }]}
         >
           <Ant.Select
+           allowClear
             {...commonOptions}
             placeholder="لطفا انتخاب کنید..."
             showSearch
@@ -111,6 +112,7 @@ const FilterPanel = (props) => {
           rules={[{ required: false }]}
         >
           <Ant.Select
+          allowClear
             {...commonOptions}
             placeholder="لطفا انتخاب کنید..."
             showSearch
@@ -129,7 +131,7 @@ const FilterPanel = (props) => {
           <Ant.Select
             {...commonOptions}
             mode="multiple"
-            allowClear={true}
+            allowClear
             placeholder={"انتخاب کنید..."}
             disabled={brandLoading}
             loading={brandLoading}
@@ -143,6 +145,7 @@ const FilterPanel = (props) => {
           rules={[{ required: false }]}
         >
           <Ant.Select
+           allowClear
             placeholder="لطفا انتخاب کنید..."
             disabled={warehouseListLoading}
             loading={warehouseListLoading}
@@ -156,6 +159,7 @@ const FilterPanel = (props) => {
           rules={[{ len: maxLenGTIN }]}
         >
           <Ant.Input
+           allowClear
             placeholder="216012345..."
             maxLength={maxLenGTIN}
             showCount
@@ -167,6 +171,7 @@ const FilterPanel = (props) => {
           rules={[{ len: maxLenTaxId }]}
         >
           <Ant.Input
+           allowClear
             placeholder="27XXXXXXXXXXXXXX"
             maxLength={maxLenTaxId}
             showCount
