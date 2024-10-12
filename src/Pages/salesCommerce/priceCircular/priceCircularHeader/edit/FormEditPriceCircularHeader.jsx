@@ -180,27 +180,27 @@ const FormEditPriceCircularHeader = (props) => {
                 <Ant.Input.TextArea allowClear showCount maxLength={400} />
               </Ant.Form.Item>
             </Ant.Col>
-            <Ant.Col span={12}>
-              <Ant.Form.Item
-                name="isActive"
-                label="فعال"
-                rules={[{ required: true }]}
-              >
-                <Ant.Switch />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col span={12}>
-              <Ant.Flex justify="flex-end">
-                <Ant.Space align="center">
-                  <Ant.Tooltip placement="right" title={"گشایش بخشنامه"}>
-                    <Ant.Button
-                      onClick={showModalPriceCircularDetail}
-                      icon={<LuFolderOpen className="text-purple-600" />}
-                    />
-                  </Ant.Tooltip>
-                </Ant.Space>
+            <Ant.Col span={24}>
+              <Ant.Flex justify="space-between" align="center">
+                <Ant.Form.Item
+                  name="isActive"
+                  label="فعال"
+                  rules={[{ required: true }]}
+                >
+                  <Ant.Switch />
+                </Ant.Form.Item>
+
+                <Ant.Tooltip placement="right" title={"گشایش بخشنامه"}>
+                  <Ant.Button
+                    onClick={showModalPriceCircularDetail}
+                    icon={<LuFolderOpen className="text-purple-600" />}
+                  />
+                </Ant.Tooltip>
               </Ant.Flex>
             </Ant.Col>
+            {/* <Ant.Col span={12}>
+
+            </Ant.Col> */}
             <Ant.Col span={24}>
               <Ant.Form.Item>
                 <Ant.Button
