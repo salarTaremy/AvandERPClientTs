@@ -22,8 +22,35 @@ const BatchNumberDescription = (props) => {
     `${url.BATCH_NUMBER}/${id}`,
   );
   useRequestManager({ error: batchNumberError });
+  //====================================================================
+  //                        Functions
+  //====================================================================
+  const getDaysLeftUntilExpirationInfo = (val) => {
+    let result;
 
+    switch (true) {
+      case (val <= 0):
+        result = { caption: 'منقضی شده', color: 'red' };
+        break;
+      case (val < 120):
+        result = { caption: `فقط ${Math.floor(val / 30)} ماه و ${(val % 30)} روز تا انقضا`, color: 'orange' };
+        break;
+      case (val <= 365):
+        result = { caption: `${Math.floor(val / 30)} ماه و ${(val % 30)} روز تا انقضا`, color: 'blue' };
+        break;
+      case (val > 365):
+        if (Math.floor((val % 365) / 30) > 0) {
+          result = { caption: `${Math.floor(val / 365)} سال و ${Math.floor((val % 365) / 30)} ماه تا انقضا`, color: 'green' };
+        } else {
+          result = { caption: `${Math.floor(val / 365)} سال تا انقضا`, color: 'green' };
+        }
+        break;
+      default:
+        result = { caption: `${val}مقدار نامعتبر`, color: 'gray' };
+    }
 
+    return result;
+  }
 
   //====================================================================
   //                        Component
@@ -35,7 +62,8 @@ const BatchNumberDescription = (props) => {
           title={` مشاهده سری ساخت (${batchNumberData?.data?.batchNumber}) `}
         />
         <Ant.Badge.Ribbon
-          text={`عمر مفید${batchNumberData?.data?.shelfLife} ماه`}
+          color={getDaysLeftUntilExpirationInfo(batchNumberData?.data?.daysLeftUntilExpiration).color}
+          text={getDaysLeftUntilExpirationInfo(batchNumberData?.data?.daysLeftUntilExpiration).caption}
         >
           <CustomContent bordered>
             <Ant.Row>
@@ -55,7 +83,7 @@ const BatchNumberDescription = (props) => {
                 <Ant.Row gutter={[8, 16]}>
                   <Ant.Col span={24}>
                     <Ant.Typography.Text>
-                      {"سری ساخت"}: {batchNumberData?.data?.batchNumber}
+                      {`عمر مفید: ${batchNumberData?.data?.shelfLife} ماه`}
                     </Ant.Typography.Text>
                   </Ant.Col>
                   <Ant.Col xs={24} sm={24} md={12} lg={12}>
