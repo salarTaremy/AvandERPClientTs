@@ -123,7 +123,7 @@ const FilterPanel = (props) => {
 
         <Ant.Form.Item
           name={"brandId"}
-          label="نام برند"
+          label="برند"
           valuePropName="checked"
         >
           <Ant.Select

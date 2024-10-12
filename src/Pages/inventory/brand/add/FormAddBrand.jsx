@@ -93,7 +93,7 @@ const FormAddBrand = (props) => {
         </Ant.Form.Item>
         <Ant.Form.Item
           name="name"
-          label={"نام برند"}
+          label={"برند"}
           rules={[{ required: true }]}
         >
           <Ant.Input allowClear showCount maxLength={200} />
