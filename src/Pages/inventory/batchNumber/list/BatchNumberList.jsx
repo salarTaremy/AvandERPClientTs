@@ -76,7 +76,7 @@ const BatchNumberList = () => {
     setModalState(true);
   };
   const onDelete = async (id) => {
-    await delApiCall(`${url.SUPPLIER}/${id}`);
+    await delApiCall(`${url.BATCH_NUMBER}/${id}`);
   };
 
   const onSuccessAdd = () => {
