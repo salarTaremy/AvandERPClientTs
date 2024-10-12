@@ -13,14 +13,12 @@ import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { PropTypes } from "prop-types";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
-import { useFetchWithHandler, useDelWithHandler } from "@/api";
+import { useFetchWithHandler } from "@/api";
 //====================================================================
 //                        Declaration
 //====================================================================
 const ProductKardexList = (props) => {
-  const { BatchNumberId, productId } = props;
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
-
   const [dataSource, setDataSource] = useState(null);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
@@ -34,12 +32,16 @@ const ProductKardexList = (props) => {
   //                        useEffects
   //====================================================================
 
+
+
   useEffect(() => {
     const filteredKeys =
       filterObject &&
       Object.keys(filterObject).filter(
         (key) =>
-          key !== "Product" && key !== "productAndBatchNumber" && key !== "BrandId",
+          key !== "Product" &&
+          key !== "productAndBatchNumber" &&
+          key !== "BrandId",
       );
 
     const newFilterObject = {};
@@ -77,8 +79,6 @@ const ProductKardexList = (props) => {
       ...newFilterObject,
     };
     const hasValidFilters = Object.values(queryString).some((value) => value);
-    console.log(hasValidFilters, "hasValidFilters");
-
     if (!hasValidFilters) {
       return;
     }
