@@ -11,20 +11,16 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
-
-import { PropTypes } from "prop-types";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
 import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription";
-import DetailWareHouse from "../../../../inventory/wareHouse/description/DetailWareHouse"
+import DetailWareHouse from "../../../../inventory/wareHouse/description/DetailWareHouse";
 import { useFetchWithHandler } from "@/api";
 
 //====================================================================
 //                        Declaration
 //====================================================================
 const WarehouseStockList = (props) => {
-  //   const { BatchNumberId, productId } = props;
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
-
   const [dataSource, setDataSource] = useState(null);
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
@@ -37,21 +33,32 @@ const WarehouseStockList = (props) => {
   //====================================================================
   //                        useEffects
   //====================================================================
-  //   useEffect(() => {
-  //     console.log(BatchNumberId, "BatchNumberId");
-  //     console.log(productId, "productId");
-  //   }, [BatchNumberId, productId]);
 
   useEffect(() => {
-    filterObject &&
-      setFilterCount(
-        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+    const filteredKeys =
+      filterObject &&
+      Object.keys(filterObject).filter(
+        (key) =>
+          key !== "Product" &&
+          key !== "productAndBatchNumber" &&
+          key !== "BrandId",
       );
-    !filterObject && setFilterCount(0);
-    !openFilter && getAllWarehouseStock();
-  }, [filterObject]);
 
+    const newFilterObject = {};
+    filteredKeys?.forEach((key) => {
+      newFilterObject[key] = filterObject[key];
+    });
 
+    setFilterCount(filteredKeys?.filter((key) => filterObject[key]).length);
+
+    if (!filteredKeys?.length) {
+      setFilterCount(0);
+    }
+
+    if (!openFilter) {
+      getAllWarehouseStock(newFilterObject);
+    }
+  }, [filterObject, openFilter]);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -62,18 +69,19 @@ const WarehouseStockList = (props) => {
   //====================================================================
 
   const getAllWarehouseStock = async () => {
-    // setFilterObject({
-    //   ...filterObject,
-    //   BatchNumberId: BatchNumberId,
-    //   productId: productId,
-    // });
-    const queryString = {
-      ...filterObject,
-      //   BatchNumberId: BatchNumberId,
-      //   productId: productId
-    };
+    const newFilterObject = { ...filterObject };
+    delete newFilterObject.Product;
+    delete newFilterObject.productAndBatchNumber;
+    delete newFilterObject.BrandId;
 
-    console.log(queryString, "queryString");
+    const queryString = {
+      ...newFilterObject,
+    };
+    const hasValidFilters = Object.values(queryString).some((value) => value);
+    if (!hasValidFilters) {
+      return;
+    }
+
     await ApiCall(`${url.WAREHOUSE_STOCK_GET}?${qs.stringify(queryString)}`);
   };
 
@@ -170,7 +178,7 @@ const WarehouseStockList = (props) => {
               onProductKardexView,
               onBatchNumberView,
               onWarehouseView,
-              onProductView
+              onProductView,
             )}
             dataSource={dataSource}
             pagination={pagination}

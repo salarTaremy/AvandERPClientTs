@@ -81,13 +81,13 @@ const FilterPanel = (props) => {
 
   const handleTypeChange = (value) => {
     if (value === "1") {
-      form.setFieldValue("Product", null);
+      form.setFieldsValue("ProductId", null);
       setSelectedItemValues((prev) => ({
         ...prev,
         product: null,
       }));
     } else {
-      form.setFieldValue("productAndBatchNumber", null);
+      form.setFieldsValue("BatchNumberId", null);
       setSelectedItemValues((prev) => ({
         ...prev,
         productAndBatchNumber: null,
@@ -123,9 +123,9 @@ const FilterPanel = (props) => {
         name: selectedValue.product.name,
       },
       productAndBatchNumber: {
-        id: selectedValue?.productAndBatchNumber?.productAndBatchNumberId,
-        batchNumberId: selectedValue?.productAndBatchNumber?.batchNumberId,
-        batchNumber: selectedValue?.productAndBatchNumber?.batchNumber,
+        id: selectedValue?.productDetail?.productDetailId,
+        batchNumberId: selectedValue?.productDetail?.batchNumberId,
+        batchNumber: selectedValue?.productDetail?.batchNumber,
       },
     });
   };
@@ -188,7 +188,6 @@ const FilterPanel = (props) => {
             loading={wareHouseLoading}
             options={wareHouseList?.data}
             fieldNames={{ label: "title", value: "id" }}
-            // onChange={(val) => setWarehouseId(val)}
             onChange={onWarehouseChange}
           />
         </Ant.Form.Item>
@@ -207,7 +206,6 @@ const FilterPanel = (props) => {
               },
             ]}
             defaultValue={filterObject?.productAndBatchNumber ? "1" : "0"}
-            // onChange={(e) => setValueType(e)}
             onChange={handleTypeChange}
           />
         </Ant.Form.Item>
