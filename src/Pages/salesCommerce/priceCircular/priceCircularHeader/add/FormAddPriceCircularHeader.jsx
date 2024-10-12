@@ -34,7 +34,9 @@ const FormAddPriceCircularHeader = (props) => {
   useEffect(() => {
     addData?.isSuccess && onSuccess();
   }, [addData]);
-
+  useEffect(() => {
+    form.setFieldValue("isActive", false);
+  }, [form]);
   //====================================================================
   //                        Functions
   //======================================================================
@@ -127,7 +129,7 @@ const FormAddPriceCircularHeader = (props) => {
         <Ant.Form.Item
           name="isActive"
           label="فعال"
-          rules={[{ required: true }]}
+
         >
           <Ant.Switch />
         </Ant.Form.Item>
