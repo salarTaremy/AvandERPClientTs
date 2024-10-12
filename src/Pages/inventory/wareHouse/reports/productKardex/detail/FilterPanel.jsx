@@ -16,7 +16,9 @@ import ProductPicker, {
 
 const FilterPanel = (props) => {
     const { onSubmit, filterObject } = props
-    const [valueType, setValueType] = useState("0");
+    const [valueType, setValueType] = useState(
+        filterObject?.productAndBatchNumber ? "1" : "0",
+    );
     const [loadingProduct, setLoadingProduct] = useState(false);
     const [loadingBachNumber, setLoadingBachNumber] = useState(false);
     const [warehouseId, setWarehouseId] = useState(null);
@@ -50,10 +52,6 @@ const FilterPanel = (props) => {
     //                        Functions
     //====================================================================
     useEffect(() => {
-        setBrand(product?.brand?.id);
-    }, [product]);
-
-    useEffect(() => {
         const dateFilter = {};
         if (filterObject?.fromIssueDateCalendarId) {
             dateFilter.fromIssueDateCalendarId = FormatDateToDisplay(
@@ -65,8 +63,9 @@ const FilterPanel = (props) => {
                 filterObject?.toIssueDateCalendarId,
             );
         }
-        setBrand(product?.brand?.id);
+        // setBrand(product?.brand?.id);
         filterObject && form.setFieldsValue({ ...filterObject, ...dateFilter });
+        console.log('filterObject', filterObject)
     }, []);
 
     //====================================================================
@@ -76,7 +75,6 @@ const FilterPanel = (props) => {
         const selectedValue = GetProductPickerValue(option);
         if (selectedValue.productDetail) {
             setValidationErrors("");
-
             setSelectedItemValues({
                 brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
                 product: { id: selectedValue.product.id, name: selectedValue.product.name },
@@ -115,8 +113,6 @@ const FilterPanel = (props) => {
         }
         setProduct(values.ProductId);
         setBrand(product?.brand?.id);
-        console.log('selectedItemValues', selectedItemValues)
-        console.log('values', values)
         if (selectedItemValues.productDetail) {
 
             (onSubmit({
@@ -138,11 +134,7 @@ const FilterPanel = (props) => {
                 // brandId: selectedItemValues.brand.id,
                 //batchNumberId: selectedItemValues.productDetail.batchNumberId,
             })
-            console.log('selectedItemValues', selectedItemValues)
         }
-
-
-
     };
 
     //====================================================================
@@ -191,6 +183,7 @@ const FilterPanel = (props) => {
                                 value: "1",
                             },
                         ]}
+                        defaultValue={filterObject?.productAndBatchNumber ? "1" : "0"}
                         onChange={(e) => setValueType(e)}
                     />
                 </Ant.Form.Item>
