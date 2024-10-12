@@ -59,7 +59,7 @@ const FormUsersBrandAccess = ({ userId, onSuccessBrand, oldBrandId }) => {
     const columns = () => {
         return [
             {
-                title: " نام برند ",
+                title: " برند ",
                 dataIndex: "brandName",
                 key: "brandName",
                 width: 100,

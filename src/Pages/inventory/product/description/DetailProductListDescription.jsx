@@ -50,7 +50,7 @@ const DetailProductListDescription = (props) => {
               <Ant.Row gutter={[8, 16]}>
                 <Ant.Col span={24}>
                   <Ant.Typography.Text>
-                    {"نام برند"}: {data?.data?.brandName}
+                    {"برند"}: {data?.data?.brandName}
                   </Ant.Typography.Text>
                 </Ant.Col>
                 <Ant.Col>

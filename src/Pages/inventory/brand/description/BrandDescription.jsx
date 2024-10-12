@@ -29,7 +29,7 @@ const BrandDescription = (props) => {
     },
     {
       key: "3",
-      label: "نام برند ",
+      label: "برند ",
       span: 3,
       children: data?.data?.name,
     },

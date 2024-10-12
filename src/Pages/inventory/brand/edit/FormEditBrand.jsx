@@ -85,7 +85,7 @@ const FormEditBrand = (props) => {
               fieldNames={{ label: 'name', value: 'id' }}
             />
           </Ant.Form.Item>
-          <Ant.Form.Item name="name" label={'نام برند'} rules={[{ required: true }]}>
+          <Ant.Form.Item name="name" label={' برند'} rules={[{ required: true }]}>
             <Ant.Input allowClear showCount maxLength={200} />
           </Ant.Form.Item>
           <Ant.Form.Item name={'code'} label="کد" rules={[{ required: true }]}>

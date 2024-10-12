@@ -25,7 +25,7 @@ const columns = (onDelete, onEdit, onView) => {
       className: "text-xs sm:text-sm",
     },
     {
-      title: "نام برند",
+      title: "برند",
       dataIndex: "name",
       key: "name",
       width: 100,
