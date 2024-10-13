@@ -22,8 +22,11 @@ import FrmEditAccountDocument from "./../edit/FrmEditAccountDocument";
 //====================================================================
 const AccountDocumentList = (props) => {
   const pageTitle = "مدیریت اسناد حسابداری";
-  const [listData, listLoading, listError, listApiCall] =
-    api.useFetchWithHandler();
+  const defaultPagination ={
+    current: 1,
+    pageSize: 10,
+  }
+  const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler();
   const [delData, delLoading, delError, delApiCall] = api.useDelWithHandler();
   const [openFilter, setOpenFilter] = useState(false);
   const [dataSource, setDataSource] = useState(null);
@@ -32,10 +35,7 @@ const AccountDocumentList = (props) => {
   const [modalContent, setModalContent] = useState();
   const [modalState, setModalState] = useState(false);
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 10,
-  });
+  const [pagination, setPagination] = useState(defaultPagination);
   useRequestManager({ error: listError });
   useRequestManager({ error: delError, data: delData, loading: delLoading });
   //====================================================================
