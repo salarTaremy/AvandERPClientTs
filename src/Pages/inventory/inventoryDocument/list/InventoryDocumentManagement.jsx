@@ -120,6 +120,7 @@ const InventoryDocumentManagement = () => {
 
   //filter and table change events
   const onFilterChanged = async (filterObject) => {
+    setTableParams({...tableParams,pagination:{...tableParams.pagination,current:1}})
     setFilterObject(filterObject);
     setOpenFilter(false);
   };
