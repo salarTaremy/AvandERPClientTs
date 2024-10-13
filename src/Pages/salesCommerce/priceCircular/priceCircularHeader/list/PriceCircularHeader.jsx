@@ -37,7 +37,7 @@ const PriceCircularHeader = () => {
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
   useRequestManager({ error: listError });
   useRequestManager({ error: deleteError, data: deleteSaving, loading: deleteLoading });
-  useRequestManager({ error: editError,loading: editLoading });
+  useRequestManager({ error: editError, loading: editLoading, data: editData });
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -174,7 +174,7 @@ const PriceCircularHeader = () => {
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
-            columns={columns(onDelete, onEdit, onView, onCopy, onChange,onOpen)}
+            columns={columns(onDelete, onEdit, onView, onCopy, onChange, onOpen)}
             dataSource={dataSource}
             {...defaultValues.TABLE_PROPS}
             title={title}

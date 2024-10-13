@@ -140,6 +140,7 @@ export const SALE_EFFECTIVE_FACTOR_TYPE = 'SaleEffectiveFactor/GetSaleEffectiveF
 export const PRICE_CIRCULAR_HEADER = 'PriceCircularHeader'
 export const PRICE_CIRCULAR_DETAIL = 'PriceCircularDetail'
 export const PRICE_CIRCULAR_HEADER_CREATE_COPY = 'PriceCircularHeader/CreateCopy'
+export const PRICE_CIRCULAR_HEADER_ENABLE_DISABLE ='PriceCircularHeader/EnableDisable'
 
 
 
