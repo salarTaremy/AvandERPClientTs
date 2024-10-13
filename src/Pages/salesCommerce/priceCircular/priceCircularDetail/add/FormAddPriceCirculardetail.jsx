@@ -13,7 +13,7 @@ import ProductPicker, {
 
 const FormAddPriceCirculardetail = (props) => {
     const { onSuccess, iD } = props;
-    const [valueType, setValueType] = useState("0");
+    const [valueType, setValueType] = useState("0")
     const [loading, setLoading] = useState(false);
     const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
     const [productData, productLoading, poductError] = api.useFetch(url.PRODUCT);
@@ -25,6 +25,7 @@ const FormAddPriceCirculardetail = (props) => {
     const [selectedItemValues, setSelectedItemValues] = useState({});
     const [validationErrors, setValidationErrors] = useState(null);
     useRequestManager({ error: poductError });
+    useRequestManager({ error: addError, data: addData });
     const [form] = Ant.Form.useForm();
     const commonOptions = {
         showSearch: true,
@@ -42,7 +43,7 @@ const FormAddPriceCirculardetail = (props) => {
     const onProductChange = async (value, option) => {
         const selectedValue = GetProductPickerValue(option);
         if (selectedValue.productDetail) {
-            setValidationErrors("انتخاب کالا اجباری است");
+            setValidationErrors("");
             setSelectedItemValues({
                 brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
                 product: { id: selectedValue.product.id, name: selectedValue.product.name },
@@ -53,7 +54,7 @@ const FormAddPriceCirculardetail = (props) => {
                 },
             });
         } else {
-            setValidationErrors("انتخاب کالا اجباری است");
+            setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
             setSelectedItemValues({
                 // brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
                 product: { id: selectedValue.product.id, name: selectedValue.product.name },
@@ -69,25 +70,28 @@ const FormAddPriceCirculardetail = (props) => {
     const onFinish = async (values) => {
         setProduct(values.ProductId);
         setBrand(product?.brand?.id);
-        if (selectedItemValues.productDetail) {
+        if (valueType === "1") {
             let req = {
                 ...values,
                 priceCircularHeaderId: iD,
-                warehouseId: values.warehouseId,
+                // warehouseId: values.warehouseId,
                 productId: selectedItemValues.product.id,
                 // brandId: selectedItemValues.brand.id,
-                batchNumberId: selectedItemValues.productDetail.batchNumberId,
+                // batchNumberId: selectedItemValues.productDetail.batchNumberId,
+                // batchNumber: selectedItemValues.productDetail.batchNumber,
+                productDetailId: selectedItemValues.productDetail.id
             }
             await addApiCall(url.PRICE_CIRCULAR_DETAIL, req);
         }
         else {
             let req = {
                 ...values,
+                // consumerPrice: values.consumerPrice,
                 priceCircularHeaderId: iD,
                 productId: selectedItemValues?.product?.id,
-                warehouseId: values.warehouseId,
+                // warehouseId: values.warehouseId,
                 // brandId: selectedItemValues.brand.id,
-                //batchNumberId: selectedItemValues.productDetail.batchNumberId,
+                // batchNumberId: selectedItemValues?.productDetail?.batchNumberId,
             }
             await addApiCall(url.PRICE_CIRCULAR_DETAIL, req);
         }
@@ -143,13 +147,13 @@ const FormAddPriceCirculardetail = (props) => {
                         name={"productAndBatchNumber"}
                         label="برند، کالا و سری ساخت"
                         rules={[{ required: true }]}
-                    // help={
-                    //     validationErrors && (
-                    //         <Ant.Typography.Text type="danger">
-                    //             {validationErrors}
-                    //         </Ant.Typography.Text>
-                    //     )
-                    // }
+                        help={
+                            validationErrors && (
+                                <Ant.Typography.Text type="danger">
+                                    {validationErrors}
+                                </Ant.Typography.Text>
+                            )
+                        }
                     >
                         <ProductPicker
                             // initialValues={{ brandId: brandId, productId: productId, batchNumberId: batchNumberId }}
