@@ -100,6 +100,7 @@ const SaleDocumentList = () => {
     fillGrid();
   };
   const onFilterChanged = async (filterObject) => {
+    setTableParams({...tableParams,pagination:{...tableParams.pagination,current:1}})
     setFilterObject(filterObject);
     setOpenFilter(false);
   };

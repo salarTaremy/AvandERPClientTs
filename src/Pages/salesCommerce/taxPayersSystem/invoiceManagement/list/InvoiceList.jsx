@@ -81,6 +81,7 @@ const InvoiceList = () => {
 
   const onFilterChanged = async (filterObject) => {
     setSelectedRowKeys([]);
+    setTableParams({...tableParams,pagination:{...tableParams.pagination,current:1}})
     setFilterObject(filterObject);
     setOpenFilter(false);
   };

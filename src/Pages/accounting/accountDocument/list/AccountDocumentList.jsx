@@ -78,6 +78,7 @@ const AccountDocumentList = (props) => {
   };
 
   const onFilterChanged = async (filterObject) => {
+    setPagination({...pagination,current:1})
     setFilterObject(filterObject);
     setOpenFilter(false);
   };
