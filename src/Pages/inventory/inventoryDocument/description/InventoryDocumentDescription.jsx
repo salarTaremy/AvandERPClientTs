@@ -27,8 +27,8 @@ const InventoryDocumentDescription = ({ id }) => {
   const [documentDetailDataSource, setDocumentDetailDataSource] = useState([]);
 
   useRequestManager({
-    data: fetchedData,
-    loading: fetchLoading,
+    // data: fetchedData,
+    // loading: fetchLoading,
     error: fetchError,
   });
   //====================================================================

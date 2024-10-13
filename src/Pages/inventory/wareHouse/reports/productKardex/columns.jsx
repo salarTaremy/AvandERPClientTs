@@ -26,7 +26,7 @@ const getDocumentTypeProp = (documentTypeNature) => {
       return { color: "blue", title: "خنثی", className: "", operator: "" };
   }
 };
-const columns = (onProductKardexView, onBatchNumberView) => {
+const columns = (onProductKardexView, onBatchNumberView,onDocumentNumberView) => {
   return [
     {
       title: "تاریخ",
@@ -45,6 +45,13 @@ const columns = (onProductKardexView, onBatchNumberView) => {
       align: "center",
       width: 30,
       className: "text-xs sm:text-sm",
+      render: (text, record, index) => (
+        <Ant.Typography.Link
+          onClick={() => onDocumentNumberView(record?.inventoryDocumentId)}
+        >
+          {record.documentNumber}
+        </Ant.Typography.Link>
+      ),
     },
     // {
     //   title: "کد محصول",

@@ -196,6 +196,7 @@ const InventoryDocumentManagement = () => {
   };
 
   const onView = async (id) => {
+    console.log(id,"lalal")
     setModalProps({
       ...modalProps,
       open: true,

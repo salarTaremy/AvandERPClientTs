@@ -14,6 +14,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { PropTypes } from "prop-types";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
 import { useFetchWithHandler } from "@/api";
+import InventoryDocumentDescription from "../../../../inventory/inventoryDocument/description/InventoryDocumentDescription"
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -26,6 +27,7 @@ const ProductKardexList = (props) => {
   const [filterCount, setFilterCount] = useState(0);
   const [openFilter, setOpenFilter] = useState(true);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   useRequestManager({ error: error });
 
   //====================================================================
@@ -107,12 +109,19 @@ const ProductKardexList = (props) => {
   //                        Events
   //====================================================================
   const onBatchNumberView = (batchNumberId) => {
+    const updateList = { ...defaultValues.MODAL_LARGE};
+    setModalSize(updateList);
     setModalContent(<BatchNumberDescription id={batchNumberId} />);
     setModalState(true);
   };
   const onProductKardexView = (val) => {
     // setModalContent(<ProductKardex />);
-
+    setModalState(true);
+  };
+  const onDocumentNumberView = (id) => {
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE};
+    setModalSize(updateList);
+    setModalContent(<InventoryDocumentDescription id={id} />);
     setModalState(true);
   };
 
@@ -137,8 +146,9 @@ const ProductKardexList = (props) => {
     <>
       <Ant.Modal
         open={modalState}
-        {...defaultValues.MODAL_LARGE}
+
         {...defaultValues.MODAL_PROPS}
+        {...modalSize}
         footer={null}
         centered
         onCancel={() => {
@@ -166,7 +176,7 @@ const ProductKardexList = (props) => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             title={title}
-            columns={columns(onProductKardexView, onBatchNumberView)}
+            columns={columns(onProductKardexView, onBatchNumberView,onDocumentNumberView)}
             dataSource={dataSource}
             pagination={pagination}
             onChange={onTableChange}
