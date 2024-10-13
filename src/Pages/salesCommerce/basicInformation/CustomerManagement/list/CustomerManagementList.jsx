@@ -71,6 +71,7 @@ const CustomerManagementList = () => {
   //                        Functions
   //====================================================================
   const onFilterChanged = async (filterObject) => {
+    setPagination({...pagination,current:1})
     setFilterObject(filterObject);
     setOpenFilter(false);
   };
