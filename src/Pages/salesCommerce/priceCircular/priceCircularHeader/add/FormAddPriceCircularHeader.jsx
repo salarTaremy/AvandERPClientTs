@@ -62,7 +62,7 @@ const FormAddPriceCircularHeader = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ایجاد بخشنامه قیمت جدید"} icon={<MdPriceChange />} />
+      <ModalHeader title={"ایجاد سربرگ بخشنامه قیمت جدید"} icon={<MdPriceChange />} />
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Form.Item
           name="title"
