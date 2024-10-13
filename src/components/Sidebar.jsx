@@ -161,8 +161,24 @@ const AppSidebar = (props) => {
         delete item.to;
         item.children = processNavMenu(item.children);
       }
-      item.label =
-      (   item.to && <Link to={item.to}>{item.title}</Link>) || item.title;
+      if (item.componentName === "CNavTitle") {
+        item.label =
+          // <Ant.Divider
+          //   orientation="left"
+          //   orientationMargin="0"
+          //   plain={false}
+          //   style={{ borderColor: 'purple', margin:0 }}
+          //   >
+          //   {item.title}
+          // </Ant.Divider>
+        (item.to && <Link to={item.to}>{item.title}</Link>) || item.title;
+
+      } else {
+        item.label =
+          (item.to && <Link to={item.to}>{item.title}</Link>) || item.title;
+      }
+
+
       return { ...item };
     });
   };
@@ -218,7 +234,7 @@ const AppSidebar = (props) => {
   //====================================================================
   return (
     <>
-    {/* {'showImageSider:'}
+      {/* {'showImageSider:'}
     {JSON.stringify(showImageSider)}
     <br></br>
     {'collapsedSider:'}
@@ -227,7 +243,7 @@ const AppSidebar = (props) => {
         width={280}
         className="sidebar hidden lg:block"
         collapsed={collapsedSider}
-        // items={items}
+      // items={items}
       >
         {!showImageSider && (
           <Image
@@ -252,7 +268,7 @@ const AppSidebar = (props) => {
             <Menu
               // defaultOpenKeys={defaultOpenKeys}
               openKeys={openKeys}
-              onOpenChange={(openKeys) =>setOpenKeys(openKeys) }
+              onOpenChange={(openKeys) => setOpenKeys(openKeys)}
               mode="inline"
               items={items}
               style={{ backgroundColor: "transparent" }}
