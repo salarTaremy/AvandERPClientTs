@@ -64,7 +64,7 @@ const FrmLinkAccountDetailAccount = (props) => {
 
   const columns = [
     {
-      title: "گروه تفصیل",
+      title: "گروه تفصیل (تعداد)",
       dataIndex: "name",
       key: "name",
       render: (text, record, index) => (
