@@ -26,7 +26,11 @@ const getDocumentTypeProp = (documentTypeNature) => {
       return { color: "blue", title: "خنثی", className: "", operator: "" };
   }
 };
-const columns = (onProductKardexView, onBatchNumberView,onDocumentNumberView) => {
+const columns = (
+  onProductKardexView,
+  onBatchNumberView,
+  onDocumentNumberView,
+) => {
   return [
     {
       title: "تاریخ",
@@ -159,7 +163,7 @@ const columns = (onProductKardexView, onBatchNumberView,onDocumentNumberView) =>
         <>
           <Ant.Space>
             <Ant.Button
-              onClick={() => onProductKardexView(value?.id)}
+              onClick={() => onProductKardexView(value)}
               className="text-sky-600"
               icon={<GrView />}
               color="primary"

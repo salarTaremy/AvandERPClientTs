@@ -14,7 +14,9 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { PropTypes } from "prop-types";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
 import { useFetchWithHandler } from "@/api";
-import InventoryDocumentDescription from "../../../../inventory/inventoryDocument/description/InventoryDocumentDescription"
+import InventoryDocumentDescription from "@/Pages/inventory/inventoryDocument/description/InventoryDocumentDescription"
+
+import ProductKardexDescription from "../productKardex/description/ProductKardexDescription"
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -109,13 +111,14 @@ const ProductKardexList = (props) => {
   //                        Events
   //====================================================================
   const onBatchNumberView = (batchNumberId) => {
-    const updateList = { ...defaultValues.MODAL_LARGE};
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE};
     setModalSize(updateList);
     setModalContent(<BatchNumberDescription id={batchNumberId} />);
     setModalState(true);
   };
   const onProductKardexView = (val) => {
-    // setModalContent(<ProductKardex />);
+    console.log(val,"valval")
+    setModalContent(<ProductKardexDescription />);
     setModalState(true);
   };
   const onDocumentNumberView = (id) => {
