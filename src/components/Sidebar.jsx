@@ -75,7 +75,7 @@ const AppSidebar = (props) => {
       let formattedNode = {
         // ...node,
 
-        componentName: node.componentName,
+        componentname: node.componentName,
         id: node.id,
         // danger: false,
         disabled: false,
@@ -145,7 +145,7 @@ const AppSidebar = (props) => {
       return null;
     }
     return menu.map((item) => {
-      if (item.componentName === "CNavTitle") {
+      if (item.componentname === "CNavTitle") {
         item.type = "group";
         if (collapsedSider) {
           return null;
@@ -161,7 +161,7 @@ const AppSidebar = (props) => {
         delete item.to;
         item.children = processNavMenu(item.children);
       }
-      if (item.componentName === "CNavTitle") {
+      if (item.componentname === "CNavTitle") {
         item.label =
           // <Ant.Divider
           //   orientation="left"

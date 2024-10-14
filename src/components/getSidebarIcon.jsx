@@ -78,7 +78,7 @@ const getSidebarIcon = ( iconName ) => {
         case 'FaCommentDollar':
             return <Fa.FaCommentDollar className={className} color={color} />;
         case 'BiCommentCheck':
-            return <Bi.BiCommentCheck ntBank className={className} color={color} />;
+            return <Bi.BiCommentCheck className={className} color={color} />;
         case 'BiCommentDetail':
             return <Bi.BiCommentDetail className={className} color={color} />;
         case 'BiCommentEdit':
