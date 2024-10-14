@@ -204,7 +204,7 @@ const ProductKardexDescription = (props) => {
                               {"تاریخ صدور"} : {item?.issueDate}
                             </Ant.Typography.Text>
                             <Ant.Typography.Text type="secondary">
-                              <IoTimeOutline className="text-orange-400" />({item?.issueTime.substr(0, 8)})
+                              <IoTimeOutline className="text-orange-400" />{item?.issueTime.substr(0, 8)}
                             </Ant.Typography.Text>
                           </Ant.Space>
 
