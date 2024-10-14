@@ -15,9 +15,9 @@ import ModalHeader from "@/components/common/ModalHeader";
 import { MdDescription } from "react-icons/md";
 import FormEditPriceCircularDetail from "../edit/FormEditPriceCircularDetail";
 import FormAddPriceCirculardetail from "../add/FormAddPriceCirculardetail";
-import FilterPanel from './FilterPanel'
-import FilterDrawer from '@/components/common/FilterDrawer'
-import FilterBedge from '@/components/common/FilterBedge'
+import FilterPanel from "./FilterPanel";
+import FilterDrawer from "@/components/common/FilterDrawer";
+import FilterBedge from "@/components/common/FilterBedge";
 import CustomContent from "@/components/common/CustomContent";
 //====================================================================
 //                        Declaration
@@ -32,7 +32,7 @@ const PriceCircularDetailList = (props) => {
   const [dataSource, setDataSource] = useState(null);
   const [modalContent, setModalContent] = useState(null);
   const [modalState, setModalState] = useState(false);
-  const [openFilter, setOpenFilter] = useState(false)
+  const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
   const [filterObject, setFilterObject] = useState();
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
@@ -64,15 +64,12 @@ const PriceCircularDetailList = (props) => {
 
     if (!filteredKeys?.length) {
       setFilterCount(0);
-
     }
 
     if (!openFilter) {
-        getPriceCircularDetailList(newFilterObject);
+      getPriceCircularDetailList(newFilterObject);
     }
   }, [filterObject]);
-
-
 
   useEffect(() => {
     getPriceCircularDetailList();
@@ -176,7 +173,7 @@ const PriceCircularDetailList = (props) => {
   const title = () => {
     return (
       <ButtonList
-      filterCount={filterCount}
+        filterCount={filterCount}
         onAdd={() => {
           onAdd();
         }}
@@ -193,38 +190,43 @@ const PriceCircularDetailList = (props) => {
   return (
     <>
       <ModalHeader title={pageTitle} icon={<MdDescription />} />
-      <CustomContent >
-      <Ant.Modal
-        open={modalState}
-        {...defaultValues.MODAL_LARGE}
-        {...modalSize}
-        handleCancel={() => setModalState(false)}
-        onCancel={() => {
-          setModalState(false);
-        }}
-        footer={null}
-        centered
-      >
-        {modalContent}
-      </Ant.Modal>
-      <FilterDrawer
+      <CustomContent height="80vh">
+        <Ant.Modal
+          open={modalState}
+          {...defaultValues.MODAL_LARGE}
+          {...modalSize}
+          handleCancel={() => setModalState(false)}
+          onCancel={() => {
+            setModalState(false);
+          }}
+          footer={null}
+          centered
+        >
+          {modalContent}
+        </Ant.Modal>
+        <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
           onRemoveFilter={onRemoveFilter}
         >
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
-      <FilterBedge filterCount={filterCount}>
-        <Ant.Table
-          columns={columns(onDelete, onEdit, onProductView, onBatchNumberView)}
-          dataSource={dataSource}
-          pagination={pagination}
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          onChange={handleTableChange}
-          loading={listLoading}
-        />
-      </FilterBedge>
+        <FilterBedge filterCount={filterCount}>
+          <Ant.Table
+            columns={columns(
+              onDelete,
+              onEdit,
+              onProductView,
+              onBatchNumberView,
+            )}
+            dataSource={dataSource}
+            pagination={pagination}
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            onChange={handleTableChange}
+            loading={listLoading}
+          />
+        </FilterBedge>
       </CustomContent>
     </>
   );

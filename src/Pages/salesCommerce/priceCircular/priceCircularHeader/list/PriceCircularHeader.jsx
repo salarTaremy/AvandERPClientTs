@@ -123,7 +123,7 @@ const PriceCircularHeader = () => {
 
   const onOpen = async (value) => {
     setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
-    setModalContent(<PriceCircularDetailList priceCircularHeaderId={value} />);
+    setModalContent(<PriceCircularDetailList key={uuid.v1()} priceCircularHeaderId={value} />);
     setModalOpenState(true);
   };
 
