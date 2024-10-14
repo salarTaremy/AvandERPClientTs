@@ -72,14 +72,20 @@ const ProductKardexDescription = (props) => {
     setModalState(true);
   };
   const onCounterpartyView = (counterpartyId) => {
+    const updateList = { ...defaultValues.MODAL_LARGE };
+    setModalSize(updateList);
     setModalContent(<CounterpartyInformation id={counterpartyId} />);
     setModalState(true);
   };
   const onProductView = (productId) => {
+    const updateList = { ...defaultValues.MODAL_LARGE };
+    setModalSize(updateList);
     setModalContent(<DetailProductListDescription id={productId} />);
     setModalState(true);
   };
   const onDocumentNumberView = (inventoryDocumentId) => {
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE };
+    setModalSize(updateList);
     setModalContent(<InventoryDocumentDescription id={inventoryDocumentId} />);
     setModalState(true);
   };
@@ -93,7 +99,7 @@ const ProductKardexDescription = (props) => {
       <Ant.Modal
         open={modalState}
         {...defaultValues.MODAL_PROPS}
-        {...defaultValues.MODAL_LARGE}
+        {...modalSize}
         footer={null}
         centered
         onCancel={() => {
@@ -192,11 +198,16 @@ const ProductKardexDescription = (props) => {
                               {item?.counterpartyName}
                             </Ant.Typography.Link>
                           </Ant.Typography.Text>
-                          <Ant.Typography.Text type="secondary">
-                            {"تاریخ صدور"} : {item?.issueDate}
-                             <IoTimeOutline />
-                           ({item?.issueTime.substr(0, 8)})
-                          </Ant.Typography.Text>
+
+                          <Ant.Space direction="horizontal">
+                            <Ant.Typography.Text type="secondary">
+                              {"تاریخ صدور"} : {item?.issueDate}
+                            </Ant.Typography.Text>
+                            <Ant.Typography.Text type="secondary">
+                              <IoTimeOutline className="text-orange-400" />({item?.issueTime.substr(0, 8)})
+                            </Ant.Typography.Text>
+                          </Ant.Space>
+
                           <Ant.Typography.Text type="secondary">
                             {"واحد "} :{item?.productUnitTypeName} {"/"}{" "}
                             {item?.productUnitName}
