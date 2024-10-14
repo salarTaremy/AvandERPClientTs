@@ -14,6 +14,7 @@ const columns = (onDelete, onEdit, onView) => {
                 key: 'batchNumber',
                 width: 80,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.batchNumber?.localeCompare(b.batchNumber),
             },
             {
                 title: 'تاریخ تولید',
@@ -22,6 +23,7 @@ const columns = (onDelete, onEdit, onView) => {
                 align: 'center',
                 width: 80,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.productionDate?.localeCompare(b.productionDate),
             },
             {
                 title: 'تاریخ انقضا',
@@ -30,6 +32,7 @@ const columns = (onDelete, onEdit, onView) => {
                 align: 'center',
                 width: 80,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.expiryDate?.localeCompare(b.expiryDate),
             },
             {
                 title: 'عمر مفید',
@@ -41,7 +44,7 @@ const columns = (onDelete, onEdit, onView) => {
                 render: (text, record, index) => {
                     return (
                       <>
-                        { `${record.shelfLife} ماه`} 
+                        { `${record.shelfLife} ماه`}
                       </>
                     )
                   }

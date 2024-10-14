@@ -14,7 +14,8 @@ export const columns = (onDelete, onEdit, onView) => {
             key: 'name',
             align: 'center',
             className: 'text-xs sm:text-sm',
-            width: 100
+            width: 100,
+            sorter: (a, b) => a.name?.localeCompare(b.name),
         },
         {
             title: 'نوع',
@@ -23,6 +24,7 @@ export const columns = (onDelete, onEdit, onView) => {
             align: 'center',
             className: 'text-xs sm:text-sm',
             width: 100,
+            sorter: (a, b) => a.saleEffectiveOperativeType?.localeCompare(b.saleEffectiveOperativeType),
             render: (text, record, index) => {
                 return (
                     <>
@@ -42,6 +44,7 @@ export const columns = (onDelete, onEdit, onView) => {
             align: 'center',
             className: 'text-xs sm:text-sm',
             width: 80,
+            sorter: (a, b) => a.percentage - b.percentage,
             render: (text, record, index) => (
                 `${record.percentage}%`
             )
@@ -53,6 +56,7 @@ export const columns = (onDelete, onEdit, onView) => {
             align: 'center',
             className: 'text-xs sm:text-sm',
             width: 80,
+            sorter: (a, b) => a.amount - b.amount,
             render: (text, record, index) => (
                 record.amount.toLocaleString()
             )

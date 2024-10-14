@@ -23,6 +23,7 @@ const columns = (onDelete, onEdit, onView) => {
       align: 'center',
       width: 80,
       className: "text-xs sm:text-sm",
+      sorter: (a, b) => a.code?.localeCompare(b.code),
     },
     {
       title: "برند",
@@ -62,7 +63,7 @@ const columns = (onDelete, onEdit, onView) => {
               color="default"
               variant="filled"
             />
-          
+
           <Ant.Button
             onClick={() => onView(val.id)}
             className="text-sky-600"

@@ -13,6 +13,7 @@ const columns = (onDelete, onEdit) => {
                 key: "provinceName",
                 width: 100,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.provinceName.localeCompare(b.provinceName),
                 render: (text, record, index) => (
                     `${record.provinceName}-${record.provinceCode}`
                 )
@@ -23,6 +24,7 @@ const columns = (onDelete, onEdit) => {
                 key: "cityName",
                 width: 100,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.cityName.localeCompare(b.cityName),
                 render: (text, record, index) => (
                     `${record.cityName}-${record.cityCode}`
                 )
@@ -33,6 +35,7 @@ const columns = (onDelete, onEdit) => {
                 key: "title",
                 width: 100,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.title.localeCompare(b.title),
             },
             {
                 title: "توضیحات",

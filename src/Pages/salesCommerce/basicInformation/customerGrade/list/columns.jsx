@@ -13,7 +13,8 @@ const columns = (onDelete, onEdit) => {
                 key: "title",
                 width: 100,
                 className: "text-xs sm:text-sm",
-                align: 'center'
+                align: 'center',
+                sorter: (a, b) => a.title?.localeCompare(b.title),
             },
             {
                 title: "توضیحات",

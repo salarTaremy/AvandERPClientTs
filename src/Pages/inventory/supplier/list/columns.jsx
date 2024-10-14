@@ -8,25 +8,6 @@ import * as defaultValues from "@/defaultValues";
 const columns = (onDelete, onEdit, onView) => {
   return (
     [
-
-      // {
-      //   title: 'شناسه',
-      //   dataIndex: 'id',
-      //   key: 'id',
-
-      //   width: 80,
-      //   fixed:true,
-      //   align:'center',
-      //   className:"text-xs sm:text-sm",
-      // },
-      {
-        title: 'نام',
-        dataIndex: 'name',
-        key: 'name',
-        width: 80,
-        className: "text-xs sm:text-sm",
-        sorter: (a, b) => a.name.localeCompare(b.name),
-      },
       {
         title: 'کد',
         dataIndex: 'code',
@@ -34,7 +15,17 @@ const columns = (onDelete, onEdit, onView) => {
         align: 'center',
         width: 80,
         className: "text-xs sm:text-sm",
+        sorter: (a, b) => a.code?.localeCompare(b.code),
       },
+      {
+        title: 'نام',
+        dataIndex: 'name',
+        key: 'name',
+        width: 80,
+        className: "text-xs sm:text-sm",
+        sorter: (a, b) => a.name?.localeCompare(b.name),
+      },
+
       {
         ...defaultValues.TABLES_OPERATION_COLUMN,
         render: (text, val) =>

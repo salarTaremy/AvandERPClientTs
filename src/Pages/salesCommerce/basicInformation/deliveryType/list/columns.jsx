@@ -7,12 +7,13 @@ import * as defaultValues from "@/defaultValues";
 const columns = (onDelete, onEdit) => {
   return [
     {
-      title: "کد",
+      title: "شناسه",
       dataIndex: "id",
-      key: "code",
+      key: "id",
       width: 80,
       align: "center",
       className: "text-xs sm:text-sm",
+
     },
     {
       title: "نام ",

@@ -15,6 +15,7 @@ const columns = (onDelete, onView, onEdit) => {
                 align: 'center',
                 width: 80,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.code?.localeCompare(b.code),
             },
             {
                 title: 'کد دوم',
@@ -23,6 +24,7 @@ const columns = (onDelete, onView, onEdit) => {
                 align: 'center',
                 width: 80,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.secondCode?.localeCompare(b.secondCode),
             },
             {
                 title: 'نام کالا',
@@ -30,6 +32,7 @@ const columns = (onDelete, onView, onEdit) => {
                 key: 'name',
                 width: 80,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.name?.localeCompare(b.name),
             },
             {
                 title: 'نام دوم کالا',
@@ -37,6 +40,7 @@ const columns = (onDelete, onView, onEdit) => {
                 key: 'secondName',
                 width: 80,
                 className: "text-xs sm:text-sm",
+                sorter: (a, b) => a.secondName?.localeCompare(b.secondName),
             },
             {
                 ...defaultValues.TABLES_OPERATION_COLUMN,

@@ -21,6 +21,7 @@ const columns = (onDelete, onEdit, onView) => {
         width: 80,
         align: 'center',
         className: "text-xs sm:text-sm",
+        sorter: (a, b) => a.code?.localeCompare(b.code),
       },
       {
         title: 'نام ',
@@ -28,7 +29,7 @@ const columns = (onDelete, onEdit, onView) => {
         key: 'name',
         width: 100,
         className: "text-xs sm:text-sm",
-        sorter: (a, b) => a.name.localeCompare(b.name),
+        sorter: (a, b) => a.name?.localeCompare(b.name),
       },
       {
         title: 'توضیحات',

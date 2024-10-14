@@ -31,11 +31,22 @@ const columns = (onDelete, onEdit, onConnection,onView ) => {
 
   return [
     {
+      title: 'کد انبار ',
+      dataIndex: 'code',
+      key: 'code',
+      width: 80,
+      align: 'center',
+      className: "text-xs sm:text-sm",
+      sorter: (a, b) => a.code?.localeCompare(b.code),
+    },
+
+    {
       title: "نام انبار",
       dataIndex: "title",
       key: "title",
       width: 100,
       className: "text-xs sm:text-sm",
+      sorter: (a, b) => a.title?.localeCompare(b.title),
     },
     {
       title: " نام انباردار",
@@ -43,6 +54,7 @@ const columns = (onDelete, onEdit, onConnection,onView ) => {
       key: "warehouseKeeperName",
       width: 100,
       className: "text-xs sm:text-sm",
+      sorter: (a, b) => a.warehouseKeeperName?.localeCompare(b.warehouseKeeperName),
     },
     {
       title: "نوع انبار",
@@ -73,6 +85,7 @@ const columns = (onDelete, onEdit, onConnection,onView ) => {
       align: "center",
       width: 100,
       className: "text-xs sm:text-sm",
+      sorter: (a, b) => a.postalCode?.localeCompare(b.postalCode),
     },
     {
       title: "وضعیت",
