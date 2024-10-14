@@ -73,14 +73,6 @@ const PriceCircularDetailList = (props) => {
   }, [filterObject]);
 
 
-//   useEffect(() => {
-//     filterObject &&
-//       setFilterCount(
-//         Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
-//       );
-//     !filterObject && setFilterCount(0);
-//     getPriceCircularDetailList();
-//   }, [filterObject]);
 
   useEffect(() => {
     getPriceCircularDetailList();
