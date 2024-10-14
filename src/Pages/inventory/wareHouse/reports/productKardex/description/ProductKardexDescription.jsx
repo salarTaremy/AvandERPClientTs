@@ -56,7 +56,7 @@ const ProductKardexDescription = (props) => {
   };
 
   const getDocumentTypeProp = (inventoryDocumentTypeNature) => {
-    console.log(inventoryDocumentTypeNature, "inventoryDocumentTypeNature");
+
     switch (inventoryDocumentTypeNature) {
       case 1:
         return "green";
