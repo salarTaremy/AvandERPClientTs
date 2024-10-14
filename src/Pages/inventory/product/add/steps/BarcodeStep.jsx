@@ -39,7 +39,7 @@ export const BarcodeStep = ({ form }) => {
             rules={[
               { validator: isValidIrCode },
               {
-                required: true,
+                // required: true,
                 len: maxLenGS1,
               },
             ]}
