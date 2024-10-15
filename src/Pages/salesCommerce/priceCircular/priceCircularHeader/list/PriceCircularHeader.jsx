@@ -107,7 +107,6 @@ const PriceCircularHeader = () => {
   };
 
   const onView = async (id) => {
-console.log(id,"fafa")
     const updateList = { ...defaultValues.MODAL_LARGE };
     setModalSize(updateList)
     setModalContent(<PriceCircularHeaderDescription  key={uuid.v1()} id={id} />);

@@ -113,10 +113,6 @@ const PriceCircularHeaderDescription = (props) => {
                       <Ant.Col xs={24} sm={24} md={12} lg={12}>
                         <Ant.Space direction="vertical">
                           <Ant.Typography.Text type="secondary">
-                            {"واحد "} :{item?.productUnitTypeName} {"/"}{" "}
-                            {item?.productUnitName}
-                          </Ant.Typography.Text>
-                          <Ant.Typography.Text type="secondary">
                             {" نوع ارز"} :{item?.defaultCurrencyTitle}
                           </Ant.Typography.Text>
                           <Ant.Typography.Text type="secondary">
