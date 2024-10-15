@@ -32,6 +32,7 @@ const columns = (
   onDocumentNumberView,
 ) => {
   return [
+
     {
       title: "تاریخ",
       dataIndex: "issueDate",
@@ -41,6 +42,14 @@ const columns = (
       className: "text-xs sm:text-sm",
       render: (text, record) =>
         `${record.issueTime.substr(0, 8)} - ${record.issueDate} `,
+    },
+    {
+      title: "نام انبار",
+      dataIndex: "warehouseName",
+      key: "warehouseName",
+      width: 80,
+      className: "text-xs sm:text-sm",
+
     },
     {
       title: "شماره برگه",
@@ -57,13 +66,6 @@ const columns = (
         </Ant.Typography.Link>
       ),
     },
-    // {
-    //   title: "کد محصول",
-    //   dataIndex: "productCode",
-    //   key: "productCode",
-    //   width: 80,
-    //   className: "text-xs sm:text-sm",
-    // },
     {
       title: "سری ساخت",
       dataIndex: "batchNumber",
@@ -108,7 +110,6 @@ const columns = (
       render: (text, record, index) => {
         return (
           <>
-            {/* {record?.documentTypeNature === 1   ? <MdOutlineFileDownload/> : <MdOutlineFileUpload/>} */}
             <Ant.Tag
               bordered={false}
               color={getDocumentTypeProp(record?.documentTypeNature).color}
