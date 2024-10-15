@@ -36,6 +36,7 @@ const SupplierDescription = (props) => {
 
       children: data?.data?.name,
       span: 3,
+
     },
 ,
   ]
