@@ -27,7 +27,6 @@ const WarehouseStockList = (props) => {
   const [filterObject, setFilterObject] = useState();
   const [filterCount, setFilterCount] = useState(0);
   const [openFilter, setOpenFilter] = useState(true);
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   useRequestManager({ error: error });
 
   //====================================================================
@@ -96,9 +95,7 @@ const WarehouseStockList = (props) => {
     setOpenFilter(false);
   };
 
-  const onTableChange = (pagination, filter, sorter) => {
-    setPagination(pagination);
-  };
+
 
   //====================================================================
   //                        Events
@@ -181,8 +178,7 @@ const WarehouseStockList = (props) => {
               onProductView,
             )}
             dataSource={dataSource}
-            pagination={pagination}
-            onChange={onTableChange}
+
             loading={loading}
           />
         </FilterBedge>

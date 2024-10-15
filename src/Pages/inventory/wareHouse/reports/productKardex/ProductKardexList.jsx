@@ -104,10 +104,6 @@ const ProductKardexList = (props) => {
     setOpenFilter(false);
   };
 
-  const onTableChange = (pagination, filter, sorter) => {
-    setPagination(pagination);
-  };
-
   //====================================================================
   //                        Events
   //====================================================================
@@ -182,8 +178,8 @@ const ProductKardexList = (props) => {
             title={title}
             columns={columns(onProductKardexView, onBatchNumberView,onDocumentNumberView)}
             dataSource={dataSource}
-            pagination={pagination}
-            onChange={onTableChange}
+
+
             loading={loading}
           />
         </FilterBedge>

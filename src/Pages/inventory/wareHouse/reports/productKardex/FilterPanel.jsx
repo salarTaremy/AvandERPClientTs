@@ -81,13 +81,13 @@ const FilterPanel = (props) => {
 
   const handleTypeChange = (value) => {
     if (value === "1") {
-      form.setFieldsValue("ProductId", null);
+      // form.setFieldsValue("ProductId", null);
       setSelectedItemValues((prev) => ({
         ...prev,
         product: null,
       }));
     } else {
-      form.setFieldsValue("BatchNumberId", null);
+      // form.setFieldsValue("BatchNumberId", null);
       setSelectedItemValues((prev) => ({
         ...prev,
         productAndBatchNumber: null,
