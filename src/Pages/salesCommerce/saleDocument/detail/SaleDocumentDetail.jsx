@@ -5,6 +5,7 @@ import * as api from "@/api";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import { columns } from "./column";
+import * as uuid from "uuid";
 import DetailProductListDescription from "../../../inventory/product/description/DetailProductListDescription";
 import PriceCircularHeaderDescription from "../../priceCircular/priceCircularHeader/description/PriceCircularHeaderDescription";
 import SaleDocumentDetailEffectiveFactor from "../effectiveFactor/SaleDocumentDetailEffectiveFactor";
@@ -60,6 +61,7 @@ const SaleDocumentDetail = (props) => {
   const onPriceCircularView = (priceCircularId) => {
     setModalContent(
       <PriceCircularHeaderDescription
+      key={uuid.v1()}
         priceCircularDetailId={priceCircularId}
       />,
     );
@@ -79,7 +81,7 @@ const SaleDocumentDetail = (props) => {
   };
   const handleTableChange = (pagination, filter, sorter) => {
     setPagination(pagination);
-  };  
+  };
   //====================================================================
   //                        Component
   //====================================================================

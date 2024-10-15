@@ -66,14 +66,9 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
       key: "id",
       align: "center",
       className: "text-xs sm:text-sm",
-      width: 50,
-      render: (text, record, index) => {
-        return (
-          <a >
-            {record.id}
-          </a>
-        )
-      }
+      width: 80,
+      sorter: (a, b) => a.id - b.id,
+
 
     },
     {
@@ -83,6 +78,7 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 120,
+      sorter: (a, b) => a.title?.localeCompare(b.title),
     },
     {
       title: "تاریخ شروع",
@@ -91,6 +87,7 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 80,
+      sorter: (a, b) => a.startDate?.localeCompare(b.startDate),
     },
     {
       title: "تاریخ پایان",
@@ -99,6 +96,8 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 80,
+      sorter: (a, b) => a.endDate?.localeCompare(b.endDate),
+
     },
     {
       title: "تاریخ اجرا",
@@ -107,6 +106,7 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 80,
+      sorter: (a, b) => a.implementationDate?.localeCompare(b.implementationDate),
     },
     {
       title: "وضعیت",
@@ -163,7 +163,7 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
                 </a>
               </Ant.Dropdown>
               <Ant.Button
-                onClick={() => onView(record)}
+                onClick={() => onView(record.id)}
                 className="text-sky-600"
                 icon={<GrView />}
                 color="primary"

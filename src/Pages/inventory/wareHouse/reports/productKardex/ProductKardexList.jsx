@@ -12,6 +12,7 @@ import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { PropTypes } from "prop-types";
+import * as uuid from "uuid";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
 import { useFetchWithHandler } from "@/api";
 import InventoryDocumentDescription from "@/Pages/inventory/inventoryDocument/description/InventoryDocumentDescription"
@@ -117,8 +118,8 @@ const ProductKardexList = (props) => {
     setModalState(true);
   };
   const onProductKardexView = (val) => {
-    console.log(val,"valval")
-    setModalContent(<ProductKardexDescription />);
+
+    setModalContent(<ProductKardexDescription key={uuid.v1()} id={val?.id} />);
     setModalState(true);
   };
   const onDocumentNumberView = (id) => {

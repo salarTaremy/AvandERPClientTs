@@ -4,47 +4,57 @@ import * as Ant from "antd";
 import * as url from "@/api/url";
 import * as styles from "@/styles";
 import * as api from "@/api";
-import { usePutWithHandler } from '@/api'
+import { usePutWithHandler } from "@/api";
 import * as defaultValues from "@/defaultValues";
 import { columns } from "./columns";
 import ButtonList from "@/components/common/ButtonList";
 import * as uuid from "uuid";
-import FilterPanel from './FilterPanel';
-import FilterDrawer from '@/components/common/FilterDrawer';
-import FilterBedge from '@/components/common/FilterBedge';
+import FilterPanel from "./FilterPanel";
+import FilterDrawer from "@/components/common/FilterDrawer";
+import FilterBedge from "@/components/common/FilterBedge";
 import PriceCircularDetailList from "../../priceCircularDetail/list/PriceCircularDetailList";
-import useRequestManager from '@/hooks/useRequestManager';
+import useRequestManager from "@/hooks/useRequestManager";
 import FormAddPriceCircularHeader from "../add/FormAddPriceCircularHeader";
 import FormEditPriceCircularHeader from "../edit/FormEditPriceCircularHeader";
 import FormCopyPriceCircularHeader from "../copy/FormCopyPriceCircularHeader";
-
+import PriceCircularHeaderDescription from "../description/PriceCircularHeaderDescription";
 
 //====================================================================
 //                        Declaration
 //====================================================================
 const PriceCircularHeader = () => {
   const pageTitle = "مدیریت بخشنامه قیمت";
-  const [listData, listLoading, listError, listApiCall] = api.useFetchWithHandler();
-  const [deleteSaving, deleteLoading, deleteError, deleteApiCall] = api.useDelWithHandler()
-  const [editData, editLoading, editError, editApiCall] = usePutWithHandler()
+  const [listData, listLoading, listError, listApiCall] =
+    api.useFetchWithHandler();
+  const [deleteSaving, deleteLoading, deleteError, deleteApiCall] =
+    api.useDelWithHandler();
+  const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
   const [dataSource, setDataSource] = useState(null);
   const [modalOpenState, setModalOpenState] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const [filterObject, setFilterObject] = useState()
-  const [filterCount, setFilterCount] = useState(0)
-  const [openFilter, setOpenFilter] = useState(false)
+  const [filterObject, setFilterObject] = useState();
+  const [filterCount, setFilterCount] = useState(0);
+  const [openFilter, setOpenFilter] = useState(false);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
-  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
+  const [modalSize, setModalSize] = useState({
+    ...defaultValues.MODAL_EXTRA_LARGE,
+  });
   useRequestManager({ error: listError });
-  useRequestManager({ error: deleteError, data: deleteSaving, loading: deleteLoading });
+  useRequestManager({
+    error: deleteError,
+    data: deleteSaving,
+    loading: deleteLoading,
+  });
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   //====================================================================
   //                        useEffects
   //====================================================================
   useEffect(() => {
     filterObject &&
-      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
-    !filterObject && setFilterCount(0)
+      setFilterCount(
+        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+      );
+    !filterObject && setFilterCount(0);
     getPriceCircularList();
   }, [filterObject, editData]);
 
@@ -54,8 +64,10 @@ const PriceCircularHeader = () => {
 
   useEffect(() => {
     deleteSaving?.isSuccess &&
-      setDataSource([...dataSource?.filter((c) => c.id !== deleteSaving?.data?.id)])
-  }, [deleteSaving])
+      setDataSource([
+        ...dataSource?.filter((c) => c.id !== deleteSaving?.data?.id),
+      ]);
+  }, [deleteSaving]);
 
   //====================================================================
   //                        Functions
@@ -67,31 +79,39 @@ const PriceCircularHeader = () => {
 
   const onTableChange = (pagination, filter, sorter) => {
     setPagination(pagination);
-  }
+  };
 
   const onDelete = async (id) => {
-    await deleteApiCall(`${url.PRICE_CIRCULAR_HEADER}/${id}`)
+    await deleteApiCall(`${url.PRICE_CIRCULAR_HEADER}/${id}`);
   };
 
   const onChange = async (id) => {
-    await editApiCall(`${url.PRICE_CIRCULAR_HEADER_ENABLE_DISABLE}/${id}`)
-  }
+    await editApiCall(`${url.PRICE_CIRCULAR_HEADER_ENABLE_DISABLE}/${id}`);
+  };
 
   const onEdit = async (value) => {
-    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE, width: 520 })
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE, width: 520 });
     setModalContent(
-      <FormEditPriceCircularHeader onSuccess={onSuccessEdit} key={uuid.v1()} id={value} />,
+      <FormEditPriceCircularHeader
+        onSuccess={onSuccessEdit}
+        key={uuid.v1()}
+        id={value}
+      />,
     );
     setModalOpenState(true);
   };
 
   const onSuccessEdit = async () => {
-    setModalOpenState(false)
-    getPriceCircularList()
-  }
+    setModalOpenState(false);
+    getPriceCircularList();
+  };
 
-  const onView = async (value) => {
-    alert('پیاده سازی نشده')
+  const onView = async (id) => {
+console.log(id,"fafa")
+    const updateList = { ...defaultValues.MODAL_LARGE };
+    setModalSize(updateList)
+    setModalContent(<PriceCircularHeaderDescription  key={uuid.v1()} id={id} />);
+    setModalOpenState(true);
   };
 
   const onSuccessAdd = () => {
@@ -100,30 +120,40 @@ const PriceCircularHeader = () => {
   };
 
   const onAdd = async () => {
-    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE, width: 520 })
-    setModalContent(<FormAddPriceCircularHeader key={uuid.v1()} onSuccess={onSuccessAdd} />);
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE, width: 520 });
+    setModalContent(
+      <FormAddPriceCircularHeader key={uuid.v1()} onSuccess={onSuccessAdd} />,
+    );
     setModalOpenState(true);
-  }
+  };
 
   const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
+    setFilterObject(filterObject);
+    setOpenFilter(false);
+  };
 
   const onRemoveFilter = () => {
-    setFilterObject(null)
-    setOpenFilter(false)
-  }
+    setFilterObject(null);
+    setOpenFilter(false);
+  };
 
   const onCopy = async (value) => {
-    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE, width: 520 })
-    setModalContent(<FormCopyPriceCircularHeader key={uuid.v1()} id={value} onSuccess={onSuccessAdd} />);
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE, width: 520 });
+    setModalContent(
+      <FormCopyPriceCircularHeader
+        key={uuid.v1()}
+        id={value}
+        onSuccess={onSuccessAdd}
+      />,
+    );
     setModalOpenState(true);
-  }
+  };
 
   const onOpen = async (value) => {
-    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE })
-    setModalContent(<PriceCircularDetailList key={uuid.v1()} priceCircularHeaderId={value} />);
+    setModalSize({ ...defaultValues.MODAL_EXTRA_LARGE });
+    setModalContent(
+      <PriceCircularDetailList key={uuid.v1()} priceCircularHeaderId={value} />,
+    );
     setModalOpenState(true);
   };
 
@@ -174,7 +204,14 @@ const PriceCircularHeader = () => {
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
-            columns={columns(onDelete, onEdit, onView, onCopy, onChange, onOpen)}
+            columns={columns(
+              onDelete,
+              onEdit,
+              onView,
+              onCopy,
+              onChange,
+              onOpen,
+            )}
             dataSource={dataSource}
             {...defaultValues.TABLE_PROPS}
             title={title}
@@ -186,6 +223,6 @@ const PriceCircularHeader = () => {
       </Ant.Card>
     </>
   );
-}
+};
 
 export default PriceCircularHeader;

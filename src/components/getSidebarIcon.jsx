@@ -171,6 +171,8 @@ const getSidebarIcon = ( iconName ) => {
             return <Lu.LuFileLock className={className} color={color} />;
         case 'GrDocumentRtf':
             return <Gr.GrDocumentRtf className={className} color={color} />;
+        case 'GrDocumentPpt':
+            return <Gr.GrDocumentPpt  className={className} color={color} />;
         case 'PiCity':
             return <Pi.PiCity className={className} color={color} />;
         case 'RiUserLocationLine':
