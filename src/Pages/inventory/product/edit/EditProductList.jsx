@@ -288,7 +288,7 @@ const EditProductList = () => {
                                         rules={[
                                             { validator: isValidIrCode },
                                             {
-                                                required: true,
+                                                // required: true,
                                                 len: maxLenGS1,
                                             },
                                         ]}

@@ -182,6 +182,7 @@ console.log(id,"fafa")
         open={modalOpenState}
         centered
         {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_LARGE}
         {...modalSize}
         getContainer={null}
         footer={null}

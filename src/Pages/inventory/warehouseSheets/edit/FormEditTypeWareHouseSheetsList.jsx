@@ -159,7 +159,7 @@ const FormEditTypeWareHouseSheetsList = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={"ویرایش برگه انبار "} icon={<FaWarehouse />} />
+      <ModalHeader title={"ویرایش نوع برگه انبار"} icon={<FaWarehouse />} />
       <Ant.Skeleton active loading={allLoading}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[8, 8]}>

@@ -27,10 +27,7 @@ const FormAddPriceCirculardetail = (props) => {
     useRequestManager({ error: poductError });
     useRequestManager({ error: addError, data: addData });
     const [form] = Ant.Form.useForm();
-    const commonOptions = {
-        showSearch: true,
-        filterOption: (input, option) => option.name.indexOf(input) >= 0,
-    };
+  
     //====================================================================
     //                        useEffects
     //====================================================================
@@ -56,13 +53,7 @@ const FormAddPriceCirculardetail = (props) => {
         } else {
             setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
             setSelectedItemValues({
-                // brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
                 product: { id: selectedValue.product.id, name: selectedValue.product.name },
-                // productDetail: {
-                //     id: selectedValue.productDetail.productDetailId,
-                //     batchNumberId: selectedValue.productDetail.batchNumberId,
-                //     batchNumber: selectedValue.productDetail.batchNumber,
-                // },
             });
         }
     };
@@ -74,11 +65,7 @@ const FormAddPriceCirculardetail = (props) => {
             let req = {
                 ...values,
                 priceCircularHeaderId: iD,
-                // warehouseId: values.warehouseId,
                 productId: selectedItemValues.product.id,
-                // brandId: selectedItemValues.brand.id,
-                // batchNumberId: selectedItemValues.productDetail.batchNumberId,
-                // batchNumber: selectedItemValues.productDetail.batchNumber,
                 productDetailId: selectedItemValues.productDetail.id
             }
             await addApiCall(url.PRICE_CIRCULAR_DETAIL, req);
@@ -86,12 +73,8 @@ const FormAddPriceCirculardetail = (props) => {
         else {
             let req = {
                 ...values,
-                // consumerPrice: values.consumerPrice,
                 priceCircularHeaderId: iD,
                 productId: selectedItemValues?.product?.id,
-                // warehouseId: values.warehouseId,
-                // brandId: selectedItemValues.brand.id,
-                // batchNumberId: selectedItemValues?.productDetail?.batchNumberId,
             }
             await addApiCall(url.PRICE_CIRCULAR_DETAIL, req);
         }
