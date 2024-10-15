@@ -67,9 +67,10 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 80,
+      render: (text, record, index) => (
+        <Ant.Typography.Link onClick={() => onView(record.id)}>{record.id}</Ant.Typography.Link>
+      ),
       sorter: (a, b) => a.id - b.id,
-
-
     },
     {
       title: "عنوان",
