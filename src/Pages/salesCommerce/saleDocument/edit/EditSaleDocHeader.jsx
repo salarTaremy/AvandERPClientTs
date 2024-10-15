@@ -158,8 +158,8 @@ const EditSaleDocHeader = (props) => {
       >
         <CustomerDescription id={idCustomer} />
       </Ant.Modal>
+      <ModalHeader title={"ویرایش برگه فروش"} icon={<BiEdit />} />
       <CustomContent height="70vh">
-        <ModalHeader title={"ویرایش برگه فروش"} icon={<BiEdit />} />
         <Ant.Skeleton active loading={loadingData}>
           <Ant.Form
             form={form}
@@ -186,7 +186,7 @@ const EditSaleDocHeader = (props) => {
                   <Ant.Select
                     allowClear
                     placeholder={"انتخاب کنید..."}
-                    disabled={saleChannelLoading }
+                    disabled={saleChannelLoading}
                     loading={saleChannelLoading}
                     options={saleChannelData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -231,7 +231,7 @@ const EditSaleDocHeader = (props) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={saleDocTypeLoading }
+                    disabled={saleDocTypeLoading}
                     loading={saleDocTypeLoading}
                     options={saleDocTypeData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -248,7 +248,7 @@ const EditSaleDocHeader = (props) => {
                     {...commonOptionsVisitor}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={visitorLoading }
+                    disabled={visitorLoading}
                     loading={visitorLoading}
                     options={visitorData?.data}
                     fieldNames={{ label: "fullName", value: "id" }}
@@ -265,7 +265,7 @@ const EditSaleDocHeader = (props) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={paymentTypeLoading }
+                    disabled={paymentTypeLoading}
                     loading={paymentTypeLoading}
                     options={paymentTypeData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -282,7 +282,7 @@ const EditSaleDocHeader = (props) => {
                     {...commonOptions}
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
-                    disabled={saleTypeLoading }
+                    disabled={saleTypeLoading}
                     loading={saleTypeLoading}
                     options={saleTypeData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -299,7 +299,7 @@ const EditSaleDocHeader = (props) => {
                     {...commonOptions}
                     allowClear
                     placeholder={"انتخاب کنید..."}
-                    disabled={deliveryTypeLoading }
+                    disabled={deliveryTypeLoading}
                     loading={deliveryTypeLoading}
                     options={deliveryTypeData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -316,7 +316,7 @@ const EditSaleDocHeader = (props) => {
                     {...commonOptions}
                     allowClear
                     placeholder={"انتخاب کنید..."}
-                    disabled={saleClassificationLoading }
+                    disabled={saleClassificationLoading}
                     loading={saleClassificationLoading}
                     options={saleClassificationData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -333,7 +333,7 @@ const EditSaleDocHeader = (props) => {
                     {...commonOptionsBranch}
                     allowClear
                     placeholder={"انتخاب کنید..."}
-                    disabled={branchLoading }
+                    disabled={branchLoading}
                     loading={branchLoading}
                     options={branchData?.data}
                     fieldNames={{ label: "name", value: "id" }}
