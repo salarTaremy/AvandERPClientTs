@@ -5,7 +5,6 @@ import * as url from "@/api/url";
 import qs from "qs";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import ProductPicker, {
-  GetSelectedValue as GetProductPickerValue,
   FormatValueToDisplay as ProductPickerDisplayValue,
 } from "@/components/common/ProductPicker";
 import useRequestManager from "@/hooks/useRequestManager";
@@ -21,6 +20,7 @@ const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
   const [form] = Ant.Form.useForm();
   const [selectedItemValues, setSelectedItemValues] = useState({});
+  const [validationErrors, setValidationErrors] = useState(null);
   const [wareHouseList, wareHouseLoading, wareHouseError] = api.useFetch(
     url.WAREHOUSE,
   );
@@ -80,6 +80,7 @@ const FilterPanel = (props) => {
   //====================================================================
 
   const handleTypeChange = (value) => {
+    setValidationErrors("");
     if (value === "1") {
       form.setFieldsValue("ProductId", null);
       setSelectedItemValues((prev) => ({
@@ -102,32 +103,42 @@ const FilterPanel = (props) => {
     form.setFieldValue("Product", null);
     form.setFieldValue("productAndBatchNumber", null);
   };
-  const onProductChange = async (value, option) => {
-    const selectedValue = GetProductPickerValue(option);
+  const onProductChange = async (value, selectedNode, extra) => {
+    const selectedValue = extra.selectedOptionData;
+    if (selectedValue.product) {
+      setValidationErrors("");
 
-    setSelectedItemValues({
-      brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
-      product: {
-        id: selectedValue?.product?.id,
-        name: selectedValue?.product?.name,
-      },
-    });
+      setSelectedItemValues({
+        brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
+        product: {
+          id: selectedValue?.product?.id,
+          name: selectedValue?.product?.name,
+        },
+      });
+    } else {
+      setValidationErrors("انتخاب کالا اجباری است");
+    }
   };
-  const onBatchNumberChange = async (value, option) => {
-    const selectedValue = GetProductPickerValue(option);
+  const onBatchNumberChange = async (value, selectedNode, extra) => {
+    const selectedValue = extra.selectedOptionData;
+    if (selectedValue.productDetail) {
+      setValidationErrors("");
 
-    setSelectedItemValues({
-      brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
-      product: {
-        id: selectedValue.product.id,
-        name: selectedValue.product.name,
-      },
-      productAndBatchNumber: {
-        id: selectedValue?.productDetail?.productDetailId,
-        batchNumberId: selectedValue?.productDetail?.batchNumberId,
-        batchNumber: selectedValue?.productDetail?.batchNumber,
-      },
-    });
+      setSelectedItemValues({
+        brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
+        product: {
+          id: selectedValue.product.id,
+          name: selectedValue.product.name,
+        },
+        productAndBatchNumber: {
+          id: selectedValue?.productDetail?.productDetailId,
+          batchNumberId: selectedValue?.productDetail?.batchNumberId,
+          batchNumber: selectedValue?.productDetail?.batchNumber,
+        },
+      });
+    } else {
+      setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
+    }
   };
   const onFinish = (values) => {
     console.log(values, "values");
@@ -153,7 +164,8 @@ const FilterPanel = (props) => {
       ...otherFilterItems,
       ProductId: selectedItemValues?.product?.id ?? ProductId,
       BatchNumberId:
-        selectedItemValues?.productAndBatchNumber?.batchNumberId ?? BatchNumberId,
+        selectedItemValues?.productAndBatchNumber?.batchNumberId ??
+        BatchNumberId,
       BrandId: selectedItemValues?.brand?.id,
     });
   };
@@ -213,18 +225,13 @@ const FilterPanel = (props) => {
           <Ant.Form.Item
             name={"Product"}
             label=" کالا "
-            rules={[
-              {
-                validator: (_, value) =>
-                  new Promise((resolve, reject) => {
-                    if (value?.length != 2) {
-                      reject(new Error("انتخاب کالا اجباری است"));
-                    } else {
-                      resolve();
-                    }
-                  }),
-              },
-            ]}
+            help={
+              validationErrors && (
+                <Ant.Typography.Text type="danger">
+                  {validationErrors}
+                </Ant.Typography.Text>
+              )
+            }
           >
             <ProductPicker
               disabled={loadingProduct}
@@ -241,18 +248,13 @@ const FilterPanel = (props) => {
           <Ant.Form.Item
             label="برند، کالا و سری ساخت"
             name={"productAndBatchNumber"}
-            rules={[
-              {
-                validator: (_, value) =>
-                  new Promise((resolve, reject) => {
-                    if (value?.length != 3) {
-                      reject(new Error("انتخاب کالا و سری ساخت اجباری است"));
-                    } else {
-                      resolve();
-                    }
-                  }),
-              },
-            ]}
+            help={
+              validationErrors && (
+                <Ant.Typography.Text type="danger">
+                  {validationErrors}
+                </Ant.Typography.Text>
+              )
+            }
           >
             <ProductPicker
               disabled={loadingBachNumber}
@@ -261,7 +263,7 @@ const FilterPanel = (props) => {
               }}
               onChange={onBatchNumberChange}
               warehouseId={warehouseId}
-              mode="productAndBatchNumber"
+              mode="productDetail"
             />
           </Ant.Form.Item>
         )}

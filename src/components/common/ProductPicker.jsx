@@ -9,6 +9,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import { TbBrandAirtable } from "react-icons/tb";
 import { AiOutlineProduct } from "react-icons/ai";
 import { RiBarcodeBoxLine } from "react-icons/ri";
+import { DownOutlined } from "@ant-design/icons";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -19,7 +20,9 @@ const ProductPicker = (props) => {
     onLoadingChange, // func: (value) => void
     disabled, // boolean
     initialValues, // array
-    mobileMode, // boolean
+    value, // must not set manually, it will be controlled by form component
+    onChange, // must not set manually, it will be set by form component
+    ...validDomProps
   } = props;
 
   const [
@@ -30,6 +33,7 @@ const ProductPicker = (props) => {
   ] = useFetchWithHandler();
   useRequestManager({ error: productListError });
   const [productCascaderOption, setProductCascaderOption] = useState([]);
+  const [mobileMode, setMobileMode] = useState(window.innerWidth <= 768);
   //====================================================================
   //                        useEffects
   //====================================================================
@@ -57,9 +61,20 @@ const ProductPicker = (props) => {
     onLoadingChange && onLoadingChange(productListLoading);
   }, [productListLoading]);
 
+  useEffect(() => {
+    window.addEventListener("resize", onWindowSizeChanged);
+    return () => {
+      window.removeEventListener("resize", onWindowSizeChanged);
+    };
+  }, []);
   //====================================================================
   //                        Functions
   //====================================================================
+  const onWindowSizeChanged = () => {
+    const windowWidth = window.innerWidth;
+    setMobileMode(windowWidth <= 768);
+  };
+
   const setDefaultValue = () => {
     if (initialValues) {
       if (mode == "product") {
@@ -83,55 +98,163 @@ const ProductPicker = (props) => {
         option.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 ||
         String(option.fullCode).indexOf(inputValue) > -1,
     );
+
+  const onProductSelect = (value, selectedNode, extra) => {
+    const selectedOptionData = {};
+    if (!mobileMode) {
+      const levelCount = selectedNode.length;
+      if (levelCount == 1) {
+        const selectedBrand = selectedNode[0];
+        selectedOptionData.brand = {
+          id: selectedBrand.brandId,
+          name: selectedBrand.name,
+        };
+      }
+
+      if (levelCount == 2) {
+        const selectedBrand = selectedNode[0];
+        const selectedProduct = selectedNode[1];
+        selectedOptionData.brand = {
+          id: selectedBrand.brandId,
+          name: selectedBrand.name,
+        };
+        selectedOptionData.product = {
+          id: selectedProduct.productId,
+          name: selectedProduct.name,
+        };
+      }
+
+      if (levelCount == 3) {
+        const selectedBrand = selectedNode[0];
+        const selectedProduct = selectedNode[1];
+        const selectedBatchNumber = selectedNode[2];
+
+        selectedOptionData.brand = {
+          id: selectedBrand.brandId,
+          name: selectedBrand.name,
+        };
+        selectedOptionData.product = {
+          id: selectedProduct.productId,
+          name: selectedProduct.name,
+        };
+        selectedOptionData.productDetail = {
+          productDetailId: selectedBatchNumber.productDetailId,
+          batchNumberId: selectedBatchNumber.batchNumberId,
+          batchNumber: selectedBatchNumber.name,
+        };
+      }
+    } else {
+      const selectedItemsName = selectedNode.fullName.split(">");
+      if (selectedNode.batchNumberId) {
+        selectedOptionData.brand = {
+          id: selectedNode.brandId,
+          name: selectedItemsName[0].trim(),
+        };
+        selectedOptionData.product = {
+          id: selectedNode.productId,
+          name: selectedItemsName[1].trim(),
+        };
+        selectedOptionData.productDetail = {
+          productDetailId: selectedNode.productDetailId,
+          batchNumberId: selectedNode.batchNumberId,
+          batchNumber: selectedItemsName[2].trim(),
+        };
+      } else {
+        if (selectedNode.productId) {
+          selectedOptionData.brand = {
+            id: selectedNode.brandId,
+            name: selectedItemsName[0].trim(),
+          };
+          selectedOptionData.product = {
+            id: selectedNode.productId,
+            name: selectedItemsName[1].trim(),
+          };
+        } else {
+          selectedOptionData.brand = {
+            id: selectedNode.brandId,
+            name: selectedItemsName[0].trim(),
+          };
+        }
+      }
+
+      //mobileModeOnChange(selectedOptionData);
+    }
+
+    const extraInfo = { selectedOptionData: selectedOptionData, ...extra };
+    onChange(value, selectedNode, extraInfo);
+  };
+
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <Ant.Cascader
-        {...props}
-        disabled={disabled || productListLoading || false}
-        defaultValue={initialValues && setDefaultValue()}
-        loading={productListLoading}
-        options={productCascaderOption}
-        optionRender={(option) => (
-          <>
-            <Ant.Flex gap="small" key={uuid.v1()}>
-              {option.level === 1 && (
-                <TbBrandAirtable className="text-indigo-500" />
-              )}
-              {option.level === 2 && (
-                <AiOutlineProduct className="text-cyan-500" />
-              )}
-              {option.level === 3 && (
-                <RiBarcodeBoxLine className="text-teal-500" />
-              )}
-              {option.title}
-            </Ant.Flex>
-          </>
-        )}
-        placeholder="لطفا انتخاب کنید ..."
-        fieldNames={{
-          label: "title",
-          value: "id",
-          children: "children",
-        }}
-        showSearch={{ productFilter }}
-      />
+      {!mobileMode && (
+        <Ant.Cascader
+          {...validDomProps}
+          value={value}
+          onChange={onProductSelect}
+          disabled={disabled || productListLoading || false}
+          defaultValue={initialValues && setDefaultValue()}
+          loading={productListLoading}
+          options={productCascaderOption}
+          optionRender={(option) => (
+            <>
+              <Ant.Flex gap="small" key={uuid.v1()}>
+                {option.level === 1 && (
+                  <TbBrandAirtable className="text-indigo-500" />
+                )}
+                {option.level === 2 && (
+                  <AiOutlineProduct className="text-cyan-500" />
+                )}
+                {option.level === 3 && (
+                  <RiBarcodeBoxLine className="text-teal-500" />
+                )}
+                {option.title}
+              </Ant.Flex>
+            </>
+          )}
+          placeholder="لطفا انتخاب کنید..."
+          fieldNames={{
+            label: "title",
+            value: "id",
+            children: "children",
+          }}
+          showSearch={{ productFilter }}
+        />
+      )}
+      {mobileMode && (
+        <Ant.TreeSelect
+          {...validDomProps}
+          value={value}
+          onSelect={onProductSelect}
+          showSearch
+          style={{
+            width: "100%",
+          }}
+          labelInValue={false}
+          dropdownStyle={{
+            maxHeight: 400,
+            overflow: "auto",
+          }}
+          placeholder="لطفا انتخاب کنید..."
+          allowClear
+          treeDefaultExpandAll={false}
+          filterTreeNode={true}
+          treeNodeFilterProp={"title"}
+          treeNodeLabelProp={"fullName"}
+          treeData={productCascaderOption}
+          switcherIcon={<DownOutlined />}
+        />
+      )}
     </>
   );
 };
 ProductPicker.propTypes = {
   warehouseId: PropTypes.number.isRequired,
   mode: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
   onLoadingChange: PropTypes.func,
   initialValues: PropTypes.object,
-  mobileMode: PropTypes.bool,
-};
-
-ProductPicker.defaultProps = {
-  mobileMode: false,
 };
 
 export default ProductPicker;
@@ -184,14 +307,27 @@ export const GetSelectedValue = (option) => {
 };
 
 export const FormatValueToDisplay = (value) => {
+  const isMobileMode = window.innerWidth <= 768;
   if (value.length == 3) {
-    return [
-      `${value[0]}`,
-      `${value[0]}-${value[1]}`,
-      `${value[0]}-${value[1]}-${value[2]}`,
-    ];
+    if (!isMobileMode) {
+      //The value Cascader component understands
+      return [
+        `${value[0]}`,
+        `${value[0]}-${value[1]}`,
+        `${value[0]}-${value[1]}-${value[2]}`,
+      ];
+    } else {
+      //The value TreeSelect component understands
+      return `${value[0]}-${value[1]}-${value[2]}`;
+    }
   } else if (value.length == 2) {
-    return [`${value[0]}`, `${value[0]}-${value[1]}`];
+    if (!isMobileMode) {
+      //The value Cascader component understands
+      return [`${value[0]}`, `${value[0]}-${value[1]}`];
+    } else {
+      //The value TreeSelect component understands
+      return `${value[0]}-${value[1]}`;
+    }
   } else {
     return "";
   }

@@ -9,7 +9,6 @@ import MyDatePicker, {
 import useRequestManager from "@/hooks/useRequestManager";
 import * as api from "@/api";
 import ProductPicker, {
-    GetSelectedValue as GetProductPickerValue,
     FormatValueToDisplay as ProductPickerDisplayValue,
 } from "@/components/common/ProductPicker";
 
@@ -71,8 +70,13 @@ const FilterPanel = (props) => {
     //====================================================================
     //                        Functions
     //====================================================================
-    const onProductChange = async (value, option) => {
-        const selectedValue = GetProductPickerValue(option);
+    const onProductPickerModeChange = (value) => {
+        setValidationErrors("");
+        setValueType(value)
+    }
+
+    const onProductDetailChange = async (value, selectedNode, extra) => {
+        const selectedValue = extra.selectedOptionData;
         if (selectedValue.productDetail) {
             setValidationErrors("");
             setSelectedItemValues({
@@ -86,15 +90,19 @@ const FilterPanel = (props) => {
             });
         } else {
             setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
+        }
+    };
+
+    const onProductChange = async (value, selectedNode, extra) => {
+        const selectedValue = extra.selectedOptionData;
+        if (selectedValue.product) {
+            setValidationErrors("");
             setSelectedItemValues({
-                // brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
+                brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
                 product: { id: selectedValue.product.id, name: selectedValue.product.name },
-                // productDetail: {
-                //     id: selectedValue.productDetail.productDetailId,
-                //     batchNumberId: selectedValue.productDetail.batchNumberId,
-                //     batchNumber: selectedValue.productDetail.batchNumber,
-                // },
             });
+        } else {
+            setValidationErrors("انتخاب کالا اجباری است");
         }
     };
 
@@ -184,13 +192,20 @@ const FilterPanel = (props) => {
                             },
                         ]}
                         defaultValue={filterObject?.productAndBatchNumber ? "1" : "0"}
-                        onChange={(e) => setValueType(e)}
+                        onChange={onProductPickerModeChange}
                     />
                 </Ant.Form.Item>
                 {valueType === "0" && (
                     <Ant.Form.Item
                         name={"product"}
                         label="کالا"
+                        help={
+                            validationErrors && (
+                                <Ant.Typography.Text type="danger">
+                                    {validationErrors}
+                                </Ant.Typography.Text>
+                            )
+                        }
                     >
                         <ProductPicker
                             warehouseId={warehouseId}
@@ -216,7 +231,7 @@ const FilterPanel = (props) => {
                             // initialValues={{ brandId: brandId, productId: productId, batchNumberId: batchNumberId }}
                             warehouseId={warehouseId}
                             mode="productDetail"
-                            onChange={onProductChange}
+                            onChange={onProductDetailChange}
                         />
                     </Ant.Form.Item>
                 )}

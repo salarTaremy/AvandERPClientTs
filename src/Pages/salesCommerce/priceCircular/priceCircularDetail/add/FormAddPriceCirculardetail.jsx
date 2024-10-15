@@ -6,10 +6,7 @@ import ModalHeader from "@/components/common/ModalHeader";
 import { usePostWithHandler } from "@/api";
 import useRequestManager from "@/hooks/useRequestManager";
 import { MdDescription } from "react-icons/md";
-import ProductPicker, {
-    GetSelectedValue as GetProductPickerValue,
-    FormatValueToDisplay as ProductPickerDisplayValue,
-} from "@/components/common/ProductPicker";
+import ProductPicker from "@/components/common/ProductPicker";
 
 const FormAddPriceCirculardetail = (props) => {
     const { onSuccess, iD } = props;
@@ -37,8 +34,12 @@ const FormAddPriceCirculardetail = (props) => {
     //==================================================================
     //                        Functions
     //==================================================================
-    const onProductChange = async (value, option) => {
-        const selectedValue = GetProductPickerValue(option);
+    const onProductPickerModeChange = (value) => {
+        setValueType(value);
+        setValidationErrors("");
+    }
+    const onProductDetailChange = async (value, selectedNode, extra) => {
+        const selectedValue = extra.selectedOptionData;
         if (selectedValue.productDetail) {
             setValidationErrors("");
             setSelectedItemValues({
@@ -52,9 +53,18 @@ const FormAddPriceCirculardetail = (props) => {
             });
         } else {
             setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
+        }
+    };
+
+    const onProductChange = async (value, selectedNode, extra) => {
+        const selectedValue = extra.selectedOptionData;
+        if (selectedValue.product) {
+            setValidationErrors("");
             setSelectedItemValues({
                 product: { id: selectedValue.product.id, name: selectedValue.product.name },
             });
+        } else {
+            setValidationErrors("انتخاب کالا اجباری است");         
         }
     };
 
@@ -109,7 +119,7 @@ const FormAddPriceCirculardetail = (props) => {
                                 value: "1",
                             },
                         ]}
-                        onChange={(e) => setValueType(e)}
+                        onChange={onProductPickerModeChange}
                     />
                 </Ant.Form.Item>
                 {valueType === "0" && (
@@ -117,6 +127,13 @@ const FormAddPriceCirculardetail = (props) => {
                         name={"product"}
                         label="کالا"
                         rules={[{ required: true }]}
+                        help={
+                            validationErrors && (
+                                <Ant.Typography.Text type="danger">
+                                    {validationErrors}
+                                </Ant.Typography.Text>
+                            )
+                        }
                     >
                         <ProductPicker
                             warehouseId={warehouseId}
@@ -142,7 +159,7 @@ const FormAddPriceCirculardetail = (props) => {
                             // initialValues={{ brandId: brandId, productId: productId, batchNumberId: batchNumberId }}
                             warehouseId={warehouseId}
                             mode="productDetail"
-                            onChange={onProductChange}
+                            onChange={onProductDetailChange}
                         />
                     </Ant.Form.Item>
                 )}
