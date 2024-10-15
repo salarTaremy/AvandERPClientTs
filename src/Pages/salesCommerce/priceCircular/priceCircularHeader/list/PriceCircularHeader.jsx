@@ -17,6 +17,7 @@ import useRequestManager from '@/hooks/useRequestManager';
 import FormAddPriceCircularHeader from "../add/FormAddPriceCircularHeader";
 import FormEditPriceCircularHeader from "../edit/FormEditPriceCircularHeader";
 import FormCopyPriceCircularHeader from "../copy/FormCopyPriceCircularHeader";
+import PriceCircularHeaderDescription from "../description/PriceCircularHeaderDescription";
 
 
 //====================================================================
@@ -91,7 +92,11 @@ const PriceCircularHeader = () => {
   }
 
   const onView = async (value) => {
-    alert('پیاده سازی نشده')
+    setModalSize({ ...defaultValues.MODAL_LARGE })
+    setModalContent(
+      <PriceCircularHeaderDescription onSuccess={onSuccessEdit} key={uuid.v1()} id={value.id} />
+    );
+    setModalOpenState(true);
   };
 
   const onSuccessAdd = () => {
@@ -152,6 +157,7 @@ const PriceCircularHeader = () => {
         open={modalOpenState}
         centered
         {...defaultValues.MODAL_PROPS}
+        {...defaultValues.MODAL_LARGE}
         {...modalSize}
         getContainer={null}
         footer={null}

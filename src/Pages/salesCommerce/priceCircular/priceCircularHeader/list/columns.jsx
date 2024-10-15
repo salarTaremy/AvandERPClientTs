@@ -67,13 +67,9 @@ export const columns = (onDelete, onEdit, onView, onCopy, onChange, onOpen) => {
       align: "center",
       className: "text-xs sm:text-sm",
       width: 50,
-      render: (text, record, index) => {
-        return (
-          <a >
-            {record.id}
-          </a>
-        )
-      }
+      render: (text, record, index) => (
+        <Ant.Typography.Link onClick={() => onView(record)}>{record.id}</Ant.Typography.Link>
+      )
 
     },
     {

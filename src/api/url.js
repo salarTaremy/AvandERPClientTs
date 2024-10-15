@@ -133,14 +133,13 @@ export const SALE_CHANNEL_GET_WITH_PERMISSION = '/SaleChannel/GetWithPermission'
 export const SALE_DOCUMENT_HEADER = 'SaleDocumentHeader'
 export const SALE_DOCUMENT_DETAIL = 'SaleDocumentDetail'
 export const SALE_CUSTOMER_GET_FOR_DROPDOWN = '/Customer/GetForDropdown'
-export const PRICE_CIRCULAR_HEADER_GET_BY_DETAIL_ID = 'PriceCircularHeader/GetByPriceCircularDetailId'
 export const SALE_DOCUMENT_DETAIL_EFFECTIVE_FACTOR = 'SaleDocumentDetailEffectiveFactor'
 export const SALE_EFFECTIVE_FACTOR = 'SaleEffectiveFactor'
 export const SALE_EFFECTIVE_FACTOR_TYPE = 'SaleEffectiveFactor/GetSaleEffectiveFactorType'
 export const PRICE_CIRCULAR_HEADER = 'PriceCircularHeader'
 export const PRICE_CIRCULAR_DETAIL = 'PriceCircularDetail'
 export const PRICE_CIRCULAR_HEADER_CREATE_COPY = 'PriceCircularHeader/CreateCopy'
-export const PRICE_CIRCULAR_HEADER_ENABLE_DISABLE ='PriceCircularHeader/EnableDisable'
+export const PRICE_CIRCULAR_HEADER_ENABLE_DISABLE = 'PriceCircularHeader/EnableDisable'
 
 
 

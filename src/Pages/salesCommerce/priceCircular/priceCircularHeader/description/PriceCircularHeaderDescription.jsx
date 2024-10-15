@@ -2,106 +2,86 @@ import React, { useState } from "react";
 import * as api from "@/api";
 import * as url from "@/api/url";
 import * as Ant from "antd";
-import { Typography } from "antd";
 import useRequestManager from "@/hooks/useRequestManager";
-import PriceCircularDetailList from "../../priceCircularDetail/list/PriceCircularDetailList";
-import * as defaultValues from "@/defaultValues";
+import CustomContent from "@/components/common/CustomContent";
 import ModalHeader from "@/components/common/ModalHeader";
+import {GrDocumentPerformance} from "react-icons/gr";
+
 //====================================================================
 //                        Declaration
 //====================================================================
 const PriceCircularHeaderDescription = (props) => {
-  const { priceCircularDetailId } = props;
-  const pageTitle = "بخشنامه قیمت مرتبط";
+  const { id } = props;
+  // const pageTitle = "بخشنامه قیمت مرتبط";
   const [
     priceCircularHeaderData,
     priceCircularHeaderLoading,
     priceCircularHeaderError,
   ] = api.useFetch(
-    `${url.PRICE_CIRCULAR_HEADER_GET_BY_DETAIL_ID}/${priceCircularDetailId}`,
+    `${url.PRICE_CIRCULAR_HEADER}/${id}`,
   );
-  const [modalOpenState, setModalOpenState] = useState(false);
-  const [modalContent, setModalContent] = useState(false);
   useRequestManager({ error: priceCircularHeaderError });
 
-  const onViewPriceCircularDetail = () => {
-    setModalContent(
-      <PriceCircularDetailList
-        priceCircularHeaderId={priceCircularHeaderData?.data?.id}
-        priceCircularHeaderName={priceCircularHeaderData?.data?.title}
-      />,
-    );
-    setModalOpenState(true);
-  };
-
-  const descriptionItems = [
-    {
-      key: "1",
-      label: "عنوان",
-      children: (
-        <Typography.Link onClick={onViewPriceCircularDetail}>
-          {priceCircularHeaderData?.data?.title}
-        </Typography.Link>
-      ),
-    },
-    {
-      key: "2",
-      label: "تاریخ شروع",
-      children: priceCircularHeaderData?.data?.startDate,
-    },
-    {
-      key: "3",
-      label: "تاریخ پایان",
-      children: priceCircularHeaderData?.data?.endDate,
-    },
-    {
-      key: "4",
-      label: "وضعیت",
-      children: priceCircularHeaderData?.data?.isActive ? "فعال" : "غیرفعال",
-    },
-    {
-      key: "5",
-      label: "توضیحات",
-      children: priceCircularHeaderData?.data?.description,
-    },
-  ];
-
-  //====================================================================
+   //====================================================================
   //                        Component
   //====================================================================
   return (
-    <>
-      <Ant.Skeleton active  loading={priceCircularHeaderLoading}>
-        <Ant.Modal
-          open={modalOpenState}
-          centered
-          {...defaultValues.MODAL_PROPS}
-          {...defaultValues.MODAL_EXTRA_LARGE}
-          getContainer={null}
-          footer={null}
-          onCancel={() => setModalOpenState(false)}
-          onOk={() => setModalOpenState(false)}
-        >
-          {modalContent}
-        </Ant.Modal>
+    <Ant.Skeleton active loading={priceCircularHeaderLoading}>
+      <ModalHeader title={"جزئیات بخشنامه قیمت"} icon={<GrDocumentPerformance />} />
 
-        <ModalHeader title={pageTitle} />
-        <Ant.Descriptions
-          column={{
-            xs: 1,
-            sm: 1,
-            md: 4,
-            lg: 4,
-            xl: 4,
-            xxl: 4,
-          }}
-          bordered
-          layout="vertical"
-          size="medium"
-          items={descriptionItems}
-        />
-      </Ant.Skeleton>
-    </>
+      <Ant.Badge.Ribbon color={(priceCircularHeaderData?.data?.isActive && "#87d068") || "#f5222d"}
+        text={(priceCircularHeaderData?.data?.isActive && "فعال") || "غیرفعال"}>
+        <CustomContent bordered>
+          <Ant.Row>
+            <Ant.Col xs={24} sm={4} md={4} lg={4}>
+              <Ant.Space direction="vertical" align="center" size="middle">
+                <Ant.Avatar
+                  shape="square"
+                  size={{
+                    xs: 32,
+                    sm: 50,
+                    md: 64,
+                    lg: 64,
+                    xl: 64,
+                    xxl: 64,
+                  }}
+                  style={{
+                    backgroundColor: "#87d068",
+                  }}
+                  icon={<GrDocumentPerformance />}
+                />
+
+                <Ant.Typography.Text type="secondary">
+                  {"شناسه"} :{priceCircularHeaderData?.data?.id}
+                </Ant.Typography.Text>
+              </Ant.Space>
+            </Ant.Col>
+            <Ant.Col>
+              <Ant.Row gutter={[8, 16]}>
+                <Ant.Col span={24}>
+                  <Ant.Typography.Text>
+                    {"عنوان"}: {priceCircularHeaderData?.data?.title}
+                  </Ant.Typography.Text>
+                </Ant.Col>
+                <Ant.Col>
+                  <Ant.Space direction="vertical">
+                    <Ant.Typography.Text type="secondary">
+                      {"تاریخ شروع"} :{priceCircularHeaderData?.data?.startDate}
+                    </Ant.Typography.Text>
+                    <Ant.Typography.Text type="secondary">
+                      {"تاریخ پایان"}:{priceCircularHeaderData?.data?.endDate}
+                    </Ant.Typography.Text>
+                    <Ant.Typography.Text type="secondary">
+                      {"توضیحات"}:{priceCircularHeaderData?.data?.description}
+                    </Ant.Typography.Text>
+                  </Ant.Space>
+                </Ant.Col>
+              </Ant.Row>
+            </Ant.Col>
+          </Ant.Row>
+        </CustomContent>
+      </Ant.Badge.Ribbon>
+    </Ant.Skeleton>
   );
 };
 
