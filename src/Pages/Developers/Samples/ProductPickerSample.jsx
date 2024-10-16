@@ -35,24 +35,24 @@ const ProductPickerSample = () => {
     });
   }, [form]);
 
-  const onProductChange = async (value, option) => {
-    const selectedValue = GetProductPickerValue(option);
-    if (selectedValue.productDetail) {
+  const onProductChange = async (value, selectedNode, extra) => {
+    const optionData = extra.selectedOptionData;
+    if (optionData.productDetail) {
       setValidationErrors("");
 
       setSelectedItemValues({
-        brand: { id: selectedValue.brand.id, name: selectedValue.brand.name },
-        product: { id: selectedValue.product.id, name: selectedValue.product.name },
+        brand: { id: optionData.brand.id, name: optionData.brand.name },
+        product: { id: optionData.product.id, name: optionData.product.name },
         productDetail: {
-          id: selectedValue.productDetail.productDetailId,
-          batchNumberId: selectedValue.productDetail.batchNumberId,
-          batchNumber: selectedValue.productDetail.batchNumber,
+          id: optionData.productDetail.productDetailId,
+          batchNumberId: optionData.productDetail.batchNumberId,
+          batchNumber: optionData.productDetail.batchNumber,
         },
       });
     } else {
       setValidationErrors("انتخاب کالا و سری ساخت اجباری است");
     }
-  };
+  }
 
   const onFinish = (formValues) => {
     console.log(selectedItemValues);

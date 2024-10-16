@@ -101,8 +101,8 @@ const InventoryDocumentDetailAddForm = ({
     await productDetailApiCall(`${url.PRODUCT}/${productId}`);
   };
 
-  const onProductChange = async (value, option) => {
-    const optionData = GetProductPickerValue(option);
+  const onProductChange = async (value, selectedNode, extra) => {
+    const optionData = extra.selectedOptionData;
     if (optionData.productDetail) {
       setValidationErrors("");
 
