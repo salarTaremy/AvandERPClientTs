@@ -21,10 +21,13 @@ const FilterPanel = (props) => {
     productNatureDetailError,
     ApiCall,
   ] = useFetchWithHandler();
+  const [productTypeData, productTypeLoading, productTypeError] =
+    useFetch(url.PRODUCT_TYPE);
   const [selectedproductNature, setSelectedProductNature] = useState(null);
   const [form] = Ant.Form.useForm();
   useRequestManager({ error: brandError });
   useRequestManager({ error: warehouseTypeError });
+  useRequestManager({ error: productTypeError });
 
   const commonOptions = {
     showSearch: true,
@@ -75,8 +78,30 @@ const FilterPanel = (props) => {
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
+            <Ant.Form.Item name="productCode" label={"کد محصول"}>
+              <Ant.Input allowClear showCount maxLength={20} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col md={24} lg={24} sm={24} xs={24}>
             <Ant.Form.Item name="ProductName" label={"نام محصول"}>
               <Ant.Input allowClear showCount maxLength={100} />
+            </Ant.Form.Item>
+          </Ant.Col>
+          <Ant.Col md={24} lg={24} sm={24} xs={24}>
+            <Ant.Form.Item
+              name={"productTypeId"}
+              label="نوع محصول"
+            // valuePropName="checked"
+            >
+              <Ant.Select
+                {...commonOptions}
+                allowClear={true}
+                placeholder={"انتخاب کنید..."}
+                disabled={productTypeLoading}
+                loading={productTypeLoading}
+                options={productTypeData?.data}
+                fieldNames={{ label: "name", value: "id" }}
+              />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
@@ -105,7 +130,7 @@ const FilterPanel = (props) => {
               rules={[{ required: false }]}
             >
               <Ant.Select
-                       placeholder={"انتخاب کنید..."}
+                placeholder={"انتخاب کنید..."}
                 allowClear={true}
                 {...commonOptions}
                 onChange={handleOnChange}
