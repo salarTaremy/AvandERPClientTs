@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import * as Ant from "antd";
 import { PropTypes } from "prop-types";
 import * as url from "@/api/url";
-import qs from "qs";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+
+
 import ProductPicker, {
   FormatValueToDisplay as ProductPickerDisplayValue,
 } from "@/components/common/ProductPicker";

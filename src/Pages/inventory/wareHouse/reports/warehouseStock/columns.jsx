@@ -7,7 +7,7 @@ import * as defaultValues from "@/defaultValues";
 import { CiLogout, CiLogin } from "react-icons/ci";
 import { MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
 
-const columns = (onProductKardexView, onBatchNumberView,onWarehouseView,onProductView) => {
+const columns = (onWareHouseStockView, onBatchNumberView,onWarehouseView,onProductView) => {
   return [
     // {
     //   title: "تاریخ",
@@ -134,7 +134,7 @@ const columns = (onProductKardexView, onBatchNumberView,onWarehouseView,onProduc
         <>
           <Ant.Space>
             <Ant.Button
-              onClick={() => onProductKardexView(value?.id)}
+              onClick={() => onWareHouseStockView(value)}
               className="text-sky-600"
               icon={<GrView />}
               color="primary"

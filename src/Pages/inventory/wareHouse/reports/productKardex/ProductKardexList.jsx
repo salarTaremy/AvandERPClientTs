@@ -29,7 +29,6 @@ const ProductKardexList = (props) => {
   const [filterObject, setFilterObject] = useState({});
   const [filterCount, setFilterCount] = useState(0);
   const [openFilter, setOpenFilter] = useState(true);
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
   useRequestManager({ error: error });
 

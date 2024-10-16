@@ -11,8 +11,10 @@ import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
+import * as uuid from "uuid";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
 import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription";
+import WarehouseStokeDescription from "../warehouseStock/description/WarehouseStokeDescription";
 import DetailWareHouse from "../../../../inventory/wareHouse/description/DetailWareHouse";
 import { useFetchWithHandler } from "@/api";
 
@@ -76,10 +78,11 @@ const WarehouseStockList = (props) => {
     const queryString = {
       ...newFilterObject,
     };
-    const hasValidFilters = Object.values(queryString).some((value) => value);
-    if (!hasValidFilters) {
-      return;
-    }
+
+    // const hasValidFilters = Object.values(queryString).some((value) => value);
+    // if (!hasValidFilters) {
+    //   return;
+    // }
 
     await ApiCall(`${url.WAREHOUSE_STOCK_GET}?${qs.stringify(queryString)}`);
   };
@@ -94,8 +97,6 @@ const WarehouseStockList = (props) => {
     setFilterObject(null);
     setOpenFilter(false);
   };
-
-
 
   //====================================================================
   //                        Events
@@ -112,8 +113,17 @@ const WarehouseStockList = (props) => {
     setModalContent(<DetailProductListDescription id={productId} />);
     setModalState(true);
   };
-  const onProductKardexView = (val) => {
-    // setModalContent(<DetailWareHouse id={val?.id} />);
+  const onWareHouseStockView = (val) => {
+
+    setModalContent(
+      <WarehouseStokeDescription
+      key={uuid.v1()}
+        productId={val?.productId}
+        warehouseId={val?.warehouseId}
+        batchNumberId={val?.batchNumberId}
+        id={val?.id}
+      />,
+    );
 
     setModalState(true);
   };
@@ -172,13 +182,12 @@ const WarehouseStockList = (props) => {
             {...defaultValues.TABLE_PROPS}
             title={title}
             columns={columns(
-              onProductKardexView,
+              onWareHouseStockView,
               onBatchNumberView,
               onWarehouseView,
               onProductView,
             )}
             dataSource={dataSource}
-
             loading={loading}
           />
         </FilterBedge>
@@ -187,7 +196,3 @@ const WarehouseStockList = (props) => {
   );
 };
 export default WarehouseStockList;
-// ProductKardexList.propTypes = {
-//   productId: PropTypes.any,
-//   BatchNumberId: PropTypes.any,
-// };
