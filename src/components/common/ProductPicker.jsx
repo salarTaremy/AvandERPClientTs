@@ -101,66 +101,52 @@ const ProductPicker = (props) => {
 
   const onProductSelect = (value, selectedNode, extra) => {
     const selectedOptionData = {};
-    if (!mobileMode) {
-      const levelCount = selectedNode.length;
-      if (levelCount == 1) {
-        const selectedBrand = selectedNode[0];
-        selectedOptionData.brand = {
-          id: selectedBrand.brandId,
-          name: selectedBrand.name,
-        };
-      }
-
-      if (levelCount == 2) {
-        const selectedBrand = selectedNode[0];
-        const selectedProduct = selectedNode[1];
-        selectedOptionData.brand = {
-          id: selectedBrand.brandId,
-          name: selectedBrand.name,
-        };
-        selectedOptionData.product = {
-          id: selectedProduct.productId,
-          name: selectedProduct.name,
-        };
-      }
-
-      if (levelCount == 3) {
-        const selectedBrand = selectedNode[0];
-        const selectedProduct = selectedNode[1];
-        const selectedBatchNumber = selectedNode[2];
-
-        selectedOptionData.brand = {
-          id: selectedBrand.brandId,
-          name: selectedBrand.name,
-        };
-        selectedOptionData.product = {
-          id: selectedProduct.productId,
-          name: selectedProduct.name,
-        };
-        selectedOptionData.productDetail = {
-          productDetailId: selectedBatchNumber.productDetailId,
-          batchNumberId: selectedBatchNumber.batchNumberId,
-          batchNumber: selectedBatchNumber.name,
-        };
-      }
-    } else {
-      const selectedItemsName = selectedNode.fullName.split(">");
-      if (selectedNode.batchNumberId) {
-        selectedOptionData.brand = {
-          id: selectedNode.brandId,
-          name: selectedItemsName[0].trim(),
-        };
-        selectedOptionData.product = {
-          id: selectedNode.productId,
-          name: selectedItemsName[1].trim(),
-        };
-        selectedOptionData.productDetail = {
-          productDetailId: selectedNode.productDetailId,
-          batchNumberId: selectedNode.batchNumberId,
-          batchNumber: selectedItemsName[2].trim(),
-        };
+    if (selectedNode) {
+      if (!mobileMode) {
+        const levelCount = selectedNode.length;
+        if (levelCount == 1) {
+          const selectedBrand = selectedNode[0];
+          selectedOptionData.brand = {
+            id: selectedBrand.brandId,
+            name: selectedBrand.name,
+          };
+        }
+  
+        if (levelCount == 2) {
+          const selectedBrand = selectedNode[0];
+          const selectedProduct = selectedNode[1];
+          selectedOptionData.brand = {
+            id: selectedBrand.brandId,
+            name: selectedBrand.name,
+          };
+          selectedOptionData.product = {
+            id: selectedProduct.productId,
+            name: selectedProduct.name,
+          };
+        }
+  
+        if (levelCount == 3) {
+          const selectedBrand = selectedNode[0];
+          const selectedProduct = selectedNode[1];
+          const selectedBatchNumber = selectedNode[2];
+  
+          selectedOptionData.brand = {
+            id: selectedBrand.brandId,
+            name: selectedBrand.name,
+          };
+          selectedOptionData.product = {
+            id: selectedProduct.productId,
+            name: selectedProduct.name,
+          };
+          selectedOptionData.productDetail = {
+            productDetailId: selectedBatchNumber.productDetailId,
+            batchNumberId: selectedBatchNumber.batchNumberId,
+            batchNumber: selectedBatchNumber.name,
+          };
+        }
       } else {
-        if (selectedNode.productId) {
+        const selectedItemsName = selectedNode.fullName.split(">");
+        if (selectedNode.batchNumberId) {
           selectedOptionData.brand = {
             id: selectedNode.brandId,
             name: selectedItemsName[0].trim(),
@@ -169,15 +155,29 @@ const ProductPicker = (props) => {
             id: selectedNode.productId,
             name: selectedItemsName[1].trim(),
           };
-        } else {
-          selectedOptionData.brand = {
-            id: selectedNode.brandId,
-            name: selectedItemsName[0].trim(),
+          selectedOptionData.productDetail = {
+            productDetailId: selectedNode.productDetailId,
+            batchNumberId: selectedNode.batchNumberId,
+            batchNumber: selectedItemsName[2].trim(),
           };
+        } else {
+          if (selectedNode.productId) {
+            selectedOptionData.brand = {
+              id: selectedNode.brandId,
+              name: selectedItemsName[0].trim(),
+            };
+            selectedOptionData.product = {
+              id: selectedNode.productId,
+              name: selectedItemsName[1].trim(),
+            };
+          } else {
+            selectedOptionData.brand = {
+              id: selectedNode.brandId,
+              name: selectedItemsName[0].trim(),
+            };
+          }
         }
       }
-
-      //mobileModeOnChange(selectedOptionData);
     }
 
     const extraInfo = { selectedOptionData: selectedOptionData, ...extra };
