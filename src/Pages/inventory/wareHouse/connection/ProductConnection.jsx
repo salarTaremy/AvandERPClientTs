@@ -99,6 +99,14 @@ const ProductConnection = (props) => {
   };
   const cl = [
     {
+      title: "کد محصول",
+      dataIndex: "productCode",
+      key: "productCode",
+      width: 80,
+      align:'center',
+      className: "text-xs sm:text-sm",
+    },
+    {
       title: "نام محصول",
       dataIndex: "productName",
       key: "productName",
