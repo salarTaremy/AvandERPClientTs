@@ -11,11 +11,12 @@ import qs from "qs";
 
 const FilterPanel = (props) => {
   const { onSubmit, filterObject } = props;
-  const [warehouseTypeData, warehouseTypeLoading, warehouseTypeError] = useFetch(
-    url.WAREHOUSE_TYPE,
-  );
+  const [warehouseTypeData, warehouseTypeLoading, warehouseTypeError] =
+    useFetch(url.WAREHOUSE_TYPE);
   useRequestManager({ error: warehouseTypeError });
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
+  const [branchData, branchLoading, branchError] = api.useFetch(
+    url.BRANCH_GET_WITH_PERMISSION,
+  );
   useRequestManager({ error: branchError });
   const [form] = Ant.Form.useForm();
   const commonOptions = {
@@ -40,22 +41,22 @@ const FilterPanel = (props) => {
   };
 
   const getAllCounterPartyForDropDown = async (inputValue) => {
-   if (inputValue) {
-    const queryString = qs.stringify({
-      counterpartyName: inputValue,
-    });
+    if (inputValue) {
+      const queryString = qs.stringify({
+        counterpartyName: inputValue,
+      });
 
-    const response = await api.GetAsync(
-      `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
-      "",
-    );
-    if (response?.data) {
-      return response?.data.map((item) => ({
-        label: `${item.counterpartyName} `,
-        value: item.id,
-      }));
+      const response = await api.GetAsync(
+        `${url.COUNTER_PARTY_GET_FOR_DROPDOWN}?${queryString}`,
+        "",
+      );
+      if (response?.data) {
+        return response?.data.map((item) => ({
+          label: `${item.counterpartyName} `,
+          value: item.id,
+        }));
+      }
     }
-   }
   };
 
   //====================================================================
@@ -66,30 +67,20 @@ const FilterPanel = (props) => {
       <Ant.Form form={form} onFinish={onFinish} layout="vertical">
         <Ant.Row gutter={[16, 8]}>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="title"
-              label={"نام انبار"}
-            >
+            <Ant.Form.Item name="title" label={"نام انبار"}>
               <Ant.Input allowClear showCount maxLength={100} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="warehouseKeeperId"
-              label={"نام انباردار"}
-            >
+            <Ant.Form.Item name="warehouseKeeperId" label={"نام انباردار"}>
               <DebounceSelect
-
                 placeholder="بخشی از نام  انباردار را تایپ کنید..."
                 fetchOptions={getAllCounterPartyForDropDown}
               />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="warehouseTypeId"
-              label={" نوع انبار"}
-            >
+            <Ant.Form.Item name="warehouseTypeId" label={" نوع انبار"}>
               <Ant.Select
                 placeholder={"انتخاب کنید..."}
                 disabled={warehouseTypeLoading}
@@ -100,10 +91,7 @@ const FilterPanel = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="branchIds"
-              label={"شعب"}
-            >
+            <Ant.Form.Item name="branchIds" label={"شعب"}>
               <Ant.Select
                 {...commonOptions}
                 placeholder={"انتخاب کنید..."}
@@ -116,39 +104,31 @@ const FilterPanel = (props) => {
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="gln"
-              label={"GLN "}
-
-            >
+            <Ant.Form.Item name="gln" label={"GLN "}>
               <Ant.Input allowClear showCount maxLength={13} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="postalCode"
-              label={"کد پستی"}
-            >
+            <Ant.Form.Item name="postalCode" label={"کد پستی"}>
               <Ant.Input allowClear showCount maxLength={10} />
             </Ant.Form.Item>
           </Ant.Col>
           <Ant.Col md={24} lg={24} sm={24} xs={24}>
-            <Ant.Form.Item
-              name="address"
-              label={"آدرس"}
-            >
+            <Ant.Form.Item name="address" label={"آدرس"}>
               <Ant.Input allowClear showCount maxLength={400} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item name="isActive" label="فعال">
-              <Ant.Switch defaultChecked={false} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
-              <Ant.Switch defaultChecked={false} />
-            </Ant.Form.Item>
+
+          <Ant.Col span={24}>
+            <Ant.Flex justify="space-between" align="center">
+              <Ant.Form.Item name="isActive" label="فعال">
+                <Ant.Switch defaultChecked={false} />
+              </Ant.Form.Item>
+
+              <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
+                <Ant.Switch defaultChecked={false} />
+              </Ant.Form.Item>
+            </Ant.Flex>
           </Ant.Col>
         </Ant.Row>
         <Ant.Form.Item>
@@ -165,11 +145,10 @@ const FilterPanel = (props) => {
       </Ant.Form>
     </>
   );
-}
+};
 
-export default FilterPanel
+export default FilterPanel;
 FilterPanel.propTypes = {
   onSubmit: PropTypes.func,
   filterObject: PropTypes.any,
 };
-

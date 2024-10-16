@@ -20,16 +20,10 @@ import * as uuid from "uuid";
 const DocumentTypeList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
-  const [addSaving, addLoading, addArror, addApiCall] = usePostWithHandler();
-  const [editSaving, editLoading, editArror, editApiCall] = usePutWithHandler();
+
   useRequestManager({ error });
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
-  useRequestManager({ error: addArror, loading: addLoading, data: addSaving });
-  useRequestManager({
-    error: editArror,
-    loading: editLoading,
-    data: editSaving,
-  });
+
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
   const [dataSource, setDataSource] = useState(null);

@@ -30,7 +30,7 @@ function RoleManagement() {
   const [modalState, setModalState] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
-  const [pagination, setPagination] = useState({});
+
   const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
   useRequestManager({ error: error });
   useRequestManager({ error: delError, data: delSaving, loading: delLoading });
@@ -177,9 +177,6 @@ function RoleManagement() {
     setModalState(true);
   };
 
-  const handleTableChange = (pagination) => {
-    setPagination(pagination);
-  };
 
   //====================================================================
   //                        Child Components
@@ -237,9 +234,9 @@ function RoleManagement() {
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
+
             columns={columns(onDelete, onEdit, onView, onInfo, onAction, onMenu, onSwitch)}
-            onChange={handleTableChange}
+
             dataSource={dataSource}
             title={title}
             loading={loadingData}

@@ -15,10 +15,11 @@ const FormEditWareHouse = (props) => {
   const [loading, setLoading] = useState(false);
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
   const [editData, editLoading, editError, editApiCall] = usePutWithHandler();
-  const [warehouseTypeData, warehouseTypeLoading, warehouseTypeError] = useFetch(
-    url.WAREHOUSE_TYPE,
+  const [warehouseTypeData, warehouseTypeLoading, warehouseTypeError] =
+    useFetch(url.WAREHOUSE_TYPE);
+  const [branchData, branchLoading, branchError] = api.useFetch(
+    url.BRANCH_GET_WITH_PERMISSION,
   );
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
   useRequestManager({ error: editError, loading: editLoading, data: editData });
   useRequestManager({ error: warehouseTypeError });
   useRequestManager({ error: branchError });
@@ -28,25 +29,35 @@ const FormEditWareHouse = (props) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    getWarehouseById()
+    getWarehouseById();
   }, []);
 
   useEffect(() => {
-    form.resetFields()
-    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) })
-    listData?.isSuccess && form.setFieldsValue({warehouseKeeperId: {label: listData?.data.warehouseKeeperName, value: listData?.data.warehouseKeeperId}});
-  }, [listData])
+    form.resetFields();
+    listData?.isSuccess && form.setFieldsValue({ ...(listData?.data || null) });
+    listData?.isSuccess &&
+      form.setFieldsValue({
+        warehouseKeeperId: {
+          label: listData?.data.warehouseKeeperName,
+          value: listData?.data.warehouseKeeperId,
+        },
+      });
+  }, [listData]);
 
   //======================================================================
   //                        Functions
   //======================================================================
   const getWarehouseById = async () => {
     await ApiCall(`${url.WAREHOUSE}/${id}`);
-  }
+  };
 
   const onFinish = async (values) => {
     setLoading(true);
-    const req = { ...values, id: id, warehouseKeeperId: values?.warehouseKeeperId?.value };
+    const req = {
+      ...values,
+      id: id,
+      warehouseKeeperId: values?.warehouseKeeperId?.value,
+    };
     await editApiCall(url.WAREHOUSE, req);
     setLoading(false);
     onSuccess();
@@ -76,7 +87,7 @@ const FormEditWareHouse = (props) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`ویرایش '${name}'`} icon={<FaWarehouse />}/>
+      <ModalHeader title={`ویرایش ${name}`} icon={<FaWarehouse />} />
       <Ant.Skeleton active loading={loadingData}>
         <Ant.Form form={form} onFinish={onFinish} layout="vertical">
           <Ant.Row gutter={[16, 8]}>
@@ -96,7 +107,6 @@ const FormEditWareHouse = (props) => {
                 rules={[{ required: true }]}
               >
                 <DebounceSelect
-
                   placeholder="بخشی از نام  انباردار را تایپ کنید..."
                   fetchOptions={getAllCounterPartyForDropDown}
                 />
@@ -169,15 +179,17 @@ const FormEditWareHouse = (props) => {
                 <Ant.Input.TextArea allowClear showCount maxLength={400} />
               </Ant.Form.Item>
             </Ant.Col>
-            <Ant.Col md={12} lg={12} sm={24} xs={24}>
-              <Ant.Form.Item name="isActive" label="فعال">
-                <Ant.Switch defaultChecked={false} />
-              </Ant.Form.Item>
-            </Ant.Col>
-            <Ant.Col md={12} lg={12} sm={24} xs={24}>
-              <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
-                <Ant.Switch defaultChecked={false} />
-              </Ant.Form.Item>
+
+            <Ant.Col span={24}>
+              <Ant.Flex justify="space-between" align="center">
+                <Ant.Form.Item name="isActive" label="فعال">
+                  <Ant.Switch defaultChecked={false} />
+                </Ant.Form.Item>
+
+                <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
+                  <Ant.Switch defaultChecked={false} />
+                </Ant.Form.Item>
+              </Ant.Flex>
             </Ant.Col>
           </Ant.Row>
           <Ant.Form.Item>
@@ -196,9 +208,9 @@ const FormEditWareHouse = (props) => {
       </Ant.Skeleton>
     </>
   );
-}
+};
 
-export default FormEditWareHouse
+export default FormEditWareHouse;
 FormEditWareHouse.propTypes = {
   onSuccess: PropTypes.func,
   obj: PropTypes.any,

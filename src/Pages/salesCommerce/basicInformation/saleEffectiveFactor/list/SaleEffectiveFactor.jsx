@@ -29,7 +29,7 @@ const SaleEffectiveFactor = () => {
   const [filterObject, setFilterObject] = useState()
   const [filterCount, setFilterCount] = useState(0)
   const [openFilter, setOpenFilter] = useState(false)
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+
   useRequestManager({ error: listError });
   useRequestManager({ error: deleteError, data: deleteSaving, loading: deleteLoading });
 
@@ -60,9 +60,7 @@ const SaleEffectiveFactor = () => {
     await listApiCall(`${url.SALE_EFFECTIVE_FACTOR}?${queryString}`);
   };
 
-  const onTableChange = (pagination, filter, sorter) => {
-    setPagination(pagination);
-  }
+
 
   const onDelete = async (id) => {
     await deleteApiCall(`${url.SALE_EFFECTIVE_FACTOR}/${id}`)
@@ -156,8 +154,8 @@ const SaleEffectiveFactor = () => {
             dataSource={dataSource}
             {...defaultValues.TABLE_PROPS}
             title={title}
-            pagination={pagination}
-            onChange={onTableChange}
+
+
             loading={listLoading}
           />
         </FilterBedge>

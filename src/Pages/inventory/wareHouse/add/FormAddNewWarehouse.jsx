@@ -14,11 +14,12 @@ const FormAddNewWarehouse = (props) => {
   const { onSuccess } = props;
   const [loading, setLoading] = useState(false);
   const [addData, addLoading, addError, addApiCall] = usePostWithHandler();
-  const [warehouseTypeData, warehouseTypeLoading, warehouseTypeError] = useFetch(
-    url.WAREHOUSE_TYPE,
-  );
+  const [warehouseTypeData, warehouseTypeLoading, warehouseTypeError] =
+    useFetch(url.WAREHOUSE_TYPE);
   useRequestManager({ error: warehouseTypeError });
-  const [branchData, branchLoading, branchError] = api.useFetch(url.BRANCH_GET_WITH_PERMISSION);
+  const [branchData, branchLoading, branchError] = api.useFetch(
+    url.BRANCH_GET_WITH_PERMISSION,
+  );
   useRequestManager({ error: branchError });
   useRequestManager({ error: addError, loading: addLoading, data: addData });
   const [form] = Ant.Form.useForm();
@@ -38,7 +39,7 @@ const FormAddNewWarehouse = (props) => {
     setLoading(true);
     const req = {
       ...values,
-      warehouseKeeperId: values.warehouseKeeperId.value
+      warehouseKeeperId: values.warehouseKeeperId.value,
     };
     await addApiCall(url.WAREHOUSE, req);
     setLoading(false);
@@ -87,8 +88,8 @@ const FormAddNewWarehouse = (props) => {
               rules={[{ required: true }]}
             >
               <DebounceSelect
-                  // mode="multiple"
-                  // maxCount={2}
+                // mode="multiple"
+                // maxCount={2}
                 placeholder="بخشی از نام  انباردار را تایپ کنید..."
                 fetchOptions={getAllCounterPartyForDropDown}
               />
@@ -161,15 +162,16 @@ const FormAddNewWarehouse = (props) => {
               <Ant.Input.TextArea allowClear showCount maxLength={400} />
             </Ant.Form.Item>
           </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item name="isActive" label="فعال">
-              <Ant.Switch defaultChecked={false} />
-            </Ant.Form.Item>
-          </Ant.Col>
-          <Ant.Col md={12} lg={12} sm={24} xs={24}>
-            <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
-              <Ant.Switch defaultChecked={false} />
-            </Ant.Form.Item>
+          <Ant.Col span={24}>
+            <Ant.Flex justify="space-between" align="center">
+              <Ant.Form.Item name="isActive" label="فعال">
+                <Ant.Switch defaultChecked={false} />
+              </Ant.Form.Item>
+
+              <Ant.Form.Item name="isCentral" label="شعبه مرکزی">
+                <Ant.Switch defaultChecked={false} />
+              </Ant.Form.Item>
+            </Ant.Flex>
           </Ant.Col>
         </Ant.Row>
         <Ant.Form.Item>
@@ -187,10 +189,9 @@ const FormAddNewWarehouse = (props) => {
       </Ant.Form>
     </>
   );
-}
+};
 
-export default FormAddNewWarehouse
+export default FormAddNewWarehouse;
 FormAddNewWarehouse.propTypes = {
   onSuccess: PropTypes.func,
 };
-

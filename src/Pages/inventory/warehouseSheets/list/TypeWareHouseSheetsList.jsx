@@ -5,13 +5,13 @@ import columns from "../list/columns";
 import * as defaultValues from "@/defaultValues";
 import * as styles from "@/styles";
 import * as url from "@/api/url";
-import qs from 'qs'
+import qs from "qs";
 import ButtonList from "@/components/common/ButtonList";
 import useRequestManager from "@/hooks/useRequestManager";
 import { useFetchWithHandler, useDelWithHandler } from "@/api";
-import FilterPanel from './FilterPanel'
-import FilterDrawer from '@/components/common/FilterDrawer'
-import FilterBedge from '@/components/common/FilterBedge'
+import FilterPanel from "./FilterPanel";
+import FilterDrawer from "@/components/common/FilterDrawer";
+import FilterBedge from "@/components/common/FilterBedge";
 import FormAddTypeWareHouseSheetsList from "../add/FormAddTypeWareHouseSheetsList";
 import FormEditTypeWareHouseSheetsList from "../edit/FormEditTypeWareHouseSheetsList";
 import * as uuid from "uuid";
@@ -20,14 +20,14 @@ const TypeWareHouseSheetsList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
   const [delSaving, delLoading, delError, delApiCall] = useDelWithHandler();
   const [dataSource, setDataSource] = useState(null);
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+
   useRequestManager({ error: error });
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
-  const [openFilter, setOpenFilter] = useState(false)
-  const [filterCount, setFilterCount] = useState(0)
-  const [filterObject, setFilterObject] = useState()
+  const [openFilter, setOpenFilter] = useState(false);
+  const [filterCount, setFilterCount] = useState(0);
+  const [filterObject, setFilterObject] = useState();
 
   //====================================================================
   //                        useEffects
@@ -35,11 +35,12 @@ const TypeWareHouseSheetsList = () => {
 
   useEffect(() => {
     filterObject &&
-      setFilterCount(Object.keys(filterObject)?.filter((key) => filterObject[key])?.length)
-    !filterObject && setFilterCount(0)
+      setFilterCount(
+        Object.keys(filterObject)?.filter((key) => filterObject[key])?.length,
+      );
+    !filterObject && setFilterCount(0);
     getAllTypeWareHouseSheets();
-
-  }, [filterObject])
+  }, [filterObject]);
 
   useEffect(() => {
     setDataSource((listData?.isSuccess && listData?.data) || null);
@@ -57,38 +58,39 @@ const TypeWareHouseSheetsList = () => {
   //====================================================================
 
   const getAllTypeWareHouseSheets = async () => {
-    const queryString = qs.stringify(filterObject)
-    await ApiCall(`${url.INVENTORY_DOCUMENT_TYPE}?${queryString}`)
-  }
+    const queryString = qs.stringify(filterObject);
+    await ApiCall(`${url.INVENTORY_DOCUMENT_TYPE}?${queryString}`);
+  };
   const onRemoveFilter = () => {
-    setFilterObject(null)
-    setOpenFilter(false)
-  }
+    setFilterObject(null);
+    setOpenFilter(false);
+  };
   const onFilterChanged = async (filterObject) => {
-    setFilterObject(filterObject)
-    setOpenFilter(false)
-  }
+    setFilterObject(filterObject);
+    setOpenFilter(false);
+  };
   const onDelSuccess = async (id) => {
     await delApiCall(`${url.INVENTORY_DOCUMENT_TYPE}/${id}`);
   };
   const onAdd = () => {
     setModalContent(
-     <FormAddTypeWareHouseSheetsList key={uuid.v1()} onSuccess={onSuccessAdd} />,
+      <FormAddTypeWareHouseSheetsList
+        key={uuid.v1()}
+        onSuccess={onSuccessAdd}
+      />,
     );
     setModalState(true);
   };
   const onEdit = (val) => {
-
     setModalContent(
-      <FormEditTypeWareHouseSheetsList  id={val?.id} key={val?.id}  onSuccess={onSuccessEdit}   />,
+      <FormEditTypeWareHouseSheetsList
+        id={val?.id}
+        key={val?.id}
+        onSuccess={onSuccessEdit}
+      />,
     );
     setModalState(true);
   };
-
-
-
-
-
 
   //====================================================================
   //                        Events
@@ -103,20 +105,16 @@ const TypeWareHouseSheetsList = () => {
     getAllTypeWareHouseSheets();
   };
 
-  const onTableChange = (pagination, filter, sorter) => {
-    setPagination(pagination);
-  }
-
   //====================================================================
   //                        Child Components
   //====================================================================
   const title = () => {
     return (
       <ButtonList
-      filterCount={filterCount}
+        filterCount={filterCount}
         onAdd={onAdd}
         onFilter={() => {
-          setOpenFilter(true)
+          setOpenFilter(true);
         }}
         onRefresh={() => {
           getAllTypeWareHouseSheets();
@@ -141,8 +139,12 @@ const TypeWareHouseSheetsList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"انواع برگه های انبار"} type="inner" >
-      <FilterDrawer
+      <Ant.Card
+        style={{ ...styles.CARD_DEFAULT_STYLES }}
+        title={"انواع برگه های انبار"}
+        type="inner"
+      >
+        <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
           onRemoveFilter={onRemoveFilter}
@@ -150,17 +152,15 @@ const TypeWareHouseSheetsList = () => {
           <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
         </FilterDrawer>
         <FilterBedge filterCount={filterCount}>
-        <Ant.Table
-          size="small"
-          {...defaultValues.TABLE_PROPS}
-          title={title}
-          columns={columns(onDelSuccess, onEdit)}
-          pagination={pagination}
-          onChange={onTableChange}
-          dataSource={dataSource}
-          loading={loading}
-        />
-         </FilterBedge>
+          <Ant.Table
+
+            {...defaultValues.TABLE_PROPS}
+            title={title}
+            columns={columns(onDelSuccess, onEdit)}
+            dataSource={dataSource}
+            loading={loading}
+          />
+        </FilterBedge>
       </Ant.Card>
     </>
   );

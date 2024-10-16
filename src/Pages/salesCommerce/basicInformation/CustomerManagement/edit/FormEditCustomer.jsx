@@ -14,7 +14,7 @@ import FormAddNewCustomerGrup from "../../customerGroup/add/FormAddNewCustomerGr
 import FormAddNewCustometType from "../../customerType/add/FormAddNewCustometType";
 import FormEditCounterParty from "@/Pages/manageCounterParty/edit/FormEditCounterParty";
 import { FaUserPen } from "react-icons/fa6";
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined } from "@ant-design/icons";
 
 const FormEditCustomer = ({ id, onSuccess }) => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -26,12 +26,24 @@ const FormEditCustomer = ({ id, onSuccess }) => {
   // const [empty, setEmpty] = useState(undefined);
   const [maxCodeData, maxCodeLoading, maxCodeError, maxCodeApiCall] =
     useFetchWithHandler();
-  const [branchList, branchLoading, branchError] = useFetch(url.BRANCH_GET_WITH_PERMISSION);
+  const [branchList, branchLoading, branchError] = useFetch(
+    url.BRANCH_GET_WITH_PERMISSION,
+  );
   const [saleChannelData, saleChannelLoading, saleChannelError] = useFetch(
     url.SALE_CHANNEL_GET_WITH_PERMISSION,
   );
-  const [customerGroupList, customerGroupLoading, customerGroupError, customerGroupApiCall] = useFetchWithHandler()
-  const [customerTypeList, customerTypeLoading, customerTypeError, customerTypeApiCall] = useFetchWithHandler()
+  const [
+    customerGroupList,
+    customerGroupLoading,
+    customerGroupError,
+    customerGroupApiCall,
+  ] = useFetchWithHandler();
+  const [
+    customerTypeList,
+    customerTypeLoading,
+    customerTypeError,
+    customerTypeApiCall,
+  ] = useFetchWithHandler();
   const [customerGradeList, customerGradeLoading, customerGradeError] =
     useFetch(url.CUSTOMER_GRADE);
   useRequestManager({ error: error, data: listData, loading: loadingData });
@@ -42,7 +54,11 @@ const FormEditCustomer = ({ id, onSuccess }) => {
   useRequestManager({ error: maxCodeError });
   useRequestManager({ error: branchError });
   useRequestManager({ error: saleChannelError });
-  useRequestManager({ error: submitError, loading: submitLoading, data: listSubmitData });
+  useRequestManager({
+    error: submitError,
+    loading: submitLoading,
+    data: listSubmitData,
+  });
 
   const [form] = Ant.Form.useForm();
   const commonOptions = {
@@ -59,9 +75,9 @@ const FormEditCustomer = ({ id, onSuccess }) => {
   //                        useEffects
   //====================================================================
   useEffect(() => {
-    getCustomerGroup()
-    getCustomerType()
-  }, [])
+    getCustomerGroup();
+    getCustomerType();
+  }, []);
 
   useEffect(() => {
     maxCodeData?.isSuccess &&
@@ -86,12 +102,12 @@ const FormEditCustomer = ({ id, onSuccess }) => {
   };
 
   const getCustomerGroup = async () => {
-    await customerGroupApiCall(url.CUSTOMER_GROUP_GET_WITH_PERMISSION)
-  }
+    await customerGroupApiCall(url.CUSTOMER_GROUP_GET_WITH_PERMISSION);
+  };
 
   const getCustomerType = async () => {
-    await customerTypeApiCall(url.CUSTOMER_TYPE_GET_WITH_PERMISSION)
-  }
+    await customerTypeApiCall(url.CUSTOMER_TYPE_GET_WITH_PERMISSION);
+  };
 
   const handleCounterParty = async () => {
     const counterpartyId = editData?.data?.counterpartyId;
@@ -110,32 +126,36 @@ const FormEditCustomer = ({ id, onSuccess }) => {
       id: id,
     };
     await submitApiCall(url.CUSTOMER, req);
-    onSuccess()
+    onSuccess();
   };
 
   const onSuccessAdd = () => {
     setModalState(false);
-    getCustomerGroup()
+    getCustomerGroup();
   };
 
   const onAddGroup = () => {
-    setModalContent(<FormAddNewCustomerGrup key={uuid.v1()} onSuccess={onSuccessAdd} />);
+    setModalContent(
+      <FormAddNewCustomerGrup key={uuid.v1()} onSuccess={onSuccessAdd} />,
+    );
     setModalState(true);
   };
 
   const onSuccessAddType = () => {
     setModalState(false);
-    getCustomerType()
+    getCustomerType();
   };
 
   const onAddType = () => {
-    setModalContent(<FormAddNewCustometType key={uuid.v1()} onSuccess={onSuccessAddType} />);
+    setModalContent(
+      <FormAddNewCustometType key={uuid.v1()} onSuccess={onSuccessAddType} />,
+    );
     setModalState(true);
-  }
+  };
 
   const onSuccessEdit = () => {
     setModalState(false);
-    handleCounterParty()
+    handleCounterParty();
   };
 
   const onHeaderEdit = (id) => {
@@ -144,10 +164,10 @@ const FormEditCustomer = ({ id, onSuccess }) => {
         onSuccess={onSuccessEdit}
         key={uuid.v1()}
         id={id}
-      />
+      />,
     );
     setModalState(true);
-  }
+  };
 
   //====================================================================
   //                        Child Components
@@ -170,7 +190,7 @@ const FormEditCustomer = ({ id, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={'ویرایش مشتری'} icon={<FaUserPen />} />
+      <ModalHeader title={"ویرایش مشتری"} icon={<FaUserPen />} />
       <Ant.Modal
         {...defaultValues.MODAL_PROPS}
         {...defaultValues.MODAL_LARGE}
@@ -184,7 +204,6 @@ const FormEditCustomer = ({ id, onSuccess }) => {
         onOk={() => {
           setModalState(false);
         }}
-
       >
         {modalContent}
       </Ant.Modal>
@@ -221,7 +240,7 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                   <Ant.Input allowClear showCount />
                 </Ant.Form.Item>
               </Ant.Col>
-              <Ant.Col >
+              <Ant.Col>
                 <Ant.Form.Item
                   rules={[{ required: true }]}
                   name={"groupId"}
@@ -239,19 +258,21 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                       <>
                         {menu}
                         <Ant.Button
-                          onClick={() => { onAddGroup() }}
+                          onClick={() => {
+                            onAddGroup();
+                          }}
                           block
                           type="primary"
                           icon={<PlusOutlined />}
                         >
-                          {'ایجاد گروه مشتری جدید'}
+                          {"ایجاد گروه مشتری جدید"}
                         </Ant.Button>
                       </>
                     )}
                   />
                 </Ant.Form.Item>
               </Ant.Col>
-              <Ant.Col >
+              <Ant.Col>
                 <Ant.Form.Item
                   rules={[{ required: true }]}
                   name={"typeId"}
@@ -269,12 +290,14 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                       <>
                         {menu}
                         <Ant.Button
-                          onClick={() => { onAddType() }}
+                          onClick={() => {
+                            onAddType();
+                          }}
                           block
                           type="primary"
                           icon={<PlusOutlined />}
                         >
-                          {'ایجاد نوع مشتری جدید'}
+                          {"ایجاد نوع مشتری جدید"}
                         </Ant.Button>
                       </>
                     )}
@@ -310,7 +333,6 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                     allowClear={true}
                     placeholder={"انتخاب کنید..."}
                     disabled={saleChannelLoading}
-
                     loading={saleChannelLoading}
                     options={saleChannelData?.data}
                     fieldNames={{ label: "title", value: "id" }}
@@ -334,27 +356,28 @@ const FormEditCustomer = ({ id, onSuccess }) => {
                   />
                 </Ant.Form.Item>
               </Ant.Col>
-              <Ant.Col>
-                <Ant.Button
-                  block
-                  type="primary"
-                  onClick={() => {
-                    form.submit();
-                  }}
-                >
-                  {"تایید"}
-                </Ant.Button>
+              <Ant.Col span={24}>
+                <Ant.Row justify={"end"} gutter={[8, 16]}>
+                  <Ant.Button
+                    type="primary"
+                    onClick={() => {
+                      form.submit();
+                    }}
+                  >
+                    {"تایید"}
+                  </Ant.Button>
+                </Ant.Row>
               </Ant.Col>
             </CustomContent>
             {/* </Ant.Card> */}
           </Ant.Col>
           <Ant.Col span={24} sm={14}>
             {/* <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }}> */}
-            <CustomContent bordered loading={editLoading} >
+            <CustomContent bordered loading={editLoading}>
               {/* {empty == undefined ? (
                   <Ant.Empty loading={editLoading} />
                 ) : ( */}
-              <CounterpartyInformation id={editData?.data?.counterpartyId}/>
+              <CounterpartyInformation id={editData?.data?.counterpartyId} />
               {/* )} */}
             </CustomContent>
             {/* </Ant.Card> */}

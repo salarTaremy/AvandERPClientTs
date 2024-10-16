@@ -37,7 +37,7 @@ const FormEditPaymentType = (props) => {
   const allLoading = useAllLoading([
     loadingData,
     accounTreeLoading,
-    accLoading,
+    // accLoading,
     dtAccLoading,
   ]);
   useRequestManager({ error: accounTreeError });

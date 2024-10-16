@@ -30,7 +30,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   });
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [idActionsList, setIdActionsList] = useState([]);
-  const [pagination, setPagination] = useState({});
+
 
   //====================================================================
   //                        useEffects
@@ -80,9 +80,7 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
     await ApiCall(`${url.ROLE_SCOPE_WITH_ROLES}?${queryString}`);
   };
 
-  const handleTableChange = (pagination, filters, sorter) => {
-    setPagination(pagination);
-  };
+
 
   const onFilterChanged = async (filterObject) => {
     setFilterObject(filterObject);
@@ -154,9 +152,12 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`ویرایش نقش های کاربر  " ${userName} "`} icon={<AiOutlineDeploymentUnit />} />
+      <ModalHeader
+        title={`ویرایش نقش های کاربر  " ${userName} "`}
+        icon={<AiOutlineDeploymentUnit />}
+      />
 
-      <CustomContent >
+      <CustomContent>
         <FilterDrawer
           open={openFilter}
           onClose={() => setOpenFilter(false)}
@@ -169,24 +170,30 @@ const FormSwitchUserRollList = ({ userId, userName, onSuccess }) => {
             rowSelection={{ ...rowSelection }}
             {...defaultValues.TABLE_PROPS}
             title={title}
-            pagination={pagination}
+
             columns={columns()}
-            onChange={handleTableChange}
+
             dataSource={dataSource}
             loading={loading}
           />
         </FilterBedge>
       </CustomContent>
 
-      <Ant.Button
-        block
-        className="mt-8"
-        loading={editLoading}
-        type="primary"
-        onClick={onFinish}
-      >
-        {"تایید"}
-      </Ant.Button>
+      <Ant.Col span={24}>
+        <Ant.Row justify={"end"} gutter={[8, 16]}>
+          <Ant.Col lg={2} md={2} sm={12} xs={24}>
+            <Ant.Button
+              block
+              className="mt-8"
+              loading={editLoading}
+              type="primary"
+              onClick={onFinish}
+            >
+              {"تایید"}
+            </Ant.Button>
+          </Ant.Col>
+        </Ant.Row>
+      </Ant.Col>
     </>
   );
 };

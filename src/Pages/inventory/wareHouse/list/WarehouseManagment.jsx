@@ -17,7 +17,7 @@ import FormAddNewWarehouse from "../add/FormAddNewWarehouse";
 import FormEditWarehouse from "../edit/FormEditWarehouse";
 import ProductConnection from "../connection/ProductConnection";
 
-import DetailWareHouse from "../description/DetailWareHouse"
+import DetailWareHouse from "../description/DetailWareHouse";
 
 const WareHouseManagment = () => {
   const [listData, loadingData, error, ApiCall] = useFetchWithHandler();
@@ -26,13 +26,12 @@ const WareHouseManagment = () => {
   const [dataSource, setDataSource] = useState(null);
   const [modalContent, setModalContent] = useState();
   const [filterObject, setFilterObject] = useState();
-  const [modalState, setModalState] = useState(false);
+
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
-  const [pagination, setPagination] = useState({});
-  const [modalSize, setModalSize] = useState({
-    ...defaultValues.MODAL_EXTRA_LARGE,
-  });
+  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_LARGE });
+  const [modalState, setModalState] = useState(false);
+
   useRequestManager({ error: error });
   useRequestManager({ error: delError, data: delSaving, loading: delLoading });
 
@@ -87,10 +86,11 @@ const WareHouseManagment = () => {
   };
   const onSuccessSubmit = () => {
     setModalState(false);
-
   };
 
   const onEdit = (val) => {
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList);
     setModalContent(
       <FormEditWarehouse
         onSuccess={onSuccessEdit}
@@ -102,6 +102,7 @@ const WareHouseManagment = () => {
     setModalState(true);
   };
   const onConnection = (val) => {
+    setModalSize({ ...defaultValues.MODAL_LARGE });
     setModalContent(
       <ProductConnection
         id={val.id}
@@ -118,22 +119,18 @@ const WareHouseManagment = () => {
   };
 
   const onAdd = () => {
+    const updateList = { ...defaultValues.MODAL_LARGE, width: 520 };
+    setModalSize(updateList);
     setModalContent(
       <FormAddNewWarehouse key={uuid.v1()} onSuccess={onSuccessAdd} />,
     );
     setModalState(true);
   };
   const onView = (warehouseId) => {
-    setModalContent(
-      <DetailWareHouse id={warehouseId} />,
-    );
+    setModalSize({ ...defaultValues.MODAL_LARGE });
+    setModalContent(<DetailWareHouse id={warehouseId} />);
     setModalState(true);
   };
-
-  const handleTableChange = (pagination) => {
-    setPagination(pagination);
-  };
-
 
   //====================================================================
   //                        Child Components
@@ -191,9 +188,8 @@ const WareHouseManagment = () => {
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
-            columns={columns(onDelete, onEdit, onConnection,onView )}
-            onChange={handleTableChange}
+            {...defaultValues.MODAL_LARGE}
+            columns={columns(onDelete, onEdit, onConnection, onView)}
             dataSource={dataSource}
             title={title}
             loading={loadingData}

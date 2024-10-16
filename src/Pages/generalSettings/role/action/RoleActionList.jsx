@@ -21,9 +21,7 @@ const RoleActionList = ({ id, name }) => {
   const [filterObject, setFilterObject] = useState();
   const [filterCount, setFilterCount] = useState(0);
   const [openFilter, setOpenFilter] = useState(false);
-  const [modalState, setModalState] = useState(false);
-  const [modalContent, setModalContent] = useState();
-  const [pagination, setPagination] = useState({});
+
 
   //====================================================================
   //                        useEffects
@@ -62,9 +60,7 @@ const RoleActionList = ({ id, name }) => {
     setOpenFilter(false);
   };
 
-  const handleTableChange = (pagination) => {
-    setPagination(pagination);
-  };
+
 
   const cl = [
     {
@@ -112,11 +108,11 @@ const RoleActionList = ({ id, name }) => {
         <FilterBedge filterCount={filterCount}>
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
+
             title={title}
             className="mt-5"
             columns={cl}
-            onChange={handleTableChange}
+
             dataSource={dataSource || null}
             loading={loading}
           />

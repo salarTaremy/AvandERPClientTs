@@ -28,7 +28,7 @@ const CityDistrictList = () => {
     const [filterObject, setFilterObject] = useState();
     const [openFilter, setOpenFilter] = useState(false);
     const [filterCount, setFilterCount] = useState(0);
-    const [pagination, setPagination] = useState({});
+
 
     //====================================================================
     //                        useEffects
@@ -79,9 +79,7 @@ const CityDistrictList = () => {
         setOpenFilter(false);
     };
 
-    const handleTableChange = (pagination) => {
-        setPagination(pagination);
-    };
+  ;
 
     const onDelete = async (id) => {
         await delApiCall(`${url.CITY_DISTRICT}/${id}`);
@@ -164,10 +162,10 @@ const CityDistrictList = () => {
                     <Ant.Table
                         size="small"
                         {...defaultValues.TABLE_PROPS}
-                        pagination={pagination}
+
                         title={title}
                         columns={columns(onDelete, onEdit)}
-                        onChange={handleTableChange}
+
                         dataSource={dataSource}
                         loading={loading}
                     />

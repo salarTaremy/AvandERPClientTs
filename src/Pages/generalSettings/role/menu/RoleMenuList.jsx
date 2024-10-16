@@ -6,7 +6,7 @@ import useRequestManager from "@/hooks/useRequestManager";
 import qs from "qs";
 import ModalHeader from "@/components/common/ModalHeader";
 import CustomContent from "@/components/common/CustomContent";
-import { BsMenuButtonWideFill   } from "react-icons/bs";
+import { BsMenuButtonWideFill } from "react-icons/bs";
 
 const RoleMenuList = ({ id, name, onSuccess }) => {
   const [data, loading, error, ApiCall] = useFetchWithHandler();
@@ -39,10 +39,12 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
   }, []);
 
   useEffect(() => {
-    data?.isSuccess && data.data[0]?.children.forEach(element => {
-      if ( element.componentName == 'CNavTitle'){
-       element.componentName = element.title += '  (عنوان)  '
-      }})
+    data?.isSuccess &&
+      data.data[0]?.children.forEach((element) => {
+        if (element.componentName == "CNavTitle") {
+          element.componentName = element.title += "  (عنوان)  ";
+        }
+      });
 
     setItems((data?.isSuccess && data?.data[0]?.children) || null);
   }, [data?.data]);
@@ -105,26 +107,34 @@ const RoleMenuList = ({ id, name, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={`دسترسی منو نقش " ${name} "`} icon={<BsMenuButtonWideFill />}/>
-        <Ant.Skeleton active loading={loading}>
-          <CustomContent height="60vh">
-            <Ant.Tree
-              checkable
-              onExpand={onExpand}
-              expandedKeys={expandedKeys}
-              autoExpandParent={autoExpandParent}
-              onCheck={onCheck}
-              checkedKeys={checkedKeys}
-              onSelect={onSelect}
-              selectedKeys={selectedKeys}
-              treeData={items}
-            />
-          </CustomContent>
-        </Ant.Skeleton>
-
-        <Ant.Button type="primary" onClick={onFinish}>
-          {"ذخیره"}
-        </Ant.Button>
+      <ModalHeader
+        title={`دسترسی منو نقش " ${name} "`}
+        icon={<BsMenuButtonWideFill />}
+      />
+      <Ant.Skeleton active loading={loading}>
+        <CustomContent height="60vh">
+          <Ant.Tree
+            checkable
+            onExpand={onExpand}
+            expandedKeys={expandedKeys}
+            autoExpandParent={autoExpandParent}
+            onCheck={onCheck}
+            checkedKeys={checkedKeys}
+            onSelect={onSelect}
+            selectedKeys={selectedKeys}
+            treeData={items}
+          />
+        </CustomContent>
+      </Ant.Skeleton>
+      <Ant.Col span={24}>
+        <Ant.Row justify={"end"} gutter={[8, 16]}>
+          <Ant.Col lg={2} md={2} sm={12} xs={24}>
+            <Ant.Button type="primary" onClick={onFinish}>
+              {"ذخیره"}
+            </Ant.Button>
+          </Ant.Col>
+        </Ant.Row>
+      </Ant.Col>
     </>
   );
 };

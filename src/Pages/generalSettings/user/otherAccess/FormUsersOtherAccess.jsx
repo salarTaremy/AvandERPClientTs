@@ -179,7 +179,10 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
   //====================================================================
   return (
     <>
-      <ModalHeader title={` سایر دسترسی های کاربر  " ${userName} "`} icon={<PiUserCircleCheckFill />} />
+      <ModalHeader
+        title={` سایر دسترسی های کاربر  " ${userName} "`}
+        icon={<PiUserCircleCheckFill />}
+      />
       <Ant.Tabs tabPosition={mode}>
         <TabPane forceRender={true} tab=" عمومی " key="1">
           {
@@ -200,9 +203,7 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
               oldTypeId={oldTypeId}
               onSuccessSaleChannelAccess={onSuccessSaleChannelAccess}
               oldChannelId={oldChannelId}
-              onSuccessSaleDocumentTypeAccess={
-                onSuccessSaleDocumentTypeAccess
-              }
+              onSuccessSaleDocumentTypeAccess={onSuccessSaleDocumentTypeAccess}
               oldDocumentId={oldDocumentId}
             />
           }
@@ -215,15 +216,21 @@ const FormUsersOtherAccess = ({ userName, userId, onSuccess }) => {
           />
         </TabPane>
       </Ant.Tabs>
-      <Ant.Button
-        block
-        className="mt-8 "
-        loading={editLoading}
-        type="primary"
-        onClick={onFinish}
-      >
-        {"ذخیره"}
-      </Ant.Button>
+      <Ant.Col span={24}>
+        <Ant.Row justify={"end"} gutter={[8, 16]}>
+          <Ant.Col lg={2} md={2} sm={12} xs={24}>
+            <Ant.Button
+              block
+              className="mt-8"
+              loading={editLoading}
+              type="primary"
+              onClick={onFinish}
+            >
+              {"ذخیره"}
+            </Ant.Button>
+          </Ant.Col>
+        </Ant.Row>
+      </Ant.Col>
     </>
   );
 };

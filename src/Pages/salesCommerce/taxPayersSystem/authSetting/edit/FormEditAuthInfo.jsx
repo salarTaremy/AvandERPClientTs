@@ -84,6 +84,25 @@ const FormEditAuthInfo = (props) => {
                             <Ant.Switch />
                         </Ant.Form.Item>
                     </Ant.Space>
+
+
+
+                    <Ant.Col span={24}>
+              <Ant.Flex justify="space-between" align="center">
+              <Ant.Form.Item
+                            name="isDefault"
+                            label="شناسه پیش فرض"
+                        >
+                            <Ant.Switch />
+                            </Ant.Form.Item>
+                <Ant.Form.Item
+                            name="isActive"
+                            label="فعال"
+                        >
+                            <Ant.Switch />
+                        </Ant.Form.Item>
+              </Ant.Flex>
+            </Ant.Col>
                     <Ant.Form.Item>
                         <Ant.Button block
                             type="primary"

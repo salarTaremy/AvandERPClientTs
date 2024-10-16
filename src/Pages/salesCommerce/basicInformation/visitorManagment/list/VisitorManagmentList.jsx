@@ -16,7 +16,7 @@ import qs from "qs";
 import FormEditVisitor from "../edit/FormEditVisitor";
 import FormAddVisitor from "../add/FormAddVisitor";
 
-import VisitorDescription from "../description/visitorDescription"
+import VisitorDescription from "../description/visitorDescription";
 
 const VisitorManagmentList = () => {
   const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -29,8 +29,9 @@ const VisitorManagmentList = () => {
   const [filterObject, setFilterObject] = useState();
   const [openFilter, setOpenFilter] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
-  const [pagination, setPagination] = useState({});
-  const [modalSize, setModalSize] = useState({ ...defaultValues.MODAL_EXTRA_LARGE });
+  const [modalSize, setModalSize] = useState({
+    ...defaultValues.MODAL_EXTRA_LARGE,
+  });
 
   //====================================================================
   //                        useEffects
@@ -76,10 +77,6 @@ const VisitorManagmentList = () => {
     setOpenFilter(false);
   };
 
-  const handleTableChange = (pagination) => {
-    setPagination(pagination);
-  };
-
   const onDelete = async (id) => {
     await delApiCall(`${url.VISITOR}/${id}`);
   };
@@ -90,7 +87,7 @@ const VisitorManagmentList = () => {
   };
 
   const onAdd = () => {
-    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE};
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE };
     setModalSize(updateList);
     setModalContent(
       <FormAddVisitor key={uuid.v1()} onSuccess={onSuccessAdd} />,
@@ -98,12 +95,10 @@ const VisitorManagmentList = () => {
     setModalState(true);
   };
   const onView = (id) => {
-    console.log(id,"onView")
+    console.log(id, "onView");
     const updateList = { ...defaultValues.MODAL_EXTRA_LARGE, width: 520 };
     setModalSize(updateList);
-    setModalContent(
-      <VisitorDescription  id={id}  />,
-    );
+    setModalContent(<VisitorDescription id={id} />);
     setModalState(true);
   };
 
@@ -116,7 +111,7 @@ const VisitorManagmentList = () => {
   //                        Events
   //====================================================================
   const onEdit = (val) => {
-    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE};
+    const updateList = { ...defaultValues.MODAL_EXTRA_LARGE };
     setModalSize(updateList);
     setModalContent(
       <FormEditVisitor onSuccess={onSuccessEdit} key={uuid.v1()} id={val.id} />,
@@ -176,10 +171,8 @@ const VisitorManagmentList = () => {
           <Ant.Table
             size="small"
             {...defaultValues.TABLE_PROPS}
-            pagination={pagination}
             title={title}
             columns={columns(onDelete, onEdit, onView)}
-            onChange={handleTableChange}
             dataSource={dataSource}
             loading={loading}
           />

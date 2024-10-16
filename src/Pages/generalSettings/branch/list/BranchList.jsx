@@ -20,7 +20,6 @@ const BranchList = () => {
   useRequestManager({ error: delError, loading: delLoading, data: delSaving });
   const [modalState, setModalState] = useState(false);
   const [modalContent, setModalContent] = useState();
-  const [pagination, setPagination] = useState({});
 
   //====================================================================
   //                        useEffects
@@ -64,20 +63,12 @@ const BranchList = () => {
     getAllBranchList();
   };
 
-  const handleTableChange = (pagination) => {
-    setPagination(pagination);
-  };
-
   //====================================================================
   //                        Events
   //====================================================================
   const onEdit = (val) => {
     setModalContent(
-      <FormEditBranch
-        onSuccess={onSuccessEdit}
-        key={val.id}
-        id={val.id}
-      />,
+      <FormEditBranch onSuccess={onSuccessEdit} key={val.id} id={val.id} />,
     );
     setModalState(true);
   };
@@ -112,14 +103,16 @@ const BranchList = () => {
       >
         {modalContent}
       </Ant.Modal>
-      <Ant.Card style={{ ...styles.CARD_DEFAULT_STYLES }} title={"لیست شعب"} type="inner" >
+      <Ant.Card
+        style={{ ...styles.CARD_DEFAULT_STYLES }}
+        title={"لیست شعب"}
+        type="inner"
+      >
         <Ant.Table
           size="small"
           {...defaultValues.TABLE_PROPS}
-          pagination={pagination}
           title={title}
           columns={columns(onDelSuccess, onEdit)}
-          onChange={handleTableChange}
           dataSource={dataSource}
           loading={loading}
         />
