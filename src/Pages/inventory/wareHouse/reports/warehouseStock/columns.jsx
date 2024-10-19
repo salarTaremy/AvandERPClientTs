@@ -76,6 +76,7 @@ const columns = (
       align: "center",
       width: 80,
       className: "text-xs sm:text-sm",
+
     },
     {
       title: "نوع واحد محصول",
@@ -92,6 +93,7 @@ const columns = (
       align: "center",
       width: 80,
       className: "text-xs sm:text-sm",
+
     },
 
     {
@@ -116,7 +118,7 @@ const columns = (
       width: 60,
       className: "text-xs sm:text-sm",
       align: "center",
-      sorter: true,
+      sorter: (a, b) => a.totalStock - b.totalStock,
       render: (text, record, index) => record.totalStock.toLocaleString(),
     },
     {
@@ -126,7 +128,7 @@ const columns = (
       width: 60,
       className: "text-xs sm:text-sm",
       align: "center",
-      sorter: true,
+      sorter: (a, b) => a.sumReserve - b.sumReserve,
       render: (text, record, index) => record.sumReserve.toLocaleString(),
     },
     {

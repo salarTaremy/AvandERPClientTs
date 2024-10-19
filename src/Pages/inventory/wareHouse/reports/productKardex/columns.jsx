@@ -40,6 +40,7 @@ const columns = (
       align: "center",
       width: 80,
       className: "text-xs sm:text-sm",
+
       render: (text, record) =>
         `${record.issueTime.substr(0, 8)} - ${record.issueDate} `,
     },
@@ -50,13 +51,15 @@ const columns = (
       width: 80,
       className: "text-xs sm:text-sm",
 
+
     },
     {
       title: "شماره برگه",
       dataIndex: "documentNumber",
       key: "documentNumber",
       align: "center",
-      width: 30,
+      width: 50,
+      sorter: (a, b) => a.documentNumber - b.documentNumber,
       className: "text-xs sm:text-sm",
       render: (text, record, index) => (
         <Ant.Typography.Link
@@ -104,7 +107,7 @@ const columns = (
       title: "نوع گردش",
       dataIndex: "inventoryDocumentTypeName",
       key: "inventoryDocumentTypeName",
-      width: 30,
+      width: 50,
       className: "text-xs sm:text-sm",
       align: "center",
       render: (text, record, index) => {
@@ -126,6 +129,7 @@ const columns = (
       key: "quantity",
       width: 50,
       className: "text-xs sm:text-sm",
+      sorter: (a, b) => a.quantity - b.quantity,
       render: (text, record, index) => {
         return (
           <>
@@ -147,6 +151,7 @@ const columns = (
       key: "balance",
       width: 50,
       className: "text-xs sm:text-sm",
+      sorter: (a, b) => a.balance - b.balance,
       render: (text, record, index) => {
         return (
           <>
