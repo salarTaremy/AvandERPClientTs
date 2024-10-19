@@ -13,6 +13,7 @@ import ButtonList from "@/components/common/ButtonList";
 import FilterDrawer from "@/components/common/FilterDrawer";
 import FilterBedge from "@/components/common/FilterBedge";
 import FilterPanel from './FilterPanel';
+import * as styles from "@/styles";
 
 const ProductKardexDetailList = () => {
     const [listData, loading, error, ApiCall] = useFetchWithHandler();
@@ -53,7 +54,7 @@ const ProductKardexDetailList = () => {
 
     useEffect(() => {
         if (listData?.isSuccess) {
-            if (filterCount > 0) { setScrollableContent((listData?.data)) }
+            if (filterCount > 0) setScrollableContent(([]) => (scrollableContent.concat(listData?.data)));
             else
                 setScrollableContent((scrollableContent) => (scrollableContent.concat(listData?.data)));
         }
@@ -96,12 +97,15 @@ const ProductKardexDetailList = () => {
     };
 
     const fetchMoreData = () => {
-        if (scrollableContent?.length >= 52) { //pagination.total
+        if (scrollableContent?.length >= listData?.data[0]?.totalCount) {
             setHasMore(false);
             return;
         }
         else {
-            setPagination({ ...pagination, current: pagination.current + 1 });
+            setPagination({
+                ...pagination, current: pagination.current + 1,
+                total: listData?.data && listData?.data[0]?.totalCount,
+            });
         }
     };
 
@@ -110,7 +114,7 @@ const ProductKardexDetailList = () => {
     }
 
     const renderTimelineItem = (item) => {
-        return <CustomContent shadow="true">
+        return <CustomContent shadow="true" bordered className="border-emerald-600">
             <Ant.Row>
                 {isMobile && <Ant.Col lg={14} md={24} sm={24} xs={24} >
                     <Ant.Typography.Text type="secondary">
@@ -224,38 +228,48 @@ const ProductKardexDetailList = () => {
     //====================================================================
     return (
         <>
-            <h3>کاردکس کالا با جزئیات</h3>
-            <ButtonList
-                filterCount={filterCount}
-                onFilter={() => {
-                    setOpenFilter(true);
-                }}
-            />
-            <FilterDrawer
-                open={openFilter}
-                onClose={() => setOpenFilter(false)}
-                onRemoveFilter={onRemoveFilter}
+            <Ant.Card
+                style={{ ...styles.CARD_DEFAULT_STYLES, overflow: "hidden" }}
+                title={"کاردکس کالا با جزئیات"}
+                type="inner"
             >
-                <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
-            </FilterDrawer>
-            <FilterBedge filterCount={filterCount}>
-                <InfiniteScroll
-                    dataLength={scrollableContent?.length}
-                    next={fetchMoreData}
-                    hasMore={hasMore}
-                    scrollThreshold={"0.9"}
-                    loader={<LoadingOutlined />}
-                    height={"80vh"}
-                    endMessage={<Ant.Typography.Text >{"اطلاعات بیشتری برای نمایش وجود ندارد."}</Ant.Typography.Text>}
-                    style={{ textAlign: "center" }}
+                <Ant.Row gutter={4} >
+                    <Ant.Col span={24} className='mx-5'>
+                        <ButtonList
+                            filterCount={filterCount}
+                            onFilter={() => {
+                                setOpenFilter(true);
+                            }}
+                        />
+                    </Ant.Col>
+                </Ant.Row>
+                <FilterDrawer
+                    open={openFilter}
+                    onClose={() => setOpenFilter(false)}
+                    onRemoveFilter={onRemoveFilter}
                 >
-                    <Ant.Timeline className='m-5'
-                        mode={isMobile && 'left' || 'alternate'}
-                        items={dataSource}
-                        loading={loading}
-                    />
-                </InfiniteScroll>
-            </FilterBedge>
+                    <FilterPanel filterObject={filterObject} onSubmit={onFilterChanged} />
+                </FilterDrawer>
+                <FilterBedge filterCount={filterCount}>
+                    <Ant.Divider />
+                    <InfiniteScroll
+                        dataLength={scrollableContent?.length}
+                        next={fetchMoreData}
+                        hasMore={hasMore}
+                        scrollThreshold={"0.9"}
+                        loader={<LoadingOutlined />}
+                        height={"65vh"}
+                        endMessage={<Ant.Typography.Text >{"اطلاعات بیشتری برای نمایش وجود ندارد."}</Ant.Typography.Text>}
+                        style={{ textAlign: "center" }}
+                    >
+                        <Ant.Timeline className="m-5"
+                            mode={isMobile && 'left' || 'alternate'}
+                            items={dataSource}
+                            loading={loading}
+                        />
+                    </InfiniteScroll>
+                </FilterBedge>
+            </Ant.Card>
         </>
     )
 }
