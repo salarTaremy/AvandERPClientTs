@@ -8,6 +8,7 @@ import * as defaultValues from "@/defaultValues";
 import * as url from "@/api/url";
 import ModalHeader from "@/components/common/ModalHeader";
 import CustomContent from "@/components/common/CustomContent";
+import { TbBuildingWarehouse } from "react-icons/tb";
 //====================================================================
 //                        Declaration
 //====================================================================
@@ -51,13 +52,19 @@ const WarehouseStokeDescription = (props) => {
       width: 80,
     },
     {
-      title: "تاریخ و زمان صدور",
+      title: "تاریخ ",
       dataIndex: "issueDate",
       key: "issueDate",
-      width: 200,
+      width: 100,
       align: "center",
-      render: (text, record) =>
-        `${record.issueTime.substr(0, 8)} - ${record.issueDate} `,
+    },
+    {
+      title: "زمان صدور",
+      dataIndex: "issueTime",
+      key: "issueTime",
+      width: 80,
+      align: "center",
+      render: (text, record) => `${record.issueTime.substr(0, 8)}  `,
     },
     {
       title: "شرح",
@@ -141,7 +148,7 @@ const WarehouseStokeDescription = (props) => {
       warehouseId: warehouseId,
       batchNumberId: batchNumberId,
     };
-    console.log(queryString, "queryString");
+
     await ProductKardexApiCall(
       `${url.PRODUCT_KARDEX}?${qs.stringify(queryString)}`,
     );
@@ -151,25 +158,20 @@ const WarehouseStokeDescription = (props) => {
   //                        Child Components
   //====================================================================
   const title = () => {
-    return (
-      <ButtonList
-        filterCount={filterCount}
-        onFilter={() => {
-          setOpenFilter(true);
-        }}
-      />
-    );
+    return <ButtonList />;
   };
   //====================================================================
   //                        Component
   //====================================================================
   return (
     <>
-      <ModalHeader title={"جزئیات موجودی انبار"} />
+      <ModalHeader
+        title={`جزئیات موجودی انبار : ${productId ? `کد کالا (${productId}) ` : ""}سری ساخت (${batchNumberId})`}
+        icon={<TbBuildingWarehouse />}
+      />
       <CustomContent>
         <Ant.Table
           {...defaultValues.TABLE_PROPS}
-          // title={title}
           columns={columns}
           dataSource={dataSource}
           loading={productKardexLoading}
@@ -181,7 +183,7 @@ const WarehouseStokeDescription = (props) => {
 
 export default WarehouseStokeDescription;
 WarehouseStokeDescription.propTypes = {
-  productId: PropTypes.any.isRequired,
-  warehouseId: PropTypes.any.isRequired,
+  productId: PropTypes.any,
+  warehouseId: PropTypes.any,
   BatchNumberId: PropTypes.any,
 };

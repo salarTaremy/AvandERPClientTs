@@ -197,8 +197,10 @@ const getSidebarIcon = ( iconName ) => {
             return <Bi.BiNetworkChart className={className} color={color} />;
         case 'MdAddChart':
             return <Md.MdAddChart className={className} color={color} />;
-        case 'TbBuildingWarehouse ':
-            return <Md.TbBuildingWarehouse  className={className} color={color} />;
+        case 'TbBuildingWarehouse':
+            return <Tb.TbBuildingWarehouse  className={className} color={color} />;
+        case 'BsBuildingGear':
+            return <Bs.BsBuildingGear  className={className} color={color} />;
 
 
         default:

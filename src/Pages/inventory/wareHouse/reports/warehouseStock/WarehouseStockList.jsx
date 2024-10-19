@@ -114,10 +114,9 @@ const WarehouseStockList = (props) => {
     setModalState(true);
   };
   const onWareHouseStockView = (val) => {
-
     setModalContent(
       <WarehouseStokeDescription
-      key={uuid.v1()}
+        key={uuid.v1()}
         productId={val?.productId}
         warehouseId={val?.warehouseId}
         batchNumberId={val?.batchNumberId}
@@ -127,7 +126,17 @@ const WarehouseStockList = (props) => {
 
     setModalState(true);
   };
+  const onWareHouseStockBatchNumberView = (val) => {
+    setModalContent(
+      <WarehouseStokeDescription
+        key={uuid.v1()}
+        batchNumberId={val?.batchNumberId}
+        id={val?.id}
+      />,
+    );
 
+    setModalState(true);
+  };
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -186,6 +195,7 @@ const WarehouseStockList = (props) => {
               onBatchNumberView,
               onWarehouseView,
               onProductView,
+              onWareHouseStockBatchNumberView,
             )}
             dataSource={dataSource}
             loading={loading}

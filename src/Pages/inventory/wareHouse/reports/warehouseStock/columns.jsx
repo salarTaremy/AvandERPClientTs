@@ -4,10 +4,14 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import * as defaultValues from "@/defaultValues";
-import { CiLogout, CiLogin } from "react-icons/ci";
-import { MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
-
-const columns = (onWareHouseStockView, onBatchNumberView,onWarehouseView,onProductView) => {
+import { BsBuildingGear } from "react-icons/bs";
+const columns = (
+  onWareHouseStockView,
+  onBatchNumberView,
+  onWarehouseView,
+  onProductView,
+  onWareHouseStockBatchNumberView,
+) => {
   return [
     // {
     //   title: "تاریخ",
@@ -60,9 +64,7 @@ const columns = (onWareHouseStockView, onBatchNumberView,onWarehouseView,onProdu
       width: 100,
       className: "text-xs sm:text-sm",
       render: (text, record, index) => (
-        <Ant.Typography.Link
-          onClick={() => onProductView(record.productId)}
-        >
+        <Ant.Typography.Link onClick={() => onProductView(record.productId)}>
           {record.productName}
         </Ant.Typography.Link>
       ),
@@ -133,6 +135,13 @@ const columns = (onWareHouseStockView, onBatchNumberView,onWarehouseView,onProdu
       render: (text, value, index) => (
         <>
           <Ant.Space>
+            <Ant.Button
+              onClick={() => onWareHouseStockBatchNumberView(value)}
+              className="text-orange-600"
+              icon={<BsBuildingGear />}
+              color="default"
+              variant="filled"
+            />
             <Ant.Button
               onClick={() => onWareHouseStockView(value)}
               className="text-sky-600"
