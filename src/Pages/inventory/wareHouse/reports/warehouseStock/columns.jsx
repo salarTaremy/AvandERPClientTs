@@ -5,6 +5,7 @@ import { GrView } from "react-icons/gr";
 import { FiEdit } from "react-icons/fi";
 import * as defaultValues from "@/defaultValues";
 import { BsBuildingGear } from "react-icons/bs";
+import { RiHomeGearLine } from "react-icons/ri";
 const columns = (
   onProductKardexView,
   onBatchNumberView,
@@ -147,7 +148,7 @@ const columns = (
             <Ant.Button
               onClick={() => onProductKardexView(value)}
               className="text-sky-600"
-              icon={<GrView />}
+              icon={<RiHomeGearLine className="size-4" />}
               color="primary"
               variant="filled"
             />
