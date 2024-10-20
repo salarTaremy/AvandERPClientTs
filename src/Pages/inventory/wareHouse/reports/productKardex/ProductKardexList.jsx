@@ -15,8 +15,8 @@ import { PropTypes } from "prop-types";
 import * as uuid from "uuid";
 import BatchNumberDescription from "@/Pages/inventory/batchNumber/description/BatchNumberDescription";
 import { useFetchWithHandler } from "@/api";
-import InventoryDocumentDescription from "@/Pages/inventory/inventoryDocument/description/InventoryDocumentDescription"
-
+import InventoryDocumentDescription from "@/Pages/inventory/inventoryDocument/description/InventoryDocumentDescription";
+import DetailProductListDescription from "../../../../inventory/product/description/DetailProductListDescription";
 import ProductKardexDescription from "../productKardex/description/ProductKardexDescription"
 //====================================================================
 //                        Declaration
@@ -123,7 +123,11 @@ const ProductKardexList = (props) => {
     setModalContent(<InventoryDocumentDescription id={id} />);
     setModalState(true);
   };
-
+  const onProductView = (productId) => {
+    console.log(productId,"productId")
+    setModalContent(<DetailProductListDescription key={uuid.v1()} id={productId} />);
+    setModalState(true);
+  };
   //====================================================================
   //                        Child Components
   //====================================================================
@@ -175,7 +179,7 @@ const ProductKardexList = (props) => {
           <Ant.Table
             {...defaultValues.TABLE_PROPS}
             title={title}
-            columns={columns(onProductKardexView, onBatchNumberView,onDocumentNumberView)}
+            columns={columns(onProductKardexView, onBatchNumberView,onDocumentNumberView,onProductView)}
             dataSource={dataSource}
 
 

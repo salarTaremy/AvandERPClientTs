@@ -9,7 +9,7 @@ const ProductPickerSample = () => {
   const [form] = Ant.Form.useForm();
   const [validationErrors, setValidationErrors] = useState(null);
   const [selectedItemValues, setSelectedItemValues] = useState({});
-  
+
   //warehouseId must be set from another input or a prop, it's not mandatory
   const warehouseId = 3;
   //these consts must be set from a server response in order to set intial value of the field (or form.setFielValue())
@@ -56,7 +56,7 @@ const ProductPickerSample = () => {
 
   const onFinish = (formValues) => {
     console.log(selectedItemValues);
-    const dataToDisplay = `اطلاعات انتخاب شده در آیتم اول: 
+    const dataToDisplay = `اطلاعات انتخاب شده در آیتم اول:
     \r\nbrandId: ${selectedItemValues.brand.id}\r\nbrandName: ${selectedItemValues.brand.name}
     \r\nproductId: ${selectedItemValues.product.id}\r\nproductName: ${selectedItemValues.product.name}
     \r\nproductDetailId: ${selectedItemValues.productDetail.id}
@@ -98,6 +98,7 @@ const ProductPickerSample = () => {
             <Ant.Form.Item
               name={"product"}
               label="کالا"
+
             >
               <ProductPicker warehouseId={warehouseId} mode="product"/>
             </Ant.Form.Item>

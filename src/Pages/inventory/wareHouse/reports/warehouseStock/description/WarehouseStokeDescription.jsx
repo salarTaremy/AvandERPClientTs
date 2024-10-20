@@ -13,7 +13,7 @@ import { TbBuildingWarehouse } from "react-icons/tb";
 //                        Declaration
 //====================================================================
 const WarehouseStokeDescription = (props) => {
-  const { productId, warehouseId, batchNumberId, id } = props;
+  const { productId, warehouseId, batchNumberId, id, obj } = props;
   const [dataSource, setDataSource] = useState(null);
   const [
     productKardexData,
@@ -166,7 +166,7 @@ const WarehouseStokeDescription = (props) => {
   return (
     <>
       <ModalHeader
-        title={`جزئیات موجودی انبار : ${productId ? `کد کالا (${productId}) ` : ""}سری ساخت (${batchNumberId})`}
+        title={`${batchNumberId ? ` کاردکس سری ساخت : کد کالا(${obj?.productCode}) سری ساخت (${obj?.batchNumber})` : ` کاردکس کالا : کد کالا (${obj?.productCode})`} `}
         icon={<TbBuildingWarehouse />}
       />
       <CustomContent>
@@ -186,4 +186,5 @@ WarehouseStokeDescription.propTypes = {
   productId: PropTypes.any,
   warehouseId: PropTypes.any,
   BatchNumberId: PropTypes.any,
+  obj: PropTypes.object,
 };
