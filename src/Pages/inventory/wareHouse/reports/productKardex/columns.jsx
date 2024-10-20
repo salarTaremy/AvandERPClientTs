@@ -6,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import * as defaultValues from "@/defaultValues";
 import { CiLogout, CiLogin } from "react-icons/ci";
 import { MdOutlineFileDownload, MdOutlineFileUpload } from "react-icons/md";
+import { all } from "axios";
 const getDocumentTypeProp = (documentTypeNature) => {
   switch (documentTypeNature) {
     case 1:
@@ -30,9 +31,20 @@ const columns = (
   onProductKardexView,
   onBatchNumberView,
   onDocumentNumberView,
+  onProductView
 ) => {
   return [
-
+    {
+      title: "کد کالا",
+      dataIndex: "productCode",
+      key: "productCode",
+      width: 80,
+      className: "text-xs sm:text-sm",
+      align: "center",
+      render: (text, record, index) => (
+        <Ant.Typography.Link onClick={() => onProductView(record.productId)}>{record.productCode}</Ant.Typography.Link>
+    )
+    },
     {
       title: "تاریخ",
       dataIndex: "issueDate",
@@ -42,16 +54,15 @@ const columns = (
       className: "text-xs sm:text-sm",
 
       render: (text, record) =>
-        `${record.issueTime.substr(0, 8)} - ${record.issueDate} `,
+        `${record.issueDate.substr(0, 8)} - ${record.issueDate} `,
     },
+
     {
       title: "نام انبار",
       dataIndex: "warehouseName",
       key: "warehouseName",
       width: 80,
       className: "text-xs sm:text-sm",
-
-
     },
     {
       title: "شماره برگه",

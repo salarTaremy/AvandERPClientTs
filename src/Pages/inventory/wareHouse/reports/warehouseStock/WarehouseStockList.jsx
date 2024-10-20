@@ -113,25 +113,26 @@ const WarehouseStockList = (props) => {
     setModalContent(<DetailProductListDescription id={productId} />);
     setModalState(true);
   };
-  const onWareHouseStockView = (val) => {
+  const onProductKardexView = (val) => {
+    setModalContent(
+      <WarehouseStokeDescription
+        key={uuid.v1()}
+        productId={val?.productId}
+        warehouseId={val?.warehouseId}
+        obj={val}
+      />,
+    );
+
+    setModalState(true);
+  };
+  const onProductKardexBatchNumberView = (val) => {
     setModalContent(
       <WarehouseStokeDescription
         key={uuid.v1()}
         productId={val?.productId}
         warehouseId={val?.warehouseId}
         batchNumberId={val?.batchNumberId}
-        id={val?.id}
-      />,
-    );
-
-    setModalState(true);
-  };
-  const onWareHouseStockBatchNumberView = (val) => {
-    setModalContent(
-      <WarehouseStokeDescription
-        key={uuid.v1()}
-        batchNumberId={val?.batchNumberId}
-        id={val?.id}
+        obj={val}
       />,
     );
 
@@ -191,11 +192,11 @@ const WarehouseStockList = (props) => {
             {...defaultValues.TABLE_PROPS}
             title={title}
             columns={columns(
-              onWareHouseStockView,
+              onProductKardexView,
               onBatchNumberView,
               onWarehouseView,
               onProductView,
-              onWareHouseStockBatchNumberView,
+              onProductKardexBatchNumberView,
             )}
             dataSource={dataSource}
             loading={loading}

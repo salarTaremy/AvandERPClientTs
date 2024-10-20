@@ -206,6 +206,7 @@ const FilterPanel = (props) => {
         <Ant.Form.Item label="کالا و سری ساخت">
           <Ant.Segmented
             disabled={loadingProduct || loadingBachNumber}
+
             block
             options={[
               {
@@ -225,6 +226,7 @@ const FilterPanel = (props) => {
           <Ant.Form.Item
             name={"Product"}
             label=" کالا "
+            rules={[{ required: true }]}
             help={
               validationErrors && (
                 <Ant.Typography.Text type="danger">
@@ -246,8 +248,10 @@ const FilterPanel = (props) => {
         )}
         {valueType === "1" && (
           <Ant.Form.Item
+          name={"productAndBatchNumber"}
             label="برند، کالا و سری ساخت"
-            name={"productAndBatchNumber"}
+
+            rules={[{ required: true }]}
             help={
               validationErrors && (
                 <Ant.Typography.Text type="danger">

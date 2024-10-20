@@ -6,11 +6,11 @@ import { FiEdit } from "react-icons/fi";
 import * as defaultValues from "@/defaultValues";
 import { BsBuildingGear } from "react-icons/bs";
 const columns = (
-  onWareHouseStockView,
+  onProductKardexView,
   onBatchNumberView,
   onWarehouseView,
   onProductView,
-  onWareHouseStockBatchNumberView,
+  onProductKardexBatchNumberView,
 ) => {
   return [
     // {
@@ -138,14 +138,14 @@ const columns = (
         <>
           <Ant.Space>
             <Ant.Button
-              onClick={() => onWareHouseStockBatchNumberView(value)}
-              className="text-orange-600"
+              onClick={() => onProductKardexBatchNumberView(value)}
+              className="text-orange-400"
               icon={<BsBuildingGear />}
               color="default"
               variant="filled"
             />
             <Ant.Button
-              onClick={() => onWareHouseStockView(value)}
+              onClick={() => onProductKardexView(value)}
               className="text-sky-600"
               icon={<GrView />}
               color="primary"
