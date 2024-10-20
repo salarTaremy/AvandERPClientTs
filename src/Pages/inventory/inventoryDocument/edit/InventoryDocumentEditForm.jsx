@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import qs from "qs";
 import * as Ant from "antd";
 import dayjs from "dayjs";
+import { toast } from "react-toastify";
 import * as url from "@/api/url";
 import * as defaultValues from "@/defaultValues";
 import * as uuid from "uuid";
@@ -50,6 +51,8 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
     warehouseId: 0,
     documentTypeId: 0,
     documentTypeNature: 0,
+    counterpartyId: null,
+    oppositeWarehouseId: null,
   });
   const [documentDetailDataSource, setDocumentDetailDataSource] = useState([]);
 
@@ -93,7 +96,9 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
       setInventoryDocumentData({
         warehouseId: fetchedData?.data?.warehouseId,
         documentTypeId: fetchedData?.data?.inventoryDocumentTypeId,
-        documentTypeNature: fetchedData?.data?.inventoryDocumentTypeNature
+        documentTypeNature: fetchedData?.data?.inventoryDocumentTypeNature,
+        counterpartyId: fetchedData?.data?.counterpartyId,
+        oppositeWarehouseId: fetchedData?.data?.oppositeWarehouseId,
       });
 
       if (fetchedData?.data?.documentDetails) {
@@ -124,6 +129,20 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
     setInventoryDocumentData((inventoryDocumentData) => ({
       ...inventoryDocumentData,
       warehouseId: value,
+    }));
+  };
+
+  const onOppositeWarehouseChange = (value, option) => {
+    setInventoryDocumentData((inventoryDocumentData) => ({
+      ...inventoryDocumentData,
+      oppositeWarehouseId: value,
+    }));
+  };
+
+  const onCounterpartyChange = (value, option) => {
+    setInventoryDocumentData((inventoryDocumentData) => ({
+      ...inventoryDocumentData,
+      counterpartyId: value.value,
     }));
   };
 
@@ -190,20 +209,24 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
   };
 
   const onFinish = async (formValues) => {
-    const inventoryDocument = {
-      id: id,
-      folioReferenceNumber: formValues?.folioReferenceNumber,
-      inventoryDocumentTypeId: formValues?.inventoryDocumentTypeId,
-      warehouseId: formValues?.warehouseId,
-      issueDateCalendarId: FormatDateToPost(formValues?.issueDateCalendarId),
-      counterpartyId: formValues?.counterpartyId?.value,
-      secondCounterpartyId: formValues?.secondCounterpartyId?.value,
-      oppositeWarehouseId: formValues?.oppositeWarehouseId,
-      description: formValues?.description,
-      documentDetail: documentDetailDataSource,
-    };
+    if (documentDetailDataSource?.length > 0) {
+      const inventoryDocument = {
+        id: id,
+        folioReferenceNumber: formValues?.folioReferenceNumber,
+        inventoryDocumentTypeId: formValues?.inventoryDocumentTypeId,
+        warehouseId: formValues?.warehouseId,
+        issueDateCalendarId: FormatDateToPost(formValues?.issueDateCalendarId),
+        counterpartyId: formValues?.counterpartyId?.value,
+        secondCounterpartyId: formValues?.secondCounterpartyId?.value,
+        oppositeWarehouseId: formValues?.oppositeWarehouseId,
+        description: formValues?.description,
+        documentDetail: documentDetailDataSource,
+      };
 
-    await documentSaveApiCall(url.INVENTORY_DOCUMENT, inventoryDocument);
+      await documentSaveApiCall(url.INVENTORY_DOCUMENT, inventoryDocument);
+    } else {
+      toast.error("لطفا کالاهای برگه انبار را مشخص نمایید.");
+    }
   };
   //====================================================================
   //                        Child Component
@@ -323,6 +346,14 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                   <Ant.Form.Item
                     name={"oppositeWarehouseId"}
                     label="انبار مقابل"
+                    help={
+                      !inventoryDocumentData?.counterpartyId &&
+                      !inventoryDocumentData?.oppositeWarehouseId && (
+                        <Ant.Typography.Text type="danger">
+                          {"انتخاب انبار مقابل یا طرف حساب اجباری است."}
+                        </Ant.Typography.Text>
+                      )
+                    }
                   >
                     <Ant.Select
                       placeholder="لطفا انتخاب کنید..."
@@ -336,14 +367,27 @@ const InventoryDocumentEditForm = ({ id, onSuccess, onCancel }) => {
                           .includes(searchText.toLowerCase())
                       }
                       fieldNames={{ label: "title", value: "id" }}
+                      onChange={onOppositeWarehouseChange}
                     />
                   </Ant.Form.Item>
                 </Ant.Col>
                 <Ant.Col xs={24} sm={24} md={12} lg={8}>
-                  <Ant.Form.Item name={"counterpartyId"} label="طرف حساب">
+                  <Ant.Form.Item
+                    name={"counterpartyId"}
+                    label="طرف حساب"
+                    help={
+                      !inventoryDocumentData?.counterpartyId &&
+                      !inventoryDocumentData?.oppositeWarehouseId && (
+                        <Ant.Typography.Text type="danger">
+                          {"انتخاب انبار مقابل یا طرف حساب اجباری است."}
+                        </Ant.Typography.Text>
+                      )
+                    }
+                  >
                     <DebounceSelect
                       placeholder="بخشی از نام طرف حساب را تایپ کنید..."
                       fetchOptions={getCounterpartyForDropDown}
+                      onChange={onCounterpartyChange}
                     />
                   </Ant.Form.Item>
                   <Ant.Form.Item
